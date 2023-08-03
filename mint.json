@@ -7,62 +7,254 @@
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#9563FF",
-    "light": "#AE87FF",
-    "dark": "#0D001D",
+    "primary": "#7E53F8",
+    "light": "#BFA8FF",
+    "dark": "#4C22C0",
     "background": {
-      "dark": "#090014"
-    },
-    "anchors": {
-      "from": "#FF7F57",
-      "to": "#9563FF"
+      "dark": "#121212"
     }
+  },
+  "feedback": {
+    "suggestEdit": true,
+    "raiseIssue": true
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Get API Key",
+      "url": "https://web.novu.co"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "type": "github",
+    "url": "https://github.com/novuhq/novu"
   },
+  "anchors": [
+    {
+      "name": "API Reference",
+      "icon": "square-terminal",
+      "url": "api-reference"
+    },
+    {
+      "name": "Learn by Videos",
+      "icon": "circle-play",
+      "url": "https://www.youtube.com/@novuhq"
+    },
+    {
+      "name": "Get instant help",
+      "icon": "discord",
+      "url": "https://discord.gg/novu"
+    },
+    {
+      "name": "FAQs",
+      "icon": "bullseye-pointer",
+      "url": "faqs"
+    }
+  ],
   "tabs": [
     {
       "name": "API Reference",
       "url": "api-reference"
-    }
-  ],
-  "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "SDKs",
+      "url": "sdks"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "name": "Cookbook",
+      "url": "cookbook"
+    },
+    {
+      "name": "Demos",
+      "url": "demos"
+    },
+    {
+      "name": "Community & Support",
+      "url": "community-support"
+    },
+    {
+      "name": "Resources",
+      "url": "resources"
     }
   ],
   "navigation": [
     {
+      "group": "Overview",
+      "pages": [
+        "overview/introduction", 
+        "overview/why-novu", 
+        "overview/architecture"
+      ]
+    },
+    {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart", "development"]
+      "pages": [
+        "getting-started/introduction", 
+        "getting-started/development",
+        {
+          "group": "Quickstarts",
+          "pages": [
+            "quickstarts/go",
+            "quickstarts/nodejs",
+            "quickstarts/php"
+          ]
+        }
+      ]
     },
     {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
+      "group": "Concepts",
+      "pages": [
+        "concepts/notifications", 
+        "concepts/messages", 
+        "concepts/workflows", 
+        "concepts/events", 
+        "concepts/channels",
+        "concepts/subscribers", 
+        "concepts/topics", 
+        "concepts/workflow-editor", 
+        "concepts/webhooks", 
+        "concepts/activity-feed",
+        "concepts/integration-store",
+        "concepts/providers", 
+        "concepts/environments", 
+        "concepts/handlebar-helpers", 
+        "concepts/organizations", 
+        "concepts/notification-center",
+        "concepts/preferences",
+        "concepts/template-store", 
+        "concepts/delay-actions", 
+        "concepts/digest", 
+        "concepts/layouts"
+      ]
     },
     {
-      "group": "API Documentation",
-      "pages": ["api-reference/authentication"]
+      "group": "Guides",
+      "pages": [
+        "guides/add-digest-to-inapp-notifications",
+        "guides/add-digest-to-email-notifications",
+        "guides/use-novu-as-segment-destination",
+        "guides/use-novu-as-rudderstack-destination"
+      ]
+    },
+    {
+      "group": "Manage Subscribers",
+      "pages": [
+        "manage-subscribers/introduction",
+        "manage-subscribers/topics"
+      ]
+    },
+    {
+      "group": "Manage Workflows",
+      "pages": [
+        "manage-workflows/introduction",
+        "manage-workflows/digest",
+        "manage-workflows/delay-action",
+        "manage-workflows/template-store"
+      ]
+    },
+    {
+      "group": "Activity Feed",
+      "pages": [
+        "activity-feed/introduction"
+      ]
+    },
+    {
+      "group": "Notification Center",
+      "pages": [
+        "notification-center/introduction",
+        {
+          "group": "UI Library Components",
+          "pages": [
+            "notification-center/react",
+            "notification-center/vue",
+            "notification-center/web-component",
+            "notification-center/angular"
+          ]
+        },
+        "notification-center/headless"
+      ]
+    },
+    {
+      "group": "Content Creation & Design",
+      "pages": [
+        "content-creation-design/introduction",
+        "content-creation-design/handlebars-helpers",
+        "content-creation-design/brand",
+        "content-creation-design/email",
+        "content-creation-design/in-app"
+      ]
+    },
+    {
+      "group": "Channels & Providers",
+      "pages": [
+        "channels-and-providers/introduction",
+        "channels-and-providers/integration-store",
+        "channels-and-providers/in-app",
+        {
+          "group": "Email",
+          "pages": [
+            "channels-and-providers/infobip",
+            "channels-and-providers/mailersend",
+            "channels-and-providers/mailgun",
+            "channels-and-providers/mailjet",
+            "channels-and-providers/mandrill",
+            "channels-and-providers/netcore",
+            "channels-and-providers/outlook365",
+            "channels-and-providers/postmark",
+            "channels-and-providers/resend",
+            "channels-and-providers/sendgrid",
+            "channels-and-providers/sendinblue",
+            "channels-and-providers/sparkpost",
+            "channels-and-providers/custom-smtp"
+          ]
+        },
+        {
+          "group": "SMS",
+          "pages": [
+            "channels-and-providers/aws-sns",
+            "channels-and-providers/infobip",
+            "channels-and-providers/africas-talking",
+            "channels-and-providers/nexmo",
+            "channels-and-providers/plivo",
+            "channels-and-providers/resend",
+            "channels-and-providers/outlook365",
+            "channels-and-providers/postmark",
+            "channels-and-providers/resend",
+            "channels-and-providers/sendgrid",
+            "channels-and-providers/sendinblue",
+            "channels-and-providers/sparkpost",
+            "channels-and-providers/custom-smtp"
+          ]
+        },
+        {
+          "group": "Chat",
+          "pages": [
+            "channels-and-providers/discord",
+            "channels-and-providers/slack",
+            "channels-and-providers/ms-teams",
+            "channels-and-providers/mailjet"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Self-hosting Novu",
+      "pages": [
+        "self-hosting-novu/introduction",
+        "self-hosting-novu/deploy-with-docker",
+        "self-hosting-novu/terraform",
+        "self-hosting-novu/kubernetes",
+        "self-hosting-novu/aws",
+        "self-hosting-novu/gcp",
+        "self-hosting-novu/azure"
+      ]
+    },
+    {
+      "group": "Security & Compliance",
+      "pages": [
+        "security-and-compliance/dpa",
+        "security-and-compliance/terms",
+        "security-and-compliance/privacy"
+      ]
     },
     {
       "group": "Endpoint Examples",
@@ -72,11 +264,50 @@
         "api-reference/endpoint/update",
         "api-reference/endpoint/delete"
       ]
+    },
+    {
+      "group": "Community & Support",
+      "pages": [
+        "community-support/introduction",
+        "community-support/changelog",
+        "community-support/roadmap"
+      ]
+    },
+    {
+      "group": "SDKs & Client Libraries",
+      "pages": [
+        "sdks/introduction"
+      ]
+    },
+    {
+      "group": "Cookbook",
+      "pages": [
+        "cookbook/introduction"
+      ]
+    },
+    {
+      "group": "Demos",
+      "pages": [
+        "demos/introduction"
+      ]
+    },
+    {
+      "group": "Resources",
+      "pages": [
+        "resources/glossary"
+      ]
+    },
+    {
+      "group": "FAQs",
+      "pages": [
+        "faqs/questions"
+      ]
     }
   ],
+  "backgroundImage": "/background.png",
   "footerSocials": {
-    "twitter": "https://twitter.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "twitter": "https://twitter.com/novuhq",
+    "github": "https://github.com/novuhq",
+    "linkedin": "https://www.linkedin.com/company/novuhq"
   }
 }
