@@ -9,27 +9,58 @@ Novu's Kotlin SDK provides simple, yet comprehensive notification management, an
 
 ## Installation
 
-```js
-composer require unicodeveloper/novu
+Maven users:
+
+```java
+//Add sonatype release repositories
+<repositories>
+    ...
+    <repository>
+        <id>sonatype</id>
+        <url>https://s01.oss.sonatype.org/content/repositories/releases/</url> // for release
+        or 
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url> // for snapshot
+    </repository>
+</repositories>
+
+// add dependency
+<dependency>
+    <groupId>io.github.crashiv</groupId>
+    <artifactId>novu-kotlin</artifactId>
+    <version>0.1.1-SNAPSHOT</version>
+</dependency>
 ```
 
-<Tip> If you're ready to start integrating in your PHP app, jump straight to our [PHP quickstart.]()</Tip>
+Then run `mnv install`.
+
+Gradle users:
+
+```java
+//Add sonatype release repositories
+repositories {
+    ...
+    maven { url "https://s01.oss.sonatype.org/content/repositories/releases/" }
+}
+
+// add dependency
+implementation("io.github.crashiv:novu-kotlin:0.1.1-SNAPSHOT")
+```
+
+Then run `gradlew build`.
+
+<Tip> If you're ready to start integrating in your Kotlin app, jump straight to our [Kotlin quickstart.]()</Tip>
 
 ## Usage 
 
-```php
-use Novu\SDK\Novu;
+```java
+// without changing the backend URL
+import co.novu.Novu
+import co.novu.extentions.environments
 
-$novu = new Novu(<INSERT_API_KEY_HERE>);
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val environment = novu.environments()
+    println(environment)
+}
 
-// Sign up on https://web.novu.co and grab your API key from https://web.novu.co/settings
-
-$response = $novu->triggerEvent([
-    'name' => '<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>',
-    'payload' => ['customVariables' => 'Hello'],
-    'to' => [
-        'subscriberId' => '<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>',
-        'phone' => '07983882186'
-    ]
-])->toArray();
 ```
