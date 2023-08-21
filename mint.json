@@ -82,8 +82,8 @@
       "group": "Overview",
       "pages": [
         "overview/introduction", 
-        "overview/why-novu", 
-        "overview/architecture"
+        "overview/how-novu-works", 
+        "overview/concepts"     
       ]
     },
     {
@@ -102,32 +102,6 @@
       ]
     },
     {
-      "group": "Concepts",
-      "pages": [
-        "concepts/notifications", 
-        "concepts/messages", 
-        "concepts/workflows", 
-        "concepts/events", 
-        "concepts/channels",
-        "concepts/subscribers", 
-        "concepts/topics", 
-        "concepts/workflow-editor", 
-        "concepts/webhooks", 
-        "concepts/activity-feed",
-        "concepts/integration-store",
-        "concepts/providers", 
-        "concepts/environments", 
-        "concepts/handlebar-helpers", 
-        "concepts/organizations", 
-        "concepts/notification-center",
-        "concepts/preferences",
-        "concepts/template-store", 
-        "concepts/delay-actions", 
-        "concepts/digest", 
-        "concepts/layouts"
-      ]
-    },
-    {
       "group": "Guides",
       "pages": [
         "guides/add-digest-to-inapp-notifications",
@@ -139,14 +113,14 @@
     {
       "group": "Manage Subscribers",
       "pages": [
-        "manage-subscribers/introduction",
+        "manage-subscribers/subscribers",
         "manage-subscribers/topics"
       ]
     },
     {
       "group": "Manage Workflows",
       "pages": [
-        "manage-workflows/introduction",
+        "manage-workflows/notification-workflows",
         "manage-workflows/digest",
         "manage-workflows/delay-action",
         "manage-workflows/template-store"
@@ -165,23 +139,38 @@
         {
           "group": "UI Library Components",
           "pages": [
-            "notification-center/react",
-            "notification-center/vue",
-            "notification-center/web-component",
-            "notification-center/angular"
+            {
+              "group": "React",
+              "pages": [
+                "notification-center/client/react/get-started",
+                "notification-center/client/react/customization",
+                "notification-center/client/react/preference",
+                "notification-center/client/react/multiple-tabs"
+              ]
+            },
+            "notification-center/client/vue",
+            "notification-center/client/angular",
+            "notification-center/client/web-component",
+            "notification-center/client/iframe",
+            {
+              "group": "Headless",
+              "pages": [
+                "notification-center/client/headless/get-started",
+                "notification-center/client/headless/api-reference"
+              ]
+            }
           ]
         },
-        "notification-center/headless"
+        "notification-center/methods"
       ]
     },
     {
       "group": "Content Creation & Design",
       "pages": [
-        "content-creation-design/introduction",
+        "content-creation-design/overview",
         "content-creation-design/handlebars-helpers",
         "content-creation-design/brand",
-        "content-creation-design/email",
-        "content-creation-design/in-app"
+        "content-creation-design/notification-content-creation"
       ]
     },
     {
@@ -252,9 +241,7 @@
     {
       "group": "Security & Compliance",
       "pages": [
-        "security-and-compliance/dpa",
-        "security-and-compliance/terms",
-        "security-and-compliance/privacy"
+        "security-and-compliance/security"
       ]
     },
     {
@@ -273,15 +260,25 @@
           "group": "Client",
           "pages": [
             "sdks/vue",
-            "sdks/react"
+            "sdks/react",
+            "sdks/angular",
+            "sdks/web-component",
+            "sdks/iframe-embed",
+            "sdks/headless-javascript-service"
           ]
         },
         {
           "group": "Server",
           "pages": [
+            "sdks/nodejs",
             "sdks/php",
+            "sdks/laravel",
             "sdks/python",
-            "sdks/kotlin"
+            "sdks/kotlin",
+            "sdks/java",
+            "sdks/ruby",
+            "sdks/go",
+            "sdks/dotnet"
           ]
         }
       ]
