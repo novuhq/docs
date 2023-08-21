@@ -82,6 +82,11 @@ Each subscriber has the following data points:
 
 You can create a subscriber in Novu using the `identify` method provided in Novu's SDK.
 
+<Tip>The `identify` method serves the purpose of handling existing "subscriberId" providers within the database. 
+When a provider with the same subscriberId already exists, this method performs an update operation using the data present in the payload. 
+In cases where there is no pre-existing entry, the method generates a new one, thus exhibiting an <Tooltip tip="A combination of the words “update” and “insert”">upsert</Tooltip>
+behavior.</Tip>
+
 
 
 ```jsx
