@@ -1,88 +1,67 @@
 ---
 title: 'Introduction'
-description: 'Text, title, and styling in standard markdown'
+description: 'Learn more about what Novu does and how it helps power your notifications.'
 icon: 'arrow-right-to-arc'
 ---
 
-## Titles
 
-Best used for section headers.
+In today's world of products, notifications play a crucial role in engaging users. They connect users with products even when they are not actively using them, and they guide users towards tasks they can take action on when they return.
 
-```md
-## Titles
-```
+Notifications serve a dual purpose – they are the way we interact with products and the method that keeps users connected to what we offer.
 
-### Subtitles
+Prominent technology companies like Fiverr, Meta, and Pinterest have specialized teams that work on internal notification systems. These systems increase user engagement and retention, but they require a lot of resources and effort to maintain.
 
-Best use to subsection headers.
+However, for many teams, investing so much in a notification system is not practical, even though it greatly affects user experience. Often, notification features are deprioritized in favor of the main product features.
 
-```md
-### Subtitles
-```
+Over time, this leads to a complicated and messy notifications setup, which can become a technical burden.
 
-<Tip>
+This is where Novu comes in.
 
-Each **title** and **subtitle** creates an anchor and also shows up on the table of contents on the right.
+Novu provides simple components and APIs for managing all communication channels in one place – all without the need to create and maintain an in-house notifications infrastructure.
 
-</Tip>
+## What does Novu do?
 
-## Text Formatting
+Novu acts as a tool to improve how users communicate by sending notifications. It processes inputs from your product, directs them through Novu workflows, and disseminates notifications across in-app and external channels.
 
-We support most markdown formatting. Simply add `**`, `_`, or `~` around text to format it.
+The inputs are driven by the **`trigger`** and **`identify`** calls initiated in the Novu API by your development team.
 
-| Style         | How to write it   | Result          |
-| ------------- | ----------------- | --------------- |
-| Bold          | `**bold**`        | **bold**        |
-| Italic        | `_italic_`        | _italic_        |
-| Strikethrough | `~strikethrough~` | ~strikethrough~ |
+These inputs act as the foundation for workflows constructed in Novu by your product and growth teams. 
 
-You can combine these. For example, write `**_bold and italic_**` to get **_bold and italic_** text.
+Once the necessary API calls are established between your system and Novu, even non-technical users can seamlessly craft and update notification routing and designs within minutes, without relying on engineers. 
 
-You need to use HTML to write superscript and subscript text. That is, add `<sup>` or `<sub>` around your text.
+Novu additionally empowers your team with insights into logs and analytics, facilitating rapid optimization toward a notification experience that resonates with your end users.
 
-| Text Size   | How to write it          | Result                 |
-| ----------- | ------------------------ | ---------------------- |
-| Superscript | `<sup>superscript</sup>` | <sup>superscript</sup> |
-| Subscript   | `<sub>subscript</sub>`   | <sub>subscript</sub>   |
+Novu achieves notification delivery across both in-app and external channels. In the case of in-app channels, we offer pre-built components for promptly embedding a fully functional notification feed into your application within minutes. As for external channels, Novu seamlessly integrates with your existing providers – whether email, push, SMS services, or platforms like Slack and Apple Push Notification Service.
 
-## Linking to Pages
+## Novu For Developers
 
-You can add a link by wrapping text in `[]()`. You would write `[link to google](https://google.com)` to [link to google](https://google.com).
+Novu is the first **open-source notification infrastructure**, built for engineering teams to help them build rich product notification experiences without constantly reinventing the wheel.
 
-Links to pages in your docs need to be root-relative. Basically, you should include the entire folder path. For example, `[link to text](/writing-content/text)` links to the page "Text" in our components section.
+Novu equips developers with a suite of tools that streamline the process of implementing a notifications engine into your product. We provide:
 
-Relative links like `[link to text](../text)` will open slower because we cannot optimize them as easily.
+- **Backend API clients** across multiple programming languages, seamlessly integrating Novu's notifications infrastructure with your product.
+- **Prebuilt components** for crafting in-app user notification feeds and preference experiences with ease.
+- **Integration with delivery providers**, allowing you to continue using your preferred ones with Novu.
+- **Scalable, reliable infrastructure** developed from scratch to meet the demands of high-volume notification delivery and storage.
+- **Comprehensive documentation**, implementation guides, and illustrative examples.
+- **Active and thriving engineering community**, you'll find collaboration, support, insightful discussions, and contributions that drive the ongoing enhancement of Novu's open-source project.
+- **Compliance and Security**, Novu is not only open-source but also prioritizes compliance with industry standards and maintains robust security measures to protect your data.
 
-## Blockquotes
+## Novu For Users
 
-### Singleline
+Novu provides your users with the notifications experience they expect from the greatest products they use today: tailored, on time sent to the right channel with no duplicates.
 
-To create a blockquote, add a `>` in front of a paragraph.
+We provide an extensive range of features that continue to evolve with each new use case and innovative idea.
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
+Our mission is to **simplify meaningful communication between you and your users**.
 
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
-```
+## Novu For Non-Technical Teams
 
-### Multiline
+Novu simplifing notification management, granting non-technical team members the autonomy to initiate and refine notifications autonomously. This intuitive dashboard serves as a powerhouse for product and growth teams, enabling seamless enhancements and iterative improvements to the user-centric notification experience. 
 
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
+Through this versatile tool, you'll be able to:
 
-```md
-> Dorothy followed her through many of the beautiful rooms in her castle.
->
-> The Witch bade her clean the pots and kettles and sweep the floor and keep the fire fed with wood.
-```
-
-### LaTeX
-
-Mintlify supports [LaTeX](https://www.latex-project.org) through the Latex component.
-
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-
-```md
-<Latex>8 x (vk x H1 - H2) = (0,1)</Latex>
-```
+- Effortlessly craft and modify notifications, including their underlying logic.
+- Seamlessly test and fine-tune notification settings.
+- Attain valuable insights into user engagement with notifications.
+- Streamline the debugging process for notifications sent to users.
