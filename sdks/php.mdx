@@ -1,12 +1,35 @@
 ---
-title: "PHP SDK"
-description: "You can interface with Novu's API either over REST, or via libraries for certain languages. Below is a list of our official, supported libraries."
+title: "PHP"
+description: "Connect a PHP application to Novu"
 ---
 
-## Client Side 
+Novu's PHP SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your PHP application.
 
+[Explore the source code on GitHub](https://github.com/novuhq/novu-php)
 
+## Installation
 
+```js
+composer require unicodeveloper/novu
+```
 
-## Server Side
+<Tip> If you're ready to start integrating in your PHP app, jump straight to our [PHP quickstart.]()</Tip>
 
+## Usage 
+
+```php
+use Novu\SDK\Novu;
+
+$novu = new Novu(<INSERT_API_KEY_HERE>);
+
+// Sign up on https://web.novu.co and grab your API key from https://web.novu.co/settings
+
+$response = $novu->triggerEvent([
+    'name' => '<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>',
+    'payload' => ['customVariables' => 'Hello'],
+    'to' => [
+        'subscriberId' => '<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>',
+        'phone' => '07983882186'
+    ]
+])->toArray();
+```

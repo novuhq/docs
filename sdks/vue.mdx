@@ -1,12 +1,64 @@
 ---
-title: "Vue"
-description: "You can interface with Novu's API either over REST, or via libraries for certain languages. Below is a list of our official, supported libraries."
+title: "Vue Component"
+description: "Novu’s Vue library provides a Vue component wrapper over the Notification Center Web that you can use to integrate the notification center into your Vue application. "
 ---
 
-## Client Side 
+
+[Explore the source code on GitHub](https://github.com/novuhq/novu/tree/next/packages/notification-center-vue)
 
 
+## Installation
 
+```js
+npm install @novu/notification-center-vue
+```
 
-## Server Side
+<Note>Novu supports only Vue 3.</Note>
+
+### The Plugin
+
+The Notification Center Vue plugin can be used to register the **NotificationCenterComponent** as a global component. This is the recommended way to use the component.
+
+```js
+import { createApp } from 'vue';
+import NotificationCenterPlugin from '@novu/notification-center-vue';
+import '@novu/notification-center-vue/dist/style.css';
+// your app component
+import App from './App.vue';
+
+createApp(App).use(NotificationCenterPlugin).mount('#app');
+```
+
+<Tip> If you're ready to start integrating in your Vue app, jump straight to the [Vue quickstart.]()</Tip>
+
+### Use the Vue component in your app 
+
+```js
+<script lang="ts">
+  export default {
+    data() {
+      return {
+        applicationIdentifier: import.meta.env.VITE_NOVU_APP_IDENTIFIER,
+        subscriberId: import.meta.env.VITE_NOVU_SUBSCRIBER_ID,
+      };
+    },
+    methods: {
+      sessionLoaded() {
+        console.log('Notification Center Session Loaded!');
+      },
+    },
+  };
+</script>
+
+<template>
+  <NotificationCenterComponent
+    :subscriberId="subscriberId"
+    :applicationIdentifier="applicationIdentifier"
+    :sessionLoaded="sessionLoaded"
+  />
+</template>
+```
+
+By default the `NotificationCenterComponent` renders the default bell button that opens the notification center when clicked, but it can be customized.
+
 

@@ -1,0 +1,45 @@
+---
+title: "Headless JavaScript Service"
+description: "Novu’s headless library provides users with a lightweight, completely unstyled, zero UI solution for integrating notification functionality into their web applications."
+---
+
+[Explore the source code on GitHub](https://github.com/novuhq/novu/tree/next/packages/headless)
+
+With just the essential API methods, users can easily incorporate our notification system into any framework or vanilla JavaScript project, without being constrained by our default UI or dependencies.
+
+## Installation
+
+```js
+npm install @novu/headless
+```
+
+### Import in your app 
+
+```js
+import { HeadlessService, FetchResult, ISession } from '@novu/headless';
+```
+
+<Tip> If you're ready to start integrating in your JavaScript app, jump straight to the [headless quickstart.]()</Tip>
+
+### Initialize the session 
+
+To use the headless service and its features, you'll need to first initialize the session:
+
+```js
+const headlessService = new HeadlessService({
+  applicationIdentifier: 'APP_ID_FROM_ADMIN_PANEL',
+  subscriberId: 'USER_ID',
+});
+
+headlessService.initializeSession({
+  listener: (res: FetchResult<ISession>) => {
+    console.log(res);
+  },
+  onSuccess: (session: ISession) => {
+    console.log(session);
+  },
+  onError: (error) => {
+    console.error(error);
+  },
+});
+```
