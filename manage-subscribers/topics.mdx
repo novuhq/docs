@@ -154,9 +154,7 @@ const result = await novu.topics.delete(key);
 
 ```
 
-<aside>
-⚠️ DANGER
+<Warning>
 A topic can only be deleted if it doesn't have any subscriber added. When trying to delete a topic with subscribers a conflict error will be returned. This is done to prevent accidental topic deletions.
-
-</aside>
+</Warning>
 
