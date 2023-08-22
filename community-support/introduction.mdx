@@ -181,10 +181,10 @@ The command `npm run setup:project` creates default environment variables that
     - `REACT_APP_WS_URL` The base url on which your WebSocket service would be accessible
     - `SKIP_PREFLIGHT_CHECK` (default: true)Solves a problem with React App dependency tree.
     
-    <aside>
+
     ❗ When configuring different than default values for the API and WebSocket URLs, in order for the Web app to apply the changes done to the `./env` file, it is needed to run the script `pnpm envsetup`. This will generate a file called `env-config.js` that will be copied inside of the `public` folder of the application. Its purpose is to inject in the `window._env_`object the chosen environment variables that manage the URLs the Web client will call to access to the API backend and the WebSocket service.
     
-    </aside>
+
     
 - Worker:
     - `NODE_ENV` (default: local)The environment of the app. Possible values are: dev, test, production, ci, local
@@ -276,15 +276,13 @@ The script can be run on its own without any previous dependency installed, as i
 - Will create a local development domain `local.novu.co` in your local machine
 - Will clone the Novu repository in your local machine (skippable step) to a selected folder `$HOME/Dev`
 
-<aside>
+
 ❗ This script has only been thoroughly tested in MacOSx. Little testing has been run in GNU Linux.
 
-</aside>
 
-<aside>
+
 ℹ️ This script is not bullet-proof and some of the tasks have intertwined dependencies with each other. We have tried to make it as idempotent as possible but some loose knots will probably show because of conflicts between versions of the different dependencies. Please report to us any problem found and we will try to fix or assist though we do not have the resources to make it idempotent in every potential system and potential combinations.
 
-</aside>
 
 ### Upcoming Events
 
@@ -422,10 +420,10 @@ test('should trigger example-provider library correctly', async () => {});
 
 ```
 
-<aside>
+
 ℹ️ Add the provider's SDK as a dependency in the provider's package.json file. Run `pnpm run setup:project` to build all dependencies again. Use this new sdk method to complete the provider's `sendMessage` function. Check the `[Important Links](https://www.notion.so/Community-and-Support-3e23f10d0e224341bd0df7ddfefd0be7?pvs=21)` section for each channel's provider example.
 
-</aside>
+
 
 # Add provider logos
 
@@ -583,10 +581,8 @@ If everything is working fine without any error, commit your local branch change
 
 Hurray 🎉! You have successfully added a new provider in Novu!
 
-<aside>
 ℹ️ In this guide, we have used only one credential `apiKey` for our `example-provider`. This is for reference purposes only. A provider can have more than one credential as per its `SDK` requirements. At each step, you will need to add all credentials carefully. Check providers in below `Important Links` section for reference.
 
-</aside>
 
 We're excited to have you on board and look forward to your valuable contributions! If you need assistance, have questions, or want to share your experiences, feel free to engage with us through the support channels mentioned above. 
 
