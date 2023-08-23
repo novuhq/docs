@@ -1,36 +1,18 @@
 ---
-title: 'Introduction'
-description: 'Display inline code and code blocks'
+title: 'Introduction to Channels and Providers'
+description: 'Learn about what channels and providers are'
 ---
 
-## Basic
+## Channels:
 
-### Inline Code
+Novu lets you send notifications across different communication mediums, including emails, in-app messages, push notifications, SMS, and chat. Each of these five communication mediums is referred to as a notification ‘channel’.
 
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
+<Frame caption="There are five channels in Novu"><img src="/images/channels.gif" /> </Frame>
 
-```
-To denote a `word` or `phrase` as code, enclose it in backticks (`).
-```
+## Providers:
 
-### Code Block
+Providers are what allow us to handle message delivery over multiple channels. Of the five notification channels that Novu currently supports, each channel except the ‘in-app’ channel has multiple providers.
 
-Use [fenced code blocks](https://www.markdownguide.org/extended-syntax/#fenced-code-blocks) by enclosing code in three backticks and follow the leading ticks with the programming language of your snippet to get syntax highlighting. Optionally, you can also write the name of your code after the programming language.
+The in-app channel only has one provider (the default Novu provider). 
 
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-````md
-```java HelloWorld.java
-class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-````
+All the remaining channels have multiple providers.
