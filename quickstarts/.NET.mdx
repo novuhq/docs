@@ -63,10 +63,9 @@ var novu = new NovuClient(novuConfiguration);
 
 Replace the `ApiKey`’s value with the authentic key from the **API Key** section of your [Novu Dashboard](https://web.novu.co/settings) and be sure to use your specific Novu instance URL.
 
-INFO
-
+<Note>
 Please do not hardcode your credentials in a file in production. Use environment variables instead.
-
+</Note>
 # Set Up A Channel Provider
 
 A channel provider is a service that provides one or more notification functionality such as sending an email, SMS, push notification etc. Our [integration store](https://web.novu.co/integrations) includes four channels: Email, SMS, Chat, and Push. These channels have multiple providers associated with them.
@@ -97,10 +96,10 @@ The workflow includes the following:
 | Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
 | In-App | Text |
 
-INFO
 
+<Note>
 Proper authorization needs to be set for the Chat channel for subscribers.
-
+</Note>
 Please proceed to create a notification workflow.
 
 1. Click **Workflows** on the left sidebar of your Novu dashboard.
@@ -177,9 +176,10 @@ var updatedSubscriber = await novu.Subscriber.UpdateSubscriber("7789",subscriber
 
 Other valid fields that can be updated are `phone`, `avatar`, and `data` . The `data` field can accept an array of metadata that you want to attach to the subscriber.
 
-INFO
 
+<Note>
 To make all of your app users subscribers, you need to programmatically add them to Novu.
+</Note>
 
 # Trigger A Notification
 
@@ -247,9 +247,10 @@ Novu provides a simple API that offers an easy interface for triggering notifica
 
 A topic is identified by a custom key and this key will be the identifier used when triggering notifications. You can assign a name to a topic for descriptive purposes. This name does not need to be unique and can be changed programmatically.
 
-INFO
 
+<Note>
 The topic key should be unique and can't be changed once chosen. Novu also safeguards for key uniqueness behind the scenes.
+</Note>
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
