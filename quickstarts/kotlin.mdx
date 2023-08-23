@@ -114,9 +114,10 @@ The workflow includes the following:
 | Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
 | In-App | Text |
 
-INFO
 
+<Note>
 Proper authorization needs to be set for the Chat channel for subscribers.
+</Note>
 
 Please proceed to create a notification workflow.
 
@@ -185,9 +186,10 @@ suspend fun updateSubscriber(): ResponseWrapper<SubscriberResponse>? {
 
 Other valid fields that can be updated are `phone`, `avatar`, and `data`. The `data` field can accept an Object or a Map with the info you want to attach to the subscriber.
 
-INFO
 
+<Note>
 To create all of your subscribers, you need to programmatically add them to Novu.
+</Note>
 
 ## Trigger a Notification
 
@@ -225,9 +227,10 @@ Run the code to trigger a notification! 📧
 
 Novu provides a simple API that offers an easy interface for triggering notifications to multiple subscribers at once. This API is called **Topics** and allows users to manage their bulk notifications without having to implement complex loops. A topic is identified by a custom key that is provided by the user, and this key will be the identifier used in the Topics API.
 
-INFO
 
+<Note>
 The topic key should be unique and can't be changed once chosen. Novu also caters for key uniqueness behind the scenes.
+</Note>
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
@@ -288,9 +291,10 @@ suspend fun removeSubscriberFromTopic(): Any? {
 
 Thanks to the topics feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps avoid listing all subscriber identifiers in the `to` field of the notification trigger.
 
-INFO
 
+<Note>
 This feature is not yet available on the Kotlin SDK, this doc will be updated once it is released on Kotlin.
+</Note>
 
 # Conclusion
 
