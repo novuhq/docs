@@ -49,9 +49,10 @@ client = Novu::Client.new('YOUR_NOVU_API_KEY')
 
 Replace the `YOUR_NOVU_API_KEY` argument with the authentic key from the **API Key** section of your [Novu Dashboard](https://web.novu.co/settings).
 
-INFO
 
+<Note>
 Please do not hardcode your credentials in a file in production. Use environment variables instead.
+</Note>
 
 To test your API key, call the methods on the client to interact with the Novu API and display the result on your ruby console:
 
@@ -109,9 +110,10 @@ The workflow includes the following:
 | Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
 | In-App | Text |
 
-INFO
 
+<Note>
 Proper authorization needs to be set for the Chat channel for subscribers.
+</Note>
 
 Please proceed to create a notification workflow.
 
@@ -184,9 +186,10 @@ client.update_subscriber('7789', update_payload);
 
 Other valid fields that can be updated are `phone`, `avatar`, and `data`. The `data` field can accept an object of metadata that you want to attach to the subscriber.
 
-INFO
 
+<Note>
 To make all of your app users subscribers, you need to programmatically add them to Novu.
+</Note>
 
 ## Trigger A Notification
 
@@ -235,9 +238,10 @@ Novu provides a simple API that offers an easy interface for triggering notifica
 
 A topic is identified by a custom key and this key will be the identifier used when triggering notifications. You can assign a name to a topic for descriptive purposes. This name does not need to be unique and can be changed programmatically.
 
-INFO
 
+<Note>
 The topic key should be unique and can't be changed once chosen. Novu also safeguards for key uniqueness behind the scenes.
+</Note>
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
@@ -318,9 +322,10 @@ client.trigger_event({
 
 ```
 
-INFO
 
-The value of the `name` key in the payload should be the name of the notification created earlier ([Trigger A Notification](https://docs.novu.co/overview/introduction/#trigger-a-notification) section)
+<Note>
+The value of the `name` key in the payload should be the name of the notification created earlier.
+</Note>
 
 ## Conclusion
 
