@@ -13,53 +13,9 @@ description: "Novu’s Angular library provides an Angular component wrapper ove
 npm install @novu/notification-center-angular
 ```
 
-<Note>Novu supports only Angular version > 0.15.0.</Note>
-
-### Use In Your App 
-
-Module:
-
-```js
-import { NotificationCenterModule } from '@novu/notification-center-angular';
-
-@NgModule({
-  imports: [..., NotificationCenterModule],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-})
-export class TheModule {}
-```
-
-Component:
-
-```js
-import { Component } from '@angular/core';
-import { environment } from '../environments/environment';
-
-@Component({
-  selector: 'my-component',
-  templateUrl: './component.html',
-})
-export class AppComponent {
-  subscriberId = environment.subscriberId;
-  applicationIdentifier = environment.applicationIdentifier;
-
-  sessionLoaded = (data: unknown) => {
-    console.log('loaded', { data });
-  };
-}
-```
-
-Component HTML template:
-
-```js
-<notification-center-component
-  [subscriberId]="subscriberId"
-  [applicationIdentifier]="applicationIdentifier"
-  [sessionLoaded]="sessionLoaded"
-></notification-center-component>
-```
-
 <Tip> If you're ready to start integrating in your Angular app, jump straight to our [Angular quickstart](/quickstarts/angular)</Tip>
+
+Learn more about usage of the [Angular Component in detail.](/notification-center/client/angular)
 
 
 
