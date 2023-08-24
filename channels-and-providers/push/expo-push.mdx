@@ -1,66 +1,39 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Expo Push'
+description: 'Learn how to use the Expo push provider to send push notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+[Expo Push](https://docs.expo.dev/push-notifications/overview/) is a notification delivery service provided by Expo.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+To enable Expo Push integration, you need to create an [Expo Application Services (EAS)](https://expo.dev/)account and generate an access token in the EAS dashboard.
 
-## Navigation syntax
+The overrides field supports all [Message Request](https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format) values. An example of the same follows:
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+```jsx
+import { Novu } from '@novu/node';
 
-<CodeGroup>
+const novu = new Novu(process.env.NOVU_API_KEY);
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
+novu.trigger('event-name', {
+  to: {
+    subscriberId: '...',
+  },
+  payload: {
+    abc: 'def',
+  },
+});
+
 ```
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
+Before triggering the notification to a subscriber(user) with push as a step in the workflow, make sure you have added the subscriber's device token as follows:
+
+```jsx
+import { Novu, PushProviderIdEnum } from '@novu/node';
+
+const novu = new Novu(process.env.NOVU_API_KEY);
+
+const body = req.body; // From your HTTPS listener
+await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.EXPO, {
+  deviceTokens: ['token1', 'token2'],
+});
 ```
-
-</CodeGroup>
-
-## Folders
-
-Simply put your MDX files in folders and update the paths in `mint.json`.
-
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
