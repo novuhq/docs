@@ -12,33 +12,7 @@ description: "Novu’s React library provides a fully functional and embeddable 
 npm install @novu/notification-center
 ```
 
-### Import and render the components
+<Tip> If you're ready to start integrating in your React app, jump straight to our [quickstart](/quickstarts/react)</Tip>
 
-```js
-import {
-  NovuProvider,
-  PopoverNotificationCenter,
-  NotificationBell,
-  IMessage,
-} from '@novu/notification-center';
-
-function Header() {
-  function onNotificationClick(message: IMessage) {
-    // your logic to handle the notification click
-    if (message?.cta?.data?.url) {
-      window.location.href = message.cta.data.url;
-    }
-  }
-
-  return (
-    <NovuProvider subscriberId={'USER_ID'} applicationIdentifier={'APP_ID_FROM_ADMIN_PANEL'}>
-      <PopoverNotificationCenter onNotificationClick={onNotificationClick}>
-        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-      </PopoverNotificationCenter>
-    </NovuProvider>
-  );
-}
-```
-
- <Tip> If you're ready to start integrating in your React app, jump straight to our [quickstart](/quickstarts/react)</Tip>
+Learn more about usage of the [React Component in detail.](/notification-center/client/react/get-started)
 
