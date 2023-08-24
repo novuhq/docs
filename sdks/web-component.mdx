@@ -11,35 +11,8 @@ description: "Novu’s Web Component library provides a fully functional and emb
 You can use the web component in two ways:
 
 - As an ESM Module
-
-```js
-npm install @novu/notification-center
-```
-
 - As a bundled CDN version
 
-```js
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-  ...
-    <script src="https://novu-web-component.netlify.app/index.js"></script>
-  </head>
-
-  <body>
-    <notification-center-component
-      style="display: inline-flex"
-      application-identifier="YOUR_APP_IDENTIFIER"
-      subscriber-id="YOUR_SUBSCRIBER_ID"
-    ></notification-center-component>
-
-    <script>
-    // here you can attach any callbacks, interact with the web component API
-    let nc = document.getElementsByTagName('notification-center-component')[0];
-    nc.onLoad = () => console.log('hello world!');
-    </script>
-  </body>
-</html>
-```
-
 <Tip> If you're ready to start integrating in your web app, jump straight to the [Web component quickstart.](/quickstarts/vanillajs)</Tip>
+
+Learn more about usage of the [Web Component in detail.](/notification-center/client/web-component)
