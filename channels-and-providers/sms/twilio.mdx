@@ -1,66 +1,38 @@
 ---
-title: 'Custom SMTP'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Twilio'
+description: 'Learn how to use the Twilio provider to send sms notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can utilize the [Twilio](https://www.twilio.com/) API to communicate with your customers using SMS messaging. Let’s look at how you can do that:
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Setting up Twilio
 
-## Navigation syntax
+1. First, go to [Twilio](https://www.twilio.com/) and create an account, probably starting with their free trial. 
+2. You’ll be asked to verify your email and your phone number. Get them verified.
+3. Once you’re done with that, you’ll get an option to ‘get a Twilio phone number’ from your Twilio console.
+4. Click on it to get your Twilio phone number. 
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+When first using Twilio there should be an option to get a Twilio phone number in the main console. Otherwise, you may have to [Buy](https://console.twilio.com/us1/develop/phone-numbers/manage/search?frameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3Fx-target-region%3Dus1&currentFrameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3FisoCountry%3DUS%26searchTerm%3D%26searchFilter%3Dleft%26searchType%3Dnumber%26x-target-region%3Dus1%26__override_layout__%3Dembed%26bifrost%3Dtrue) a number from that link to begin using it. Assuming this is the first run though, utilize the free number given to us. 
 
-<CodeGroup>
+Simply follow one of their many [Tutorials](https://www.twilio.com/docs/usage/requests-to-twilio) within their docs to understand every part of the process.
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+Irrespective of the language you use, the process is the same:
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+- Load the Account SID and Auth token into the code, using some sort of safe environment such as .env variables. Nobody should have access to this but you.
+- Create a client object from Twilio that take the SID and Token as variables then create a message with the client.
+- A message is an object that has three things:
+    - that free number from earlier,
+    - the number you would like to send to, and
+    - a body message that you want to send through SMS.
 
-</CodeGroup>
+# Creating a Twilio integration with Novu
 
-## Folders
+Creating a Twilio integration with Novu is quite simple. Just follow these steps:
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
-
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations Store](https://web.novu.co/integrations) on Novu.
+- Locate **Twilio** and click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
+- Go to your [Console](https://console.twilio.com/) on Twilio and access the Account Info section at the bottom of the page
+- Enter your `Account SID`, `Auth Token` and `Twilio Phone Number`.
+- Click on the **Save** button.
+- You should now be able to send SMS notifications using **Twilio** in Novu.
