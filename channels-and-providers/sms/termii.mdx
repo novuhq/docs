@@ -1,66 +1,56 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Termii'
+description: 'Learn how to use the Termii provider to send sms notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [Termii](https://termii.com/) provider to send SMS messages to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Termii provider in the SMS channel, the first step is to create a Termii account and add your API key and Sender ID to the Termii integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Retrieving your API Key
 
-<CodeGroup>
+To find your Termii API key:
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+- [Sign up](https://accounts.termii.com/#/register) or [Login](https://accounts.termii.com/#/login) to your Termii account.
+- Navigate to your [dashboard](https://accounts.termii.com/#/).
+- Then scroll to the bottom of the page to find your API key.
+<Frame caption="Go to the bottom of your dashboard to find your API key"><img src="/images/image-72.png" /> </Frame>
+Alternatively, you can find the API key on the Settings page.
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+- Scroll to the bottom of the sidebar (on the left) and click on settings.
+- This will display a dropdown from which you can then click on `API Token` to view your API key.
+<Frame caption="Select API Token from the dropdown to see your API key"><img src="/images/image-73.png" /> </Frame>
 
-</CodeGroup>
+# Getting your Sender's ID
 
-## Folders
+Sender IDs allow you to brand your messages as you send them to your customers.
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+To get your Sender's ID:
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+- On the sidebar (on the menu on your left), click on `Rental`. This will display a dropdown. Click on `SMS Sender IDs` from the dropdown options.
+- On the page that appears, you'll find a list of your Sender IDs
 
-<Warning>
+<Frame caption="Go to Rental on the sidebar to find your sender ID"><img src="/images/image-74.png" /> </Frame>
 
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
+If you have not created one yet:
 
-</Warning>
+- Click on the `Make a new request` button to request a Sender ID.
+- Fill in the form
+- Click on `Save`
 
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
+<Frame caption="Fill in the make a new request form to create a sender ID"><img src="/images/image-75.png" /> </Frame>
 
-## Hidden Pages
+# Creating a Termii integration with Novu
 
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate **Termii** under the SMS section and click on the **Connect** button.
+
+
+- Enter your Termii API Key.
+- Fill in the `From` field.
+- Click on the Disabled button and mark it as Active.
+- Click on the **Connect** button.
+
+Now it is possible to send SMS notifications using **Termii** in Novu.

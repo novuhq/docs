@@ -1,66 +1,26 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Plivo'
+description: 'Learn how to use the Plivo provider to send sms notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [Plivo](https://www.plivo.com/) provider to send SMS messages to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Plivo provider in the SMS channel, the first step is to create a Plivo account and add the Account SID and Auth token to the Plivo integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Finding the Account SID and Auth token
 
-<CodeGroup>
+[Sign up](https://console.plivo.com/accounts/register/) or [Login](https://console.plivo.com/accounts/login/) to your Plivo account, and make a note of your Account SID and Auth token on the [Plivo console page](https://console.plivo.com/dashboard/).
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+# Creating a Plivo integration with Novu
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate **Plivo** under the SMS section and click on the **Connect** button.
+- Enter the `Account SID`.
+- Enter the `Auth token`.
+- Fill in the `From` field.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
 
-</CodeGroup>
-
-## Folders
-
-Simply put your MDX files in folders and update the paths in `mint.json`.
-
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+Now it is possible to send SMS notifications using **Plivo** in Novu.

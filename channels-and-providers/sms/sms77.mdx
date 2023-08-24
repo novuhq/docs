@@ -1,66 +1,23 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'SMS77'
+description: 'Learn how to use the SMS77 provider to send sms notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+It is possible to use the [SMS77](https://www.sms77.io/en) provider to send SMS messages to the customers using the Novu Platform with a single API to create multi-channel experiences.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the SMS77 provider in the SMS channel, the first step is to create an SMS77 account and add the personal API key to the SMS77 integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Find the API key
 
-<CodeGroup>
+To find the SMS77 API key, log into the personal SMS77 account and navigate to the API Keys page by clicking on the 'Developer' tab present at the end of the sidebar. It is suggested to create a new API key for use with Novu. Copy the newly created API key.
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+# Creating an SMS77 integration with Novu
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
-
-</CodeGroup>
-
-## Folders
-
-Simply put your MDX files in folders and update the paths in `mint.json`.
-
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate **SMS77** under the SMS section and click on the **Connect** button.
+- Enter the `API key`.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Save** button.
+- Now it is possible to send SMS notifications using **SMS77** in Novu.

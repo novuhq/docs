@@ -82,8 +82,8 @@
       "group": "Overview",
       "pages": [
         "overview/introduction", 
-        "overview/why-novu", 
-        "overview/architecture"
+        "overview/how-novu-works", 
+        "overview/concepts"     
       ]
     },
     {
@@ -94,37 +94,30 @@
         {
           "group": "Quickstarts",
           "pages": [
-            "quickstarts/go",
-            "quickstarts/nodejs",
-            "quickstarts/php"
+            "quickstarts/general",
+            "quickstarts/01-introduction",
+            {
+              "group": "Client-Side",
+              "pages": [
+                "quickstarts/vue",
+                "quickstarts/react",
+                "quickstarts/angular",
+                "quickstarts/vanillajs"
+              ]
+            },
+            {
+              "group": "Server-Side",
+              "pages": [
+                "quickstarts/nodejs",
+                "quickstarts/php",
+                "quickstarts/kotlin",
+                "quickstarts/ruby",
+                "quickstarts/.NET",
+                "quickstarts/nextjs"
+              ]
+            }
           ]
         }
-      ]
-    },
-    {
-      "group": "Concepts",
-      "pages": [
-        "concepts/notifications", 
-        "concepts/messages", 
-        "concepts/workflows", 
-        "concepts/events", 
-        "concepts/channels",
-        "concepts/subscribers", 
-        "concepts/topics", 
-        "concepts/workflow-editor", 
-        "concepts/webhooks", 
-        "concepts/activity-feed",
-        "concepts/integration-store",
-        "concepts/providers", 
-        "concepts/environments", 
-        "concepts/handlebar-helpers", 
-        "concepts/organizations", 
-        "concepts/notification-center",
-        "concepts/preferences",
-        "concepts/template-store", 
-        "concepts/delay-actions", 
-        "concepts/digest", 
-        "concepts/layouts"
       ]
     },
     {
@@ -139,14 +132,14 @@
     {
       "group": "Manage Subscribers",
       "pages": [
-        "manage-subscribers/introduction",
+        "manage-subscribers/subscribers",
         "manage-subscribers/topics"
       ]
     },
     {
       "group": "Manage Workflows",
       "pages": [
-        "manage-workflows/introduction",
+        "manage-workflows/notification-workflows",
         "manage-workflows/digest",
         "manage-workflows/delay-action",
         "manage-workflows/template-store"
@@ -165,23 +158,38 @@
         {
           "group": "UI Library Components",
           "pages": [
-            "notification-center/react",
-            "notification-center/vue",
-            "notification-center/web-component",
-            "notification-center/angular"
+            {
+              "group": "React",
+              "pages": [
+                "notification-center/client/react/get-started",
+                "notification-center/client/react/customization",
+                "notification-center/client/react/preference",
+                "notification-center/client/react/multiple-tabs"
+              ]
+            },
+            "notification-center/client/vue",
+            "notification-center/client/angular",
+            "notification-center/client/web-component",
+            "notification-center/client/iframe",
+            {
+              "group": "Headless",
+              "pages": [
+                "notification-center/client/headless/get-started",
+                "notification-center/client/headless/api-reference"
+              ]
+            }
           ]
         },
-        "notification-center/headless"
+        "notification-center/methods"
       ]
     },
     {
       "group": "Content Creation & Design",
       "pages": [
-        "content-creation-design/introduction",
+        "content-creation-design/overview",
         "content-creation-design/handlebars-helpers",
         "content-creation-design/brand",
-        "content-creation-design/email",
-        "content-creation-design/in-app"
+        "content-creation-design/notification-content-creation"
       ]
     },
     {
@@ -189,50 +197,80 @@
       "pages": [
         "channels-and-providers/introduction",
         "channels-and-providers/integration-store",
-        "channels-and-providers/in-app",
+        {
+          "group": "In-app",
+          "pages":[
+            {
+              "group": "React",
+              "pages":[
+                "channels-and-providers/in-app/react/react",
+                "channels-and-providers/in-app/react/react-ref"
+              ]
+            },
+            "channels-and-providers/in-app/angular",
+            "channels-and-providers/in-app/vue",
+            "channels-and-providers/in-app/web-component",
+            "channels-and-providers/in-app/iframe",
+            "channels-and-providers/in-app/custom-styling",
+            {
+              "group": "Headless",
+              "pages":[
+                "channels-and-providers/in-app/headless/headless",
+                "channels-and-providers/in-app/headless/headless-ref"
+              ]
+            },
+            "channels-and-providers/in-app/faq"
+          ]
+        },
         {
           "group": "Email",
           "pages": [
-            "channels-and-providers/infobip",
-            "channels-and-providers/mailersend",
-            "channels-and-providers/mailgun",
-            "channels-and-providers/mailjet",
-            "channels-and-providers/mandrill",
-            "channels-and-providers/netcore",
-            "channels-and-providers/outlook365",
-            "channels-and-providers/postmark",
-            "channels-and-providers/resend",
-            "channels-and-providers/sendgrid",
-            "channels-and-providers/sendinblue",
-            "channels-and-providers/sparkpost",
-            "channels-and-providers/custom-smtp"
+            "channels-and-providers/email/infobip",
+            "channels-and-providers/email/amazonses",
+            "channels-and-providers/email/mailersend",
+            "channels-and-providers/email/mailgun",
+            "channels-and-providers/email/mailjet",
+            "channels-and-providers/email/mandrill",
+            "channels-and-providers/email/netcore",
+            "channels-and-providers/email/outlook365",
+            "channels-and-providers/email/postmark",
+            "channels-and-providers/email/resend",
+            "channels-and-providers/email/sendgrid",
+            "channels-and-providers/email/sendinblue",
+            "channels-and-providers/email/sparkpost",
+            "channels-and-providers/email/custom-smtp"
           ]
         },
         {
           "group": "SMS",
           "pages": [
-            "channels-and-providers/aws-sns",
-            "channels-and-providers/infobip",
-            "channels-and-providers/africas-talking",
-            "channels-and-providers/nexmo",
-            "channels-and-providers/plivo",
-            "channels-and-providers/resend",
-            "channels-and-providers/outlook365",
-            "channels-and-providers/postmark",
-            "channels-and-providers/resend",
-            "channels-and-providers/sendgrid",
-            "channels-and-providers/sendinblue",
-            "channels-and-providers/sparkpost",
-            "channels-and-providers/custom-smtp"
+            "channels-and-providers/sms/twilio",
+            "channels-and-providers/sms/sms77",
+            "channels-and-providers/sms/africas-talking",
+            "channels-and-providers/sms/infobip",
+            "channels-and-providers/sms/sendchamp",
+            "channels-and-providers/sms/aws-sns",
+            "channels-and-providers/sms/nexmo",
+            "channels-and-providers/sms/plivo",
+            "channels-and-providers/sms/telnyx",
+            "channels-and-providers/sms/termii"
+          ]
+        },
+        {
+          "group": "Push Notification Providers",
+          "pages": [
+            "channels-and-providers/push/fcm",
+            "channels-and-providers/push/apns",
+            "channels-and-providers/push/expo-push",
+            "channels-and-providers/push/onesignal"
           ]
         },
         {
           "group": "Chat",
           "pages": [
-            "channels-and-providers/discord",
-            "channels-and-providers/slack",
-            "channels-and-providers/ms-teams",
-            "channels-and-providers/mailjet"
+            "channels-and-providers/chat/discord",
+            "channels-and-providers/chat/slack",
+            "channels-and-providers/chat/ms-teams"
           ]
         }
       ]
@@ -252,9 +290,7 @@
     {
       "group": "Security & Compliance",
       "pages": [
-        "security-and-compliance/dpa",
-        "security-and-compliance/terms",
-        "security-and-compliance/privacy"
+        "security-and-compliance/security"
       ]
     },
     {
@@ -391,6 +427,12 @@
       "group": "Execution Details",
       "pages": [
         "openapi-reference/execution-details/get-execution-details"
+      ]
+    },
+    {
+      "group": "Additional Resources",
+      "pages": [
+        "additional-resources/glossary"
       ]
     },
     {

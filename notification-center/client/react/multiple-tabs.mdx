@@ -1,0 +1,64 @@
+Novu allows to create a multi-tab experience for a notification center, in a way you can fetch the notifications feed using a filtered query.
+
+### Defining a stores[](https://docs.novu.co/notification-center/react/react-components#defining-a-stores)
+
+To create multiple stores you can use the prop `stores` on the `NovuProvider` component. Each store has `storeId` property that will be used to interact with information related to this store.
+
+```tsx
+<NovuProvider
+  stores={[
+    /**
+	storeId and feedIdentifier must be identical and should be copied from in-app editor feed
+  */
+    {
+      storeId: "product-updates",
+      query: { feedIdentifier: "product-updates" },
+    },
+    { storeId: "user-activity", query: { feedIdentifier: "user-activity" } },
+  ]}
+  subscriberId={"SUBSCRIBER_ID"}
+  applicationIdentifier={"APPLICATION_ID"}
+>
+  <PopoverWrapper />
+</NovuProvider>
+```
+
+Using the `query` object multiple fields can be passed for feed API:
+
+- `feedIdentifier` - Can be configured and created on the WEB UI
+- `seen` - Identifies if the notification has been seen or not
+
+After specifying the `stores` prop, you can use the `storeId` property to interact with the store.
+
+<aside>
+💡 TIP
+By specifying only a storeId, without a query, you could get all notifications.
+
+</aside>
+
+### Using `tabs` prop on the notification center[](https://docs.novu.co/notification-center/react/react-components#using-tabs-prop-on-the-notification-center)
+
+```tsx
+<PopoverNotificationCenter
+  tabs={[
+    // name can be any custom name
+    { name: "Product Updates", storeId: "product-updates" },
+    { name: "User Activity", storeId: "user-activity" },
+  ]}
+  colorScheme={colorScheme}
+  onNotificationClick={handlerOnNotificationClick}
+  onActionClick={handlerOnActionClick}
+>
+  {({ unseenCount }) => {
+    return (
+      <NotificationBell colorScheme={colorScheme} unseenCount={unseenCount} />
+    );
+  }}
+</PopoverNotificationCenter>
+```
+
+📌 Actual Screenshot of how this will look like will be added here
+
+## CodeSandBox Live Example
+
+[Link 🔗](https://codesandbox.io/s/tabs-in-in-app-xdk74x)

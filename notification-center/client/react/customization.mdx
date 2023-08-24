@@ -1,0 +1,859 @@
+## PopoverNotificationCenter Customization
+
+### Implementing custom bell icon[](https://docs.novu.co/notification-center/react/react-components#implementing-custom-bell-icon)
+
+It is common that you might have a special set of icons you use within your application and you will want to replace the default: `NotificationBell` coming from our library.
+
+For this you can easily switch the `NotificationBell` with your own bell. Just make sure you pass the `unseenCount` param inside and use it accordingly.
+
+```jsx
+<PopoverNotificationCenter>
+  {({ unseenCount }) => (
+    <CustomBell
+      unseenCount={unseenCount}
+      colorScheme="dark"
+      unseenBadgeBackgroundColor="#FFFFFF"
+      unseenBadgeColor="#FF0000"
+    />
+  )}
+</PopoverNotificationCenter>
+```
+
+### Dark mode support[](https://docs.novu.co/notification-center/react/react-components#dark-mode-support)
+
+To support dark mode in your application the notification center component can receive a `colorScheme` prop that can receive either `dark` or `light` mode.
+
+```tsx
+<PopoverNotificationCenter colorScheme={"dark" || "light"}>
+  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+</PopoverNotificationCenter>
+```
+
+### Popover positioning[](https://docs.novu.co/notification-center/react/react-components#popover-positioning)
+
+Use `position`  and `offset` prop to position the popover relative to the Bell icon
+
+```jsx
+<PopoverNotificationCenter position="left-start" offset={20}>
+  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+</PopoverNotificationCenter>
+```
+
+### Header, Footer and Empty state[](https://docs.novu.co/notification-center/react/react-components#popover-positioning)
+
+Use `header`  prop to customize the header of notification center
+
+```jsx
+const Header = () => {
+  return <span> My custom header </span>;
+};
+
+const Footer = () => {
+  return <span> My custom footer </span>;
+};
+
+const EmptyState = () => {
+  return <span> My custom empty state </span>;
+};
+
+<PopoverNotificationCenter
+  header={() => <Header />}
+  footer={() => <Footer />}
+  emptyState={<EmptyState />}
+>
+  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+</PopoverNotificationCenter>;
+```
+
+### Notification item
+
+Use the listItem prop to show custom notification items.
+
+```jsx
+<PopoverNotificationCenter
+  colorScheme={colorScheme}
+  onNotificationClick={handlerOnNotificationClick}
+  onActionClick={handlerOnActionClick}
+  listItem={(
+    notification,
+    handleActionButtonClick,
+    handleNotificationClick
+  ) => {
+    return (
+      <a
+        href="/"
+        onClick={(e) => {
+          e.preventDefault();
+          handleNotificationClick();
+        }}
+      >
+        {notification.content}
+      </a>
+    );
+  }}
+>
+  {({ unseenCount }) => {
+    return <NotificationBell unseenCount={unseenCount} />;
+  }}
+</PopoverNotificationCenter>
+```
+
+### Customize the UI language[](https://docs.novu.co/notification-center/react/react-components#customize-the-ui-language)
+
+If you want to use a language other than english for the UI, the `NovuProvider` component can accept an optional `i18n` prop.
+
+```tsx
+import {
+  NovuProvider,
+  PopoverNotificationCenter,
+  NotificationBell,
+} from "@novu/notification-center";
+
+function Header() {
+  return (
+    <NovuProvider
+      subscriberId={"USER_ID"}
+      applicationIdentifier={"APP_ID_FROM_ADMIN_PANEL"}
+      i18n="en"
+    >
+      <PopoverNotificationCenter>
+        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+      </PopoverNotificationCenter>
+    </NovuProvider>
+  );
+}
+```
+
+The `i18n` prop can accept 2 different types of values
+
+- 2 letter language string
+
+  ```tsx
+  i18n = "en";
+  ```
+
+  <Accordion title="Supported Language" >
+
+  - `af` (Afrikaans)
+  - `am` (Amharic)
+  - `ar` (Arabic)
+  - `as` (Assamese)
+  - `az` (Azerbaijani)
+  - `ba` (Bashkir)
+  - `be` (Belarusian)
+  - `bg` (Bulgarian)
+  - `bh` (Bihari)
+  - `bn` (Bengali)
+  - `bs` (Bosnian)
+  - `ca` (Catalan)
+  - `cs` (Czech)
+  - `da` (Danish)
+  - `de` (German)
+  - `el` (Greek)
+  - `en` (English)
+  - `es` (Spanish)
+  - `eu` (Basque)
+  - `fa` (Farsi)
+  - `fi` (Finnish)
+  - `fr` (French)
+  - `ga` (Irish)
+  - `gl` (Galician)
+  - `gu` (Gujarati)
+  - `he` (Hebrew)
+  - `hi` (Hindi)
+  - `hr` (Croatian)
+  - `hu` (Hungarian)
+  - `hy` (Armenian)
+  - `id` (Indonesian)
+  - `ig` (Igbo)
+  - `it` (Italian)
+  - `ja` (Japanese)
+  - `ka` (Kannada)
+  - `kk` (Kazakh)
+  - `km` (Khmer)
+  - `ko` (Korean)
+  - `ku` (Kurdish)
+  - `lo` (Lao)
+  - `lt` (Lithuanian)
+  - `lv` (Latvian)
+  - `ml` (Malayalam)
+  - `mr` (Marathi)
+  - `ms` (Malay)
+  - `nb` (Norwegian)
+  - `ne` (Nepali)
+  - `nl` (Dutch)
+  - `or` (Odia)
+  - `pa` (Punjabi)
+  - `pl` (Polish)
+  - `pt` (Portuguese)
+  - `ro` (Romanian)
+  - `ru` (Russian)
+  - `sa` (Sanskrit)
+  - `sd` (Sindhi)
+  - `si` (Sinhala)
+  - `sm` (Samoan)
+  - `sq` (Albanian)
+  - `sv` (Swedish)
+  - `sq` (Albanian)
+  - `ta` (Tamil)
+  - `te` (Telugu)
+  - `th` (Thai)
+  - `tl` (Tagalog)
+  - `tr` (Turkish)
+  - `uk` (Ukrainian)
+  - `ur` (Urdu)
+  - `uz` (Uzbek)
+  - `vi` (Vietnamese)
+  - `zh` (Chinese)
+  - `zu` (Zulu)
+
+  </Accordion>
+
+- Translation object
+
+  ```tsx
+  i18n={{
+    // Make sure that the following is a proper language code,
+    // since this is used by Intl.RelativeTimeFormat in order to calculate the relative time for each notification
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat
+    lang: "de",
+
+    translations: {
+      poweredBy: "von",
+      markAllAsRead: "Alles als gelesen markieren",
+      notifications: "Benachrichtigungen",
+      settings: "Einstellungen",
+    },
+  }}
+
+  ```
+
+<aside>
+💡 Novu uses *`en`* as the default value for i18n
+
+</aside>
+
+## Customization Using Hooks
+
+# useNotifications[](https://docs.novu.co/notification-center/react/api-reference/#usenotifications)
+
+The hook that allows you to get the notifications feed data and unseen notifications count. The notifications are fetched only when the `fetchingStrategy.fetchNotifications` is set to `true` [interface](https://docs.novu.co/notification-center/react/api-reference/api-reference#fetching-strategy-interface), check the `initialFetchingStrategy` prop on the [NovuProvider](https://docs.novu.co/notification-center/react/api-reference/api-reference#novuprovider) component.
+
+```tsx
+const result = useNotifications();
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface)
+
+```tsx
+interface INotificationsContext {
+  storeId: string;
+  storeQuery: IStoreQuery;
+  stores: IStore[];
+  unseenCount: number;
+  notifications: IMessage[];
+  hasNextPage: boolean;
+  isLoading: boolean;
+  isFetching: boolean;
+  isFetchingNextPage: boolean;
+  setStore: (storeId?: string) => void;
+  fetchNextPage: () => void;
+  refetch: () => void;
+  markNotificationAsRead: (messageId: string) => void;
+  markNotificationAsUnRead: (messageId: string) => void;
+  markNotificationAsSeen: (messageId: string) => void;
+  markFetchedNotificationsAsRead: () => void;
+  markFetchedNotificationsAsSeen: () => void;
+  markAllNotificationsAsRead: () => void;
+  markAllNotificationsAsSeen: () => void;
+  removeMessage: (messageId: string) => void;
+  removeAllMessages: (feedId?: string) => void;
+}
+```
+
+| Prop                           | Type                                                                                                       | Description                                                                                                                                        |
+| ------------------------------ | ---------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| storeId                        | string                                                                                                     | The active https://docs.novu.co/notification-center/react/api-reference/api-reference#novuprovider.                                                |
+| stores                         | object[]                                                                                                   | The array of https://docs.novu.co/notification-center/react/api-reference/api-reference#novuprovider passed to the NovuProvider.                   |
+| unseenCount                    | number                                                                                                     | The unseen notifications count.                                                                                                                    |
+| notifications                  | https://docs.novu.co/notification-center/react/api-reference/api-reference#the-notification-imessage-model | The feed notifications array.                                                                                                                      |
+| hasNextPage                    | boolean                                                                                                    | The flag indicating if the next notifications page to fetch is available.                                                                          |
+| isLoading                      | boolean                                                                                                    | The flag indicating if the initial notifications fetch request is on the fly.                                                                      |
+| isFetching                     | boolean                                                                                                    | The flag indicating if the notifications are fetching including initial fetch.                                                                     |
+| isFetchingNextPage             | boolean                                                                                                    | The flag indicating if the next notifications page request in on the fly.                                                                          |
+| setStore                       | function                                                                                                   | The function allowing to change the current notifications https://docs.novu.co/notification-center/react/api-reference/api-reference#novuprovider. |
+| fetchNextPage                  | function                                                                                                   | The function that fires the fetch request for the next notifications page.                                                                         |
+| refetch                        | function                                                                                                   | The function that allows to refetch all the notifications, when multiple page requests were made it will refetch all of them.                      |
+| markNotificationAsRead         | function                                                                                                   | The function takes the notification message id as argument and allows to mark that notification as read.                                           |
+| markNotificationAsUnRead       | function                                                                                                   | The function takes the notification message id as argument and allows to mark that notification as unread.                                         |
+| markNotificationAsSeen         | function                                                                                                   | The function takes the notification message id as argument and allows to mark that notification as seen.                                           |
+| markFetchedNotificationsAsRead | function                                                                                                   | The function allowing you to mark all the fetched notifications as read.                                                                           |
+| markFetchedNotificationsAsSeen | function                                                                                                   | The function allowing you to mark all the fetched notifications as seen.                                                                           |
+| markAllNotificationsAsRead     | function                                                                                                   | The function allowing you to mark all notifications as read.                                                                                       |
+| markAllNotificationsAsSeen     | function                                                                                                   | The function allowing you to mark notifications as seen.                                                                                           |
+| removeMessage                  | function                                                                                                   | The function allowing you to delete a notification.                                                                                                |
+| removeAllMessages              | function                                                                                                   | The function allowing you to delete all notifications or a specific feed's notifications at once.                                                  |
+
+You can find more information about the `IMessage` interface [here](https://docs.novu.co/notification-center/react/api-reference/api-reference#the-notification-imessage-model).
+
+# useFetchNotifications[](https://docs.novu.co/notification-center/react/api-reference/#usefetchnotifications)
+
+The hook is only responsible for fetching the notifications for a particular feed. It's a thin version of the `useNotifications` hook and is based on the `useInfiniteQuery` hook from the `react-query` library. The notifications are fetched only when the `fetchingStrategy.fetchNotifications` is set to `true` [reference](https://docs.novu.co/notification-center/react/api-reference/api-reference#fetching-strategy-interface).
+
+```
+const query: IStoreQuery = {};
+
+const onSuccess = (data: IPaginatedResponse<IMessage>) => {};
+
+const onError = (error: Error) => {};
+
+const {
+  data: notificationsPages,
+  hasNextPage,
+  isLoading,
+  isFetching,
+  isFetchingNextPage,
+  fetchNextPage,
+  refetch,
+} = useFetchNotifications({ query }, { onSuccess, onError });
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface)
+
+```
+interface IUseFetchNotificationsArgs {
+  onSuccess?: (data: IPaginatedResponse<IMessage>) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useInfiniteQuery hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-1)
+
+```
+interface InfiniteData<TData> {
+  pages: TData[];
+  pageParams: unknown[];
+}
+
+interface IUseUnseenCountResult {
+  data: InfiniteData<IPaginatedResponse<IMessage>>;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useInfiniteQuery hook result
+}
+
+```
+
+# useUnseenCount[](https://docs.novu.co/notification-center/react/api-reference/#useunseencount)
+
+The hook that allows you to get the unseen notifications count. Under the hood it uses the socket connection to get the unseen count updates.
+
+```
+interface ICountData {
+  count: number;
+}
+
+const onSuccess = ({ count }: ICountData) => {};
+
+const onError = (error: Error) => {};
+
+const { data, isLoading, isError, error } = useUnseenCount({ onSuccess, onError });
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-1)
+
+```
+interface IUseUnseenCountArgs {
+  onSuccess?: (data: ICountData) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useQuery hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-2)
+
+```
+interface IUseUnseenCountResult {
+  data?: ICountData;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useQuery hook result
+}
+
+```
+
+# useFeedUnseenCount[](https://docs.novu.co/notification-center/react/api-reference/#usefeedunseencount)
+
+The hook that fetches the unseen count for a particular feed.
+
+```
+interface ICountData {
+  count: number;
+}
+
+const query: IStoreQuery = {};
+
+const onSuccess = (data: ICountData) => {};
+
+const onError = (error: Error) => {};
+
+const result = useFeedUnseenCount({ query }, { onSuccess, onError });
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-2)
+
+```
+interface IUseFeedUnseenCountArgs {
+  onSuccess?: (data: ICountData) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useQuery hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-3)
+
+```
+interface IUseFeedUnseenCountResult {
+  data?: ICountData;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useQuery hook result
+}
+
+```
+
+# useFetchOrganization[](https://docs.novu.co/notification-center/react/api-reference/#usefetchorganization)
+
+The hook that fetches the organization information.
+
+```
+interface IOrganizationEntity {
+  _id: string;
+  name: string;
+  members: {
+    _id: string;
+    _userId?: string;
+    user?: Pick<IUserEntity, 'firstName' | '_id' | 'lastName' | 'email'>;
+    roles: MemberRoleEnum[];
+    invite?: IMemberInvite;
+    memberStatus: MemberStatusEnum;
+  }[];
+  branding?: {
+    color: string;
+    logo: string;
+    fontColor: string;
+    fontFamily: string;
+    contentBackground: string;
+    direction: 'ltr' | 'rtl';
+  };
+}
+
+const onSuccess = (data: IOrganizationEntity) => {};
+
+const onError = (error: Error) => {};
+
+const result = useFetchOrganization({ onSuccess, onError });
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-3)
+
+```
+interface IUseFetchOrganizationArgs {
+  onSuccess?: (data: IOrganizationEntity) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useQuery hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-4)
+
+```
+interface IUseFetchOrganizationResult {
+  data?: IOrganizationEntity;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useQuery hook result
+}
+
+```
+
+# useFetchUserPreferences[](https://docs.novu.co/notification-center/react/api-reference/#usefetchuserpreferences)
+
+The hook that fetches the user preferences.
+
+```
+const onSuccess = (data: IUserPreferenceSettings[]) => {};
+
+const onError = (error: Error) => {};
+
+const result = useFetchUserPreferences({ onSuccess, onError });
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-4)
+
+```
+interface IUseFetchUserPreferencesArgs {
+  onSuccess?: (data: IUserPreferenceSettings[]) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useQuery hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-5)
+
+```
+interface IUseFetchUserPreferencesResult {
+  data?: IUserPreferenceSettings[];
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useQuery hook result
+}
+
+```
+
+# useUpdateUserPreferences[](https://docs.novu.co/notification-center/react/api-reference/#useupdateuserpreferences)
+
+The hook that allows you to update the user preferences.
+
+```
+interface IPreferenceChannels {
+  email?: boolean;
+  sms?: boolean;
+  in_app?: boolean;
+  chat?: boolean;
+  push?: boolean;
+}
+
+interface IUserPreferenceSettings {
+  template: { _id: string; name: string; critical: boolean };
+  preference: { enabled: boolean; channels: IPreferenceChannels };
+}
+
+const onSuccess = (data: IUserPreferenceSettings) => {};
+
+const onError = (error: Error) => {};
+
+const { updateUserPreferences, isLoading, isError, error } = useUpdateUserPreferences({
+  onSuccess,
+  onError,
+});
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-5)
+
+```
+interface IUseUnseenCountArgs {
+  onSuccess?: (data: IUserPreferenceSettings) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-6)
+
+```
+interface IUpdateUserPreferencesVariables {
+  templateId: string;
+  channelType: string;
+  checked: boolean;
+}
+
+interface IUseUnseenCountResult {
+  updateUserPreferences: (variables: IUpdateUserPreferencesVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+
+```
+
+# useUpdateAction[](https://docs.novu.co/notification-center/react/api-reference/#useupdateaction)
+
+The hook that allows you to update the notification action button status.
+
+```
+const onSuccess = (data: IMessage) => {};
+
+const onError = (error: Error) => {};
+
+const { updateAction, isLoading, isError, error } = useUpdateAction({ onSuccess, onError });
+
+```
+
+You can find more information about the `IMessage` interface [here](https://docs.novu.co/notification-center/react/api-reference/api-reference#the-notification-imessage-model).
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-6)
+
+```
+interface IUseUpdateActionArgs {
+  onSuccess?: (data: IMessage) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-7)
+
+```
+interface IUpdateActionVariables {
+  messageId: string;
+  actionButtonType: ButtonTypeEnum;
+  status: MessageActionStatusEnum;
+  payload?: Record<string, unknown>;
+}
+
+interface IUseUnseenCountResult {
+  updateAction: (variables: IUpdateActionVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+
+```
+
+# useMarkNotificationsAs[](https://docs.novu.co/notification-center/react/api-reference/#usemarknotificationsas)
+
+The hook that marks the notifications as read or seen. You can find more information about the `IMessage` interface [here](https://docs.novu.co/notification-center/react/api-reference/api-reference#the-notification-imessage-model).
+
+```
+const onSuccess = (data: IMessage[]) => {};
+
+const onError = (error: Error) => {};
+
+const { markNotificationsAs, isLoading, isError, error } = useMarkNotificationsAs({
+  onSuccess,
+  onError,
+});
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-7)
+
+```
+interface IUseMarkNotificationsAsArgs {
+  onSuccess?: (data: IMessage[]) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-8)
+
+```
+interface IMarkNotificationsAsVariables {
+  messageId: IMessageId;
+  seen: boolean;
+  read: boolean;
+}
+
+interface IUseMarkNotificationsAsResult {
+  markNotificationsAs: (args: IMarkNotificationsAsVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+
+```
+
+# useRemoveNotification[](https://docs.novu.co/notification-center/react/api-reference/#useremovenotification)
+
+The hook that allows you to remove a message. It will delete the message for the subscriber and will refetch the feed.
+
+```
+const onSuccess = (data: IMessage) => {};
+
+const onError = (error: Error) => {};
+
+const { removeNotification, isLoading, isError, error } = useRemoveNotification({
+  onSuccess,
+  onError,
+});
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-8)
+
+```
+interface IUseRemoveNotificationArgs {
+  onSuccess?: (data: IMessage) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-9)
+
+```
+interface IRemoveNotificationVariables {
+  messageId: IMessageId;
+}
+
+interface IUseRemoveNotificationResult {
+  removeNotification: (args: IRemoveNotificationVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+
+```
+
+# useRemoveAllNotifications[](https://docs.novu.co/notification-center/react/api-reference/#useremoveallnotifications)
+
+The hook that allows you to remove all messages of all feeds. feedId can be used as param to delete only specific feed's messages.
+
+```
+const onSuccess = (data: IMessage) => {};
+
+const onError = (error: Error) => {};
+
+const { removeAllNotifications, isLoading, isError, error } = useRemoveAllNotifications({
+  onSuccess,
+  onError,
+});
+
+```
+
+### The hook args interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-args-interface-9)
+
+```
+interface IUseRemoveAllNotificationsArgs {
+  onSuccess?: (data: IMessage) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-10)
+
+```
+interface IRemoveAllNotificationsVariables {
+  feedId?: string;
+}
+
+interface IUseRemoveAllNotificationsResult {
+  removeAllNotifications: (args: IRemoveAllNotificationsVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+
+```
+
+# useSocket[](https://docs.novu.co/notification-center/react/api-reference/#usesocket)
+
+The hook that allows you to get the reference to socket object.
+
+```
+const { socket } = useSocket();
+
+```
+
+### The socket interface[](https://docs.novu.co/notification-center/react/api-reference/#the-socket-interface)
+
+```
+interface ISocket {
+  on: (eventName: string, callback: (data: any) => void) => void;
+  off: (eventName: string) => void;
+}
+
+```
+
+| Event                 | Description                                              |
+| --------------------- | -------------------------------------------------------- |
+| notification_received | Triggered when a new notification is received            |
+| unseen_count_changed  | Triggered when the count of unseen notifications changes |
+| unread_count_changed  | Triggered when the count of unread notifications changes |
+
+# useNovuContext[](https://docs.novu.co/notification-center/react/api-reference/#usenovucontext)
+
+The hook that allows you to get the reference to the `NovuProvider` context.
+
+```
+const result = useNovuContext();
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-11)
+
+```
+interface INovuProviderContext {
+  backendUrl?: string;
+  subscriberId?: string;
+  applicationIdentifier?: string;
+  isSessionInitialized: boolean;
+  socketUrl?: string;
+  subscriberHash: string;
+  apiService: ApiService;
+  socket?: ISocket;
+  fetchingStrategy: IFetchingStrategy;
+  setFetchingStrategy: (strategy: Partial<IFetchingStrategy>) => void;
+  onLoad: (data: { organization: IOrganizationEntity }) => void;
+}
+
+```
+
+# useNovuTheme[](https://docs.novu.co/notification-center/react/api-reference/#usenovutheme)
+
+The hook that allows you to get the reference to the [theme](https://docs.novu.co/notification-center/react/api-reference/api-reference#the-theme-interface) object.
+
+```
+const result = useNovuTheme();
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-12)
+
+```
+interface INovuThemeProviderContext {
+  theme: INovuTheme;
+  common: ICommonTheme;
+  colorScheme: ColorScheme;
+}
+
+```
+
+# useTranslations[](https://docs.novu.co/notification-center/react/api-reference/#usetranslations)
+
+The hook that allows you to get the reference to the [translations](https://docs.novu.co/notification-center/react/api-reference/api-reference#i18nlanguage-interface) object.
+
+```
+const result = useTranslations();
+
+```
+
+### The hook return interface[](https://docs.novu.co/notification-center/react/api-reference/#the-hook-return-interface-13)
+
+```typescript
+interface ITranslations {
+  lang: string;
+  t: (key: string) => string;
+  dateFnsLocale: () => Locale;
+}
+```
