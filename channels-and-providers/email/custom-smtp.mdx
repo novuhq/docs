@@ -1,66 +1,38 @@
 ---
 title: 'Custom SMTP'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+description: 'Learn how to use the Custom SMTP provider to send email notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use a Custom SMTP provider like [Nodemailer](https://nodemailer.com/about/) to send transactional emails through your custom SMTP server to your customers using the Novu Platform with a single API.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Custom SMTP provider in the email channel, you will need to have your personal SMTP server configured and add `host`, `port`, `user`, and `password` to the Custom SMTP integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+You can also provide value **`true`** for the `secure` field if you want the connection to be secure, and if not, leave it empty.
 
-<CodeGroup>
+### DKIM (DomainKeys Identified Mail)
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+DKIM options can be used in order to sign messages sent using Custom SMTP with DKIM keys.
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+Those options are:
 
-</CodeGroup>
+- `DKIM Domain`
+- `DKIM Private Key`
+- `DKIM Key Selector`
 
-## Folders
+# Creating a Custom SMTP integration with Novu
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
-
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate Custom SMTP and click on the **Connect** button.
+- Enter your SMTP credentials
+    - `host`
+    - `port`
+    - `username`
+    - `password`
+    - `secure` (on demand)
+    - And `DKIM` options if you want to sign messages with *DKIM*
+- Fill in the `From email address` field using the authenticated email from the previous step.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
+- You should now be able to send notifications using Custom SMTP in Novu.

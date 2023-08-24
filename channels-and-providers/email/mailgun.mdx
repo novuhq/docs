@@ -1,66 +1,42 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Mailgun'
+description: 'Learn how to use the Mailgun provider to send email notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [Mailgun](https://mailgun.com/) provider to send transactional emails to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Mailgun provider in the email channel, you will need to create a Mailgun account and add your API key and domain name to the Mailgun integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Generating an API Key
 
-<CodeGroup>
+To generate a new API key in Mailgun, you can follow these steps:
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+- [Sign up](https://signup.mailgun.com/new/signup) or [Log in](https://login.mailgun.com/login/) to your Mailgun account.
+- Click on the **Profile** section in the top right corner of the screen, and then click "API Keys" from the drop-down menu.
+- On the [API Keys](https://app.mailgun.com/app/account/security/api_keys) page, copy the generated **Private API Key**
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+# Adding a new domain name
 
-</CodeGroup>
+Mailgun recommends that you add a subdomain as a domain name. To do so:
 
-## Folders
+- Visit the page to add a [domain name](https://app.mailgun.com/app/sending/domains/new).
+    - During this process, you will need to choose a region for the domain name which is between `US` and `EU`. The default is `US`.
+- Follow the [instructions](https://documentation.mailgun.com/en/latest/user_manual.html#verifying-your-domain-1) to verify the domain name.
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+# Creating a Mailgun integration with Novu
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate Mailgun and click on the **Connect** button.
+- Enter your Mailgun API Key.
+- Enter your Base URL.
+    - For domains created in the EU region, the base URL is: `https://api.eu.mailgun.net/`
+    - Otherwise, leave the base URL blank.
+- Fill in the `Username`.
+- Fill in the `Domain name` registered on Mailgun.
+- Fill in the `From email address` field using the authenticated email from the previous step.
+- Fill in the `Sender's name`.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
+- You should now be able to send notifications using Mailgun in Novu.

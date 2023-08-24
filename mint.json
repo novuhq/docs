@@ -197,11 +197,36 @@
       "pages": [
         "channels-and-providers/introduction",
         "channels-and-providers/integration-store",
-        "channels-and-providers/in-app",
+        {
+          "group": "In-app",
+          "pages":[
+            {
+              "group": "React",
+              "pages":[
+                "channels-and-providers/in-app/react/react",
+                "channels-and-providers/in-app/react/react-ref"
+              ]
+            },
+            "channels-and-providers/in-app/angular",
+            "channels-and-providers/in-app/vue",
+            "channels-and-providers/in-app/web-component",
+            "channels-and-providers/in-app/iframe",
+            "channels-and-providers/in-app/custom-styling",
+            {
+              "group": "Headless",
+              "pages":[
+                "channels-and-providers/in-app/headless/headless",
+                "channels-and-providers/in-app/headless/headless-ref"
+              ]
+            },
+            "channels-and-providers/in-app/faq"
+          ]
+        },
         {
           "group": "Email",
           "pages": [
             "channels-and-providers/email/infobip",
+            "channels-and-providers/email/amazonses",
             "channels-and-providers/email/mailersend",
             "channels-and-providers/email/mailgun",
             "channels-and-providers/email/mailjet",
@@ -219,19 +244,25 @@
         {
           "group": "SMS",
           "pages": [
-            "channels-and-providers/sms/aws-sns",
-            "channels-and-providers/sms/infobip",
+            "channels-and-providers/sms/twilio",
+            "channels-and-providers/sms/sms77",
             "channels-and-providers/sms/africas-talking",
+            "channels-and-providers/sms/infobip",
+            "channels-and-providers/sms/sendchamp",
+            "channels-and-providers/sms/aws-sns",
             "channels-and-providers/sms/nexmo",
             "channels-and-providers/sms/plivo",
-            "channels-and-providers/sms/resend",
-            "channels-and-providers/sms/outlook365",
-            "channels-and-providers/sms/postmark",
-            "channels-and-providers/sms/resend",
-            "channels-and-providers/sms/sendgrid",
-            "channels-and-providers/sms/sendinblue",
-            "channels-and-providers/sms/sparkpost",
-            "channels-and-providers/sms/custom-smtp"
+            "channels-and-providers/sms/telnyx",
+            "channels-and-providers/sms/termii"
+          ]
+        },
+        {
+          "group": "Push Notification Providers",
+          "pages": [
+            "channels-and-providers/push/fcm",
+            "channels-and-providers/push/apns",
+            "channels-and-providers/push/expo-push",
+            "channels-and-providers/push/onesignal"
           ]
         },
         {
@@ -239,8 +270,7 @@
           "pages": [
             "channels-and-providers/chat/discord",
             "channels-and-providers/chat/slack",
-            "channels-and-providers/chat/ms-teams",
-            "channels-and-providers/chat/mailjet"
+            "channels-and-providers/chat/ms-teams"
           ]
         }
       ]
