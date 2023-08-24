@@ -1,66 +1,42 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'MS Teams'
+description: 'Learn about how to use MS Teams provider for chat notifications'
 ---
 
-The navigation menu is the list of links on every website.
+MS Teams does not need any API Key or client ID to push messages in it. All it needs is the webhook URL of the channel you want to send messages to. That itself acts as the credential.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+Similar to **[Discord](https://www.notion.so/Additional-Resources-65ef4aca5d0f4115947030c2f5705101?pvs=21)**, the credential for this provider needs to be stored in the subscriber entity.
 
-## Navigation syntax
+## ****Getting an MS Teams webhook URL****
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+In order to get a webhook url linked to a specific channel, you should:
 
-<CodeGroup>
+Click on the three dots button next to the channel name and select the 'Connectors' option.
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
+Search for the 'Incoming Webhook' connector and click on 'Configure'.
+
+Set a name for the connector and click on the 'Create' button at the bottom.
+
+A new URL will be generated (only for this channel). This is the credential URL you need.
+
+## ****Connecting our subscribers to MS Teams****
+
+The URL generated above will be the target channel of a subscriber that you want to integrate with. To make this connection, you have to:
+
+1. Copy the URL that you generated above
+2. Update the subscriber credentials with this URL using the MS Teams provider id. You can do this step by using the `@novu/node` library, as shown below:
+
+```jsx
+import { Novu, ChatProviderIdEnum } from '@novu/node';
+
+const novu = new Novu(process.env.NOVU_API_KEY);
+
+await novu.subscribers.setCredentials('SUBSCRIBER_ID', ChatProviderIdEnum.MsTeams, {
+  webhookUrl: 'https://yourcompany.webhook.office.com/webhook...',
+});
 ```
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
-
-</CodeGroup>
-
-## Folders
-
-Simply put your MDX files in folders and update the paths in `mint.json`.
-
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
+- `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum to specify the provider.
+- The third parameter is the credentials object, in this case, we use the `webhookUrl` property to specify the MS Teams channel webhook URL or by calling the `Update Subscriber Credentials` endpoint on Novu API. Check endpoint details [here](https://docs.novu.co/api/update-subscriber-credentials/).
+1. You are all set up and ready to send your first chat message via our `@novu/node` package or directly using the REST API.

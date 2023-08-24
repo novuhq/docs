@@ -1,66 +1,37 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Mandrill'
+description: 'Learn how to use the Mandrill provider to send email notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [Mandrill by Mailchimp](https://mandrillapp.com/) provider to send transactional emails to your customers using the Novu Platform with a single API.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Mandrill provider in the email channel, you will need to create a Mandrill account and add your API key to the Mandrill integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Generating an API Key
 
-<CodeGroup>
+To generate a new API key in Mandrill, you can follow these steps:
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+- [Sign up](https://login.mailchimp.com/signup/) or [Log in](https://login.mailchimp.com/) to your Mandrill account.
+- Navigate to the [Settings](https://mandrillapp.com/settings) of your account and look for the API Keys section at the bottom of the settings page.
+- Click on the **+ Add API Key** button to create an API key. Copy the generated key immediately and store it in a secure location. You won’t be able to see or copy the key once you finish generating it.
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+# Adding a sending domain
 
-</CodeGroup>
+To get started, you’ll need to add the domain that you want to send messages from.
 
-## Folders
+- Navigate to the [Settings page](https://mandrillapp.com/settings/sending-domains) and choose Domains
+- Type a new domain in the domain input and click Add
+- Follow the instructions to [verify ownership](https://mailchimp.com/developer/transactional/docs/authentication-delivery/#authentication) of your sending domain and [update your DNS records](https://mailchimp.com/developer/transactional/docs/authentication-delivery/#configure-your-dns).
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+# Creating the Mandrill integration with Novu
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate Mandrill and click on the **Connect** button.
+- Enter your Mandrill API key.
+- Fill in the `From email address` field using the authenticated email from the previous step.
+- Fill in the `Sender's name`.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
+- You should now be able to send notifications using Mandrill in Novu.

@@ -1,66 +1,44 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Sparkpost'
+description: 'Learn how to use the Sparkpost provider to send email notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [SparkPost](https://messagebird.com/email/cloud-sending) provider to send transactional emails to your customers using the Novu Platform with a single API.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the SparkPost provider in the email channel, you will need to create a SparkPost account and add your API key to the SparkPost integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Generating an API Key
 
-<CodeGroup>
+To generate a new API key in SparkPost, you can follow these steps:
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+- [Sign up](https://app.sparkpost.com/join) or [Log in](https://app.sparkpost.com/auth) to your SparkPost account.
+    
+    > During sign up, note that SparkPost is available in multiple regions. "SparkPost" refers to the SparkPost service hosted in North America. "SparkPost EU" refers to the SparkPost service hosted in Western Europe. An account created with SparkPost cannot be used with SparkPost EU, and vice-versa. You may use accounts in both regions.
+    > 
+    > 
+    > ~ *[SparkPost Documentation](https://support.sparkpost.com/docs/getting-started/getting-started-sparkpost/)*
+    > 
+- Click on the **Configuration** link on the navbar, and then click the "API Keys" link that pops up from the available options.
+- On the [API Keys](https://app.sparkpost.com/account/api-keys) page, click the **Create API Key** button.
+- Give the API key a name and click on the **Create API key** button.
+- Copy the generated API Key.
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+# Authenticating your Sender Identity
 
-</CodeGroup>
+Before you can send emails on a large scale, you will need to authenticate your Sender Identity.
 
-## Folders
+SparkPost allows you to authenticate your sender identity using [Sending Domains](https://app.sparkpost.com/domains/list/sending).
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+# Creating a SparkPost integration with Novu
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate SparkPost and click on the **Connect** button.
+- Enter your SparkPost API Key.
+- Fill in the `From email address` field using the authenticated email from the previous step.
+- Fill in the `Sender's name`.
+- Toggle the `eu` switch to true if you're in Western Europe
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
+- You should now be able to send notifications using SparkPost in Novu.
