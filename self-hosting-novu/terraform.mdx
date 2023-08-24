@@ -1,66 +1,31 @@
 ---
 title: 'Deploy with Terraform'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
+description: ''
 icon: 'deploydog'
 ---
 
-The navigation menu is the list of links on every website.
+Terraform is an infrastructure as code tool that lets you build, change, and version infrastructure safely and efficiently. This includes low-level components like compute instances, storage, and networking; and high-level components like DNS entries and SaaS features.
+Learn more about [Terraform](https://developer.hashicorp.com/terraform?product_intent=terraform).
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
 
-## Navigation syntax
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# 🏗️ This page is still in creation process
 
-<CodeGroup>
+We believe in the power of collaboration. If you have insights to share or would like to contribute to the development of this page, we welcome your input. To get involved, follow these steps:
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+**Open an Issue:** If you've identified an area for improvement or have a suggestion, start by opening an issue in our repository. This allows us to track and discuss the proposed changes.
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+**Create a Pull Request (PR):** Once you're ready to contribute, fork our repository and create a branch. Implement your changes within this branch and submit a pull request to our **Staging branch**.
 
-</CodeGroup>
+By following these steps, you're helping us enhance the quality and depth of our resources. We appreciate your effort in making this page an even more valuable asset.
 
-## Folders
+Your contributions drive progress. Let's build together!
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+<Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations, please don't hesitate to [contact our team](https://calendly.com/novuhq/novu-meeting?utm_source=novuDocs&utm_page=deploy-with-terraform). 
+They can provide assistance regarding enterprise edition licenses or cloud-prem deployment to meet your specific needs.</Note>
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
 
-<Warning>
 
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
 
-</Warning>
 
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
 
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
