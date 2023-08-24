@@ -20,7 +20,7 @@ A digest notification is a notification that consolidates information from sever
 
 ### How does Digest Notification Work?
 
-Novu has a built-in digest engine that collects multiple trigger events, aggregates them into a single message and delivers it to the subscriber. You can use the digest engine by adding a ‘digest node’ to your workflow in the workflow editor in the [Novu dashboard](https://web.novu.co/workflows).
+Novu has a built-in digest engine that collects multiple trigger events, aggregates them into a single message and delivers it to the subscriber. You can use the digest engine by adding a `digest node` to your workflow in the workflow editor in the [Novu dashboard](https://web.novu.co/workflows).
 
 Let’s see it in action now!
 
@@ -36,22 +36,23 @@ To get started with this, you need the following:
 Once, you have these, follow the steps below:
 
 1. Head over to the Novu Dashboard.
-2. Click “Workflows” on the left sidebar of your Novu dashboard.
-3. Click the “Create Workflow” button on the top right:
+2. Click `Workflows` on the left sidebar of your Novu dashboard.
+3. Click the `Create Workflow` button on the top right:
 <Frame caption="Creating workflows is simple"><img src="/images/create-workflow.png" /> </Frame>
-Once you click the ‘create workflow’ button, you’ll see a dropdown. Select ‘blank workflow’ from the dropdown:
-<Frame caption="Select 'blank workflow' from the dropdown"><img src="/images/blank-workflow.png" /> </Frame>
+Once you click the `create workflow` button, you’ll see a dropdown. Select `blank workflow` from the dropdown:
+<Frame caption="Select `blank workflow` from the dropdown"><img src="/images/blank-workflow.png" /> </Frame>
 You’ll now be taken to the workflow editor:
 <Frame caption="Workflow editor allows you to create and edit workflows"><img src="/images/workflow-editor.png" /> </Frame>
-Once here, you can add the channels you want to use for sending notifications and configure them. For this guide, we’ll use the ‘In-App’ channel. You’ll also see the ‘Digest’ action on the right sidebar.
+Once here, you can add the channels you want to use for sending notifications and configure them. For this guide, we’ll use the `In-App` channel. You’ll also see the `Digest` action on the right sidebar.
 
-Note: Each node that is added below the digest node will only be triggered after the specified time interval
-
-For example, in our case, say we want the In-App notification to be sent after every 6 hours. Next, add the 'digest' action below the 'trigger node', and add the 'in-app' channel node below the 'digest' node as shown below:
+<Note>
+Each node that is added below the digest node will only be triggered after the specified time interval
+</Note>
+For example, in our case, say we want the In-App notification to be sent after every 6 hours. Next, add the `digest` action below the `trigger node`, and add the `in-app` channel node below the `digest` node as shown below:
 <Frame caption="Adding digest node"><img src="/images/adding-digest.png" /> </Frame>
-The 'digest' node allows you to set a specific time interval for when notifications should be sent:
+The `digest` node allows you to set a specific time interval for when notifications should be sent:
 <Frame caption="Manipulating values in the digest node"><img src="/images/digest-node.png" /> </Frame>
-Once, you’ve configured it. Go ahead and configure the ‘in-app’ channel as per your need:
+Once, you’ve configured it. Go ahead and configure the `in-app` channel as per your need:
 <Frame caption="You can configure the in-app node as per your requirements"><img src="/images/in-app-node.png" /> </Frame>
 Here’s a brief explanation of all the options:
 
@@ -64,8 +65,8 @@ Here’s a brief explanation of all the options:
 
 In our case, we’re going to use the following:
 <Frame caption="Values we're gonna use"><img src="/images/values-in-app.png" /> </Frame>
-Once you’re done configuring this to your liking, click on the ‘update’ button on the top right.
-It’ll automatically create a trigger code that you can use in your app. To get it, click on the ‘get snippet’ button on the top right and copy it:
+Once you’re done configuring this to your liking, click on the `update` button on the top right.
+It’ll automatically create a trigger code that you can use in your app. To get it, click on the `get snippet` button on the top right and copy it:
 <Frame caption="Getting trigger code"><img src="/images/getting-snippet.png" /> </Frame>
 Now, let’s see how to add Novu to our app!
 
@@ -106,13 +107,13 @@ export const getDigest = async (req, res) => {
 
 ```
 
-To make it modular, we’ll keep the trigger code in a separate function in a separate file (’novu.js’, in our case) and the trigger function is getting called in the controller function above by the name ‘getDigest’.
+To make it modular, we’ll keep the trigger code in a separate function in a separate file (`novu.js`, in our case) and the trigger function is getting called in the controller function above by the name `getDigest`.
 
-If you’re following the guide, you’ve already copied the trigger function. But before we can add it to our app, we need one key thing - Subscribers.
+If you’re following the guide, you’ve already copied the trigger function. But before we can add it to our app, we need one key thing - **Subscribers.**
 
 Subscribers are entities to which the notifications are sent. You can see a list of subscribers in the [Novu dashboard](https://web.novu.co/subscribers) as well.
 
-In our app, we’ll create a subscriber in Node.js as we’re writing our backend in Node.js, but we also have backend SDKs (Node.js, PHP, .NET, Go, Ruby, Python and Kotlin) to choose from. The recommended way to create a subscriber in NodeJS is as follows:
+In our app, we’ll create a subscriber in Node.js as we’re writing our backend in Node.js, but we also have backend [SDKs](/sdks/introduction) (Node.js, PHP, .NET, Go, Ruby, Python and Kotlin) to choose from. The recommended way to create a subscriber in NodeJS is as follows:
 
 ```jsx
 await novu.subscribers.identify('aa234u787', {
@@ -121,7 +122,7 @@ await novu.subscribers.identify('aa234u787', {
 
 ```
 
-Here, we’re creating a subscriber with the `subscriberID` of `aa234u787.` You can read more about subscribers [here](https://docs.novu.co/platform/subscribers/).
+Here, we’re creating a subscriber with the `subscriberID` of `aa234u787.` You can read more about subscribers [here](/manage-subscribers/subscribers).
 
 Back in our app, we can now add the trigger function:
 
