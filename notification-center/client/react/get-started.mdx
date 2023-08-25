@@ -39,7 +39,7 @@ Go to this react app browser tab, there will be a bell icon. On clicking that be
 
 ## Use your own backend and socket URL
 
-By default, Novu's hosted services of API and socket are used. Should you want, you could override them and configure your own.
+By default, Novu's hosted services of API and socket are used. If you want, you can override them and configure your own.
 
 ```tsx
 import {
@@ -64,7 +64,7 @@ function Header() {
 }
 ```
 
-## HMAC Encryption[](https://docs.novu.co/notification-center/react/react-components#hmac-encryption)
+## HMAC Encryption
 
 When Novu's user adds the notification center to their application they are required to pass a `subscriberId` which identifies the user's end-customer, and the application Identifier which is acted as a public key to communicate with the notification feed API.
 
@@ -72,7 +72,7 @@ A malicious actor can access the user feed by accessing the API and passing anot
 
 HMAC encryption will make sure that a `subscriberId` is encrypted using the secret API key, and those will prevent malicious actors from impersonating users.
 
-### Enabling HMAC Encryption[](https://docs.novu.co/notification-center/react/react-components#enabling-hmac-encryption)
+### Enabling HMAC Encryption
 
 In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel in-app settings page and enable HMAC encryption for your environment.
 
@@ -100,7 +100,7 @@ const hmacHash = createHmac("sha256", process.env.NOVU_API_KEY)
 
 ### onNotificationClick
 
-This function is invoked when the user clicks anywhere on the notification except for CTA actions
+This function is invoked when the user clicks anywhere on the notification except for CTA actions.
 
 ```jsx
 import {
@@ -214,6 +214,12 @@ function CustomNotificationCenter() {
 }
 ```
 
-## CodeSand Box Live Example
+There are three sockets events available:
 
-[Link 🔗](https://codesandbox.io/s/kind-nova-xv6s9g)
+1. `unseen_count_changed`
+2. `unread_count_changed`
+3. `notification_received`
+
+## Example
+
+[CodeSandBox Demo 🔗](https://codesandbox.io/s/kind-nova-xv6s9g)
