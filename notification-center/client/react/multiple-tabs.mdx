@@ -1,6 +1,11 @@
+---
+title: "Configuring Multiple Tabs"
+sidebarTitle: "Multi Tabs"
+---
+
 Novu allows to create a multi-tab experience for a notification center, in a way you can fetch the notifications feed using a filtered query.
 
-### Defining a stores[](https://docs.novu.co/notification-center/react/react-components#defining-a-stores)
+### Defining stores
 
 To create multiple stores you can use the prop `stores` on the `NovuProvider` component. Each store has `storeId` property that will be used to interact with information related to this store.
 
@@ -57,8 +62,10 @@ By specifying only a storeId, without a query, you could get all notifications.
 </PopoverNotificationCenter>
 ```
 
-📌 Actual Screenshot of how this will look like will be added here
+<Frame caption="Multiple Tabs in notification center example">
+  <img src="/images/notification-center/client/react/multiple-tabs/multi-tabs.png" />
+</Frame>
 
-## CodeSandBox Live Example
+## Example
 
-[Link 🔗](https://codesandbox.io/s/tabs-in-in-app-xdk74x)
+[CodeSandBox Demo 🔗](https://codesandbox.io/s/tabs-in-in-app-xdk74x)
