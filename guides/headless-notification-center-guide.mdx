@@ -1,18 +1,18 @@
 ---
-title: 'How to use Headless notification center'
+title: 'How to use Headless Notification Center'
 description: 'Use the headless version of the notification center'
 icon: 'circle-3'
 ---
 
 ## Introduction
-In this guide, you'll learn about how to use the headless version of our notification center. The headless version is really useful for scenarios in which a lightweight solution for integrating notification functionality into a web app that is completely unstyled (so that you can style it as per your wish) is required.
+In this guide, you'll learn about how to use the headless version of our notification center. The headless version is useful for scenarios in which a lightweight solution for integrating notification functionality into a web app that is completely unstyled (so that you can style it as per your wish) is required.
 <br/>
 You can find the entire code ( front-end as well as back-end ) of this app [here.](https://github.com/novuhq/novu-headless-demo-app)
 
-## What is headless notification center
+## What is the headless notification center
 The headless version of Novu's notification library package provides users with a lightweight solution for integrating notification functionality into their web applications. With just the essential API methods, users can easily incorporate our notification system into any framework or vanilla JavaScript project, without being constrained by our default UI or dependencies.
 
-This gives the users of headless notification center greater flexibility and control over what the end-users of a product see and experience.
+This gives the users of the headless notification center greater flexibility and control over what the end-users of a product see and experience.
 
 ## How to use the headless notification center
 To get started with this you need:
@@ -20,7 +20,7 @@ To get started with this you need:
 2. A working dev environment in the framework of your choice (or vanilla JS). Here, we'll use a React environment
 
 ## Workflow set up in Novu
-Once, you have signed-up for Novu and have a dev environment, follow the steps below:
+Once, you have signed up for Novu and have a dev environment, follow the steps below:
 
 1. Head over to the Novu Dashboard.
 2. Click `Workflows` on the left sidebar of your Novu dashboard.
@@ -32,7 +32,7 @@ You’ll now be taken to the workflow editor:
 <Frame caption="Workflow editor allows you to create and edit workflows"><img src="/images/workflow-editor.png" /> </Frame>
 Once here, you can add the channels you want to use for sending notifications and configure them. For this guide, we’ll use the `In-App` channel. 
 <Frame caption="The headless demo workflow that we'll be using"><img src="/images/SCR-20230825-pigg.png" /> </Frame>
-The `in-app` node allows you to further customize the notifications that will get sent, as per your need. In our case, it is a simple `description`, which will contain the text that will be entered from the front-end. Here's the `in-app` node for your reference:
+The `in-app` node allows you to further customize the notifications that will get sent, as per your need. In our case, it is a simple `description`, which will contain the text that will be entered from the front end. Here's the `in-app` node for your reference:
 
 <Frame caption="The in-app node can be customized as per the need"><img src="/images/SCR-20230825-pkxt.png" /> </Frame>
 
@@ -50,12 +50,12 @@ Once you’re done configuring this to your liking, click on the `update` button
 Let's now see how to add it to our app!
 
 ## Pre-requisites:
-In order to be able to use the headless notification center, you'll fist need the following:
+To be able to use the headless notification center, you'll first need the following:
 1. `applicationIdentifier`: You can find this from the `settings` menu in the [Novu web dashboard.](https://web.novu.co/settings)
-2. `subscriberID`: In most real-world app, you'll get this from a database. It is used to uniquely identify the entity to whom a notification will be delivered to. In our case, we're assuming the `subscriberID` to be `12345`. 
+2. `subscriberID`: In most real-world apps, you'll get this from a database. It is used to uniquely identify the entity to whom a notification will be delivered. In our case, we're assuming the `subscriberID` to be `12345`. 
 
-## Setting up the back-end:
-For our demo app, we're setting up the back-end as follows:
+## Setting up the back end:
+For our demo app, we're setting up the back end as follows:
 1. Install the Novu package. Open your terminal and run the following command:
 ```bash
 npm install @novu/node
@@ -110,7 +110,7 @@ export const notifController = async (req,res) => {
 }
 ```
 
-And finally, we'll need to establish routes that we'll hit from the front-end:
+And finally, we'll need to establish routes that we'll hit from the front end:
 ```javascript
 import express from "express";
 import { notifController } from "../controller/notif.js";
@@ -122,10 +122,10 @@ router.post("/create-sub",notifController);
 export default router;
 ```
 
-Now, we'll move to the front-end because that's where all the magic happens!
+Now, we'll move to the front end because that's where all the magic happens!
 
-## Setting up the front-end:
-In the front-end, install the headless package:
+## Setting up the front end:
+In the front end, install the headless package:
 ```bash
 npm install @novu/headless
 ```
@@ -156,7 +156,7 @@ import { HeadlessService, FetchResult, ISession } from '@novu/headless';
     }, [fetchNotifications])
 ```
 
-We've added the `fetchNotifications` function inside a useEffect becaues we want the effect to run whenever the `fetchNotifications` executes. Here's the `fetchNotifications` function for reference:
+We've added the `fetchNotifications` function inside a useEffect because we want the effect to run whenever the `fetchNotifications` executes. Here's the `fetchNotifications` function for reference:
 
 ```javascript
 const fetchNotifications = useCallback(() => {
@@ -177,9 +177,9 @@ const fetchNotifications = useCallback(() => {
     }, [pageNum])
 ```
 
-Here, we've memoized the `fetchNotifications` to optimize performance and passed `pageNum` in a dependency array so that it reruns when page number changes.
+Here, we've memoized the `fetchNotifications` to optimize performance and passed `pageNum` in a dependency array so that it reruns when the page number changes.
 <br/>
-You can refere to the entire context [here](https://github.com/novuhq/novu-headless-demo-app/blob/main/frontend/src/context/NotificationContext.js) for a better understanding.
+You can refer to the entire context [here](https://github.com/novuhq/novu-headless-demo-app/blob/main/frontend/src/context/NotificationContext.js) for a better understanding.
 
 We've also used several methods related to the Headless Notification Center package. You can find the complete list [here.](/notification-center/client/headless/api-reference)
 
@@ -330,7 +330,7 @@ export default AppBar;
 
 And the second component is the `NotificationModal` which is what gets displayed when the user clicks on the bell icon. 
 <Note>
-The beauty of using the headless version of the notification center is that you can customise exactly how it looks and which functionalities do you need in it. 
+The beauty of using the headless version of the notification center is that you can customise exactly how it looks and which functionalities you need in it. 
 </Note>
 Our `NotificationModal` component is as follows:
 ```javascript
@@ -401,10 +401,10 @@ const NotificationModal = () => {
 }
 ```
 
-Finally, we've used some css to style the app as per our liking. You can see that [here.](https://github.com/novuhq/novu-headless-demo-app/tree/main/frontend/src/styles).
+Finally, we've used some css to style the app to our liking. You can see that [here.](https://github.com/novuhq/novu-headless-demo-app/tree/main/frontend/src/styles).
 ## Conclusion
 If you've followed everything till here, you'll end up with an app like the following:
 <Frame caption="The headless app in action"><img src="/images/headless.gif" /> </Frame>
-Again, don't forget that you can view the entire code [here](https://github.com/novuhq/novu-headless-demo-app/tree/main) and if you've any question, either related to this headless app or something else, feel free to ping use [here.](https://discord.gg/novu)
-Also, we've several demo apps for you to checkout [here.](/demos/introduction)
+Again, don't forget that you can view the entire code [here](https://github.com/novuhq/novu-headless-demo-app/tree/main) and if you've any questions, either related to this headless app or something else, feel free to ping use [here.](https://discord.gg/novu)
+Also, we've several demo apps for you to check out [here.](/demos/introduction)
 Thanks for reading! 
