@@ -83,8 +83,8 @@ Using the following template:
 Total events in digest:
 {{step.total_count}}
 
-{{#ifstep.digest}}
-  {{#eachstep.events}}
+{{#if step.digest}}
+  {{#each step.events}}
     {{name}}
   {{/each}}
 {{else}}
