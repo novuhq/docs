@@ -1,6 +1,6 @@
 ---
-title: 'Notification Workflows'
-description: 'Here you larn all about notification workflows'
+title: 'Workflows'
+description: 'Here you larn all about workflows'
 icon: 'sitemap'
 ---
 
@@ -12,22 +12,22 @@ Please notice notification template has been renamed to workflow. Previously, wo
 
 ## Structure
 
-A notification workflow acts as the blueprint for the notifications that will be sent. The workflow encapsulates the entire flow and rules of messages that are being sent. This is where all the different channels, filters, rules and actions are tied together under a single entity.
+A workflow acts as the blueprint for the notifications that will be sent. The workflow encapsulates the entire flow and rules of messages that are being sent. This is where all the different channels, filters, rules and actions are tied together under a single entity.
 
 <img
   style={{ borderRadius: '0.5rem' }}
   src="/images/workflow-mental-model.png"
 />
 
-<Check>**Each Notification Workflow comprises the following components**</Check>
+<Check>**Each Workflow comprises the following components**</Check>
 
 ## Name and Identifier
 
-Every notification workflow will have a name and an identifier that are used to uniquely identify each workflow.
+Every workflow will have a name and an identifier that are used to uniquely identify each workflow.
 
 ## Trigger
 
-The "Trigger" refers to an event or action that initiates the workflow. It signifies a call to the Novu API with a specified notification workflow ID, along with the necessary payload data that the notification workflow content will utilize.
+The "Trigger" refers to an event or action that initiates the workflow. It signifies a call to the Novu API with a specified workflow ID, along with the necessary payload data that the workflow content will utilize.
 
 ## Channels
 
@@ -170,7 +170,7 @@ This filter gives the flexibility of executing successive step notifications bas
 
 You have a set of customers to whom you need to send a 2-step email. However, they should only get the second email if they have read/seen the first email.
 
-With the new seen/read filter, you can do the following in a notification workflow:
+With the new seen/read filter, you can do the following in a workflow:
 
 - Set the first email step.
 - Set a delay.
