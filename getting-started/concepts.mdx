@@ -6,7 +6,7 @@ icon: 'building-columns'
 
 ## Notification
 
-A notification conveys information from source to recipient, triggered by a workflow acting as a message blueprint. Notifications can be individual or bundled as digest for user-friendliness.
+A notification conveys information from source to recipient, triggered by a workflow acting as a message blueprint. Notifications can be individual or bundled as digest for user-friendliness. 
 
 ## Messages
 
@@ -14,46 +14,46 @@ A message in Novu represents a notification delivered to a recipient on a partic
 
 ## Workflow
 
-All notifications are sent via a workflow. Each workflow acts as a container for the logic and blueprint that are associated with a type of notification in your system.
+All notifications are sent via a workflow. Each workflow acts as a container for the logic and blueprint that are associated with a type of notification in your system. [Learn more](/workflows/notification-workflows)
 
 ## Channel
 
-A channel in Novu represents a configured provider, such as Sendgrid for email, to send notifications to your recipients. A channel is the communitication-context domain with the recipients (subscribers).
+A channel in Novu represents a configured provider, such as Sendgrid for email, to send notifications to your recipients. A channel is the communitication-context domain with the recipients (subscribers). 
 
-Most providers within Novu use credentials that you supply to deliver notifications on your behalf. These credentials and other settings are what make a configured channel.
+Most providers within Novu use credentials that you supply to deliver notifications on your behalf. These credentials and other settings are what make a configured channel. [Learn more](/channels-and-providers/introduction)
 
 ## Subscriber
 
-A subscriber in Novu represents someone who should receive a message. A subscriber's profile information contains important attributes about the subscriber that will be used in messages (name, email). The subscriber object can contain other key-value pairs that can be used to further personalize your messages.
+A subscriber in Novu represents someone who should receive a message. A subscriber's profile information contains important attributes about the subscriber that will be used in messages (name, email). The subscriber object can contain other key-value pairs that can be used to further personalize your messages. [Learn more](/subscribers/subscribers)
 
 ## Topics
 
-Topics are a way to group subscribers together so that they can be notified of events in bulk. A topic is identified by a custom key. This can be helpful for things like sending out marketing emails or notifying users of new features. Topics can also be used to send notifications to subscribers who have been grouped together based on their interests, location, activities and much more.
+Topics are a way to group subscribers together so that they can be notified of events in bulk. A topic is identified by a custom key. This can be helpful for things like sending out marketing emails or notifying users of new features. Topics can also be used to send notifications to subscribers who have been grouped together based on their interests, location, activities and much more. [Learn more](/subscribers/topics)
 
 ## Activity Feed
 
-Novu provides a notification activity feed that monitors every outgoing message associated with its relevant metadata. This can be used to monitor activity and discover potential issues with a specific provider or a channel type.
+Novu provides a notification activity feed that monitors every outgoing message associated with its relevant metadata. This can be used to monitor activity and discover potential issues with a specific provider or a channel type. [Learn more](/activity-feed/introduction)
 
 ## Integration Store
 
-With the help of the integration store, you can easily integrate your favorite delivery provider. During the runtime of the API, the Integrations Store is responsible for storing the configurations of all the providers.
+With the help of the integration store, you can easily integrate your favorite delivery provider. During the runtime of the API, the Integrations Store is responsible for storing the configurations of all the providers. [Learn more](/channels-and-providers/integration-store)
 
 ## Providers
 
-Providers are the channel service providers (Twilio, Sendgrid, APN, etc,) you connect to Novu so that it can send your notifications. Rather than replacing your existing providers, Novu passes your notifications to the providers you already use via these channel integrations.
+Providers are the channel service providers (Twilio, Sendgrid, APN, etc,) you connect to Novu so that it can send your notifications. Rather than replacing your existing providers, Novu passes your notifications to the providers you already use via these channel integrations. [Learn more](/channels-and-providers/introduction)
 
 ## Environment
 
 - Production
 - Development
 
-Novu uses the concept of environments to ensure logical separation of your data and configuration. This means that subscribers, and preferences created in one environment are **never** accessible to another.
+Novu uses the concept of environments to ensure logical separation of your data and configuration. This means that subscribers, and preferences created in one environment are **never** accessible to another. 
 
 ## Handlebars & Helpers
 
 Handlebars is a simple templating language that generates HTML. 
 
-Novu-specific Helpers make it possible to define custom iterators and other functionality that can invoke the passed block with a new context.
+Novu-specific Helpers make it possible to define custom iterators and other functionality that can invoke the passed block with a new context. [Learn more](/content-creation-design/handlebars-helpers)
 
 ## Organization
 
@@ -94,18 +94,20 @@ The core components of our Notification Center are:
 - State management and actions for notifications (mark as read/unread, and delete)
 - And more
 
+[Learn more](/notification-center/introduction)
+
 ## Preference
 
-A preference indicates a user's willingness to receive a particular type of notification. Preferences always belong to a user and can be paired with an identifier that represents the account or tenant that the user belongs to (for multi-tenant applications).
+A preference indicates a user's willingness to receive a particular type of notification. Preferences always belong to a user and can be paired with an identifier that represents the account or tenant that the user belongs to (for multi-tenant applications). [Learn more](/subscribers/preferences)
 
 ## Delay Actions
 
-The delay action awaits a specified amount of time before moving on to trigger the following steps of the workflow.
+The delay action awaits a specified amount of time before moving on to trigger the following steps of the workflow. [Learn more](/workflows/delay-action)
 
 ## Digest
 
-The digest engine collects multiple trigger events, aggregates them into a single message and delivers it to the subscriber.
+The digest engine collects multiple trigger events, aggregates them into a single message and delivers it to the subscriber. [Learn more](/workflows/digest)
 
 ## Layouts
 
-Novu allows the creation of layouts - a specific HTML design or structure to wrap content of email notifications. Layouts can be manipulated and assigned to new or existing workflows within the Novu platform, allowing users to create, manage, and assign these layouts to workflows, so they can be reused to structure the appearance of notifications sent through the platform.
+Novu allows the creation of layouts - a specific HTML design or structure to wrap content of email notifications. Layouts can be manipulated and assigned to new or existing workflows within the Novu platform, allowing users to create, manage, and assign these layouts to workflows, so they can be reused to structure the appearance of notifications sent through the platform. [Learn more](/content-creation-design/notification-content-creation)
