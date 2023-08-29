@@ -283,15 +283,15 @@ You should now see a **bell button** that opens the notification center when c
 
 Note: There are no notifications because none has been triggered yet. When notifications are sent to a subscriber, it will show up in the UI. Next, we'll learn how to trigger notifications.
 
-# Create A Notification Workflow
+# Create A Workflow
 
-The first step to trigger notifications is to create a notification workflow. A workflow is like a map that holds the entire flow of messages sent to the subscriber.
+The first step to trigger notifications is to create a workflow. A workflow is like a map that holds the entire flow of messages sent to the subscriber.
 
 The recipients of a triggered notification are called subscribers.
 
 The workflow includes the following:
 
-- Notification workflow name and Identifier
+- Workflow name and Identifier
 - Channel tailored content:
 
 | Channel | Content Style |
@@ -302,11 +302,11 @@ The workflow includes the following:
 | Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
 | In-App | Text |
 
-Please proceed to create a notification workflow.
+Please proceed to create a workflow.
 
 1. Click **Workflows** on the left sidebar of your Novu dashboard.
 2. Click the **“Create Workflow”** button on the top right.
-3. The name of a new notification workflow is currently "Untitled." Rename it to a more suitable title.
+3. The name of the new workflow is currently "Untitled." Rename it to a more suitable title.
 4. Select **"In-App"** as the channel you want to add.
 <Frame caption="Select the in-app channel"><img src="/images/in-app-vue.png" /> </Frame>
 5. Click on the recently added In-App channel and configure it according to your preferences. Once you’re done, click Update to save your configuration.
@@ -320,7 +320,7 @@ I’ll briefly explain the function of each label in the image above.
 - **5-Redirect URL** - This is the URL to which a subscriber can be directed when they click on a notification item.
 - **6-Filter** - This feature allows you to configure the criteria for delivering notifications. For instance, you can apply a filter based on a subscriber's online status to send them an email if they were online within the last hour. Read [more about filters](https://docs.novu.co/platform/step-filter/#subscriber-seen--read-filters).
 
-Feel free to add only text for now and rename the notification workflow to `Onboarding In App`. It automatically creates a slug-like Identifier that will be needed in later steps to trigger a notification.
+Feel free to add only text for now and rename the workflow to `Onboarding In App`. It automatically creates a slug-like Identifier that will be needed in later steps to trigger a notification.
 <Frame caption="Configure it as shown in this image"><img src="/images/configuration-vue.png" /> </Frame>
 <Frame caption="Rename the workflow as shown here"><img src="/images/rename-vue.png" /> </Frame>
 
@@ -383,7 +383,7 @@ await novu.trigger('onboarding-in-app', {
 
 ```
 
-`onboarding-in-app` is the Notification workflow identifier we created earlier.
+`onboarding-in-app` is the workflow identifier we created earlier.
 
 Ensure the `subscriberId` value in the backend code that triggers the notification matches the `subscriberId` in your `my-app/src/environments/environment.ts` code.
 
@@ -400,4 +400,4 @@ Check your app again. You should see the recently triggered notification!
 
 # Conclusion
 
-Great job! If you've reached this point, you should now have successfully set up the notification center, created a subscriber, notification workflow, configured a channel provider and triggered a notification in your Angular application.
+Great job! If you've reached this point, you should now have successfully set up the notification center, created a subscriber, a workflow, configured a channel provider and triggered a notification in your Angular application.
