@@ -80,13 +80,13 @@ A channel provider is a service that provides one or more notification functiona
 
 Only one provider can be **active** per **channel**. Connect any of your favourite providers to get started. The email channel comes with Novu's email provider, which is active by default and includes 300 credits.
 
-# Create A Notification Workflow
+# Create A Workflow
 
-A notification workflow is a blueprint for the notifications that will be sent. It holds the entire flow of messages sent to the subscriber. This is where all the different channels are tied together under a single entity.
+A workflow is a blueprint for the notifications that will be sent. It holds the entire flow of messages sent to the subscriber. This is where all the different channels are tied together under a single entity.
 
 The workflow includes the following:
 
-- Notification workflow name and Identifier
+- Workflow name and Identifier
 - Channel-tailored content:
 
 | Channel | Content Style |
@@ -102,16 +102,16 @@ The workflow includes the following:
 Proper authorization needs to be set for the Chat channel for subscribers.
 </Note>
 
-Please proceed to create a notification workflow.
+Please proceed to create a workflow.
 
 1. Click **Workflows** on the left sidebar of your Novu dashboard.
 2. Click the **Create Workflow** button on the top right.
-3. The name of a new notification workflow is currently **Untitled.** Rename it to a more suitable title.
+3. The name of the new workflow is currently **Untitled.** Rename it to a more suitable title.
 4. Select **Email** as the channel you want to add.
 <Frame caption="Choose email as the channel you want to add"><img src="/images/email-nodejs.png" /> </Frame>
 5. Click on the recently added channel, fill the email subject and click “Update”.
 <Frame caption="Fill in email subject"><img src="/images/email2-nodejs.png" /> </Frame>
-6. Click on the “Test” tab and send a test email to verify your notification workflow.
+6. Click on the “Test” tab and send a test email to verify your workflow.
 <Frame caption="Send test email to verify your workflow"><img src="/images/email3-nodejs.png" /> </Frame>
 You should get an email within seconds. Yaaay, you have successfully sent your first notification via the Novu dashboard! Now, let’s take it a step further to trigger notifications via code.
 
@@ -181,9 +181,9 @@ $novu->triggerEvent([
 
 Before running the code, make sure you understand the following:
 
-- The value of `name` should be the notification workflow’s trigger ID/slug.
-<Frame caption="Make sure your notification workflow's trigger ID/slug matches the value you'd used"><img src="/images/template-nodejs.png" /> </Frame>
-- The value of `payload` is an array of the data that you want to be dynamically injected into the notification workflow content.
+- The value of `name` should be the workflow’s trigger ID/slug.
+<Frame caption="Make sure your workflow's trigger ID/slug matches the value you'd used"><img src="/images/template-nodejs.png" /> </Frame>
+- The value of `payload` is an array of the data that you want to be dynamically injected into the workflow content.
 - The value of `subscriberId` is the id of the subscriber on Novu. Replace `7789` with your subscriber ID.
 
 Run the code to trigger a notification!
@@ -278,4 +278,4 @@ $novu->triggerEvent([
 
 # Conclusion
 
-Great job! If you've reached this point, you should now have successfully created a subscriber, notification workflow, configured a channel provider and triggered a notification in your application.
+Great job! If you've reached this point, you should now have successfully created a subscriber, workflow, configured a channel provider and triggered a notification in your application.
