@@ -1,9 +1,7 @@
 ---
 title: 'iFrame'
-description: ''
+description: 'Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications with iFrame embed'
 ---
-
-Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications and integrate a rich, customizable, and ready-to-use real-time UI In-App notification center as an iFrame embed in your web apps.
 
 ## Requirements
 
@@ -46,7 +44,7 @@ These are the steps to create a workflow:
   src="/images/Quickstarts/iFrame-quickstart/1.png"
 />
 
-Select the in-app channel
+Select the in-app channel.
 
 1. Click on the recently added “In-App” channel and configure it according to your preferences. Once you’re done, click “Update” to save your configuration.
 
@@ -55,7 +53,7 @@ Select the in-app channel
   src="/images/Quickstarts/iFrame-quickstart/2.png"
 />
 
-Configure the in-app node as per your need
+Configure the in-app node as per your needs.
 
 I’ll briefly explain the function of each label in the image above:
 
@@ -64,7 +62,7 @@ I’ll briefly explain the function of each label in the image above:
 - **3-Action**: With this, you can add a primary and secondary call to action button to each notification item.
 - **4-Notification Feeds**: This displays a stream of specific notifications. You can have multiple feeds to show specific notifications in multiple tabs.
 - **5-Redirect URL**: This is the URL to which a subscriber can be directed when they click on a notification item.
-- **6-Filter**: This feature allows you to configure the criteria for delivering notifications. For instance, you can apply a filter based on a subscriber’s online status to send them an email if they were online within the last hour. Read **[more about filters](https://docs.novu.co/platform/step-filter/#subscriber-seen--read-filters)**.
+- **6-Filter**: This feature allows you to configure the criteria for delivering notifications. For instance, you can apply a filter based on a subscriber’s online status to send them an email if they were online within the last hour. Read [more about filters](/workflows/notification-workflows).
 - **7-Editor**: You can add text that you want to be displayed in each notification item. Additionally, you can specify custom variables using **`{{ }}`**. This means you can inject variables from your code into a notification item’s text via a payload.
 
 In our case, we’ll use the custom variables functionality, as shown below:
@@ -74,16 +72,16 @@ In our case, we’ll use the custom variables functionality, as shown below:
   src="/images/Quickstarts/iFrame-quickstart/3.png"
 />
 
-We're gonna use custom variables here
+We're gonna use custom variables here.
 
 Feel free to add only text for now and rename the workflow to quickstart. It automatically creates a slug-like Identifier that will be needed in later steps to trigger a notification.
+Rename the workflow to 'quickstart'.
 
 <img
   style={{ borderRadius: '0.5rem' }}
   src="/images/Quickstarts/iFrame-quickstart/4.png"
 />
 
-Renaming the workflow to 'quickstart'
 
 Now, we’ll learn how to create subscribers on Novu - Recipients of Notifications!
 
@@ -96,7 +94,7 @@ If you click “Subscriber” on the left sidebar of the **[Novu dashboard](ht
   src="/images/Quickstarts/iFrame-quickstart/5.png"
 />
 
-One subscriber is automatically created when you sign up
+<Note> One subscriber is automatically created when you sign up. </Note>
 
 Now, let’s create a subscriber on Novu. After creating a subscriber, we’ll trigger a notification to this subscriber. Subscribers are identified by a unique **`subscriberId`**.
 
