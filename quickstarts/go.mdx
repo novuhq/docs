@@ -78,12 +78,12 @@ To create a notification workflow, please follow the following steps:
 3. Select **blank workflow** from the dropdown.
 4. The name of a new workflow is currently "Untitled." Rename it to a suitable title.
 5. Select any channel you want to use in your app. For the sake of this guide, we'll be using the 'Email' channel.
-   
+   <Frame caption="Select any channel you want. We'll use the email channel"><img src="https://res.cloudinary.com/dxc6bnman/image/upload/v1686776583/set-email_wavtrn.png" /> </Frame>
 
 6. Click on the recently added channel, fill the email subject and click “Update”.
-
+<Frame caption="Update email template"><img src="https://res.cloudinary.com/dxc6bnman/image/upload/v1686776583/update_email_template_ivn0jv.png" /> </Frame>
 7. Click on the “Test” tab and send a test email to verify your notification workflow.
-
+<Frame caption="Send a test email to test the workflow"><img src="https://res.cloudinary.com/dxc6bnman/image/upload/v1686776583/send_test_email_ngzmth.png" /> </Frame>
 You should get an email within seconds. If you didn't, please check your 'spam' folder as sometimes test emails can end up there. Yaaay, you have successfully sent your first notification via the Novu dashboard!
 
 Now, let’s take it a step further to trigger notifications via code.
@@ -93,7 +93,7 @@ Now, let’s take it a step further to trigger notifications via code.
 The recipients of a triggered notification are called subscribers.
 
 Click **Subscribers** on the left sidebar of the Novu dashboard to see all subscribers. By default, the dashboard will display only one subscriber, as you were added automatically during sign-up.
-
+<Frame caption="Navigate to `Subscribers` from the left sidebar"><img src="https://res.cloudinary.com/dxc6bnman/image/upload/v1688331839/Screenshot_2023-07-03_at_0.02.53_jmkhi3.png" /> </Frame>
 
 Now, let's create a subscriber on Novu. Copy and paste the following code to do so:
 
@@ -232,7 +232,7 @@ func main() {
 Before running the code, make sure you understand the following:
 
 - The value of `eventId` should be the notification workflow's trigger ID/slug.
-
+<Frame caption="The value of `eventId` should be the notification workflow's trigger ID/slug"><img src="https://res.cloudinary.com/dxc6bnman/image/upload/v1686776585/trigger_id_xkhsx7.png" /> </Frame>
 
 - The value of `payload` is an array of the data that you want to be dynamically injected into the notification template content.
 - The value of `subscriberId` is the id of the subscriber on Novu.
