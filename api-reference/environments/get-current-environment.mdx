@@ -20,7 +20,11 @@ $novu->getCurrentEnvironment()->toArray();
 ```
 
 ```ruby Ruby
+require 'novu'
 
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.current_environment()
 ```
 
 ```python Python
