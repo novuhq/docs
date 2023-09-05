@@ -31,6 +31,18 @@ novu = IntegrationApi(url, api_key).status(
     provider_id="<The_Provider_ID>", # Get webhook support status for a given provider using its providerID.
 )
 ```
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        webhookProviderStatus(providerId);
+    }
+}
+```
 
 
 </RequestExample>
