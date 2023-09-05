@@ -27,7 +27,17 @@ await novu.layouts.create(payload);
 ```
 
 ```ruby Ruby
+require 'novu'
 
+client = Novu::Client.new('<NOVU_API_KEY>')
+payload = {
+    'name' => 'New layout',
+    'content' => '{{{body}}}',
+    'variables' => ['<list-variables-here>'], # optional
+    'description' => 'This is a description for the new layout', # optional
+    'isDefault' => true # optional
+}
+client.create_layout(payload)
 ```
 
 ```python Python
