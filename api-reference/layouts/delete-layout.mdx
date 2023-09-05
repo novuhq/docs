@@ -19,7 +19,13 @@ client.delete_layout('<insert-layout-id>')
 ```
 
 ```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = LayoutApi(url, api_key).delete(
+    layout_id="<Layout_ID to identify the layout to be deleted>",
+)
 ```
 
 ```java Java
