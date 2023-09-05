@@ -26,6 +26,24 @@ $novu->createIntegration([
 ])->toArray();
 ```
 
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+body = {
+    'providerId' => '<insert-provider-id>',
+    'channel' => '<insert-channel>',
+    'credentials' => {
+        # insert all the fields
+    },
+    'active' => true,
+    'check' => true
+}
+client.create_integration(body)
+```
+
+
 </RequestExample>
 <ResponseExample>
 
