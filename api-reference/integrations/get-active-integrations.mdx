@@ -21,7 +21,15 @@ require 'novu'
 client = Novu::Client.new('<NOVU_API_KEY>')
 client.active_integrations()
 ```
+```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = IntegrationApi(url, api_key).list(
+    only_active=true # This allows one to retrieve only active integrations. Defaults to False.
+)
+```
 
 </RequestExample>
 
