@@ -43,6 +43,17 @@ body = {
 client.create_integration(body)
 ```
 
+```python Python
+from novu.api import IntegrationApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = IntegrationApi(url, api_key).create(
+    integration="", # Integration instance that you want to create.
+    check="", # If you want the Novu server to check his connection using given integration configuration. Defaults to True.
+
+)
+```
 
 </RequestExample>
 <ResponseExample>
