@@ -12,12 +12,18 @@ await novu.layouts.get("layoutId");
 
 ```
 
-```php PHP
-
-```
-
 ```ruby Ruby
+require 'novu'
 
+client = Novu::Client.new('<NOVU_API_KEY>')
+body = {
+    'active' => true,
+    'check' => true
+    'credentials' => {
+        # insert all the fields
+    },
+}
+client.layout('<insert-layout-id>')
 ```
 
 ```python Python
