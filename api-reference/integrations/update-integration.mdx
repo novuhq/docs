@@ -24,6 +24,20 @@ $novu->updateIntegration($integrationId, [
 ])->toArray();
 ```
 
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+body = {
+    'active' => true,
+    'check' => true
+    'credentials' => {
+        # insert all the fields
+    },
+}
+client.update_integration('<insert-provider-id>', body)
+```
+
 
 </RequestExample>
 
