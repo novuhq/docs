@@ -30,7 +30,14 @@ client.changes({
 ```
 
 ```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = ChangeApi(url, api_key).list(
+    page = "<Page to retrieve>",
+    limit = "<Size of page>",
+)
 ```
 
 ```java Java
