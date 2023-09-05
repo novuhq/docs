@@ -4,7 +4,18 @@ openapi: get /v1/layouts
 
 <RequestExample>
 ```javascript Node.js
+import { Novu } from '@novu/node';
 
+const novu = new Novu('<NOVU_API_KEY>');
+
+const params = {
+  page: 0, // optional
+  pageSize: 20, // optional
+  sortBy: "_id"
+  orderBy: -1 //optional
+}
+
+await novu.layouts.list(params);
 ```
 
 ```php PHP
