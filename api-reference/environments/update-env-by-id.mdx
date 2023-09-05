@@ -15,7 +15,15 @@ await novu.environmets.updateOne("environmentId", {
 ```
 
 ```php PHP
+use Novu\SDK\Novu;
 
+$novu = new Novu(<NOVU_API_KEY>);
+
+$novu->getCurrentEnvironment()->toArray();
+$novu->createEnvironment([
+    'name' => '<insert-name>',
+    'parentId' => '<insert-parent-id>' // optional
+])->toArray();
 ```
 
 ```ruby Ruby
