@@ -9,6 +9,14 @@ export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
 await novu.integrations.delete("integrationId");
 ```
 
+```php PHP
+// Get integrations
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->deleteIntegration($integrationId);
+```
+
 </RequestExample>
 
 <ResponseExample>
