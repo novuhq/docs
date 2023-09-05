@@ -38,6 +38,16 @@ body = {
 client.update_integration('<insert-provider-id>', body)
 ```
 
+```python Python
+from novu.api import IntegrationApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = IntegrationApi(url, api_key).update(
+    integration="<The instance of the integration to update>",
+)
+```
+
 
 </RequestExample>
 
