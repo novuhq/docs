@@ -5,6 +5,13 @@ openapi: get /v1/inbound-parse/mx/status
 <RequestExample>
 
 ```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+
+// Validate MX Record for Inbound Parse
+$novu->validateMXRecordForInboundParse()->toArray();
 
 ```
 
