@@ -9,6 +9,13 @@ export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
 await novu.integrations.getAll();
 ```
 
+```php PHP
+// Get integrations
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->getIntegrations()->toArray();
+```
 
 </RequestExample>
 
