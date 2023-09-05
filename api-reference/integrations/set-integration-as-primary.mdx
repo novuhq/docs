@@ -15,7 +15,27 @@ const data = await response.json();
 ```
 
 ```php PHP
+<?php
 
+$url = 'https://api.novu.co/v1/integrations/:integrationId/set-primary';
+$data = array(
+  [options]
+);
+$options = array(
+  "http" => array(
+  "header"  => "Content-type: application/json",
+  "header"  => "Authorization: ApiKey REPLACE_WITH_API_KEY",
+  "method"  => "POST",
+  "content" => json_encode($data)
+  )
+);
+$context  = stream_context_create($options);
+$result = file_get_contents($url, false, $context);
+
+if ($result === FALSE) { /* Handle error */ }
+
+echo $result;
+    
 ```
 
 ```ruby Ruby
