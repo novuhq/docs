@@ -1,3 +1,68 @@
 ---
 openapi: delete /v1/messages/{messageId}
 ---
+
+<RequestExample>
+
+```javascript Node.js
+import { Novu, ChannelTypeEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.messages.deleteById("<Message_Id>");
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+$novu->deleteMessage();
+
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.delete_message('<insert-message-id>')
+```
+
+```python Python
+from novu.api import MessageApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = MessageApi(url, api_key).delete(
+    message_id= "The message ID to delete",    
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        Novu.deleteMessage(messageId);
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "data": {
+    "acknowledged": true,
+    "status": "deleted"
+  }
+}
+```
+
+</ResponseExample>
