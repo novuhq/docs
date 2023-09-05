@@ -18,7 +18,15 @@ $novu->getChanges();
 ```
 
 ```ruby Ruby
+require 'novu'
 
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.changes({
+    'page' => 1, # optional
+    'limit' => 10, # optional
+    'promoted' => 'hello'
+})
 ```
 
 ```python Python
