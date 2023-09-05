@@ -19,11 +19,26 @@ client.make_default_layout('<insert-layout-id>')
 ```
 
 ```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = LayoutApi(url, api_key).set_default(
+    layout_id= "<The layout_id corresponding to the layout to be set default>",
+)
 ```
 
 ```java Java
+import co.novu.sdk.Novu;
 
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        Novu.makeDefaultLayout(layoutId);
+    }
+}
 ```
 
 </RequestExample>
