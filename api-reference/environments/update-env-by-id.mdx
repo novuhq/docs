@@ -27,7 +27,18 @@ $novu->createEnvironment([
 ```
 
 ```ruby Ruby
+require 'novu'
 
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.update_environment('64a713bdexxxxxx', {
+    'name' => 'Local', # optional
+    'identifier' => 'local', # optional
+    'parentId' => '7789', # optional
+    'dns' => { # optional
+        'inboundParseDomain' => 'dev.test' # optional
+    }
+})
 ```
 
 ```python Python
