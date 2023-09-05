@@ -27,7 +27,17 @@ await novu.layouts.update("layoutId", payloadToUpdate);
 ```
 
 ```ruby Ruby
+require 'novu'
 
+client = Novu::Client.new('<NOVU_API_KEY>')
+payload = {
+    'name' => 'Update layout', # optional
+    'content' => '{{{body}}}', # optional
+    'description' => 'This is a description for the new layout', # optional
+    'isDefault' => true # optional
+    'variables' => ['<list-variables-here>'], # optional
+}
+client.update_layout('<insert-layout-id>', payload)
 ```
 
 ```python Python
