@@ -36,7 +36,14 @@ client.create_environment(payload)
 ```
 
 ```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = EnvironmentApi(url, api_key).create(
+    name = "<Name of the environmet to create>",
+    parent_id = "<The parent of the environment to create. Defaults to None.>",
+)
 ```
 
 ```java Java
