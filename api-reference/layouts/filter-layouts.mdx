@@ -18,12 +18,16 @@ const params = {
 await novu.layouts.list(params);
 ```
 
-```php PHP
-
-```
-
 ```ruby Ruby
+require 'novu'
 
+client = Novu::Client.new('<NOVU_API_KEY>')
+client.layouts({
+    'page' => 1, # optional
+    'pageSize' => 10, # optional
+    'sortBy' => 'createdAt', # optional
+    'orderBy' => 1 # optional
+})
 ```
 
 ```python Python
