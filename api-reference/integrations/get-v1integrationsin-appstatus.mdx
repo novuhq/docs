@@ -17,7 +17,13 @@ client.in_app_status()
 ```
 
 ```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = IntegrationApi(url, api_key).status(
+    provider_id="<In-app provider_ID>",
+)
 ```
 
 ```java Java
