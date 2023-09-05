@@ -22,6 +22,25 @@ require 'novu'
 client = Novu::Client.new('<NOVU_API_KEY>')
 client.integrations()
 ```
+```go Go
+package main
+
+import (
+	"context"
+	"fmt"
+	novu "github.com/novuhq/go-novu/lib"
+	"log"
+)
+
+func main() {
+    // get integrations
+	integrations, err := novuClient.IntegrationsApi.GetAll(ctx)
+	if err != nil {
+		log.Fatal("Get all integrations error: ", err.Error())
+	}
+	fmt.Println(integrations)
+}
+```
 </RequestExample>
 
 <ResponseExample>
