@@ -24,7 +24,15 @@ $novu->createEnvironment([
 ```
 
 ```ruby Ruby
+require 'novu'
 
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+payload = {
+    'name' => 'Staging',
+    'parentId' => '7789' # optional
+}
+client.create_environment(payload)
 ```
 
 ```python Python
