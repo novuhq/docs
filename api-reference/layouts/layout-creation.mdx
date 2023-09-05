@@ -41,7 +41,13 @@ client.create_layout(payload)
 ```
 
 ```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = LayoutApi(url, api_key).create(
+    layout="<The instance of the layout to create>",
+)
 ```
 
 ```java Java
@@ -54,7 +60,9 @@ client.create_layout(payload)
 
 ```json Response
 {
-    data: data
+    "data": {
+    "_id": "Layout identifier"
+  }
 }
 ```
 
