@@ -27,7 +27,17 @@ novu = IntegrationApi(url, api_key).status(
 ```
 
 ```java Java
+import co.novu.sdk.Novu;
 
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        updateIntegration(integrationId, body);
+        Novu.inAppStatus();
+    }
+}
 ```
 
 </RequestExample>
