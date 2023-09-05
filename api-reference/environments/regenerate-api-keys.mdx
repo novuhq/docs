@@ -11,7 +11,10 @@ await novu.environmets.regenerateApiKeys();
 ```
 
 ```php PHP
+use Novu\SDK\Novu;
 
+$novu = new Novu(<NOVU_API_KEY>);
+$key = $novu->regenerateEnvironmentsAPIKeys()->toArray();
 ```
 
 ```ruby Ruby
