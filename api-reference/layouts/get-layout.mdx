@@ -27,7 +27,13 @@ client.layout('<insert-layout-id>')
 ```
 
 ```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = LayoutApi(url, api_key).get(
+    layout_id="<The layout ID>"
+)
 ```
 
 ```java Java
