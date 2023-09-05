@@ -23,7 +23,12 @@ client.validate_mx_record_setup_for_inbound_parse()
 ```
 
 ```python Python
+from novu.api import IntegrationApi
 
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = InboundParseApi(url, api_key).validate_mx_record_setup(
+)
 ```
 
 ```java Java
