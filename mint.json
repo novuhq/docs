@@ -7,11 +7,12 @@
   },
   "favicon": "/favicon.png",
   "colors": {
-    "primary": "#7E53F8",
-    "light": "#BFA8FF",
-    "dark": "#4C22C0",
+    "primary": "#0055ff",
+    "light": "#00d5ff",
+    "dark": "#0055ff",
     "background": {
-      "dark": "#121212"
+      "dark": "#000000",
+      "light": "#ffffff"
     }
   },
   "feedback": {
@@ -81,15 +82,15 @@
     {
       "group": "Introduction",
       "pages": [
-        "getting-started/introduction", 
-        "getting-started/how-novu-works", 
+        "getting-started/introduction",
+        "getting-started/how-novu-works",
         "getting-started/concepts"
       ]
     },
     {
-        "group": "Getting Started",
-        "pages": [
-          "getting-started/novu-sign-up", 
+      "group": "Getting Started",
+      "pages": [
+        "getting-started/novu-sign-up",
         "getting-started/send-your-first-notification",
         {
           "group": "Quickstarts",
@@ -119,9 +120,9 @@
                 "quickstarts/java"
               ]
             }
-                ]
-              }
-            ]
+          ]
+        }
+      ]
     },
     {
       "group": "Subscribers",
@@ -142,9 +143,7 @@
     },
     {
       "group": "Activity Feed",
-      "pages": [
-        "activity-feed/introduction"
-      ]
+      "pages": ["activity-feed/introduction"]
     },
     {
       "group": "Notification Center",
@@ -196,7 +195,7 @@
         "channels-and-providers/default-providers",
         {
           "group": "In-App",
-          "pages":[
+          "pages": [
             "channels-and-providers/in-app/react",
             "channels-and-providers/in-app/vue",
             "channels-and-providers/in-app/angular",
@@ -272,19 +271,22 @@
         "self-hosting-novu/gcp",
         "self-hosting-novu/azure"
       ]
-    },{
-        "group": "Guides",
-        "pages": [
+    },
+    {
+      "group": "Guides",
+      "pages": [
         "guides/add-digest-to-inapp-notifications",
         "guides/add-digest-to-email-notifications",
         "guides/headless-notification-center-guide"
       ]
     },
     {
+      "group": "Guides",
+      "pages": ["security-and-compliance/security"]
+    },
+    {
       "group": "Security & Compliance",
-      "pages": [
-        "security-and-compliance/security"
-      ]
+      "pages": ["security-and-compliance/security"]
     },
     {
       "group": "Community & Support",
@@ -327,15 +329,11 @@
     },
     {
       "group": "Cookbook",
-      "pages": [
-        "cookbook/introduction"
-      ]
+      "pages": ["cookbook/introduction"]
     },
     {
       "group": "Demos",
-      "pages": [
-        "demos/introduction"
-      ]
+      "pages": ["demos/introduction"]
     },
     {
       "group": "Use Cases",
@@ -352,9 +350,7 @@
     },
     {
       "group": "FAQs",
-      "pages": [
-        "faqs/questions"
-      ]
+      "pages": ["faqs/questions"]
     },
     {
       "group": "Events",
@@ -491,18 +487,105 @@
         "api-reference/changes/apply-changes",
         "api-reference/changes/apply-change"
       ]
-    }, 
+    },
     {
       "group": "Execution Details",
-      "pages": [
-        "api-reference/execution-details/get-execution-details"
-      ]
+      "pages": ["api-reference/execution-details/get-execution-details"]
     },
     {
       "group": "Additional Resources",
+      "pages": ["additional-resources/glossary"]
+    },
+    {
+      "group": "Workflows",
       "pages": [
-        "additional-resources/glossary"
+        "api-reference/workflows/get-workflows",
+        "api-reference/workflows/create-workflow",
+        "api-reference/workflows/get-workflow",
+        "api-reference/workflows/update-workflow",
+        "api-reference/workflows/delete-workflow",
+        "api-reference/workflows/update-workflow-status"
       ]
+    },
+    {
+      "group": "Workflow groups",
+      "pages": [
+        "api-reference/workflow-groups/get-workflow-groups",
+        "api-reference/workflow-groups/create-workflow-group",
+        "api-reference/workflow-groups/get-workflow-group",
+        "api-reference/workflow-groups/delete-workflow-group",
+        "api-reference/workflow-groups/update-workflow-group"
+      ]
+    },
+    {
+      "group": "Notification Templates",
+      "pages": [
+        "api-reference/notification-templates/get-notification-templates",
+        "api-reference/notification-templates/create-notification-template",
+        "api-reference/notification-templates/get-notification-template",
+        "api-reference/notification-templates/update-notification-template",
+        "api-reference/notification-templates/delete-notification-template",
+        "api-reference/notification-templates/update-notification-template-status"
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "api-reference/integrations/get-integrations",
+        "api-reference/integrations/create-integration",
+        "api-reference/integrations/get-active-integrations",
+        "api-reference/integrations/get-webhook-support-status-for-provider",
+        "api-reference/integrations/update-integration",
+        "api-reference/integrations/delete-integration",
+        "api-reference/integrations/set-integration-as-primary",
+        "api-reference/integrations/get-v1integrations-limit",
+        "api-reference/integrations/get-v1integrationsin-appstatus"
+      ]
+    },
+    {
+      "group": "Layouts",
+      "pages": [
+        "api-reference/layouts/filter-layouts",
+        "api-reference/layouts/layout-creation",
+        "api-reference/layouts/get-layout",
+        "api-reference/layouts/delete-layout",
+        "api-reference/layouts/update-a-layout",
+        "api-reference/layouts/set-default-layout"
+      ]
+    },
+    {
+      "group": "Inbound Parse",
+      "pages": [
+        "api-reference/inbound-parse/validate-the-mx-record-setup-for-the-inbound-parse-functionality"
+      ]
+    },
+    {
+      "group": "Environments",
+      "pages": [
+        "api-reference/environments/get-current-environment",
+        "api-reference/environments/get-environments",
+        "api-reference/environments/create-environment",
+        "api-reference/environments/update-env-by-id",
+        "api-reference/environments/get-api-keys",
+        "api-reference/environments/regenerate-api-keys"
+      ]
+    },
+    {
+      "group": "Changes",
+      "pages": [
+        "api-reference/changes/get-changes",
+        "api-reference/changes/get-changes-count",
+        "api-reference/changes/apply-changes",
+        "api-reference/changes/apply-change"
+      ]
+    },
+    {
+      "group": "Execution Details",
+      "pages": ["api-reference/execution-details/get-execution-details"]
+    },
+    {
+      "group": "Additional Resources",
+      "pages": ["additional-resources/glossary"]
     },
     {
       "group": "Feeds",
@@ -534,9 +617,7 @@
     "linkedin": "https://www.linkedin.com/company/novuhq"
   },
   "api": {
-    "baseUrl": [
-      "https://api.novu.co"
-    ],
+    "baseUrl": ["https://api.novu.co"],
     "auth": {
       "method": "key",
       "name": "Authorization",
