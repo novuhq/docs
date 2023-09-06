@@ -34,7 +34,7 @@
     {
       "name": "API Reference",
       "icon": "square-terminal",
-      "url": "openapi-reference"
+      "url": "api-reference"
     },
     {
       "name": "Learn by Videos",
@@ -55,7 +55,7 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "openapi-reference"
+      "url": "api-reference"
     },
     {
       "name": "SDKs",
@@ -74,76 +74,71 @@
       "url": "community-support"
     },
     {
-      "name": "Resources",
-      "url": "resources"
+      "name": "Use Cases",
+      "url": "use-cases"
     }
   ],
   "navigation": [
     {
-      "group": "Overview",
+      "group": "Introduction",
       "pages": [
-        "overview/introduction",
-        "overview/why-novu",
-        "overview/architecture"
+        "getting-started/introduction",
+        "getting-started/how-novu-works",
+        "getting-started/concepts"
       ]
     },
     {
-      "group": "Get Started",
+      "group": "Getting Started",
       "pages": [
-        "getting-started/introduction",
-        "getting-started/development",
+        "getting-started/novu-sign-up",
+        "getting-started/send-your-first-notification",
         {
           "group": "Quickstarts",
-          "pages": ["quickstarts/go", "quickstarts/nodejs", "quickstarts/php"]
+          "pages": [
+            "quickstarts/01-introduction",
+            "quickstarts/general",
+            {
+              "group": "Client-Side",
+              "pages": [
+                "quickstarts/vue",
+                "quickstarts/react",
+                "quickstarts/angular",
+                "quickstarts/vanillajs",
+                "quickstarts/iFrame"
+              ]
+            },
+            {
+              "group": "Server-Side",
+              "pages": [
+                "quickstarts/nodejs",
+                "quickstarts/php",
+                "quickstarts/kotlin",
+                "quickstarts/ruby",
+                "quickstarts/.NET",
+                "quickstarts/nextjs",
+                "quickstarts/go",
+                "quickstarts/java"
+              ]
+            }
+          ]
         }
       ]
     },
     {
-      "group": "Concepts",
+      "group": "Subscribers",
       "pages": [
-        "concepts/notifications",
-        "concepts/messages",
-        "concepts/workflows",
-        "concepts/events",
-        "concepts/channels",
-        "concepts/subscribers",
-        "concepts/topics",
-        "concepts/workflow-editor",
-        "concepts/webhooks",
-        "concepts/activity-feed",
-        "concepts/integration-store",
-        "concepts/providers",
-        "concepts/environments",
-        "concepts/handlebar-helpers",
-        "concepts/organizations",
-        "concepts/notification-center",
-        "concepts/preferences",
-        "concepts/template-store",
-        "concepts/delay-actions",
-        "concepts/digest",
-        "concepts/layouts"
+        "subscribers/subscribers",
+        "subscribers/topics",
+        "subscribers/preferences"
       ]
     },
     {
-      "group": "Guides",
+      "group": "Workflows",
       "pages": [
-        "guides/add-digest-to-inapp-notifications",
-        "guides/add-digest-to-email-notifications",
-        "guides/use-novu-as-segment-destination",
-        "guides/use-novu-as-rudderstack-destination"
-      ]
-    },
-    {
-      "group": "Manage Subscribers",
-      "pages": ["manage-subscribers/introduction", "manage-subscribers/topics"]
-    },
-    {
-      "group": "Manage Workflows",
-      "pages": [
-        "manage-workflows/introduction",
-        "manage-workflows/digest",
-        "manage-workflows/delay-action",
-        "manage-workflows/template-store"
+        "workflows/notification-workflows",
+        "workflows/digest",
+        "workflows/delay-action",
+        "workflows/template-store"
       ]
     },
     {
@@ -157,23 +152,39 @@
         {
           "group": "UI Library Components",
           "pages": [
-            "notification-center/react",
-            "notification-center/vue",
-            "notification-center/web-component",
-            "notification-center/angular"
+            {
+              "group": "React",
+              "pages": [
+                "notification-center/client/react/get-started",
+                "notification-center/client/react/customization",
+                "notification-center/client/react/preference",
+                "notification-center/client/react/multiple-tabs",
+                "notification-center/client/react/api-reference"
+              ]
+            },
+            "notification-center/client/vue",
+            "notification-center/client/angular",
+            "notification-center/client/web-component",
+            "notification-center/client/iframe",
+            {
+              "group": "Headless",
+              "pages": [
+                "notification-center/client/headless/get-started",
+                "notification-center/client/headless/api-reference"
+              ]
+            }
           ]
         },
-        "notification-center/headless"
+        "notification-center/backend/methods"
       ]
     },
     {
       "group": "Content Creation & Design",
       "pages": [
-        "content-creation-design/introduction",
+        "content-creation-design/overview",
         "content-creation-design/handlebars-helpers",
         "content-creation-design/brand",
-        "content-creation-design/email",
-        "content-creation-design/in-app"
+        "content-creation-design/notification-content-creation"
       ]
     },
     {
@@ -181,50 +192,70 @@
       "pages": [
         "channels-and-providers/introduction",
         "channels-and-providers/integration-store",
-        "channels-and-providers/in-app",
+        "channels-and-providers/default-providers",
+        {
+          "group": "In-App",
+          "pages": [
+            "channels-and-providers/in-app/react",
+            "channels-and-providers/in-app/vue",
+            "channels-and-providers/in-app/angular",
+            "channels-and-providers/in-app/web-component",
+            "channels-and-providers/in-app/headless",
+            "channels-and-providers/in-app/iframe",
+            "channels-and-providers/in-app/custom-styling",
+            "channels-and-providers/in-app/faq"
+          ]
+        },
         {
           "group": "Email",
           "pages": [
-            "channels-and-providers/infobip",
-            "channels-and-providers/mailersend",
-            "channels-and-providers/mailgun",
-            "channels-and-providers/mailjet",
-            "channels-and-providers/mandrill",
-            "channels-and-providers/netcore",
-            "channels-and-providers/outlook365",
-            "channels-and-providers/postmark",
-            "channels-and-providers/resend",
-            "channels-and-providers/sendgrid",
-            "channels-and-providers/sendinblue",
-            "channels-and-providers/sparkpost",
-            "channels-and-providers/custom-smtp"
+            "channels-and-providers/email/infobip",
+            "channels-and-providers/email/amazonses",
+            "channels-and-providers/email/mailersend",
+            "channels-and-providers/email/mailgun",
+            "channels-and-providers/email/mailjet",
+            "channels-and-providers/email/mandrill",
+            "channels-and-providers/email/netcore",
+            "channels-and-providers/email/outlook365",
+            "channels-and-providers/email/postmark",
+            "channels-and-providers/email/resend",
+            "channels-and-providers/email/sendgrid",
+            "channels-and-providers/email/sendinblue",
+            "channels-and-providers/email/sparkpost",
+            "channels-and-providers/email/custom-smtp"
           ]
         },
         {
           "group": "SMS",
           "pages": [
-            "channels-and-providers/aws-sns",
-            "channels-and-providers/infobip",
-            "channels-and-providers/africas-talking",
-            "channels-and-providers/nexmo",
-            "channels-and-providers/plivo",
-            "channels-and-providers/resend",
-            "channels-and-providers/outlook365",
-            "channels-and-providers/postmark",
-            "channels-and-providers/resend",
-            "channels-and-providers/sendgrid",
-            "channels-and-providers/sendinblue",
-            "channels-and-providers/sparkpost",
-            "channels-and-providers/custom-smtp"
+            "channels-and-providers/sms/twilio",
+            "channels-and-providers/sms/sms77",
+            "channels-and-providers/sms/africas-talking",
+            "channels-and-providers/sms/infobip",
+            "channels-and-providers/sms/sendchamp",
+            "channels-and-providers/sms/aws-sns",
+            "channels-and-providers/sms/nexmo",
+            "channels-and-providers/sms/plivo",
+            "channels-and-providers/sms/telnyx",
+            "channels-and-providers/sms/termii"
+          ]
+        },
+        {
+          "group": "Push",
+          "pages": [
+            "channels-and-providers/push/fcm",
+            "channels-and-providers/push/apns",
+            "channels-and-providers/push/expo-push",
+            "channels-and-providers/push/onesignal",
+            "channels-and-providers/push/push-webhook"
           ]
         },
         {
           "group": "Chat",
           "pages": [
-            "channels-and-providers/discord",
-            "channels-and-providers/slack",
-            "channels-and-providers/ms-teams",
-            "channels-and-providers/mailjet"
+            "channels-and-providers/chat/discord",
+            "channels-and-providers/chat/slack",
+            "channels-and-providers/chat/ms-teams"
           ]
         }
       ]
@@ -242,12 +273,16 @@
       ]
     },
     {
-      "group": "Security & Compliance",
+      "group": "Guides",
       "pages": [
-        "security-and-compliance/dpa",
-        "security-and-compliance/terms",
-        "security-and-compliance/privacy"
+        "guides/add-digest-to-inapp-notifications",
+        "guides/add-digest-to-email-notifications",
+        "guides/headless-notification-center-guide"
       ]
+    },
+    {
+      "group": "Security & Compliance",
+      "pages": ["security-and-compliance/security"]
     },
     {
       "group": "Community & Support",
@@ -263,11 +298,28 @@
         "sdks/introduction",
         {
           "group": "Client",
-          "pages": ["sdks/vue", "sdks/react"]
+          "pages": [
+            "sdks/vue",
+            "sdks/react",
+            "sdks/angular",
+            "sdks/web-component",
+            "sdks/iframe-embed",
+            "sdks/headless-javascript-service"
+          ]
         },
         {
           "group": "Server",
-          "pages": ["sdks/php", "sdks/python", "sdks/kotlin"]
+          "pages": [
+            "sdks/nodejs",
+            "sdks/php",
+            "sdks/laravel",
+            "sdks/python",
+            "sdks/kotlin",
+            "sdks/java",
+            "sdks/ruby",
+            "sdks/go",
+            "sdks/dotnet"
+          ]
         }
       ]
     },
@@ -280,173 +332,186 @@
       "pages": ["demos/introduction"]
     },
     {
-      "group": "Resources",
-      "pages": ["resources/glossary"]
+      "group": "Use Cases",
+      "pages": [
+        "use-cases/introduction",
+        "use-cases/multiple-delivery-providers",
+        "use-cases/embedded-notification-center",
+        "use-cases/digest-multiple-events",
+        "use-cases/manage-notifications-in-multiple-languages",
+        "use-cases/send-notifications-at-any-scale",
+        "use-cases/debug-notifications",
+        "use-cases/centralized-multiple-legacy-implementations"
+      ]
     },
     {
       "group": "FAQs",
       "pages": ["faqs/questions"]
     },
     {
-      "group": "Inbound Parse",
-      "pages": [
-        "openapi-reference/inbound-parse/validate-the-mx-record-setup-for-the-inbound-parse-functionality"
-      ]
-    },
-    {
-      "group": "Environments",
-      "pages": [
-        "openapi-reference/environments/get-current-environment",
-        "openapi-reference/environments/get-environments",
-        "openapi-reference/environments/create-environment",
-        "openapi-reference/environments/update-env-by-id",
-        "openapi-reference/environments/get-api-keys",
-        "openapi-reference/environments/regenerate-api-keys"
-      ]
-    },
-    {
-      "group": "Workflow groups",
-      "pages": [
-        "openapi-reference/workflow-groups/get-workflow-groups",
-        "openapi-reference/workflow-groups/create-workflow-group",
-        "openapi-reference/workflow-groups/get-workflow-group",
-        "openapi-reference/workflow-groups/delete-workflow-group",
-        "openapi-reference/workflow-groups/update-workflow-group"
-      ]
-    },
-    {
-      "group": "Changes",
-      "pages": [
-        "openapi-reference/changes/get-changes",
-        "openapi-reference/changes/get-changes-count",
-        "openapi-reference/changes/apply-changes",
-        "openapi-reference/changes/apply-change"
-      ]
-    },
-    {
-      "group": "Layouts",
-      "pages": [
-        "openapi-reference/layouts/filter-layouts",
-        "openapi-reference/layouts/layout-creation",
-        "openapi-reference/layouts/get-layout",
-        "openapi-reference/layouts/delete-layout",
-        "openapi-reference/layouts/update-a-layout",
-        "openapi-reference/layouts/set-default-layout"
-      ]
-    },
-    {
-      "group": "Integrations",
-      "pages": [
-        "openapi-reference/integrations/get-integrations",
-        "openapi-reference/integrations/create-integration",
-        "openapi-reference/integrations/get-active-integrations",
-        "openapi-reference/integrations/get-webhook-support-status-for-provider",
-        "openapi-reference/integrations/update-integration",
-        "openapi-reference/integrations/delete-integration",
-        "openapi-reference/integrations/set-integration-as-primary",
-        "openapi-reference/integrations/get-v1integrations-limit",
-        "openapi-reference/integrations/get-v1integrationsin-appstatus"
-      ]
-    },
-    {
-      "group": "Execution Details",
-      "pages": ["openapi-reference/execution-details/get-execution-details"]
-    },
-    {
-      "group": "Notification Templates",
-      "pages": [
-        "openapi-reference/notification-templates/get-notification-templates",
-        "openapi-reference/notification-templates/create-notification-template",
-        "openapi-reference/notification-templates/get-notification-template",
-        "openapi-reference/notification-templates/update-notification-template",
-        "openapi-reference/notification-templates/delete-notification-template",
-        "openapi-reference/notification-templates/update-notification-template-status"
-      ]
-    },
-    {
-      "group": "Workflows",
-      "pages": [
-        "openapi-reference/workflows/get-workflows",
-        "openapi-reference/workflows/create-workflow",
-        "openapi-reference/workflows/get-workflow",
-        "openapi-reference/workflows/update-workflow",
-        "openapi-reference/workflows/delete-workflow",
-        "openapi-reference/workflows/update-workflow-status"
-      ]
-    },
-    {
       "group": "Events",
       "pages": [
-        "openapi-reference/events/trigger-event",
-        "openapi-reference/events/bulk-trigger-event",
-        "openapi-reference/events/broadcast-event-to-all",
-        "openapi-reference/events/cancel-triggered-event"
+        "api-reference/events/trigger-event",
+        "api-reference/events/bulk-trigger-event",
+        "api-reference/events/broadcast-event-to-all",
+        "api-reference/events/cancel-triggered-event"
       ]
     },
     {
       "group": "Subscribers",
       "pages": [
-        "openapi-reference/subscribers/get-subscribers",
-        "openapi-reference/subscribers/create-subscriber",
-        "openapi-reference/subscribers/get-subscriber",
-        "openapi-reference/subscribers/update-subscriber",
-        "openapi-reference/subscribers/delete-subscriber",
-        "openapi-reference/subscribers/update-subscriber-credentials",
-        "openapi-reference/subscribers/delete-subscriber-credentials-by-providerid",
-        "openapi-reference/subscribers/update-subscriber-online-status",
-        "openapi-reference/subscribers/get-subscriber-preferences",
-        "openapi-reference/subscribers/update-subscriber-preference",
-        "openapi-reference/subscribers/get-in-app-notification-feed-for-a-particular-subscriber",
-        "openapi-reference/subscribers/get-the-unseen-in-app-notifications-count-for-subscribers-feed",
-        "openapi-reference/subscribers/mark-a-subscriber-feed-message-as-seen",
-        "openapi-reference/subscribers/marks-all-the-subscriber-messages-as-read-unread-seen-or-unseen-optionally-you-can-pass-feed-id-or-array-to-mark-messages-of-a-particular-feed",
-        "openapi-reference/subscribers/mark-message-action-as-seen",
-        "openapi-reference/subscribers/handle-providers-oauth-redirect",
-        "openapi-reference/subscribers/handle-chat-oauth"
+        "api-reference/subscribers/get-subscribers",
+        "api-reference/subscribers/create-subscriber",
+        "api-reference/subscribers/get-subscriber",
+        "api-reference/subscribers/update-subscriber",
+        "api-reference/subscribers/delete-subscriber",
+        "api-reference/subscribers/update-subscriber-credentials",
+        "api-reference/subscribers/delete-subscriber-credentials-by-providerid",
+        "api-reference/subscribers/update-subscriber-online-status",
+        "api-reference/subscribers/get-subscriber-preferences",
+        "api-reference/subscribers/update-subscriber-preference",
+        "api-reference/subscribers/get-in-app-notification-feed-for-a-particular-subscriber",
+        "api-reference/subscribers/get-the-unseen-in-app-notifications-count-for-subscribers-feed",
+        "api-reference/subscribers/mark-a-subscriber-feed-message-as-seen",
+        "api-reference/subscribers/marks-all-the-subscriber-messages-as-read-unread-seen-or-unseen-optionally-you-can-pass-feed-id-or-array-to-mark-messages-of-a-particular-feed",
+        "api-reference/subscribers/mark-message-action-as-seen",
+        "api-reference/subscribers/handle-providers-oauth-redirect",
+        "api-reference/subscribers/handle-chat-oauth"
       ]
     },
     {
       "group": "Topics",
       "pages": [
-        "openapi-reference/topics/filter-topics",
-        "openapi-reference/topics/topic-creation",
-        "openapi-reference/topics/subscribers-addition",
-        "openapi-reference/topics/check-topic-subscriber",
-        "openapi-reference/topics/subscribers-removal",
-        "openapi-reference/topics/get-topic",
-        "openapi-reference/topics/delete-topic",
-        "openapi-reference/topics/rename-a-topic"
+        "api-reference/topics/filter-topics",
+        "api-reference/topics/topic-creation",
+        "api-reference/topics/subscribers-addition",
+        "api-reference/topics/check-topic-subscriber",
+        "api-reference/topics/subscribers-removal",
+        "api-reference/topics/get-topic",
+        "api-reference/topics/delete-topic",
+        "api-reference/topics/rename-a-topic"
       ]
     },
     {
       "group": "Notification",
       "pages": [
-        "openapi-reference/notification/get-notifications",
-        "openapi-reference/notification/get-notification-statistics",
-        "openapi-reference/notification/get-notification-graph-statistics",
-        "openapi-reference/notification/get-notification"
+        "api-reference/notification/get-notifications",
+        "api-reference/notification/get-notification-statistics",
+        "api-reference/notification/get-notification-graph-statistics",
+        "api-reference/notification/get-notification"
       ]
+    },
+    {
+      "group": "Workflows",
+      "pages": [
+        "api-reference/workflows/get-workflows",
+        "api-reference/workflows/create-workflow",
+        "api-reference/workflows/get-workflow",
+        "api-reference/workflows/update-workflow",
+        "api-reference/workflows/delete-workflow",
+        "api-reference/workflows/update-workflow-status"
+      ]
+    },
+    {
+      "group": "Workflow groups",
+      "pages": [
+        "api-reference/workflow-groups/get-workflow-groups",
+        "api-reference/workflow-groups/create-workflow-group",
+        "api-reference/workflow-groups/get-workflow-group",
+        "api-reference/workflow-groups/delete-workflow-group",
+        "api-reference/workflow-groups/update-workflow-group"
+      ]
+    },
+    {
+      "group": "Notification Templates",
+      "pages": [
+        "api-reference/notification-templates/get-notification-templates",
+        "api-reference/notification-templates/create-notification-template",
+        "api-reference/notification-templates/get-notification-template",
+        "api-reference/notification-templates/update-notification-template",
+        "api-reference/notification-templates/delete-notification-template",
+        "api-reference/notification-templates/update-notification-template-status"
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "api-reference/integrations/get-integrations",
+        "api-reference/integrations/create-integration",
+        "api-reference/integrations/get-active-integrations",
+        "api-reference/integrations/get-webhook-support-status-for-provider",
+        "api-reference/integrations/update-integration",
+        "api-reference/integrations/delete-integration",
+        "api-reference/integrations/set-integration-as-primary",
+        "api-reference/integrations/get-v1integrations-limit",
+        "api-reference/integrations/get-v1integrationsin-appstatus"
+      ]
+    },
+    {
+      "group": "Layouts",
+      "pages": [
+        "api-reference/layouts/filter-layouts",
+        "api-reference/layouts/layout-creation",
+        "api-reference/layouts/get-layout",
+        "api-reference/layouts/delete-layout",
+        "api-reference/layouts/update-a-layout",
+        "api-reference/layouts/set-default-layout"
+      ]
+    },
+    {
+      "group": "Inbound Parse",
+      "pages": [
+        "api-reference/inbound-parse/validate-the-mx-record-setup-for-the-inbound-parse-functionality"
+      ]
+    },
+    {
+      "group": "Environments",
+      "pages": [
+        "api-reference/environments/get-current-environment",
+        "api-reference/environments/get-environments",
+        "api-reference/environments/create-environment",
+        "api-reference/environments/update-env-by-id",
+        "api-reference/environments/get-api-keys",
+        "api-reference/environments/regenerate-api-keys"
+      ]
+    },
+    {
+      "group": "Changes",
+      "pages": [
+        "api-reference/changes/get-changes",
+        "api-reference/changes/get-changes-count",
+        "api-reference/changes/apply-changes",
+        "api-reference/changes/apply-change"
+      ]
+    },
+    {
+      "group": "Execution Details",
+      "pages": ["api-reference/execution-details/get-execution-details"]
+    },
+    {
+      "group": "Additional Resources",
+      "pages": ["additional-resources/glossary"]
     },
     {
       "group": "Feeds",
       "pages": [
-        "openapi-reference/feeds/get-feeds",
-        "openapi-reference/feeds/create-feed",
-        "openapi-reference/feeds/delete-feed"
+        "api-reference/feeds/get-feeds",
+        "api-reference/feeds/create-feed",
+        "api-reference/feeds/delete-feed"
       ]
     },
     {
       "group": "Messages",
       "pages": [
-        "openapi-reference/messages/get-messages",
-        "openapi-reference/messages/delete-message"
+        "api-reference/messages/get-messages",
+        "api-reference/messages/delete-message"
       ]
     },
     {
       "group": "Blueprints",
       "pages": [
-        "openapi-reference/get-v1blueprintsgroup-by-category",
-        "openapi-reference/get-v1blueprints"
+        "api-reference/get-v1blueprintsgroup-by-category",
+        "api-reference/get-v1blueprints"
       ]
     }
   ],
@@ -455,5 +520,13 @@
     "twitter": "https://twitter.com/novuhq",
     "github": "https://github.com/novuhq",
     "linkedin": "https://www.linkedin.com/company/novuhq"
+  },
+  "api": {
+    "baseUrl": ["https://api.novu.co"],
+    "auth": {
+      "method": "key",
+      "name": "Authorization",
+      "inputPrefix": "ApiKey"
+    }
   }
 }
