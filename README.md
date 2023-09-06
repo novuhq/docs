@@ -17,10 +17,12 @@ The ultimate service for managing multi-channel notifications with a single API.
     <br />
     <a href="https://docs.novu.co" rel="dofollow"><strong>Explore the docs »</strong></a>
     <br />
+ </p>
 
   <br/>
-    
-  <a href="https://discord.novu.co">Join Our Discord</a>
+  
+  <p align="center">  
+    <a href="https://discord.novu.co">Join Our Discord</a>
     ·
     <a href="https://roadmap.novu.co">Roadmap</a>
     ·
