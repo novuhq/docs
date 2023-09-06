@@ -1,66 +1,50 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Infobip'
+description: 'Learn how to use the Infobip provider to send sms notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [Infobip](https://www.infobip.com/developers/) provider to send SMS messages to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Infobip provider in the SMS channel, you will need to create an Infobip account and add your API key and Base URL to the Infobip integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Retrieving your API Key
 
-<CodeGroup>
+To Find a new API key in Infobip, you can follow these steps:
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+- [Sign up](https://www.infobip.com/signup) or [Log in](https://portal.infobip.com/login/) to your Infobip account.
+- On the [Homepage](https://portal.infobip.com/homepage/), you'll see your API key.
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+<Frame caption="See your API key on your homepage"><img src="/images/image-63.png" /> </Frame>
+Alternatively, you can find the API key on the Developer Tools page.
 
-</CodeGroup>
+- On the sidebar (on the left), click on `Developer Tools`.
+- This will display a dropdown from which you can then click on `API Ksys` to view your API key.
 
-## Folders
+<Frame caption="Find your API key from the developer tools"><img src="/images/image-64.png" /> </Frame>
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+If you want to create an API key:
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+- Click on the `CREATE API KEY` button
+- Fill the form
+- Click on `GENERATE`
+<Frame caption="Generate your API key"><img src="/images/image-65.png" /> </Frame>
 
-<Warning>
+# Finding the Base URL
 
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
+To see your base URL, log in to the account. Once logged in, on the Homepage, you should see your base URL in this format: `xxxxx.api.infobip.com`.
 
-</Warning>
+<Frame caption="Your base URL is on the homepage"><img src="/images/image-66.png" /> </Frame>
 
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
+# Create an Infobip integration with Novu
 
-## Hidden Pages
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate **Infobip** under the SMS section and click on the **Connect** button.
+- Enter your Infobip API Key.
+- Enter your Base URL.
+- Fill in the `From` field.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
 
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+You should now be able to send SMS notifications using Infobip in Novu.

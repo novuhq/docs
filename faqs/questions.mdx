@@ -1,23 +1,88 @@
 ---
-title: "Questions"
-description: "Here, we outline some of the most common questions we get asked about Novu. Missing a question? Feel free to open an issue or PR to add it to the list."
-icon: 'question'
+title: "Frequently Asked Questions"
+icon: "question"
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas et eros iaculis tortor dapibus cursus. Curabitur quis sapien nec tortor dictum gravida.
+## Platform
 
-```bash
-'Authorization': 'Token <team_token>'
-```
+### What is an event?
 
-## API Tokens
+An event is every call to our [trigger API](https://docs.novu.co/api/trigger-event/). Any call can be converted through the Novu logic engine into many different notifications or digested with other ones into one notification. In case a trigger was used for many subscribers at once, it will be calculated per unique subscriber. In case many events are converted into one notification they will be calculated at a lower rate.
 
-Nullam convallis mauris at nunc consectetur, ac imperdiet leo rutrum. Maecenas cursus purus a pellentesque blandit. Pellentesque vitae lacinia libero, non mollis metus.
+### What is a notification?
 
-Nam id ullamcorper urna, at rutrum enim. [Maecenas vulputate](/introduction) vehicula libero, vitae sodales augue pretium nec. Quisque a magna tempor, semper risus vel, fermentum nunc. Pellentesque fermentum interdum ex, eu convallis massa blandit sed. Aliquam bibendum ipsum vel laoreet auctor.
+A notification is any message sent over any channel, after the Novu logic engine, Novu user preferences, and your configuration calculated and crafted the message. A notification can be sent to an email, In-App notification center, chat, push, and more.
 
-### Permissions
+### I want to send millions of events, but only send thousands of notifications, can I?
 
-Etiam lobortis ut odio ut fermentum. Nunc odio velit, sollicitudin at consectetur id, tristique eget turpis. Aliquam at risus vitae dolor sodales venenatis. In hac habitasse platea dictumst.
+Sure thing! This can easily be done using Novu’s digest + delay, features allowing of ingesting many events into well crafted must have messages over all channels.
 
-Aenean consequat diam eget mollis fermentum. [Quisque eu malesuada](/introduction) felis, non dignissim libero.
+### What are the differences between Novu Cloud and Open Source?
+
+Novu [Open source](https://github.com/novuhq/novu) is a technology available under an MIT license, build and maintained by Novu community, you can adapt it to your needs, contribute, or simply use docker files and run it. Novu Cloud is a managed service run, managed, and maintained by Novu, Cloud version is scalable and robust by design, and uptime SLAs, and includes more business-facing features, that are not available under the Open Source version.
+
+### Can I send more than 1 million events a month on Novu Cloud?
+
+Yes, you absolutely can. Our managed cloud system was built to scale with your usage, so you don’t have to worry about it.
+
+### I need some help configuring Novu, where can I find it?
+
+No worries, we got your back. Many questions can be answered on our [documentation site](https://docs.novu.co/). If for some reason something is missing, go a head and use our [Discord](https://discord.gg/novu), we usually answer right away, and with the help of the community members and moderators it’s very effective.
+
+### What are the differences between Discord and Intercom support?
+
+We have two main public support channel, Discrod and Intercom. Discord is our community support channel supporting anything between self-hosted issues, bugs, code contributions, general discussions, feature requested, Novu-Cloud questions, and don’t forget memes :) On our Intercom support we focus on Novu-Cloud questions, and is ensure we can provide the best support based on our knowledge of Cloud usage.
+
+### Where can I find the roadmap?
+
+Glad you want to see what’s next, check out our roadmap [here](https://roadmap.novu.co/roadmap). Feel free to suggest other things and upvote features and requests.
+
+### Does the Novu In-App notification center works with Angular, Vue, and React?
+
+Yes, it does, Novu In-App notification center is built using pure HTML components, and wrapped in your most beloved frameworks wrapper to provide a nice and consistent developer experience.
+
+### Do you offer any enterprise plan?
+
+Yes, we do. Enterprise plans are available for teams who require extended enterprise-grade features, and specific SLAs or have unique concerns about PII, security, insurance, or legal. Feel free to reach out to us over Intercom, or send us an email at sales@novu.co.
+
+### Do you have offer enterprise support plan?
+
+As part of our enterprise support, you’ll get our usual support channels as well as a Microsoft Teams/Slack/Discord channel. In case you want to add an enterprise support plan, with dedicated technical support, we are happy to offer that next to an active enterprise plan.
+
+### I need more events or enterprise features, can you help?
+
+We sure can. We are happy to work with enterprises and build Novu to support both their needs as well as the grand community ones. From new features, security, and privacy, or if you need to send dozens or hundreds of events a month, we are here to help. Feel free to reach out to us over Chat, or send us an email at sales@novu.co.
+
+### Can I see some examples of how to use Novu?
+
+Code examples can be found on our [Github Repo](https://github.com/novuhq/examples), and [our documentation](https://docs.novu.co/getting-started/your-first-notification). We have examples for common use cases like sending notifications from a web server, mobile app, or integrating with other services.
+
+### I am missing a channel provider, can I ask for one? Or add it myself?
+
+You sure can, if you just want to ask for a new one, easiest way is to go to our [Github issues](https://github.com/novuhq/novu/issues), and ask for a [new one](https://github.com/novuhq/novu/issues/new?assignees=&labels=feature&template=feature_request.yml&title=%F0%9F%9A%80+Feature%3A+), just make sure if there is another request you upvote it instead of creating a new one. If you are willing to contribute a provider just go to [how to contribute one](https://docs.novu.co/community/create-provider) on our docs, thank you!
+
+### Do you have a status page?
+
+Yes we do, check it out [here](https://novustatus.com/).
+
+### I started using Novu Open Source, and I want to move to Novu Cloud, is there any migration tool?
+
+We are now building an automatic tool to help with this migration process, for now feel free to ask us over Discord, or at engineering@novu.co.
+
+## Pricing
+
+### Can I use Novu free of charge?
+
+Yes, you can. If you send less than 10K events per month, then Novu Cloud is entirely free. Another option is to deploy the Open-Source version of Novu onto your own infrastructure, but that does not give you the unique SLA and global redundancy we have in the Cloud version of Novu.
+
+### What is the pricing?
+
+Pricing page is available [here](https://novu.co/pricing/).
+
+### How long is the open-beta for? When do you plan to start charging?
+
+We plan to convert to the paid version of Novu sometime between Q2 and Q4 of 2023. We will ensure that we contact all of our customers at least 1 month before the switch so that you have plenty of time to ensure your systems are not impacted.
+
+### If I am sending million of events, but thousands of notification, will this affect the price?
+
+That’s a great way to do it, sending many events and only hand full of notifications means you are able to convey a lot of value, while keeping your subscribers happy. We are not only supporting, it’s also affecting price. On high volume events to notification, where digest is heavily used each event is calculated as 1/10 of the normal usage.
