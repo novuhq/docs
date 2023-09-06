@@ -1,59 +1,54 @@
 ---
-title: 'Introduction'
-description: 'Add image, video, and other HTML elements'
-icon: 'image'
+title: 'Activity Feed'
+description: 'Monitor all your activity from one place'
+icon: 'code'
 ---
 
-<img
-  style={{ borderRadius: '0.5rem' }}
-  src="https://mintlify-assets.b-cdn.net/bigbend.jpg"
-/>
+## Introduction
+Novu provides a notification activity feed that monitors every. This can be used to monitor activity and discover potential issues with a specific provider or channel type.
 
-## Image
+<Frame caption="Activity feed in Novu"><img src="/images/activity-feed.png" /> </Frame>
 
-### Using Markdown
+## Viewing a specific subscriber's activity
 
-The [markdown syntax](https://www.markdownguide.org/basic-syntax/#images) lets you add images using the following code
+To use a subscriber's activity feed you can filter the feed by using the subscriberId or email. This will show only the relevant data for this particular subscriber.
 
-```md
-![title](/path/image.jpg)
-```
+To do this, just enter the `subscriberId` or the 'email' of the subscriber you want to get info of and then click the 'search' button on the right-hand side as shown in the image below:
 
-Note that the image file size must be less than 5MB. Otherwise, we recommend hosting on a service like [Cloudinary](https://cloudinary.com/) or [S3](https://aws.amazon.com/s3/). You can then use that URL and embed.
+<Frame caption="Viewing a specific subscriber's activity"><img src="/images/sub-activity.png" /> </Frame>
 
-### Using Embeds
+## Filter by workflow or channel
 
-To get more customizability with images, you can also use [embeds](/writing-content/embed) to add images
+The activity feed allows you to filter messages based on the associated workflow or channel. This is helpful when you want to assess or debug a particular workflow and its behaviour.
 
-```html
-<img height="200" src="/path/image.jpg" />
-```
+Filtering by workflow or channel is quite simple. Just go to the Workflow dropdown (if you want to filter by workflow) or the channel tab (if you want to filter by channel) and select the corresponding workflow or channel and click the 'search' button on the right-hand side as shown in the image below:
+<Frame caption="Filtering by workflow"><img src="/images/filtering-by-workflow.png" /> </Frame>
+<Frame caption="Filtering by channel"><img src="/images/filtering-by-channel.png" /> </Frame>
 
-## Embeds and HTML elements
+## Troubleshooting with the activity feed
 
-<iframe
-  width="560"
-  height="315"
-  src="https://www.youtube.com/embed/4KzFe50RQkQ"
-  title="YouTube video player"
-  frameborder="0"
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-  allowfullscreen
-  style={{ width: '100%', borderRadius: '0.5rem' }}
-></iframe>
+The activity feed also shows if a transaction is failing. You can see why a transaction is failing and rectify it. For example, take a look at the following image:
+<Frame caption="Troubleshooting with the activity feed"><img src="/images/troubleshoot.png" /> </Frame>
+You can see that an SMS notification has failed to get delivered. Clicking on it opens the execution details and the reason why that transaction failed
 
-<br />
+<Frame caption="Filtering by channel"><img src="/images/execution-details-for-sms.png" /> </Frame>
+This can help troubleshoot the problem and comes in handy at the time of distress.
 
-<Tip>
+## Digest info in the activity feed
 
-Mintlify supports [HTML tags in Markdown](https://www.markdownguide.org/basic-syntax/#html). This is helpful if you prefer HTML tags to Markdown syntax, and lets you create documentation with infinite flexibility.
+If you’re using our digest notifications functionality, you’ll be able to see all the digest-related information in the activity feed.
+<Frame caption="Filtering by channel"><img src="/images/digest-info.png" /> </Frame>
+Some of the information related to digest present in the activity feed is:
 
-</Tip>
+- Digest step delay
+- Digesting start time
+- Digest triggered events details
+- More digest execution details
 
-### iFrames
+<Frame caption="Execution details for digest"><img src="/images/execution-details-for-digest.png" /> </Frame>
 
-Loads another HTML page within the document. Most commonly used for embedding videos.
+From here, you can see the details of ‘digest triggered events’ to see exactly which events were digested and the content of the notification you sent, as shown below:
 
-```html
-<iframe src="https://www.youtube.com/embed/4KzFe50RQkQ"> </iframe>
-```
+<Frame caption="Digest execution detail shows which events were digested and the content of notification that was sent"><img src="/images/digest.gif" /> </Frame>
+
+That sums up the activity feed!

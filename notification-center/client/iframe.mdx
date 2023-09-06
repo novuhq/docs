@@ -1,0 +1,193 @@
+---
+title: "Iframe Embed"
+sidebarTitle: "Iframe"
+---
+
+If you are using a (currently) unsupported client framework, you can use our embedded script. This will generate the notification center inside an iframe. You can find the embedded code in the `Settings` page, within the Admin Panel. It will look similar to this:
+
+```html
+<script>
+  (function (n, o, t, i, f) {
+    n[i] = {};
+    var m = ["init", "on"];
+    n[i]._c = [];
+    m.forEach(
+      (me) =>
+        (n[i][me] = function () {
+          n[i]._c.push([me, arguments]);
+        })
+    );
+    var elt = o.createElement(f);
+    elt.type = "text/javascript";
+    elt.async = true;
+    elt.src = t;
+    var before = o.getElementsByTagName(f)[0];
+    before.parentNode.insertBefore(elt, before);
+  })(
+    window,
+    document,
+    "https://embed.novu.co/embed.umd.min.js",
+    "novu",
+    "script"
+  );
+
+  novu.init(
+    "<REPLACE_APPLICATION_ID>",
+    {
+      unseenBadgeSelector: "#unseen-badge",
+      bellSelector: "#notification-bell",
+    },
+    {
+      subscriberId: "<REPLACE_WITH_USER_UNIQUE_IDENTIFIER>",
+      email: "<REPLACE_WITH_USER_EMAIL>",
+      first_name: "<REPLACE_WITH_USER_NAME>",
+      last_name: "<REPLACE_WITH_USER_LAST_NAME>",
+    }
+  );
+</script>
+```
+
+Replace the selectors for the bell icon and the unseen badge within your code. Let's take a look at this example code:
+
+```html
+<nav>
+  <div id="notification-bell">
+    <i class="fa fa-bell"></i>
+    <span id="unseen-badge"></span>
+  </div>
+</nav>
+```
+
+## Customizing the dropdown position
+
+Optionally, the embedded init script receives a position object, you can use this to specify the `left` and `top` position of the notification center.
+
+```html
+<script>
+  novu.init(
+    "<REPLACE_APPLICATION_ID>",
+    {
+      unseenBadgeSelector: "#unseen-badge",
+      bellSelector: "#notification-bell",
+      position: {
+        top: "50px",
+        left: "100px",
+      },
+    },
+    {
+      ...subscriberProps,
+    }
+  );
+</script>
+```
+
+## Customizing the theme
+
+The notification center component can be customized by passing a `theme` to the init script. More information on all possible theme properties can be found [here](/notification-center/client/react/api-reference).
+
+```html
+<script>
+  const customTheme = {
+    light: {
+      layout: {
+        background: "red",
+      },
+    },
+  };
+
+  novu.init(
+    "<REPLACE_APPLICATION_ID>",
+    {
+      unseenBadgeSelector: "#unseen-badge",
+      bellSelector: "#notification-bell",
+      theme: customTheme,
+    },
+    {
+      ...subscriberProps,
+    }
+  );
+</script>
+```
+
+## Customizing the UI language
+
+The language of the UI can be customized by passing an `i18n` component to the init script. More information on all possible properties for it can be found [here](/notification-center/client/react/customization#customize-the-ui-language).
+
+```html
+<script>
+  const customLanguage = {
+    lang: "en",
+    translations: {
+      notifications: "My custom notifications!",
+    },
+  };
+
+  novu.init(
+    "<REPLACE_APPLICATION_ID>",
+    {
+      unseenBadgeSelector: "#unseen-badge",
+      bellSelector: "#notification-bell",
+      i18n: customLanguage,
+    },
+    {
+      ...subscriberProps,
+    }
+  );
+</script>
+```
+
+## Handle User Interaction
+
+In order to handle certain events like the user clicking on the notification, or clicking on an action button inside a notification, you can listen for these events and handle them accordingly.
+
+```html
+<script>
+  novu.on("notification_click", (notification) => {
+    // do custom logic here
+  });
+
+  novu.on("action_click", ({ templateIdentifier, type, notification }) => {
+    // do custom logic here
+  });
+</script>
+```
+
+## Enabling HMAC Encryption
+
+In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel's in-app settings page and enable HMAC encryption for your environment.
+
+The next step would be to generate an HMAC encrypted subscriberId on your backend:
+
+```javascript
+import { createHmac } from "crypto";
+
+const hmacHash = createHmac("sha256", process.env.NOVU_API_KEY)
+  .update(subscriberId)
+  .digest("hex");
+```
+
+Then pass the created HMAC to your client side application forward it to the embed initialization script:
+
+```html
+<script>
+  novu.init(
+    "<REPLACE_APPLICATION_ID>",
+    {
+      unseenBadgeSelector: "#unseen-badge",
+      bellSelector: "#notification-bell",
+      position: {
+        top: "50px",
+        left: "100px",
+      },
+    },
+    {
+      subscriberId: "REPLACE_WITH_PLAIN_VALUE",
+      subscriberHash: "REPLACE_WITH_HASHED_VALUE",
+    }
+  );
+</script>
+```
+
+## Example
+
+[CodeSandBox Link 🔗](https://codesandbox.io/s/novu-iframe-nc-t9ns9d)

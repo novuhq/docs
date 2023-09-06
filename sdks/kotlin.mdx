@@ -1,12 +1,66 @@
 ---
-title: "Kotlin SDK"
-description: "You can interface with Novu's API either over REST, or via libraries for certain languages. Below is a list of our official, supported libraries."
+title: "Kotlin"
+description: "Connect a Kotlin application to Novu"
 ---
 
-## Client Side 
+Novu's Kotlin SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your Kotlin application.
 
+[Explore the source code on GitHub](https://github.com/novuhq/novu-kotlin)
 
+## Installation
 
+Maven users:
 
-## Server Side
+```java
+//Add sonatype release repositories
+<repositories>
+    ...
+    <repository>
+        <id>sonatype</id>
+        <url>https://s01.oss.sonatype.org/content/repositories/releases/</url> // for release
+        or 
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url> // for snapshot
+    </repository>
+</repositories>
 
+// add dependency
+<dependency>
+    <groupId>io.github.crashiv</groupId>
+    <artifactId>novu-kotlin</artifactId>
+    <version>0.1.1-SNAPSHOT</version>
+</dependency>
+```
+
+Then run `mnv install`.
+
+Gradle users:
+
+```java
+//Add sonatype release repositories
+repositories {
+    ...
+    maven { url "https://s01.oss.sonatype.org/content/repositories/releases/" }
+}
+
+// add dependency
+implementation("io.github.crashiv:novu-kotlin:0.1.1-SNAPSHOT")
+```
+
+Then run `gradlew build`.
+
+<Tip> If you're ready to start integrating in your Kotlin app, jump straight to our [Kotlin quickstart.](/quickstarts/kotlin)</Tip>
+
+## Usage 
+
+```java
+// without changing the backend URL
+import co.novu.Novu
+import co.novu.extentions.environments
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val environment = novu.environments()
+    println(environment)
+}
+
+```

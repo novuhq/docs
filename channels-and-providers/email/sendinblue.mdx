@@ -1,66 +1,33 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Sendinblue'
+description: 'Learn how to use the Sendinblue provider to send email notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [Sendinblue](https://www.sendinblue.com/) provider to send transactional emails to your customers using the Novu Platform with a single API.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Sendinblue provider in the email channel, you will need to create a Sendinblue account and add your API key to the Sendinblue integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Finding the API Key
 
-<CodeGroup>
+- To find your Sendinblue API key, log into your Sendinblue account and navigate to the [API Keys](https://account.sendinblue.com/advanced/api) page.
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+# Authenticating your sender identity
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+Before you can send emails on a large scale, you will need to authenticate your sender's identity. This is due to the latest regulatory changes regarding SPAM rules and email fraud. Most of the providers including Sendinblue require you to authenticate your sender identity before you can send emails.
 
-</CodeGroup>
+Sendinblue allows you to authenticate your sender identity using one of the following methods:
 
-## Folders
+- [Single Sender Verification](https://account.sendinblue.com/senders) - This is the easiest way to authenticate your sender identity.
+- [Entire Domain Authentication](https://help.sendinblue.com/hc/en-us/articles/115000185270-What-is-a-verified-domain-on-Sendinblue-) - This is recommended if you are sending emails from multiple accounts under your domain.
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+# Creating a Sendinblue integration with Novu
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations store](https://web.novu.co/integrations) on the Novu web dashboard.
+- Locate Sendinblue and click on the **Connect** button.
+- Enter your Sendinblue API key.
+- Fill in the `From email address` field using the authenticated email from the previous step.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
+- You should now be able to send notifications using Sendinblue in Novu.

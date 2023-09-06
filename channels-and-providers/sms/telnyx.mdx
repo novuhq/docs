@@ -1,66 +1,46 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Telnyx'
+description: 'Learn how to use the Telnyx provider to send sms notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [Telnyx](https://telnyx.com/) provider to send transactional emails to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Telnyx provider in the SMS channel, you will need to create a Telnyx account and add your API key to the Telnyx integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Finding the API Key
 
-<CodeGroup>
+To find your Telnyx API key:
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+- Log into your Telnyx account.
+- Navigate to Account Setting.
+- Then go to [Keys & Credentials](https://portal.telnyx.com/#/app/api-keys).
+- You can copy the API key from there.
+- Alternatively, you can create an API key by tapping on the Create API Key button.
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+Before copying it, make sure its status is showing active.
 
-</CodeGroup>
+# Finding the Message Profile ID
 
-## Folders
+To get your Message profile ID:
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+- Navigate to [Messaging](https://portal.telnyx.com/#/app/messaging) to find the profiles.
+- Make sure you created a Telnyx Messaging Profile previously. Learn more [here](https://developers.telnyx.com/docs/v2/messaging/quickstarts/portal-setup).
+- Go to the active Messaging Profile.
+- Copy the profile ID.
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+# Making sure that the From address is valid
 
-<Warning>
+A valid from address must be a valid phone number in +E.164 format, a short code, or an alphanumeric sender ID associated with the sending messaging profile. Alphanumeric sender IDs must be between 1 and 11 characters long, and can only contain ASCII letters, numbers, and spaces. They must contain at least one letter.
 
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
+# Creating a Telnyx integration with Novu
 
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations](https://web.novu.co/integrations) page on the Novu.
+- Locate Telnyx and click on the **Connect** button.
+- Enter your Telnyx API Key.
+- Fill in the Message profile ID field.
+- Enter the Valid From address.
+- Click on the `Disabled` button and `mark it as Active`.
+- Click on the **Save** button.
+- You should now be able to send notifications using Telnyx in Novu.
