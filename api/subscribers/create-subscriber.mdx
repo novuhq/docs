@@ -9,62 +9,32 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu(process.env.NOVU_API_KEY);
 
-await novu.subscribers.bulkTrigger([
-  {
-    name: "<WORKFLOW_TRIGGER_ID>",
-    to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-    payload: {
-      customKey: "customValue",
-      customKey1: {
-        nestedkey1: "nestedValue1"
-      }
-    },
-    overrides: {
-      email: {
-        from: "support@novu.co"
-      }
-    },
-    // actorId is subscriberId of actor
-    actor: "actorId"
-    tenant: "tenantIdentifier"
-  },
-  {
-    name: "<WORKFLOW_TRIGGER_ID>",
-    to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-    payload: {
-      customKey: "customValue",
-      customKey1: {
-        nestedkey1: "nestedValue1"
-      }
-    },
-    overrides: {
-      email: {
-        from: "support@novu.co"
-      }
-    },
-    // actorId is subscriberId of actor
-    actor: "actorId"
-    tenant: "tenantIdentifier"
-  }
-])
+await novu.subscribers.identify("subscriberId",{
+  firstName: "Pawan";
+  lastName: "Jain";
+  email: "pawan.jain@domain.com";
+  phone: "+1234567890";
+  avatar: "https://gravatar.com/avatar/553b157d82ac2880237566d5a644e5fe?s=400&d=robohash&r=x";
+  locale: "en-US";
+  data: {
+    isDeveloper : true
+    customKey: "customValue"
+  };
+});
 ```
 
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu('<NOVU_API_KEY>');
 
-$novu->bulkTriggerEvent([
-    [
-        'name' => '<WORKFLOW_TRIGGER_ID>', 
-        'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
-        'payload' => ['customVariables' => 'Hello']
-    ],
-    [
-        'name' => '<WORKFLOW_TRIGGER_ID>', 
-        'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
-        'payload' => ['customVariables' => 'World']
-    ],
+$novu->createSubscriber([
+    'subscriberId' => 'YOUR_SYSTEM_USER_ID>',
+    'email' => '<insert-email>', // optional
+    'firstName' => '<insert-firstname>', // optional
+    'lastName' => '<insert-lastname>', // optional
+    'phone' => '<insert-phone>', //optional
+    'avatar' => '<insert-avatar>', // optional
 ])->toArray();
 ```
 
@@ -74,107 +44,35 @@ require 'novu'
 client = Novu::Client.new('<NOVU_API_KEY>')
 
 payload = {
-    'events' => [
-        {
-            'name' => '<WORKFLOW_TRIGGER_ID>',
-            'payload' => { # optional
-                'first-name' => 'Adam' # optional
-            },
-            'to' => {
-                'subscriberId' => '7789'
-            },
-            'transactionId' => '89kjfke9893' #optional
-        },
-        {
-            'name' => '<WORKFLOW_TRIGGER_ID>',
-            'payload' => { # optional
-                'last-name' => 'Eve' # optional
-            },
-            'to' => {
-                'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>'
-            },
-            'transactionId' => 'sw900999as' #optional
-        }
-    ]
+    'subscriberId' => '7789',
+    'email' => '<insert-email>', # optional
+    'firstName' => '<insert-firstName>', # optional
+    'lastName' => '<insert-lastName>', # optional
+    'phone' => '<insert-phone>', # optional
+    'avatar' => '<insert-profile-avatar>' # optional
 }
-client.trigger_bulk_event(payload)
-```
-
-```go Go
-package main
-
-import (
-	"context"
-	"fmt"
-	novu "github.com/novuhq/go-novu/lib"
-	"log"
-)
-
-func main() {
-	apiKey := "<NOVU_API_KEY>"
-	ctx := context.Background()
-
-	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
-
-    event1 := novu.BulkTriggerOptions{
-        Name: []string{"<WORKFLOW_TRIGGER_ID>"},
-        To: map[string]interface{}{
-            "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-            "email":        "john@doemail.com",
-	    },
-        Payload: map[string]interface{}{
-            "name": "Hello World",
-            "organization": map[string]interface{}{
-                "logo": "https://happycorp.com/logo.png",
-            },
-	    }
-    }
-    event2 := novu.BulkTriggerOptions{
-        Name: []string{"<WORKFLOW_TRIGGER_ID>"},
-        To: map[string]interface{}{
-            "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-            "email":        "janet@doemail.com",
-	    },
-        Payload: map[string]interface{}{
-            "name": "Hello World",
-            "organization": map[string]interface{}{
-                "logo": "https://happycorp.com/logo.png",
-            },
-	    }
-    }
-
-    triggerPayload := []novu.BulkTriggerOptions{ event1, event2}
-
-	resp, err := novuClient.EventApi.TriggerBulk(ctx, triggerPayload)
-
-	if err != nil {
-		log.Fatal("novu error", err.Error())
-		return
-	}
-}
+client.create_subscriber(payload)
 ```
 
 ```python Python
-from novu.dto.event import InputEventDto
-from novu.api import EventApi
+from novu.dto.subscriber import SubscriberDto
+from novu.api.subscriber import SubscriberApi
 
 url = "https://api.novu.co"
 api_key = "<NOVU_API_KEY>"
 
-event_1 = InputEventDto(
-    name="<WORKFLOW_TRIGGER_ID>",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
-    recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-    payload={},  # Your custom Novu payload goes here
-)
-event_2 = InputEventDto(
-    name="<WORKFLOW_TRIGGER_ID>",
-    recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-    payload={},
+# Define a subscriber instance
+subscriber = SubscriberDto(
+    email="novu_user@mail.com",
+    subscriber_id="82a48af6ac82b3cc2157b57f", #This is what the subscriber_id looks like
+    first_name="",  # Optional
+    last_name="",  # Optional
+    phone="",  # Optional
+    avatar="",  # Optional
 )
 
-novu = EventApi(url, api_key).trigger_bulk(
-    events=[event1,event2]
-)
+# Create a subscriber
+novu = SubscriberApi(url, api_key).create(subscriber)
 ```
 
 ```java Java
@@ -186,35 +84,16 @@ public class Main {
 
         Novu novu = new Novu(apiKey);
 
-        List<Map<String, Object>> events = new ArrayList<>();
-        // First event
-        Map<String, Object> event1 = new HashMap<>();
-        event1.put("name", "<WORKFLOW_TRIGGER_ID>");
-        event1.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload1 = new HashMap<>();
-        payload1.put("customVariables", "Hello");
-        event1.put("payload", payload1);
-        events.add(event1);
+        // Create subscriber & get the details of the recently created subscriber returned.
+        Map<String, Object> subscriber = new HashMap<>();
+        subscriber.put("subscriberId", "YOUR_SYSTEM_USER_ID");
+        subscriber.put("email", "<insert-email>");
+        subscriber.put("firstName", "<insert-firstname>");
+        subscriber.put("lastName", "<insert-lastname>");
+        subscriber.put("phone", "<insert-phone>");
+        subscriber.put("avatar", "<insert-avatar>");
 
-        // Second event
-        Map<String, Object> event2 = new HashMap<>();
-        event2.put("name", "<WORKFLOW_TRIGGER_ID>");
-        event2.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload2 = new HashMap<>();
-        payload2.put("customVariables", "World");
-        event2.put("payload", payload2);
-        events.add(event2);
-
-        // Third event
-        Map<String, Object> event3 = new HashMap<>();
-        event3.put("name", "<WORKFLOW_TRIGGER_ID>");
-        event3.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload3 = new HashMap<>();
-        payload3.put("customVariables", "Again");
-        event3.put("payload", payload3);
-        events.add(event3);
-
-        novu.bulkTriggerEvent(events);
+        novu.createSubscriber(subscriber);
     }
 }
 
@@ -237,23 +116,33 @@ var novuConfiguration = new NovuClientConfiguration
 
 var novu = new NovuClient(novuConfiguration);
 
-var payload = new List<EventTriggerDataDto>()
+var additionalData = new List<AdditionalDataDto>
 {
-    new()
-    {
-        EventName = "<WORKFLOW_TRIGGER_ID>",
-        To = { SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"},
-        Payload = new TestRecord(){ Message = "Hello"}
-    },
-    new()
-    {
-        EventName = "<WORKFLOW_TRIGGER_ID>",
-        To = { SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"},
-        Payload = new TestRecord(){ Message = "World"}
-    },
+  new AdditionalDataDto
+  {
+    Key = "External ID",
+    Value = "1122334455"
+  },
+  new AdditionalDataDto
+  {
+    Key = "SMS_PREFERENCE",
+    Value = "EMERGENT_ONLY"
+  }
 };
 
-var trigger = await novu.Event.TriggerBulkAsync(payload);
+var newSubscriberDto = new CreateSubscriberDto
+{
+  SubscriberId = "unique_subscriber_id",
+  FirstName = "John",
+  LastName = "Doe",
+  Avatar = "https://unslpash.com/random",
+  Email = "jdoe@novu.co",
+  Locale = "en-US",
+  Phone = "+11112223333",
+  Data = additionalData
+};
+
+var subscriber = await novu.Subscriber.CreateSubscriber(newSubscriberDto)
 ```
 
 </RequestExample>
