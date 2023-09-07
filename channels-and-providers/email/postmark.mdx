@@ -1,66 +1,34 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Postmark'
+description: 'Learn how to use the Postmark provider to send email notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+It is possible to use [Postmark](https://postmarkapp.com/) as a provider to send transactional emails to your customers using the Novu Platform with a single API.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+The first step to use the Postmark provider in the email channel is to create a Postmark account and add the personal API key to the Postmark integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Getting the API Key
 
-<CodeGroup>
+- To find the Postmark API key, log into the personal Postmark account and navigate to the servers page.
+- After selecting the server to use, the API key (referred to as "Server API tokens") will be in the "API Tokens" section of the server chosen.
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+# Authenticating the sender's identity
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+Due to the latest regulatory changes regarding SPAM rules and email fraud, it is needed to authenticate the sender's identity before sending emails on a large scale. Most of the providers, including Postmark, require authentication to unlock the possibility of sending emails.
 
-</CodeGroup>
+Postmark allows the authentication of the sender's identity using one of the following methods:
 
-## Folders
+- [Single Sender Verification](https://account.postmarkapp.com/signatures/new) - This is the easiest way to authenticate the sender's identity.
+- [Entire Domain Authentication](https://postmarkapp.com/support/article/1046-how-do-i-verify-a-domain#:~:text=be%20verified%20automatically.-,Navigate%20to%20Sender%20Signatures.,to%20your%20DNS%2C%20choose%20Verify.) - This is recommended for sending emails from multiple accounts under the same domain.
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+# Create a Postmark integration with Novu
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate Postmark and click on the **Connect** button.
+- Enter the Postmark API key.
+- Fill in the `From email address` field using the authenticated email from the previous step.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
+- Now is possible to send notifications using Postmark in Novu.

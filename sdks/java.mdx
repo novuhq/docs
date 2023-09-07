@@ -1,0 +1,61 @@
+---
+title: "Java"
+description: "Connect a Java application to Novu"
+---
+
+Novu's Java SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your Java application.
+
+[Explore the source code on GitHub](https://github.com/novuhq/novu-java)
+
+## Installation
+
+Maven users:
+
+```java
+<!--add dependency-->
+<dependency>
+    <groupId>co.novu</groupId>
+    <artifactId>novu-java</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+Then run `mnv install`.
+
+Gradle users:
+
+```java
+// add dependency
+dependencies {
+    implementation 'co.novu:novu-java:1.0.0'
+}
+```
+
+then run `gradlew build`.
+
+
+
+<Tip> If you're ready to start integrating in your Java app, jump straight to our [Java quickstart.]()</Tip>
+
+## Usage 
+
+```php
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "INSERT_API_KEY_HERE";
+        // Using the API Key only
+        Novu novu = new Novu(apiKey);
+
+        // Using the Config Param
+        NovuConfig novuConfig = new NovuConfig(apiKey);
+        Novu novu = new Novu(novuConfig);
+
+        // Sample usage
+        novu.triggerEvent(event);
+    }
+}
+
+// Sign up on https://web.novu.co and grab your API key from https://web.novu.co/settings
+```

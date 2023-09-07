@@ -1,0 +1,67 @@
+---
+openapi: put /v1/environments/{environmentId}
+---
+
+<RequestExample>
+```javascript Node.js
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+await novu.environmets.updateOne("environmentId", {
+  name: "Stagging" // optional
+  parentId: "parentEnvironmentId", // optional
+  identifier: "environmentIdentifier" // optional
+});
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+$novu->getCurrentEnvironment()->toArray();
+$novu->createEnvironment([
+    'name' => '<insert-name>',
+    'parentId' => '<insert-parent-id>' // optional
+])->toArray();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.update_environment('64a713bdexxxxxx', {
+    'name' => 'Local', # optional
+    'identifier' => 'local', # optional
+    'parentId' => '7789', # optional
+    'dns' => { # optional
+        'inboundParseDomain' => 'dev.test' # optional
+    }
+})
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.updateEnvironment(environmentId, body);
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    data: data
+}
+```
+
+</ResponseExample>

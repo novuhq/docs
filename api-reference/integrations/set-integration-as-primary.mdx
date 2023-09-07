@@ -1,0 +1,81 @@
+---
+openapi: post /v1/integrations/{integrationId}/set-primary
+---
+
+<RequestExample>
+```javascript Node.js
+import fetch from 'node-fetch';
+
+const response = await fetch('https://api.novu.co/v1/integrations/:integrationId/set-primary', {
+  method: 'POST',
+  
+});
+const data = await response.json();
+    
+```
+
+```php PHP
+<?php
+
+$url = 'https://api.novu.co/v1/integrations/:integrationId/set-primary';
+$data = array(
+  [options]
+);
+$options = array(
+  "http" => array(
+  "header"  => "Content-type: application/json",
+  "header"  => "Authorization: ApiKey REPLACE_WITH_API_KEY",
+  "method"  => "POST",
+  "content" => json_encode($data)
+  )
+);
+$context  = stream_context_create($options);
+$result = file_get_contents($url, false, $context);
+
+if ($result === FALSE) { /* Handle error */ }
+
+echo $result;
+    
+```
+
+```ruby Ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse('https://api.novu.co/v1/integrations/:integrationId/set-primary')
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Post.new(uri.request_uri)
+
+request.body = '{
+  [options]
+}'
+request.content_type = 'application/json'
+request.add_field('Authorization', 'ApiKey REPLACE_WITH_API_KEY')
+
+
+response = http.request(request)
+
+puts response.body
+    
+```
+
+```python Python
+import requests
+
+response = requests.post('https://api.novu.co/v1/integrations/:integrationId/set-primary')
+
+print(response.json())
+    
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    data: data
+}
+```
+
+</ResponseExample>

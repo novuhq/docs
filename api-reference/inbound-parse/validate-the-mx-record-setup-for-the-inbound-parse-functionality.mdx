@@ -1,0 +1,59 @@
+---
+openapi: get /v1/inbound-parse/mx/status
+---
+
+<RequestExample>
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+
+// Validate MX Record for Inbound Parse
+$novu->validateMXRecordForInboundParse()->toArray();
+
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+client.validate_mx_record_setup_for_inbound_parse()
+```
+
+```python Python
+from novu.api import InboundParseApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = InboundParseApi(url, api_key).validate_mx_record_setup(
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.validateMxRecordSetupForInboundParse();
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    "data": {
+    "mxRecordConfigured": true
+  }
+}
+```
+
+</ResponseExample>

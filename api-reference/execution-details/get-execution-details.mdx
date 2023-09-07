@@ -1,0 +1,66 @@
+---
+openapi: get /v1/execution-details
+---
+
+<RequestExample>
+
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+// Get execution details
+$novu->getExecutionDetails([
+    'notificationId' => '<insert-notification-id>',
+    'subscriberId'   => '<insert-subscriber-id>'
+])->toArray();
+
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.execution_details({
+    'notificationId' => '8fxxx-xxx-ef9xxxxce66',
+    'subscriberId' => '7789'
+})
+```
+
+```python Python
+from novu.api import ExecutionDetailApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = ExecutionDetailApi(url, api_key).list(
+    notification_id = "<The notification ID in Novu>",
+    subscriber_id = "<The subscriber ID in Novu>",
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.executionDetails(query = {});
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    data: [data]
+}
+```
+
+</ResponseExample>

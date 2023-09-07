@@ -1,0 +1,273 @@
+---
+title: "Customizing Notification Center"
+sidebarTitle: "Customization"
+---
+
+## PopoverNotificationCenter Customization
+
+### Implementing custom bell icon
+
+It is common that you might have a special set of icons you use within your application and you will want to replace the default: `NotificationBell` coming from our library.
+
+For this you can easily switch the `NotificationBell` with your own bell. Just make sure you pass the `unseenCount` param inside and use it accordingly.
+
+```jsx
+<PopoverNotificationCenter>
+  {({ unseenCount }) => (
+    <CustomBell
+      unseenCount={unseenCount}
+      colorScheme="dark"
+      unseenBadgeBackgroundColor="#FFFFFF"
+      unseenBadgeColor="#FF0000"
+    />
+  )}
+</PopoverNotificationCenter>
+```
+
+### Dark mode support
+
+To support dark mode in your application the notification center component can receive a `colorScheme` prop that can receive either `dark` or `light` mode.
+
+```tsx
+<PopoverNotificationCenter colorScheme={"dark" || "light"}>
+  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+</PopoverNotificationCenter>
+```
+
+### Popover positioning
+
+Use `position`  and `offset` prop to position the popover relative to the Bell icon
+
+```jsx
+<PopoverNotificationCenter position="left-start" offset={20}>
+  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+</PopoverNotificationCenter>
+```
+
+### Header, Footer and Empty state
+
+Use `header`  prop to customize the header of notification center
+
+```jsx
+const Header = () => {
+  return <span> My custom header </span>;
+};
+
+const Footer = () => {
+  return <span> My custom footer </span>;
+};
+
+const EmptyState = () => {
+  return <span> My custom empty state </span>;
+};
+
+<PopoverNotificationCenter
+  header={() => <Header />}
+  footer={() => <Footer />}
+  emptyState={<EmptyState />}
+>
+  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+</PopoverNotificationCenter>;
+```
+
+### Notification item
+
+Use the listItem prop to show custom notification items.
+
+```jsx
+<PopoverNotificationCenter
+  colorScheme={colorScheme}
+  onNotificationClick={handlerOnNotificationClick}
+  onActionClick={handlerOnActionClick}
+  listItem={(
+    notification,
+    handleActionButtonClick,
+    handleNotificationClick
+  ) => {
+    return (
+      <a
+        href="/"
+        onClick={(e) => {
+          e.preventDefault();
+          handleNotificationClick();
+        }}
+      >
+        {notification.content}
+      </a>
+    );
+  }}
+>
+  {({ unseenCount }) => {
+    return <NotificationBell unseenCount={unseenCount} />;
+  }}
+</PopoverNotificationCenter>
+```
+
+### Customize the UI language
+
+If you want to use a language other than english for the UI, the `NovuProvider` component can accept an optional `i18n` prop.
+
+```typescript
+import {
+  NovuProvider,
+  PopoverNotificationCenter,
+  NotificationBell,
+} from "@novu/notification-center";
+
+function Header() {
+  return (
+    <NovuProvider
+      subscriberId={"USER_ID"}
+      applicationIdentifier={"APP_ID_FROM_ADMIN_PANEL"}
+      i18n="en"
+    >
+      <PopoverNotificationCenter>
+        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+      </PopoverNotificationCenter>
+    </NovuProvider>
+  );
+}
+```
+
+The `i18n` prop can accept 2 different types of values
+
+- 2 letter language string
+
+```typescript
+i18n = "en";
+```
+
+<Accordion title="Supported Language" >
+
+- `af` (Afrikaans)
+- `am` (Amharic)
+- `ar` (Arabic)
+- `as` (Assamese)
+- `az` (Azerbaijani)
+- `ba` (Bashkir)
+- `be` (Belarusian)
+- `bg` (Bulgarian)
+- `bh` (Bihari)
+- `bn` (Bengali)
+- `bs` (Bosnian)
+- `ca` (Catalan)
+- `cs` (Czech)
+- `da` (Danish)
+- `de` (German)
+- `el` (Greek)
+- `en` (English)
+- `es` (Spanish)
+- `eu` (Basque)
+- `fa` (Farsi)
+- `fi` (Finnish)
+- `fr` (French)
+- `ga` (Irish)
+- `gl` (Galician)
+- `gu` (Gujarati)
+- `he` (Hebrew)
+- `hi` (Hindi)
+- `hr` (Croatian)
+- `hu` (Hungarian)
+- `hy` (Armenian)
+- `id` (Indonesian)
+- `ig` (Igbo)
+- `it` (Italian)
+- `ja` (Japanese)
+- `ka` (Kannada)
+- `kk` (Kazakh)
+- `km` (Khmer)
+- `ko` (Korean)
+- `ku` (Kurdish)
+- `lo` (Lao)
+- `lt` (Lithuanian)
+- `lv` (Latvian)
+- `ml` (Malayalam)
+- `mr` (Marathi)
+- `ms` (Malay)
+- `nb` (Norwegian)
+- `ne` (Nepali)
+- `nl` (Dutch)
+- `or` (Odia)
+- `pa` (Punjabi)
+- `pl` (Polish)
+- `pt` (Portuguese)
+- `ro` (Romanian)
+- `ru` (Russian)
+- `sa` (Sanskrit)
+- `sd` (Sindhi)
+- `si` (Sinhala)
+- `sm` (Samoan)
+- `sq` (Albanian)
+- `sv` (Swedish)
+- `sq` (Albanian)
+- `ta` (Tamil)
+- `te` (Telugu)
+- `th` (Thai)
+- `tl` (Tagalog)
+- `tr` (Turkish)
+- `uk` (Ukrainian)
+- `ur` (Urdu)
+- `uz` (Uzbek)
+- `vi` (Vietnamese)
+- `zh` (Chinese)
+- `zu` (Zulu)
+
+</Accordion>
+- Translation object
+
+```typescript
+i18n={{
+  // Make sure that the following is a proper language code,
+  // since this is used by Intl.RelativeTimeFormat in order to calculate the relative time for each notification
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat
+  lang: "de",
+
+  translations: {
+    poweredBy: "von",
+    markAllAsRead: "Alles als gelesen markieren",
+    notifications: "Benachrichtigungen",
+    settings: "Einstellungen",
+  },
+}}
+
+```
+
+<Tip>Novu uses *`en`* as the default value for i18n</Tip>
+
+## Customization Using Hooks
+
+### useNotifications
+
+The hook that allows you to get the notifications feed data and unseen notifications count. The notifications are fetched only when the `fetchingStrategy.fetchNotifications` is set to `true`  check the `initialFetchingStrategy` prop on the [NovuProvider] component.
+
+```typescript
+const result = useNotifications();
+```
+
+### The hook return interface
+
+```typescript
+interface INotificationsContext {
+  storeId: string;
+  storeQuery: IStoreQuery;
+  stores: IStore[];
+  unseenCount: number;
+  notifications: IMessage[];
+  hasNextPage: boolean;
+  isLoading: boolean;
+  isFetching: boolean;
+  isFetchingNextPage: boolean;
+  setStore: (storeId?: string) => void;
+  fetchNextPage: () => void;
+  refetch: () => void;
+  markNotificationAsRead: (messageId: string) => void;
+  markNotificationAsUnRead: (messageId: string) => void;
+  markNotificationAsSeen: (messageId: string) => void;
+  markFetchedNotificationsAsRead: () => void;
+  markFetchedNotificationsAsSeen: () => void;
+  markAllNotificationsAsRead: () => void;
+  markAllNotificationsAsSeen: () => void;
+  removeMessage: (messageId: string) => void;
+  removeAllMessages: (feedId?: string) => void;
+}
+```
