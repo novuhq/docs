@@ -1,0 +1,67 @@
+---
+openapi: post /v1/changes/bulk/apply
+---
+
+<RequestExample>
+```javascript Node.js
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+await novu.changes.applyMany(["changeId1", "changeId2"]);
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->applyBulkChanges([
+    'changeIds' = [
+        '<insert-all-the-change-ids>'
+    ]
+])->toArray();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.apply_change({
+    'changeIds' => ['<insert-all-the-change-ids>']
+})
+```
+
+```python Python
+from novu.api import ChangeApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = ChangeApi(url, api_key).bulk_apply(
+    change_ids = "<The list of IDs to apply>",
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.applyBulkChanges("<list-of-change-ids>");
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    data: [data]
+}
+```
+
+</ResponseExample>

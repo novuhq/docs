@@ -1,66 +1,56 @@
 ---
-title: 'SendGrid'
-description: 'The navigation field in mint.json defines the pages that go in the navigation menu'
-icon: 'map'
+title: 'Sendchamp'
+description: 'Learn how to use the Sendchamp provider to send sms notifications using Novu'
 ---
 
-The navigation menu is the list of links on every website.
+You can use the [Sendchamp](https://www.sendchamp.com/) provider to send SMS messages to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+# Getting Started
 
-## Navigation syntax
+To use the Sendchamp provider in the SMS channel, the first step is to create a Sendchamp account and add your API key and Sender ID to the Sendchamp integration on the Novu platform.
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+# Retrieving your API Key
 
-<CodeGroup>
+To find your Sendchamp API key:
 
-```json Regular Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
-    }
-]
-```
+- [Sign up](https://my.sendchamp.com/signup) or [Login](https://my.sendchamp.com/login) to your Sendchamp account.
+- Click on the Avatar icon in the top right corner of the screen, and then click `API & Integrations` from the drop-down menu.
+<Frame caption="Click on the Avatar icon in the top right corner of the screen, and then click `API & Integrations` from the drop-down menu."><img src="/images/image-67.png" /> </Frame>
+Alternatively, you can access the API key from the Accounts menu.
 
-```json Nested Navigation
-"navigation": [
-    {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
-    }
-]
-```
+- Scroll to the bottom of the sidebar (on the left) and click on `Accounts`.
+- This will display a dropdown from which you can then click on `API keys & Webhooks` to view your API key.
+<Frame caption="Click on the API keys and webhooks to view your API key"><img src="/images/image-68.png" /> </Frame>
+- On the API Keys page, copy the Public access key.
+<Frame caption=""><img src="/images/image-69.png" /> </Frame>
 
-</CodeGroup>
+# Get your Sender's ID
 
-## Folders
+The Sender ID represents the sender of the message to your customers.
 
-Simply put your MDX files in folders and update the paths in `mint.json`.
+To get your Sender's ID:
 
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
+- On the sidebar (on the menu on your left), click on `SMS`. This will display a dropdown. Click on `Sender ID` from the dropdown options.
+- On the page that appears, you'll find a list of your Sender IDs
+<Frame caption="Click sms and select sender ID"><img src="/images/image-70.png" /> </Frame>
+If you have not created one yet:
 
-<Warning>
+- Click on the `Create Sender ID` button to request a Sender ID.
+- Fill in the form.
+- Click on `Add Sender ID` button.
+<Frame caption="Click on the add sender ID button"><img src="/images/image-71.png" /> </Frame>
 
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
+Once it is approved, you can use your Sender ID as the from field on the Novu platform.
 
-</Warning>
+# Create a Sendchamp integration with Novu
 
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
+- Visit the [Integrations](https://web.novu.co/integrations) page on Novu.
+- Locate **Sendchamp** under the SMS section and click on the **Connect** button.
 
-## Hidden Pages
 
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
+- Enter your Sendchamp API Key.
+- Fill in the `From` field.
+- Click on the `Disabled` button and mark it as `Active`.
+- Click on the **Connect** button.
+
+Now it is possible to send SMS notifications using **Sendchamp** in Novu.

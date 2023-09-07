@@ -1,0 +1,302 @@
+---
+title: 'Kotlin'
+description: 'Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications with Kotlin.'
+---
+
+Learn how to integrate Novu into your Kotlin project on the fly and send notifications across different channels (SMS, Email, Chat, Push).
+
+Let's get started! 💪
+
+# Requirements
+
+To be able to use this Quickstart, you would need to have the following:
+
+- A Novu account, if you don't have one yet, [sign up](https://web.novu.co/) for free.
+- A working Kotlin project running version 1.6.0+ and Kotlin compiler 1.8.0+.
+
+The completed code for this quick start is available on GitHub. Check it out [here](https://github.com/novuhq/novu-kotlin-quickstart).
+
+# Install and Set up the Novu Kotlin SDK in your project
+
+First, you need to import the library into your application. If you use Maven, add the dependency to the `pom.xml` file;
+
+```xml
+<dependencies>
+  ...
+  <dependency>
+    <groupId>io.github.crashiv</groupId>
+    <artifactId>novu-kotlin</artifactId>
+    <version>0.1.1-SNAPSHOT</version>
+  </dependency>
+</dependencies>
+
+```
+
+Then add the repository;
+
+```xml
+<repositories>
+    ...
+    <repository>
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+    </repository>
+</repositories>
+
+```
+
+If you use Gradle, add the dependency to the `build.gradle` file;
+
+```groovy
+implementation 'io.github.crashiv:novu-kotlin:0.1.1-SNAPSHOT' //Groovy
+
+implementation ("io.github.crashiv:novu-kotlin:0.1.1-SNAPSHOT") //Kotlin
+
+```
+
+Then add the repository;
+
+```groovy
+repositories {
+    ...
+    maven { url "https://s01.oss.sonatype.org/content/repositories/releases/" }
+}
+
+```
+
+Sync your project, and you should have the artifacts downloaded.
+
+To use the SDK, you need to have your API key handy, it can be gotten from the [settings page](https://web.novu.co/settings) of the web portal.
+
+To initialize the library, you can create an instance of `Novu.kt` class using any of the following constructors:
+
+```kotlin
+//Using the API Key only
+val novu = Novu(apiKey = "API_KEY")
+
+```
+
+```kotlin
+//Using the API Key plus an instance of NovuConfig
+val novuConfig = NovuConfig(backendUrl = "URL")
+val novu = Novu(apiKey = "API_KEY", config = novuConfig)
+
+```
+
+Once that is done successfully, head over to the [web portal](https://web.novu.co/) for the next steps.
+
+# Set up a Channel Provider
+
+A channel provider is a service that provides one or more notification functionality such as sending an email, SMS, push notification, etc. Our [integration store](https://web.novu.co/integrations) includes four channels: Email, SMS, Chat, and Push. These channels have multiple providers associated with them.
+
+| Channel | Providers |
+| --- | --- |
+| Email | MailGun, Mandrill, MailJet, Amazon SES, Sendgrid, Postmark, Netcore |
+| SMS | Twilio, Amazon SNS, Plivo, SMS, SMSCentral, Kannel, Infobip, Termii |
+| Chat | Mattermost, Slack, Microsoft Teams, Discord |
+| Push | FCM, APNS, Expo |
+
+Only one provider can be **active** per **channel**. Connect any of your favourite providers to get started. The email channel comes with Novu's email provider, which is active by default and includes 300 credits.
+
+# Create a Workflow
+
+A workflow is a blueprint for the notifications that will be sent. It holds the entire flow of messages sent to the subscriber. This is where all the different channels are tied together under a single entity.
+
+The workflow includes the following:
+
+- Workflow name and Identifier.
+- Channel-tailored content:
+
+| Channel | Content Style |
+| --- | --- |
+| Email | 1. Custom Code (HTML) with the option to use custom variables via the handlebars, {{ }}, syntax. |
+|  | 2. Click and place UI items with the visual template editor. |
+| SMS | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
+| Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
+| In-App | Text |
+
+
+<Note>
+Proper authorization needs to be set for the Chat channel for subscribers.
+</Note>
+
+Please proceed to create a workflow.
+
+1. Click **Workflows** on the left sidebar of your Novu dashboard.
+2. Click the **Create Workflow** button on the top right.
+<Frame caption="Use the create workflow button to create a workflow"><img src="/images/workflow-kotlin.png" /> </Frame>
+3. The name of the new workflow is currently Untitled, rename it to a more suitable title.
+<Frame caption="Rename the workflow to a more suitable title"><img src="/images/renam-workflow-kotlin.png" /> </Frame>
+4. Select Email as the channel you want to add, by dragging it from the right sidebar.
+<Frame caption="Select Email as the channel you want to add, by dragging it from the right sidebar."><img src="/images/select-email-kotlin.png" /> </Frame>
+5. Click on the Email in the workflow and edit it as per this image. Don’t forget to add the fields in the editor which is supposed to be updated with dynamic values that will be sent when calling the API.
+<Frame caption="Add the fields in the email editor"><img src="/images/add-fields-kotlin.png" /> </Frame>
+6. Also, add the variables in the Variables section in the test tab and try testing it by sending the email to your email address using the Send Test Email button at the bottom right.
+<Frame caption="Add the variables in the Variables section in the test tab"><img src="/images/add-variables-kotlin.png" /> </Frame>
+You should get an email within seconds! 👌
+
+Great, you have successfully sent your first notification via the Novu dashboard! Now, let’s take a step further to trigger notifications via code.
+
+## Create a Subscriber and Update a Subscriber's information
+
+The recipients of a triggered notification are called subscribers.
+
+Click **Subscribers** on the left sidebar of the Novu dashboard to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
+<Frame caption="By default, the dashboard will display a subscriber, as you were added automatically during sign-up."><img src="/images/default-sub-kotlin.png" /> </Frame>
+Now, let's create a subscriber on Novu. Copy and paste the following code to do so:
+
+```kotlin
+suspend fun createSubscriber(): ResponseWrapper<SubscriberResponse>? {
+        val novu = Novu(apiKey = "API_KEY")
+        val subscriberRequest = SubscriberRequest(
+            email = "email@sample.com",
+            firstName = "John",//optional
+            lastName = "Doe",//optional
+            phone = "123456789",//optional
+            avatar = "sample-avatar",//optional
+            subscriberId = "12345"//optional
+        )
+        return CoroutineScope(Dispatchers.IO).async {
+            novu.createSubscriber(subscriberRequest)
+        }.await()
+    }
+
+```
+
+When you run this code snippet, you should see the subscriber on your Novu dashboard. 👤
+
+Now, let's assume you want to modify the email address of the Subscriber you just created, you can do that with the following code:
+
+```kotlin
+suspend fun updateSubscriber(): ResponseWrapper<SubscriberResponse>? {
+        val novu = Novu(apiKey = "API_KEY")
+        val subscriberRequest = UpdateSubscriberRequest(
+            email = "validemail@sample.com",
+            firstName = "John",//optional
+            lastName = "Doe",//optional
+            phone = "123456789",//optional
+            avatar = "sample-avatar"//optional
+        )
+        val subscriberId = "12345"
+        return CoroutineScope(Dispatchers.IO).async {
+            novu.updateSubscriber(subscriberId, subscriberRequest)
+        }.await()
+    }
+
+```
+
+Other valid fields that can be updated are `phone`, `avatar`, and `data`. The `data` field can accept an Object or a Map with the info you want to attach to the subscriber.
+
+
+<Note>
+To create all of your subscribers, you need to programmatically add them to Novu.
+</Note>
+
+## Trigger a Notification
+
+Copy and paste the following code into your app to trigger a notification to a Subscriber:
+
+```kotlin
+suspend fun triggerNotification(): Any? {
+        val novu = Novu(apiKey = "API_KEY")
+        val triggerEventRequest = TriggerEventRequest(
+            name = "test",
+            to = SubscriberRequest(
+                subscriberId = "12345",
+                email = "email@email.com",
+                firstName = "John",
+                lastName = "Doe"
+            ),
+            payload = mapOf("customVariables" to "Hello")
+        )
+
+        return CoroutineScope(Dispatchers.IO).async {
+            novu.trigger(triggerEventRequest)
+        }.await()
+    }
+
+```
+
+Before running the code, make sure you understand the following:
+
+- The value of `payload` is an array of the data that you want to be dynamically injected into the workflow content.
+- The value of `subscriberId` is the ID of the subscriber on Novu. Replace `12345` with your subscriber ID.
+
+Run the code to trigger a notification! 📧
+
+## Topics
+
+Novu provides a simple API that offers an easy interface for triggering notifications to multiple subscribers at once. This API is called **Topics** and allows users to manage their bulk notifications without having to implement complex loops. A topic is identified by a custom key that is provided by the user, and this key will be the identifier used in the Topics API.
+
+
+<Note>
+The topic key should be unique and can't be changed once chosen. Novu also caters for key uniqueness behind the scenes.
+</Note>
+
+A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
+
+### Create a Topic
+
+Copy and paste the following code into your app to create a topic:
+
+```kotlin
+suspend fun createTopic(): Any? {
+        val novu = Novu(apiKey = "API_KEY")
+        val createTopicRequest = CreateTopicRequest(
+            key = "key",
+            name = "name"
+        )
+        return CoroutineScope(Dispatchers.IO).async {
+            novu.createTopic(createTopicRequest)
+        }.await()
+    }
+
+```
+
+Before running the code, make sure you understand the following:
+
+- When creating a `key`, ensure it is unique and accurately identifies the topic. Document naming conventions and communicate them to team members to avoid confusion and ensure a smooth workflow.
+- The value of `name` should be a descriptive topic name.
+
+### Add subscribers to a Topic
+
+Copy and paste the following code into your app to add subscribers a topic:
+
+```kotlin
+suspend fun addSubscriberToTopic(): Any? {
+        val novu = Novu(apiKey = "API_KEY")
+        val topicKey = "key"
+        val requestBody = SubscriberList(listOf("name"))
+        return CoroutineScope(Dispatchers.IO).async {
+            novu.addSubscribers(topicKey, requestBody)
+        }.await()
+    }
+
+```
+
+On the other hand, if you want to remove subscribers from a topic, do the following:
+
+```kotlin
+suspend fun removeSubscriberFromTopic(): Any? {
+        val novu = Novu(apiKey = "API_KEY")
+        val topicKey = "key"
+        val requestBody = SubscriberList(listOf("name"))
+        return CoroutineScope(Dispatchers.IO).async {
+            novu.removeSubscriber(topicKey, requestBody)
+        }.await()
+    }
+
+```
+
+### Sending a Notification to a Topic
+
+Thanks to the topics feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps avoid listing all subscriber identifiers in the `to` field of the notification trigger.
+
+
+<Note>
+This feature is not yet available on the Kotlin SDK, this doc will be updated once it is released on Kotlin.
+</Note>
+
+# Conclusion
+
+Great job! 👏 
+If you've reached this point, you should have successfully created a subscriber, workflow, configured a channel provider, triggered a single notification, created a topic, and added a subscriber to a topic in your application.

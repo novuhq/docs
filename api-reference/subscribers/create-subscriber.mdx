@@ -1,0 +1,158 @@
+---
+openapi: post /v1/subscribers
+---
+
+<RequestExample>
+
+```javascript Node.js
+import { Novu } from '@novu/node';
+
+const novu = new Novu(process.env.NOVU_API_KEY);
+
+await novu.subscribers.identify("subscriberId",{
+  firstName: "Pawan";
+  lastName: "Jain";
+  email: "pawan.jain@domain.com";
+  phone: "+1234567890";
+  avatar: "https://gravatar.com/avatar/553b157d82ac2880237566d5a644e5fe?s=400&d=robohash&r=x";
+  locale: "en-US";
+  data: {
+    isDeveloper : true
+    customKey: "customValue"
+  };
+});
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu('<NOVU_API_KEY>');
+
+$novu->createSubscriber([
+    'subscriberId' => 'YOUR_SYSTEM_USER_ID>',
+    'email' => '<insert-email>', // optional
+    'firstName' => '<insert-firstname>', // optional
+    'lastName' => '<insert-lastname>', // optional
+    'phone' => '<insert-phone>', //optional
+    'avatar' => '<insert-avatar>', // optional
+])->toArray();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+payload = {
+    'subscriberId' => '7789',
+    'email' => '<insert-email>', # optional
+    'firstName' => '<insert-firstName>', # optional
+    'lastName' => '<insert-lastName>', # optional
+    'phone' => '<insert-phone>', # optional
+    'avatar' => '<insert-profile-avatar>' # optional
+}
+client.create_subscriber(payload)
+```
+
+```python Python
+from novu.dto.subscriber import SubscriberDto
+from novu.api.subscriber import SubscriberApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+# Define a subscriber instance
+subscriber = SubscriberDto(
+    email="novu_user@mail.com",
+    subscriber_id="82a48af6ac82b3cc2157b57f", #This is what the subscriber_id looks like
+    first_name="",  # Optional
+    last_name="",  # Optional
+    phone="",  # Optional
+    avatar="",  # Optional
+)
+
+# Create a subscriber
+novu = SubscriberApi(url, api_key).create(subscriber)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+
+        // Create subscriber & get the details of the recently created subscriber returned.
+        Map<String, Object> subscriber = new HashMap<>();
+        subscriber.put("subscriberId", "YOUR_SYSTEM_USER_ID");
+        subscriber.put("email", "<insert-email>");
+        subscriber.put("firstName", "<insert-firstname>");
+        subscriber.put("lastName", "<insert-lastname>");
+        subscriber.put("phone", "<insert-phone>");
+        subscriber.put("avatar", "<insert-avatar>");
+
+        novu.createSubscriber(subscriber);
+    }
+}
+
+
+```
+
+```csharp .NET
+using Novu.DTO;
+using Novu.Models;
+using Novu;
+
+var novuConfiguration = new NovuClientConfiguration
+{
+    /** 
+    * Defaults to https://api.novu.co/v1 
+    */
+    Url = "https://novu-api.my-domain.com/v1", 
+    ApiKey = "12345",
+};
+
+var novu = new NovuClient(novuConfiguration);
+
+var additionalData = new List<AdditionalDataDto>
+{
+  new AdditionalDataDto
+  {
+    Key = "External ID",
+    Value = "1122334455"
+  },
+  new AdditionalDataDto
+  {
+    Key = "SMS_PREFERENCE",
+    Value = "EMERGENT_ONLY"
+  }
+};
+
+var newSubscriberDto = new CreateSubscriberDto
+{
+  SubscriberId = "unique_subscriber_id",
+  FirstName = "John",
+  LastName = "Doe",
+  Avatar = "https://unslpash.com/random",
+  Email = "jdoe@novu.co",
+  Locale = "en-US",
+  Phone = "+11112223333",
+  Data = additionalData
+};
+
+var subscriber = await novu.Subscriber.CreateSubscriber(newSubscriberDto)
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{ 
+  data: data
+}
+```
+
+</ResponseExample>

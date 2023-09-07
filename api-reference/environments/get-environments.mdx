@@ -1,0 +1,56 @@
+---
+openapi: get /v1/environments
+---
+
+<RequestExample>
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->getEnvironments()->toArray();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+client.environments()
+```
+
+```python Python
+from novu.api import EnvironmentApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = EnvironmentApi(url, api_key).list(
+)
+```
+
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.environments();
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    {
+    data: [data]
+}
+}
+```
+
+</ResponseExample>
