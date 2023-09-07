@@ -1,3 +1,53 @@
 ---
 openapi: get /v1/integrations/in-app/status
 ---
+
+<RequestExample>
+```javascript Node.js
+import { Novu } from '@novu/node';  
+export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
+await novu.integrations.getInAppStatus();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+client.in_app_status()
+```
+
+```python Python
+from novu.api import IntegrationApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = IntegrationApi(url, api_key).status(
+    provider_id="<In-app provider_ID>",
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        updateIntegration(integrationId, body);
+        novu.inAppStatus();
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    200: "In-app status"
+}
+```
+
+</ResponseExample>
