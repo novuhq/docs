@@ -34,7 +34,7 @@
     {
       "name": "API Reference",
       "icon": "square-terminal",
-      "url": "api-reference"
+      "url": "api"
     },
     {
       "name": "Learn by Videos",
@@ -55,7 +55,7 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api-reference"
+      "url": "api"
     },
     {
       "name": "SDKs",
@@ -355,55 +355,148 @@
     {
       "group": "Events",
       "pages": [
-        "api-reference/events/trigger-event",
-        "api-reference/events/bulk-trigger-event",
-        "api-reference/events/broadcast-event-to-all",
-        "api-reference/events/cancel-triggered-event"
+        "api/events/trigger-event",
+        "api/events/bulk-trigger-event",
+        "api/events/broadcast-event-to-all",
+        "api/events/cancel-triggered-event"
       ]
     },
     {
       "group": "Subscribers",
       "pages": [
-        "api-reference/subscribers/get-subscribers",
-        "api-reference/subscribers/create-subscriber",
-        "api-reference/subscribers/get-subscriber",
-        "api-reference/subscribers/update-subscriber",
-        "api-reference/subscribers/delete-subscriber",
-        "api-reference/subscribers/update-subscriber-credentials",
-        "api-reference/subscribers/delete-subscriber-credentials-by-providerid",
-        "api-reference/subscribers/update-subscriber-online-status",
-        "api-reference/subscribers/get-subscriber-preferences",
-        "api-reference/subscribers/update-subscriber-preference",
-        "api-reference/subscribers/get-in-app-notification-feed-for-a-particular-subscriber",
-        "api-reference/subscribers/get-the-unseen-in-app-notifications-count-for-subscribers-feed",
-        "api-reference/subscribers/mark-a-subscriber-feed-message-as-seen",
-        "api-reference/subscribers/marks-all-the-subscriber-messages-as-read-unread-seen-or-unseen-optionally-you-can-pass-feed-id-or-array-to-mark-messages-of-a-particular-feed",
-        "api-reference/subscribers/mark-message-action-as-seen",
-        "api-reference/subscribers/handle-providers-oauth-redirect",
-        "api-reference/subscribers/handle-chat-oauth"
+        "api/subscribers/get-subscribers",
+        "api/subscribers/create-subscriber",
+        "api/subscribers/get-subscriber",
+        "api/subscribers/update-subscriber",
+        "api/subscribers/delete-subscriber",
+        "api/subscribers/update-subscriber-credentials",
+        "api/subscribers/delete-subscriber-credentials-by-providerid",
+        "api/subscribers/update-subscriber-online-status",
+        "api/subscribers/get-subscriber-preferences",
+        "api/subscribers/update-subscriber-preference",
+        "api/subscribers/get-in-app-notification-feed-for-a-particular-subscriber",
+        "api/subscribers/get-the-unseen-in-app-notifications-count-for-subscribers-feed",
+        "api/subscribers/mark-a-subscriber-feed-message-as-seen",
+        "api/subscribers/marks-all-the-subscriber-messages-as-read-unread-seen-or-unseen-optionally-you-can-pass-feed-id-or-array-to-mark-messages-of-a-particular-feed",
+        "api/subscribers/mark-message-action-as-seen",
+        "api/subscribers/handle-providers-oauth-redirect",
+        "api/subscribers/handle-chat-oauth"
       ]
     },
     {
       "group": "Topics",
       "pages": [
-        "api-reference/topics/filter-topics",
-        "api-reference/topics/topic-creation",
-        "api-reference/topics/subscribers-addition",
-        "api-reference/topics/check-topic-subscriber",
-        "api-reference/topics/subscribers-removal",
-        "api-reference/topics/get-topic",
-        "api-reference/topics/delete-topic",
-        "api-reference/topics/rename-a-topic"
+        "api/topics/filter-topics",
+        "api/topics/topic-creation",
+        "api/topics/subscribers-addition",
+        "api/topics/check-topic-subscriber",
+        "api/topics/subscribers-removal",
+        "api/topics/get-topic",
+        "api/topics/delete-topic",
+        "api/topics/rename-a-topic"
       ]
     },
     {
       "group": "Notification",
       "pages": [
-        "api-reference/notification/get-notifications",
-        "api-reference/notification/get-notification-statistics",
-        "api-reference/notification/get-notification-graph-statistics",
-        "api-reference/notification/get-notification"
+        "api/notification/get-notifications",
+        "api/notification/get-notification-statistics",
+        "api/notification/get-notification-graph-statistics",
+        "api/notification/get-notification"
       ]
+    },
+    {
+      "group": "Workflows",
+      "pages": [
+        "api/workflows/get-workflows",
+        "api/workflows/create-workflow",
+        "api/workflows/get-workflow",
+        "api/workflows/update-workflow",
+        "api/workflows/delete-workflow",
+        "api/workflows/update-workflow-status"
+      ]
+    },
+    {
+      "group": "Workflow groups",
+      "pages": [
+        "api/workflow-groups/get-workflow-groups",
+        "api/workflow-groups/create-workflow-group",
+        "api/workflow-groups/get-workflow-group",
+        "api/workflow-groups/delete-workflow-group",
+        "api/workflow-groups/update-workflow-group"
+      ]
+    },
+    {
+      "group": "Notification Templates",
+      "pages": [
+        "api/notification-templates/get-notification-templates",
+        "api/notification-templates/create-notification-template",
+        "api/notification-templates/get-notification-template",
+        "api/notification-templates/update-notification-template",
+        "api/notification-templates/delete-notification-template",
+        "api/notification-templates/update-notification-template-status"
+      ]
+    },
+    {
+      "group": "Integrations",
+      "pages": [
+        "api/integrations/get-integrations",
+        "api/integrations/create-integration",
+        "api/integrations/get-active-integrations",
+        "api/integrations/get-webhook-support-status-for-provider",
+        "api/integrations/update-integration",
+        "api/integrations/delete-integration",
+        "api/integrations/set-integration-as-primary",
+        "api/integrations/get-v1integrations-limit",
+        "api/integrations/get-v1integrationsin-appstatus"
+      ]
+    },
+    {
+      "group": "Layouts",
+      "pages": [
+        "api/layouts/filter-layouts",
+        "api/layouts/layout-creation",
+        "api/layouts/get-layout",
+        "api/layouts/delete-layout",
+        "api/layouts/update-a-layout",
+        "api/layouts/set-default-layout"
+      ]
+    },
+    {
+      "group": "Inbound Parse",
+      "pages": [
+        "api/inbound-parse/validate-the-mx-record-setup-for-the-inbound-parse-functionality"
+      ]
+    },
+    {
+      "group": "Environments",
+      "pages": [
+        "api/environments/get-current-environment",
+        "api/environments/get-environments",
+        "api/environments/create-environment",
+        "api/environments/update-env-by-id",
+        "api/environments/get-api-keys",
+        "api/environments/regenerate-api-keys"
+      ]
+    },
+    {
+      "group": "Changes",
+      "pages": [
+        "api/changes/get-changes",
+        "api/changes/get-changes-count",
+        "api/changes/apply-changes",
+        "api/changes/apply-change"
+      ]
+    },
+    {
+      "group": "Execution Details",
+      "pages": [
+        "api/execution-details/get-execution-details"
+      ]
+    },
+    {
+      "group": "Additional Resources",
+      "pages": ["additional-resources/glossary"]
     },
     {
       "group": "Workflows",
@@ -429,63 +522,63 @@
     {
       "group": "Notification Templates",
       "pages": [
-        "api-reference/notification-templates/get-notification-templates",
-        "api-reference/notification-templates/create-notification-template",
-        "api-reference/notification-templates/get-notification-template",
-        "api-reference/notification-templates/update-notification-template",
-        "api-reference/notification-templates/delete-notification-template",
-        "api-reference/notification-templates/update-notification-template-status"
+        "api/notification-templates/get-notification-templates",
+        "api/notification-templates/create-notification-template",
+        "api/notification-templates/get-notification-template",
+        "api/notification-templates/update-notification-template",
+        "api/notification-templates/delete-notification-template",
+        "api/notification-templates/update-notification-template-status"
       ]
     },
     {
       "group": "Integrations",
       "pages": [
-        "api-reference/integrations/get-integrations",
-        "api-reference/integrations/create-integration",
-        "api-reference/integrations/get-active-integrations",
-        "api-reference/integrations/get-webhook-support-status-for-provider",
-        "api-reference/integrations/update-integration",
-        "api-reference/integrations/delete-integration",
-        "api-reference/integrations/set-integration-as-primary",
-        "api-reference/integrations/get-v1integrations-limit",
-        "api-reference/integrations/get-v1integrationsin-appstatus"
+        "api/integrations/get-integrations",
+        "api/integrations/create-integration",
+        "api/integrations/get-active-integrations",
+        "api/integrations/get-webhook-support-status-for-provider",
+        "api/integrations/update-integration",
+        "api/integrations/delete-integration",
+        "api/integrations/set-integration-as-primary",
+        "api/integrations/get-v1integrations-limit",
+        "api/integrations/get-v1integrationsin-appstatus"
       ]
     },
     {
       "group": "Layouts",
       "pages": [
-        "api-reference/layouts/filter-layouts",
-        "api-reference/layouts/layout-creation",
-        "api-reference/layouts/get-layout",
-        "api-reference/layouts/delete-layout",
-        "api-reference/layouts/update-a-layout",
-        "api-reference/layouts/set-default-layout"
+        "api/layouts/filter-layouts",
+        "api/layouts/layout-creation",
+        "api/layouts/get-layout",
+        "api/layouts/delete-layout",
+        "api/layouts/update-a-layout",
+        "api/layouts/set-default-layout"
       ]
     },
     {
       "group": "Inbound Parse",
       "pages": [
-        "api-reference/inbound-parse/validate-the-mx-record-setup-for-the-inbound-parse-functionality"
+        "api/inbound-parse/validate-the-mx-record-setup-for-the-inbound-parse-functionality"
       ]
     },
     {
       "group": "Environments",
       "pages": [
-        "api-reference/environments/get-current-environment",
-        "api-reference/environments/get-environments",
-        "api-reference/environments/create-environment",
-        "api-reference/environments/update-env-by-id",
-        "api-reference/environments/get-api-keys",
-        "api-reference/environments/regenerate-api-keys"
+        "api/environments/get-current-environment",
+        "api/environments/get-environments",
+        "api/environments/create-environment",
+        "api/environments/update-env-by-id",
+        "api/environments/get-api-keys",
+        "api/environments/regenerate-api-keys"
       ]
     },
     {
       "group": "Changes",
       "pages": [
-        "api-reference/changes/get-changes",
-        "api-reference/changes/get-changes-count",
-        "api-reference/changes/apply-changes",
-        "api-reference/changes/apply-change"
+        "api/changes/get-changes",
+        "api/changes/get-changes-count",
+        "api/changes/apply-changes",
+        "api/changes/apply-change"
       ]
     },
     {
@@ -590,23 +683,23 @@
     {
       "group": "Feeds",
       "pages": [
-        "api-reference/feeds/get-feeds",
-        "api-reference/feeds/create-feed",
-        "api-reference/feeds/delete-feed"
+        "api/feeds/get-feeds",
+        "api/feeds/create-feed",
+        "api/feeds/delete-feed"
       ]
     },
     {
       "group": "Messages",
       "pages": [
-        "api-reference/messages/get-messages",
-        "api-reference/messages/delete-message"
+        "api/messages/get-messages",
+        "api/messages/delete-message"
       ]
     },
     {
       "group": "Blueprints",
       "pages": [
-        "api-reference/get-v1blueprintsgroup-by-category",
-        "api-reference/get-v1blueprints"
+        "api/get-v1blueprintsgroup-by-category",
+        "api/get-v1blueprints"
       ]
     }
   ],
