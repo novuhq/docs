@@ -2,3 +2,92 @@
 openapi: delete /v1/workflows/{workflowId}
 ---
 
+---
+openapi: post /v1/workflows
+---
+
+<RequestExample>
+```javascript Node.js
+import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.notificationTemplates.delete("workflowId");
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->deleteNotificationTemplate($templateId);
+
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.delete_notification_template('<insert-template-id>')
+```
+
+```python Python
+from novu.api import NotificationTemplateApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = NotificationTemplateApi(url, api_key).delete(
+    notification_template_id="<The notification workflow ID of the workflow to be deleted >"
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.deleteWorkflow(WorkflowId);
+    }
+}
+```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "encoding/json"
+)
+
+func main() {
+  url := "https://api.novu.co/v1/workflows/:workflowId"
+  data := map[string]string{
+    [options]
+  }
+  jsonValue, _ := json.Marshal(data)
+  req, _ := http.NewRequest("DELETE", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
+  defer resp.Body.Close()
+  body, _ := ioutil.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+    
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "data": true
+}
+```
+
+</ResponseExample>
