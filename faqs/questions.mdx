@@ -13,6 +13,11 @@ An event is every call to our [trigger API](https://docs.novu.co/api/trigger-eve
 
 A notification is any message sent over any channel, after the Novu logic engine, Novu user preferences, and your configuration calculated and crafted the message. A notification can be sent to an email, In-App notification center, chat, push, and more.
 
+### What is the difference between seen and read in the context of notifications?
+
+An in-app notification (message) is marked as seen when you open the notification center and that notification(message) is visible
+whereas it is marked as read either by clicking on that notification (message) or clicking the 'Mark as Read' option.
+
 ### I want to send millions of events, but only send thousands of notifications, can I?
 
 Sure thing! This can easily be done using Novu’s digest + delay, features allowing of ingesting many events into well crafted must have messages over all channels.
