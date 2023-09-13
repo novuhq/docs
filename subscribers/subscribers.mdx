@@ -36,45 +36,45 @@ Each subscriber has the following data points:
 
 ```json
 {
-"_id": "NOVU_GENERATED_SUBSCRIBER_ID",
-"_organizationId": "NOVU_GENERATED_ORG_ID",
-"_environmentId": "NOVU_GENERATED_ENV_ID",
-"firstName": "John",
-"lastName": "Doe",
-"subscriberId": "subscriberId",
-"email": "[john.doe@org.com](mailto:john.doe@org.com)",
-"phone": "+98712345670"
-"data": {
-"custome_key_1" : "custom_value_1"
-"custome_key_2" : "custom_value_2"
-}
-"channels": [
-{
-"credentials": {
-"deviceTokens": [
-"token1",
-"token2"
-]
-},
-"_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
-"providerId": "fcm"
-},
-{
-"credentials": {
-"webhookUrl": "URL"
-},
-"_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
-"providerId": "discord"
-}
-],
-"deleted": false,
-"createdAt": "2022-10-13T17:40:53.231Z",
-"updatedAt": "2022-10-13T17:41:53.238Z",
-"__v": 0,
-"isOnline": false,
-"lastOnlineAt": "2022-10-13T17:41:53.238Z",
-"avatar": "AVATAR_URL",
-"id": "NOVU_GENERATED_SUBSCRIBER_ID"
+  "_id": "NOVU_GENERATED_SUBSCRIBER_ID",
+  "_organizationId": "NOVU_GENERATED_ORG_ID",
+  "_environmentId": "NOVU_GENERATED_ENV_ID",
+  "firstName": "John",
+  "lastName": "Doe",
+  "subscriberId": "subscriberId",
+  "email": "[john.doe@org.com](mailto:john.doe@org.com)",
+  "phone": "+98712345670"
+  "data": {
+    "custome_key_1" : "custom_value_1",
+    "custome_key_2" : "custom_value_2"
+  }
+  "channels": [
+  {
+    "credentials": {
+      "deviceTokens": [
+        "token1",
+        "token2"
+      ]
+    },
+    "_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
+    "providerId": "fcm"
+  },
+  {
+    "credentials": {
+      "webhookUrl": "URL"
+    },
+    "_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
+    "providerId": "discord"
+  }
+  ],
+  "deleted": false,
+  "createdAt": "2022-10-13T17:40:53.231Z",
+  "updatedAt": "2022-10-13T17:41:53.238Z",
+  "__v": 0,
+  "isOnline": false,
+  "lastOnlineAt": "2022-10-13T17:41:53.238Z",
+  "avatar": "AVATAR_URL",
+  "id": "NOVU_GENERATED_SUBSCRIBER_ID"
 }
 ```
 
@@ -86,8 +86,6 @@ You can create a subscriber in Novu using the `identify` method provided in Novu
 When a provider with the same subscriberId already exists, this method performs an update operation using the data present in the payload. 
 In cases where there is no pre-existing entry, the method generates a new one, thus exhibiting an <Tooltip tip="A combination of the words “update” and “insert”">upsert</Tooltip>
 behavior.</Tip>
-
-
 
 ```jsx
 import { Novu } from "@novu/node";
@@ -162,9 +160,6 @@ $novu->createSubscriber([
   </Tab>
 </Tabs>
 
-
-
-
 Novu will create a subscriber if one does not exist and will update the existing subscriber based on the `identify` payload. You can call this function during registration or signup to make sure the subscriber data is up-to-date, if you wish to save additional attributes with a subscriber, you can pass additional custom data in the **data** field as key-value pairs.
 
 ### 2. Inline of Trigger[](https://docs.novu.co/platform/subscribers#2-inline-of-trigger)
@@ -173,26 +168,26 @@ A non-existing subscriber can be added by sending subscriber data in `to` fiel
 
 <Tabs>
   <Tab title="Node.js">
-    ```jsx
-import { Novu } from '@novu/node';
+```jsx
+  import { Novu } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+  const novu = new Novu('<NOVU_API_KEY>');
 
-await novu.trigger('<TEMPLATE_IDENTIFIER>', {
-  to: {
-    subscriberId: '111',
-    email: 'john.doe@domain.com',
-    firstName: 'John',
-    lastName: 'Doe',
-    phone: '+13603963366',
-  },
-  payload: {
-    customVariable: 'variableValue',
-    organization: {
-      logo: 'https://organisation.com/logo.png',
+  await novu.trigger('<TEMPLATE_IDENTIFIER>', {
+    to: {
+      subscriberId: '111',
+      email: 'john.doe@domain.com',
+      firstName: 'John',
+      lastName: 'Doe',
+      phone: '+13603963366',
     },
-  },
-});
+    payload: {
+      customVariable: 'variableValue',
+      organization: {
+        logo: 'https://organisation.com/logo.png',
+      },
+    },
+  });
 ```
   </Tab>
   <Tab title="PHP">
@@ -221,6 +216,36 @@ $novu->triggerEvent([
   </Tab>
 </Tabs>
 
+## Bulk Subscriber Creation
+
+You can create subscribers in bulk *(up to 500 at once)* via the SDKs or [API](https://docs.novu.co/api-reference/subscribers/bulk-create-subscribers).
+
+<Note> The bulk subscriber creation feature is only available in v0.19.0 and above.</Note>
+
+<Tabs>
+  <Tab title="Node.js">
+```js
+await novu.subscribers.bulkCreate([
+  {
+    subscriberId: 'test-subscriber-1',
+    email: 'test-user@sd.com',
+    firstName: 'subscriber-1',
+    lastName: 'test-1',
+  },
+  {
+    subscriberId: 'test-subscriber-2',
+    email: 'test-user-2@sd.com',
+    firstName: 'subscriber-2',
+    lastName: 'test-2',
+  },
+  {
+    subscriberId: 'test-subscriber-3',
+  },
+]);
+```
+  </Tab>
+</Tabs>
+
 ## Import subscribers
 
 Here, `mock_data.csv` file is a CSV file having mock data. The below script will read this CSV file and create a new subscriber in Novu. Change example variables values like `API_KEY` value with your valid values. Download `mock_data.csv` file from [here](https://docs.novu.co/assets/files/mock_data-dc51cfb42b4c288137e5b702a506771b.csv).
@@ -235,7 +260,10 @@ Steps:
 4. Change the file name in the script with your file name.
 5. Run the script. (Make script.sh executable before using)
 
-```shell
+
+<Tabs>
+  <Tab title="Shell">
+    ```shell
 #!/bin/bash
 
 # Change these variables with your own values
@@ -335,36 +363,38 @@ ELAPSED="Time Elapsed: $(($SECONDS / 3600))hrs $((($SECONDS / 60) % 60))min $(($
 
 echo $ELAPSED
 ```
+  </Tab>
+  <Tab title="Node.js">
+    ```jsx
+      import { Novu } from '@novu/node';
+      require('dotenv').config();
 
-```jsx
-import { Novu } from '@novu/node';
-require('dotenv').config();
+      const csv = require('csv-parser');
+      const fs = require('fs');
 
-const csv = require('csv-parser');
-const fs = require('fs');
+      const novu = new Novu('<NOVU_API_KEY>');
 
-const novu = new Novu('<NOVU_API_KEY>');
+      fs.createReadStream('mock_data.csv')
+        .pipe(csv())
+        .on('data', async (data) => {
+          let subscriber = await novu.subscribers.identify(data.subscriberId, {
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            phone: data.phone,
+            avatar: data.avatar,
+            locale: data.locale,
+            data: { address: data.address, job: data.job },
+          });
 
-fs.createReadStream('mock_data.csv')
-  .pipe(csv())
-  .on('data', async (data) => {
-    let subscriber = await novu.subscribers.identify(data.subscriberId, {
-      email: data.email,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      phone: data.phone,
-      avatar: data.avatar,
-      locale: data.locale,
-      data: { address: data.address, job: data.job },
-    });
-
-    console.log(subscriber.data);
-  })
-  .on('end', () => {
-    console.log('done');
-  });
-
-```
+          console.log(subscriber.data);
+        })
+        .on('end', () => {
+          console.log('done');
+        });
+    ```
+  </Tab>
+</Tabs>
 
 ## Delete a subscriber
 
