@@ -67,7 +67,7 @@ Create a new endpoint on your server that will handle the following steps (you c
     ```jsx
     import { Novu, ChatProviderIdEnum } from '@novu/node';
 
-    const novu = new Novu(process.env.NOVU_API_KEY);
+    const novu = new Novu("<NOVU_API_KEY>");
 
     const body = req.body; // From your HTTPS listener
     await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum., {

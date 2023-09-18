@@ -23,7 +23,7 @@ To get started with using Novu’s Discord Webhook integration, you need a ‘we
     ```jsx
     import { Novu, ChatProviderIdEnum } from '@novu/node';
     
-    const novu = new Novu(process.env.NOVU_API_KEY);
+    const novu = new Novu("<NOVU_API_KEY>");
     
     await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Discord, {
       webhookUrl: 'https://discord.com/api/webhooks/...',
