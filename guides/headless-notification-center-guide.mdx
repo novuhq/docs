@@ -79,7 +79,7 @@ Using the above info, we'll write a function that will help us interact with Nov
 import { Novu } from '@novu/node';
 
 export const notification = async (description) => {
-    const novu = new Novu(process.env.NOVU_API_KEY);
+    const novu = new Novu("<NOVU_API_KEY>");
     await novu.subscribers.identify(process.env.SUSBSCRIBER_ID, {
         firstName: 'newSubForHeadless',
     });
