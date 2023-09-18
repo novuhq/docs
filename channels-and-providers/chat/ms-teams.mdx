@@ -29,7 +29,7 @@ The URL generated above will be the target channel of a subscriber that you want
 ```jsx
 import { Novu, ChatProviderIdEnum } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.setCredentials('SUBSCRIBER_ID', ChatProviderIdEnum.MsTeams, {
   webhookUrl: 'https://yourcompany.webhook.office.com/webhook...',

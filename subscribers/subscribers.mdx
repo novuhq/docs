@@ -3,7 +3,7 @@ title: 'Subscribers'
 icon: 'user'
 ---
 
-In Novu, we call the entities designed to receive notifications "Subscribers". Each subscriber is unique and identified by a unique subscriber ID.
+In Novu, we call the entities designed to receive notifications as `Subscribers`. Each subscriber is unique and identified by a unique subscriber ID.
 
 <Note>
 `subscriberId` is a unique identifier used by Novu to keep track of a specific subscriber.
@@ -30,7 +30,7 @@ Each subscriber has the following data points:
 | data          | object | false    | `{"key": "value"}`                        |
 
 
-## Subscriber response schema[](https://docs.novu.co/platform/subscribers#subscriber-response-schema)
+## Subscriber response schema
 
 **Novu subscriber object**
 
@@ -115,13 +115,13 @@ Please also be aware that although it's currently possible to create a subscribe
 
 We support creating new subscriber using two ways, `Ahead of Trigger` means adding subscribers before triggering notification or `Inline of Trigger` means sending complete subscriber data in `to` field while triggering.
 
-### 1. Ahead of Trigger[](https://docs.novu.co/platform/subscribers#1-ahead-of-trigger)
+### 1. Ahead of Trigger
 
 Create the subscriber and then trigger the notification to this subscriber. Here `subscriberId` is the required field and other fields are optional.
 
 <Tabs>
   <Tab title="Node.js">
-    ```jsx
+```jsx
 import { Novu } from '@novu/node';
 
 const novu = new Novu('<NOVU_API_KEY>');
@@ -137,8 +137,9 @@ await novu.subscribers.identify('111', {
 });
 ```
   </Tab>
+
   <Tab title="PHP">
-  ```php
+```php
 use Novu\SDK\Novu;
 
 $novu = new Novu('<NOVU_API_KEY>');
@@ -162,55 +163,55 @@ $novu->createSubscriber([
 
 Novu will create a subscriber if one does not exist and will update the existing subscriber based on the `identify` payload. You can call this function during registration or signup to make sure the subscriber data is up-to-date, if you wish to save additional attributes with a subscriber, you can pass additional custom data in the **data** field as key-value pairs.
 
-### 2. Inline of Trigger[](https://docs.novu.co/platform/subscribers#2-inline-of-trigger)
+### 2. Inline of Trigger
 
 A non-existing subscriber can be added by sending subscriber data in `to` field of the trigger method. If any subscriber with provided `subscriberId` does not exists, a new subscriber will be created. In this case, subscriber will be created first and then the trigger will be executed synchronously.
 
 <Tabs>
   <Tab title="Node.js">
 ```jsx
-  import { Novu } from '@novu/node';
+import { Novu } from '@novu/node';
 
-  const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
-  await novu.trigger('<TEMPLATE_IDENTIFIER>', {
-    to: {
-      subscriberId: '111',
-      email: 'john.doe@domain.com',
-      firstName: 'John',
-      lastName: 'Doe',
-      phone: '+13603963366',
+await novu.trigger('<TEMPLATE_IDENTIFIER>', {
+  to: {
+    subscriberId: '111',
+    email: 'john.doe@domain.com',
+    firstName: 'John',
+    lastName: 'Doe',
+    phone: '+13603963366',
+  },
+  payload: {
+    customVariable: 'variableValue',
+    organization: {
+      logo: 'https://organisation.com/logo.png',
     },
-    payload: {
-      customVariable: 'variableValue',
-      organization: {
-        logo: 'https://organisation.com/logo.png',
-      },
-    },
-  });
+  },
+});
 ```
   </Tab>
   <Tab title="PHP">
-  ```php
+```php
 use Novu\SDK\Novu;
 
 $novu = new Novu('<NOVU_API_KEY>');
 
 $novu->triggerEvent([
-    'name' => '<TEMPLATE_IDENTIFIER>',
-    'to' => [
-        'subscriberId' => '111',
-        'email' => 'john.doe@domain.com',
-        'firstName' => 'John',
-        'lastName'  => 'Doe',
-        'phone' => '+13603963366'
-    ]
-    'payload' => [
-       'customVariable' => 'variableValue',
-       'organization' => [
-         'logo' => 'https://organisation.com/logo.png',
-       ]
-     ],
+  'name' => '<TEMPLATE_IDENTIFIER>',
+  'to' => [
+      'subscriberId' => '111',
+      'email' => 'john.doe@domain.com',
+      'firstName' => 'John',
+      'lastName'  => 'Doe',
+      'phone' => '+13603963366'
+  ]
+  'payload' => [
+      'customVariable' => 'variableValue',
+      'organization' => [
+        'logo' => 'https://organisation.com/logo.png',
+      ]
+    ],
 ]);
 ```
   </Tab>
@@ -218,7 +219,7 @@ $novu->triggerEvent([
 
 ## Bulk Subscriber Creation
 
-You can create subscribers in bulk *(up to 500 at once)* via the SDKs or [API](https://docs.novu.co/api-reference/subscribers/bulk-create-subscribers).
+You can create subscribers in bulk *(up to 500 at once)* via the SDKs or [API](/api-reference/subscribers/bulk-create-subscribers).
 
 <Note> The bulk subscriber creation feature is only available in v0.19.0 and above.</Note>
 
@@ -263,7 +264,7 @@ Steps:
 
 <Tabs>
   <Tab title="Shell">
-    ```shell
+```shell
 #!/bin/bash
 
 # Change these variables with your own values
@@ -365,34 +366,34 @@ echo $ELAPSED
 ```
   </Tab>
   <Tab title="Node.js">
-    ```jsx
-      import { Novu } from '@novu/node';
-      require('dotenv').config();
+```jsx
+import { Novu } from '@novu/node';
+require('dotenv').config();
 
-      const csv = require('csv-parser');
-      const fs = require('fs');
+const csv = require('csv-parser');
+const fs = require('fs');
 
-      const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
-      fs.createReadStream('mock_data.csv')
-        .pipe(csv())
-        .on('data', async (data) => {
-          let subscriber = await novu.subscribers.identify(data.subscriberId, {
-            email: data.email,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            phone: data.phone,
-            avatar: data.avatar,
-            locale: data.locale,
-            data: { address: data.address, job: data.job },
-          });
+fs.createReadStream('mock_data.csv')
+  .pipe(csv())
+  .on('data', async (data) => {
+    let subscriber = await novu.subscribers.identify(data.subscriberId, {
+      email: data.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      phone: data.phone,
+      avatar: data.avatar,
+      locale: data.locale,
+      data: { address: data.address, job: data.job },
+    });
 
-          console.log(subscriber.data);
-        })
-        .on('end', () => {
-          console.log('done');
-        });
-    ```
+    console.log(subscriber.data);
+  })
+  .on('end', () => {
+    console.log('done');
+  });
+```
   </Tab>
 </Tabs>
 
@@ -458,7 +459,7 @@ $novu->updateSubscriber('111', [
 
 ## Find a subscriber
 
-Any subscriber can be retrieved using a unique subscriber identifier `subscriberId`. Check the returned subscriber schema [here](https://docs.novu.co/platform/subscribers?language=php#subscriber-response-schema).
+Any subscriber can be retrieved using a unique subscriber identifier `subscriberId`. Check the returned subscriber schema [here](#subscriber-response-schema).
 
 <Tabs>
   <Tab title="Node.js">
