@@ -111,5 +111,43 @@ We are introducing the first stage of caching in our system to improve performan
 Currently, we are caching data in the most heavily loaded areas of the system: the widget requests such as feed and unseen count, as well as common DAL requests during the execution of trigger event flow. These are the most heavily used areas of our system, and we hope that by implementing caching in these areas, we can improve performance in the near future.
 
 
-<Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations, please don't hesitate to [contact our team](https://calendly.com/novuhq/novu-meeting?utm_source=novuDocs&utm_page=deploy-with-Docker). 
+<Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations, please don't hesitate to [contact our team](https://calendly.com/novuhq/novu-meeting?utm_source=novuDocs&utm_page=deploy-with-Docker).
 They can provide assistance regarding enterprise edition licenses or cloud-prem deployment to meet your specific needs.</Note>
+
+### Reverse-Proxy / Load Balancers
+
+To implement a reverse-proxy or load balancer in front of Novu, you need to set the GLOBAL_CONTEXT_PATH for the base path of the application.
+This is the path that the application will be served from after the domain.
+For example:
+    - company.com/novu
+This is used to set the base path for the application, and is used to set the base path for the API, web, and websocket connections.
+
+The following environment variables are used to set the context path for each public service that Novu provides:
+API_CONTEXT_PATH
+WIDGET_CONTEXT_PATH
+WS_CONTEXT_PATH
+WEB_CONTEXT_PATH
+
+These allow you to set the context path for each service independently or dependently of the GLOBAL_CONTEXT_PATH.
+
+For example, if I was using a reverse proxy to serve Novu from company.com/novu,
+I would set the GLOBAL_CONTEXT_PATH to novu,
+and then set the API_CONTEXT_PATH to api,
+the WIDGET_CONTEXT_PATH to widget,
+the WS_CONTEXT_PATH to ws,
+and the WEB_CONTEXT_PATH to web.
+
+This would produce the following urls:
+    - API: company.com/novu/api
+    - WIDGET: company.com/novu/widget
+    - WS: company.com/novu/ws
+    - WEB: company.com/novu/web
+
+However the Service context path can be used entirely independently of the GLOBAL_CONTEXT_PATH.
+
+For example, if I wanted to expose the api as novu-api, I would set the API_CONTEXT_PATH to novu-api without setting the GLOBAL_CONTEXT_PATH.
+This would producte the following url:
+    - API: company.com/novu-api
+
+<Note> These env variables should be present on all services novu provides due to tight coupling.</Note>
+
