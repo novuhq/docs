@@ -20,7 +20,7 @@ In order to be able to send a notification to a topic, first the user needs to c
 ```tsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 const result = await novu.topics.create({
   key: 'unique-topic-identifier',
@@ -36,7 +36,7 @@ That topic key can be used to retrieve the whole Topic entity:
 ```tsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 const key = 'unique-topic-identifier';
 
@@ -50,7 +50,7 @@ To rename a topic, this call can be used:
 ```tsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 const topicKey = 'posts:comment:12345';
 const topicName = 'Post Comments';
@@ -68,7 +68,7 @@ Novu Topics API allows to assign the subscribers to the topic like this:
 ```tsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 const topicKey = 'posts:comment:12345';
 
@@ -106,7 +106,7 @@ There would be times when it would be needed to verify if a certain subscriber b
 ```tsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 const externalSubscriberId = 'external-subscriber-id-1';
 const topicKey = 'posts:comment:12345';
@@ -127,7 +127,7 @@ can remove subscribers assigned to a topic. For that this API call can be used:
 ```tsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 const topicKey = 'posts:comment:12345';
 
@@ -146,7 +146,7 @@ A topic can be deleted by its key by doing:
 ```tsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 const key = 'unique-topic-identifier';
 

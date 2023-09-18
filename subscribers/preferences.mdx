@@ -1,6 +1,6 @@
 ---
-title: 'Preferences'
-icon: 'layer-group'
+title: "Preferences"
+icon: "layer-group"
 ---
 
 Novu provides a way to store user preferences in the subscribers data model.
@@ -15,13 +15,13 @@ This allows subscribers to specify and manage their preferences, without your in
 
 When creating a new workflow on the Web platform, you can specify default preferences for the subscribers in channel settings. They will be used unless the subscriber overrides them by his own custom preference.
 
-This will allow you to create sensible defaults but still provide the user with the ability to override them. Template level preference can be managed in channel settings. All channels are `ON` unless specified otherwise.
+This will allow you to create sensible defaults but still provide the user with the ability to override them. Template level preference can be managed in channel settings. All channels are `ON` unless specified otherwise.
 
 `Workflow Settings > Channels`
 
 <img
-  style={{ borderRadius: '0.5rem' }}
-  src="/images/manage-subscribers/template-level-channel-preferences-23c6d0f288e1c1a14d98f0f3d414b369.png"
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/manage-subscribers/workflow-level-channel-preferences.png"
 />
 
 ## Subscriber level channel preferences
@@ -29,11 +29,15 @@ This will allow you to create sensible defaults but still provide the user with 
 Our notification center component will show a user the available preferences, user will be able to modify on the channel level. Critical workflows will be excluded from the list. Click on cog (setting) icon on notification center component to open subscriber channel preferences page.
 
 <img
-  style={{ borderRadius: '0.5rem' }}
-  src="/images/manage-subscribers/user-preference-0a224729bc2692acab0436f4ffaa28cc.png"
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/manage-subscribers/user-preference.png"
 />
 
-<Note>Only channels with a matched step will be returned from the API in notification center preference page. In case no channel content was found, the API will return an empty array.</Note>
+<Note>
+  Only channels with a matched step will be returned from the API in
+  notification center preference page. In case no channel content was found, the
+  API will return an empty array.
+</Note>
 
 ## Exclude workflows from preferences (critical workflow)
 
@@ -48,12 +52,12 @@ In those cases you can turn off the toggle `Users will be able to manage subscri
   <Tab title="Node.js">
 
 ```javascript
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 // 111 is subscriberId
-await novu.subscribers.getPreference('111');
+await novu.subscribers.getPreference("111");
 ```
 
   </Tab>
@@ -78,18 +82,18 @@ $novu->getSubscriberPreferences('111')->toArray();
   <Tab title="Node.js">
 
 ```javascript
-import { Novu, ChannelTypeEnum } from '@novu/node';
+import { Novu, ChannelTypeEnum } from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 // enable in_app channel
-await novu.subscribers.updatePreference('subscriberId', 'workflowIdentifier', {
+await novu.subscribers.updatePreference("subscriberId", "workflowIdentifier", {
   enabled: true,
   channel: { type: ChannelTypeEnum.IN_APP, enabled: true },
 });
 
 // enable email channel
-await novu.subscribers.updatePreference('subscriberId', 'workflowIdentifier', {
+await novu.subscribers.updatePreference("subscriberId", "workflowIdentifier", {
   enabled: true,
   channel: { type: ChannelTypeEnum.EMAIL, enabled: true },
 });
@@ -104,7 +108,7 @@ use Novu\SDK\Novu;
 $novu = new Novu('<NOVU_API_KEY>');
 
 // enable in_app channel
-$novu->updateSubscriberPreference('subscriberId', 'templateIdentfier', [
+$novu->updateSubscriberPreference('subscriberId', 'workflowIdentfier', [
     'enabled' => true
     'channel' => [
       'type' => 'in_app',
@@ -113,7 +117,7 @@ $novu->updateSubscriberPreference('subscriberId', 'templateIdentfier', [
 ]);
 
 // enable email channel
-$novu->updateSubscriberPreference('subscriberId', 'templateIdentfier', [
+$novu->updateSubscriberPreference('subscriberId', 'workflowIdentfier', [
     'enabled' => true
     'channel' => [
       'type' => 'email',
@@ -140,84 +144,105 @@ $novu->updateSubscriberPreference('subscriberId', 'templateIdentfier', [
 
 3. For `Third Workflow`. `critical` is true, `enabled` is false, email, chat channels are false and the other three channels are true. As per above order of priority of preferences, subscriber will receive all type of notifications as this workflow is `critical`.
 
-```json Subscriber preference example for three workflows
-[
-  {
-    "template": {
-      "_id": "firstTemplateIdentifier",
-      "name": "First Workflow",
-      "critical": false
-    },
-    "preference": {
-      "enabled": true,
-      "channels": {
-        "in_app": true,
-        "email": true,
-        "sms": false,
-        "push": true,
-        "chat": false
+<Tabs>
+  <Tab title="First Workflow">
+    ```json
+    {
+      "template": {
+        "_id": "firstWorkflowIdentifier",
+        "name": "First Workflow",
+        "critical": false
+      },
+      "preference": {
+        "enabled": true,
+        "channels": {
+          "in_app": true,
+          "email": true,
+          "sms": false,
+          "push": true,
+          "chat": false
+        }
       }
     }
-  },
-  {
-    "template": {
-      "_id": "secondTemplateIdentifier",
-      "name": "Second Template",
-      "critical": false
-    },
-    "preference": {
-      "enabled": false,
-      "channels": {
-        "in_app": true,
-        "email": true,
-        "sms": true,
-        "push": true,
-        "chat": true
+    ```
+  </Tab>
+  <Tab title="Second Workflow">
+    ```json
+    {
+      "template": {
+        "_id": "secondWorkflowIdentifier",
+        "name": "Second Workflow",
+        "critical": false
+      },
+      "preference": {
+        "enabled": false,
+        "channels": {
+          "in_app": true,
+          "email": true,
+          "sms": true,
+          "push": true,
+          "chat": true
+        }
       }
     }
-  },
-  {
-    "template": {
-      "_id": "thirdTemplateIdentifier",
-      "name": "Third Template",
-      "critical": true
-    },
-    "preference": {
-      "enabled": false,
-      "channels": {
-        "in_app": true,
-        "email": false,
-        "sms": true,
-        "push": true,
-        "chat": false
+    ```
+  </Tab>
+  <Tab title="Third Workflow">
+    ```json
+    {
+      "template": {
+        "_id": "thirdWorkflowIdentifier",
+        "name": "Third Workflow",
+        "critical": true
+      },
+      "preference": {
+        "enabled": false,
+        "channels": {
+          "in_app": true,
+          "email": false,
+          "sms": true,
+          "push": true,
+          "chat": false
+        }
       }
     }
-  }
-]
-```
+    ```
+  </Tab>
+</Tabs>
 
 ## API
 
 <CardGroup cols={3}>
-  <Card title="Get subscriber preferences API" icon="plug" color="#ea5a0c" href="https://docs.novu.co/api/get-subscriber-preferences/">
-  </Card>
-  <Card title="Update subscriber preference for a workflow API" icon="plug" color="#0285c7" href="https://docs.novu.co/api/update-subscriber-preference/">
-  </Card>
-  <Card title="Update workflow API" icon="plug" color="#16a34a" href="https://docs.novu.co/api/update-notification-template/">
-  </Card>
+  <Card
+    title="Get subscriber preferences API"
+    icon="plug"
+    color="#ea5a0c"
+    href="/api-reference/subscribers/get-subscriber-preferences"
+  ></Card>
+  <Card
+    title="Update subscriber preference for a workflow API"
+    icon="plug"
+    color="#0285c7"
+    href="/api-reference/subscribers/update-subscriber-preference"
+  ></Card>
+  <Card
+    title="Update workflow API"
+    icon="plug"
+    color="#16a34a"
+    href="/api-reference/workflows/update-workflow"
+  ></Card>
 </CardGroup>
 
 ## Frequently Asked Questions
 
 <AccordionGroup>
-  <Accordion title="How to change <enabled> field from UI?">
+  <Accordion title="How to change enabled field from UI?">
   This field can only be changed using API.
   </Accordion>
 
   <Accordion title="What preferences are applied to a subscriber when we create a new workflow?">
-In the case of a new workflow, the subscriber will inherit all preferences from the workflow. <br />
-However, after subsequent preference updates, the subscriber's preferences will not inherit workflow-level preferences.  
-
-</Accordion>
-
+    In the case of a new workflow, the subscriber will inherit all preferences
+    from the workflow.However, after subsequent preference updates, the
+    subscriber's preferences will not inherit workflow-level preferences.
+  </Accordion>
 </AccordionGroup>
