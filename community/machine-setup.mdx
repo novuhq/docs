@@ -11,7 +11,7 @@ ZSH is a shell on steroids, it has multiple plugins and functionality that can s
 
 To install zsh run in your command line:
 
-```bash
+```shell
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
@@ -44,7 +44,7 @@ Add the autocomplete plugin for autocompleting previously typed commands in the 
 
 Every developer utilizes *Command Line Tools*. A simple terminal command will allow you to download these. It will ask you to confirm after you have entered the command.
 
-```bash
+```shell
 xcode-select --install
 ```
 
@@ -54,8 +54,8 @@ xcode-select --install
 
 Copy and paste the following code into your terminal to install Homebrew.
 
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```shell
+/bin/shell -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
 It will ask you to enter 'Return' to confirm the installation.
@@ -73,7 +73,7 @@ To set up git and create an access token for GitHub, suggested installing [GitHu
 
 Show hidden files in Finder: `cmd + shift + .` or in the terminal:
 
-```bash
+```shell
 defaults write com.apple.finder AppleShowAllFiles YES
 ```
 
@@ -85,8 +85,8 @@ For installing node we suggest installing it using [NVM](https://github.com/nvm-
 
 1. Install nvm on your machine.
 
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+```shell
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | shell
 ```
 
 <Note>
@@ -106,7 +106,7 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
 Rosetta enables a Mac with Apple silicon to use apps built for a Mac with an Intel processor.
 
-```bash
+```shell
 softwareupdate --install-rosetta
 ```
 
@@ -114,7 +114,7 @@ softwareupdate --install-rosetta
 
 For package management, we use [PNPM](https://pnpm.io/) instead of npm or yarn to speed up our install times and space efficiency. To install pnpm globally run:
 
-```bash
+```shell
 npm install -g pnpm@7.5.0
 ```
 
@@ -144,7 +144,7 @@ LocalStack emulates cloud service that runs in a single container on your comput
 
 1. Build a container and run it:
 
-```bash
+```shell
 docker run --rm -it -p 4566:4566 -p 4571:4571 localstack/localstack
 ```
 
@@ -152,13 +152,13 @@ docker run --rm -it -p 4566:4566 -p 4571:4571 localstack/localstack
 
    In **local** environment:
 
-   ```bash
+   ```shell
    aws --endpoint-url=http://localhost:4566 s3 mb s3://novu-local
    ```
 
    In **test** environment:
 
-   ```bash
+   ```shell
    aws --endpoint-url=http://localhost:4566 s3 mb s3://novu-test
    ```
 
@@ -188,7 +188,7 @@ After installing brew you can easily install the MongoDB community edition.
 
 1. Tap the [MongoDB Homebrew Tap](https://github.com/mongodb/homebrew-brew) to download the official Homebrew formula for MongoDB and the Database Tools, by running the following command in your macOS Terminal:
 
-```bash
+```shell
 brew tap mongodb/brew
 ```
 
@@ -198,13 +198,13 @@ brew tap mongodb/brew
 
    [Sign in with your Apple ID](https://developer.apple.com/download/all/?q=Xcode)
 
-```bash
+```shell
 brew install mongodb-community@5.0
 ```
 
 3. Run the service in the background and start automatically after restart.
 
-```bash
+```shell
 brew services start mongodb/brew/mongodb-community@5.0
 ```
 
@@ -212,13 +212,13 @@ brew services start mongodb/brew/mongodb-community@5.0
 
 After installing homebrew run the redis installation
 
-```bash
+```shell
 brew install redis
 ```
 
 After installation run the service to start on system start as well.
 
-```bash
+```shell
 brew services restart redis
 ```
 
@@ -228,13 +228,13 @@ This will allow you to use `[local.novu.co](http://local.novu.co)` instead of [l
 
 Open the `/etc/hosts` file:
 
-```bash
+```shell
 sudo nano /etc/hosts
 ```
 
 And add the [local.novu.co](http://local.novu.co) domain
 
-```bash
+```shell
 127.0.0.1       local.novu.co
 ```
 

@@ -3,71 +3,67 @@ title: "Add a new provider"
 description: "Steps to add a new provider to Novu"
 ---
 
-### Adding a New Provider
-
 Interested in expanding Novu's capabilities? By contributing to our growing ecosystem, you can enhance Novu's reach and impact.
 
-### How to add a new provider?
+## How to add a new provider?
 
-Novu currently supports five channels `in_app`, `push`, `email`, `chat` and `sms`. For `in_app` we support only our own provider, so new providers cannot be added to this channel. For the other four channels, we support the integration of external providers. This guide will help in adding new providers for any of these 4 channels. **In this guide, we are adding a new provider for the email channel, but all of the mentioned steps are similar for other channels as well**.
+Novu currently supports five channels `in_app`, `push`, `email`, `chat` and `sms`. 
 
-# Description
+For `in_app` we support only our own provider, so new providers cannot be added to this channel. For the other four channels, we support the integration of external providers. This guide will help in adding new providers for any of these 4 channels.
 
-Providers allow us to handle message delivery over multiple channels. We have multiple providers for each channel (SMS, Email, Push and Chat). To get started with adding a new provider let's look at setting up our repository.
+In this guide, we are adding a new provider for the email channel, but all of the mentioned steps are similar for other channels as well.
 
-# Requirements
+## Description
+
+Providers allow us to handle message delivery over multiple channels. 
+
+We have multiple providers for each channel (SMS, Email, Push and Chat). To get started with adding a new provider let's look at setting up our repository.
+
+## Requirements
 
 - Node.js version v16.15.1
 - MongoDB
 - Redis
-- **(Optional)** pnpm - Needed if you want to install new packages
-- **(Optional)** localstack (required only in S3 related modules)
+- **(Optional)** pnpm - Needed if you want to install new packages
+- **(Optional)** localstack (required only in S3 related modules)
 
-Need help installing the requirements? Read more [here](https://www.notion.so/Dev-Machine-Setup-98d274c80fa249b0b0be75b9a7a72acb?pvs=21).
+Need help installing the requirements? [Read more here](/community/run-in-local-machine)
 
-INFO
+<Note> We have used pnpm package manager in this guide. You can use npm as well. </Note>
 
-We have used pnpm package manager in this guide. You can use npm as well.
-
-# Initialization
+## Initialization
 
 Fork the novu repository and clone it in your local machine.
 
-```
+```shell
 git clone https://github.com/<'YOUR_GITHUB_USER_NAME'>/novu.git
-
 ```
 
 To set up the repository, run the initial setup command:
 
-```
+```shell
 pnpm run setup:project
-
 ```
 
 At the root of the project build the `node` package to get started.
 
-```
+```shell
 cd packages/node && pnpm run build
-
 ```
 
-# Generate provider
+## Generate provider
 
 After the project is initialized, a new provider can be generated using the below command.
 
-```
+```shell
 pnpm run generate:provider
-
 ```
 
-NOTE
-
-Use the above command at the root of the project.
+<Note> Use the above command at the root of the project. </Note>
 
 Choose the provider type.
 
-```
+```shell
 > generate:provider
 > npx hygen provider new
 
@@ -76,27 +72,23 @@ Choose the provider type.
   SMS
   PUSH
   CHAT
-
 ```
 
-Use `up` and `down` arrow to switch `channel` type and press `enter` to select.
+Use `up` and `down` arrow to switch `channel` type and press `enter` to select.
 
-For this example, we will be selecting `EMAIL` as our provider type. The name for our provider will be `example-provider`.
+For this example, we will be selecting `EMAIL` as our provider type. The name for our provider will be `example-provider`.
 
 ```
 ? Write the provider name`kebab-cased` (e.g. proton-mail, outlook365, yahoo-mail): example-provider
-
 ```
 
 Make sure your selected name is not conflicting with our existing provider's name. Boilerplate files for this new `example-provider` is generated in your local machine project.
 
-> In above example, we have given our provider name as example-provider for simplicity. If provider you want to add have name as twilio, don't use twilio-provider as name, instead use twilio only. If one provider supports multiple channels like infobipsupports both sms and email channels, use infobip-email or infobip-sms to differentiate these providers.
+> In above example, we have given our provider name as example-provider for simplicity. If provider you want to add have name as twilio, don't use twilio-provider as name, instead use twilio only. If one provider supports multiple channels like infobipsupports both sms and email channels, use infobip-email or infobip-sms to differentiate these providers.
 
 Once our `example-provider` is generated we will need to begin working from within `/providers/example-provider` directory. Make sure to write the test for this new provider.
 
-**providers/example-provider/src/lib/example-provider.provider.ts**
-
-```
+```ts providers/example-provider/src/lib/example-provider.provider.ts
 import {
   ChannelTypeEnum,
   ISendMessageSuccessResponse,
@@ -120,27 +112,25 @@ export class ExampleProviderEmailProvider implements IEmailProvider {
       date: 'current_time'
   }
 }
-
 ```
 
-Template test case for `example-provider`.
+### Template test case for `example-provider`.
 
-**providers/example-provider/src/lib/example-provider.provider.sepc.ts**
-
-```
+```ts providers/example-provider/src/lib/example-provider.provider.sepc.ts
 import { ExampleProviderEmailProvider } from './example-provider.provider';
 
 test('should trigger example-provider library correctly', async () => {});
-
 ```
 
-ℹ️ Add the provider's SDK as a dependency in the provider's package.json file. Run `pnpm run setup:project` to build all dependencies again. Use this new sdk method to complete the provider's `sendMessage` function. Check the `[Important Links](https://www.notion.so/Community-and-Support-3e23f10d0e224341bd0df7ddfefd0be7?pvs=21)` section for each channel's provider example.
+<Info> Add the provider's SDK as a dependency in the provider's package.json file. Run `pnpm run setup:project` to build all dependencies again. Use this new sdk method to complete the provider's `sendMessage` function. Check the `[reference links for adding new providers](#reference-for-adding-new-providers)` section for each channel's provider example. </Info>
 
-# Add provider logos
+### Add provider logos
 
-In order to present this new provider in the `integration store` we need logos in dark and light mode. Add dark and light color logs in respective folders of `apps/web/public/static/images/providers` directory. Use the provider name as the file name. The sample name for our above-added provider is `example-provider.png`. The possible formats are `svg`and `png`.
+In order to present this new provider in the `integration store` we need logos in dark and light mode. Add dark and light color logs in respective folders of `apps/web/public/static/images/providers` directory. 
 
-# Add config items to the list
+Use the provider name as the file name. The sample name for our above-added provider is `example-provider.png`. The possible formats are `svg`and `png`.
+
+## Add config items to the list
 
 In order to build the UI integration store, we need to provide it list of all provider integrations. This part is made up of two parts:
 
@@ -152,9 +142,7 @@ In order to build the UI integration store, we need to provide it list of all pr
 
 Every provider requires some credentials to create an instance. Novu will add these credentials fields in the integration store provider's form so that users can use their credentials to connect to their preferred provider to use for that channel notification. For example, in the above added `example-provider`, we have only one credential `ApiKey`. We will need to add a config object for `example-provider` with all existing provider's configs like below.
 
-**libs/shared/src/consts/providers/credentials/provider-credentials.ts**
-
-```tsx
+```tsx libs/shared/src/consts/providers/credentials/provider-credentials.ts
 export const exampleProviderConfig: IConfigCredentials[] = [
   {
     key: CredentialsKeyEnum.ApiKey,
@@ -178,9 +166,7 @@ export const exampleProviderConfig: IConfigCredentials[] = [
 
 Add this new provider id in the respective channel provider id enum in file `libs/shared/src/consts/providers/provider.enum.ts`. As our `example-provider` is of email type, add this in `EmailProviderIdEnum` with all existing providers like below
 
-**libs/shared/src/consts/providers/provider.enum.ts**
-
-```tsx
+```tsx libs/shared/src/consts/providers/provider.enum.ts
 export enum EmailProviderIdEnum {
   ExampleProvider = "example-provider",
 }
@@ -190,9 +176,7 @@ export enum EmailProviderIdEnum {
 
 Now we need to add the provider data to the list located at `libs/shared/src/consts/providers/channels/email.ts`. Note that the `id` is the provider's name, `displayName` is the provider's name in Pascal's case, `credentials` are the ones we created in the previous step, `logoFileName` should be as it was on the adding logo step (with the format type included).
 
-**libs/shared/src/consts/providers/channels/email.ts**
-
-```tsx
+```tsx libs/shared/src/consts/providers/channels/email.ts
 {
   id: 'example-provider',
   displayName: 'Example Provider',
@@ -202,10 +186,9 @@ Now we need to add the provider data to the list located at `libs/shared/src/co
   docReference: 'https://docs.example-provider.com/',
   logoFileName: { light: 'example-provider.png', dark: 'example-provider.png' }
 }
-
 ```
 
-# Add provider handler in the API
+## Add provider handler in the API
 
 ### 1. Adding the provider dependency in the application-generic package
 
@@ -221,9 +204,7 @@ In order to map internally the different providers’ credentials, we need to ad
 
 Create a new file `example-provider.handler.ts` here with the following code
 
-**packages/application-generic/src/factories/mail/handlers/example-provider.handler.ts**
-
-```tsx
+```tsx packages/application-generic/src/factories/mail/handlers/example-provider.handler.ts
 import { ChannelTypeEnum } from "@novu/shared";
 import { ExampleProviderEmailProvider } from "@novu/example-provider";
 import { BaseHandler } from "./base.handler";
@@ -243,9 +224,7 @@ export class ExampleProviderHandler extends BaseHandler {
 
 Add this line given below to export this handler
 
-**packages/application-generic/src/factories/mail/handlers/index.ts**
-
-```tsx
+```tsx packages/application-generic/src/factories/mail/handlers/index.ts
 export * from "./example-provider.handler";
 ```
 
@@ -253,9 +232,7 @@ export * from "./example-provider.handler";
 
 The last step is to initialize the handler in the factory located in `packages/application-generic/src/factories/mail/mail.factory.ts`
 
-**packages/application-generic/src/factories/mail/mail.factory.ts**
-
-```tsx
+```tsx packages/application-generic/src/factories/mail/mail.factory.ts
 import { ExampleProviderHandler } from "./handlers";
 
 export class MailFactory {
@@ -263,26 +240,32 @@ export class MailFactory {
 }
 ```
 
-# Final Steps
+### Final Steps
 
 Now, build the project again using this command
 
-```
+```shell
 pnpm run setup:project
-
 ```
 
-Run novu in your local machine. Read [here](https://docs.novu.co/community/run-locally) to learn on how to run novu on a local machine and test this new provider.
+Run novu in your local machine. Read [here](/community/run-in-local-machine) to learn on how to run novu on a local machine and test this new provider.
 
 Run the below command in the root of the project to run the providers test
 
-```
+```shell
 pnpm run test:providers
-
 ```
 
 If everything is working fine without any error, commit your local branch changes, push this branch and create a new pull request to our main repo.
 
 Hurray 🎉! You have successfully added a new provider in Novu!
 
-ℹ️ In this guide, we have used only one credential `apiKey` for our `example-provider`. This is for reference purposes only. A provider can have more than one credential as per its `SDK` requirements. At each step, you will need to add all credentials carefully. Check providers in below `Important Links` section for reference.
+<Info>️ In this guide, we have used only one credential `apiKey` for our `example-provider`. This is for reference purposes only. A provider can have more than one credential as per its `SDK` requirements. At each step, you will need to add all credentials carefully. Check providers referenced below for more information. </Info>
+
+### Reference for Adding New Providers
+
+- [SendGrid Email Provider](https://github.com/novuhq/novu/blob/next/providers/sendgrid/src/lib/sendgrid.provider.ts)
+- [Twilio SMS Provider](https://github.com/novuhq/novu/blob/next/providers/twilio/src/lib/twilio.provider.ts)
+- [FCM Push Provider](https://github.com/novuhq/novu/blob/next/providers/fcm/src/lib/fcm.provider.ts)
+- [Slack Chat Provider](https://github.com/novuhq/novu/blob/next/providers/slack/src/lib/slack.provider.ts)
+- [Resend - How to add an Email Provider to Novu](https://dev.to/novu/resend-how-to-add-an-email-api-provider-to-novu-49cd)
