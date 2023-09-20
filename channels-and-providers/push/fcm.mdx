@@ -101,9 +101,63 @@ novu.trigger('event-name', {
 
 ```
 
-Device/notification identifiers can be set by using [setCredentials](https://docs.novu.co/channels/email/resend/#set-device-token) or by using the `deviceIdentifiers` field in overrides.
+Device/notification identifiers can be set by using [setCredentials](#set-device-token) or by using the `deviceIdentifiers` field in overrides.
 
-<aside>
-💡 INFO: Novu uses FCM version V1
+<Info> Novu uses FCM version V1</Info>
 
-</aside>
+
+## Relative Link in Webpush
+
+Suppose you’re using the Firebase (FCM) provider to send push notifications to web browsers via Novu and want users to be returned to the website after clicking the notification. 
+
+In that case, you must use the `link` property with a relative URL.
+<Tabs>
+  <Tab title="Node.js">
+
+```javascript
+import { Novu } from '@novu/node';
+
+const novu = new Novu("<NOVU_API_KEY>");
+
+novu.trigger('event-name', {
+  to: {
+    subscriberId: '...',
+  },
+  payload: {
+    abc: 'def', // If the notification is a data notification, the payload will be sent as the data
+  },
+  overrides: {
+    fcm: {
+      webPush: {
+        fcmOptions: {
+          link: "/foo"
+        }
+      },
+    },
+  },
+});
+```
+  </Tab>
+  <Tab title="Curl">
+    ```bash
+    curl --location --request POST 'https://url.to.our.selfhosted.novu' \
+        --header 'Authorization: ApiKey KEY' \
+        --header 'Content-Type: application/json' \
+        --data-raw '{
+            "name": "workflow-name",
+            "to": {
+                ...
+            },
+            "overrides": {
+              "fcm": {
+                "webPush": {
+                  "fcm_options": {
+                    "link": "/foo"
+                  }
+                }
+              }
+            }
+          }'
+    ```
+  </Tab>
+</Tabs>
