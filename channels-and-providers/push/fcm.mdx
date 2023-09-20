@@ -161,3 +161,15 @@ novu.trigger('event-name', {
     ```
   </Tab>
 </Tabs>
+
+## FAQs
+
+<AccordionGroup>
+  <Accordion title="The registration token is not a valid FCM registration token">
+    You may come across an error like so: 
+    
+    ""Sending message failed due to "The registration token is not a valid FCM registration token""".
+
+    This error happens because of invalid or stale token. The fix for this is to remove old tokens, generate a new token and save it into user subscribers.
+  </Accordion>
+</AccordionGroup>
