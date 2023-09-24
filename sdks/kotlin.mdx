@@ -11,31 +11,48 @@ Novu's Kotlin SDK provides simple, yet comprehensive notification management, an
 
 Maven users:
 
-```xml
+```java
+//Add sonatype release repositories
+<repositories>
+    ...
+    <repository>
+        <id>sonatype</id>
+        <url>https://s01.oss.sonatype.org/content/repositories/releases/</url> // for release
+        or 
+        <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url> // for snapshot
+    </repository>
+</repositories>
+
+// add dependency
 <dependency>
-  <groupId>co.novu</groupId>
-  <artifactId>novu-kotlin</artifactId>
-  <version>{latest-version}</version>
+    <groupId>io.github.crashiv</groupId>
+    <artifactId>novu-kotlin</artifactId>
+    <version>0.1.1-SNAPSHOT</version>
 </dependency>
 ```
-The latest version can be found [here](https://github.com/novuhq/novu-kotlin#installation)
+
+Then run `mnv install`.
 
 Gradle users:
 
-```groovy
-implementation 'co.novu:novu-kotlin:{latest-version}' //Groovy
+```java
+//Add sonatype release repositories
+repositories {
+    ...
+    maven { url "https://s01.oss.sonatype.org/content/repositories/releases/" }
+}
 
-implementation ("co.novu:novu-kotlin:{latest-version}") //Kotlin
+// add dependency
+implementation("io.github.crashiv:novu-kotlin:0.1.1-SNAPSHOT")
 ```
-The latest version can be found [here](https://github.com/novuhq/novu-kotlin#installation)
 
-Sync your project, and you should have the artifacts downloaded.
+Then run `gradlew build`.
 
 <Tip> If you're ready to start integrating in your Kotlin app, jump straight to our [Kotlin quickstart.](/quickstarts/kotlin)</Tip>
 
 ## Usage 
 
-```kotlin
+```java
 // without changing the backend URL
 import co.novu.Novu
 import co.novu.extentions.environments
@@ -46,5 +63,4 @@ fun main() {
     println(environment)
 }
 
-// Sign up on https://web.novu.co and grab your API key from https://web.novu.co/settings
 ```
