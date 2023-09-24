@@ -22,7 +22,7 @@ To create multiple stores you can use the prop `stores` on the `NovuProvider`
     { storeId: "user-activity", query: { feedIdentifier: "user-activity" } },
   ]}
   subscriberId={"SUBSCRIBER_ID"}
-  applicationIdentifier={"APPLICATION_ID"}
+  applicationIdentifier={"APPLICATION_IDENTIFIER"}
 >
   <PopoverWrapper />
 </NovuProvider>
@@ -35,16 +35,33 @@ Using the `query` object multiple fields can be passed for feed API:
 
 After specifying the `stores` prop, you can use the `storeId` property to interact with the store.
 
-<aside>
-💡 TIP
+### Managing feeds on the web UI
+
+1. How to add a new feed or select exisitng feed for in-app step?
+
+To add a new feed, enable *Use Feeds* checkbox in in-app editor. Select from existing feeds or create a new feed by writing in the input field and then clicking on plus icon in the right side.
+
+<Frame caption="Adding a new feed or selecting existing feed">
+  <img src="/images/notification-center/client/react/multiple-tabs/feeds-in-in-app.png" />
+</Frame>
+
+2. How to copy `feedIdentifier` (`storeId`)
+
+To copy `feedIdentifier` (`storeId`) click on the feed name of existing feeds. copy three dot icon. a menu will appear. click on Copy ID option to copy selected feed's `feedIdentifier`
+
+<Frame caption="Copy feedIdentifier (storeId)">
+  <img src="/images/notification-center/client/react/multiple-tabs/feedIdentifier.png" />
+</Frame>
+
+<Info>
 By specifying only a storeId, without a query, you could get all notifications.
+</Info>
 
-</aside>
-
-### Using `tabs` prop on the notification center[](https://docs.novu.co/notification-center/react/react-components#using-tabs-prop-on-the-notification-center)
+### Using `tabs` prop on the notification center
 
 ```tsx
 <PopoverNotificationCenter
+  colorScheme="dark"
   tabs={[
     // name can be any custom name
     { name: "Product Updates", storeId: "product-updates" },
@@ -68,4 +85,27 @@ By specifying only a storeId, without a query, you could get all notifications.
 
 ## Example
 
-[CodeSandBox Demo 🔗](https://codesandbox.io/s/tabs-in-in-app-xdk74x)
+[![Edit tabs-in-in_app](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/tabs-in-in-app-xdk74x?fontsize=14&hidenavigation=1&theme=dark)
+
+## Important Links
+
+<CardGroup cols={3}>
+  <Card
+    title="Get all feeds"
+    icon="plug"
+    color="#ea5a0c"
+    href="/api-reference/feeds/get-feeds"
+  ></Card>
+  <Card
+    title="Create a new feed"
+    icon="plug"
+    color="#0285c7"
+    href="/api-reference/feeds/create-feed"
+  ></Card>
+  <Card
+    title="Delete a feed"
+    icon="plug"
+    color="#0285c7"
+    href="/api-reference/feeds/delete-feed"
+  ></Card>
+</CardGroup>

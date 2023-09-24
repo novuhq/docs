@@ -1,9 +1,12 @@
 ---
 title: "Customizing Notification Center"
 sidebarTitle: "Customization"
+description: "Learn how to customize the pre built notification center component partially or building your own notification center component from scratch using novu provided hooks"
 ---
 
 ## PopoverNotificationCenter Customization
+
+`<PopoverNotificationCenter>` is a pre built notification center component that can be used to show notifications in your application. It is a popover component that can be placed anywhere in your application. A bell will appear on the page. On click of that bell, a popover will appear. All possible customizations and props are available [here](/notification-center/client/react/api-reference#popovernotificationcenter). If you are looking for a component without popover use regular `<NotificationCenter>` component. Props of this component can be found [here](/notification-center/client/react/api-reference#notificationcenter). Few selected customization options are explained below:-
 
 ### Implementing custom bell icon
 
@@ -12,7 +15,7 @@ It is common that you might have a special set of icons you use within your appl
 For this you can easily switch the `NotificationBell` with your own bell. Just make sure you pass the `unseenCount` param inside and use it accordingly.
 
 ```jsx
-<PopoverNotificationCenter>
+<PopoverNotificationCenter colorScheme="dark">
   {({ unseenCount }) => (
     <CustomBell
       unseenCount={unseenCount}
@@ -62,6 +65,7 @@ const EmptyState = () => {
 };
 
 <PopoverNotificationCenter
+  colorScheme="dark"
   header={() => <Header />}
   footer={() => <Footer />}
   emptyState={<EmptyState />}
@@ -108,25 +112,15 @@ Use the listItem prop to show custom notification items.
 If you want to use a language other than english for the UI, the `NovuProvider` component can accept an optional `i18n` prop.
 
 ```typescript
-import {
-  NovuProvider,
-  PopoverNotificationCenter,
-  NotificationBell,
-} from "@novu/notification-center";
-
-function Header() {
-  return (
-    <NovuProvider
-      subscriberId={"USER_ID"}
-      applicationIdentifier={"APP_ID_FROM_ADMIN_PANEL"}
-      i18n="en"
-    >
-      <PopoverNotificationCenter>
-        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-      </PopoverNotificationCenter>
-    </NovuProvider>
-  );
-}
+<NovuProvider
+  subscriberId={"USER_ID"}
+  applicationIdentifier={"APPLICATION_IDENTIFIER"}
+  i18n="en"
+>
+  <PopoverNotificationCenter colorScheme="dark">
+    {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+  </PopoverNotificationCenter>
+</NovuProvider>
 ```
 
 The `i18n` prop can accept 2 different types of values
@@ -234,40 +228,223 @@ i18n={{
 
 <Tip>Novu uses *`en`* as the default value for i18n</Tip>
 
-## Customization Using Hooks
+### Customization using `styles` prop
 
-### useNotifications
+`styles` prop can be used to cutomise styling of each component of notification center. Read more about styles prop [here](/notification-center/client/react/api-reference#styles)
 
-The hook that allows you to get the notifications feed data and unseen notifications count. The notifications are fetched only when the `fetchingStrategy.fetchNotifications` is set to `true`  check the `initialFetchingStrategy` prop on the [NovuProvider] component.
-
-```typescript
-const result = useNotifications();
-```
-
-### The hook return interface
-
-```typescript
-interface INotificationsContext {
-  storeId: string;
-  storeQuery: IStoreQuery;
-  stores: IStore[];
-  unseenCount: number;
-  notifications: IMessage[];
-  hasNextPage: boolean;
-  isLoading: boolean;
-  isFetching: boolean;
-  isFetchingNextPage: boolean;
-  setStore: (storeId?: string) => void;
-  fetchNextPage: () => void;
-  refetch: () => void;
-  markNotificationAsRead: (messageId: string) => void;
-  markNotificationAsUnRead: (messageId: string) => void;
-  markNotificationAsSeen: (messageId: string) => void;
-  markFetchedNotificationsAsRead: () => void;
-  markFetchedNotificationsAsSeen: () => void;
-  markAllNotificationsAsRead: () => void;
-  markAllNotificationsAsSeen: () => void;
-  removeMessage: (messageId: string) => void;
-  removeAllMessages: (feedId?: string) => void;
+```js
+export const styles = {
+  bellButton: {
+    root: {
+      marginTop: "20px",
+      svg: {
+        color: "#AFE1AF",
+        fill: "white",
+        minWidth: "20px",
+        minHeight: "20px"
+      }
+    },
+    dot: {
+      rect: {
+        fill: "white",
+        strokeWidth: "0",
+        width: "3px",
+        height: "3px",
+        x: 10,
+        y: 2
+      }
+    }
+  }
 }
 ```
+
+
+<Accordion title="Customizing styles" >
+```js
+const primaryColor = "white";
+const secondaryColor = "#AFE1AF";
+const primaryTextColor = "#0C0404";
+const secondaryTextColor = "#494F55";
+const unreadBackGroundColor = "#869F9F";
+const primaryButtonBackGroundColor = unreadBackGroundColor;
+const secondaryButtonBackGroundColor = "#C6DFCD";
+const dropdownBorderStyle = "2px solid #AFE1AF";
+const tabLabelAfterStyle = "#AFE1AF !important";
+const ncWidth = "350px !important";
+
+export const styles = {
+  bellButton: {
+    root: {
+      marginTop: "20px",
+      svg: {
+        color: secondaryColor,
+        fill: primaryColor,
+        minWidth: "20px",
+        minHeight: "20px"
+      }
+    },
+    dot: {
+      rect: {
+        fill: primaryColor,
+        strokeWidth: "0",
+        width: "3px",
+        height: "3px",
+        x: 10,
+        y: 2
+      }
+    }
+  },
+  unseenBadge: {
+    root: { color: primaryTextColor, background: secondaryColor }
+  },
+  popover: {
+    root: { zIndex: -99 },
+    arrow: {
+      backgroundColor: primaryColor,
+      borderLeftColor: secondaryColor,
+      borderTopColor: secondaryColor
+    },
+    dropdown: {
+      border: dropdownBorderStyle,
+      borderRadius: "10px",
+      marginTop: "25px",
+      maxWidth: ncWidth
+    }
+  },
+  header: {
+    root: {
+      backgroundColor: primaryColor,
+      "&:hover": { backgroundColor: primaryColor },
+      cursor: "pointer",
+      color: primaryTextColor
+    },
+    cog: { opacity: 1 },
+    markAsRead: {
+      color: primaryTextColor,
+      fontSize: "14px"
+    },
+    title: { color: primaryTextColor },
+    backButton: {
+      color: primaryTextColor
+    }
+  },
+  layout: {
+    root: {
+      background: primaryColor,
+      maxWidth: ncWidth
+    }
+  },
+  loader: {
+    root: {
+      stroke: primaryTextColor
+    }
+  },
+  accordion: {
+    item: {
+      backgroundColor: secondaryColor,
+      ":hover": {
+        backgroundColor: secondaryColor
+      }
+    },
+    content: {
+      backgroundColor: secondaryColor,
+      borderBottomLeftRadius: "7px",
+      borderBottomRightRadius: "7px"
+    },
+    control: {
+      ":hover": {
+        backgroundColor: secondaryColor
+      },
+      color: primaryTextColor,
+      title: {
+        color: primaryTextColor
+      }
+    },
+    chevron: {
+      color: primaryTextColor
+    }
+  },
+  notifications: {
+    root: {
+      ".nc-notifications-list-item": {
+        backgroundColor: secondaryColor
+      }
+    },
+    listItem: {
+      layout: {
+        borderRadius: "7px",
+        color: primaryTextColor
+      },
+      timestamp: { color: secondaryTextColor, fontWeight: "bold" },
+      dotsButton: {
+        path: {
+          fill: primaryTextColor
+        }
+      },
+      unread: {
+        "::before": { background: unreadBackGroundColor }
+      },
+      buttons: {
+        primary: {
+          background: primaryButtonBackGroundColor,
+          color: primaryTextColor,
+          "&:hover": {
+            background: primaryButtonBackGroundColor,
+            color: secondaryTextColor
+          }
+        },
+        secondary: {
+          background: secondaryButtonBackGroundColor,
+          color: secondaryTextColor,
+          "&:hover": {
+            background: secondaryButtonBackGroundColor,
+            color: secondaryTextColor
+          }
+        }
+      }
+    }
+  },
+  actionsMenu: {
+    item: { "&:hover": { backgroundColor: secondaryColor } },
+    dropdown: {
+      backgroundColor: primaryColor
+    },
+    arrow: {
+      backgroundColor: primaryColor,
+      borderTop: "0",
+      borderLeft: "0"
+    }
+  },
+  preferences: {
+    item: {
+      title: { color: primaryTextColor },
+      divider: { borderTopColor: primaryColor },
+      channels: { color: secondaryTextColor },
+      content: {
+        icon: { color: primaryTextColor },
+        channelLabel: { color: primaryTextColor },
+        success: { color: primaryTextColor }
+      }
+    }
+  },
+  tabs: {
+    tabLabel: {
+      "::after": { background: tabLabelAfterStyle },
+      ":hover": { color: tabLabelAfterStyle },
+      "[data-active]": { color: tabLabelAfterStyle }
+    },
+    tabsList: { borderBottomColor: primaryColor }
+  }
+};
+```
+</Accordion >
+
+[![Edit custom-styles-novu-nc](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/custom-styles-novu-nc-2jd46m?fontsize=14&module=%2Fsrc%2Fstyles.js&moduleview=1&theme=dark)
+
+
+## Customization Using Hooks
+
+If you don't want to use our pre built component then, you can build your own notification center using hooks. `@novu/notification-center` react package provides many hooks like `useNotifications`, `useFetchNotifications`, `useUpdateUserPreferences`. Checkout all available hooks [here](/notification-center/client/react/api-reference#hooks). All the hooks should be defined inside the [NovuProvider](/notification-center/client/react/api-reference#novuprovider) component. Most of the hooks are based on the @tanstack/react-query library.
+
+Checkout below example on how to use `useNotifications` and `useFetchNotifications` hook
+[![Edit useNotifications-useFetchNotifications-hook](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/usenotifications-usefetchnotifications-hook-2t6sgz?fontsize=14&hidenavigation=1&theme=dark)
