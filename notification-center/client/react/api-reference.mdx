@@ -60,6 +60,8 @@ interface IStoreQuery {
   feedIdentifier?: string | string[];
   seen?: boolean;
   read?: boolean;
+  limit?: number; 
+  payload?: Record<string, unknown>;
 }
 ```
 
@@ -263,7 +265,7 @@ type ListItem = (
 ) => JSX.Element;
 ```
 
-### NotificationCenter
+## NotificationCenter
 
 The component that renders the notifications feed and allows to update the user preferences.
 
@@ -286,7 +288,7 @@ The component that renders the notifications feed and allows to update the user 
 | onTabClick                 | function (optional)                             | The callback function triggered when the notifications feed tab changes.                                                                                                                                     |
 | preferenceFilter           | function (optional)                             | The callback function triggered when filtering the subscriber preference.                                                                                                                                    |
 
-### The props interface
+### Props interface
 
 ```typescript
 interface INotificationCenterProps {
@@ -316,7 +318,7 @@ interface INotificationCenterProps {
 }
 ```
 
-### NotificationBell
+## NotificationBell
 
 The component that renders the notification bell with the unseen notifications count.
 
@@ -327,7 +329,7 @@ The component that renders the notification bell with the unseen notifications c
 | unseenBadgeBackgroundColor | string (optional)           | The background color of the notification unseen count badge. |
 | colorScheme                | string (optional)           | The UI light or dark mode.                                   |
 
-### The props interface
+### Props interface
 
 ```typescript
 interface INotificationBellProps {
@@ -342,16 +344,172 @@ interface ISvgStopColor {
   stopColorOffset?: string;
 }
 ```
+## Hooks
 
-## useSocket
+### useNotifications
 
-The hook that allows you to get the reference to socket object.
+This hook that allows you to get the notifications feed data and unseen notifications count. The notifications are fetched only when the `fetchingStrategy.fetchNotifications` is set to true interface, check the `initialFetchingStrategy` prop on the [NovuProvider](#novuprovider) component.
+  
+```typescript
+const result = useNotifications();
+```
+
+`useNotifications` hook return interface
+
+```typescript
+interface INotificationsContext {
+  storeId: string;
+  storeQuery: IStoreQuery;
+  stores: IStore[];
+  unseenCount: number;
+  notifications: IMessage[];
+  hasNextPage: boolean;
+  isLoading: boolean;
+  isFetching: boolean;
+  isFetchingNextPage: boolean;
+  setStore: (storeId?: string) => void;
+  fetchNextPage: () => void;
+  refetch: () => void;
+  markNotificationAsRead: (messageId: string) => void;
+  markNotificationAsUnRead: (messageId: string) => void;
+  markNotificationAsSeen: (messageId: string) => void;
+  markFetchedNotificationsAsRead: () => void;
+  markFetchedNotificationsAsSeen: () => void;
+  markAllNotificationsAsRead: () => void;
+  markAllNotificationsAsSeen: () => void;
+  removeMessage: (messageId: string) => void;
+  removeAllMessages: (feedId?: string) => void;
+}
+```
+Description of the `useNotifications` hook return interface properties
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| storeId | string | active `storeId` |
+| stores | [IStore[]](#store-interface) | array of [IStore](#store-interface) passed to the [NovuProvider](#novuprovider). |
+| unseenCount | number | unseen notifications (messages) count. |
+| notifications | [IMessage[]](#the-notification-imessage-model) | The feed notifications array. |
+| hasNextPage | boolean | flag indicating if the next notifications page to fetch is available. |
+| isLoading | boolean | flag indicating if the initial notifications fetch request is on the fly. |
+| isFetching | boolean | flag indicating if the notifications are fetching including initial fetch. |
+| isFetchingNextPage | boolean | flag indicating if the next notifications page request in on the fly. |
+| setStore | function | function used to change the current notifications [IStore](#store-interface) |
+| fetchNextPage | function | function that fires the fetch request for the next notifications page. |
+| refetch | function | function used to refetch all the notifications, when multiple page requests were made it will refetch all of them. |
+| markNotificationAsRead | function | function takes the notification (message) `messageId` as an argument and marks that notification (message) as read. |
+| markNotificationAsUnRead | function | function takes the notification (message) `messageId` as an argument and marks that notification (message) as unread. |
+| markNotificationAsSeen | function | function takes the notification (message) `messageId` as an argument and marks that notification (message) as seen. |
+| markFetchedNotificationsAsRead | function | function marks all the fetched notifications as read. |
+| markFetchedNotificationsAsSeen | function | function allowing you to mark all the fetched notifications as seen. |
+| markAllNotificationsAsRead | function | function allowing you to mark all notifications as read. |
+| markAllNotificationsAsSeen | function | function allowing you to mark notifications as seen. |
+| removeMessage | function | function takes the notification (message) `messageId` as an argument and delete a notification. |
+| removeAllMessages | function | The function allowing you to delete all notifications or a specific feed's (store's) notifications at once. |
+
+
+### useFetchNotifications
+
+`useFetchNotifications` can fetche the notifications for a particular feed. It's a thin version of the `useNotifications` hook and is based on the `useInfiniteQuery` hook from the `react-query` library. Notifications can be filtered using `payload` property. Check all properties of [IStoreQuery](#store-interface) interface. The notifications are fetched only when the `fetchingStrategy.fetchNotifications` is set to true interface, check the `initialFetchingStrategy` prop on the [NovuProvider](#novuprovider) component.
+
+```typescript
+const query: IStoreQuery = {
+  limit: 10,
+  payload: {
+    key: "value"
+  }
+};
+
+const onSuccess = (data: IPaginatedResponse<IMessage>) => {};
+
+const onError = (error: Error) => {};
+
+const {
+  data: notificationsPages,
+  hasNextPage,
+  isLoading,
+  isFetching,
+  isFetchingNextPage,
+  fetchNextPage,
+  refetch,
+} = useFetchNotifications({ query }, { onSuccess, onError });
+
+```
+
+`useFetchNotifications` hook return args
+
+```typescript
+interface IUseFetchNotificationsArgs {
+  onSuccess?: (data: IPaginatedResponse<IMessage>) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useInfiniteQuery hook
+}
+
+```
+
+`useFetchNotifications` hook return interface
+
+```typescript
+interface InfiniteData<TData> {
+  pages: TData[];
+  pageParams: unknown[];
+}
+
+interface IUseUnseenCountResult {
+  data: InfiniteData<IPaginatedResponse<IMessage>>;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useInfiniteQuery hook result
+}
+```
+
+### useUnseenCount
+
+`useUnseenCount` returns the total unseen notifications count. Under the hood it uses the socket connection to get the unseen count updates.
+
+```typescript
+interface ICountData {
+  count: number;
+}
+
+const onSuccess = ({ count }: ICountData) => {};
+
+const onError = (error: Error) => {};
+
+const { data, isLoading, isError, error } = useUnseenCount({ onSuccess, onError });
+```
+
+`useUnseenCount` hook args interface
+
+```typescript
+interface IUseUnseenCountArgs {
+  onSuccess?: (data: ICountData) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useQuery hook
+}
+```
+
+`useUnseenCount` hook return interface
+
+```typescript
+interface IUseUnseenCountResult {
+  data?: ICountData;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useQuery hook result
+}
+```
+
+### useSocket
+
+`useSocket` hooks is used to get the reference to socket object.
 
 ```typescript
 const { socket } = useSocket();
 ```
 
-### The socket interface
+`useSocket` return interface
 
 ```typescript
 interface ISocket {
@@ -360,21 +518,23 @@ interface ISocket {
 }
 ```
 
+`useSocket` supported events
+
 | Event                 | Description                                              |
 | --------------------- | -------------------------------------------------------- |
 | notification_received | Triggered when a new notification is received            |
 | unseen_count_changed  | Triggered when the count of unseen notifications changes |
 | unread_count_changed  | Triggered when the count of unread notifications changes |
 
-## useNovuContext
+### useNovuContext
 
-The hook that allows you to get the reference to the `NovuProvider` context.
+`useNovuContext` hook is used to get the reference to the [NovuProvider](#novuprovider) context.
 
 ```typescript
 const result = useNovuContext();
 ```
 
-### The hook return interface
+`useNovuContext` hook return interface
 
 ```typescript
 interface INovuProviderContext {
@@ -392,33 +552,368 @@ interface INovuProviderContext {
 }
 ```
 
-## useNovuTheme
+### useFeedUnseenCount
 
-The hook that allows you to get the reference to the [theme](#the-theme-interface) object.
+`useFeedUnseenCount` hook fetches the unseen count for a particular feed.
 
 ```typescript
-const result = useNovuTheme();
+interface ICountData {
+  count: number;
+}
+
+const query: IStoreQuery = {
+  feedIdentifier: "product-updates"
+};
+
+const onSuccess = (data: ICountData) => {};
+
+const onError = (error: Error) => {};
+
+const result = useFeedUnseenCount({ query }, { onSuccess, onError });
 ```
 
-### The hook return interface
+`useFeedUnseenCount` hook args interface
 
 ```typescript
-interface INovuThemeProviderContext {
-  theme: INovuTheme;
-  common: ICommonTheme;
-  colorScheme: ColorScheme;
+interface IUseFeedUnseenCountArgs {
+  onSuccess?: (data: ICountData) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useQuery hook
+}
+```
+
+`useFeedUnseenCount` hook return interface
+
+```typescript
+interface IUseFeedUnseenCountResult {
+  data?: ICountData;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useQuery hook result
+}
+```
+
+### useFetchOrganization
+
+`useFetchOrganization` hok fetches the current organization information.
+
+```typescript
+interface IOrganizationEntity {
+  _id: string;
+  name: string;
+  members: {
+    _id: string;
+    _userId?: string;
+    user?: Pick<IUserEntity, 'firstName' | '_id' | 'lastName' | 'email'>;
+    roles: MemberRoleEnum[];
+    invite?: IMemberInvite;
+    memberStatus: MemberStatusEnum;
+  }[];
+  branding?: {
+    color: string;
+    logo: string;
+    fontColor: string;
+    fontFamily: string;
+    contentBackground: string;
+    direction: 'ltr' | 'rtl';
+  };
+}
+
+const onSuccess = (data: IOrganizationEntity) => {};
+
+const onError = (error: Error) => {};
+
+const result = useFetchOrganization({ onSuccess, onError });
+```
+
+`useFetchOrganization` hook args interface
+
+```typescript
+interface IUseFetchOrganizationArgs {
+  onSuccess?: (data: IOrganizationEntity) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useQuery hook
+}
+```
+
+`useFetchOrganization` hook return interface
+
+```typescript
+interface IUseFetchOrganizationResult {
+  data?: IOrganizationEntity;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useQuery hook result
+}
+```
+
+### useFetchUserPreferences
+
+`useFetchUserPreferences` hook fetches the user preferences.
+
+```typescript
+const onSuccess = (data: IUserPreferenceSettings[]) => {};
+
+const onError = (error: Error) => {};
+
+const result = useFetchUserPreferences({ onSuccess, onError });
+```
+
+`useFetchUserPreferences` hook args interface
+
+```typescript
+interface IUseFetchUserPreferencesArgs {
+  onSuccess?: (data: IUserPreferenceSettings[]) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useQuery hook
+}
+```
+
+`useFetchUserPreferences` hook return interface
+
+```typescript
+interface IUseFetchUserPreferencesResult {
+  data?: IUserPreferenceSettings[];
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useQuery hook result
+}
+```
+
+### useUpdateUserPreferences
+
+`useUpdateUserPreferences` hook is used to update the user preferences.
+
+```typescript
+interface IPreferenceChannels {
+  email?: boolean;
+  sms?: boolean;
+  in_app?: boolean;
+  chat?: boolean;
+  push?: boolean;
+}
+
+interface IUserPreferenceSettings {
+  template: { _id: string; name: string; critical: boolean };
+  preference: { enabled: boolean; channels: IPreferenceChannels };
+}
+
+const onSuccess = (data: IUserPreferenceSettings) => {};
+
+const onError = (error: Error) => {};
+
+const { updateUserPreferences, isLoading, isError, error } = useUpdateUserPreferences({
+  onSuccess,
+  onError,
+});
+```
+
+`useUpdateUserPreferences` hook args interface
+
+```typescript
+interface IUserPreferencesArgs {
+  onSuccess?: (data: IUserPreferenceSettings) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+```
+
+`useUpdateUserPreferences` hook return interface
+
+```typescript
+interface IUpdateUserPreferencesVariables {
+  templateId: string; // workflowId of mongodbId type
+  channelType: string;
+  checked: boolean;
+}
+
+interface IUserPreferencesResult {
+  updateUserPreferences: (variables: IUpdateUserPreferencesVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+```
+
+### useUpdateAction
+
+`useUpdateAction` hook can be used to update the notification action button status.
+
+```typescript
+const onSuccess = (data: IMessage) => {};
+
+const onError = (error: Error) => {};
+
+const { updateAction, isLoading, isError, error } = useUpdateAction({ onSuccess, onError });
+```
+
+`useUpdateAction` hook args interface
+
+```typescript
+interface IUseUpdateActionArgs {
+  onSuccess?: (data: IMessage) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+```
+
+`useUpdateAction` hook return interface
+
+```typescript
+interface IUpdateActionVariables {
+  messageId: string;
+  actionButtonType: ButtonTypeEnum;
+  status: MessageActionStatusEnum;
+  payload?: Record<string, unknown>;
+}
+
+interface IUpdateActionResult {
+  updateAction: (variables: IUpdateActionVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+```
+
+### useMarkNotificationsAs
+
+`useMarkNotificationsAs` hook that marks the notifications as read or seen.
+
+```typescript
+const onSuccess = (data: IMessage[]) => {};
+
+const onError = (error: Error) => {};
+
+const { markNotificationsAs, isLoading, isError, error } = useMarkNotificationsAs({
+  onSuccess,
+  onError,
+});
+```
+
+`useMarkNotificationsAs` hook args interface
+
+```typescript
+interface IUseMarkNotificationsAsArgs {
+  onSuccess?: (data: IMessage[]) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+```
+
+`useMarkNotificationsAs` hook return interface
+
+```typescript
+interface IMarkNotificationsAsVariables {
+  messageId: IMessageId;
+  seen: boolean;
+  read: boolean;
+}
+
+interface IUseMarkNotificationsAsResult {
+  markNotificationsAs: (args: IMarkNotificationsAsVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+```
+
+### useRemoveNotification
+
+`useRemoveNotification` hook allows you to remove a message. It will delete the message for the subscriber and will refetch the feed.
+
+```typescript
+const onSuccess = (data: IMessage) => {};
+
+const onError = (error: Error) => {};
+
+const { removeNotification, isLoading, isError, error } = useRemoveNotification({
+  onSuccess,
+  onError,
+});
+```
+
+`useRemoveNotification` hook args interface
+
+```typescript
+interface IUseRemoveNotificationArgs {
+  onSuccess?: (data: IMessage) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+```
+
+`useRemoveNotification` hook return interface
+
+```typescript
+interface IRemoveNotificationVariables {
+  messageId: IMessageId;
+}
+
+interface IUseRemoveNotificationResult {
+  removeNotification: (args: IRemoveNotificationVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+```
+
+### useRemoveAllNotifications
+
+`useRemoveAllNotifications` hook allows you to remove all messages of all feeds. feedId can be used as param to delete only specific feed's messages.
+
+```typescript
+const onSuccess = (data: IMessage) => {};
+
+const onError = (error: Error) => {};
+
+const { removeAllNotifications, isLoading, isError, error } = useRemoveAllNotifications({
+  onSuccess,
+  onError,
+});
+```
+
+`useRemoveAllNotifications` hook args interface
+
+```typescript
+interface IUseRemoveAllNotificationsArgs {
+  onSuccess?: (data: IMessage) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+```
+
+`useRemoveAllNotifications` hook return interface
+
+```typescript
+interface IRemoveAllNotificationsVariables {
+  feedId?: string;
+}
+
+interface IUseRemoveAllNotificationsResult {
+  removeAllNotifications: (args: IRemoveAllNotificationsVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
 }
 ```
 
 ### useTranslations
 
-The hook that allows you to get the reference to the [translations](/notification-center/client/react/customization#customize-the-ui-language) object.
+`useTranslations` hook allows you to get the reference to the [translations](/notification-center/client/react/customization#customize-the-ui-language) object.
 
 ```typescript
 const result = useTranslations();
 ```
 
-### `useTranslations` returns interface
+`useTranslations` returns interface
 
 ```typescript
 interface ITranslations {
@@ -428,7 +923,25 @@ interface ITranslations {
 }
 ```
 
-### The theme interface
+### useNovuTheme
+
+`useNovuTheme` hook can be used to get the reference to the [theme](#the-theme-interface) object.
+
+```typescript
+const result = useNovuTheme();
+```
+
+`useNovuTheme` hook return interface
+
+```typescript
+interface INovuThemeProviderContext {
+  theme: INovuTheme;
+  common: ICommonTheme;
+  colorScheme: ColorScheme;
+}
+```
+
+#### The theme interface
 
 ```typescript
 interface INovuTheme {
@@ -443,7 +956,7 @@ interface INovuTheme {
 }
 ```
 
-### `IThemeLayout`
+#### `IThemeLayout`
 
 | Property                   | Default Value (Light Theme)            | Default Value - (Dark Theme)    |
 | -------------------------- | -------------------------------------- | ------------------------------- |
@@ -451,7 +964,7 @@ interface INovuTheme {
 | boxShadow                  | 0px 5px 15px rgba(122, 133, 153, 0.25) | 0px 5px 20px rgba(0, 0, 0, 0.2) |
 | wrapper.secondaryFontColor | #BEBECC                                | #525266                         |
 
-### `IThemeHeader`
+#### `IThemeHeader`
 
 | Property       | Default Value (Light Theme)                   | Default Value - (Dark Theme)                  |
 | -------------- | --------------------------------------------- | --------------------------------------------- |
@@ -459,13 +972,13 @@ interface INovuTheme {
 | badgeTextColor | #FFFFFF                                       | #FFFFFF                                       |
 | fontColor      | #828299                                       | #FFFFFF                                       |
 
-### `IThemePopover`
+#### `IThemePopover`
 
 | Property   | Default Value (Light Theme) | Default Value - (Dark Theme) |
 | ---------- | --------------------------- | ---------------------------- |
 | arrowColor | #FFFFFF                     | #1E1E26                      |
 
-### `IThemeNotificationListItem`
+#### `IThemeNotificationListItem`
 
 | Property                                | Default Value (Light Theme)                             | Default Value - (Dark Theme)                            |
 | --------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
@@ -486,7 +999,7 @@ interface INovuTheme {
 | buttons.secondary.removeCircleColor     | #525266                                                 | #525266                                                 |
 | buttons.secondary.fontFamily            | inherit                                                 | inherit                                                 |
 
-### `IThemeActionsMenu`
+#### `IThemeActionsMenu`
 
 | Property        | Default Value (Light Theme) | Default Value - (Dark Theme) |
 | --------------- | --------------------------- | ---------------------------- |
@@ -495,7 +1008,7 @@ interface INovuTheme {
 | hoverColor      | #F5F8FA                     | #3D3D4D                      |
 | fontColor       | #525266                     | #FFFFFF                      |
 
-### `IThemeUserPreferences`
+#### `IThemeUserPreferences`
 
 | Property                                   | Default Value (Light Theme)                   | Default Value - (Dark Theme)                  |
 | ------------------------------------------ | --------------------------------------------- | --------------------------------------------- |
@@ -516,7 +1029,7 @@ interface INovuTheme {
 | `footer.logoPrefixFontColor`               | #A1A1B2                                       | #525266                                       |
 | `loaderColor`                              | linear-gradient(0deg,#FF512F 0%,#DD2476 100%) | linear-gradient(0deg,#FF512F 0%,#DD2476 100%) |
 
-### `IThemeFooter`
+#### `IThemeFooter`
 
 | Property            | Default Value (Light Theme) | Default Value - (Dark Theme) |
 | ------------------- | --------------------------- | ---------------------------- |
@@ -531,7 +1044,7 @@ customization properties
 | unseenBadgeColor           | string or [ISvgStopColor](#isvgstopcolor) | -                           | -                            |
 | unseenBadgeBackgroundColor | string                                    | #FFFFFF                     | #1E1E26                      |
 
-### `ISvgStopColor`
+#### `ISvgStopColor`
 
 | Property        | Default Value (Light Theme) | Default Value - (Dark Theme) |
 | --------------- | --------------------------- | ---------------------------- |
