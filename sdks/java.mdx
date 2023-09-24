@@ -11,29 +11,35 @@ Novu's Java SDK provides simple, yet comprehensive notification management, and 
 
 Maven users:
 
-```xml
+```java
+<!--add dependency-->
 <dependency>
-  <groupId>co.novu</groupId>
-  <artifactId>novu-java</artifactId>
-  <version>{latest-version}</version>
+    <groupId>co.novu</groupId>
+    <artifactId>novu-java</artifactId>
+    <version>1.0.0</version>
 </dependency>
 ```
-The latest version can be found [here](https://github.com/novuhq/novu-java#installation)
+
+Then run `mnv install`.
 
 Gradle users:
 
-```groovy
-implementation 'co.novu:novu-java:{latest-version}'
+```java
+// add dependency
+dependencies {
+    implementation 'co.novu:novu-java:1.0.0'
+}
 ```
-The latest version can be found [here](https://github.com/novuhq/novu-java#installation)
 
-Sync your project, and you should have the artifacts downloaded.
+then run `gradlew build`.
 
-<Tip> If you're ready to start integrating in your Java app, jump straight to our [Java quickstart.](/quickstarts/java)</Tip>
+
+
+<Tip> If you're ready to start integrating in your Java app, jump straight to our [Java quickstart.]()</Tip>
 
 ## Usage 
 
-```java
+```php
 import co.novu.sdk.Novu;
 
 public class Main {
