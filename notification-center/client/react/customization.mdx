@@ -1,12 +1,12 @@
 ---
 title: "Customizing Notification Center"
 sidebarTitle: "Customization"
-description: "Learn how to customize the pre built notification center component partially or building your own notification center component from scratch using novu provided hooks"
+description: "Learn how to customize the pre built notification center component partially or building your own notification center component from scratch using Novu provided hooks"
 ---
 
 ## PopoverNotificationCenter Customization
 
-`<PopoverNotificationCenter>` is a pre built notification center component that can be used to show notifications in your application. It is a popover component that can be placed anywhere in your application. A bell will appear on the page. On click of that bell, a popover will appear. All possible customizations and props are available [here](/notification-center/client/react/api-reference#popovernotificationcenter). If you are looking for a component without popover use regular `<NotificationCenter>` component. Props of this component can be found [here](/notification-center/client/react/api-reference#notificationcenter). Few selected customization options are explained below:-
+`<PopoverNotificationCenter>` is a pre built notification center component that can be used to show notifications in your application. It is a popover component that can be placed anywhere in your application. A bell will appear on the page. On click of that bell, a popover will appear. Checkout all customizations and available [props](/notification-center/client/react/api-reference#popovernotificationcenter). If you are looking for a component without popover use regular `<NotificationCenter>` component. Checkout [props](/notification-center/client/react/api-reference#notificationcenter) of this component. Few selected customization options are explained below:-
 
 ### Implementing custom bell icon
 
@@ -49,7 +49,7 @@ Use `position`  and `offset` prop to position the popover relative to the Bell
 
 ### Header, Footer and Empty state
 
-Use `header`  prop to customize the header of notification center
+Use `header`, `footer` and `emptyState` prop to customize the header, footer and empty state of notification center.
 
 ```jsx
 const Header = () => {
@@ -230,7 +230,7 @@ i18n={{
 
 ### Customization using `styles` prop
 
-`styles` prop can be used to cutomise styling of each component of notification center. Read more about styles prop [here](/notification-center/client/react/api-reference#styles)
+`styles` prop can be used to cutomise styling of each component of notification center. Read more about [styles prop](/notification-center/client/react/api-reference#styles)
 
 ```js
 export const styles = {
@@ -373,7 +373,23 @@ export const styles = {
     listItem: {
       layout: {
         borderRadius: "7px",
-        color: primaryTextColor
+        color: primaryTextColor,
+        "div:has(> .mantine-Avatar-root)": {
+          border: "none",
+          width: "20px",
+          height: "20px",
+          minWidth: "20px"
+        },
+        ".mantine-Avatar-root": {
+          width: "20px",
+          height: "20px",
+          minWidth: "20px"
+        },
+        ".mantine-Avatar-image": {
+          width: "20px",
+          height: "20px",
+          minWidth: "20px"
+        }
       },
       timestamp: { color: secondaryTextColor, fontWeight: "bold" },
       dotsButton: {
@@ -444,7 +460,7 @@ export const styles = {
 
 ## Customization Using Hooks
 
-If you don't want to use our pre built component then, you can build your own notification center using hooks. `@novu/notification-center` react package provides many hooks like `useNotifications`, `useFetchNotifications`, `useUpdateUserPreferences`. Checkout all available hooks [here](/notification-center/client/react/api-reference#hooks). All the hooks should be defined inside the [NovuProvider](/notification-center/client/react/api-reference#novuprovider) component. Most of the hooks are based on the @tanstack/react-query library.
+If you don't want to use our pre built component then, you can build your own notification center using hooks. `@novu/notification-center` react package provides many hooks like `useNotifications`, `useFetchNotifications`, `useUpdateUserPreferences`. Checkout all available [hooks](/notification-center/client/react/api-reference#hooks). All the hooks should be defined inside the [NovuProvider](/notification-center/client/react/api-reference#novuprovider) component. Most of the hooks are based on the `@tanstack/react-query` library.
 
 Checkout below example on how to use `useNotifications` and `useFetchNotifications` hook
 [![Edit useNotifications-useFetchNotifications-hook](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/usenotifications-usefetchnotifications-hook-2t6sgz?fontsize=14&hidenavigation=1&theme=dark)
