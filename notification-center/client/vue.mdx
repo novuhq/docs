@@ -35,7 +35,7 @@ createApp(App).use(NotificationCenterPlugin).mount("#app");
   export default {
     data() {
       return {
-        applicationIdentifier: import.meta.env.VITE_NOVU_APP_IDENTIFIER,
+        applicationIdentifier: import.meta.env.VITE_NOVU_APPLICATION_IDENTIFIER,
         subscriberId: import.meta.env.VITE_NOVU_SUBSCRIBER_ID,
       };
     },
@@ -67,7 +67,7 @@ You can pass the custom bell button component as the default slot to the `Notif
   export default {
     data() {
       return {
-        applicationIdentifier: import.meta.env.VITE_NOVU_APP_IDENTIFIER,
+        applicationIdentifier: import.meta.env.VITE_NOVU_APPLICATION_IDENTIFIER,
         subscriberId: import.meta.env.VITE_NOVU_SUBSCRIBER_ID,
       };
     },
@@ -94,3 +94,4 @@ You can pass the custom bell button component as the default slot to the `Notif
 ## Example
 
 [CodeSandBox Link 🔗](https://codesandbox.io/p/sandbox/novu-vue-in-app-88p8vx)
+

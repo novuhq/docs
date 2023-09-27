@@ -3,7 +3,7 @@ title: "Iframe Embed"
 sidebarTitle: "Iframe"
 ---
 
-If you are using a (currently) unsupported client framework, you can use our embedded script. This will generate the notification center inside an iframe. You can find the embedded code in the `Settings` page, within the Admin Panel. It will look similar to this:
+If you are using a (currently) unsupported client framework, you can use our embedded script. This will generate the notification center inside an iframe
 
 ```html
 <script>
@@ -32,16 +32,16 @@ If you are using a (currently) unsupported client framework, you can use our emb
   );
 
   novu.init(
-    "<REPLACE_APPLICATION_ID>",
+    "APPLICATION_IDENTIFIER",
     {
       unseenBadgeSelector: "#unseen-badge",
       bellSelector: "#notification-bell",
     },
     {
-      subscriberId: "<REPLACE_WITH_USER_UNIQUE_IDENTIFIER>",
-      email: "<REPLACE_WITH_USER_EMAIL>",
-      first_name: "<REPLACE_WITH_USER_NAME>",
-      last_name: "<REPLACE_WITH_USER_LAST_NAME>",
+      subscriberId: "SUBSCRIBER_ID",
+      email: "SUBSCRIBER_EMAIL",
+      first_name: "SUBSCRIBER_FIRST_NAME",
+      last_name: "SUBSCRIBER_LAST_NAME",
     }
   );
 </script>
@@ -65,7 +65,7 @@ Optionally, the embedded init script receives a position object, you can use thi
 ```html
 <script>
   novu.init(
-    "<REPLACE_APPLICATION_ID>",
+    "APPLICATION_IDENTIFIER",
     {
       unseenBadgeSelector: "#unseen-badge",
       bellSelector: "#notification-bell",
@@ -83,7 +83,7 @@ Optionally, the embedded init script receives a position object, you can use thi
 
 ## Customizing the theme
 
-The notification center component can be customized by passing a `theme` to the init script. More information on all possible theme properties can be found [here](/notification-center/client/react/api-reference).
+The notification center component can be customized by passing a `theme` to the init script. Checkout all possible theme [properties](/notification-center/client/react/api-reference).
 
 ```html
 <script>
@@ -96,7 +96,7 @@ The notification center component can be customized by passing a `theme` to th
   };
 
   novu.init(
-    "<REPLACE_APPLICATION_ID>",
+    "APPLICATION_IDENTIFIER",
     {
       unseenBadgeSelector: "#unseen-badge",
       bellSelector: "#notification-bell",
@@ -111,7 +111,7 @@ The notification center component can be customized by passing a `theme` to th
 
 ## Customizing the UI language
 
-The language of the UI can be customized by passing an `i18n` component to the init script. More information on all possible properties for it can be found [here](/notification-center/client/react/customization#customize-the-ui-language).
+The language of the UI can be customized by passing an `i18n` component to the init script. More information on all possible [properties](/notification-center/client/react/customization#customize-the-ui-language).
 
 ```html
 <script>
@@ -123,7 +123,7 @@ The language of the UI can be customized by passing an `i18n` component to the
   };
 
   novu.init(
-    "<REPLACE_APPLICATION_ID>",
+    "APPLICATION_IDENTIFIER",
     {
       unseenBadgeSelector: "#unseen-badge",
       bellSelector: "#notification-bell",
@@ -154,7 +154,7 @@ In order to handle certain events like the user clicking on the notification, or
 
 ## Enabling HMAC Encryption
 
-In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel's in-app settings page and enable HMAC encryption for your environment.
+In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel's In-App settings page and enable HMAC encryption for your environment.
 
 The next step would be to generate an HMAC encrypted subscriberId on your backend:
 
@@ -171,7 +171,7 @@ Then pass the created HMAC to your client side application forward it to the emb
 ```html
 <script>
   novu.init(
-    "<REPLACE_APPLICATION_ID>",
+    "APPLICATION_IDENTIFIER",
     {
       unseenBadgeSelector: "#unseen-badge",
       bellSelector: "#notification-bell",
@@ -181,8 +181,8 @@ Then pass the created HMAC to your client side application forward it to the emb
       },
     },
     {
-      subscriberId: "REPLACE_WITH_PLAIN_VALUE",
-      subscriberHash: "REPLACE_WITH_HASHED_VALUE",
+      subscriberId: "SUBSCRIBER_ID_PLAIN_VALUE",
+      subscriberHash: "SUBSCRIBER_ID_HASH_VALUE",
     }
   );
 </script>
@@ -190,4 +190,24 @@ Then pass the created HMAC to your client side application forward it to the emb
 
 ## Example
 
-[CodeSandBox Link 🔗](https://codesandbox.io/s/novu-iframe-nc-t9ns9d)
+[![Edit novu-iframe-nc](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/novu-iframe-nc-t9ns9d?fontsize=14&hidenavigation=1&theme=dark)
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="The notification bell is not showing in the iframe.">
+
+   We use font awesome bell icon. Make sure you have added the font awesome CSS cdn link in the head tag.
+
+    ```html
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    ```
+    
+  </Accordion>
+</AccordionGroup>
