@@ -22,8 +22,8 @@ To use the headless service and its features, you'll need to first initialize th
 
 ```tsx
 const headlessService = new HeadlessService({
-  applicationIdentifier: "APP_ID_FROM_ADMIN_PANEL",
-  subscriberId: "USER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+  subscriberId: "SUBSCRIBER_ID",
 });
 
 headlessService.initializeSession({
@@ -45,8 +45,8 @@ By default, Novu's hosted services of API and socket are used. Should you want, 
 
 ```tsx
 const headlessService = new HeadlessService({
-  applicationIdentifier: "APP_ID_FROM_ADMIN_PANEL",
-  subscriberId: "USER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+  subscriberId: "SUBSCRIBER_ID",
   backendUrl: "YOUR_BACKEND_URL",
   socketUrl: "YOUR_SOCKET_URL",
 });
