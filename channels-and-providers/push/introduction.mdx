@@ -1,0 +1,35 @@
+---
+title: 'Push Channel Introduction'
+sidebarTitle: 'Introduction'
+description: 'Learn how to send push notifications with Novu using external providers like FCM, Expo etc.'
+---
+
+Push notifications are short, targeted messages delivered to a user's device or browser, often through mobile apps or websites. They serve as a powerful communication tool, offering real-time updates, reminders, and personalized content. Push notifications can range from news alerts and social media updates to promotional offers and important app notifications.
+
+These messages are designed to engage users and keep them informed about relevant events or activities, even when they are not actively using an app or browsing a website. They play a crucial role in user engagement and retention for businesses and organizations, as they can re-engage users and prompt them to take specific actions.
+
+Novu can be used to deliver push notifications to your customers devices using a unified delivery API. Both Mobile and Web push notifications are supported.
+
+## Using push channel with Novu
+
+To send a push notification to subscribers (users) using Novu:
+- Add a push channel provider in integration store
+- Add push channel as a step in existing or new workflow.
+- Add static or dynamic content using variables in push step fields
+- Store provider specific device tokens/identifiers in subscriber profile. Read provider specific documentation on how to obtain and store device tokens.
+- Make sure all provider specific steps are configured properly before triggering workflow. Read provider related documentation for all required steps.
+- Trigger the workflow. 
+
+## Supported providers:-
+
+- [Firebase Cloud Messaging (FCM)](/channels-and-providers/push/fcm)
+- [Expo Push](/channels-and-providers/push/apns)
+- [Apple Push Notification Service](/channels-and-providers/push/apns)
+- [OneSignal](/channels-and-providers/push/onesignal)
+- [Push Webhook](/channels-and-providers/push/push-webhook)
+
+<Note>Novu supports multiple active providers for push channel.</Note>
+
+<Tip>
+Are we missing a provider you'd like to use for this channel? Consider creating a new feature request on [github](https://github.com/novuhq/novu/issues/new?assignees=&labels=feature&projects=&template=feature_request.yml&title=%F0%9F%9A%80+Feature%3A+) or help us upvoting the existing ones on our [roadmap](https://roadmap.novu.co/roadmap).
+</Tip>
