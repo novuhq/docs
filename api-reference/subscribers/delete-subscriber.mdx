@@ -86,8 +86,11 @@ var deleted = await novu.Subscriber.DeleteSubscriber("subscriberId");
 <ResponseExample>
 
 ```json Response
-{ 
-  data: data
+{
+    "data": {
+        "acknowledged": true,
+        "status": "deleted"
+    }
 }
 ```
 
