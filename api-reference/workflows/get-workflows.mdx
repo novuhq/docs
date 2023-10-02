@@ -45,14 +45,14 @@ novu = NotificationTemplateApi(url, api_key).list(
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.Novu;
 
 public class Main {
     public static void main(String[] args) {
         String apiKey = "<NOVU_API_KEY>";
 
         Novu novu = new Novu(apiKey);
-        novu.notificationTemplates(query = {});
+        novu.getWorkflows(page, limit);
     }
 }
 ```
@@ -81,6 +81,20 @@ func main() {
   fmt.Println(string(body))
 }
     
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.getWorkflows
+
+class Main {
+    fun main(args: Array<String>) {
+        val apiKey = "<NOVU_API_KEY>"
+
+        val novu = Novu(apiKey)
+        novu.getWorkflows(page, limit)
+    }
+}
 ```
 
 </RequestExample>
