@@ -42,14 +42,14 @@ novu = NotificationTemplateApi(url, api_key).update_status(
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.Novu;
 
 public class Main {
     public static void main(String[] args) {
         String apiKey = "<NOVU_API_KEY>";
 
         Novu novu = new Novu(apiKey);
-        novu.updateWorkflowStatus(WorkflowId, body);
+        novu.updateWorkflowStatus(workflowId, body);
     }
 }
 ```
@@ -78,6 +78,20 @@ func main() {
   fmt.Println(string(body))
 }
     
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.updateWorkflowStatus
+
+class Main {
+    fun main(args: Array<String>) {
+        val apiKey = "<NOVU_API_KEY>"
+
+        val novu = Novu(apiKey)
+        novu.updateWorkflowStatus(workflowId, body)
+    }
+}
 ```
 
 </RequestExample>
