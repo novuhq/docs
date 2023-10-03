@@ -114,7 +114,7 @@ novu = NotificationTemplateApi(url, api_key).create(
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.Novu;
 
 public class Main {
     public static void main(String[] args) {
@@ -158,6 +158,20 @@ func main() {
   defer resp.Body.Close()
   body, _ := ioutil.ReadAll(resp.Body)
   fmt.Println(string(body))
+}
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.createWorkflow
+
+class Main {
+    fun main(args: Array<String>) {
+        val apiKey = "<NOVU_API_KEY>"
+
+        val novu = Novu(apiKey)
+        novu.createWorkflow(body)
+    }
 }
 ```
 

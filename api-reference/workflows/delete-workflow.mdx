@@ -44,14 +44,14 @@ novu = NotificationTemplateApi(url, api_key).delete(
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.Novu;
 
 public class Main {
     public static void main(String[] args) {
         String apiKey = "<NOVU_API_KEY>";
 
         Novu novu = new Novu(apiKey);
-        novu.deleteWorkflow(WorkflowId);
+        novu.deleteWorkflow(workflowId);
     }
 }
 ```
@@ -79,7 +79,20 @@ func main() {
   body, _ := ioutil.ReadAll(resp.Body)
   fmt.Println(string(body))
 }
-    
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.deleteWorkflow
+
+class Main {
+    fun main(args: Array<String>) {
+        val apiKey = "<NOVU_API_KEY>"
+
+        val novu = Novu(apiKey)
+        novu.deleteWorkflow(workflowId)
+    }
+}
 ```
 
 </RequestExample>
