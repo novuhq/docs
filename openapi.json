@@ -3698,7 +3698,19 @@
     }
   ],
   "servers": [],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
   "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    },
     "schemas": {
       "DataWrapperDto": {
         "type": "object",
