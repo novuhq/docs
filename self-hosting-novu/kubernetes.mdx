@@ -3,23 +3,24 @@ title: 'Kubernetes'
 description: 'Learn how to deploy Novu with K8s'
 icon: 'text-height'
 ---
-Kubernetes is an open-source platform that automates the deployment, scaling, and management of containerized applications. 
-It helps manage containers, ensuring they run reliably across machines. 
-Key terms include pods (containers), deployments (scaling), services (networking), and more. 
-Kubernetes simplifies complex tasks, making it easier to develop and run applications consistently in various environments.
-Learn more about [Kubernetes](https://kubernetes.io/docs/home/)
 
-# 🏗️ This page is still in creation process
+<Warning>
+    We do not plan to support any official public kubernetes deployment at this time.
+    This guide is to help assist advanced users who want to deploy Novu on their own kubernetes cluster.
+</Warning>
 
-We believe in the power of collaboration. If you have insights to share or would like to contribute to the development of this page, we welcome your input. To get involved, follow these steps:
+Kubernetes is an open-source platform that automates the deployment, scaling, and management of containerized applications.
 
-**Open an Issue:** If you've identified an area for improvement or have a suggestion, start by opening an issue in our repository. This allows us to track and discuss the proposed changes.
+You can find a community driven [helm deployment](https://github.com/novuhq/novu/blob/next/docker/kubernetes/helm/README.md) in our repository.
 
-**Create a Pull Request (PR):** Once you're ready to contribute, fork our repository and create a branch. Implement your changes within this branch and submit a pull request to our **Staging branch**.
+## Web Container Image
 
-By following these steps, you're helping us enhance the quality and depth of our resources. We appreciate your effort in making this page an even more valuable asset.
+Due to the way we build our web container image,
+you will need to build your own image and push it to your own registry.
+This is due to us compiling the frontend when the container starts.
 
-Your contributions drive progress. Let's build together!
+<Note>
+    Only need to do this IF you do not allow root only access on your cluster.
+</Note>
 
-<Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations, please don't hesitate to [contact our team](https://calendly.com/novuhq/novu-meeting?utm_source=novuDocs&utm_page=deploy-with-K8). 
-They can provide assistance regarding enterprise edition licenses or cloud-prem deployment to meet your specific needs.</Note>
+
