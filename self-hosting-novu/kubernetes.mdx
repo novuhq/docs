@@ -19,6 +19,10 @@ Due to the way we build our web container image,
 you will need to build your own image and push it to your own registry.
 This is due to us compiling the frontend when the container starts.
 
+You can follow our [dev-deploy-web workflow](https://github.com/novuhq/novu/blob/next/.github/workflows/dev-deploy-web.yml)
+to see how we build our web container image.
+You can also use this workflow to build your own image, you will just need to remove all of the steps after the deploy to netlify step.
+
 <Note>
     Only need to do this IF you do not allow root only access on your cluster.
 </Note>
