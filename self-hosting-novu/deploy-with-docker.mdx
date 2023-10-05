@@ -68,9 +68,9 @@ const config = {
 
 const novu = new Novu('<API_KEY>', config);
 
-await novu.trigger('<REPLACE_WITH_EVENT_NAME_FROM_ADMIN_PANEL>', {
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
   to: {
-    subscriberId: '<REPLACE_WITH_DATA>',
+    subscriberId: '<SUBSCRIBER_ID>',
   },
   payload: {},
 });
