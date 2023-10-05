@@ -23,7 +23,7 @@
   "topbarLinks": [
     {
       "name": "Get API Key",
-      "url": "https://web.novu.co"
+      "url": "https://web.novu.co/settings"
     }
   ],
   "topbarCtaButton": {
@@ -66,12 +66,16 @@
       "url": "cookbook"
     },
     {
+      "name": "Guides",
+      "url": "guides"
+    },
+    {
       "name": "Demos",
       "url": "demos"
     },
     {
       "name": "Community & Support",
-      "url": "community-support"
+      "url": "community"
     },
     {
       "name": "Use Cases",
@@ -104,6 +108,7 @@
                 "quickstarts/react",
                 "quickstarts/angular",
                 "quickstarts/vanillajs",
+                "quickstarts/redwoodjs",
                 "quickstarts/iFrame"
               ]
             },
@@ -112,6 +117,7 @@
               "pages": [
                 "quickstarts/nodejs",
                 "quickstarts/php",
+                "quickstarts/python",
                 "quickstarts/kotlin",
                 "quickstarts/ruby",
                 "quickstarts/.NET",
@@ -136,14 +142,33 @@
       "group": "Workflows",
       "pages": [
         "workflows/notification-workflows",
+        "workflows/step-filters",
         "workflows/digest",
         "workflows/delay-action",
-        "workflows/template-store"
+        "workflows/template-store",
+        "workflows/messages"
+      ]
+    },
+    {
+      "group": "Inbound Webhook",
+      "pages": [
+        "inbound-webhook/inbound-parse-webhook"
       ]
     },
     {
       "group": "Activity Feed",
       "pages": ["activity-feed/introduction"]
+    },
+    {
+      "group": "Tenants",
+      "pages": ["tenants/introduction"]
+    },
+    {
+      "group": "Platform",
+      "pages": [
+        "platform/environments",
+        "platform/webhooks-for-providers"
+      ]
     },
     {
       "group": "Notification Center",
@@ -184,7 +209,8 @@
         "content-creation-design/overview",
         "content-creation-design/handlebars-helpers",
         "content-creation-design/brand",
-        "content-creation-design/notification-content-creation"
+        "content-creation-design/notification-content-creation",
+        "content-creation-design/layouts"
       ]
     },
     {
@@ -196,19 +222,13 @@
         {
           "group": "In-App",
           "pages": [
-            "channels-and-providers/in-app/react",
-            "channels-and-providers/in-app/vue",
-            "channels-and-providers/in-app/angular",
-            "channels-and-providers/in-app/web-component",
-            "channels-and-providers/in-app/headless",
-            "channels-and-providers/in-app/iframe",
-            "channels-and-providers/in-app/custom-styling",
-            "channels-and-providers/in-app/faq"
+            "channels-and-providers/in-app/introduction"
           ]
         },
         {
           "group": "Email",
           "pages": [
+            "channels-and-providers/email/overview",
             "channels-and-providers/email/infobip",
             "channels-and-providers/email/amazonses",
             "channels-and-providers/email/mailersend",
@@ -222,6 +242,7 @@
             "channels-and-providers/email/sendgrid",
             "channels-and-providers/email/sendinblue",
             "channels-and-providers/email/sparkpost",
+            "channels-and-providers/email/plunk",
             "channels-and-providers/email/custom-smtp"
           ]
         },
@@ -237,12 +258,17 @@
             "channels-and-providers/sms/nexmo",
             "channels-and-providers/sms/plivo",
             "channels-and-providers/sms/telnyx",
-            "channels-and-providers/sms/termii"
+            "channels-and-providers/sms/termii",
+            "channels-and-providers/sms/firetext",
+            "channels-and-providers/sms/gupshup",
+            "channels-and-providers/sms/clickatell"
+
           ]
         },
         {
           "group": "Push",
           "pages": [
+            "channels-and-providers/push/introduction",
             "channels-and-providers/push/fcm",
             "channels-and-providers/push/apns",
             "channels-and-providers/push/expo-push",
@@ -265,11 +291,8 @@
       "pages": [
         "self-hosting-novu/introduction",
         "self-hosting-novu/deploy-with-docker",
-        "self-hosting-novu/terraform",
-        "self-hosting-novu/kubernetes",
-        "self-hosting-novu/aws",
-        "self-hosting-novu/gcp",
-        "self-hosting-novu/azure"
+        "self-hosting-novu/s3",
+        "self-hosting-novu/kubernetes"
       ]
     },
     {
@@ -281,19 +304,19 @@
       ]
     },
     {
-      "group": "Guides",
-      "pages": ["security-and-compliance/security"]
-    },
-    {
       "group": "Security & Compliance",
       "pages": ["security-and-compliance/security"]
     },
     {
       "group": "Community & Support",
       "pages": [
-        "community-support/introduction",
-        "community-support/changelog",
-        "community-support/roadmap"
+        "community/introduction",
+        "community/changelog",
+        "community/roadmap",
+        "community/machine-setup",
+        "community/run-in-local-machine",
+        "community/monorepo-structure",
+        "community/add-a-new-provider"
       ]
     },
     {
@@ -353,6 +376,13 @@
       "pages": ["faqs/questions"]
     },
     {
+      "group": "Additional Resources",
+      "pages": [
+        "additional-resources/rate-limits",
+        "additional-resources/glossary"
+      ]
+    },
+    {
       "group": "Events",
       "pages": [
         "api-reference/events/trigger-event",
@@ -366,6 +396,7 @@
       "pages": [
         "api-reference/subscribers/get-subscribers",
         "api-reference/subscribers/create-subscriber",
+        "api-reference/subscribers/bulk-create-subscribers",
         "api-reference/subscribers/get-subscriber",
         "api-reference/subscribers/update-subscriber",
         "api-reference/subscribers/delete-subscriber",
@@ -493,24 +524,6 @@
       "pages": ["api-reference/execution-details/get-execution-details"]
     },
     {
-      "group": "Additional Resources",
-      "pages": [
-        "additional-resources/rate-limits",
-        "additional-resources/glossary"
-      ]
-    },
-    {
-      "group": "Workflows",
-      "pages": [
-        "api-reference/workflows/get-workflows",
-        "api-reference/workflows/create-workflow",
-        "api-reference/workflows/get-workflow",
-        "api-reference/workflows/update-workflow",
-        "api-reference/workflows/delete-workflow",
-        "api-reference/workflows/update-workflow-status"
-      ]
-    },
-    {
       "group": "Workflow groups",
       "pages": [
         "api-reference/workflow-groups/get-workflow-groups",
@@ -595,6 +608,16 @@
       ]
     },
     {
+      "group": "Tenants",
+      "pages": [
+        "api-reference/tenants/get-tenants",
+        "api-reference/tenants/create-tenant",
+        "api-reference/tenants/get-tenant",
+        "api-reference/tenants/update-tenant",
+        "api-reference/tenants/delete-tenant"
+      ]
+    },
+    {
       "group": "Messages",
       "pages": [
         "api-reference/messages/get-messages",
@@ -610,6 +633,12 @@
     }
   ],
   "backgroundImage": "/background.png",
+  "redirects": [
+    {
+      "source": "/api/client-libraries",
+      "destination": "/sdks/introduction"
+    }
+  ],
   "footerSocials": {
     "twitter": "https://twitter.com/novuhq",
     "github": "https://github.com/novuhq",
@@ -622,5 +651,12 @@
       "name": "Authorization",
       "inputPrefix": "ApiKey"
     }
-  }
+  },
+  "integrations": {
+    "intercom": "fqe0apnx"
+  },
+  "versions": [
+    "v0.19.0",
+    "v0.18.0"
+  ]
 }

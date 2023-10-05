@@ -215,7 +215,7 @@ interface IFetchNotifications {
 
 ## fetchUserPreferences
 
-Fetches the user preferences. Read more [here](/manage-subscribers/preferences)
+Fetches the user [preferences](/manage-subscribers/preferences)
 
 ```typescript
 headlessService.fetchUserPreferences({
@@ -243,7 +243,7 @@ interface IFetchUserPreferences {
 
 ## updateUserPreferences
 
-Updates the user preferences. Read more [here](/manage-subscribers/preferences)
+Updates the user [preferences](/manage-subscribers/preferences).
 
 ```typescript
 headlessService.updateUserPreferences({
@@ -353,6 +353,43 @@ interface IMarkNotificationsAsSeen {
 }
 
 ```
+
+## markNotificationsAs
+
+mark a single or multiple notifications using the message id.
+
+```typescript
+headlessService.markNotificationsAs({
+  listener: (
+    result: UpdateResult<IMessage, unknown, { messageId: IMessageId }>
+  ) => {
+    console.log(result);
+  },
+  onSuccess: (message: IMessage) => {
+    console.log(message);
+  },
+  onError: (error: unknown) => {
+    console.error(error);
+  },
+  messageId: ["messageOne", "messageTwo"],
+  mark: { seen: true, read: true };
+});
+```
+
+### method args interface
+
+```typescript
+interface IMarkNotificationsAs {
+  messageId: IMessageId;
+  mark: { seen?: boolean; read?: boolean };
+  listener: (
+    result: UpdateResult<IMessage, unknown, { messageId: IMessageId }>
+  ) => void;
+  onSuccess?: (message: IMessage) => void;
+  onError?: (error: unknown) => void;
+}
+```
+
 
 ## removeNotification
 

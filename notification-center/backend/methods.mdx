@@ -3,7 +3,7 @@ title: "Backend SDK methods"
 icon: "code"
 ---
 
-### Fetch subscriber’s in-app notifications feed
+### Fetch subscriber’s In-App notifications feed
 
 <CodeGroup>
 
@@ -43,7 +43,7 @@ const listMessagesOptions = {
    *  Filter options
    */
   // use ChannelTypeEnum.PUSH for push, ChannelTypeEnum.EMAIL for email,
-  channel: ChannelTypeEnum.IN_APP, // only in-app type messages will be fetched
+  channel: ChannelTypeEnum.IN_APP, // only In-App type messages will be fetched
   subscriberId: "6444105141ffb0919496dfcb",
   transactionIds: ["644-41051-41ffb0-919496-dfcb"],
 };
@@ -53,7 +53,7 @@ const { data: messagesData } = await novu.messages.list(listMessagesOptions);
 
 </CodeGroup>
 
-### Delete an in-app notification/message
+### Delete an In-App notification/message
 
 <CodeGroup>
 

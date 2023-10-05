@@ -1,3 +1,145 @@
 ---
 openapi: put /v1/workflows/{workflowId}
 ---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+```javascript Node.js
+import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.notificationTemplates.update("workflowId", {
+  name: "Send daily digest email update",
+  description: "This workflow will send daily digest email to user at 9:00 AM"
+  /**
+   * all other fields from create workflow payload
+   */
+});
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+$novu->updateNotificationTemplate($templateId, [
+  "name" => "name",
+  "tags" => ["tags"],
+  "description" => "description",
+  "identifier" => "identifier",
+  "steps" => ["steps"],
+  "notificationGroupId" => "notificationGroupId",
+  "active" => true,
+  "critical" => true,
+  "preferenceSettings" => preferenceSettings
+])->toArray();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+body = {
+    'name' => '<insert-name>',
+    'notificationGroupId' => 'notificationGroupId',
+    'tags' => ['tags'], # optional
+    'description' => 'description', # optional
+    'steps' => [ # optional
+       # insert all fields here
+    ], 
+    'active' => true, # optional
+    'draft' => true, # optional
+    'critical' => true, # optional
+    'preferenceSettings' => { # optional
+       # insert all fields here
+    },
+    'blueprintId' => 'blueprintId' # optional
+}
+client.update_notification_template('<insert-template-id>', body)
+```
+
+```python Python
+from novu.api import NotificationTemplateApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = NotificationTemplateApi(url, api_key).update(
+    notification_template_id = "< The ID of the notification workflow to be updated>",
+)
+```
+
+```java Java
+import co.novu.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.updateWorkflow(workflowId, body);
+    }
+}
+```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "encoding/json"
+)
+
+func main() {
+  url := "https://api.novu.co/v1/workflows/:workflowId"
+  data := map[string]string{
+    "name": "name",
+    "tags": ["tags"],
+    "description": "description",
+    "identifier": "identifier",
+    "steps": ["steps"],
+    "notificationGroupId": "notificationGroupId",
+    "critical": true,
+    "preferenceSettings": preferenceSettings,
+    "data": data
+  }
+  jsonValue, _ := json.Marshal(data)
+  req, _ := http.NewRequest("PUT", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
+  defer resp.Body.Close()
+  body, _ := ioutil.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+    
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.updateWorkflow
+
+class Main {
+    fun main(args: Array<String>) {
+        val apiKey = "<NOVU_API_KEY>"
+
+        val novu = Novu(apiKey)
+        novu.updateWorkflow(workflowId, body)
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    data: data
+}
+```
+
+</ResponseExample>

@@ -1,3 +1,110 @@
 ---
 openapi: get /v1/workflows
 ---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+```javascript Node.js
+import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.notificationTemplates.getAll({
+  page: 0, // optional
+  limit: 20 // optional
+});
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->getNotificationTemplates()->toArray();
+
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.notification_templates({
+    'page' => 4, # optional
+    'limit' => 10, # optional
+})
+```
+
+```python Python
+from novu.api import NotificationTemplateApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = NotificationTemplateApi(url, api_key).list(
+)
+```
+
+```java Java
+import co.novu.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.getWorkflows(page, limit);
+    }
+}
+```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "encoding/json"
+)
+
+func main() {
+  url := "https://api.novu.co/v1/workflows"
+  data := map[string]string{
+    [options]
+  }
+  jsonValue, _ := json.Marshal(data)
+  req, _ := http.NewRequest("GET", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
+  defer resp.Body.Close()
+  body, _ := ioutil.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+    
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.getWorkflows
+
+class Main {
+    fun main(args: Array<String>) {
+        val apiKey = "<NOVU_API_KEY>"
+
+        val novu = Novu(apiKey)
+        novu.getWorkflows(page, limit)
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    data: data
+}
+```
+
+</ResponseExample>

@@ -1,6 +1,7 @@
 ---
 title: '.NET'
 description: 'Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications with .NET.'
+icon: 'microsoft'
 ---
 Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications from a .NET app.
 
@@ -120,6 +121,7 @@ The recipients of a triggered notification are called subscribers.
 Click “Subscribers” on the left sidebar of the Novu dashboard to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
 <Frame caption="Subscribers from the left sidebar shows all the subscriber"><img src="/images/sub-nodejs.png" /> </Frame>
 Now, let's create a subscriber on Novu. Copy and paste the following code to do so:
+
 ```csharp
 // Create subscriber
 
@@ -156,7 +158,7 @@ dotnet run Program.cs
 
 You should see the subscriber on your Novu dashboard.
 
-!https://res.cloudinary.com/dxc6bnman/image/upload/f_auto,q_auto/v1685466979/guides/Screenshot_2023-05-14_at_11.06.38_ugvmc0.png
+<Frame caption="You should see the subscriber on your Novu dashboard"><img src="https://res.cloudinary.com/dxc6bnman/image/upload/f_auto,q_auto/v1685466979/guides/Screenshot_2023-05-14_at_11.06.38_ugvmc0.png" /> </Frame>
 
 I’d like to publicly announce that `abc@gmail.com` is a random unlikely email your users will have. To update this to an alternative email, you can call the `UpdateSubscriber` method like so:
 

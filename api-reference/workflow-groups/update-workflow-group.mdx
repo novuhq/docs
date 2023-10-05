@@ -1,3 +1,123 @@
 ---
 openapi: patch /v1/notification-groups/{id}
 ---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+```javascript Node.js
+import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.notificationGroups.update("notificationGroupId", { name: "Changelog Updates"});
+```
+
+```php PHP
+<?php
+
+$url = 'https://api.novu.co/v1/notification-groups/:id';
+$data = array(
+  "name": "name"
+);
+$options = array(
+  "http" => array(
+  "header"  => "Content-type: application/json",
+  "header"  => "Authorization: ApiKey REPLACE_WITH_API_KEY",
+  "method"  => "PATCH",
+  "content" => json_encode($data)
+  )
+);
+$context  = stream_context_create($options);
+$result = file_get_contents($url, false, $context);
+
+if ($result === FALSE) { /* Handle error */ }
+
+echo $result;
+    
+```
+
+```ruby Ruby
+require 'net/http'
+require 'uri'
+
+uri = URI.parse('https://api.novu.co/v1/notification-groups/:id')
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Post.new(uri.request_uri)
+
+request.body = '{
+  "name": "name"
+}'
+request.content_type = 'application/json'
+request.add_field('Authorization', 'ApiKey REPLACE_WITH_API_KEY')
+
+
+response = http.request(request)
+
+puts response.body
+    
+```
+
+```python Python
+import requests
+
+response = requests.patch('https://api.novu.co/v1/notification-groups/:id', json={
+      "name": "name",
+}, headers={
+    'Content-Type': 'application/json'
+    'Authorization': 'ApiKey REPLACE_WITH_API_KEY'
+})
+
+print(response.json())
+    
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.updateWorkflowGroup(workflowId, body);
+    }
+}
+```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "encoding/json"
+)
+
+func main() {
+  url := "https://api.novu.co/v1/notification-groups/:id"
+  data := map[string]string{
+    "name": "name"
+  }
+  jsonValue, _ := json.Marshal(data)
+  req, _ := http.NewRequest("PATCH", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
+  defer resp.Body.Close()
+  body, _ := ioutil.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    data: data
+}
+```
+
+</ResponseExample>

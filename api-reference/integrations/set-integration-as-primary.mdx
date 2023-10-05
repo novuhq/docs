@@ -2,6 +2,8 @@
 openapi: post /v1/integrations/{integrationId}/set-primary
 ---
 
+<Snippet file="apikey-warning.mdx" />
+
 <RequestExample>
 ```javascript Node.js
 import fetch from 'node-fetch';
@@ -58,6 +60,32 @@ response = http.request(request)
 puts response.body
     
 ```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "encoding/json"
+)
+
+func main() {
+  url := "https://api.novu.co/v1/integrations/:integrationId/set-primary"
+  data := map[string]string{
+    [options]
+  }
+  jsonValue, _ := json.Marshal(data)
+  req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
+  defer resp.Body.Close()
+  body, _ := ioutil.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+```
+
 
 ```python Python
 import requests

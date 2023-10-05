@@ -1,6 +1,7 @@
 ---
 title: 'Apple Push Notification Service (APNS)'
-description: 'Learn how to use the APNS provider to send push notifications using Novu'
+sidebarTitle: 'APNS'
+description: 'Learn how to use the Apple Push Notification Service (APNS) provider to send push notifications using Novu'
 ---
 
 [Apple Push Notification Service](https://docs.expo.dev/push-notifications/overview/), as the name suggests, is a notification delivery service provided by Apple.
@@ -28,7 +29,7 @@ The overrides field supports all [Notification payload](https://developer.apple
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 novu.trigger('event-name', {
   to: {
@@ -59,7 +60,7 @@ novu.trigger('event-name', {
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 novu.trigger('event-name', {
   to: {
@@ -95,7 +96,7 @@ Before triggering the notification to a subscriber(user) with push as a step in 
 ```jsx
 import { Novu, PushProviderIdEnum } from '@novu/node';
 
-const novu = new Novu(process.env.NOVU_API_KEY);
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.APNS, {
   deviceTokens: ['token1', 'token2'],

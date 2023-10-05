@@ -1,9 +1,10 @@
 ---
 title: "React Get Started"
 sidebarTitle: "Get Started"
+descrtiption: "Learn how to add novu powered In-App notification center to your React app"
 ---
 
-Novu provides the `@novu/notification-center` a React library that helps to add a fully functioning notification center to your web application in minutes. Let's do a quick recap on how we can easily use it in your application.
+Novu provides the `@novu/notification-center` a React library that helps to add a fully functioning notification center to your web application in minutes. Let's do a quick recap on how you can easily use it in your application.
 
 1. Install `@novu/notification-center` npm package in your react app
 
@@ -21,13 +22,13 @@ import {
   IMessage,
 } from "@novu/notification-center";
 
-function App() {
+function Novu() {
   return (
     <NovuProvider
       subscriberId={"SUBSCRIBER_ID"}
-      applicationIdentifier={"APPLICATION_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
     >
-      <PopoverNotificationCenter>
+      <PopoverNotificationCenter colorScheme="dark">
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
     </NovuProvider>
@@ -35,7 +36,18 @@ function App() {
 }
 ```
 
+[![Edit kind-nova-xv6s9g](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark)
+
 Go to this react app browser tab, there will be a bell icon. On clicking that bell icon, you will see a notification component popover
+
+
+<Frame caption="subscriberId">
+  <img src="/images/notification-center/client/react/get-started/subscriberId.png" />
+</Frame>
+
+<Frame caption="applicationIdentifier">
+  <img src="/images/notification-center/client/react/get-started/application-identifier.png" />
+</Frame>
 
 ## Use your own backend and socket URL
 
@@ -48,20 +60,36 @@ import {
   NotificationBell,
 } from "@novu/notification-center";
 
-function Header() {
+function Novu() {
   return (
     <NovuProvider
       backendUrl={"YOUR_BACKEND_URL"}
       socketUrl={"YOUR_SOCKET_URL"}
       subscriberId={"SUBSCRIBER_ID"}
-      applicationIdentifier={"APPLICATION_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
     >
-      <PopoverNotificationCenter>
+      <PopoverNotificationCenter colorScheme="dark">
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
     </NovuProvider>
   );
 }
+```
+
+## Notification center without bell
+If you don't want to show the bell icon, you can directly render the notification center component without passing the bell, use `<NotificationCenter>` component in place of `<PopoverNotificationCenter>`
+```jsx
+import {
+  NovuProvider,
+  NotificationCenter,
+} from "@novu/notification-center";
+
+<NovuProvider
+  subscriberId={"SUBSCRIBER_ID"}
+  applicationIdentifier={"APPLICATION_IDENTIFIER"}
+>
+  <NotificationCenter colorScheme="dark" />
+</NovuProvider>
 ```
 
 ## HMAC Encryption
@@ -74,7 +102,11 @@ HMAC encryption will make sure that a `subscriberId` is encrypted using the se
 
 ### Enabling HMAC Encryption
 
-In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel in-app settings page and enable HMAC encryption for your environment.
+In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel In-App settings page and enable HMAC encryption for your environment.
+
+<Frame caption="How to enable HMAC encryption for In-App notification center">
+  <img src="/images/notification-center/client/react/get-started/hmac-encryption-enable.png" />
+</Frame>
 
 1. Next step would be to generate an HMAC encrypted subscriberId on your backend:
 
@@ -90,11 +122,15 @@ const hmacHash = createHmac("sha256", process.env.NOVU_API_KEY)
 
 ```jsx
 <NovuProvider
-  subscriberId={"PLAIN_TEXT_SUBSCRIBER_ID"}
-  subscriberHash={"HASHED_SUBSCRIBER_ID"}
-  applicationIdentifier={"APPLICATION_ID"}
-></NovuProvider>
+  subscriberId={"SUBSCRIBER_ID_PLAIN_VALUE"}
+  subscriberHash={"SUBSCRIBER_ID_HASH_VALUE"}
+  applicationIdentifier={"APPLICATION_IDENTIFIER"}
+>
+  <NotificationCenter colorScheme="dark" />
+</NovuProvider>
 ```
+
+<Info>If HMAC encryption is active in In-App provider settings and  `subscriberHash` along with `subscriberId` is not provided, then notification center will not load</Info>
 
 ## Notification Actions
 
@@ -121,9 +157,10 @@ function App() {
   return (
     <NovuProvider
       subscriberId={"SUBSCRIBER_ID"}
-      applicationIdentifier={"APPLICATION_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
     >
       <PopoverNotificationCenter
+        colorScheme="dark"
         onNotificationClick={handlerOnNotificationClick}
       >
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
@@ -165,9 +202,9 @@ function App() {
   return (
     <NovuProvider
       subscriberId={"SUBSCRIBER_ID"}
-      applicationIdentifier={"APPLICATION_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
     >
-      <PopoverNotificationCenter onActionClick={handlerOnActionClick}>
+      <PopoverNotificationCenter onActionClick={handlerOnActionClick} colorScheme="dark">
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
     </NovuProvider>
@@ -186,7 +223,7 @@ function App() {
   return (
     <NovuProvider
       subscriberId={"SUBSCRIBER_ID"}
-      applicationIdentifier={"APPLICATION_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
     >
       <CustomNotificationCenter />
     </NovuProvider>
@@ -198,14 +235,14 @@ function CustomNotificationCenter() {
 
   useEffect(() => {
     if (socket) {
-      socket.on("unseen_count_changed", (data) => {
-        console.log(data.unseenCount);
+      socket.on("notification_received", (data) => {
+        console.log(data);
       });
     }
 
     return () => {
       if (socket) {
-        socket.off("unseen_count_changed");
+        socket.off("notification_received");
       }
     };
   }, [socket]);
@@ -220,6 +257,50 @@ There are three sockets events available:
 2. `unread_count_changed`
 3. `notification_received`
 
+### Toast notification
+
+Novu does not have a native taost component. However, if your project is using any UI library like chakra, material-ui, mantine then toast component (snackbar in case of material-ui) of these libraries can be used with `useSocket` hook. Add the toast opening code in `socket.on` callback.
+
+```js toast.tsx
+socket.on("notification_received", (data) => {
+  console.log(data);
+  // set received notification content as toast content
+  setToastContent(data.content)
+  // open the toast
+  openToast(true)
+});
+```
+
+
 ## Example
 
-[CodeSandBox Demo 🔗](https://codesandbox.io/s/kind-nova-xv6s9g)
+[![Edit kind-nova-xv6s9g](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark)
+
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="The notification center is not loading properly.">
+
+  Possible reasons for the notification center not loading properly:    
+
+    - Invalid subscriberId
+    - Invalid applicationIdentifier
+    - Invalid subscriberHash (in case of active HMAC encryption)
+    - Invalid backendUrl (in case of self-hosted)
+    - Invalid socketUrl (in case of self-hosted)
+    
+  </Accordion>
+
+  <Accordion title="There is a render error due to the notification center in React.">
+
+  The notification center should be wrapped in `<NovuProvider>`
+    
+  </Accordion>
+
+  <Accordion title="What is the difference between a redirect URL and CTA?">
+
+  The redirect URL is for the entire notification item, When the user clicks the notification, the user will be routed to that url. CTA are two call-to-action buttons. `onNotificationClick` function prop is used for redirecting url and the `onActionClick` function prop is used for CTA.
+    
+  </Accordion>
+</AccordionGroup>

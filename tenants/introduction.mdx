@@ -1,0 +1,101 @@
+---
+title: "Tenants"
+description: "Learn all about Tenants"
+icon: 'house'
+---
+
+Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants. 
+
+Currently, Novu supports the following customizations:
+
+- Workflow level customizations
+- Integration customizations
+
+## Tenant Management 
+
+Tenants can be created and modified via the [API](http://docs.novu.co/api-reference/tenants/get-tenants) or [Web](https://web.novu.co/tenants). Each tenant can have multiple fields on it:
+
+* Identifier - The identifier is a unique value, and can be used later when pointing to this tenant during trigger calls.
+* Name - A human-readable name of the tenant.
+* Data - A custom data object that can store information about the tenant. This data can be later accessed inside workflows.
+
+To create a tenant on the Novu web platform, follow these steps:
+
+- Click on `Tenants` on the left sidebar.
+- In the Tenants section, click on the `Add a tenant` button.
+- Set a `Name` and `Tenant identifier`. The tenant identifier is automatically set once you add a name. However, you can modify it to your needs.
+- Set a JSON-format `Custom properties` (optional).
+
+## Workflow Level Customizations
+
+When triggering a workflow, it is possible to pass the tenant information (id or object, in case of an object, novu will upsert the tenant if it’s not existing) like so:
+
+<Tabs>
+  <Tab title="Node.js">
+  ```js
+    import { Novu } from '@novu/node';
+
+    const novu = new Novu("<NOVU_API_KEY>");
+
+    await novu.trigger('<WORKFLOW_TRIGGER_ID>',
+      {
+        to: {
+          subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
+        },
+        payload: {
+          name: "Hello World",
+        },
+        actor: "actorId"
+        tenant: "tenantIdentifier"
+      }
+    );
+  ```
+  </Tab>
+  <Tab title="PHP">
+  ```php
+    use Novu\SDK\Novu;
+
+    $novu = new Novu('<NOVU_API_KEY_HERE>');
+
+    $novu->triggerEvent([
+      'name' => '<WORKFLOW_TRIGGER_ID>',
+      'payload' => [
+        'name' => 'Hello'
+      ],
+      'to' => [
+          'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>'
+      ],
+      'actor': "actorId"
+      'tenant': "tenantIdentifier"
+    ]);
+  ```
+  </Tab>
+</Tabs>
+
+The tenant information can now be used inside the workflow template in the following way:
+
+```
+{{ tenant.data.customProp }}
+```
+
+## Integration Level Customizations (COMING SOON)
+
+When creating an integration, it will possible to create a condition where you can specify a delivery provider for a channel when a particular tenant id is matched.
+
+The delivery provider specified will only be used if the trigger is executed with the tenant id.
+
+<Warning> Unfortunately, this is not available at the moment. However, it will ship with the next release. </Warning>
+
+## Tenant-specific Notification Content (COMING SOON)
+
+When creating a step, variants could be created for each step including digest and delay. For each variant, conditions set can be applied on when this variant could be used. 
+
+Using so different workflow configurations (for example digest duration) could be configured on the individual workflow for a given tenant.
+
+It is also possible to use handlebars to have minor tenant adjustments in a single step:
+
+```
+<img src="{{tenant.data.logo}}" />
+```
+
+<Warning> Unfortunately, this is not available at the moment. We're currently working on making it available soon. </Warning>

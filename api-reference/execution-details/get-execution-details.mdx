@@ -2,7 +2,19 @@
 openapi: get /v1/execution-details
 ---
 
+<Snippet file="apikey-warning.mdx" />
+
 <RequestExample>
+
+```javascript Node.js
+import fetch from 'node-fetch';
+
+const response = await fetch('https://api.novu.co/v1/execution-details', {
+  method: 'GET',
+  
+});
+const data = await response.json();
+```
 
 
 ```php PHP
