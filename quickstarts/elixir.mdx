@@ -8,7 +8,7 @@ Novu is an open-source application that facilitates the delivery of embellished 
 
 Let's get into it! 🚀
 
-# Requirements
+# Requirements-
 
 To be able to use this Quickstart, you would need to have the following pre-requisite:
 
@@ -16,9 +16,9 @@ To be able to use this Quickstart, you would need to have the following pre-requ
 - .
 
 
-# Set-up a Channel Provider
+# Set-up a Channel Provider-
 
-A channel provider is a service that provides one or more notification functionality, such as sending an SMS, email, push notifications, etc. Novu's integration store - (https://web.novu.co/integrations) includes four channels:
+A channel provider is a service that provides one or more notification functionality, such as sending an SMS, e-mail, push notifications, etc. Novu's integration store - (https://web.novu.co/integrations) includes four channels:
 E-mail, SMS, Chat, and Push
 These channels have multiple providers that are associated with them.
 
@@ -29,4 +29,281 @@ These channels have multiple providers that are associated with them.
 | Chat | Mattermost, Slack, Microsoft Teams, Discord |
 | Push | FCM, APNS, Expo |
 
-Only one provider can be **active** per **channel**. Connect any of your favourite providers to get started. The email channel comes with Novu's email provider, which is active by default and includes 300 credits.
+<note>
+Only one provider can be **active** per **channel**. Connect to any of your favourite providers to get started. The e-mail channel comes with Novu's email provider, which is active by default and includes 300 credits.
+</note>
+
+# Create a Workflow-
+
+A workflow is a blueprint for the notifications that will be sent. It holds the entire flow of messages sent to the subscriber. This is where all the different channels are tied together under a single entity.
+
+The workflow includes the following:
+
+- Workflow name and an Identifier.
+- Channel-tailored content:
+
+| Channel | Content Style |
+| --- | --- |
+| Email | 1. Custom Code (HTML) with option to use custom variables via the handlebars syntax. |
+|  | 2. Click and place UI items with the visual template editor. |
+| SMS | Text with the option to use handlebars syntax to inject custom variables. |
+| Chat | Text with the option to use handlebars syntax to inject custom variables. |
+| In-App | Text |
+
+<Note>
+Proper authorization needs to be set for the Chat channel for subscribers.
+</Note>
+
+Now, proceed to create a workflow as follows:
+
+1. Click **Workflows** on the left sidebar of your Novu dashboard.
+2. Click on the **Create Workflow** button on the top right.
+<Frame caption="Use the create workflow button to create a workflow"><img src="/images/workflow-kotlin.png" /> </Frame>
+3. The name of the new workflow is currently "Untitled", rename it to a more suitable title.
+<Frame caption="Rename the workflow to a more suitable title"><img src="/images/renam-workflow-kotlin.png" /> </Frame>
+4. Select Email as the channel you want to add, by dragging it from the right sidebar.
+<Frame caption="Select Email as the channel you want to add, by dragging it from the right sidebar."><img src="/images/select-email-kotlin.png" /> </Frame>
+5. Click on the Email in the workflow and edit it as per this image. Don’t forget to add the fields in the editor which is supposed to be updated with dynamic values that will be sent when calling the API.
+<Frame caption="Add the fields in the email editor"><img src="/images/add-fields-kotlin.png" /> </Frame>
+6. Also, add the variables in the Variables section in the test tab and try testing it by sending the email to your email address using the Send Test Email button at the bottom right.
+<Frame caption="Add the variables in the Variables section in the test tab"><img src="/images/add-variables-kotlin.png" /> </Frame>
+
+You should be able to get an email within seconds! 👌
+Now, you have successfully sent your first notification with the Novu dashboard, let’s move to a next step to trigger various notifications via code.
+
+## Create a Subscriber and Update a Subscriber's information-
+
+The recipients of a triggered notification are called subscribers.
+
+Click **Subscribers** on the left sidebar of the Novu dashboard to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
+<Frame caption="By default, the dashboard will display a subscriber, as you were added automatically during sign-up."><img src="/images/default-sub-kotlin.png" /> </Frame>
+Now, let's create a subscriber on Novu. Copy and paste the following code to do so:
+
+```elixir
+
+defmodule MyModule do
+  def create_subscriber do
+    api_key = "API_KEY"
+    subscriber_request = %SubscriberRequest{
+      email: "email@sample.com",
+      first_name: "John",  # optional
+      last_name: "Doe",    # optional
+      phone: "123456789",  # optional
+      avatar: "sample-avatar",  # optional
+      subscriber_id: "12345"  # optional
+    }
+    {:ok, response} =
+      Task.await(
+        Task.async(fn ->
+          Novu.create_subscriber(api_key, subscriber_request)
+        end)
+      )
+
+    response
+  end
+end
+
+```
+
+When you run the above code snippet, you should be able to see the subscriber on your Novu dashboard. 🎉
+
+To modify the email address of the existing Subscriber you've created, it can be done by the following code:
+
+```elixir
+
+defmodule MyModule do
+  def update_subscriber do
+    api_key = "API_KEY"
+    subscriber_request = %UpdateSubscriberRequest{
+      email: "validemail@sample.com",
+      first_name: "John",  # optional
+      last_name: "Doe",    # optional
+      phone: "123456789",  # optional
+      avatar: "sample-avatar"  # optional
+    }
+    subscriber_id = "12345"
+
+    {:ok, response} =
+      Task.await(
+        Task.async(fn ->
+          Novu.update_subscriber(subscriber_id, api_key, subscriber_request)
+        end)
+      )
+    response
+  end
+end
+
+```
+
+Other valid fields can be updated are `phone`, `avatar`, and `data`. 
+The `data` field can accept an Object or a Map with the info you want to attach to the subscriber.
+
+<Note>
+You must programmatically add each of your subscribers to Novu in order to create them all.
+</Note>
+
+## Trigger a Notification
+
+Copy and paste the following code into your app to trigger a notification to a Subscriber:
+
+```elixir
+
+defmodule MyModule do
+  def trigger_notification do
+    api_key = "API_KEY"
+    trigger_event_request = %TriggerEventRequest{
+      name: "test",
+      to: %SubscriberRequest{
+        subscriber_id: "12345",
+        email: "email@email.com",
+        first_name: "John",
+        last_name: "Doe"
+      },
+      payload: %{"customVariables" => "Hello"}
+    }
+    {:ok, response} =
+      Task.await(
+        Task.async(fn ->
+          Novu.trigger(api_key, trigger_event_request)
+        end)
+      )
+    response
+  end
+end
+
+```
+Before running the above code, make sure you understand the following:
+
+- The value of `payload` is an array of the data that you want to be dynamically injected into the workflow content.
+- The value of `subscriberId` is the ID of the subscriber on Novu. Replace `12345` with your subscriber ID.
+
+Voila!, Run the code and trigger a notification! 📧
+
+
+## Topics-
+
+Novu provides a simple API that offers an easy interface for triggering notifications to multiple subscribers at once. This API is called **Topics** and allows users to manage their bulk notifications without the need to implement complex loops. A topic is identified by a custom key that is provided by the user, and this key will be the identifier used in the Topics API.
+
+
+<Note>
+The topic key should be unique and can't be changed once chosen. Novu also provides for key uniqueness behind the scenes.
+</Note>
+
+A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
+
+### Create a Topic-
+
+Copy and paste the following code into your app to create a topic:
+
+```elixir
+
+defmodule MyModule do
+  def create_topic do
+    api_key = "API_KEY"
+    create_topic_request = %CreateTopicRequest{
+      key: "key",
+      name: "name"
+    }
+    {:ok, response} =
+      Task.await(
+        Task.async(fn ->
+          Novu.create_topic(api_key, create_topic_request)
+        end)
+      )
+    response
+  end
+end
+
+```
+Before running the code, make sure you understand the following:
+
+- When creating a `key`, ensure it is unique and accurately identifies the topic. Document naming conventions and communicate them to team members to avoid confusion and ensure a smooth workflow.
+- The value of `name` should be a descriptive topic name.
+
+### Add subscribers to a Topic-
+
+To add subscribers to a topic, use the following code:
+
+```elixir
+
+defmodule MyModule do
+  def add_subscriber_to_topic do
+    api_key = "API_KEY"
+    topic_key = "key"
+    request_body = %SubscriberList{subscribers: ["name"]}
+    
+    {:ok, response} =
+      Task.await(
+        Task.async(fn ->
+          Novu.add_subscribers(api_key, topic_key, request_body)
+        end)
+      )
+    response
+  end
+end
+
+```
+However,To remove subscribers to a topic, use the following code:
+
+```elixir
+
+defmodule MyModule do
+  def remove_subscriber_from_topic do
+    api_key = "API_KEY"
+    topic_key = "key"
+    request_body = %SubscriberList{subscribers: ["name"]}
+    
+    {:ok, response} =
+      Task.await(
+        Task.async(fn ->
+          Novu.remove_subscriber(api_key, topic_key, request_body)
+        end)
+      )
+    response
+  end
+end
+
+```
+
+### Sending a Notification to a Topic-
+
+With the help of the 'topics' feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps to avoid listing all subscriber identifiers in the `to` field of the notification trigger.
+
+To trigger a notification to all subscribers of a topic, use the following code:
+
+```elixir
+
+defmodule MyModule do
+  def trigger_notification_to_topic do
+    novu_api_key = "NOVU_API_KEY"
+    
+    trigger_event_request = %TriggerEventRequest{
+      name: "test",
+      to: [
+        %Topic{
+          type: "Topic",
+          topic_key: "posts:comment:12345"
+        }
+      ],
+      payload: %{"customVariables" => "Hello"}
+    }
+
+    {:ok, response} =
+      Task.await(
+        Task.async(fn ->
+          Novu.trigger(novu_api_key, trigger_event_request)
+        end)
+      )
+
+    response
+  end
+end
+
+```
+
+# Conclusion-
+
+If you've reached to this point, your patience is really appreciated 🍀. 
+Now, you must be able to successfully create a subscriber, workflow, configured a channel provider, triggered a single notification, created a topic, and added a subscriber to a topic into your application.
+
+Good Luck ✨
