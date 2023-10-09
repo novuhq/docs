@@ -8,15 +8,15 @@ Novu is an open-source application that facilitates the delivery of embellished 
 
 Let's get into it! 🚀
 
-# Requirements-
+# Requirements
 
 To be able to use this Quickstart, you would need to have the following pre-requisite:
 
 - A Novu account; if you are new and don't have one, sign up on (https://web.novu.co/) for free.
-- .
+- A working Elixir project.
 
 
-# Set-up a Channel Provider-
+# Set-up a Channel Provider
 
 A channel provider is a service that provides one or more notification functionality, such as sending an SMS, e-mail, push notifications, etc. Novu's integration store - (https://web.novu.co/integrations) includes four channels:
 E-mail, SMS, Chat, and Push
@@ -33,7 +33,7 @@ These channels have multiple providers that are associated with them.
 Only one provider can be **active** per **channel**. Connect to any of your favourite providers to get started. The e-mail channel comes with Novu's email provider, which is active by default and includes 300 credits.
 </note>
 
-# Create a Workflow-
+# Create a Workflow
 
 A workflow is a blueprint for the notifications that will be sent. It holds the entire flow of messages sent to the subscriber. This is where all the different channels are tied together under a single entity.
 
@@ -58,20 +58,20 @@ Now, proceed to create a workflow as follows:
 
 1. Click **Workflows** on the left sidebar of your Novu dashboard.
 2. Click on the **Create Workflow** button on the top right.
-<Frame caption="Use the create workflow button to create a workflow"><img src="/images/workflow-kotlin.png" /> </Frame>
+<Frame caption="Use the create workflow button to create a workflow"><img src="/images/Quickstart_Elixir/1.png" /> </Frame>
 3. The name of the new workflow is currently "Untitled", rename it to a more suitable title.
-<Frame caption="Rename the workflow to a more suitable title"><img src="/images/renam-workflow-kotlin.png" /> </Frame>
+<Frame caption="Rename the workflow to a more suitable title"><img src="/images/Quickstart_Elixir/2.png" /> </Frame>
 4. Select Email as the channel you want to add, by dragging it from the right sidebar.
-<Frame caption="Select Email as the channel you want to add, by dragging it from the right sidebar."><img src="/images/select-email-kotlin.png" /> </Frame>
+<Frame caption="Select Email as the channel you want to add, by dragging it from the right sidebar."><img src="/images/Quickstart_Elixir/3.png" /> </Frame>
 5. Click on the Email in the workflow and edit it as per this image. Don’t forget to add the fields in the editor which is supposed to be updated with dynamic values that will be sent when calling the API.
-<Frame caption="Add the fields in the email editor"><img src="/images/add-fields-kotlin.png" /> </Frame>
+<Frame caption="Add the fields in the email editor"><img src="/images/Quickstart_Elixir/4.png" /> </Frame>
 6. Also, add the variables in the Variables section in the test tab and try testing it by sending the email to your email address using the Send Test Email button at the bottom right.
-<Frame caption="Add the variables in the Variables section in the test tab"><img src="/images/add-variables-kotlin.png" /> </Frame>
+<Frame caption="Add the variables in the Variables section in the test tab"><img src="/images/Quickstart_Elixir/5.png" /> </Frame>
 
 You should be able to get an email within seconds! 👌
 Now, you have successfully sent your first notification with the Novu dashboard, let’s move to a next step to trigger various notifications via code.
 
-## Create a Subscriber and Update a Subscriber's information-
+## Create a Subscriber and Update a Subscriber's information
 
 The recipients of a triggered notification are called subscribers.
 
@@ -180,7 +180,7 @@ Before running the above code, make sure you understand the following:
 Voila!, Run the code and trigger a notification! 📧
 
 
-## Topics-
+## Topics
 
 Novu provides a simple API that offers an easy interface for triggering notifications to multiple subscribers at once. This API is called **Topics** and allows users to manage their bulk notifications without the need to implement complex loops. A topic is identified by a custom key that is provided by the user, and this key will be the identifier used in the Topics API.
 
@@ -191,7 +191,7 @@ The topic key should be unique and can't be changed once chosen. Novu also provi
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
-### Create a Topic-
+### Create a Topic
 
 Copy and paste the following code into your app to create a topic:
 
@@ -265,7 +265,7 @@ end
 
 ```
 
-### Sending a Notification to a Topic-
+### Sending a Notification to a Topic
 
 With the help of the 'topics' feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps to avoid listing all subscriber identifiers in the `to` field of the notification trigger.
 
@@ -301,9 +301,9 @@ end
 
 ```
 
-# Conclusion-
+# Conclusion
 
-If you've reached to this point, your patience is really appreciated 🍀. 
+If you've reached upto this point, your patience is really appreciated 🍀. 
 Now, you must be able to successfully create a subscriber, workflow, configured a channel provider, triggered a single notification, created a topic, and added a subscriber to a topic into your application.
 
 Good Luck ✨
