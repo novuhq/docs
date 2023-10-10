@@ -55,6 +55,30 @@ payload = {
 client.broadcast_event(payload)
 ```
 
+```bash cURL
+
+curl -X POST https://api.novu.co/v1/events/trigger/broadcast \
+  -H "Authorization: ApiKey <NOVU_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "<WORKFLOW_TRIGGER_ID>",
+    "payload": {
+      "customKey": "customValue",
+      "customKey1": {
+        "nestedkey1": "nestedValue1"
+      }
+    },
+    "overrides": {
+      "email": {
+        "from": "support@novu.co"
+      }
+    },
+    "tenant": "tenantIdentifier"
+  }'
+
+
+```
+
 ```go Go
 package main
 
