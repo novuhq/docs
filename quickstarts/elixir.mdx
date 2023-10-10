@@ -13,17 +13,47 @@ To be able to use this Quickstart, you would need to have the following pre-requ
 
 # Install and Set up the Novu Elixir SDK in your project
 
-Novu is available on Hex Package Manager - [hex.pm](https://hex.pm/packages/novu). Just add the below code to your 'mix.exs' file:
+Novu is available on Hex Package Manager - [hex.pm](https://hex.pm/packages/novu). 
+
+1.Add Dependency in mix.exs:
+Open your project's 'mix.exs' file and add the dependency to the 'deps' function.
 
 ```exs
 
 def deps do
   [
-    {:novu, "~> 0.2.0"}
+    {:novu, "~> 0.2.0"}  #replace "~> 0.2.0" with the appropriate version you want to use.
   ]
 end
+```
 
-'''
+The latest version can be found [on GitHub.](https://github.com/novuhq/novu-elixir#installation)
+
+2.Sync Your Project:
+After adding the dependency, you can run the following command in your Elixir project's root directory to fetch and compile the new dependency:
+
+```elixir
+mix deps.get
+```
+
+3.Initialize the Library:
+To initialize the library and configure it with your API key, you can create an instance of the Novu module in one of your Elixir modules or scripts.
+
+```elixir
+
+# Using the API key only
+api_key = "API_KEY"
+novu = Novu.new(api_key)
+
+# Using the API key and custom configuration
+api_key = "API_KEY"
+config = %{backend_url: "URL"}  # Replace "URL" with your backend URL if needed
+novu = Novu.new(api_key, config: config)
+
+```
+
+Place this code in a module of your choice within your Elixir project, and it will initialize the Novu library with the specified API key and configuration.
+
 
 # Set-up a Channel Provider
 
