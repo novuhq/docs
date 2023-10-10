@@ -37,18 +37,17 @@ mix deps.get
 ```
 
 3. Initialize the Library:
-To initialize the library and configure it with your API key, you can create an instance of the Novu module in one of your Elixir modules or scripts.
 
-```elixir
+To initialize the library, you set the api key and domain in your application configuration.
+In your 'config/config.exs' file:
 
-# Using the API key only
-api_key = "API_KEY"
-novu = Novu.new(api_key)
+```exs
 
-# Using the API key and custom configuration
-api_key = "API_KEY"
-config = %{backend_url: "URL"}  # Replace "URL" with your backend URL if needed
-novu = Novu.new(api_key, config: config)
+import Config
+
+config :novu,
+  api_key: "API_KEY",
+  domain: "DOMAIN"
 
 ```
 
@@ -116,31 +115,17 @@ The recipients of a triggered notification are called subscribers.
 
 Click **Subscribers** on the left sidebar of the Novu dashboard to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
 <Frame caption="By default, the dashboard will display a subscriber, as you were added automatically during sign-up."><img src="/images/default-sub-kotlin.png" /> </Frame>
-Now, let's create a subscriber on Novu. Copy and paste the following code to do so:
+Now, let's create a subscriber on Novu. Use the following code to do so:
 
 ```elixir
 
-defmodule MyModule do
-  def create_subscriber do
-    api_key = "API_KEY"
-    subscriber_request = %SubscriberRequest{
-      email: "email@sample.com",
-      first_name: "John",  # optional
-      last_name: "Doe",    # optional
-      phone: "123456789",  # optional
-      avatar: "sample-avatar",  # optional
-      subscriber_id: "12345"  # optional
-    }
-    {:ok, response} =
-      Task.await(
-        Task.async(fn ->
-          Novu.create_subscriber(api_key, subscriber_request)
-        end)
-      )
-
-    response
-  end
-end
+{:ok, response} = Novu.create_subscriber("12345", [
+  email: "email@sample.com",
+  first_name: "John",
+  last_name: "Doe",
+  phone: "123456789",
+  avatar: "sample-avatar",
+])
 
 ```
 
@@ -150,27 +135,13 @@ To modify the email address of the existing Subscriber you've created, it can be
 
 ```elixir
 
-defmodule MyModule do
-  def update_subscriber do
-    api_key = "API_KEY"
-    subscriber_request = %UpdateSubscriberRequest{
-      email: "validemail@sample.com",
-      first_name: "John",  # optional
-      last_name: "Doe",    # optional
-      phone: "123456789",  # optional
-      avatar: "sample-avatar"  # optional
-    }
-    subscriber_id = "12345"
-
-    {:ok, response} =
-      Task.await(
-        Task.async(fn ->
-          Novu.update_subscriber(subscriber_id, api_key, subscriber_request)
-        end)
-      )
-    response
-  end
-end
+{:ok, response} = Novu.update_subscriber("12345", [
+  email: "email@sample.com",
+  first_name: "John",
+  last_name: "Doe",
+  phone: "123456789",
+  avatar: "sample-avatar"
+])
 
 ```
 
@@ -183,32 +154,20 @@ You must programmatically add each of your subscribers to Novu in order to creat
 
 ## Trigger a Notification
 
-Copy and paste the following code into your app to trigger a notification to a Subscriber:
+Use the following code into your app to trigger a notification to a Subscriber:
 
 ```elixir
 
-defmodule MyModule do
-  def trigger_notification do
-    api_key = "API_KEY"
-    trigger_event_request = %TriggerEventRequest{
-      name: "test",
-      to: %SubscriberRequest{
-        subscriber_id: "12345",
-        email: "email@email.com",
-        first_name: "John",
-        last_name: "Doe"
-      },
-      payload: %{"customVariables" => "Hello"}
-    }
-    {:ok, response} =
-      Task.await(
-        Task.async(fn ->
-          Novu.trigger(api_key, trigger_event_request)
-        end)
-      )
-    response
-  end
-end
+{:ok, response} = Novu.trigger("API_KEY", [
+  name: "test",
+  to: %SubscriberRequest{
+    subscriber_id: "12345",
+    email: "email@email.com",
+    first_name: "John",
+    last_name: "Doe"
+  },
+  payload: %{"customVariables" => "Hello"}
+])
 
 ```
 Before running the above code, make sure you understand the following:
@@ -232,26 +191,14 @@ A topic can have multiple subscribers who will receive a notification whenever a
 
 ### Create a Topic
 
-Copy and paste the following code into your app to create a topic:
+Use the following code into your app to create a topic:
 
 ```elixir
 
-defmodule MyModule do
-  def create_topic do
-    api_key = "API_KEY"
-    create_topic_request = %CreateTopicRequest{
-      key: "key",
-      name: "name"
-    }
-    {:ok, response} =
-      Task.await(
-        Task.async(fn ->
-          Novu.create_topic(api_key, create_topic_request)
-        end)
-      )
-    response
-  end
-end
+{:ok, response} = Novu.create_topic("API_KEY", [
+  key: "key",
+  name: "name"
+])
 
 ```
 Before running the code, make sure you understand the following:
@@ -265,42 +212,14 @@ To add subscribers to a topic, use the following code:
 
 ```elixir
 
-defmodule MyModule do
-  def add_subscriber_to_topic do
-    api_key = "API_KEY"
-    topic_key = "key"
-    request_body = %SubscriberList{subscribers: ["name"]}
-    
-    {:ok, response} =
-      Task.await(
-        Task.async(fn ->
-          Novu.add_subscribers(api_key, topic_key, request_body)
-        end)
-      )
-    response
-  end
-end
+{:ok, response} = Novu.add_subscribers("API_KEY", "key", %SubscriberList{subscribers: ["name"]})
 
 ```
 However, to remove subscribers from a topic, use the following code:
 
 ```elixir
 
-defmodule MyModule do
-  def remove_subscriber_from_topic do
-    api_key = "API_KEY"
-    topic_key = "key"
-    request_body = %SubscriberList{subscribers: ["name"]}
-    
-    {:ok, response} =
-      Task.await(
-        Task.async(fn ->
-          Novu.remove_subscriber(api_key, topic_key, request_body)
-        end)
-      )
-    response
-  end
-end
+{:ok, response} = Novu.remove_subscriber("API_KEY", "key", %SubscriberList{subscribers: ["name"]})
 
 ```
 
@@ -312,31 +231,16 @@ To trigger a notification to all subscribers of a topic, use the following code:
 
 ```elixir
 
-defmodule MyModule do
-  def trigger_notification_to_topic do
-    novu_api_key = "NOVU_API_KEY"
-    
-    trigger_event_request = %TriggerEventRequest{
-      name: "test",
-      to: [
-        %Topic{
-          type: "Topic",
-          topic_key: "posts:comment:12345"
-        }
-      ],
-      payload: %{"customVariables" => "Hello"}
+{:ok, response} = Novu.trigger("NOVU_API_KEY", [
+  name: "test",
+  to: [
+    %Topic{
+      type: "Topic",
+      topic_key: "posts:comment:12345"
     }
-
-    {:ok, response} =
-      Task.await(
-        Task.async(fn ->
-          Novu.trigger(novu_api_key, trigger_event_request)
-        end)
-      )
-
-    response
-  end
-end
+  ],
+  payload: %{"customVariables" => "Hello"}
+])
 
 ```
 
