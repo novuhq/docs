@@ -1,0 +1,128 @@
+---
+title: 'Rate Limits'
+description: 'Rate Limits'
+---
+
+<Warning>
+    The Novu API infrastructure is designed to handle high volumes of data across all of our customer base.
+    To this end, we enforce API rate limits per environment in an organization to ensure fair use to all customers.
+</Warning>
+<Note>
+    These limits are only for the Official Novu Cloud Offering.
+</Note>
+
+## Introduction
+
+Rate limiting is an essential component of any high scale system.
+This process allows us to ensure fair resource usage,
+reduce the chances of abuse,
+and maintain the performance and availability of our services.
+
+Many load-based denial-of-service (LDOS) incidents are
+unintentionally caused by errors in software or configurations—not malicious attacks.
+Our rate-limiting mechanism controls the number of requests an entity can send to our API endpoints within a specific period.
+This allows us to mitigate the impact of unintentional LDOS incidents and ensure that our system remains available for all accounts.
+
+This document will provide insights into how rate limiting works in Novu and the limits that are set for each set of endpoints and tier.
+
+## Rate Limit Algorithm
+
+We utilize an advanced version of the [token bucket algorithm](https://en.wikipedia.org/wiki/Token_bucket) to implement rate limiting.
+
+You can think about this algorithm as if you have magical bucket that fills up with tokens (like coins) over time.
+The faster your computer is working, the slower these tokens fill up, and vice versa.
+Some actions, like triggering a workflow, cost a certain number of these tokens.
+This code makes sure that if there are enough tokens in the bucket for the action, it allows the action.
+But if there aren't enough tokens, it stops the action and waits for more tokens to fill up.
+It keeps track of these tokens using Redis and remembers some info in its own short-term memory (called a cache)
+so it doesn't have to ask Redis all the time.
+This way, it prevents the computer from getting too busy and makes sure everything works smoothly.
+If someone tries to do too many things at once, this bucket system asks them to wait a little.
+
+### Burst Traffic Handling
+
+Unlike some rate limiting strategies that rigidly block requests beyond a set limit, ours is designed to manage bursts.
+This means that there's a degree of flexibility to our limits;
+while there's a defined limit (which can be thought of as a "soft limit"),
+the system might still accommodate a few more requests beyond this.
+However, this shouldn't be taken as a catch all to keep flooding the system.
+It's more of a cushioning mechanism for those occasional spikes in traffic.
+
+## Rate Limit Headers
+
+In our commitment to maintain a consistent, transparent, and informed user experience,
+we adhere to the standards detailed in the [IETF Rate Limit Headers Proposal](https://datatracker.ietf.org/doc/draft-ietf-httpapi-ratelimit-headers/).
+Here is a breakdown of the headers and their significance:
+
+- **RateLimit-Remaining**: This header is consistently present in responses and indicates the number of tokens remaining for the client.
+- **RateLimit-Limit**: This header informs the client of the maximum request allowance as per our rate limiting policy.
+- **RateLimit-Reset**: This provides the client with the time remaining (in seconds) until the next reset window. It's crucial to understand that this reset duration might vary, as we implement jitter to mitigate the impact of simultaneous bulk requests on our infrastructure.
+- **RateLimit-Policy**: Details the rate limit policy associated with the calling client, specifying the limit and window duration. It adopts the format `<limit>;w=<window_in_seconds>` and may consist of a comma-separated list for multiple policies.
+
+To align with current conversions of rate-limiting practices, we also incorporate:
+
+- **X-RateLimit-Remaining**: Always included in the response, this header indicates the number of permissible requests before reaching the imposed limit.
+- **Reset-After**: In instances where rate limits are exceeded, clients will encounter an HTTP 429 status code. Accompanying this is the 'Reset-After' header, denoting the recommended waiting duration (in seconds) post the rate-limited request before attempting another. It's crucial to understand that this reset duration might vary, as we implement jitter to mitigate the impact of simultaneous bulk requests on our infrastructure.
+
+## Advancing to Higher Limits
+
+If you find yourself consistently hitting the rate limits, consider the following:
+
+1. **Leverage Batch Endpoint:**  Ensure your system is using the batch endpoint to trigger requests.
+    The batch endpoint is worth the same amount as the regular trigger endpoint and can allow you to send more requests at the same time.
+2. **Request Queue:** If you are rate-limited we recommend making a request queue that can be rolled up into one batch request.
+3. **Backoff Strategy:**  Implement a backoff strategy like Exponential Backoff and circuit breakers.
+4. **Higher Service Tier**: If all other optimizations are still not enough or you do not have the time to implement these, then we recommend you consider moving up to a higher service level to enjoy increased rate limits.
+
+## Limits
+
+Our system has implemented rate limits on three sets of endpoints:
+
+1. **Triggers:** ( ~1 million per hour)
+    - Free: 2.000 per minute
+    - Paid: 20.000 per minute
+2. **Data:** (~.5 million per hour)
+    - Free: 1.000 per minute
+    - Paid: 10,000 per minute
+3. **Management:** (~.1 million per hour)
+    - Free: 500 per minute
+    - Paid: 2.000 per minute
+
+Batch endpoints are limited in such a way to be the same or more throughput then the single request limits:
+
+1. **Triggers:** ( if used fully ~1 million per hour)
+    - Free: 20 per minute
+    - Paid: 200 per minute
+2. **Data: ** ( if used fullly ~.5 million per hour)
+    - Free: 5 per minute
+    - Paid: 10 per minute
+3. **Management:** ( if used fully ~.1 million per hour)
+    - Free: 5 per minute
+    - Paid: 10 per minute
+
+The groupings of endpoints are as follows:
+- Triggers:
+    - Events
+- Data
+    - Subscribers
+    - Topics
+    - Notifications
+- Management
+    - Layout
+    - Workflows
+    - Changes
+    - Environments
+    - Execution Details
+    - Integrations
+
+<Note> Marking notifications as does not incur a rate limit cost.</Note>
+
+You can find a list of all of our api endpoints [here](/api-reference/events/trigger-event).
+
+## Conclusion
+
+Rate limiting ensures that our system remains performant, secure, and available for all users,
+regardless of their service tier.
+We recommend developers design their integrations keeping these rate limits in mind
+and monitor the rate limit headers to avoid hitting the limit unexpectedly.
+If higher limits are needed, consider upgrading to a more suitable service tier.

@@ -5,6 +5,19 @@ openapi: post /v1/workflows
 <Snippet file="apikey-warning.mdx" />
 
 <RequestExample>
+
+```bash cURL
+  curl --request POST \
+  --url https://api.novu.co/v1/workflows \
+  --header 'Authorization: <authorization>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "<name>",
+    "notificationGroupId":"<notificationGroupId>",
+    "steps": [{ "steps" }]
+  }'
+```
+
 ```javascript Node.js
 import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
 

@@ -11,7 +11,7 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.subscribers.cancel("transactionId");
+await novu.cancel("transactionId");
 ```
 
 ```php PHP
@@ -57,6 +57,14 @@ func main() {
 		return
 	}
 }
+```
+
+```bash cURL
+
+curl --request DELETE \
+  --url https://api.novu.co/v1/events/trigger/<transaction_id> \
+  --header 'Authorization: ApiKey <NOVU_API_KEY>'
+
 ```
 
 ```python Python

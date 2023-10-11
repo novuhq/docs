@@ -40,6 +40,24 @@ Replace `<NOVU_API_KEY>` with your own API key that you got from the API Key sec
 
 </Note>
 
+## Configure retry
+
+```go
+import (
+ novu "github.com/novuhq/go-novu/lib"
+)
+
+novuClient := novu.NewAPIClient(apiKey, &novu.Config{RetryConfig: &novu.RetryConfigType{RetryMax: 3, WaitMin: 1 * time.Second, WaitMax: 5 * time.Second, InitialDelay: 0 * time.Second}})
+```
+
+| Options       | Detail                                                             | Default Value   |
+| ------------- | -------------------------------------------------------------------| --------------- |
+| RetryMax      | Specifies total number of retries to perform in case of failure    | 0               |
+| WaitMin       | Specifies the minimum time to wait before retrying                 | 0               |
+| WaitMax       | Specifies the maximum time to wait before retrying                 | 0               |
+| InitialDelay  | Specifies the initial delay before the first retry attempt         | 0               |
+
+
 ## Set Up A Channel Provider
 
 A channel provider is a service that lets you use one or more notification channels such as sending an email, SMS, push notification etc. Our [integration store](https://web.novu.co/integrations) currently supports four channels: Email, SMS, Chat, and Push. Each of these channels have multiple providers associated with them.
