@@ -1045,54 +1045,6 @@
         ]
       }
     },
-    "/v1/integrations/{channelType}/limit": {
-      "get": {
-        "operationId": "IntegrationsController_getProviderLimit",
-        "parameters": [
-          {
-            "name": "channelType",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "$ref": "#/components/schemas/ChannelTypeLimitDto"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Integrations"
-        ]
-      }
-    },
-    "/v1/integrations/in-app/status": {
-      "get": {
-        "operationId": "IntegrationsController_getInAppActivated",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "tags": [
-          "Integrations"
-        ]
-      }
-    },
     "/v1/execution-details": {
       "get": {
         "operationId": "ExecutionDetailsController_getExecutionDetailsForNotification",
