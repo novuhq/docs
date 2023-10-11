@@ -11,7 +11,7 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.cancel("transactionId");
+await novu.events.cancel("transactionId");
 ```
 
 ```php PHP
