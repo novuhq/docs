@@ -116,51 +116,6 @@
         ]
       }
     },
-    "/v1/environments/{environmentId}": {
-      "put": {
-        "operationId": "EnvironmentsController_updateMyEnvironment",
-        "summary": "Update env by id",
-        "parameters": [
-          {
-            "name": "environmentId",
-            "required": true,
-            "in": "path",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateEnvironmentRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "$ref": "#/components/schemas/EnvironmentResponseDto"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Environments"
-        ]
-      }
-    },
     "/v1/environments/api-keys": {
       "get": {
         "operationId": "EnvironmentsController_getOrganizationApiKeys",
