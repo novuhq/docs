@@ -216,8 +216,12 @@ var trigger = await novu.Event.Trigger(payload);
 <ResponseExample>
 
 ```json Response
-{ 
-  data: data
+{
+    "data": {
+        "acknowledged": true,
+        "status": "processed",
+        "transactionId": "string"
+    }
 }
 ```
 
