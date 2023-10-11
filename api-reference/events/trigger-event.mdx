@@ -44,6 +44,30 @@ $novu->triggerEvent([
 ])->toArray();
 ```
 
+```bash cURL
+
+curl -X POST https://api.novu.co/v1/events/trigger \
+  -H "Authorization: ApiKey <NOVU_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "<WORKFLOW_TRIGGER_ID>",
+    "to": {
+      "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+      "email": "john@doemail.com",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "payload": {
+      "name": "Hello World",
+      "organization": {
+        "logo": "https://happycorp.com/logo.png"
+      }
+    }
+  }'
+
+
+```
+
 ```ruby Ruby
 require 'novu'
 

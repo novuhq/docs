@@ -59,6 +59,14 @@ func main() {
 }
 ```
 
+```bash cURL
+
+curl --request DELETE \
+  --url https://api.novu.co/v1/events/trigger/<transaction_id> \
+  --header 'Authorization: ApiKey <NOVU_API_KEY>'
+
+```
+
 ```python Python
 from novu.api import EventApi
 
