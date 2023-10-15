@@ -70,7 +70,7 @@ Create a new endpoint on your server that will handle the following steps (you c
     const novu = new Novu("<NOVU_API_KEY>");
 
     const body = req.body; // From your HTTPS listener
-    await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum., {
+    await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
     webhookUrl: body.incoming_webhook.url,
     });
     ```
