@@ -1,7 +1,7 @@
 ---
-title: 'NextJS'
-description: 'Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications with NextJS.'
-icon: 'nextjs'
+title: "NextJS"
+description: "Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications with NextJS."
+icon: "N"
 ---
 
 This quick start guide is written to help you integrate Novu into your NextJS app in no time. Novu is an open-source notifications infrastructure that you can use in your app to deliver rich notifications across channels like sms, email, in-app, push, chat, etc. In this guide, you’ll learn how to integrate email notifications into your NextJS app.
@@ -43,8 +43,13 @@ npm install @novu/node
 ```
 
 After installing it, we need to connect our app with our Novu account using the Novu API key. Simply log onto the [Novu web dashboard](https://web.novu.co/) and from the settings there, obtain your API key. We’ll use it to connect our app to our Novu account.
-<Frame caption="Obtain your API key from the settings menu"><img src="/images/api-nextjs.png" /> </Frame>
-Now, we need to connect it to our app. To do so, the first step is to import Novu into our app. Importing Novu will give us the ability to interact with the Novu API. To import Novu into our app, use the following code in a separate file in our app:
+
+<Frame caption="Obtain your API key from the settings menu">
+  <img src="/images/api-nextjs.png" />{" "}
+</Frame>
+Now, we need to connect it to our app. To do so, the first step is to import Novu
+into our app. Importing Novu will give us the ability to interact with the Novu API.
+To import Novu into our app, use the following code in a separate file in our app:
 
 ```jsx
 import { Novu } from '@novu/node';
@@ -56,12 +61,12 @@ const novu = new Novu(<YOUR_NOVU_API_KEY>);
 
 Novu lets us send notifications across different channels like email, in-app, chat, SMS, etc, and for each channel, one can use a plethora of providers. You just need to set up a provider for the channel you want to use in Novu:
 
-| Channel | Providers |  |
-| --- | --- | --- |
-| Email | MailGun, Mandrill, MailJet, Amazon SES, Sendgrid, Postmark, Netcore |  |
-| SMS | Twilio, Amazon SNS, Plivo, SMS, SMSCentral, Kannel, Infobip, Termii |  |
-| Chat | Mattermost, Slack, Microsoft Teams, Discord |  |
-| Push | FCM, APNS, Expo |  |
+| Channel | Providers                                                           |     |
+| ------- | ------------------------------------------------------------------- | --- |
+| Email   | MailGun, Mandrill, MailJet, Amazon SES, Sendgrid, Postmark, Netcore |     |
+| SMS     | Twilio, Amazon SNS, Plivo, SMS, SMSCentral, Kannel, Infobip, Termii |     |
+| Chat    | Mattermost, Slack, Microsoft Teams, Discord                         |     |
+| Push    | FCM, APNS, Expo                                                     |     |
 
 You can see all this in our [integrations store](https://web.novu.co/integrations) and set it up there.
 
@@ -75,15 +80,25 @@ In our case, we’ll have dynamic data and whatever we send as a description wil
 
 1. Click "Workflows” on the left sidebar of your Novu dashboard.
 2. Click the “Create Workflow” button on the top right.
-<Frame caption="Click the “Create Workflow” button on the top right to create a workflow"><img src="/images/create-workflow-nextjs.png" /> </Frame>
+   <Frame caption="Click the “Create Workflow” button on the top right to create a workflow">
+     <img src="/images/create-workflow-nextjs.png" />{" "}
+   </Frame>
 3. The name of the new workflow is currently "Untitled." Rename it to a more suitable title.
-<Frame caption="Rename the workflow to a more appropriate name"><img src="/images/rename-nextjs.png" /> </Frame>
+   <Frame caption="Rename the workflow to a more appropriate name">
+     <img src="/images/rename-nextjs.png" />{" "}
+   </Frame>
 4. Select "Email" as the channel you want to add, by dragging it from the right sidebar:
-<Frame caption="Select Email as the channel you want to add, by dragging it from the right sidebar."><img src="/images/select-email-kotlin.png" /> </Frame>
+   <Frame caption="Select Email as the channel you want to add, by dragging it from the right sidebar.">
+     <img src="/images/select-email-kotlin.png" />{" "}
+   </Frame>
 5. Click on the ‘Email’ in the workflow and edit it as per this image. Don’t forget to add the fields in the editor which is supposed to be updated with dynamic values that we’ll send when calling the API.
-<Frame caption="Edit the email node"><img src="/images/edit-nextjs.png" /> </Frame>
+   <Frame caption="Edit the email node">
+     <img src="/images/edit-nextjs.png" />{" "}
+   </Frame>
 6. Also, add the variables in the ‘variables’ section in the test tab and try testing it by sending the email to your email id using the ‘send test email’ button on the bottom right.
-<Frame caption="Add variables and send a test email to verify the workflow"><img src="/images/vars-and-test-email-nextjs.png" /> </Frame>
+   <Frame caption="Add variables and send a test email to verify the workflow">
+     <img src="/images/vars-and-test-email-nextjs.png" />{" "}
+   </Frame>
 
 Now, we’ve successfully sent the test email and just need to do this from our app.
 
@@ -150,21 +165,20 @@ We’d used these variables in the workflow we had created in the Novu dashboard
 The function in our route is quite simple and looks like this:
 
 ```jsx
-import { sendEmail } from '@/app/utils/novu';
+import { sendEmail } from "@/app/utils/novu";
 
 export default async function subscribe(req, res) {
   try {
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
       const { email, description } = req.body;
       await sendEmail(email, description);
-      await res.status(200).json({ message: 'email working' });
+      await res.status(200).json({ message: "email working" });
     }
   } catch (error) {
     console.log(error);
-    res.status(405).json({ message: 'not working' });
+    res.status(405).json({ message: "not working" });
   }
 }
-
 ```
 
 We can now start our local server and test our backend app on Postman. To start the local server, use the following command:
@@ -177,12 +191,18 @@ npm run dev
 Now, open Postman and send a POST request to the route you created earlier. The exact route depends on the file structure you have followed in the pages directory, but in our case, it is - `http://localhost:3000/api/sub`
 
 Also, make sure that in the body, you’re passing the two variables we’re extracting above, namely - email and description, as follows:
-<Frame caption="Testing on Postman"><img src="/images/postman-nextjs.png" /> </Frame>
-> In place of youremail@gmail.com, use your actual email and once you send it, you should see the ‘message: email working’ on the bottom as in the image above.
-> 
+
+<Frame caption="Testing on Postman">
+  <img src="/images/postman-nextjs.png" />{" "}
+</Frame>
+> In place of youremail@gmail.com, use your actual email and once you send it, you
+should see the ‘message: email working’ on the bottom as in the image above. >{" "}
 
 This means that the email notification was sent successfully. Now go to your inbox and you should see an email notification like the following:
-<Frame caption="The triggered email notification in the inbox"><img src="/images/test-successful-nextjs.jpg" /> </Frame>
+
+<Frame caption="The triggered email notification in the inbox">
+  <img src="/images/test-successful-nextjs.jpg" />{" "}
+</Frame>
 
 ## Topics
 
@@ -193,7 +213,6 @@ Each topic is uniquely identified by a custom key specified by the user, serving
 This intuitive approach streamlines notifications management, empowering users to focus on delivering targeted messages to their subscribers without the hassle of intricate implementation details.
 
 > Make sure that you use a unique key for a Topic. Keys once used, can’t be changed later!
-> 
 
 You have the flexibility to assign a descriptive name to a topic. Unlike the topic key, this name does not require uniqueness and can be modified using the provided API.
 
@@ -204,12 +223,12 @@ A topic can have multiple subscribers associated with it. These subscribers will
 You can create a topic using two entities - `key` and `name`. Keys are unique identifiers for topics and a name is just something you assign to a topic for convenience.
 
 ```jsx
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 export default async function createTopic(req, res) {
   try {
     const novu = new Novu("<NOVU_API_KEY>");
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
       const { key, name } = req.body;
       const result = await novu.topics.create({ key, name });
       res.status(201).json(result.data);
@@ -219,33 +238,35 @@ export default async function createTopic(req, res) {
     res.status(500).json({ message: error.message });
   }
 }
-
 ```
 
 This is a simple function that calls the **`create`** method on the **`topics`** property of the **`novu`**instance. This method creates a new topic in the Novu system using the provided **`key`** and **`name`** values.
 
 If you test this on your local machine, you should get something like this:
-<Frame caption="Topics created successfully"><img src="/images/topics-postman-nextjs.png" /> </Frame>
+
+<Frame caption="Topics created successfully">
+  <img src="/images/topics-postman-nextjs.png" />{" "}
+</Frame>
 
 > Note how the return object contains the key I sent from my request body. That signals successful creation!
-> 
 
 ## Add subscriber to a Topic
 
 The code for adding a subscriber to a previously created topic is as follows:
 
-
 <Note>
-You can only add those subscribers to a topic that you've already created. You can see all the subscribers in the [Novu web dashboard](https://web.novu.co/subscribers)
+  You can only add those subscribers to a topic that you've already created. You
+  can see all the subscribers in the [Novu web
+  dashboard](https://web.novu.co/subscribers)
 </Note>
 
 ```jsx
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 export default async function addSub(req, res) {
   try {
     const novu = new Novu("<NOVU_API_KEY>");
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
       // Get the subscriber ID from the request body
       const subscriberId = req.body.subscriberId;
       // Get the topic key from the request body
@@ -262,7 +283,6 @@ export default async function addSub(req, res) {
     res.status(500).json({ message: error.message });
   }
 }
-
 ```
 
 If you see the code above closely, you’ll see that we first establish a connection to Novu using the Novu API key.
@@ -278,7 +298,10 @@ If, on the other hand, you find the passed `subscriberId` in the `notFound` 
 You can read more about it [here](https://docs.novu.co/platform/topics/#subscribers-management-in-a-topic).
 
 The image below shows the case where the subscriber has been added successfully:
-<Frame caption="Subscriber added to the topic"><img src="/images/sub-added-nextjs.png" /> </Frame>
+
+<Frame caption="Subscriber added to the topic">
+  <img src="/images/sub-added-nextjs.png" />{" "}
+</Frame>
 
 After creating a topic and adding subscribers to the topic, we’ll now proceed to send a notification to all subscribers (we only have one subscriber in our topic though) of a topic. This is what Topics are used for - sending bulk notifications.
 
@@ -287,20 +310,20 @@ After creating a topic and adding subscribers to the topic, we’ll now proceed 
 Sending notifications to a topic is not a complex task. You need to extract the topic key to which you want to send notifications and trigger Novu’s method on that topic key with the message in the payload:
 
 ```jsx
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 export default async function sendNotifToSub(req, res) {
   try {
     const novu = new Novu("<NOVU_API_KEY>");
-    if (req.method === 'POST') {
+    if (req.method === "POST") {
       // Get the topic key from the request body
       const topicKey = req.body.topicKey;
       const email = req.body.email;
       const description = req.body.description;
 
       // Call Novu SDK to trigger a notification to the topic subscribers
-      const result = await novu.trigger('email-quickstart', {
-        to: [{ type: 'Topic', topicKey: topicKey }],
+      const result = await novu.trigger("email-quickstart", {
+        to: [{ type: "Topic", topicKey: topicKey }],
         payload: {
           email: email,
           description: description,
@@ -314,14 +337,20 @@ export default async function sendNotifToSub(req, res) {
     res.status(500).json({ message: error.message });
   }
 }
-
 ```
 
 Testing this on Postman should give you something like this:
-<Frame caption="Notification successfully sent"><img src="/images/notif-sent-nextjs.png" /> </Frame>
+
+<Frame caption="Notification successfully sent">
+  <img src="/images/notif-sent-nextjs.png" />{" "}
+</Frame>
 
 If you see this, then it means the notification was sent successfully, as can be seen in my inbox down below:
-<Frame caption="Notification in my mailbox"><img src="/images/mailbox-nextjs.png" /> </Frame>
+
+<Frame caption="Notification in my mailbox">
+  <img src="/images/mailbox-nextjs.png" />{" "}
+</Frame>
 
 ## Conclusion
+
 Great job! If you've reached this point, you should now have successfully created a subscriber, and workflow, configured a channel provider, triggered a single notification, and sent an email notification.
