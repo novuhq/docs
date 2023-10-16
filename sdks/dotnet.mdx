@@ -1,7 +1,7 @@
 ---
 title: "C#/.NET"
 description: "Connect a .NET application to Novu"
-icon: 'square-5'
+icon: "microsoft"
 ---
 
 Novu's .NET SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your C#/.NET application.
@@ -10,15 +10,18 @@ Novu's .NET SDK provides simple, yet comprehensive notification management, and 
 
 ## Installation
 
-```javascript
+```dotnet
 dotnet add package Novu
 ```
 
-<Tip> If you're ready to start integrating in your .NET app, jump straight to our [.NET quickstart.](/quickstarts/.NET)</Tip>
+<Tip>
+   If you're ready to start integrating in your .NET app, jump straight to
+  our [.NET quickstart.](/quickstarts/.NET)
+</Tip>
 
-## Usage 
+## Usage
 
-```c#
+```dotnet
 using Novu.DTO;
 using Novu.Models;
 using Novu;
@@ -64,4 +67,3 @@ if (trigger.TriggerResponsePayloadDto.Acknowledged)
   Console.WriteLine("Trigger has been created.");
 }
 ```
-
