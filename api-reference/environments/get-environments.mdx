@@ -29,7 +29,6 @@ novu = EnvironmentApi(url, api_key).list(
 )
 ```
 
-
 ```java Java
 import co.novu.sdk.Novu;
 
@@ -40,6 +39,17 @@ public class Main {
         Novu novu = new Novu(apiKey);
         novu.environments();
     }
+}
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.environments
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val environment = novu.environments()
+    println(environment)
 }
 ```
 
