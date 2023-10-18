@@ -61,6 +61,19 @@ public class Main {
 }
 ```
 
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.dto.request.CreateEnvironmentRequest
+import co.novu.extensions.createEnvironment
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val createEnvironmentRequest = CreateEnvironmentRequest("Stagging", "parentEnvironmentId")
+    val createEnvironment = novu.createEnvironment(createEnvironmentRequest)
+    println(createEnvironment)
+}
+```
+
 </RequestExample>
 
 <ResponseExample>
