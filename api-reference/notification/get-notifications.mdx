@@ -3,3 +3,20 @@ openapi: get /v1/notifications
 ---
 
 <Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.dto.request.NotificationRequest
+import co.novu.extensions.notifications
+
+fun main() {
+    val novu = Novu(apiKey = "<NOVU_API_KEY>")
+    val notificationRequest = NotificationRequest("<CHANNELS>", "<TEMPLATES>", "<EMAILS>", "<SEARCH>");
+    val notifications = novu.notifications(notificationRequest)
+    println(notifications)
+}
+```
+
+</RequestExample>

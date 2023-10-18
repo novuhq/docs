@@ -3,3 +3,18 @@ openapi: get /v1/notifications/stats
 ---
 
 <Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.notificationsStats
+
+fun main() {
+    val novu = Novu(apiKey = "<NOVU_API_KEY>")
+    val notificationsStats = novu.notificationsStats()
+    println(notificationsStats)
+}
+```
+
+</RequestExample>
