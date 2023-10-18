@@ -39,6 +39,17 @@ public class Main {
 }
 ```
 
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.apiKeys
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val apiKeys = novu.apiKeys()
+    println(apiKeys)
+}
+```
+
 </RequestExample>
 
 <ResponseExample>
