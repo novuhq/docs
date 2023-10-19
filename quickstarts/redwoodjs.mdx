@@ -1,6 +1,7 @@
 ---
-title: 'RedwoodJS'
-description: 'Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications with RedwoodJS.'
+title: "RedwoodJS"
+description: "Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications with RedwoodJS."
+icon: "js"
 ---
 
 Send notifications across different channels (SMS, Email, Chat, Push) and enable real-time In-App notifications with the help of a rich and customizable Notification Center in a RedwoodJS app.
@@ -15,7 +16,6 @@ To follow the steps in this quickstart, you'll need:
 
 - A Novu account. If you don't have one, [sign up for free](https://web.novu.co).
 - Node.js installed on your development machine.
-
 
 ## Create a RedwoodJS app
 
@@ -55,16 +55,16 @@ import {
   NovuProvider,
   PopoverNotificationCenter,
   NotificationBell,
-} from '@novu/notification-center'
+} from "@novu/notification-center";
 
-import { Link, routes } from '@redwoodjs/router'
+import { Link, routes } from "@redwoodjs/router";
 
-import { useAuth } from 'src/auth'
+import { useAuth } from "src/auth";
 
 const BlogLayout = ({ children }) => {
-  const { logOut, isAuthenticated, currentUser } = useAuth()
-  const SUBSCRIBER_ID = process.env.REDWOOD_ENV_SUBSCRIBER_ID
-  const APPLICATION_IDENTIFIER = process.env.REDWOOD_ENV_APPLICATION_IDENTIFIER
+  const { logOut, isAuthenticated, currentUser } = useAuth();
+  const SUBSCRIBER_ID = process.env.REDWOOD_ENV_SUBSCRIBER_ID;
+  const APPLICATION_IDENTIFIER = process.env.REDWOOD_ENV_APPLICATION_IDENTIFIER;
 
   return (
     <>
@@ -135,17 +135,20 @@ const BlogLayout = ({ children }) => {
         {children}
       </main>
     </>
-  )
-}
+  );
+};
 
-export default BlogLayout
+export default BlogLayout;
 ```
 
-<Note>Add `REDWOOD_ENV_APPLICATION_IDENTIFIER` and `REDWOOD_ENV_SUBSCRIBER_ID` to the `.env` file. </Note>
+<Note>
+  Add `REDWOOD_ENV_APPLICATION_IDENTIFIER` and `REDWOOD_ENV_SUBSCRIBER_ID` to
+  the `.env` file.{" "}
+</Note>
 
 The `Subscriber ID` ideally should be the `id` of the **logged in user**. When a user logs into your app, they’ll be able to see all their notifications in the notification center. For this to work successfully, the user should have been created as a subscriber on Novu.
 
-The `Application Identifier` is a public key used to identify your application. 
+The `Application Identifier` is a public key used to identify your application.
 
 Head over to your [Novu dashboard settings](https://web.novu.co/settings), copy the application identifier and add it as the value of `REDWOOD_ENV_APPLICATION_IDENTIFIER`.
 
@@ -154,30 +157,29 @@ Head over to [the Subscribers page](https://web.novu.co/subscribers), grab a sub
 Now, check your app, you will see a notification bell button. Click on the button to reveal the notification center UI. Voila!
 
 <Note>
-There are no notifications because none has been triggered yet. When notifications are sent to a subscriber, it will show up in the UI. Next, we'll learn how to trigger notifications.
+  There are no notifications because none has been triggered yet. When
+  notifications are sent to a subscriber, it will show up in the UI. Next, we'll
+  learn how to trigger notifications.
 </Note>
-
 
 ## Create A Workflow
 
 The first step to trigger notifications is to create a workflow. A workflow is like a map that holds the entire flow of messages sent to the subscriber.
 
-<Note>
-The recipients of a triggered notification are called subscribers.
-</Note>
+<Note>The recipients of a triggered notification are called subscribers.</Note>
 
 The workflow includes the following:
 
 - Workflow name and Identifier
 - Channel tailored content:
 
-| Channel | Content Style |
-| --- | --- |
-| Email | 1. Custom Code (HTML) with option to use custom variables via the handlebars , {{ }}, syntax. |
-|  | 2. Click and place UI items with the visual template editor. |
-| SMS | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
-| Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
-| In-App | Text |
+| Channel | Content Style                                                                                 |
+| ------- | --------------------------------------------------------------------------------------------- |
+| Email   | 1. Custom Code (HTML) with option to use custom variables via the handlebars , {{ }}, syntax. |
+|         | 2. Click and place UI items with the visual template editor.                                  |
+| SMS     | Text with the option to use handlebars syntax, {{ }} to inject custom variables.              |
+| Chat    | Text with the option to use handlebars syntax, {{ }} to inject custom variables.              |
+| In-App  | Text                                                                                          |
 
 Please proceed to create a workflow.
 
@@ -187,8 +189,9 @@ Please proceed to create a workflow.
 4. Select **In-App** as the channel you want to add.
 5. Click on the recently added In-App channel and configure it.
 
-
-<Frame caption="Configure it as per your requirements and then save it"><img src="/images/configure-in-app-vue.png" /> </Frame>
+<Frame caption="Configure it as per your requirements and then save it">
+  <img src="/images/configure-in-app-vue.png" />{" "}
+</Frame>
 I’ll briefly explain the function of each label in the image above.
 
 - **1-Preview**: Shows you a glimpse of how each notification item will look like in the Notification Center UI.
@@ -208,9 +211,14 @@ Hi {{ name }},
 <p>{{ message }}</p>
 ```
 
-<Note> `{{ name }}` and `{{ message }}` are payload values that will be passed on from our code to the workflow template so it can appear in the notification sent to subscribers.</Note>
+<Note>
+  {" "}
+  `{{ name }}` and `{{ message }}` are payload values that will be passed on from
+  our code to the workflow template so it can appear in the notification sent to
+  subscribers.
+</Note>
 
-Click on the `Update` button to save the configuration successfully!  
+Click on the `Update` button to save the configuration successfully!
 
 6. In the workflow page, drag and drop the **Email** channel to the workflow canvas to be just below the `In-App` channel.
 7. Click on the recently added Email channel and configure it:
@@ -274,6 +282,7 @@ export const createContact = ({ input }) => {
 ...
 ...
 ```
+
 Before running the code, make sure you understand the following:
 
 - The value of `<workflow-trigger-id>` should be the workflow’s trigger ID/slug.
@@ -283,11 +292,11 @@ Before running the code, make sure you understand the following:
 
 ## One more thing
 
-Head over to the [integrations store on your Novu dashboard](https://web.novu.co/integrations). 
+Head over to the [integrations store on your Novu dashboard](https://web.novu.co/integrations).
 
 Select the **Novu Email Test Provider**, and mark as the primary provider for Emails. This ensures that all emails are sent via the Novu Email provider.
 
-## Test the app 
+## Test the app
 
 Ensure your app is still running and head over the `/contact` page in the app. Fill the form and click `Save`.
 
@@ -296,6 +305,6 @@ The app will trigger two notifications:
 - An In-App notification
 - An Email notification
 
-
 ## Conclusion
+
 Great job! If you've reached this point, you should now have successfully created workflow, configured a channel provider, triggered a workflow, and sent an email and In-App notification.

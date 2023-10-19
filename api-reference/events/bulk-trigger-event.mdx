@@ -70,6 +70,59 @@ $novu->bulkTriggerEvent([
 ])->toArray();
 ```
 
+```bash cURL
+
+curl -X POST https://api.novu.co/v1/events/trigger/bulk \
+  -H "Authorization: ApiKey <NOVU_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "events": [
+      {
+        "name": "<WORKFLOW_TRIGGER_ID>",
+        "to": {
+          "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+          "email": "john@doemail.com"
+        },
+        "payload": {
+          "customKey": "customValue",
+          "customKey1": {
+            "nestedkey1": "nestedValue1"
+          }
+        },
+        "overrides": {
+          "email": {
+            "from": "support@novu.co"
+          }
+        },
+        "actor": "actorId",
+        "tenant": "tenantIdentifier"
+      },
+      {
+        "name": "<WORKFLOW_TRIGGER_ID>",
+        "to": {
+          "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+          "email": "janet@doemail.com"
+        },
+        "payload": {
+          "customKey": "customValue",
+          "customKey1": {
+            "nestedkey1": "nestedValue1"
+          }
+        },
+        "overrides": {
+          "email": {
+            "from": "support@novu.co"
+          }
+        },
+        "actor": "actorId",
+        "tenant": "tenantIdentifier"
+      }
+    ]
+  }'
+
+
+```
+
 ```ruby Ruby
 require 'novu'
 
@@ -263,8 +316,14 @@ var trigger = await novu.Event.TriggerBulkAsync(payload);
 <ResponseExample>
 
 ```json Response
-{ 
-  data: data
+{
+    "data": [
+        {
+            "acknowledged": true,
+            "status": "processed",
+            "transactionId": "string"
+        }
+    ]
 }
 ```
 

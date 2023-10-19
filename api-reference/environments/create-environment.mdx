@@ -43,7 +43,7 @@ from novu.api import EnvironmentApi
 url = "https://api.novu.co"
 api_key = "<NOVU_API_KEY>"
 novu = EnvironmentApi(url, api_key).create(
-    name = "<Name of the environmet to create>",
+    name = "<Name of the environment to create>",
     parent_id = "<The parent of the environment to create. Defaults to None.>",
 )
 ```
@@ -61,13 +61,38 @@ public class Main {
 }
 ```
 
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.dto.request.CreateEnvironmentRequest
+import co.novu.extensions.createEnvironment
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val createEnvironmentRequest = CreateEnvironmentRequest("Stagging", "parentEnvironmentId")
+    val createEnvironment = novu.createEnvironment(createEnvironmentRequest)
+    println(createEnvironment)
+}
+```
+
 </RequestExample>
 
 <ResponseExample>
 
 ```json Response
 {
-    data: data
+  "data": {
+    "_id": "string",
+    "name": "string",
+    "_organizationId": "string",
+    "identifier": "string",
+    "apiKeys": [
+      {
+        "key": "string",
+        "_userId": "string"
+      }
+    ],
+    "_parentId": "string"
+  }
 }
 ```
 

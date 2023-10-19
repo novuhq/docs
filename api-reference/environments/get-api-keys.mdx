@@ -39,13 +39,37 @@ public class Main {
 }
 ```
 
+```python Python
+from novu.api import EnvironmentApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+apiKeys = EnvironmentApi(url, api_key).api_keys()
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.apiKeys
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val apiKeys = novu.apiKeys()
+    println(apiKeys)
+}
+```
+
 </RequestExample>
 
 <ResponseExample>
 
 ```json Response
 {
-    data: [data]
+  "data": [
+    {
+      "key": "string",
+      "_userId": "string"
+    }
+  ]
 }
 ```
 

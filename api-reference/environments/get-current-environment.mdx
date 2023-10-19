@@ -51,13 +51,36 @@ public class Main {
 }
 ```
 
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.currentEnvironment
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val currentEnvironment = novu.currentEnvironment()
+    println(currentEnvironment)
+}
+```
+
 </RequestExample>
 
 <ResponseExample>
 
 ```json Response
 {
-    data: data
+  "data": {
+    "_id": "string",
+    "name": "string",
+    "_organizationId": "string",
+    "identifier": "string",
+    "apiKeys": [
+      {
+        "key": "string",
+        "_userId": "string"
+      }
+    ],
+    "_parentId": "string"
+  }
 }
 ```
 

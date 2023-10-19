@@ -29,7 +29,6 @@ novu = EnvironmentApi(url, api_key).list(
 )
 ```
 
-
 ```java Java
 import co.novu.sdk.Novu;
 
@@ -43,15 +42,38 @@ public class Main {
 }
 ```
 
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.environments
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val environment = novu.environments()
+    println(environment)
+}
+```
+
 </RequestExample>
 
 <ResponseExample>
 
 ```json Response
 {
+  "data": [
     {
-    data: [data]
-}
+      "_id": "string",
+      "name": "string",
+      "_organizationId": "string",
+      "identifier": "string",
+      "apiKeys": [
+        {
+          "key": "string",
+          "_userId": "string"
+        }
+      ],
+      "_parentId": "string"
+    }
+  ]
 }
 ```
 

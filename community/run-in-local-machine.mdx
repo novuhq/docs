@@ -15,6 +15,7 @@ description: "Prerequisites and steps to run Novu in local machine. Learn how to
 
 Need help installing the requirements? Read more [here](/community/machine-setup).
 
+<Note>We recommend having at least 8GB of RAM to run Novu on a local machine as Novu has multiple services running together with external services like redis, mongodb etc.</Note>
 ### Setup the project
 
 After installing the required services on your machine, you can clone and set up
@@ -47,7 +48,7 @@ cd novu && npm run setup:project
 npm run start
 ```
 
-The `npm run start` will start the Jarvis CLI tool which allows you to run the whole project with an ease. If you only want to run parts of the platform, you can use the following run commands from the root project:
+The `npm run start` will start the Jarvis CLI tool which allows you to run the whole project with ease. If you only want to run parts of the platform, you can use the following run commands from the root project:
 
 - **start:dev** - Synonym to `npm run start`
 - **start:web** - Only starts the web management platform
@@ -222,7 +223,6 @@ Run the cypress test suite with the following command:
 
 ```shell
 cd apps/web && npm run cypress:run
-
 ```
 
 To open the cypress management window to debug tests, run the following commands:

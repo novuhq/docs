@@ -1,0 +1,111 @@
+---
+title: "Windows"
+description: "Learn how to configure your local Windows machine to run Novu"
+---
+
+## Setting up git
+
+To set up git and create an access token for GitHub, suggested installing [GitHub Desktop](https://www.notion.so/Dev-Machine-Setup-98d274c80fa249b0b0be75b9a7a72acb?pvs=21) before.
+
+## Development Environment
+
+### Node & NVM
+
+To easily manage multiple node versions you can use [NVM for Windows](https://github.com/coreybutler/nvm-windows) a (Node Version Manager alternative for Windows).
+
+Download the .exe installation file for NVM for Windows [here](https://github.com/coreybutler/nvm-windows/releases).
+
+After installing NVM for Windows, check that the installation is successfull and added to path by running `nvm -v` on a terminal.
+
+<Note>
+  After installing NVM, if you get `nvm: command not found` or see
+  no feedback from your terminal after you type `nvm -v`, simply **close
+  your current terminal, open a new terminal**, and try verifying again.
+</Note>
+
+Once nvm is installed and working you can install any version of Node using the syntax `nvm install vX.Y.Z` and to switch to a node version,
+run `nvm use vX.Y.Z`. Novu requires node v16.15.1:
+```shell
+nvm install v16.15.1
+nvm use v16.15.1
+```
+
+### PNPM
+
+For package management, we use [PNPM](https://pnpm.io/) instead of npm or yarn to speed up our install times and space efficiency. To install pnpm globally run:
+
+```shell
+npm install -g pnpm
+```
+### MongoDB
+for detailed instructions on installing MongoDB community edition on a Windows machine please refere to the MongoDB doc [here](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows).
+
+After installation, whether you have installed as a Windows service or just the binaries, ensure that the MongoDB instance is started before you proceed.
+
+### Redis
+To install Redis for local development you'll first need to enable WSL2 (Windows Subsystem for Linux). detailed instructions for installing
+WSL can be found [here](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+If you have WSL installed and enabled, you can easily install Redis using the native procedure for the Linux distribution that you have installed.
+for Ubuntu or Debian which is the default distro installed by WSL, use the following commands
+
+1. First install `lsb-release`, `curl` and `gpg` if you do not already have them:
+```shell
+sudo apt install lsb-release curl gpg
+```
+
+2. Add the repository to the apt index, update it, and then install:
+```shell
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+
+sudo apt-get update
+sudo apt-get install redis
+```
+3. Lastly, start the Redis server like so:
+```shell
+sudo service redis-server start
+```
+### Docker
+
+Docker is not a requirement to run Novu on your local machine, but if you would prefer to use Docker, Follow the installation guide on [docker website](https://docs.docker.com/desktop/install/windows-install/) to install **Docker Desktop** on your Windows machine.
+
+### AWS CLI
+
+Follow the instructions to install the AWS CLI so you can use it to create env later on, based on existing S3 buckets:
+
+[Installing or updating the latest version of the AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+You should get something like this:
+
+![AWS CLI](/images/community-and-support/machine-setup/aws-cli.png)
+
+If needed, see:
+
+[Resolve "Unable to locate credentials" error in Amazon S3](https://aws.amazon.com/premiumsupport/knowledge-center/s3-locate-credentials-error/)
+
+### Local dev domain (Optional)
+
+This will allow you to use `[local.novu.co](http://local.novu.co)` instead of [localhost](http://localhost) when accessing the service on your machine.
+
+Navigate to `C:\Windows\System32\drivers\etc` in the file explorer and open the `hosts` file with a text editor (like Notepad):
+<Note>
+  Note that this file can only be edited when running as an Administrator.
+</Note>
+
+And add the [local.novu.co](http://local.novu.co) domain and save.
+
+```shell
+127.0.0.1       local.novu.co
+```
+
+### Code Editor
+
+Feel free to install your favorite code editor. We supply licenses for [WebStorm](https://www.notion.so/WebStorm-7570ab1037bf494d88d0f9b544ae3b79?pvs=21), or you can [Visual Studio Code](https://code.visualstudio.com/download) if you prefer it.
+
+### Productivity tools
+
+- GitHub Desktop (Optional)
+
+GitHub Desktop simplifies the development workflow and interaction with Git. [Download](https://desktop.github.com/) the client from their website.

@@ -39,13 +39,26 @@ public class Main {
 }
 ```
 
+```python Python
+from novu.api import EnvironmentApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+regenerateApiKey = EnvironmentApi(url, api_key).regenerate_api_key()
+```
+
 </RequestExample>
 
 <ResponseExample>
 
 ```json Response
 {
-    data: [data]
+  "data": [
+    {
+      "key": "string",
+      "_userId": "string"
+    }
+  ]
 }
 ```
 
