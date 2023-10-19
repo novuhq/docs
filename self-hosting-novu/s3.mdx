@@ -1,7 +1,7 @@
 ---
-title: 'S3'
-description: 'Using S3 as a storage backend for your application'
-icon: 'text-height'
+title: "S3"
+description: "Using S3 as a storage backend for your application"
+icon: "aws"
 ---
 
 For local development we use [LocalStack.cloud](https://localstack.cloud/). It is utilized as a local emulation of S3 during development.
@@ -15,12 +15,14 @@ In general, access to the S3 bucket is very permissive.
 The following process is used to manage access to the S3 bucket.
 
 General design:
+
 - public read access (for logo and email attachments—all data is open for read to anyone)
 - write access is via pre-signed url (client-side PUT to S3 after server-side request)
 - private write access (get, put, delete)
 - objects are written with organisationIdTenancy/objectId (at least for brand logos)
 
 Specifics for access:
+
 - CORS access on bucket (this is documented)
 - bucket object do not need versioning (as all uploads are deemed unique)
 - ACL on buckets is 'public-read' (as part of the pre-signed URLs)
@@ -231,5 +233,3 @@ resource "aws_iam_role_policy_attachment" "s3" {
 }
 
 ```
-
-

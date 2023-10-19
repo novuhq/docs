@@ -55,6 +55,30 @@ payload = {
 client.broadcast_event(payload)
 ```
 
+```bash cURL
+
+curl -X POST https://api.novu.co/v1/events/trigger/broadcast \
+  -H "Authorization: ApiKey <NOVU_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "<WORKFLOW_TRIGGER_ID>",
+    "payload": {
+      "customKey": "customValue",
+      "customKey1": {
+        "nestedkey1": "nestedValue1"
+      }
+    },
+    "overrides": {
+      "email": {
+        "from": "support@novu.co"
+      }
+    },
+    "tenant": "tenantIdentifier"
+  }'
+
+
+```
+
 ```go Go
 package main
 
@@ -116,7 +140,7 @@ public class Main {
         payload.put("customVariables", "Hello");
 
         Map<String, Object> event = new HashMap<>();
-        event.put("name", "<REPLACE_WITH_EVENT_NAME_FROM_ADMIN_PANEL>");
+        event.put("name", "<WORKFLOW_TRIGGER_IDENTIFIER>");
         event.put("payload", payload);
         event.put("transactionId", "<REPLACE_WITH_TRANSACTION_ID>");
       
@@ -166,8 +190,12 @@ var trigger = await novu.Event.TriggerBroadcastAsync(dto);
 <ResponseExample>
 
 ```json Response
-{ 
-  data: data
+{
+    "data": {
+        "acknowledged": true,
+        "status": "processed",
+        "transactionId": "string"
+    }
 }
 ```
 

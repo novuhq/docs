@@ -10,47 +10,47 @@ Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) not
 
 To follow the steps in this quickstart, you'll need:
 
-- A Novu account. [Sign up for free](http://web.novu.co/) if you don’t have one yet.
+- A Novu account. [Sign up for free](http://web.novu.co/) if you don’t have one yet.
 - Angular CLI (Command Line Interface) installed on your machine
-- Angular version > 0.15.0
+- Angular version 15
 
-You can also [view the completed code](https://github.com/novuhq/angular-quickstart) of this quick start in a GitHub repo.
+You can also [view the completed code](https://github.com/novuhq/angular-quickstart) of this quick start in a GitHub repo.
 
 # Create a new Angular app
 
-To create a new Angular app, open a terminal or command prompt and  run the following command:
+To create a new Angular app, open a terminal or command prompt and  run the following command:
 
 ```
 ng new my-app
 
 ```
 
-Here, `my-app` is the name of your new Angular app.  This command will create a new Angular app with a basic file structure and all the necessary dependencies installed.
+Here, `my-app` is the name of your new Angular app.  This command will create a new Angular app with a basic file structure and all the necessary dependencies installed.
 
-Navigate to the app directory by running the following command:
+Navigate to the app directory by running the following command:
 
 ```
 cd my-app
 
 ```
 
-Once you are in the app directory, you can start the development server by running the following command:
+Once you are in the app directory, you can start the development server by running the following command:
 
 ```
 ng serve
 
 ```
 
-This command will start the development server and launch your app in the default browser. You can access your app by navigating to `http://localhost:4200/`.
+This command will start the development server and launch your app in the default browser. You can access your app by navigating to `http://localhost:4200/`.
 
-<Frame caption="This command will start the development server and launch your app in the default browser. You can access your app by navigating to `http://localhost:4200/`.
+<Frame caption="This command will start the development server and launch your app in the default browser. You can access your app by navigating to `http://localhost:4200/`.
 "><img src="/images/angular.png" /> </Frame>
 
 # Install Novu Angular Notification Center Package
 
-The Novu Angular package provides a Angular component wrapper over the web component that you can use to integrate the notification center into your Angular application.
+The Novu Angular package provides a Angular component wrapper over the web component that you can use to integrate the notification center into your Angular application.
 
-Navigate to the root directory of your Angular application. Now install the Angular Notification Center package by running the following command in your terminal:
+Navigate to the root directory of your Angular application. Now install the Angular Notification Center package by running the following command in your terminal:
 
 ```
 npm install @novu/notification-center-angular
@@ -63,20 +63,20 @@ yarn add @novu/notification-center-angular
 
 # Configuring Application Environments
 
-Using the Angular CLI, start by running the [generate environments command](https://angular.io/cli/generate#environments-command)
+Using the Angular CLI, start by running the [generate environments command](https://angular.io/cli/generate#environments-command)
 
-shown here to create the `src/environments/`directory and configure the  project to use these files.
+shown here to create the `src/environments/`directory and configure the  project to use these files.
 
 ```
 ng generate environments
 
 ```
 
-Navigate to `my-app/src/environments/environment.ts`  and add the following variables: `subscriberId`, `applicationIdentifier`
+Navigate to `my-app/src/environments/environment.ts`  and add the following variables: `subscriberId`, `applicationIdentifier`
 
-**`Application Identifier`** can be found here:https://web.novu.co/settings
+**`Application Identifier`** can be found here:https://web.novu.co/settings
 
-**`subscriberId`** can be found here: https://web.novu.co/subscribers
+**`subscriberId`** can be found here: https://web.novu.co/subscribers
 
 ```tsx
 export const environment = {
@@ -87,16 +87,16 @@ export const environment = {
 
 ```
 
-Copy and paste the same code into `my-app/src/environments/environment.development.ts`
+Copy and paste the same code into `my-app/src/environments/environment.development.ts`
 
-These variables are needed for the `GET` request our notification center will make to Novu’s API to actually push notifications into the feed.
+These variables are needed for the `GET` request our notification center will make to Novu’s API to actually push notifications into the feed.
 
 # Adding Novu Module
 
-Now, navigate to the `app.module.ts` file `(my-app/src/app/app.module.ts)`
+Now, navigate to the `app.module.ts` file `(my-app/src/app/app.module.ts)`
 
-- Import `CUSTOM_ELEMENTS_SCHEMA` from `'@angular/core'`
-- Add Novu’s notification center module
+- Import `CUSTOM_ELEMENTS_SCHEMA` from `'@angular/core'`
+- Add Novu’s notification center module
 
 ```jsx
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -115,13 +115,13 @@ export class AppModule {}
 
 ```
 
-Head to `my-app/src/app/app.component.ts` file.
+Head to `my-app/src/app/app.component.ts` file.
 
-⚠️ The `app.component.ts` file is a critical part of an Angular application, as it  defines the root component and provides the foundation for the rest of  the app's functionality.
+⚠️ The `app.component.ts` file is a critical part of an Angular application, as it  defines the root component and provides the foundation for the rest of  the app's functionality.
 
-Now, we are going to import the `environment` variables to make them accessible in the `app.component.html` and the `styles` properties of our notification center
+Now, we are going to import the `environment` variables to make them accessible in the `app.component.html` and the `styles` properties of our notification center
 
-(there are many properties, but you can discover them later on)
+(there are many properties, but you can discover them later on)
 
 ```tsx
 import { Component } from '@angular/core';
@@ -186,13 +186,13 @@ export class AppComponent {
 
 ```
 
-The Angular component is generated as a wrapper around the original React component.  This approach is clever, as it allows Novu's engineers to focus on creating and developing things in the React way.
+The Angular component is generated as a wrapper around the original React component.  This approach is clever, as it allows Novu's engineers to focus on creating and developing things in the React way.
 
-Additionally, many other frameworks can still use the created components using the wrapping approach.
+Additionally, many other frameworks can still use the created components using the wrapping approach.
 
-We need to add `@types/react`as dev dependency for the angular component to work properly.
+We need to add `@types/react` as dev dependency for the angular component to work properly.
 
-Open your terminal and navigate to the app root directory and type the following:
+Open your terminal and navigate to the app root directory and type the following:
 
 ```
 npm i [@types/react](https://github.com/types/react)
@@ -203,9 +203,9 @@ yarn add [@types/react](https://github.com/types/react)
 
 ```
 
-Now head to the `my-app/tsconfig.json` file.
+Now head to the `my-app/tsconfig.json` file.
 
-And we’re going to add `"allowSyntheticDefaultImports": true` to the `compilerOptions` array.
+And we’re going to add `"allowSyntheticDefaultImports": true` to the `compilerOptions` array.
 
 ```json
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
@@ -244,13 +244,13 @@ And we’re going to add `"allowSyntheticDefaultImports": true` to the 
 
 # Use & Display The Notification Center Component
 
-Open the `my-app/src/app/app.component.html` file.
+Open the `my-app/src/app/app.component.html` file.
 
-This file contain the CSS code along with the HTML one - ideally you should separate the CSS to the `my-app/src/app/app.component.css` file, but it’s not mandatory.
+This file contain the CSS code along with the HTML one - ideally you should separate the CSS to the `my-app/src/app/app.component.css` file, but it’s not mandatory.
 
-We will add our notification center to the .toolbar div.
+We will add our notification center to the .toolbar div.
 
-Paste the following into your `app.component.html` file:
+Paste the following into your `app.component.html` file:
 
 ```jsx
 <div id="bell-icon">
@@ -264,7 +264,7 @@ Paste the following into your `app.component.html` file:
 
 ```
 
-And in the `<style>` tag, we also want to add some margin to our `#bell-icon`so that it looks good next to the other icons.
+And in the `<style>` tag, we also want to add some margin to our `#bell-icon` so that it looks good next to the other icons.
 
 ```css
 .toolbar #bell-icon {
@@ -276,7 +276,7 @@ And in the `<style>` tag, we also want to add some margin to our `
 
 Run your app again. Now you should see the bell icon (the notification center) in the toolbar section of your app.
 
-You should now see a **bell button** that opens the notification center when clicked. This bell can be customized to your preference.
+You should now see a **bell button** that opens the notification center when clicked. This bell can be customized to your preference.
 
 <Frame caption=""><img src="/images/bell-angular.png" /> </Frame>
 
@@ -305,31 +305,31 @@ The workflow includes the following:
 
 Please proceed to create a workflow.
 
-1. Click **Workflows** on the left sidebar of your Novu dashboard.
-2. Click the **“Create Workflow”** button on the top right.
+1. Click **Workflows** on the left sidebar of your Novu dashboard.
+2. Click the **“Create Workflow”** button on the top right.
 3. The name of the new workflow is currently "Untitled." Rename it to a more suitable title.
-4. Select **"In-App"** as the channel you want to add.
+4. Select **"In-App"** as the channel you want to add.
 <Frame caption="Select the in-app channel"><img src="/images/in-app-vue.png" /> </Frame>
-5. Click on the recently added In-App channel and configure it according to your preferences. Once you’re done, click Update to save your configuration.
+5. Click on the recently added In-App channel and configure it according to your preferences. Once you’re done, click Update to save your configuration.
 <Frame caption="Configure it as per your requirements and then save it"><img src="/images/configure-in-app-vue.png" /> </Frame>
 I’ll briefly explain the function of each label in the image above.
 
 - **1-Preview**: Shows you a glimpse of how each notification item will look like in the Notification Center UI.
-- **2-Avatar:** If turned on, each notification item will show the avatar of the subscriber.
-- **3-Action:** With this, you can add a primary and secondary call to action button to each notification item.
-- **4-Notification Feeds:** This displays a stream of specific notifications. You can have multiple feeds to show specific notifications in multiple tabs.
-- **5-Redirect URL** - This is the URL to which a subscriber can be directed when they click on a notification item.
-- **6-Filter** - This feature allows you to configure the criteria for delivering notifications. For instance, you can apply a filter based on a subscriber's online status to send them an email if they were online within the last hour. Read [more about filters](https://docs.novu.co/platform/step-filter/#subscriber-seen--read-filters).
+- **2-Avatar:** If turned on, each notification item will show the avatar of the subscriber.
+- **3-Action:** With this, you can add a primary and secondary call to action button to each notification item.
+- **4-Notification Feeds:** This displays a stream of specific notifications. You can have multiple feeds to show specific notifications in multiple tabs.
+- **5-Redirect URL** - This is the URL to which a subscriber can be directed when they click on a notification item.
+- **6-Filter** - This feature allows you to configure the criteria for delivering notifications. For instance, you can apply a filter based on a subscriber's online status to send them an email if they were online within the last hour. Read [more about filters](https://docs.novu.co/platform/step-filter/#subscriber-seen--read-filters).
 
-Feel free to add only text for now and rename the workflow to `Onboarding In App`. It automatically creates a slug-like Identifier that will be needed in later steps to trigger a notification.
+Feel free to add only text for now and rename the workflow to `Onboarding In App`. It automatically creates a slug-like Identifier that will be needed in later steps to trigger a notification.
 <Frame caption="Configure it as shown in this image"><img src="/images/configuration-vue.png" /> </Frame>
 <Frame caption="Rename the workflow as shown here"><img src="/images/rename-vue.png" /> </Frame>
 
-Next, we’ll learn how to create subscribers on Novu - *Recipients of Notifications*
+Next, we’ll learn how to create subscribers on Novu - *Recipients of Notifications*
 
 ## Create A Subscriber
 
-Click **Subscribers** on the left sidebar of the [Novu dashboard](https://web.novu.co/subscribers) to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
+Click **Subscribers** on the left sidebar of the [Novu dashboard](https://web.novu.co/subscribers) to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
 <Frame caption="Subscribers from the left sidebar shows all the subscriber"><img src="/images/sub-nodejs.png" /> </Frame>
 
 Now, let's create a subscriber on Novu.
@@ -349,7 +349,7 @@ await novu.subscribers.identify('123', {
 
 ```
 
-Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `YOUR_NOVU_API_KEY_HERE` with it.
+Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `YOUR_NOVU_API_KEY_HERE` with it.
 
 Now check your Novu dashboard. You should see the recently created subscriber.
 
@@ -384,9 +384,9 @@ await novu.trigger('onboarding-in-app', {
 
 ```
 
-`onboarding-in-app` is the workflow identifier we created earlier.
+`onboarding-in-app` is the workflow identifier we created earlier.
 
-Ensure the `subscriberId` value in the backend code that triggers the notification matches the `subscriberId` in your `my-app/src/environments/environment.ts` code.
+Ensure the `subscriberId` value in the backend code that triggers the notification matches the `subscriberId` in your `my-app/src/environments/environment.ts` code.
 
 ```jsx
 export const environment = {
