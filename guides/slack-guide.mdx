@@ -7,7 +7,7 @@ icon: 'circle-4'
 # Introduction
 
 In this guide, you'll learn how to use Novu to send notifications directly to a Slack channel. But before coding anything up, we first need to go through a setup process. 
-You can find the corresponding docs for the setup [here](https://docs.novu.co/channels-and-providers/chat/slack).
+The corresponding docs for this guide are available on our [docs](https://docs.novu.co/channels-and-providers/chat/slack).
 <Note>The entire code of this app (frontend as well as backend) can be found [here](https://github.com/novuhq/slack-app).</Note>
 
 So let's begin!
@@ -45,7 +45,6 @@ npm install @novu/node
 ```
 Now, create a route that you'll hit when called from the front end. We'll also need to add it to our Slack app (discussed below). For our demo app, this is the route I've created:
 ```jsx
-// const express = require("express");
 import express from "express";
 import { chatController } from "../controller/chat.js";
 
@@ -65,7 +64,6 @@ export const chatController = async (req, res) => {
         await chat(chatMsg);
         res.status(201).json({ message: "Message sent successfully" });
     } catch (error) {
-        console.log("notifController error:", error);
         res.status(500).json({ message: error.message })
     }
 }
@@ -94,16 +92,16 @@ export const chat = async (chatMsg) => {
 ```
 In this code snippet above, we're first initializing a new instance of Novu, then using it to 'identify' or [create](https://docs.novu.co/subscribers/subscribers#create-a-subscriber) a [subscriber](https://docs.novu.co/subscribers/subscribers). 
 <Info>The 'identify' method tries to find a subscriber with the given info. If it can't find any such subscriber, it creates a new subscriber with the supplied info.</Info>
-After having created the subscriber, it runs the trigger code for the workflow we had created. You can find the trigger workflow by clicking on the 'Get Snippet' button on the workflow:
+After creating the subscriber, it runs the trigger code for the workflow we had created. You can find the trigger workflow by clicking on the 'Get Snippet' button on the workflow:
 <Frame caption="Click the 'Get Snippet' button to get trigger code"><img src="/images/guides/slack-guide/trigger.png" /> </Frame>
 <Frame caption="Paste this trigger code in your backend"><img src="/images/guides/slack-guide/trigger-code.png" /> </Frame>
 
 # Configure the Slack app
 
-After having created the Slack app and the backend, there are two ways to configure the Slack app. One is the Novu managed option and the other is the manually managed option. 
+There are two ways to configure the Slack app. One is the Novu managed option and another the manually managed option. 
 Since the Novu managed is fairly straightforward, I'll demonstrate the manual method here. Follow along to set it up!
 
-1. Goto 'Incoming Webhooks' in your app settings and turn it on.
+1. Goto 'Incoming Webhooks' in your Slack app settings and turn it on.
 <Frame caption="Turn on 'Incoming Webhooks' in your Slack app"><img src="/images/guides/slack-guide/on.png" /> </Frame>
 2. Click on the 'Add New Webhook to Workspace':
 <Frame caption="Click the 'Add New Webhook to Workspace' button"><img src="/images/guides/slack-guide/add.png" /> </Frame>
@@ -111,7 +109,14 @@ Since the Novu managed is fairly straightforward, I'll demonstrate the manual me
 <Frame caption="Select the channel"><img src="/images/guides/slack-guide/install.png" /> </Frame>
 4. Then, copy the 'webhookUrl' from Slack.
 <Frame caption="Copy the webhookUrl from Slack"><img src="/images/guides/slack-guide/hook.png" /> </Frame>
-5. Now, add this code to the backend trigger code. In our case, we'll add it to the `Novu.js` file we'd created earlier so that the final file becomes:
+5. Now, add the code below to the backend trigger functionality. Using this code, we are specifying what `webhookUrl` Novu will use to authenticate when using the Slack provider. 
+```jsx
+await novu.subscribers.setCredentials(process.env.SUB_ID, ChatProviderIdEnum.Slack, {
+        webhookUrl: process.env.SLACK_WEBHOOK_URL,
+    });
+```
+
+In our case, we'll add it to the `Novu.js` file we created earlier so that the final file becomes :
 ```jsx
 import { Novu, ChatProviderIdEnum } from '@novu/node';
 
@@ -135,14 +140,14 @@ export const chat = async (chatMsg) => {
     });
 }
 ```
-6. Finally, using the route we created earlier, add the API endpoint to the redirect URL section, as shown:
+6. Finally, we'll add the route we'd created earlier to the redirect URL section, as shown:
 <Frame caption="Add your endpoint to the redirect URL section on Slack"><img src="/images/guides/slack-guide/redirect.png" /> </Frame>
 <Info>For demonstration purposes, I've added both the local as well as the deployed URL. You only need one depending on whether you're running this locally or have a deployed version.</Info>
 Now, our backend is all done, our Slack is all setup and all we need to do is hit the URL
 
 # Front end set up:
 
-For our demonstration purposes, the front end is pretty basic. All we have to do is have an input field to take the notification text in and then send the payload. You can see the code for it [here](https://github.com/novuhq/slack-app/tree/main/frontend). 
+For our demonstration purposes, the front end is pretty basic. All we have to do is have an input field to take the notification text in and send the payload. The front end code for this demo app is available on our [Github repo](https://github.com/novuhq/slack-app/tree/main/frontend). 
 And here's our app in all its glory!
 
 <Frame caption="Our app in action!"><img src="/images/guides/slack-guide/output.gif" /> </Frame>
