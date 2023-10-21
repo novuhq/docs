@@ -8,12 +8,12 @@ icon: 'circle-5'
 
 In this guide, you'll learn how to use Novu to send notifications to any channel in a Discord server. But before coding anything up, we just need to go over a couple of setup steps.
 The corresponding docs for this guide are available on our [docs](https://docs.novu.co/channels-and-providers/chat/discord).
-<Note>The entire code for this app are is available on our Github.</Note>
+<Note>The entire code for this app is available on our Github.</Note>
 
 So let's begin!
 
 # Set up Discord
-Setting up Discord is failry straightforward. You just need the webhookUrl. It is pretty simple and can be done in the following easy steps:
+Setting up Discord is fairly straightforward. You just need the webhookUrl. It is pretty simple and can be done in the following easy steps:
 1. Go to the channel you want to add the webhook to (you need to be an admin of the discord server).
 <Frame caption="Go to the channel on Discord"><img src="/images/discord-guide/channel.png" /> </Frame>
 2. Right-click the channel and select “Edit Channel”.
@@ -27,7 +27,7 @@ Setting up Discord is failry straightforward. You just need the webhookUrl. It i
 In this part, we'll be setting up a workflow that will be triggered when we send a notification. Workflows are like blueprints and hold the entire flow of notifications. You can read more about them on our [docs](). To set up a notification workflow for our app, follow these steps:
 1. Make sure that you've set the Discord Integration as active from the [Novu Integrations Store](https://web.novu.co/integrations).
 <Frame caption="Make sure Discord Integration is active"><img src="/images/discord-guide/active.png" /> </Frame>
-2.Goto the [Novu Web Dashboard](https://web.novu.co/workflows).
+2. Goto the [Novu Web Dashboard](https://web.novu.co/workflows).
 3. Click on the 'Add a workflow' button and select 'Blank workflow' from the dropdown.
 <Frame caption="Create a workflow from the Novu Web Dashboard"><img src="/images/guides/slack-guide/workflow.png" /> </Frame>
 4. Once there, give your workflow a name and drag and drop the 'chat' option below the 'workflow trigger' step.
@@ -35,7 +35,7 @@ In this part, we'll be setting up a workflow that will be triggered when we send
 5. You can also add variables in the Workflow Editor. For example, here I've added 'chatMsg' as a variable as I'll be sending data using it.
 <Frame caption="Configure the step as per your liking"><img src="/images/discord-guide/chat.png" /> </Frame>
 <Info>Whatever is placed inside double braces is a variable.</Info>
-6. Click the 'Get Snippet' button and copy the trigger code and keep it somewhere. We'll need this to trigger this workflow.
+6. Click the 'Get Snippet' button, copy the trigger code and keep it somewhere. We'll need this to trigger this workflow.
 <Frame caption="Copy the trigger code"><img src="/images/discord-guide/snippet.png" /> </Frame>
 Now, we've completed all the setup required and can move to coding!
 
@@ -146,7 +146,7 @@ In this code snippet above, we're first initializing a new instance of Novu, the
 After creating the subscriber, it runs the trigger code for the workflow we had created.
 
 # Front end set up
-For our demonstration purposes, the front end is pretty basic. All we have to do is have an input field to take the notification text in and send the payload. The front end code for this demo app is available on our [Github repo](). 
+For our demonstration purposes, the front-end is pretty basic. All we have to do is have an input field to take the notification text in and send the payload. The front-end code for this demo app is available on our [Github repo](). 
 And here's our app in all its glory!
 
 <Frame caption="Our app in action!"><img src="/images/discord-guide/outputt.gif" /> </Frame>
