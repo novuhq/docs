@@ -161,7 +161,7 @@ A workflow can be triggered to a single subscriber and an array of subscribers. 
 ```typescript
 const topicKey = 'posts:comment:12345';
 
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIERENTIFIER>', {
   to: [{ type: 'Topic', topicKey: topicKey }],
   payload: {},
 });
@@ -174,7 +174,7 @@ Workflow can be triggered to multiple subscribers by using an array of topics.
 ```typescript
 const topicKey = '<TOPIC-KEY-DEFINED-BY-THE-USER>';
 
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIERENTIFIER>', {
   to: [
     { type: 'Topic', topicKey: topicKey },
     { type: 'Topic', topicKey: 'Another Topic Key' },
@@ -190,7 +190,7 @@ To exclude the actor responsible for the action of a triggered topic event, you 
 ```typescript
 const topicKey = 'posts:comment:12345';
 
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIERENTIFIER>', {
   to: [{ type: 'Topic', topicKey: topicKey }],
   payload: {},
   actor: { subscriberId: '<SUBSCRIBER_ID_OF_ACTOR>' },
