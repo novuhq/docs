@@ -23,7 +23,7 @@ composer require novu/novu-laravel
 use Novu\Laravel\Facades\Novu;
 
 $response = Novu::triggerEvent([
-    'name' => '<WORKFLOW_TRIGGER_ID_FROM_DASHBOARD>',
+    'name' => '<WORKFLOW_TRIGGER_IDENTIFIER_FROM_DASHBOARD>',
     'payload' => ['customVariables' => 'Hello'],
     'to' => [
         'subscriberId' => '<SUBSCRIBER_ID_FROM_DASHBOARD>',
@@ -33,7 +33,7 @@ $response = Novu::triggerEvent([
 
 // or you can use the novu() helper function like so:
 novu()->triggerEvent([
-    'name' => '<WORKFLOW_TRIGGER_ID_FROM_DASHBOARD>',
+    'name' => '<WORKFLOW_TRIGGER_IDENTIFIER_FROM_DASHBOARD>',
     'payload' => ['customVariables' => 'Hello'],
     'to' => [
         'subscriberId' => '<SUBSCRIBER_ID_FROM_DASHBOARD>',
