@@ -61,3 +61,5 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
 Within this code snippet, the variables `username` and `resetLink` are representative of data payload variables. 
 
 Importantly, it's worth noting that the payload itself can encompass any serializable JSON object.
+
+<Info>Avoid use of system reserved variables as normal variables. For example don't use `email` as variable name because `{{subscriber.email}}` is a system reserved variable</Info>
