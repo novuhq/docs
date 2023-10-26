@@ -1,0 +1,32 @@
+---
+title: "Introduction to Novu"
+description: "Overview of Novu's Architecture"
+---
+Novu is an open-source notification infrastructure designed to provide a robust, efficient, and flexible solution for managing notifications across various platforms.
+The architecture of Novu is meticulously crafted to ensure accurate delivery of notifications while maintaining high performance and scalability.
+
+Our systems are hosted on Amazon Web Services (AWS), ensuring a reliable and secure environment for our infrastructure.
+We adhere to several industry-standard compliance certifications including SOC II, PCI, and GDPR which underline our commitment to security and data privacy.
+
+## Framework Leveraged
+
+- Nestjs: A progressive Node.js framework that is used for building efficient, reliable, and scalable server-side applications. Nestjs provides a high-level abstraction with a lot of out-of-the-box features, making it a perfect choice for building modular and maintainable applications.
+- Mongoose: An elegant Object Document Mapper (ODM) for MongoDB, which simplifies the interaction with the database by providing a straightforward modeling of the application data. Mongoose’s features like schema validation, query building, and middleware support immensely help in building robust applications.
+- BullMQ: A robust, fast, and reliable queue library for handling distributed jobs and messages in Node.js. It is instrumental in managing the processing of notification jobs ensuring they are handled in an efficient and reliable manner.
+
+## Databases
+
+- MongoDB: A NoSQL database that provides high performance, high availability, and easy scalability. It works on a document-oriented data model, which is extremely flexible and allows for varied, complex data structures to be stored and manipulated with ease.
+- Redis: An in-memory data structure store, used as a database, cache, and message broker. It's exceptionally fast and provides support for various data structures like strings, hashes, lists, sets, etc. It's utilized in Novu for caching and as a reliable message broker for managing queues and real-time data processing.
+
+## Scalability & Performance
+
+The architecture of Novu is designed to scale horizontally to handle a growing number of notification requests. The use of microservices, container orchestration with Kubernetes, and leveraging AWS’s auto-scaling capabilities, ensure that the system can handle high loads while maintaining low latency and high throughput.
+
+## Monitoring & Observability
+
+Monitoring and observability are crucial for ensuring the reliable operation of Novu. Utilizing tools like Prometheus and Grafana, we've built a comprehensive monitoring and alerting system that provides real-time insights into the system’s performance and health.
+
+## Security
+
+Security is a paramount concern in Novu’s architecture. By adhering to industry-standard security practices and compliance certifications, we ensure that the data flowing through Novu is handled securely and in compliance with regulatory requirements.
