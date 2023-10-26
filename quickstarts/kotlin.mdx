@@ -8,7 +8,7 @@ Learn how to integrate Novu into your Kotlin project on the fly and send notific
 
 Let's get started! 💪
 
-# Requirements
+## Requirements
 
 To be able to use this Quickstart, you would need to have the following:
 
@@ -17,7 +17,7 @@ To be able to use this Quickstart, you would need to have the following:
 
 The completed code for this quick start is available on GitHub. Check it out [here](https://github.com/novuhq/novu-kotlin-quickstart).
 
-# Install and Set up the Novu Kotlin SDK in your project
+## Install and Set up the Novu Kotlin SDK in your project
 
 First, you need to import the library into your application. 
 
@@ -62,7 +62,7 @@ val novu = Novu(apiKey = "API_KEY", config = novuConfig)
 
 Once that is done successfully, head over to the [web portal](https://web.novu.co/) for the next steps.
 
-# Set up a Channel Provider
+## Set up a Channel Provider
 
 A channel provider is a service that provides one or more notification functionality such as sending an email, SMS, push notification, etc. Our [integration store](https://web.novu.co/integrations) includes four channels: Email, SMS, Chat, and Push. These channels have multiple providers associated with them.
 
@@ -75,7 +75,7 @@ A channel provider is a service that provides one or more notification functiona
 
 Only one provider can be **active** per **channel**. Connect any of your favourite providers to get started. The email channel comes with Novu's email provider, which is active by default and includes 300 credits.
 
-# Create a Workflow
+## Create a Workflow
 
 A workflow is a blueprint for the notifications that will be sent. It holds the entire flow of messages sent to the subscriber. This is where all the different channels are tied together under a single entity.
 
@@ -212,7 +212,7 @@ The topic key should be unique and can't be changed once chosen. Novu also cater
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
-### Create a Topic
+## Create a Topic
 
 Copy and paste the following code into your app to create a topic:
 
@@ -235,7 +235,7 @@ Before running the code, make sure you understand the following:
 - When creating a `key`, ensure it is unique and accurately identifies the topic. Document naming conventions and communicate them to team members to avoid confusion and ensure a smooth workflow.
 - The value of `name` should be a descriptive topic name.
 
-### Add subscribers to a Topic
+## Add subscribers to a Topic
 
 Copy and paste the following code into your app to add subscribers a topic:
 
@@ -265,7 +265,7 @@ suspend fun removeSubscriberFromTopic(): Any? {
 
 ```
 
-### Sending a Notification to a Topic
+## Sending a Notification to a Topic
 
 Thanks to the topics feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps avoid listing all subscriber identifiers in the `to` field of the notification trigger.
 
@@ -291,7 +291,7 @@ suspend fun triggerNotificationToTopic(): Any? {
     }
 ```
 
-# Conclusion
+## Conclusion
 
 Great job! 👏 
 If you've reached this point, you should have successfully created a subscriber, workflow, configured a channel provider, triggered a single notification, created a topic, and added a subscriber to a topic in your application.

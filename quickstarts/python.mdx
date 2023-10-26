@@ -13,7 +13,7 @@ Before diving into the Quickstart, make sure you have the following:
 - Python3 installed on your development machine.
 - A Novu account. If you don't have one, sign up for free at [web.novu.co](https://web.novu.co)
 
-### Install and Set Up Novu in your Python Project
+## Install and Set Up Novu in your Python Project
 
 First, you must install the Novu package in your Python project. From your terminal, you can install the Novu package in your project by running either of the following two commands:
 
@@ -112,14 +112,14 @@ Click “Subscribers” on the left sidebar of the Novu dashboard to see all sub
 Now, let's create a subscriber on Novu. Copy and paste the following code to do so:
 
 ```python
-# Create a subscriber
+## Create a subscriber
 
 from novu.api.subscriber import SubscriberApi
 from novu.dto.subscriber import SubscriberDto
 
 your_subscriber_id = "123" # Replace this with a unique user ID.
 
-# Define a subscriber instance
+## Define a subscriber instance
 subscriber = SubscriberDto(
    subscriber_id=your_subscriber_id,
    email="abc@gmail.com",
@@ -143,7 +143,7 @@ You should see a new subscriber (that you created above) on your Novu dashboard.
 To update the Subscriber details you can call the put method from SubcriberApi. Here is an example:
 
 ```python
-# Update subscriber detail
+## Update subscriber detail
 
 from novu.api.subscriber import SubscriberApi
 from novu.dto.subscriber import SubscriberDto
@@ -203,14 +203,14 @@ A topic is identified by a custom key and this key will be the identifier used w
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
-### Create a Topic
+## Create a Topic
 
 Copy and paste the following code into your app to create a topic:
 
 ```python
 from novu.api import TopicApi
 
-# Create a topic
+## Create a topic
 TopicApi().create(
     key="new-customers", name="New business customers"
 )
@@ -221,14 +221,14 @@ Before running the code, make sure you understand the following:
 - When creating a `key`, ensure it is unique and accurately identifies the topic. Document naming conventions and communicate them to team members to avoid confusion and ensure a smooth workflow.
 - The value of `name` should be a descriptive topic name.
 
-### Add subscribers to a Topic
+## Add subscribers to a Topic
 
 Copy and paste the following code into your app to add subscribers a topic:
 
 ```python
 from novu.api import TopicApi
 
-# Add a list of subscribers to a topic
+## Add a list of subscribers to a topic
 TopicApi().subscribe(key="new-customers", subscribers="<LIST_OF_SUBSCRIBER_IDs>")
 ```
 
@@ -237,11 +237,11 @@ On the other hand, if you want to remove subscribers from a topic, do the follow
 ```python
 from novu.api import TopicApi
 
-# Unsubscribe a list of subscribers from a topic
+## Unsubscribe a list of subscribers from a topic
 TopicApi().unsubscribe(key="new-customers", subscribers="<LIST_OF_SUBSCRIBER_IDs>")
 ```
 
-### Sending a notification to a Topic
+## Sending a notification to a Topic
 
 Thanks to the topics feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps avoid listing all subscriber identifiers.
 

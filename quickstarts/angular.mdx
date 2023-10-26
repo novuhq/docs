@@ -6,7 +6,7 @@ icon: 'angular'
 
 Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications and integrate a rich, customizable and ready-to-use real-time UI In-App notification center in Angular apps.
 
-# Requirements
+## Requirements
 
 To follow the steps in this quickstart, you'll need:
 
@@ -16,7 +16,7 @@ To follow the steps in this quickstart, you'll need:
 
 You can also [view the completed code](https://github.com/novuhq/angular-quickstart) of this quick start in a GitHub repo.
 
-# Create a new Angular app
+## Create a new Angular app
 
 To create a new Angular app, open a terminal or command prompt and  run the following command:
 
@@ -46,7 +46,7 @@ This command will start the development server and launch your app in the defaul
 <Frame caption="This command will start the development server and launch your app in the default browser. You can access your app by navigating to `http://localhost:4200/`.
 "><img src="/images/angular.png" /> </Frame>
 
-# Install Novu Angular Notification Center Package
+## Install Novu Angular Notification Center Package
 
 The Novu Angular package provides a Angular component wrapper over the web component that you can use to integrate the notification center into your Angular application.
 
@@ -61,7 +61,7 @@ yarn add @novu/notification-center-angular
 
 ```
 
-# Configuring Application Environments
+## Configuring Application Environments
 
 Using the Angular CLI, start by running the [generate environments command](https://angular.io/cli/generate#environments-command)
 
@@ -91,7 +91,7 @@ Copy and paste the same code into `my-app/src/environments/environment.developme
 
 These variables are needed for the `GET` request our notification center will make to Novu’s API to actually push notifications into the feed.
 
-# Adding Novu Module
+## Adding Novu Module
 
 Now, navigate to the `app.module.ts` file `(my-app/src/app/app.module.ts)`
 
@@ -242,7 +242,7 @@ And we’re going to add `"allowSyntheticDefaultImports": true` to the `compiler
 
 ```
 
-# Use & Display The Notification Center Component
+## Use & Display The Notification Center Component
 
 Open the `my-app/src/app/app.component.html` file.
 
@@ -284,7 +284,7 @@ You should now see a **bell button** that opens the notification center when cli
 
 Note: There are no notifications because none has been triggered yet. When notifications are sent to a subscriber, it will show up in the UI. Next, we'll learn how to trigger notifications.
 
-# Create A Workflow
+## Create A Workflow
 
 The first step to trigger notifications is to create a workflow. A workflow is like a map that holds the entire flow of messages sent to the subscriber.
 
@@ -367,7 +367,7 @@ await novu.subscribers.update('123', {
 
 ```
 
-# Trigger A Notification
+## Trigger A Notification
 
 To trigger a notification, simply run the code below with the correct credentials.
 
@@ -399,6 +399,6 @@ export const environment = {
 
 Check your app again. You should see the recently triggered notification!
 
-# Conclusion
+## Conclusion
 
 Great job! If you've reached this point, you should now have successfully set up the notification center, created a subscriber, a workflow, configured a channel provider and triggered a notification in your Angular application.
