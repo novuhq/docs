@@ -1,0 +1,24 @@
+
+Novu supports retrying and concurrent requests for `POST` and `PATCH` APIs, ensuring the safety and reliability of your requests, particularly in scenarios where network issues or communication problems can introduce uncertainty into request outcomes.
+
+## Performing an Idempotent Request
+
+To make an idempotent request, include the `Idempotency-Key: <key>` header in your request. The idempotency key should be a unique client-generated value with sufficient entropy to prevent collisions. We recommend using V4 UUIDs as your idempotency keys.
+
+## Response Replay
+
+When you make idempotent requests, the API stores the status code and response body from the initial request. If the same idempotency key is used in another request, the API replays the saved response, even for error responses like 400 and 500 errors.
+
+When a response is replayed, an `Idempotent-Replay: true` header is included in the response.
+
+## Validation for Idempotent Requests
+
+Idempotent requests are subject to the following validations:
+
+1. If the `<key>` exceeds 255 characters, the API will respond with a `Bad Request` error.
+2. If the request parameters do not match the initial request, the API returns an `Unprocessable Entity` error.
+3. If the initial request is still being processed concurrently and hasn't yet responded, the API returns a `Conflict` error along with a `Retry-After` header.
+
+## Key Expiration
+
+Idempotency keys are automatically removed if they are at least 24 hours old. After this period, you can reuse a key, and it will be processed as an initial request and response.
