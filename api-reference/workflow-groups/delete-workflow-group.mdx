@@ -5,6 +5,12 @@ openapi: delete /v1/notification-groups/{id}
 <Snippet file="apikey-warning.mdx" />
 
 <RequestExample>
+```bash cURL
+curl --request DELETE \
+--url https://api.novu.co/v1/notification-groups/{id} \
+--header 'Authorization: ApiKey <NOVU_API_KEY>'
+```
+
 ```javascript Node.js
 import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
 
