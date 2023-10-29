@@ -5,6 +5,14 @@ openapi: patch /v1/notification-groups/{id}
 <Snippet file="apikey-warning.mdx" />
 
 <RequestExample>
+```bash cURL
+curl --request PATCH \
+--url https://api.novu.co/v1/notification-groups/{id} \
+--header 'Authorization: ApiKey <NOVU_API_KEY>' \
+--header 'Content-Type: application/json' \
+--data '{"name": "insert-new-name"}'
+```
+
 ```javascript Node.js
 import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
 
