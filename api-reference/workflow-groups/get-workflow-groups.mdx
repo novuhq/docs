@@ -5,6 +5,12 @@ openapi: get /v1/notification-groups
 <Snippet file="apikey-warning.mdx" />
 
 <RequestExample>
+```bash cURL
+curl --request GET \
+--url https://api.novu.co/v1/notification-groups \
+--header 'Authorization: ApiKey <NOVU_API_KEY>' \
+```
+
 ```javascript Node.js
 import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
 
