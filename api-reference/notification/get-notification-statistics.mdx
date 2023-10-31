@@ -3,3 +3,17 @@ openapi: get /v1/notifications/stats
 ---
 
 <Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+
+```python Python
+from novu.api import NotificationApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+notificationApi = NotificationApi(url, api_key)
+
+notification_stats = notificationApi.stats()
+```
+</RequestExample>
