@@ -151,19 +151,20 @@ public class Main {
 
         Novu novu = new Novu(apiKey);
 
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("customVariables", "Hello");
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest.setFirstName("<FIRST_NAME>");
+        subscriberRequest.setLastName("<LAST_NAME>");
+        subscriberRequest.setPhone("<PHONE_NUMBER>");
+        subscriberRequest.setAvatar("<AVATAR>");
+        subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
 
-        Map<String, Object> to = new HashMap<>();
-        to.put("subscriberId", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        to.put("phone", "07983882186");
-
-        Map<String, Object> event = new HashMap<>();
-        event.put("name", "<WORKFLOW_TRIGGER_ID>");
-        event.put("payload", payload);
-        event.put("to", to);
+        TriggerEventRequest triggerEventRequest = new TriggerEventRequest();
+        triggerEventRequest.setName("<NAME>");
+        triggerEventRequest.setTo(subscriberRequest);
+        triggerEventRequest.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE"));
         
-        novu.triggerEvent(event);
+        novu.triggerEvent(triggerEventRequest);
     }
 }
 
