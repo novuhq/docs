@@ -51,6 +51,17 @@ public class Main {
 }
 ```
 
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.currentEnvironment
+
+fun main() {
+    val novu = Novu(apiKey = "API_KEY")
+    val currentEnvironment = novu.currentEnvironment()
+    println(currentEnvironment)
+}
+```
+
 </RequestExample>
 
 <ResponseExample>

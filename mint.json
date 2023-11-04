@@ -216,9 +216,7 @@
         "channels-and-providers/default-providers",
         {
           "group": "In-App",
-          "pages": [
-            "channels-and-providers/in-app/introduction"
-          ]
+          "pages": ["channels-and-providers/in-app/introduction"]
         },
         {
           "group": "Email",
@@ -258,7 +256,6 @@
             "channels-and-providers/sms/firetext",
             "channels-and-providers/sms/gupshup",
             "channels-and-providers/sms/clickatell"
-
           ]
         },
         {
@@ -269,7 +266,8 @@
             "channels-and-providers/push/apns",
             "channels-and-providers/push/expo-push",
             "channels-and-providers/push/onesignal",
-            "channels-and-providers/push/push-webhook"
+            "channels-and-providers/push/push-webhook",
+            "channels-and-providers/push/pusher-beams"
           ]
         },
         {
@@ -277,7 +275,8 @@
           "pages": [
             "channels-and-providers/chat/discord",
             "channels-and-providers/chat/slack",
-            "channels-and-providers/chat/ms-teams"
+            "channels-and-providers/chat/ms-teams",
+            "channels-and-providers/chat/zulip"
           ]
         }
       ]
@@ -287,9 +286,8 @@
       "pages": [
         "self-hosting-novu/introduction",
         "self-hosting-novu/deploy-with-docker",
-        "self-hosting-novu/s3",
-        "self-hosting-novu/kubernetes",
-        "self-hosting-novu/commerical-self-host"
+        "self-hosting-novu/object-storage",
+        "self-hosting-novu/kubernetes"
       ]
     },
     {
@@ -297,8 +295,7 @@
       "pages": [
         "guides/add-digest-to-inapp-notifications",
         "guides/add-digest-to-email-notifications",
-        "guides/headless-notification-center-guide",
-        "guides/slack-guide"
+        "guides/headless-notification-center-guide"
       ]
     },
     {
@@ -311,7 +308,13 @@
         "community/introduction",
         "community/changelog",
         "community/roadmap",
-        "community/machine-setup",
+        {
+          "group": "Machine setup",
+          "pages": [
+            "community/machine-setup",
+            "community/windows-machine-setup"
+          ]
+        },
         "community/run-in-local-machine",
         "community/monorepo-structure",
         "community/add-a-new-provider"
@@ -377,6 +380,7 @@
       "group": "Additional Resources",
       "pages": [
         "additional-resources/rate-limits",
+        "additional-resources/idempotency",
         "additional-resources/glossary"
       ]
     },
@@ -574,8 +578,5 @@
   "integrations": {
     "intercom": "fqe0apnx"
   },
-  "versions": [
-    "v0.19.0",
-    "v0.18.0"
-  ]
+  "versions": ["v0.19.0", "v0.18.0"]
 }
