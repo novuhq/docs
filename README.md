@@ -26,7 +26,7 @@ The ultimate service for managing multi-channel notifications with a single API.
     ·
     <a href="https://roadmap.novu.co">Roadmap</a>
     ·
-    <a href="https://twitter.com/novuhq">Twitter</a>
+    <a href="https://twitter.com/novuhq">X</a>
     ·
     <a href="https://notifications.directory">Notifications Directory</a>
   </p>
