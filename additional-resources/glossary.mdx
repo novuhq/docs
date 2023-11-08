@@ -1,6 +1,5 @@
 ---
 title: 'Glossary'
-description: 'Definitions, articles and webinars'
 ---
 
 ## Introduction
@@ -11,13 +10,13 @@ If you have any questions or need further clarification on any of the terms list
 
 ## List of key terms and definitions
 
-## 1. Notification: 
+## Notification 
 A brief message or alert that informs users about events, updates, or some other information
-## 2. Channels: 
+## Channels 
 Novu lets you send notifications across different communication mediums, including emails, in-app messages, push notifications, SMS, and chat. Each of these five communication mediums is referred to as a notification ‘channel’.
 
 <Frame caption="Channels in Novu"><img src="/images/channels.gif" /> </Frame>
-## 3. Providers:
+## Providers
 Providers are responsible for handling message delivery across various channels. Novu currently supports multiple notification channels, each with its own set of providers.
 
    - Chat: This channel offers three providers:
@@ -64,28 +63,38 @@ Providers are responsible for handling message delivery across various channels.
      - Custom styling
      - Headless notification center
 
-## 4. Subscribers:
+## Subscribers
 Subscribers are entities designated to receive the notifications you send. Each subscriber in Novu is uniquely identified by their `subscriberId`.
-## 5. Workflow:
-Workflow templates define the flow of messages sent to subscribers.
-## 6. Topics:
-Topics facilitate bulk notifications to multiple subscribers simultaneously, streamlining communication.
-## 7. Digest Engine:
-The digest engine aggregates multiple trigger events into a single message, ensuring efficient communication.
-## 8. Delay Actions:
-Delay actions introduce time intervals between workflow steps, optimizing message delivery timing.
-## 9. Step Filter:
-Step filters customize workflow by specifying notification criteria, enhancing communication efficiency.
-## 10.  Organizations:
-Organizations allow separation of notifications across multiple products, managed through the Novu web dashboard.
 
+## Actor
+An `actor` refers to a user or subscriber who initiates actions that trigger events within the system. Each actor is uniquely identified by an "actorId," also known as "subscriberId," which distinguishes them from others. 
+
+Actors hold user-related variables, such as subscriber properties and data payload, containing information like names, emails, and custom data. 
+
+Additionally, actors can enhance notifications by allowing their avatars to be displayed, improving the context and identification of notifications. 
+
+
+Including actors in event data enables precise tracking and personalization of actions and events in the Novu platform.
+
+## Workflow
+Workflow templates define the flow of messages sent to subscribers.
+## Topics
+Topics facilitate bulk notifications to multiple subscribers simultaneously, streamlining communication.
+## Digest Engine
+The digest engine aggregates multiple trigger events into a single message, ensuring efficient communication.
+## Delay Actions
+Delay actions introduce time intervals between workflow steps, optimizing message delivery timing.
+## Step Filter
+Step filters customize workflow by specifying notification criteria, enhancing communication efficiency.
+## Organizations
+Organizations allow separation of notifications across multiple products, managed through the Novu web dashboard.
 <Frame caption="Organizations in Novu"><img src="/images/org.gif" /> </Frame>
 
-## 11. Environments:
+## Environments
 Novu runs all your requests in the context of an environment. By default, Novu creates two environments when your account was created, `development` and `production`.
     1. `Development environment`: The development environment is used for testing purposes and validating notification changes prior to committing them to the production environment.
     2. `Production environment`: It will be your live/production environment, you cannot make changes to this environment directly. You will first have to make the changes in the `development` environment and then promote it to `production`. This is a read-only environment.
-## 12. Data associated with an environment:
+## Data associated with an environment
         - Subscribers (can’t be promoted to production)
         - Workflows (can be promoted to production)
         - Messages
@@ -93,29 +102,8 @@ Novu runs all your requests in the context of an environment. By default, Novu c
         - Connected integrations (can’t be promoted to production)
         - Notification feeds (can be promoted to production)
         - Brand-related assets and settings
-## 13. Team members: 
+## Team members 
 Members of a team have access to the Novu web dashboard. This allows you to have individuals work on and manage templates and notifications.
-## 14. Layouts: 
+## Layouts 
 Layouts are HTML designs or structures to wrap the content of email notifications. Layouts can be manipulated and assigned to new or existing workflows within the Novu platform, allowing users to create, manage, and assign these layouts to workflows, so they can be reused to structure the appearance of notifications sent through the platform.
-## 15. Blog Posts / Articles:
-    - [🪄✨Building a blog with a liking feature using React, Hanko and Novu 🔥](https://dev.to/novu/building-a-blog-with-a-liking-feature-using-react-hanko-and-novu-1m81)
-    - [How to add In-App notifications to any web app!](https://dev.to/novu/how-to-add-in-app-notifications-to-any-web-app-1b4n)
-    - [How To Add In-App Notifications To Your Angular App](https://dev.to/novu/how-to-add-in-app-notifications-to-your-angular-app-2dp3)
-    - [Creating A Hot New Food Delivery App with Novu](https://dev.to/novu/creating-a-hot-new-food-delivery-app-with-novu-2e75)
-## 16.  Videos:
-         - [How to add In-App Notifications to your Web app with Novu](https://www.youtube.com/watch?v=KD8zoUb132k)
-         - [Subscriber (User) Management & Bulk Import Guide](https://www.youtube.com/watch?v=m5nhYEuz86I&t=92s)
-         - [Workflow Optimization with Delay Actions](https://www.youtube.com/watch?v=kCMB-WdbzJo)
-         - [Workflow Optimization with Delay Actions](https://www.youtube.com/watch?v=kCMB-WdbzJo)
-## 17. Office Hours:
-    - **[Office Hours - 0.17.0v Pre-Release](https://www.youtube.com/watch?v=eio8w1TKHfc&list=PLDHc6903hgAKV0iMg1Qv6FcoWkCeri6oo&index=10&pp=iAQB)**
-    - **[Office Hours - 0.15.0v Pre-Release](https://www.youtube.com/watch?v=BreAfs53MA0&list=PLDHc6903hgAKV0iMg1Qv6FcoWkCeri6oo&index=4&pp=iAQB)**
-    - **[Office Hours - 0.14.0v Release](https://www.youtube.com/watch?v=0TU7E8Fvu4U&list=PLDHc6903hgAKV0iMg1Qv6FcoWkCeri6oo&index=1&pp=iAQB)**
-    - **[Office Hours - 0.14.0v Pre-Release](https://www.youtube.com/watch?v=886bi3SxKgg&list=PLDHc6903hgAKV0iMg1Qv6FcoWkCeri6oo&index=2&pp=iAQB)**
-## 18. External Resources
-    - [Simplify configuration management with Novu and Configu](https://configu.com/blog/video-first-steps-with-configu/)
-    - [Vercel and Novu integration](https://vercel.com/integrations/novu)
-    - [Novu is building open-source notification infrastructure for developers](https://venturebeat.com/business/novu-is-building-open-source-notification-infrastructure-for-developers/)
-    - [Novu - An open-source notification infrastructure for developers](https://reactjsexample.com/-f0-9f-9a-80-open-source-notification-infrastructure-for-products/)
-    - [Novu Tackles Notification Infrastructure Management](https://thenewstack.io/novu-tackles-notification-infrastructure-management/)
-    - [Novu: Omni-channel notification infrastructure for developers](https://www.decibel.vc/articles/novu-omni-channel-notification-infrastructure-for-developers)
+
