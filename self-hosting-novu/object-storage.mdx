@@ -2,7 +2,7 @@
 title: "Object Storage (S3, Blob, GCS)"
 description: "Using S3 as a storage backend for your application"
 icon: "box"
-
+---
 
 For local development we use [LocalStack.cloud](https://localstack.cloud/). It is utilized as a local emulation of S3 during development.
 
@@ -13,12 +13,14 @@ This might be beneficial for testing and development purposes before transitioni
 ### Configuration
 
 AWS S3 requires the following environment variables to be set:
+
 1. S3_REGION:
 2. S3_LOCAL_STACK (optional): S3 endpoint to connect to, leave blank if your connecting directly to AWS
 3. S3_BUCKET_NAME: Name of the bucket to use
 4. STORAGE_SERVICE: Name of the storage service to use, 'AWS' or 'LOCALSTACK' for S3.
 
 ### Bucket Configuration
+
 In general, access to the S3 bucket is very permissive.
 
 The following process is used to manage access to the S3 bucket.
@@ -249,6 +251,7 @@ resource "aws_iam_role_policy_attachment" "s3" {
 Azure Blob Storage requires the following environment variables to be set:
 
 ### Required
+
 1. STORAGE_SERVICE: Name of the storage service to use, 'AZURE' Azure Blob.
 2. AZURE_CONTAINER_NAME: The name of the container in your Azure Storage account that you wish to use for your blob storage.
 3. AZURE_ACCOUNT_NAME: The name of your Azure Storage account. This is used to form the URL at which your blob storage is accessible.
@@ -264,10 +267,11 @@ TBD
 ### Configuration
 
 Google Cloud Storage requires the following environment variables to be set:
+
 1. GCS_BUCKET_NAME: Name of the bucket to use.
 2. GOOGLE_APPLICATION_CREDENTIALS: Path to the service account key file.
 3. STORAGE_SERVICE: Name of the storage service to use, 'GCS' for Google Cloud Storage.
 
 ### Bucket Configuration
-TBD
 
+TBD
