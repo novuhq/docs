@@ -1,0 +1,58 @@
+---
+openapi: post /v1/layouts/{layoutId}/default
+---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+```javascript Node.js
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.layouts.setDefault("layoutId");
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+client.make_default_layout('<insert-layout-id>')
+```
+
+```python Python
+from novu.api import LayoutApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = LayoutApi(url, api_key).set_default(
+    layout_id= "<The layout_id corresponding to the layout to be set default>",
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.makeDefaultLayout(layoutId);
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    204: "The selected layout has been set as the default for the environment."
+
+    404: "The layout with the layoutId provided does not exist in the database so it can not be set as the default for the environment."
+}
+```
+
+</ResponseExample>

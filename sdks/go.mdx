@@ -1,0 +1,71 @@
+---
+title: "Go"
+description: "Connect a Go application to Novu"
+icon: 'golang'
+---
+
+
+Novu's Go SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your Go application.
+
+[Explore the source code on GitHub](https://github.com/novuhq/go-novu)
+
+## Installation
+
+```go
+go get github.com/novuhq/go-novu
+```
+
+<Tip> If you're ready to start integrating in your Go app, jump straight to our [Go quickstart.](/quickstarts/go)</Tip>
+
+## Usage 
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	novu "github.com/novuhq/go-novu/lib"
+	"log"
+)
+
+func main() {
+	subscriberID := "<<REPLACE_WITH_YOUR_SUBSCRIBER>"
+	apiKey := "<REPLACE_WITH_YOUR_API_KEY>"
+	eventId := "<REPLACE_WITH_YOUR_EVENT_ID>"
+
+	ctx := context.Background()
+	to := map[string]interface{}{
+		"lastName":     "Doe",
+		"firstName":    "John",
+		"subscriberId": subscriberID,
+		"email":        "john@doemail.com",
+	}
+
+	payload := map[string]interface{}{
+		"name": "Hello World",
+		"organization": map[string]interface{}{
+			"logo": "https://happycorp.com/logo.png",
+		},
+	}
+
+	data := novu.ITriggerPayloadOptions{To: to, Payload: payload}
+	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
+
+	resp, err := novuClient.EventApi.Trigger(ctx, eventId, data)
+	if err != nil {
+		log.Fatal("novu error", err.Error())
+		return
+	}
+
+	fmt.Println(resp)
+
+	// get integrations
+	integrations, err := novuClient.IntegrationsApi.GetAll(ctx)
+	if err != nil {
+		log.Fatal("Get all integrations error: ", err.Error())
+	}
+	fmt.Println(integrations)
+}
+```
+

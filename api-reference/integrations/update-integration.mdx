@@ -1,0 +1,118 @@
+---
+openapi: put /v1/integrations/{integrationId}
+---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+
+```javascript Node.js
+import { Novu, ProvidersIdEnum } from '@novu/node';  
+export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
+await novu.integrations.getWebhookProviderStatus(ProvidersIdEnum.SendGrid);
+```
+
+```php PHP
+// Get integrations
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->updateIntegration($integrationId, [
+    'active' => true,
+    'credentials' => [
+        // insert all the fields
+    ],
+    'check' => true
+])->toArray();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+body = {
+    'active' => true,
+    'check' => true
+    'credentials' => {
+        # insert all the fields
+    },
+}
+client.update_integration('<insert-provider-id>', body)
+```
+
+```python Python
+from novu.api import IntegrationApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = IntegrationApi(url, api_key).update(
+    integration="<The instance of the integration to update>",
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.updateIntegration(integrationId, body);
+    }
+}
+```
+
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "data": {
+    "_id": "string",
+    "_environmentId": "string",
+    "_organizationId": "string",
+    "name": "string",
+    "identifier": "string",
+    "providerId": "string",
+    "channel": "in_app",
+    "credentials": {
+      "apiKey": "string",
+      "user": "string",
+      "secretKey": "string",
+      "domain": "string",
+      "password": "string",
+      "host": "string",
+      "port": "string",
+      "secure": true,
+      "region": "string",
+      "accountSid": "string",
+      "messageProfileId": "string",
+      "token": "string",
+      "from": "string",
+      "senderName": "string",
+      "projectName": "string",
+      "applicationId": "string",
+      "clientId": "string",
+      "requireTls": true,
+      "ignoreTls": true,
+      "tlsOptions": {},
+      "baseUrl": "string",
+      "webhookUrl": "string",
+      "redirectUrl": "string",
+      "hmac": true,
+      "serviceAccount": "string",
+      "ipPoolName": "string"
+    },
+    "active": true,
+    "deleted": true,
+    "deletedAt": "string",
+    "deletedBy": "string",
+    "primary": true
+  }
+}
+```
+
+</ResponseExample>
