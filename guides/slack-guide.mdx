@@ -36,6 +36,10 @@ Creating a Slack app is fairly simple. Follow these steps to create your app:
 <Info>Whatever is placed inside double braces is a variable.</Info>
 5. Make sure that you've turned on the Slack integration in the [Integrations Store](https://web.novu.co/integrations).
 <Frame caption="Make sure that Slack integration is set to active"><img src="/images/guides/slack-guide/integration.png" /> </Frame>
+6. To turn the Slack integration on, you'll need `Client Id` from the [Slack Developer's Dashboard](https://api.slack.com/apps). 
+<Frame caption="Get 'Client Id' from the Slack developer's dashboard"><img src="/images/guides/slack-guide/client-id-Slack.png" /> </Frame>
+7. Once you have it, you need to plug it into the respective field in the [Slack Integration Settings](https://web.novu.co/integrations) on the Novu Web Dashboard.
+<Frame caption="Plug the 'Client Id' into the Slack Integration setting in Novu web dashboard"><img src="/images/guides/slack-guide/client-id-Novu.png" /> </Frame>
 
 # Create the backend
 The backend for this app is quite simple. Simply install the Novu package:
@@ -145,7 +149,7 @@ export const chat = async (chatMsg) => {
 <Info>For demonstration purposes, I've added both the local as well as the deployed URL. You only need one depending on whether you're running this locally or have a deployed version.</Info>
 Now, our backend is all done, our Slack is all setup and all we need to do is hit the URL
 
-# Front end set up:
+# Front end set up
 
 For our demonstration purposes, the front end is pretty basic. All we have to do is have an input field to take the notification text in and send the payload. The front end code for this demo app is available on our [Github repo](https://github.com/novuhq/slack-app/tree/main/frontend). 
 And here's our app in all its glory!
