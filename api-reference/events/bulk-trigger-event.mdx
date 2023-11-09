@@ -1,0 +1,330 @@
+---
+openapi: post /v1/events/trigger/bulk
+---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+
+```javascript Node.js
+import { Novu } from '@novu/node';
+
+const novu = new Novu("<NOVU_API_KEY>");
+
+await novu.subscribers.bulkTrigger([
+  {
+    name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
+    to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    payload: {
+      customKey: "customValue",
+      customKey1: {
+        nestedkey1: "nestedValue1"
+      }
+    },
+    overrides: {
+      email: {
+        from: "support@novu.co"
+      }
+    },
+    // actorId is subscriberId of actor
+    actor: "actorId"
+    tenant: "tenantIdentifier"
+  },
+  {
+    name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
+    to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    payload: {
+      customKey: "customValue",
+      customKey1: {
+        nestedkey1: "nestedValue1"
+      }
+    },
+    overrides: {
+      email: {
+        from: "support@novu.co"
+      }
+    },
+    // actorId is subscriberId of actor
+    actor: "actorId"
+    tenant: "tenantIdentifier"
+  }
+])
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+$novu->bulkTriggerEvent([
+    [
+        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>', 
+        'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
+        'payload' => ['customVariables' => 'Hello']
+    ],
+    [
+        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>', 
+        'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
+        'payload' => ['customVariables' => 'World']
+    ],
+])->toArray();
+```
+
+```bash cURL
+
+curl -X POST https://api.novu.co/v1/events/trigger/bulk \
+  -H "Authorization: ApiKey <NOVU_API_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "events": [
+      {
+        "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
+        "to": {
+          "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+          "email": "john@doemail.com"
+        },
+        "payload": {
+          "customKey": "customValue",
+          "customKey1": {
+            "nestedkey1": "nestedValue1"
+          }
+        },
+        "overrides": {
+          "email": {
+            "from": "support@novu.co"
+          }
+        },
+        "actor": "actorId",
+        "tenant": "tenantIdentifier"
+      },
+      {
+        "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
+        "to": {
+          "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+          "email": "janet@doemail.com"
+        },
+        "payload": {
+          "customKey": "customValue",
+          "customKey1": {
+            "nestedkey1": "nestedValue1"
+          }
+        },
+        "overrides": {
+          "email": {
+            "from": "support@novu.co"
+          }
+        },
+        "actor": "actorId",
+        "tenant": "tenantIdentifier"
+      }
+    ]
+  }'
+
+
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+payload = {
+    'events' => [
+        {
+            'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
+            'payload' => { # optional
+                'first-name' => 'Adam' # optional
+            },
+            'to' => {
+                'subscriberId' => '7789'
+            },
+            'transactionId' => '89kjfke9893' #optional
+        },
+        {
+            'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
+            'payload' => { # optional
+                'last-name' => 'Eve' # optional
+            },
+            'to' => {
+                'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>'
+            },
+            'transactionId' => 'sw900999as' #optional
+        }
+    ]
+}
+client.trigger_bulk_event(payload)
+```
+
+```go Go
+package main
+
+import (
+	"context"
+	"fmt"
+	novu "github.com/novuhq/go-novu/lib"
+	"log"
+)
+
+func main() {
+	apiKey := "<NOVU_API_KEY>"
+	ctx := context.Background()
+
+	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
+
+    event1 := novu.BulkTriggerOptions{
+        Name: []string{"<WORKFLOW_TRIGGER_IDENTIFIER>"},
+        To: map[string]interface{}{
+            "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+            "email":        "john@doemail.com",
+	    },
+        Payload: map[string]interface{}{
+            "name": "Hello World",
+            "organization": map[string]interface{}{
+                "logo": "https://happycorp.com/logo.png",
+            },
+	    }
+    }
+    event2 := novu.BulkTriggerOptions{
+        Name: []string{"<WORKFLOW_TRIGGER_IDENTIFIER>"},
+        To: map[string]interface{}{
+            "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+            "email":        "janet@doemail.com",
+	    },
+        Payload: map[string]interface{}{
+            "name": "Hello World",
+            "organization": map[string]interface{}{
+                "logo": "https://happycorp.com/logo.png",
+            },
+	    }
+    }
+
+    triggerPayload := []novu.BulkTriggerOptions{ event1, event2}
+
+	resp, err := novuClient.EventApi.TriggerBulk(ctx, triggerPayload)
+
+	if err != nil {
+		log.Fatal("novu error", err.Error())
+		return
+	}
+}
+```
+
+```python Python
+from novu.dto.event import InputEventDto
+from novu.api import EventApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+event_1 = InputEventDto(
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
+    recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    payload={},  # Your custom Novu payload goes here
+)
+event_2 = InputEventDto(
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",
+    recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    payload={},
+)
+
+novu = EventApi(url, api_key).trigger_bulk(
+    events=[event1,event2]
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+
+        List<Map<String, Object>> events = new ArrayList<>();
+        // First event
+        Map<String, Object> event1 = new HashMap<>();
+        event1.put("name", "<WORKFLOW_TRIGGER_IDENTIFIER>");
+        event1.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
+        Map<String, Object> payload1 = new HashMap<>();
+        payload1.put("customVariables", "Hello");
+        event1.put("payload", payload1);
+        events.add(event1);
+
+        // Second event
+        Map<String, Object> event2 = new HashMap<>();
+        event2.put("name", "<WORKFLOW_TRIGGER_IDENTIFIER>");
+        event2.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
+        Map<String, Object> payload2 = new HashMap<>();
+        payload2.put("customVariables", "World");
+        event2.put("payload", payload2);
+        events.add(event2);
+
+        // Third event
+        Map<String, Object> event3 = new HashMap<>();
+        event3.put("name", "<WORKFLOW_TRIGGER_IDENTIFIER>");
+        event3.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
+        Map<String, Object> payload3 = new HashMap<>();
+        payload3.put("customVariables", "Again");
+        event3.put("payload", payload3);
+        events.add(event3);
+
+        novu.bulkTriggerEvent(events);
+    }
+}
+
+
+```
+
+```csharp .NET
+using Novu.DTO;
+using Novu.Models;
+using Novu;
+
+var novuConfiguration = new NovuClientConfiguration
+{
+    /** 
+    * Defaults to https://api.novu.co/v1 
+    */
+    Url = "https://novu-api.my-domain.com/v1", 
+    ApiKey = "12345",
+};
+
+var novu = new NovuClient(novuConfiguration);
+
+var payload = new List<EventTriggerDataDto>()
+{
+    new()
+    {
+        EventName = "<WORKFLOW_TRIGGER_IDENTIFIER>",
+        To = { SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"},
+        Payload = new TestRecord(){ Message = "Hello"}
+    },
+    new()
+    {
+        EventName = "<WORKFLOW_TRIGGER_IDENTIFIER>",
+        To = { SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"},
+        Payload = new TestRecord(){ Message = "World"}
+    },
+};
+
+var trigger = await novu.Event.TriggerBulkAsync(payload);
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    "data": [
+        {
+            "acknowledged": true,
+            "status": "processed",
+            "transactionId": "string"
+        }
+    ]
+}
+```
+
+</ResponseExample>

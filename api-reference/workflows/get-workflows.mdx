@@ -1,0 +1,1139 @@
+---
+openapi: get /v1/workflows
+---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+
+```bash cURL
+  curl --request GET \
+  --url https://api.novu.co/v1/workflows \
+  --header 'Authorization: <authorization>'
+```
+
+```javascript Node.js
+import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.notificationTemplates.getAll({
+  page: 0, // optional
+  limit: 20 // optional
+});
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->getNotificationTemplates()->toArray();
+
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.notification_templates({
+    'page' => 4, # optional
+    'limit' => 10, # optional
+})
+```
+
+```python Python
+from novu.api import NotificationTemplateApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = NotificationTemplateApi(url, api_key).list(
+)
+```
+
+```java Java
+import co.novu.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.getWorkflows(page, limit);
+    }
+}
+```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "encoding/json"
+)
+
+func main() {
+  url := "https://api.novu.co/v1/workflows"
+  data := map[string]string{
+    [options]
+  }
+  jsonValue, _ := json.Marshal(data)
+  req, _ := http.NewRequest("GET", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
+  defer resp.Body.Close()
+  body, _ := ioutil.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+    
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.getWorkflows
+
+class Main {
+    fun main(args: Array<String>) {
+        val apiKey = "<NOVU_API_KEY>"
+
+        val novu = Novu(apiKey)
+        novu.getWorkflows(page, limit)
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    "page": 0,
+    "data": [
+        {
+            "_id": "64f07ea63f28d769494bd74a",
+            "name": "Chat with Novu",
+            "active": true,
+            "draft": false,
+            "critical": true,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "sms-docs",
+                    "variables": [
+                        {
+                            "name": "payloadVar",
+                            "type": "String",
+                            "_id": "64f1df7a97770dc90cf8c951"
+                        }
+                    ],
+                    "subscriberVariables": [],
+                    "_id": "64f07ea63f28d769494bd74b",
+                    "reservedVariables": []
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "0c22b8e5-762f-49b3-b686-09edb2275e8d",
+                    "name": "Chat",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "64f1ddba1dde0257bca4352d"
+                        }
+                    ],
+                    "_templateId": "64f1ddba1dde0257bca4351d",
+                    "_parentId": null,
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "64f1ddba1dde0257bca4351d",
+                    "template": {
+                        "_id": "64f1ddba1dde0257bca4351d",
+                        "type": "chat"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-08-31T11:51:02.984Z",
+            "updatedAt": "2023-09-01T12:56:26.881Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "64f024843f28d7694946d097",
+            "name": "in-app workflow",
+            "active": true,
+            "draft": false,
+            "critical": true,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "in-app-workflow",
+                    "variables": [
+                        {
+                            "name": "messageIdentifier",
+                            "type": "String",
+                            "_id": "64f02b28dd99c21f1e2d4ac7"
+                        }
+                    ],
+                    "subscriberVariables": [],
+                    "_id": "64f024843f28d7694946d098"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "ba437658-522d-439f-94da-02426b42d616",
+                    "name": "In-App",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "64f02b1914b8a3ace6186985"
+                        }
+                    ],
+                    "_templateId": "64f02b1914b8a3ace618697a",
+                    "_parentId": null,
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "64f02b1914b8a3ace618697a",
+                    "template": {
+                        "_id": "64f02b1914b8a3ace618697a",
+                        "type": "in_app"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-08-31T05:26:28.637Z",
+            "updatedAt": "2023-08-31T05:54:48.445Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "64eec9583cd25fad61223897",
+            "name": "Discord chat demo",
+            "active": true,
+            "draft": false,
+            "critical": true,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "discord-chat-demo",
+                    "variables": [
+                        {
+                            "name": "chatMsg",
+                            "type": "String",
+                            "_id": "64eed56c735c8d00d98d2a71"
+                        }
+                    ],
+                    "subscriberVariables": [],
+                    "_id": "64eec9583cd25fad61223898"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "03bb2304-d18c-4dc1-ae5a-62fe2634e787",
+                    "name": "Chat",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "64eeca4faed841efdcaf95eb"
+                        }
+                    ],
+                    "_templateId": "64eeca4faed841efdcaf95e2",
+                    "_parentId": null,
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "64eeca4faed841efdcaf95e2",
+                    "template": {
+                        "_id": "64eeca4faed841efdcaf95e2",
+                        "type": "chat"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-08-30T04:45:12.419Z",
+            "updatedAt": "2023-08-30T05:36:44.465Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "64db9511c51d09cdd01ff086",
+            "name": "testing from browser",
+            "active": true,
+            "draft": false,
+            "critical": true,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "testing-from-browser",
+                    "variables": [],
+                    "subscriberVariables": [],
+                    "_id": "64db9511c51d09cdd01ff087"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "29a67140-4694-443b-b4e1-8111b399198a",
+                    "name": "testting browser",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "64db954a98ca413e3d6838a7"
+                        }
+                    ],
+                    "_templateId": "64db954a98ca413e3d68389d",
+                    "_parentId": null,
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "64db954a98ca413e3d68389d",
+                    "template": {
+                        "_id": "64db954a98ca413e3d68389d",
+                        "type": "in_app"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-08-15T15:09:05.828Z",
+            "updatedAt": "2023-08-25T11:55:48.583Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "64c0e3b9ec5b16b5d790d55a",
+            "name": "headless-demo",
+            "active": true,
+            "draft": false,
+            "critical": true,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "headless-demo",
+                    "variables": [
+                        {
+                            "name": "description",
+                            "type": "String",
+                            "_id": "64c0e3d2ec5b16b5d790d5f6"
+                        }
+                    ],
+                    "subscriberVariables": [],
+                    "_id": "64c0e3b9ec5b16b5d790d55b"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "e0ba19d2-7833-4525-971c-4f40dd47e2ff",
+                    "name": "In-App",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "64c0e3d2ec5b16b5d790d5f5"
+                        }
+                    ],
+                    "_templateId": "64c0e3d2ec5b16b5d790d5ea",
+                    "_parentId": null,
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "64c0e3d2ec5b16b5d790d5ea",
+                    "template": {
+                        "_id": "64c0e3d2ec5b16b5d790d5ea",
+                        "type": "in_app"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-07-26T09:13:29.090Z",
+            "updatedAt": "2023-07-26T09:13:54.856Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "64a41ffee2134f0077e0d222",
+            "name": "emailDigestWorkflow",
+            "active": true,
+            "draft": false,
+            "critical": false,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "emaildigestworkflow",
+                    "variables": [],
+                    "subscriberVariables": [
+                        {
+                            "name": "email",
+                            "_id": "64b8f8c024a8ba51900fece6"
+                        }
+                    ],
+                    "_id": "64a41ffee2134f0077e0d223"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "13b27589-a7ad-47e3-b10d-a1085dd3687d",
+                    "name": "Digest",
+                    "filters": [],
+                    "_templateId": "64a421ae5f8a9af84368c9fe",
+                    "_parentId": null,
+                    "metadata": {
+                        "amount": 20,
+                        "unit": "seconds",
+                        "type": "regular",
+                        "backoffAmount": null,
+                        "backoff": false,
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "64a421ae5f8a9af84368c9fe",
+                    "template": {
+                        "_id": "64a421ae5f8a9af84368c9fe",
+                        "type": "digest"
+                    }
+                },
+                {
+                    "active": true,
+                    "replyCallback": {
+                        "active": false
+                    },
+                    "shouldStopOnFail": false,
+                    "uuid": "4e1d8ebb-355c-4224-8a79-fcbc3c0233a1",
+                    "name": "Email",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "64a420215f8a9af84368b6b8"
+                        }
+                    ],
+                    "_templateId": "64a420215f8a9af84368b6a6",
+                    "_parentId": "64a421ae5f8a9af84368c9fe",
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "64a420215f8a9af84368b6a6",
+                    "template": {
+                        "_id": "64a420215f8a9af84368b6a6",
+                        "type": "email"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-07-04T13:34:54.781Z",
+            "updatedAt": "2023-07-20T09:05:04.701Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "6492d92f616db8f05a982022",
+            "name": "digest showcase",
+            "active": true,
+            "draft": false,
+            "critical": true,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "digest-showcase",
+                    "variables": [],
+                    "subscriberVariables": [],
+                    "_id": "6492d92f616db8f05a982023"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "556f0514-01b6-46f9-9e3d-72a4c060af54",
+                    "name": "Digest",
+                    "filters": [],
+                    "_templateId": "6492d9735da9bfaf640771a2",
+                    "_parentId": null,
+                    "metadata": {
+                        "amount": 10,
+                        "unit": "seconds",
+                        "type": "regular",
+                        "backoffAmount": null,
+                        "backoff": false,
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "6492d9735da9bfaf640771a2",
+                    "template": {
+                        "_id": "6492d9735da9bfaf640771a2",
+                        "type": "digest"
+                    }
+                },
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "024a27f4-82da-485c-b4a7-bea05c2631e3",
+                    "name": "In-App",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "6492d9735da9bfaf640771b6"
+                        }
+                    ],
+                    "_templateId": "6492d9735da9bfaf640771aa",
+                    "_parentId": "6492d9735da9bfaf640771a2",
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "6492d9735da9bfaf640771aa",
+                    "template": {
+                        "_id": "6492d9735da9bfaf640771aa",
+                        "type": "in_app"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-06-21T11:04:15.546Z",
+            "updatedAt": "2023-07-19T13:32:18.474Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "6471aa6f3a4ec8a599669991",
+            "name": "quickstart",
+            "active": true,
+            "draft": false,
+            "critical": false,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "quickstart",
+                    "variables": [
+                        {
+                            "name": "description",
+                            "type": "String",
+                            "_id": "6471aaa08b0b51ed173ba8fd"
+                        }
+                    ],
+                    "subscriberVariables": [],
+                    "_id": "6471aa6f3a4ec8a599669992"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "982bf6a1-6f0c-46c6-a8ad-6daa67f327e2",
+                    "name": "In-App",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "6471aa85720b54f89ed97de3"
+                        }
+                    ],
+                    "_templateId": "6471aa85720b54f89ed97dd8",
+                    "_parentId": null,
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "6471aa85720b54f89ed97dd8",
+                    "template": {
+                        "_id": "6471aa85720b54f89ed97dd8",
+                        "type": "in_app"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-05-27T06:59:59.254Z",
+            "updatedAt": "2023-05-27T07:00:48.618Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "6469fc87301d88d6d2b74741",
+            "name": "Email quickstart",
+            "active": true,
+            "draft": false,
+            "critical": false,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "email-quickstart",
+                    "variables": [
+                        {
+                            "name": "email",
+                            "type": "String",
+                            "_id": "646a031c25b1fb30f274ac35"
+                        },
+                        {
+                            "name": "description",
+                            "type": "String",
+                            "_id": "646a031c25b1fb30f274ac36"
+                        }
+                    ],
+                    "subscriberVariables": [
+                        {
+                            "name": "email",
+                            "_id": "646a031c25b1fb30f274ac34"
+                        }
+                    ],
+                    "_id": "6469fc87301d88d6d2b74742"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "replyCallback": {
+                        "active": false
+                    },
+                    "shouldStopOnFail": false,
+                    "uuid": "3b512084-6cba-400c-8644-d9e9bff6bbfc",
+                    "name": "Email",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "6469fd9bc2c5b74546b2cc80"
+                        }
+                    ],
+                    "_templateId": "6469fd9bc2c5b74546b2cc76",
+                    "_parentId": null,
+                    "metadata": {
+                        "timed": {
+                            "weekDays": [],
+                            "monthDays": []
+                        }
+                    },
+                    "_id": "6469fd9bc2c5b74546b2cc76",
+                    "template": {
+                        "_id": "6469fd9bc2c5b74546b2cc76",
+                        "type": "email"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-05-21T11:12:07.036Z",
+            "updatedAt": "2023-05-21T11:40:12.955Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        },
+        {
+            "_id": "6450b033631887e5f013f0df",
+            "name": "notif-genenerator",
+            "active": true,
+            "draft": false,
+            "critical": false,
+            "isBlueprint": false,
+            "_notificationGroupId": "641eddefda8256b93f750e0b",
+            "tags": [],
+            "triggers": [
+                {
+                    "type": "event",
+                    "identifier": "notif-genenerator",
+                    "variables": [
+                        {
+                            "name": "description",
+                            "type": "String",
+                            "_id": "645a5b18e1a93324256bdf59"
+                        }
+                    ],
+                    "subscriberVariables": [],
+                    "_id": "6450b033631887e5f013f0e0"
+                }
+            ],
+            "steps": [
+                {
+                    "active": true,
+                    "shouldStopOnFail": false,
+                    "uuid": "0486c699-2db4-4868-9ed5-c407acacb728",
+                    "name": "In-App",
+                    "filters": [
+                        {
+                            "children": [],
+                            "_id": "6450b06e9c851c56f803d489"
+                        }
+                    ],
+                    "_templateId": "6450b06e9c851c56f803d47e",
+                    "_parentId": null,
+                    "_id": "6450b06e9c851c56f803d47e",
+                    "template": {
+                        "_id": "6450b06e9c851c56f803d47e",
+                        "type": "in_app"
+                    }
+                }
+            ],
+            "preferenceSettings": {
+                "email": true,
+                "sms": true,
+                "in_app": true,
+                "chat": true,
+                "push": true
+            },
+            "_environmentId": "641eddefda8256b93f750e07",
+            "_organizationId": "641eddefda8256b93f750e01",
+            "_creatorId": "641eddee5d9af70da9f6a2e4",
+            "deleted": false,
+            "createdAt": "2023-05-02T06:39:47.699Z",
+            "updatedAt": "2023-05-09T14:39:20.811Z",
+            "__v": 0,
+            "notificationGroup": {
+                "_id": "641eddefda8256b93f750e0b",
+                "name": "General",
+                "_organizationId": "641eddefda8256b93f750e01",
+                "_environmentId": "641eddefda8256b93f750e07",
+                "createdAt": "2023-03-25T11:41:35.279Z",
+                "updatedAt": "2023-03-25T11:41:35.279Z",
+                "__v": 0
+            },
+            "workflowIntegrationStatus": {
+                "hasActiveIntegrations": true,
+                "channels": {
+                    "in_app": {
+                        "hasActiveIntegrations": true
+                    },
+                    "email": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "sms": {
+                        "hasActiveIntegrations": true,
+                        "hasPrimaryIntegrations": true
+                    },
+                    "chat": {
+                        "hasActiveIntegrations": true
+                    },
+                    "push": {
+                        "hasActiveIntegrations": false
+                    }
+                }
+            }
+        }
+    ],
+    "totalCount": 20,
+    "pageSize": 10
+}
+```
+
+</ResponseExample>

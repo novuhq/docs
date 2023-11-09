@@ -1,0 +1,104 @@
+---
+openapi: get /v1/notification-groups
+---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+```bash cURL
+curl --request GET \
+--url https://api.novu.co/v1/notification-groups \
+--header 'Authorization: ApiKey <NOVU_API_KEY>' \
+```
+
+```javascript Node.js
+import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.notificationGroups.get();
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+$novu->getNotificationGroups()->toArray();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.notification_groups()
+```
+
+```python Python
+from novu.api import NotificationGroupApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = NotificationGroupApi(url, api_key).list(
+)
+```
+
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.notificationGroups();
+    }
+}
+```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "encoding/json"
+)
+
+func main() {
+  url := "https://api.novu.co/v1/notification-groups"
+  data := map[string]string{
+    [options]
+  }
+  jsonValue, _ := json.Marshal(data)
+  req, _ := http.NewRequest("GET", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
+  defer resp.Body.Close()
+  body, _ := ioutil.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+    
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "data": [
+    {
+      "_id": "string",
+      "name": "string",
+      "_environmentId": "string",
+      "_organizationId": "string",
+      "_parentId": "string"
+    }
+  ]
+}
+```
+
+</ResponseExample>

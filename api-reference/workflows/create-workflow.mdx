@@ -1,0 +1,289 @@
+---
+openapi: post /v1/workflows
+---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+
+```bash cURL
+  curl --request POST \
+  --url https://api.novu.co/v1/workflows \
+  --header 'Authorization: <authorization>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "<name>",
+    "notificationGroupId":"<notificationGroupId>",
+    "steps": [{ "steps" }]
+  }'
+```
+
+```javascript Node.js
+import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.notificationTemplates.create({
+  name: 'Onboarding Workflow',
+  // taking first workflow group id
+  notificationGroupId: workflowGroupsData.data[0]._id,
+  steps: [
+    // Adding one chat step
+    {
+      active: true,
+      shouldStopOnFail: false,
+      // UUID is optional.
+      uuid: '78ab8c72-46de-49e4-8464-257085960f9e',
+      name: 'Chat',
+      filters: [
+        {
+          value: 'AND',
+          children: [
+            {
+              field: '{{chatContent}}',
+              value: 'flag',
+              operator: 'NOT_IN',
+              // 'payload'
+              on: FilterPartTypeEnum.PAYLOAD,
+            },
+          ],
+        },
+      ],
+      template: {
+        // 'chat'
+        type: StepTypeEnum.CHAT,
+        active: true,
+        subject: '',
+        variables: [
+          {
+            name: 'chatContent',
+            // 'String'
+            type: TemplateVariableTypeEnum.STRING,
+            required: true,
+            "defaultValue": "default message",
+          },
+        ],
+        content: '{{chatContent}}',
+        contentType: 'editor',
+      },
+    },
+  ],
+  description: 'Onboarding workflow to trigger after user sign up',
+  active: true,
+  draft: false,
+  critical: false,
+});
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+$novu->createNotificationTemplate([
+  "name" => "name",
+  "notificationGroupId" => "notificationGroupId",
+  "tags" => ["tags"],
+  "description" => "description",
+  "steps" => ["steps"],
+  "active" => true,
+  "draft" => true,
+  "critical" => true,
+  "preferenceSettings" => preferenceSettings
+])->toArray();
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+body = {
+    'name' => '<insert-name>',
+    'notificationGroupId' => 'notificationGroupId',
+    'tags' => ['tags'], # optional
+    'description' => 'description', # optional
+    'steps' => [ # optional
+       # insert all fields here
+    ], 
+    'active' => true, # optional
+    'draft' => true, # optional
+    'critical' => true, # optional
+    'preferenceSettings' => { # optional
+       # insert all fields here
+    },
+    'blueprintId' => 'blueprintId' # optional
+}
+client.create_notification_template(body)
+```
+
+```python Python
+from novu.api import NotificationTemplateApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = NotificationTemplateApi(url, api_key).create(
+    notification_template = "< The notification template form definition>",
+)
+```
+
+```java Java
+import co.novu.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.createWorkflow(body);
+    }
+}
+```
+
+```go Go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "encoding/json"
+)
+
+func main() {
+  url := "https://api.novu.co/v1/workflows"
+  data := map[string]string{
+    "name": "name",
+    "notificationGroupId": "notificationGroupId",
+    "tags": ["tags"],
+    "description": "description",
+    "steps": ["steps"],
+    "active": true,
+    "draft": true,
+    "critical": true,
+    "preferenceSettings": preferenceSettings,
+    "blueprintId": "blueprintId",
+    "data": data
+  }
+  jsonValue, _ := json.Marshal(data)
+  req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonValue))
+  req.Header.Set("Content-Type", "application/json")
+  req.Header.Set("Authorization", "ApiKey REPLACE_WITH_API_KEY")
+
+  defer resp.Body.Close()
+  body, _ := ioutil.ReadAll(resp.Body)
+  fmt.Println(string(body))
+}
+```
+
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.createWorkflow
+
+class Main {
+    fun main(args: Array<String>) {
+        val apiKey = "<NOVU_API_KEY>"
+
+        val novu = Novu(apiKey)
+        novu.createWorkflow(body)
+    }
+}
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+  "data": {
+    "_id": "string",
+    "name": "string",
+    "description": "string",
+    "active": true,
+    "draft": true,
+    "preferenceSettings": {
+      "email": true,
+      "sms": true,
+      "in_app": true,
+      "chat": true,
+      "push": true
+    },
+    "critical": true,
+    "tags": [
+      "string"
+    ],
+    "steps": [
+      {
+        "_id": "string",
+        "uuid": "string",
+        "name": "string",
+        "_templateId": "string",
+        "active": true,
+        "shouldStopOnFail": true,
+        "template": {},
+        "filters": [
+          {
+            "isNegated": true,
+            "type": "BOOLEAN",
+            "value": "AND",
+            "children": [
+              {
+                "field": "string",
+                "value": "string",
+                "operator": "LARGER",
+                "on": "subscriber"
+              }
+            ]
+          }
+        ],
+        "_parentId": {},
+        "metadata": {
+          "amount": 0,
+          "unit": "seconds",
+          "digestKey": "string",
+          "type": "regular",
+          "backoff": true,
+          "backoffAmount": 0,
+          "backoffUnit": "seconds",
+          "updateMode": true
+        },
+        "replyCallback": {}
+      }
+    ],
+    "_organizationId": "string",
+    "_creatorId": "string",
+    "_environmentId": "string",
+    "triggers": [
+      {
+        "type": "string",
+        "identifier": "string",
+        "variables": [
+          {
+            "name": "string"
+          }
+        ],
+        "subscriberVariables": [
+          {
+            "name": "string"
+          }
+        ]
+      }
+    ],
+    "_notificationGroupId": "string",
+    "_parentId": "string",
+    "deleted": true,
+    "deletedAt": "string",
+    "deletedBy": "string",
+    "notificationGroup": {
+      "_id": "string",
+      "name": "string",
+      "_environmentId": "string",
+      "_organizationId": "string",
+      "_parentId": "string"
+    },
+    "data": {},
+    "workflowIntegrationStatus": {}
+  }
+}
+```
+</ResponseExample>

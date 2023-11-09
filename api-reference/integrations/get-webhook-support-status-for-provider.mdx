@@ -1,0 +1,59 @@
+---
+openapi: get /v1/integrations/webhook/provider/{providerId}/status
+---
+
+<Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+```javascript Node.js
+import { Novu } from '@novu/node';  
+export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
+await novu.integrations.getWebhookProviderStatus(ProvidersIdEnum.SendGrid);
+```
+```php PHP
+// Get integrations
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+$novu->getWebhookSupportStatusForProvider($providerId)->toArray();
+```
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+client.webhook_provider_status('<insert-provider-id>')
+```
+```python Python
+from novu.api import IntegrationApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+novu = IntegrationApi(url, api_key).status(
+    provider_id="<The_Provider_ID>", # Get webhook support status for a given provider using its providerID.
+)
+```
+```java Java
+import co.novu.sdk.Novu;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+        novu.webhookProviderStatus(providerId);
+    }
+}
+```
+
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    200: "The status of the webhook for the provider requested"
+}
+```
+
+</ResponseExample>
