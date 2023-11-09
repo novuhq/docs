@@ -2074,6 +2074,95 @@
         "tags": [
           "Subscribers"
         ]
+      },
+      "patch": {
+        "operationId": "SubscribersController_updateSubscriberGlobalPreferences",
+        "summary": "Update subscriber global preferences",
+        "parameters": [
+          {
+            "name": "subscriberId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscriberGlobalPreferencesRequestDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/UpdateSubscriberPreferenceResponseDto"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Subscribers"
+        ]
+      }
+    },
+    "/v1/subscribers/{subscriberId}/preferences/{level}": {
+      "get": {
+        "operationId": "SubscribersController_getSubscriberPreferenceByLevel",
+        "summary": "Get subscriber preferences by level",
+        "parameters": [
+          {
+            "name": "level",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "subscriberId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/GetSubscriberPreferencesResponseDto"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Subscribers"
+        ]
       }
     },
     "/v1/subscribers/{subscriberId}/preferences/{templateId}": {
