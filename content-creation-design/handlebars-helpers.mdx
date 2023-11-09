@@ -3,7 +3,7 @@ title: 'Handlebars & Helpers'
 description: ''
 icon: 'brackets-curly'
 ---
-## Handlebars
+# Handlebars
 
 The Novu notification content editor relies on Handlebars.js to establish the logic and control flow of our workflows. 
 For a deeper comprehension of Handlebars.js, you can refer to its [documentation](https://handlebarsjs.com/guide/#what-is-handlebars). 
@@ -77,3 +77,54 @@ This resource offers comprehensive insights into the utilization of Handlebars.j
 ```
   </Tab>
 </Tabs>
+
+### pluralize
+The `pluralize` helper allows you to easily handle pluralization in your templates by providing different forms of a word depending on a variable value.
+
+### Basic Usage
+
+In its simplest form, the `pluralize` helper takes three arguments:
+
+```
+{{pluralize count singular plural}}
+```
+
+- `count`: The numeric value that determines whether the singular or plural form should be used.
+- `singular`: The singular form of the word.
+- `plural`: The plural form of the word.
+
+#### Example
+
+```
+{{pluralize dog_count "dog" "dogs"}}
+```
+
+In this example, if `dog_count` is equal to 1, it will render "1 dog," and if it's greater than 1, it will render "dogs."
+
+# Use Cases & Examoles
+
+### Handling Event Count Display with Excluded Individuals
+
+In some cases, you may want to display the total count of certain events but exclude specific individuals who are already mentioned. For example, when using a phrase like "John and `{{step.total_count}}` people liked your photo," you may notice that the count is off by one because "John" is already mentioned.
+
+To account for such scenarios, you can utilize the following approach:
+
+```
+{{#each step.events}}
+  {{#if @first}}
+    {{this.name}}
+  {{else}}
+    {{#if @last}}
+      and {{@index}}
+    {{/if}}
+  {{/if}}
+{{/each}}
+followed you!
+```
+
+In this code, we iterate through the `step.events` array and conditionally display each name. If it's the first name in the list, it will be shown without "and." For subsequent names, we add "and" before the last name. This ensures that the count is not affected by names that are explicitly mentioned in the message.
+
+By using this code, you can achieve a more accurate representation of the event count in your messages, even when some users are individually mentioned in the message text.
+
+<Note> In a future release, we plan to replace handlebar helpers with an alternative solution. Please note that custom handlebars are not currently supported. </Note>
+
