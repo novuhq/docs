@@ -3,3 +3,25 @@ openapi: get /v1/subscribers/{subscriberId}/notifications/feed
 ---
 
 <Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+``` java Java
+import co.novu.common.base.Novu;
+import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
+
+public class Main {
+   public static void main(String[] args) {
+
+        String apiKey = "<NOVU_API_KEY>";
+        Novu novu = new Novu(apiKey);
+
+        String subscriberId = "<SUBSCRIBER_ID>";
+
+        SubscriberNotificationResponse response = novu.getSubscriberNotificationsFeed(subscriberId);
+    }
+}
+```
+</RequestExample>
+
+<ResponseExample>
+<ResponseExample>
