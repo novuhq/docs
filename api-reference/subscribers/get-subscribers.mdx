@@ -3,3 +3,122 @@ openapi: get /v1/subscribers
 ---
 
 <Snippet file="apikey-warning.mdx" />
+
+<RequestExample>
+``` java Java
+import co.novu.common.base.Novu;
+import co.novu.api.subscribers.responses.BulkSubscriberResponse;
+
+public class Main {
+   public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+        Novu novu = new Novu(apiKey);
+        BulkSubscriberResponse response = novu.getSubscribers(null, null);
+    }
+}
+```
+</RequestExample>
+
+<ResponseExample>
+{
+    "page": 0,
+    "hasMore": false,
+    "pageSize": 10,
+    "data": [
+        {
+            "_id": "111122222233aaaabbbbbccc",
+            "_organizationId": "111122222233aaaabbbbbccc",
+            "_environmentId": "111122222233aaaabbbbbccc",
+            "subscriberId": "on-boarding-subscriber-id-123",
+            "channels": [],
+            "deleted": false,
+            "createdAt": "2023-09-23T03:43:42.165Z",
+            "updatedAt": "2023-09-26T00:39:54.073Z",
+            "__v": 0,
+            "isOnline": false,
+            "lastOnlineAt": "2023-09-26T00:39:54.073Z"
+        },
+        {
+            "_id": "111122222233aaaabbbbbccc",
+            "_organizationId": "111122222233aaaabbbbbccc",
+            "_environmentId": "111122222233aaaabbbbbccc",
+            "phone": "5555555555",
+            "subscriberId": "111122222233aaaabbbbbccc",
+            "channels": [],
+            "deleted": false,
+            "createdAt": "2023-09-25T22:52:29.276Z",
+            "updatedAt": "2023-09-25T22:52:29.276Z",
+            "__v": 0
+        },
+        {
+            "_id": "111122222233aaaabbbbbccc",
+            "_organizationId": "111122222233aaaabbbbbccc",
+            "_environmentId": "111122222233aaaabbbbbccc",
+            "firstName": "fName",
+            "lastName": "lName",
+            "phone": "5555555555",
+            "subscriberId": "111122222233aaaabbbbbccc",
+            "email": "name@email.com",
+            "avatar": "avatar",
+            "channels": [],
+            "data": null,
+            "deleted": false,
+            "createdAt": "2023-10-29T03:49:04.912Z",
+            "updatedAt": "2023-11-05T04:41:44.139Z",
+            "__v": 0
+        },
+        {
+            "_id": "111122222233aaaabbbbbccc",
+            "_environmentId": "111122222233aaaabbbbbccc",
+            "_organizationId": "111122222233aaaabbbbbccc",
+            "subscriberId": "111122222233aaaabbbbbccc",
+            "avatar": "avatar",
+            "channels": [],
+            "createdAt": "2023-11-06T01:54:34.578Z",
+            "data": null,
+            "deleted": false,
+            "email": "name@email.com",
+            "firstName": "fName",
+            "lastName": "lName",
+            "locale": null,
+            "phone": "5555555555",
+            "updatedAt": "2023-11-06T01:56:16.180Z"
+        },
+        {
+            "_id": "111122222233aaaabbbbbccc",
+            "_environmentId": "111122222233aaaabbbbbccc",
+            "_organizationId": "111122222233aaaabbbbbccc",
+            "subscriberId": "111122222233aaaabbbbbccc",
+            "avatar": "avatar",
+            "channels": [],
+            "createdAt": "2023-11-06T01:57:56.682Z",
+            "data": null,
+            "deleted": false,
+            "email": "name@email.com",
+            "firstName": "fName",
+            "lastName": "lName",
+            "locale": null,
+            "phone": "5555555555",
+            "updatedAt": "2023-11-06T01:57:56.682Z"
+        },
+        {
+            "_id": "111122222233aaaabbbbbccc",
+            "_organizationId": "111122222233aaaabbbbbccc",
+            "_environmentId": "111122222233aaaabbbbbccc",
+            "firstName": "fName",
+            "lastName": "lName",
+            "phone": "5555555555",
+            "subscriberId": "111122222233aaaabbbbbccc",
+            "email": "name@email.com",
+            "avatar": "avatar",
+            "locale": null,
+            "channels": [],
+            "data": null,
+            "deleted": false,
+            "createdAt": "2023-11-10T07:45:32.705Z",
+            "updatedAt": "2023-11-10T07:45:32.705Z",
+            "__v": 0
+        }
+    ]
+}
+</ResponseExample>

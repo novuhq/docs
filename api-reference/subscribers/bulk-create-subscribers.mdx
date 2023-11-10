@@ -29,6 +29,34 @@ await novu.subscribers.bulkCreate([
     },
 ]);
 ```
+``` java Java
+import co.novu.common.base.Novu;
+import co.novu.api.common.SubscriberRequest;
+import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
+
+public class Main {
+   public static void main(String[] args) {
+
+        String apiKey = "<NOVU_API_KEY>";
+        Novu novu = new Novu(apiKey);
+
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest.setFirstName("<FIRST_NAME>");
+        subscriberRequest.setLastName("<LAST_NAME>");
+        subscriberRequest.setPhone("<PHONE_NUMBER>");
+        subscriberRequest.setAvatar("<AVATAR>");
+        subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
+
+        BulkSubscriberRequest bulkSubscriberRequest = new BulkSubscriberRequest();
+        bulkSubscriberRequest.setSubscribers(Collections.singletonList(subscriberRequest));
+
+        CreateBulkSubscriberResponse response = novu.createSubscriberBulk(bulkSubscriberRequest);
+    }
+}
+
+```
+
 
 </RequestExample>
 

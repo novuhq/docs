@@ -97,24 +97,24 @@ novu = SubscriberApi(url, api_key).create(subscriber)
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.common.base.Novu;
+import co.novu.api.common.SubscriberRequest;
+import co.novu.api.subscribers.responses.CreateSubscriberResponse;
 
 public class Main {
     public static void main(String[] args) {
         String apiKey = "<NOVU_API_KEY>";
-
         Novu novu = new Novu(apiKey);
 
-        // Create subscriber & get the details of the recently created subscriber returned.
-        Map<String, Object> subscriber = new HashMap<>();
-        subscriber.put("subscriberId", "YOUR_SYSTEM_USER_ID");
-        subscriber.put("email", "<insert-email>");
-        subscriber.put("firstName", "<insert-firstname>");
-        subscriber.put("lastName", "<insert-lastname>");
-        subscriber.put("phone", "<insert-phone>");
-        subscriber.put("avatar", "<insert-avatar>");
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest.setFirstName("<FIRST_NAME>");
+        subscriberRequest.setLastName("<LAST_NAME>");
+        subscriberRequest.setPhone("<PHONE_NUMBER>");
+        subscriberRequest.setAvatar("<AVATAR>");
+        subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
 
-        novu.createSubscriber(subscriber);
+        CreateSubscriberResponse response = novu.createSubscriber(subscriberRequest);
     }
 }
 
