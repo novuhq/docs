@@ -28,6 +28,7 @@ yarn install
 yarn rw prisma migrate dev
 yarn rw prisma db seed
 yarn rw dev
+
 ```
 
 ## Install Novu
@@ -36,12 +37,14 @@ To install Novu's In-App notification center, simply issue the following command
 
 ```bash
 yarn workspace web add @novu/notification-center
+
 ```
 
 Next, install Novu's Node SDK to fire notifications from the api/backend:
 
 ```bash
 yarn workspace api add @novu/node
+
 ```
 
 # Register The Notification Center Component
@@ -139,6 +142,7 @@ const BlogLayout = ({ children }) => {
 };
 
 export default BlogLayout;
+
 ```
 
 <Note>
@@ -173,7 +177,7 @@ The workflow includes the following:
 - Workflow name and Identifier
 - Channel tailored content:
 
-<Snippet file="supported-channels.mdx" />                                                                                       |
+<Snippet file="supported-channels.mdx" />                                                                                       
 
 Please proceed to create a workflow.
 
@@ -203,6 +207,7 @@ Hi {{ name }},
 <p>Thanks for indicating interest in attending RedwoodJS conference. Here is your message: </p>
 
 <p>{{ message }}</p>
+
 ```
 
 <Note>
@@ -230,6 +235,7 @@ Hi {{ name }},
 <p>Here is your message:</p>
 
 {{ message }}
+
 ```
 
 Finally, give the workflow a name. We'll need the workflow trigger identifier **_(which is the slug of the name)_** later.
@@ -275,6 +281,7 @@ export const createContact = ({ input }) => {
 
 ...
 ...
+
 ```
 
 Before running the code, make sure you understand the following:
