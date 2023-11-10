@@ -41,3 +41,8 @@ A workflow acts as the blueprint for the notifications that will be sent. The wo
     - **Webhook** (used to send webhooks to custom channels or enable your customers to configure webhooks within your product)
   </Step>
 </Steps>
+
+<Warning>Once a workflow is triggered, it can not be changed.
+<br /> <br /> Workflow can be canceled only using  [DELETE /events/cancel api](/api-reference/workflows/delete-workflow)</Warning>
+
+<Note>Subscriber is not allowed to manage subscriber preference for [critical workflow](/subscribers/preferences#exclude-workflows-from-preferences-critical-workflow)</Note>

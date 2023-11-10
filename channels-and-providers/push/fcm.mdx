@@ -34,7 +34,6 @@ Make sure your service account json content contains these fields
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "CLIENT_X509_CERT_URL"
 }
-
 ```
 
 # FCM Overrides
@@ -172,5 +171,8 @@ novu.trigger('event-name', {
     ""Sending message failed due to "The registration token is not a valid FCM registration token""".
 
     This error happens because of invalid or stale token. The fix for this is to remove old tokens, generate a new token and save it into user subscribers.
+  </Accordion>
+  <Accordion title="FCM notifications sent successfully with no error but push notification is not received in device">
+    Try to generate a new token after clearing device cache and retry with this fresh token.
   </Accordion>
 </AccordionGroup>

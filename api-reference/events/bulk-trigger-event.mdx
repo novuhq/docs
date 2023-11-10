@@ -13,7 +13,7 @@ const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.bulkTrigger([
   {
-    name: "<WORKFLOW_TRIGGER_ID>",
+    name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
     to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload: {
       customKey: "customValue",
@@ -31,7 +31,7 @@ await novu.subscribers.bulkTrigger([
     tenant: "tenantIdentifier"
   },
   {
-    name: "<WORKFLOW_TRIGGER_ID>",
+    name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
     to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload: {
       customKey: "customValue",
@@ -58,12 +58,12 @@ $novu = new Novu(<NOVU_API_KEY>);
 
 $novu->bulkTriggerEvent([
     [
-        'name' => '<WORKFLOW_TRIGGER_ID>', 
+        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>', 
         'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
         'payload' => ['customVariables' => 'Hello']
     ],
     [
-        'name' => '<WORKFLOW_TRIGGER_ID>', 
+        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>', 
         'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
         'payload' => ['customVariables' => 'World']
     ],
@@ -78,7 +78,7 @@ curl -X POST https://api.novu.co/v1/events/trigger/bulk \
   -d '{
     "events": [
       {
-        "name": "<WORKFLOW_TRIGGER_ID>",
+        "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
         "to": {
           "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
           "email": "john@doemail.com"
@@ -98,7 +98,7 @@ curl -X POST https://api.novu.co/v1/events/trigger/bulk \
         "tenant": "tenantIdentifier"
       },
       {
-        "name": "<WORKFLOW_TRIGGER_ID>",
+        "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
         "to": {
           "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
           "email": "janet@doemail.com"
@@ -131,7 +131,7 @@ client = Novu::Client.new('<NOVU_API_KEY>')
 payload = {
     'events' => [
         {
-            'name' => '<WORKFLOW_TRIGGER_ID>',
+            'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
             'payload' => { # optional
                 'first-name' => 'Adam' # optional
             },
@@ -141,7 +141,7 @@ payload = {
             'transactionId' => '89kjfke9893' #optional
         },
         {
-            'name' => '<WORKFLOW_TRIGGER_ID>',
+            'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
             'payload' => { # optional
                 'last-name' => 'Eve' # optional
             },
@@ -172,7 +172,7 @@ func main() {
 	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
 
     event1 := novu.BulkTriggerOptions{
-        Name: []string{"<WORKFLOW_TRIGGER_ID>"},
+        Name: []string{"<WORKFLOW_TRIGGER_IDENTIFIER>"},
         To: map[string]interface{}{
             "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
             "email":        "john@doemail.com",
@@ -185,7 +185,7 @@ func main() {
 	    }
     }
     event2 := novu.BulkTriggerOptions{
-        Name: []string{"<WORKFLOW_TRIGGER_ID>"},
+        Name: []string{"<WORKFLOW_TRIGGER_IDENTIFIER>"},
         To: map[string]interface{}{
             "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
             "email":        "janet@doemail.com",
@@ -217,12 +217,12 @@ url = "https://api.novu.co"
 api_key = "<NOVU_API_KEY>"
 
 event_1 = InputEventDto(
-    name="<WORKFLOW_TRIGGER_ID>",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
     recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload={},  # Your custom Novu payload goes here
 )
 event_2 = InputEventDto(
-    name="<WORKFLOW_TRIGGER_ID>",
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",
     recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload={},
 )
@@ -289,13 +289,13 @@ var payload = new List<EventTriggerDataDto>()
 {
     new()
     {
-        EventName = "<WORKFLOW_TRIGGER_ID>",
+        EventName = "<WORKFLOW_TRIGGER_IDENTIFIER>",
         To = { SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"},
         Payload = new TestRecord(){ Message = "Hello"}
     },
     new()
     {
-        EventName = "<WORKFLOW_TRIGGER_ID>",
+        EventName = "<WORKFLOW_TRIGGER_IDENTIFIER>",
         To = { SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"},
         Payload = new TestRecord(){ Message = "World"}
     },

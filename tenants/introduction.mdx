@@ -4,6 +4,8 @@ description: "Learn all about Tenants"
 icon: 'house'
 ---
 
+
+
 Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants. 
 
 Currently, Novu supports the following customizations:
@@ -37,7 +39,7 @@ When triggering a workflow, it is possible to pass the tenant information (id or
 
     const novu = new Novu("<NOVU_API_KEY>");
 
-    await novu.trigger('<WORKFLOW_TRIGGER_ID>',
+    await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
       {
         to: {
           subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
@@ -58,7 +60,7 @@ When triggering a workflow, it is possible to pass the tenant information (id or
     $novu = new Novu('<NOVU_API_KEY_HERE>');
 
     $novu->triggerEvent([
-      'name' => '<WORKFLOW_TRIGGER_ID>',
+      'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
       'payload' => [
         'name' => 'Hello'
       ],

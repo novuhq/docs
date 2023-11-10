@@ -173,7 +173,39 @@ type ObjectWithRoot<T = {}> = T & {
   root: CSSFunctionOrObject;
 };
 ```
+<Accordion title="How to use the Styles Interface?">
+To use the Styles Interface, you need to identify the property you need to modify to achieve your desired look and pass it as an object in the `styles` prop. 
+  <br/>
+  As listed in the [Styles Interface](/notification-center/client/react/api-reference#styles-interface), the notification center is made up of a number of components which can each be individually customized. 
+  <br/>
+You can also check out our [docs on customizing styles](https://docs.novu.co/notification-center/client/react/api-reference#styles-interface) to see how to define styles for various components that make up the notification center.
+  <br/>
+  #### Let's take an example to see this in action:
+  By default, this is how the notification center looks:
 
+<Frame caption="Default UI of the notification center"><img src="/images/default-ui.png" /> </Frame>
+Say, you wanted the text color to match the accent color. You just need to go over to the [docs on customizing styles](https://docs.novu.co/notification-center/client/react/api-reference#styles-interface) and find out which property needs to be modified. In our case, we need to change the `color` property as evident here: 
+<Frame caption="We need to update the 'color' property"><img src="/images/styling-docs.png" /> </Frame>
+Now, that we know which property needs to change, all we need to do is pass an object to the `styles` prop while maintaining the nesting of object keys:
+```javascript
+<div className='bell'>
+    <NovuProvider
+        subscriberId={process.env.REACT_APP_SUB_ID}
+        applicationIdentifier={process.env.REACT_APP_APP_ID}
+
+        styles={{ notifications: { listItem: { layout: { color: '#E3554D' } } } }}
+
+    >
+        <PopoverNotificationCenter >
+            {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+        </PopoverNotificationCenter>
+    </NovuProvider>
+</div >
+```
+This gives us the desired result:
+<Frame caption="We need to update the 'color' property"><img src="/images/custom-style.png" /> </Frame>
+<Note>Please have a look at our [docs on customizing styles](https://docs.novu.co/notification-center/client/react/api-reference#styles-interface) to see how to define styles for various components of the notification center.</Note>
+</Accordion>
 ### Fetching strategy interface
 
 ```typescript
