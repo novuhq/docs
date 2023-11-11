@@ -233,7 +233,11 @@ novu = EventApi(url, api_key).trigger_bulk(
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.common.base.Novu;
+import co.novu.api.common.SubscriberRequest;
+import co.novu.api.events.requests.TriggerEventRequest;
+import co.novu.api.events.pojos.BulkTriggerEventRequest;
+import co.novu.api.events.responses.BulkTriggerEventResponse;
 
 public class Main {
     public static void main(String[] args) {
@@ -262,11 +266,9 @@ public class Main {
         BulkTriggerEventRequest bulkTriggerEventRequest = new BulkTriggerEventRequest();
         bulkTriggerEventRequest.setEvents(Arrays.asList(triggerEventRequest1, triggerEventRequest2));
 
-        novu.bulkTriggerEvent(bulkTriggerEventRequest);
+        BulkTriggerEventResponse response = novu.bulkTriggerEvent(bulkTriggerEventRequest);
     }
 }
-
-
 ```
 
 ```csharp .NET

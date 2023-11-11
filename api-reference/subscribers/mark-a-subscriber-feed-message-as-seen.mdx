@@ -16,10 +16,11 @@ public class Main {
         Novu novu = new Novu(apiKey);
         String subscriberId = "<SUBSCRIBER_ID>";
 
-        MarkSubscriberFeedAsRequest request = new MarkSubscriberFeedAsRequest();
         Mark mark = new Mark();
         mark.setRead(true);
         mark.setSeen(true);
+        
+        MarkSubscriberFeedAsRequest request = new MarkSubscriberFeedAsRequest();
         request.setMark(mark);
         request.setMessageId("<MESSAGE_ID>");
 
