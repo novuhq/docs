@@ -33,6 +33,7 @@ await novu.subscribers.bulkCreate([
 import co.novu.common.base.Novu;
 import co.novu.api.common.SubscriberRequest;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
+import co.novu.api.subscribers.requests.BulkSubscriberRequest;
 
 public class Main {
    public static void main(String[] args) {
@@ -40,23 +41,29 @@ public class Main {
         String apiKey = "<NOVU_API_KEY>";
         Novu novu = new Novu(apiKey);
 
-        SubscriberRequest subscriberRequest = new SubscriberRequest();
-        subscriberRequest.setEmail("<EMAIL_ADDRESS>");
-        subscriberRequest.setFirstName("<FIRST_NAME>");
-        subscriberRequest.setLastName("<LAST_NAME>");
-        subscriberRequest.setPhone("<PHONE_NUMBER>");
-        subscriberRequest.setAvatar("<AVATAR>");
-        subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
+        SubscriberRequest subscriberRequest1 = new SubscriberRequest();
+        subscriberRequest1.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest1.setFirstName("<FIRST_NAME>");
+        subscriberRequest1.setLastName("<LAST_NAME>");
+        subscriberRequest1.setPhone("<PHONE_NUMBER>");
+        subscriberRequest1.setAvatar("<AVATAR>");
+        subscriberRequest1.setSubscriberId("<SUBSCRIBER_ID>");
+
+        SubscriberRequest subscriberRequest2 = new SubscriberRequest();
+        subscriberRequest2.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest2.setFirstName("<FIRST_NAME>");
+        subscriberRequest2.setLastName("<LAST_NAME>");
+        subscriberRequest2.setPhone("<PHONE_NUMBER>");
+        subscriberRequest2.setAvatar("<AVATAR>");
+        subscriberRequest2.setSubscriberId("<SUBSCRIBER_ID>");
 
         BulkSubscriberRequest bulkSubscriberRequest = new BulkSubscriberRequest();
-        bulkSubscriberRequest.setSubscribers(Collections.singletonList(subscriberRequest));
+        bulkSubscriberRequest.setSubscribers(Arrays.asList(subscriberRequest1, subscriberRequest2));
 
         CreateBulkSubscriberResponse response = novu.createSubscriberBulk(bulkSubscriberRequest);
     }
 }
-
 ```
-
 
 </RequestExample>
 
