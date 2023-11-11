@@ -3,3 +3,27 @@ openapi: put /v1/subscribers/{subscriberId}
 ---
 
 <Snippet file="apikey-warning.mdx" />
+<RequestExample>
+```java Java
+import co.novu.common.base.Novu;
+import co.novu.api.subscribers.responses.SingleSubscriberResponse;
+import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+        Novu novu = new Novu(apiKey);
+        String subscriberId = "<SUBSCRIBER_ID>";
+
+        UpdateSubscriberRequest updateSubscriberRequest = new UpdateSubscriberRequest();
+        updateSubscriberRequest.setEmail("<EMAIL_ADDRESS>");
+        updateSubscriberRequest.setFirstName("<FIRST_NAME>");
+        updateSubscriberRequest.setLastName("<LAST_NAME>");
+        updateSubscriberRequest.setPhone("<PHONE_NUMBER>");
+
+
+        SingleSubscriberResponse response = novu.updateSubscriber(updateSubscriberRequest, subscriberId);
+    }
+}
+```
+</RequestExample>
