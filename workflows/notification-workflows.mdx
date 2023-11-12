@@ -46,3 +46,27 @@ A workflow acts as the blueprint for the notifications that will be sent. The wo
 <br /> <br /> Workflow can be canceled only using  [DELETE /events/cancel api](/api-reference/workflows/delete-workflow)</Warning>
 
 <Note>Subscriber is not allowed to manage subscriber preference for [critical workflow](/subscribers/preferences#exclude-workflows-from-preferences-critical-workflow)</Note>
+
+## FAQs
+
+<Accordion title="Workflow Promotion Error: Notification Group Id Not Found">
+To address the error "Notification Group Id not found" when promoting the workflow from dev to prod, it's essential to check the allocation of a notification group to the workflow. Here is an outlined process to validate:
+
+<Steps>
+<Step title="Go to the workflow settings in Novu's interface." > </Step>
+<Step title="Remain within the general settings tab." > </Step>
+<Step title="Check the right-hand side for the notification group dropdown." > </Step>
+<Step title="Verify if any group is selected. The group's association will be demonstrated here." > </Step>
+</Steps>
+
+<Tip>New notification group can also be created in the drop-down</Tip>
+
+
+If a notification group is not associated, this is likely the cause of the issue. Ensure that the relevant Notification Group Id is assigned in the settings. To do so, you would need to choose one from the drop-down list in the workflow settings .
+
+<Frame>
+     <img src="/images/change-update-notification-group.gif"/>
+</Frame>
+
+Remember, deleting a workflow is not recommended because it can lead to unexpected behavior like this. Instead, updating the workflow group associated with the specific workflow is the right process to address the issue.
+</Accordion>
