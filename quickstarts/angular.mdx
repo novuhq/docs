@@ -10,9 +10,9 @@ Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) not
 
 To follow the steps in this quickstart, you'll need:
 
-- A Novu account. [Sign up for free](http://web.novu.co/) if you don’t have one yet.
+- A Novu account. [Sign up for free](http://web.novu.co/) if you don’t have one yet
 - Angular CLI (Command Line Interface) installed on your machine
-- Angular version 15
+- Angular version 15 or higher
 
 You can also [view the completed code](https://github.com/novuhq/angular-quickstart) of this quick start in a GitHub repo.
 
@@ -20,25 +20,22 @@ You can also [view the completed code](https://github.com/novuhq/angular-quickst
 
 To create a new Angular app, open a terminal or command prompt and  run the following command:
 
-```
+```bash
 ng new my-app
-
 ```
 
 Here, `my-app` is the name of your new Angular app.  This command will create a new Angular app with a basic file structure and all the necessary dependencies installed.
 
 Navigate to the app directory by running the following command:
 
-```
+```bash
 cd my-app
-
 ```
 
 Once you are in the app directory, you can start the development server by running the following command:
 
-```
+```bash
 ng serve
-
 ```
 
 This command will start the development server and launch your app in the default browser. You can access your app by navigating to `http://localhost:4200/`.
@@ -52,31 +49,32 @@ The Novu Angular package provides a Angular component wrapper over the web compo
 
 Navigate to the root directory of your Angular application. Now install the Angular Notification Center package by running the following command in your terminal:
 
+<CodeGroup>
+```bash pnpm
+pnpm i @novu/notification-center-angular
 ```
-npm install @novu/notification-center-angular
-
-// or
-
+```bash npm
+npm i @novu/notification-center-angular
+```
+```bash yarn
 yarn add @novu/notification-center-angular
-
 ```
+</CodeGroup>
+
 
 # Configuring Application Environments
 
 Using the Angular CLI, start by running the [generate environments command](https://angular.io/cli/generate#environments-command)
-
 shown here to create the `src/environments/`directory and configure the  project to use these files.
 
-```
+```bash
 ng generate environments
-
 ```
 
 Navigate to `my-app/src/environments/environment.ts`  and add the following variables: `subscriberId`, `applicationIdentifier`
 
-**`Application Identifier`** can be found here:https://web.novu.co/settings
-
-**`subscriberId`** can be found here: https://web.novu.co/subscribers
+* **`applicationIdentifier`** can be found here: https://web.novu.co/settings
+* **`subscriberId`** can be found here: https://web.novu.co/subscribers
 
 ```tsx
 export const environment = {
@@ -84,12 +82,11 @@ export const environment = {
   subscriberId: '',
   applicationIdentifier: '',
 };
-
 ```
 
 Copy and paste the same code into `my-app/src/environments/environment.development.ts`
 
-These variables are needed for the `GET` request our notification center will make to Novu’s API to actually push notifications into the feed.
+These variables are needed for the `GET` request our notification center will make to Novu’s API to push notifications into the feed.
 
 # Adding Novu Module
 
@@ -112,7 +109,6 @@ import { NotificationCenterModule } from '@novu/notification-center-angular';
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
 ```
 
 Head to `my-app/src/app/app.component.ts` file.
@@ -183,63 +179,20 @@ export class AppComponent {
     console.log('loaded', { data });
   };
 }
-
 ```
 
-The Angular component is generated as a wrapper around the original React component.  This approach is clever, as it allows Novu's engineers to focus on creating and developing things in the React way.
+The Angular component is generated as a wrapper around the original React component. This approach is clever, as it allows Novu's engineers to focus on creating and developing things in the React way.
 
 Additionally, many other frameworks can still use the created components using the wrapping approach.
 
-We need to add `@types/react` as dev dependency for the angular component to work properly.
+Now head to the `my-app/tsconfig.json` file, we’re going to add `"allowSyntheticDefaultImports": true` to the `compilerOptions` array.
 
-Open your terminal and navigate to the app root directory and type the following:
-
-```
-npm i [@types/react](https://github.com/types/react)
-
-or
-
-yarn add [@types/react](https://github.com/types/react)
-
-```
-
-Now head to the `my-app/tsconfig.json` file.
-
-And we’re going to add `"allowSyntheticDefaultImports": true` to the `compilerOptions` array.
-
-```json
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
+```diff
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"]
-  },
-  "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
++   "allowSyntheticDefaultImports": true,
   }
 }
-
 ```
 
 # Use & Display The Notification Center Component
@@ -253,7 +206,7 @@ We will add our notification center to the .toolbar div.
 Paste the following into your `app.component.html` file:
 
 ```jsx
-<div id="bell-icon">
+  <div id="bell-icon">
     <notification-center-component
       [subscriberId]="subscriberId"
       [applicationIdentifier]="applicationIdentifier"
@@ -261,7 +214,6 @@ Paste the following into your `app.component.html` file:
       [styles]="styles"
     ></notification-center-component>
   </div>
-
 ```
 
 And in the `<style>` tag, we also want to add some margin to our `#bell-icon` so that it looks good next to the other icons.
@@ -271,7 +223,6 @@ And in the `<style>` tag, we also want to add some margin to our `#bell-icon` so
   height: '';
   margin: 0 16px;
 }
-
 ```
 
 Run your app again. Now you should see the bell icon (the notification center) in the toolbar section of your app.
@@ -295,13 +246,7 @@ The workflow includes the following:
 - Workflow name and Identifier
 - Channel tailored content:
 
-| Channel | Content Style |
-| --- | --- |
-| Email | 1. Custom Code (HTML) with option to use custom variables via the handlebars , {{ }}, syntax. |
-| 2. Click and place UI items with the visual workflow editor. |  |
-| SMS | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
-| Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
-| In-App | Text |
+<Snippet file="supported-channels.mdx" />
 
 Please proceed to create a workflow.
 
@@ -346,7 +291,6 @@ await novu.subscribers.identify('123', {
   lastName: 'Pearce',
   returnUser: true,
 });
-
 ```
 
 Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `YOUR_NOVU_API_KEY_HERE` with it.
@@ -364,7 +308,6 @@ await novu.subscribers.update('123', {
   firstName: 'Emil', // new first name
   lastName: 'Pearce', // new last name
 });
-
 ```
 
 # Trigger A Notification
@@ -381,7 +324,6 @@ await novu.trigger('onboarding-in-app', {
     subscriberId: '132',
   },
 });
-
 ```
 
 `onboarding-in-app` is the workflow identifier we created earlier.
@@ -394,7 +336,6 @@ export const environment = {
   subscriberId: '',
   applicationIdentifier: '',
 };
-
 ```
 
 Check your app again. You should see the recently triggered notification!

@@ -19,4 +19,21 @@ fun main() {
 }
 ```
 
+```bash cURL
+curl --request GET \
+--url https://api.novu.co/v1/notifications \
+--header 'Authorization: ApiKey <NOVU_API_KEY>'
+```
+
+```python Python
+from novu.api import NotificationApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+notificationApi = NotificationApi(url, api_key)
+
+notifications = notificationApi.list()
+```
+
 </RequestExample>

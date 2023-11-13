@@ -21,6 +21,7 @@ First, you must install the Novu package in your Go project. From your terminal,
 
 ```bash
 go get github.com/novuhq/go-novu
+
 ```
 
 Once installed, you can import Novu into your project and initialize it using your Novu account credentials. This step establishes a connection between your app and the Novu notification service.
@@ -31,6 +32,7 @@ import (
 )
 
 novuClient := novu.NewAPIClient("<NOVU_API_KEY>", &novu.Config{})
+
 ```
 
 Replace `<NOVU_API_KEY>` with your own API key that you got from the API Key section of your [Novu Dashboard](https://web.novu.co/settings).
@@ -48,6 +50,7 @@ import (
 )
 
 novuClient := novu.NewAPIClient(apiKey, &novu.Config{RetryConfig: &novu.RetryConfigType{RetryMax: 3, WaitMin: 1 * time.Second, WaitMax: 5 * time.Second, InitialDelay: 0 * time.Second}})
+
 ```
 
 | Options       | Detail                                                             | Default Value   |
@@ -80,13 +83,7 @@ The workflow includes the following:
 - Notification workflow name and Identifier
 - Channel tailored content:
 
-| Channel | Content Style                                                                                 |
-| ------- | --------------------------------------------------------------------------------------------- |
-| Email   | 1. Custom Code (HTML) with option to use custom variables via the handlebars , {{ }}, syntax. |
-|         | 2. Click and place UI items with the visual template editor.                                  |
-| SMS     | Text with the option to use handlebars syntax, {{ }} to inject custom variables.              |
-| Chat    | Text with the option to use handlebars syntax, {{ }} to inject custom variables.              |
-| In-App  | Text                                                                                          |
+<Snippet file="supported-channels.mdx" />                                                                                      
 
 <Note>
 Proper authorization needs to be setup for the Chat channel.
@@ -155,12 +152,14 @@ func main() {
 
  fmt.Println(resp)
 }
+
 ```
 
 Run the code in your terminal like so:
 
 ```bash
 go run main.go # replace main.go with your file name
+
 ```
 
 You should see a new subscriber (that you created above) on your Novu dashboard.
@@ -193,6 +192,7 @@ func main() {
 
  fmt.Println(updateResp)
 }
+
 ```
 
 <Note>
@@ -247,6 +247,7 @@ func main() {
 
  fmt.Println(triggerResp)
 }
+
 ```
 
 Before running the code, make sure you understand the following:
@@ -263,6 +264,7 @@ Run the code to trigger a notification!
 
 ```bash
 go run main.go # replace main.go with your file name
+
 ```
 
 Next, we’ll learn how to send notifications to different groups of subscribers easily via **Topics.**
@@ -307,6 +309,7 @@ func main() {
 
  fmt.Println(createResp)
 }
+
 ```
 
 Before running the code, make sure you understand the following:
@@ -342,6 +345,7 @@ func main() {
 
  fmt.Println(addSubscribersResp)
 }
+
 ```
 
 On the other hand, if you want to remove subscribers from a topic, do the following:
@@ -370,6 +374,7 @@ func main() {
 
  fmt.Println(addSubscribersResp)
 }
+
 ```
 
 ### Sending a notification to a Topic
@@ -419,6 +424,7 @@ func main() {
 
  fmt.Println(triggerResp)
 }
+
 ```
 
 ## Next Steps
