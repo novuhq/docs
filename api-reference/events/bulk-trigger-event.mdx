@@ -233,7 +233,11 @@ novu = EventApi(url, api_key).trigger_bulk(
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.common.base.Novu;
+import co.novu.api.common.SubscriberRequest;
+import co.novu.api.events.requests.TriggerEventRequest;
+import co.novu.api.events.pojos.BulkTriggerEventRequest;
+import co.novu.api.events.responses.BulkTriggerEventResponse;
 
 public class Main {
     public static void main(String[] args) {
@@ -241,39 +245,30 @@ public class Main {
 
         Novu novu = new Novu(apiKey);
 
-        List<Map<String, Object>> events = new ArrayList<>();
-        // First event
-        Map<String, Object> event1 = new HashMap<>();
-        event1.put("name", "<WORKFLOW_TRIGGER_IDENTIFIER>");
-        event1.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload1 = new HashMap<>();
-        payload1.put("customVariables", "Hello");
-        event1.put("payload", payload1);
-        events.add(event1);
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest.setFirstName("<FIRST_NAME>");
+        subscriberRequest.setLastName("<LAST_NAME>");
+        subscriberRequest.setPhone("<PHONE_NUMBER>");
+        subscriberRequest.setAvatar("<AVATAR>");
+        subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
 
-        // Second event
-        Map<String, Object> event2 = new HashMap<>();
-        event2.put("name", "<WORKFLOW_TRIGGER_IDENTIFIER>");
-        event2.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload2 = new HashMap<>();
-        payload2.put("customVariables", "World");
-        event2.put("payload", payload2);
-        events.add(event2);
+        TriggerEventRequest triggerEventRequest1 = new TriggerEventRequest();
+        triggerEventRequest1.setName("<NAME>");
+        triggerEventRequest1.setTo(subscriberRequest);
+        triggerEventRequest1.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
+        
+        TriggerEventRequest triggerEventRequest2 = new TriggerEventRequest();
+        triggerEventRequest2.setName("<NAME>");
+        triggerEventRequest2.setTo(subscriberRequest);
+        triggerEventRequest2.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
 
-        // Third event
-        Map<String, Object> event3 = new HashMap<>();
-        event3.put("name", "<WORKFLOW_TRIGGER_IDENTIFIER>");
-        event3.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload3 = new HashMap<>();
-        payload3.put("customVariables", "Again");
-        event3.put("payload", payload3);
-        events.add(event3);
+        BulkTriggerEventRequest bulkTriggerEventRequest = new BulkTriggerEventRequest();
+        bulkTriggerEventRequest.setEvents(Arrays.asList(triggerEventRequest1, triggerEventRequest2));
 
-        novu.bulkTriggerEvent(events);
+        BulkTriggerEventResponse response = novu.bulkTriggerEvent(bulkTriggerEventRequest);
     }
 }
-
-
 ```
 
 ```csharp .NET
