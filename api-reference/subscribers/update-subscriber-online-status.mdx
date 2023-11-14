@@ -3,3 +3,61 @@ openapi: patch /v1/subscribers/{subscriberId}/online-status
 ---
 
 <Snippet file="apikey-warning.mdx" />
+<RequestExample>
+```java Java
+import co.novu.common.base.Novu;
+import co.novu.api.subscribers.responses.SingleSubscriberResponse;
+import co.novu.api.subscribers.requests.UpdateSubscriberOnlineStatusRequest;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+        Novu novu = new Novu(apiKey);
+        String subscriberId = "<SUBSCRIBER_ID>";
+
+        UpdateSubscriberOnlineStatusRequest request = new UpdateSubscriberOnlineStatusRequest();
+        request.setIsOnline(true);
+
+        SingleSubscriberResponse response = novu.updateSubscriberOnlineStatus(request, subscriberId);
+    }
+}
+```
+</RequestExample>
+<ResponseExample>
+```json Response
+{
+  "data": {
+    "__v": "number",
+    "_environmentId": "string",
+    "_id": "string",
+    "_organizationId": "string",
+    "avatar": "string",
+    "channels": [
+      {
+        "_integrationId": "string",
+        "credentials": {
+          "channel": "string",
+          "deviceTokens": [
+            "string"
+          ],
+          "webhookUrl": "string"
+        },
+        "integrationIdentifier": "string",
+        "providerId": "slack"
+      }
+    ],
+    "createdAt": "string",
+    "deleted": "boolean",
+    "email": "string",
+    "firstName": "string",
+    "isOnline": "boolean",
+    "lastName": "string",
+    "lastOnlineAt": "string",
+    "locale": "string",
+    "phone": "string",
+    "subscriberId": "string",
+    "updatedAt": "string"
+  }
+}
+```
+</ResponseExample>
