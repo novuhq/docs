@@ -50,7 +50,7 @@ Now, we need to connect it to our app. To do so, the first step is to import Nov
 import { Novu } from '@novu/node';
 
 // replace <NOVU_API_KEY> with your actual API key
-const novu = new Novu(<YOUR_NOVU_API_KEY>);
+const novu = new Novu(<NOVU_API_KEY>);
 
 ```
 
@@ -98,7 +98,7 @@ We’ll first create a subscriber using the following code:
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(<YOUR_NOVU_API_KEY>);
+const novu = new Novu(<NOVU_API_KEY>);
 
 export async function sendEmail(email, description) {
     await novu.subscribers.identify('1234567890', {
@@ -114,7 +114,7 @@ Here, we’re creating a subscriber with the subscriber id of `1234567890` and
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(<YOUR_NOVU_API_KEY>);
+const novu = new Novu(<NOVU_API_KEY>);
 
 export async function sendEmail(email, description) {
     await novu.subscribers.identify('1234567890', {

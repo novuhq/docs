@@ -55,7 +55,7 @@ using Novu;
 
  var novuConfiguration = new NovuClientConfiguration
 {
-    ApiKey = "<YOUR_NOVU_API_KEY>",
+    ApiKey = "<NOVU_API_KEY>",
 };
 
 var novu = new NovuClient(novuConfiguration);
@@ -225,7 +225,7 @@ Before running the code, make sure you understand the following:
 - The value of `EventName` should be the workflow’s trigger ID/slug.
 <Frame caption="Make sure your workflow's trigger ID/slug matches the value you'd used"><img src="/images/template-nodejs.png" /> </Frame>
 - The value of `Payload` is an array of the data that you want to be dynamically injected into the workflow content.
-- The value of `SubscriberId` is the id of the subscriber on Novu. Replace `7789` with your subscriber ID.
+- The value of `SubscriberId` is the id of the subscriber on Novu. Replace `7789` with your subscriberId.
 
 Run the code to trigger a notification!
 

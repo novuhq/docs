@@ -284,7 +284,7 @@ Novu has a plethora of backend SDKs (Node.js, PHP, .NET, Go, Ruby, Python and Ko
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<YOUR_NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.subscribers.identify('123', {
   firstName: 'Emil',
@@ -293,7 +293,7 @@ await novu.subscribers.identify('123', {
 });
 ```
 
-Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `YOUR_NOVU_API_KEY_HERE` with it.
+Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `<NOVU_API_KEY>` with it.
 
 Now check your Novu dashboard. You should see the recently created subscriber.
 
@@ -302,7 +302,7 @@ You can also update the subscriber info like so:
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<YOUR_NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.subscribers.update('123', {
   firstName: 'Emil', // new first name
@@ -317,7 +317,7 @@ To trigger a notification, simply run the code below with the correct credential
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<YOUR_NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.trigger('onboarding-in-app', {
   to: {

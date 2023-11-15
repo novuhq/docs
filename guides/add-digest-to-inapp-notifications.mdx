@@ -130,7 +130,7 @@ Back in our app, we can now add the trigger function:
 import { Novu } from '@novu/node';
 
 export const sendDigest = async (name) => {
-  const novu = new Novu(process.env.YOUR_NOVU_API_KEY_HERE);
+  const novu = new Novu(process.env.NOVU_API_KEY);
 
   await novu.subscribers.identify('aa234u787', {
     firstName: 'digest subscriber',

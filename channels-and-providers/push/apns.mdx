@@ -31,9 +31,9 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-novu.trigger('event-name', {
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
   to: {
-    subscriberId: '...',
+    subscriberId: '<SUBSCRIBER_ID>',
   },
   payload: {
     abc: 'def', // If the notification is a data notification, the payload will be sent as the data
@@ -62,9 +62,9 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-novu.trigger('event-name', {
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
   to: {
-    subscriberId: '...',
+    subscriberId: '<SUBSCRIBER_ID>',
   },
   payload: {
     key1: 'val1',
