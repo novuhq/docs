@@ -36,9 +36,9 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-novu.trigger('event-name', {
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
   to: {
-    subscriberId: '...',
+    subscriberId: '<SUBSCRIBER_ID>',
   },
   payload: {
     custom_data: 'custom_data', // the payload will be sent as notification data object. Cannot contain the key “pusher”

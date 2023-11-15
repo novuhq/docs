@@ -6,15 +6,15 @@ icon: "pen"
 
 To demonstrate the extensive range of possibilities, we've crafted a subscriber profile enriched with various attributes to highlight the flexibility of our system.
 
-```bash
+```typescript
 const subscriber = {
+    subscriberId: '6427e97d0136cef86a315c46',
     firstName: 'John',
     lastName: 'Doe',
     email: 'john.doe@gmail.com',
     phone: '+98712345677',
     avatar: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
-    locale: 'en',
-    subscriberId: '6427e97d0136cef86a315c46',
+    locale: 'en-US',
     data: {
         plan: 'basic',
         zipcode: 14925,
@@ -41,7 +41,7 @@ Example: Send a personalized welcome email to a user by leveraging their propert
 
 **Input:**
 
-```md
+```html
 Hello {{subscriber.firstName}} {{subscriber.lastName}}!
 
 We are excited to welcome you to our {{subscriber.data.plan}} plan.
@@ -65,7 +65,7 @@ Your friends at Novu.
 
 **Output:**
 
-```md
+```html
 Hello John Doe!
 
 We are excited to welcome you to our basic plan.
@@ -170,9 +170,8 @@ Your friends at Novu.
 
 <img style={{ borderRadius: "0.5rem" }} src="/images/custom-code-output.png" />
 
-## [Explore how to manage Email layouts.](/content-creation-design/layouts) 
-
-<br />
+<Info>Email Subject, Sender Name and Preheader field accepts system, payload variables and handlebar helpers</Info>
+[Explore how to manage Email layouts.](/content-creation-design/layouts) 
 
 ## In-App
 
@@ -207,3 +206,8 @@ You have the ability to utilize all variables to craft dynamic and personalized 
 />
 
 ## Push
+Push channel has two fields `Push Message Title` and `Push Message Content` where user can write hard coded text content or use system, dynamic variables or handlebar helpers to customize notification content.
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/content-creation-design/push-editor.png"
+/>
