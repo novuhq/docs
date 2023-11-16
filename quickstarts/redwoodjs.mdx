@@ -10,14 +10,14 @@ Explore the code for [this quickstart on GitHub](https://github.com/novuhq/redwo
 
 Explore the [live demo](https://novu-redwoodjs-blog.netlify.app/contact).
 
-## Prerequisites
+# Prerequisites
 
 To follow the steps in this quickstart, you'll need:
 
 - A Novu account. If you don't have one, [sign up for free](https://web.novu.co).
 - Node.js installed on your development machine.
 
-## Create a RedwoodJS app
+# Create a RedwoodJS app
 
 Clone the popular RedwoodJS blog tutorial app by running the following command in your terminal:
 
@@ -31,7 +31,7 @@ yarn rw dev
 
 ```
 
-## Install Novu
+# Install Novu
 
 To install Novu's In-App notification center, simply issue the following command:
 
@@ -166,7 +166,7 @@ Now, check your app, you will see a notification bell button. Click on the butto
   learn how to trigger notifications.
 </Note>
 
-## Create A Workflow
+# Create A Workflow
 
 The first step to trigger notifications is to create a workflow. A workflow is like a map that holds the entire flow of messages sent to the subscriber.
 
@@ -242,7 +242,7 @@ Finally, give the workflow a name. We'll need the workflow trigger identifier **
 
 Next, we’ll learn how to trigger notifications to subscribers.
 
-## Trigger A Notification
+# Trigger A Notification
 
 Open up `api/src/services/contacts/contacts.js`, and add the following code into your app to trigger a notification:
 
@@ -291,13 +291,13 @@ Before running the code, make sure you understand the following:
 - The value of `subscriberId` is the id of the subscriber on Novu.
 - Ensure `NOVU_API_KEY` is in the `.env` file and with the appropriate value gotten from the dashboard.
 
-## One more thing
+# One more thing
 
 Head over to the [integrations store on your Novu dashboard](https://web.novu.co/integrations).
 
 Select the **Novu Email Test Provider**, and mark as the primary provider for Emails. This ensures that all emails are sent via the Novu Email provider.
 
-## Test the app
+# Test the app
 
 Ensure your app is still running and head over the `/contact` page in the app. Fill the form and click `Save`.
 
@@ -306,6 +306,6 @@ The app will trigger two notifications:
 - An In-App notification
 - An Email notification
 
-## Conclusion
+# Conclusion
 
 Great job! If you've reached this point, you should now have successfully created workflow, configured a channel provider, triggered a workflow, and sent an email and In-App notification.
