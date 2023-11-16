@@ -135,7 +135,7 @@ For example, if you rename this function `onIdentify`, it listens for “Identif
 
 Now let's learn how to send a payload to Novu based on the `onTrack` event function:
 
-To successfully send a payload to Novu, triggering the appropriate workflow and delivering it to the correct customer, please ensure that you provide the following information:
+To successfully send a payload to Novu, triggering the appropriate [workflow](/getting-started/concepts#workflow) and delivering it to the correct customer, please ensure that you provide the following information:
 
 1. Novu's Workflow Identifier.
 2. Subscriber ID (Please ensure that the Subscriber ID is both unique and consistent across all of your databases).
@@ -143,48 +143,55 @@ To successfully send a payload to Novu, triggering the appropriate workflow and 
 4. Novu's API Endpoint: [https://api.novu.co/v1/events/trigger]
 
 ```javascript
-const NOVU_WORKFLOW_IDENTIFIER = '<YOUR_WORKFLOW_IDENTIFIER>';
-const SUBSCRIBER_UNIQUE_IDENTIFIER = '<YOUR_SUBSCRIBER_IDENTIFIER>';
-const NOVU_API_KEY = '<YOUR_NOVU_API_KEY>';
-const API_ENDPOINT = 'https://api.novu.co/v1/events/trigger';
-
 async function onTrack(event, settings) {
-  const payload = {
-    name: NOVU_WORKFLOW_IDENTIFIER,
-    to: {
-      subscriberId: SUBSCRIBER_UNIQUE_IDENTIFIER,
-    },
-    payload: {},
-  };
+	const eventProperties = event.properties;
 
-  try {
-    const response = await fetch(API_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        Authorization: `ApiKey ${NOVU_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-    });
+	if (!eventProperties.environment) {
+		throw new InvalidEventPayload('environment property is required');
+	}
+	if (!eventProperties.name) {
+		throw new InvalidEventPayload('Workflow name property is required');
+	}
 
-    if (response.status >= 500 || response.status === 429) {
-      // Retry on 5xx (server errors) and 429s (rate limits)
-      throw new Error(`Failed with status ${response.status}`);
-    }
+	console.log('environment:', eventProperties.environment);
 
-    // Handle success or other specific statuses here
-    // You might want to check for different response codes and handle them accordingly
-  } catch (error) {
-    // Log the error for debugging
-    console.error(error);
+	const payload = {
+		name: eventProperties.name,
+		to: {
+			subscriberId: eventProperties.user.subscriberId,
+			email: eventProperties.user.email,
+			firstName: eventProperties.user.firstName,
+			lastName: eventProperties.user.lastName
+		},
+		payload: { eventProperties }
+	};
+	const endpoint = settings.novuEndpoint;
+	console.log('endpoint:', endpoint);
 
-    // Retry logic can be added here if needed, with a retry count limit
-    // Retry example: if (retryCount < maxRetryCount) retryCount++;
-  }
+	const ApiKey = settings.novuApiKey; // Your NOVU API key
+	if (eventProperties.environment === settings.environment) {
+		let response;
+		try {
+			response = await fetch(endpoint, {
+				method: 'POST',
+				headers: {
+					Authorization: `ApiKey ${ApiKey}`,
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(payload)
+			});
+		} catch (error) {
+			// Retry on connection error
+			throw new RetryError(error.message);
+		}
+		if (response.status >= 500 || response.status === 429) {
+			// Retry on 5xx (server errors) and 429s (rate limits)
+			throw new RetryError(`Failed with ${response.status}`);
+		}
+	}
 }
 ```
-
-<Accordion title="Create Settings and Secrets">
+#### Create Settings and Secrets
 Segment's settings allow you to pass configurable variables to your function, which is the best way to pass sensitive information such as security tokens. For example, you might use settings as placeholders to use information such as an API endpoint and API key.
 You can learn more about it [here](https://segment.com/docs/connections/functions/destination-functions/#create-settings-and-secrets).
 
@@ -197,7 +204,12 @@ Click `Add Setting` to add your new setting.
 <Frame>
   <img src="/images/guides/segment-novu-integration/add-setting-dialog.png" />
 </Frame>
-</Accordion>
+
+Now, while configuring the function, Add these three variables to be then used in the code exposed in the settings function param.
+
+<Frame caption="The variables you need to run the provided snippit">
+  <img src="/images/guides/segment-novu-integration/novu-segment-settings-variables.png" />
+</Frame>
 
 #### Test the destination function
 You can test your code directly from the editor in two ways:
@@ -205,7 +217,7 @@ You can test your code directly from the editor in two ways:
 **1. Use sample events for testing**
 Click `Use Sample Event` and select the source to use events from.
 
-<Frame>
+<Frame caption="Example from Segment's documention event sources">
   <img src="/images/guides/segment-novu-integration/autofill-events.gif" />
 </Frame>
 
@@ -215,7 +227,31 @@ Click `Run` to test your function with the event you selected.
 You can also manually include your own JSON payload of a Segment event, instead of fetching a sample from one of your workspace sources.
 
 <Frame>
-  <img src="/images/guides/segment-novu-integration/editor-test.gif" />
+  <img src="/images/guides/segment-novu-integration/custom-segment-event.gif" />
+</Frame>
+
+**Here is the the event example JSON we will use**
+```JSON
+{
+  "type": "track",
+  "event": "User Abandoned Cart",
+  "properties": {
+    "name": "abandoned-cart-recovery-workflow",
+    "user": {
+      "subscriberId": "63da8ee0c037e013fd790ffd",
+      "email": "hi@hi.com",
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    "environment": "development"
+  }
+}
+```
+
+We will now execute the function based on the manual event input we've provided. This function sends a trigger to Novu, prompting to take action and send the user an email to return and the purchase.
+
+<Frame>
+  <img src="/images/guides/segment-novu-integration/running-segment-func-for-novu-destination.gif" />
 </Frame>
 
 Whether you chose the first or second option to test your Destination Function, you can also check if the function triggered your workflow and whether it was delivered through Novu's [Activity Feed](https://web.novu.co/activities).
