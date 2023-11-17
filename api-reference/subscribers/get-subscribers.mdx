@@ -13,7 +13,11 @@ public class Main {
    public static void main(String[] args) {
         String apiKey = "<NOVU_API_KEY>";
         Novu novu = new Novu(apiKey);
-        BulkSubscriberResponse response = novu.getSubscribers(null, null);
+
+        Integer page = 0;
+        Integer limit = 10;
+
+        BulkSubscriberResponse response = novu.getSubscribers(page, limit);
     }
 }
 ```
