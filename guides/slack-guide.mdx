@@ -116,11 +116,38 @@ Since the Novu managed is fairly straightforward, I'll demonstrate the manual me
 4. Then, copy the 'webhookUrl' from Slack.
 <Frame caption="Copy the webhookUrl from Slack"><img src="/images/guides/slack-guide/hook.png" /> </Frame>
 5. Now, add the code below to the backend trigger functionality. Using this code, we are specifying what `webhookUrl` Novu will use to authenticate when using the Slack provider. 
-```jsx
-await novu.subscribers.setCredentials(process.env.SUB_ID, ChatProviderIdEnum.Slack, {
-        webhookUrl: process.env.SLACK_WEBHOOK_URL,
-    });
+
+<Tabs>
+  <Tab title="Node.js">
+```javaScript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_API_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
+  webhookUrl: "<WEBHOOK_URL>",
+});
 ```
+  </Tab>
+  <Tab title="cURL">
+```bash 
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_API_KEY>' \
+-d '{
+  "providerId": "slack",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "slack-MnGLxp8uy"
+}'
+```
+  </Tab>
+</Tabs>
 
 In our case, we'll add it to the `Novu.js` file we created earlier so that the final file becomes :
 ```jsx

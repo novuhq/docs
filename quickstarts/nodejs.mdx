@@ -30,7 +30,6 @@ Once installed, you can import Novu into your app and initialize it using your N
 import { Novu } from '@novu/node';
 
 const novu = new Novu('<NOVU_API_KEY>');
-
 ```
 
 Replace the `<NOVU_API_KEY>` value with the authentic key from the **API Key** section of your [Novu Dashboard](https://web.novu.co/settings).
@@ -96,7 +95,6 @@ await novu.subscribers.identify(subscriberId, {
   locale: '', // optional
   data: { customKey1: 'customVal1', customKey2: 'customVal2' }, // optional
 });
-
 ```
 
 Run the code in your terminal like so:
@@ -118,7 +116,6 @@ await novu.subscribers.update('7789', {
   // new phone
   phone: '+19874567832', // optional
 });
-
 ```
 
 Other valid fields that can be updated are `phone`, `avatar`, and `data` . The `data` field can accept an array of metadata that you want to attach to the subscriber.
@@ -138,7 +135,6 @@ novu.trigger(notificationWorkflowId, {
   },
   payload: {},
 });
-
 ```
 
 Before running the code, make sure you understand the following:
@@ -174,7 +170,6 @@ const result = await novu.topics.create({
   key: 'unique-topic-identifier',
   name: 'descriptive-topic-name',
 });
-
 ```
 
 Before running the code, make sure you understand the following:
@@ -192,7 +187,6 @@ const topicKey = '<YOUR TOPIC KEY>';
 const response = await novu.topics.addSubscribers(topicKey, {
   subscribers: ['subscriber-id-1', 'subscriber-id-2', ...],
 });
-
 ```
 
 - To add multiple subscribers to a topic, simply separate their names with commas and add them to the array as part of the `subscribers` value.
@@ -211,7 +205,6 @@ await novu.trigger(notificationTemplateId, {
   to: [{ type: 'Topic', topicKey: topicKey }],
   payload: {},
 });
-
 ```
 
 ## Conclusion
