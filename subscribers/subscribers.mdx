@@ -3,7 +3,7 @@ title: 'Subscribers'
 icon: 'user'
 ---
 
-In Novu, we call the entities designed to receive notifications as `Subscribers`. Each subscriber is unique and identified by a unique subscriber ID.
+In Novu, we call the entities designed to receive notifications as `Subscribers`. Each subscriber is unique and identified by a unique subscriberId.
 
 <Note>
 `subscriberId` is a unique identifier used by Novu to keep track of a specific subscriber.
@@ -91,7 +91,7 @@ behavior.</Tip>
 import { Novu } from "@novu/node";
 
 // Insert your Novu API Key here
-const novu = new Novu("YOUR_NOVU_API_KEY_HERE");
+const novu = new Novu("<NOVU_API_KEY>");
 
 // Create a subscriber on Novu
 await novu.subscribers.identify("132", {
@@ -132,7 +132,7 @@ await novu.subscribers.identify('111', {
   lastName: 'Doe',
   phone: '+13603963366',
   avatar: 'https://example.com/images/avatar.jpg',
-  locale: 'en',
+  locale: 'en-US',
   data: { customKey1: 'customVal1', customKey2: 'customVal2' },
 });
 ```
