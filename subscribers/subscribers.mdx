@@ -87,6 +87,10 @@ When a provider with the same subscriberId already exists, this method performs 
 In cases where there is no pre-existing entry, the method generates a new one, thus exhibiting an <Tooltip tip="A combination of the words “update” and “insert”">upsert</Tooltip>
 behavior.</Tip>
 
+<Note>
+It is possible for two subscribers to have the same email address in our system. This is because the subscriber ID is the unique identifier that distinguishes one subscriber from another.
+ </Note>
+
 ```jsx
 import { Novu } from "@novu/node";
 
@@ -485,5 +489,6 @@ $novu->getSubscriber('111')->toArray();
 
   </Tab>
 </Tabs>
+
 
 
