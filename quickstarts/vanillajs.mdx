@@ -71,7 +71,6 @@ await novu.subscribers.identify('123', {
   lastName: 'Saurabh',
   returnUser: true,
 });
-
 ```
 
 You can get your API key from the Novu dashboard. Replace `<NOVU_API_KEY>` with it. Now, if you’ll go to the Novu dashboard, you shall see the subscriber we created above with `subscriberId` of `123`.
@@ -88,7 +87,6 @@ await novu.subscribers.update('123', {
   firstName: 'Saurabh', // new first name
   lastName: 'Sumit', // new last name
 });
-
 ```
 
 ## Create a workflow
@@ -227,7 +225,6 @@ form.addEventListener('submit', onClickHandler);
 // here you can attach any callbacks, interact with the web component API
 let nc =document.getElementsByTagName('notification-center-component')[0];
 nc.onLoad = () => console.log('hello world!');
-
 ```
 
 The front-end as well as the back-end code for the sample application can be found [here](https://github.com/novuhq/vanillajs-quickstart) for illustration.
@@ -257,7 +254,6 @@ novu.trigger('quickstart', {
     description: '<REPLACE_WITH_DATA>',
   },
 });
-
 ```
 
 > Make sure you're executing this code with the correct credentials.
