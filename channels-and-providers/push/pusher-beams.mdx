@@ -17,17 +17,38 @@ In order to target the Pusher Beams user from Novu, you must register the Pusher
 
 Once you have the user's `userId` value, the `deviceToken` for your Novu subscriber can be set via:
 
-```jsx
-import { Novu, PushProviderIdEnum } from '@novu/node';
+<Tabs>
+  <Tab title="Node.js">
+```javaScript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.PusherBeams, {
   // Your user's unique 'userId' from Pusher Beams
-  deviceTokens: ['xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'],
+  deviceTokens: ['userId-from-pusher-beams'],
 });
-
 ```
+  </Tab>
+  <Tab title="cURL">
+```bash 
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_API_KEY>' \
+-d '{
+  "providerId": "pusher-beams",
+  "deviceTokens": ['userId-from-pusher-beams'],
+  "integrationIdentifier": "pusher-beams-MnGLxp8uy"
+}'
+```
+  </Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
 
 # SDK Trigger Example
 
@@ -44,5 +65,4 @@ novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
     custom_data: 'custom_data', // the payload will be sent as notification data object. Cannot contain the key “pusher”
   },
 });
-
 ```
