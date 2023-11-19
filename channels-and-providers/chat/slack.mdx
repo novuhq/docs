@@ -69,16 +69,41 @@ To use the manually managed option, you need to generate a `webhookUrl` and plug
 <Frame caption="Copy the webhookUrl from Slack"><img src="/images/guides/slack-guide/hook.png" /> </Frame>
 5. Now, you need to save the `webhookUrl` on the relevant subscriber entity in Novu. Here's an example to do the same using our Node SDK:
 
-```JavaScript
-import { Novu, ChatProviderIdEnum } from '@novu/node';
+## Update credential webhookUrl
+
+<Tabs>
+  <Tab title="Node.js">
+```javaScript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-const body = req.body; // From your HTTPS listener
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
-webhookUrl: <Paste the webhookUrl here>,
+  webhookUrl: "<WEBHOOK_URL>",
 });
 ```
+  </Tab>
+  <Tab title="cURL">
+```bash 
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_API_KEY>' \
+-d '{
+  "providerId": "slack",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "slack-MnGLxp8uy"
+}'
+```
+  </Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
 
 - `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
 - `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum.Slack if you’re using Node, else string of Slack to specify the provider.
