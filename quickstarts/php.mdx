@@ -6,7 +6,7 @@ icon: 'php'
 
 Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications from a PHP app.
 
-# Requirements
+## Requirements
 
 To follow the steps in this quickstart, you'll need:
 
@@ -15,7 +15,7 @@ To follow the steps in this quickstart, you'll need:
 
 You can also [v](https://cloudinary.com/documentation/php_quickstart#view_the_completed_code)[iew the completed code](https://github.com/novuhq/novu-php-quickstart) of this quick start in a GitHub repo.
 
-# Install Novu PHP SDK
+## Install Novu PHP SDK
 
 The [PHP SDK](http://github.com/novuhq/novu-php) provides a fluent and expressive interface for interacting with Novu's API and managing notifications.
 
@@ -44,7 +44,7 @@ composer install
 
 ```
 
-### Initialize & Configure the Novu SDK
+## Initialize & Configure the Novu SDK
 
 Create a new file, `index.php` in your application and add the following code to it:
 
@@ -67,7 +67,7 @@ Replace the `$apiKey`’s value with the authentic key from the **API Key** s
 Please do not hardcode your credentials in a file in production. Use environment variables instead.
 </Note>
 
-# Set Up A Channel Provider
+## Set Up A Channel Provider
 
 A channel provider is a service that provides one or more notification functionality such as sending an email, SMS, push notification etc. Our [integration store](https://web.novu.co/integrations) includes four channels: Email, SMS, Chat, and Push. These channels have multiple providers associated with them.
 
@@ -80,7 +80,7 @@ A channel provider is a service that provides one or more notification functiona
 
 Only one provider can be **active** per **channel**. Connect any of your favourite providers to get started. The email channel comes with Novu's email provider, which is active by default and includes 300 credits.
 
-# Create A Workflow
+## Create A Workflow
 
 A workflow is a blueprint for the notifications that will be sent. It holds the entire flow of messages sent to the subscriber. This is where all the different channels are tied together under a single entity.
 
@@ -189,7 +189,7 @@ php index.php
 
 Next, we’ll learn how to send notifications to different groups of subscribers easily via **Topics.**
 
-# Topics
+## Topics
 
 Novu provides a simple API that offers an easy interface for triggering notifications to multiple subscribers at once. This API is called **Topics** and allows users to manage their bulk notifications without having to implement complex loops.
 
@@ -202,7 +202,7 @@ The topic key should be unique and can't be changed once chosen. Novu also safeg
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
-### Create a Topic
+## Create a Topic
 
 Copy and paste the following code into your app to create a topic:
 
@@ -220,7 +220,7 @@ Before running the code, make sure you understand the following:
 - When creating a `key`, ensure it is unique and accurately identifies the topic. Document naming conventions and communicate them to team members to avoid confusion and ensure a smooth workflow.
 - The value of `name` should be a descriptive topic name.
 
-### Add subscribers to a Topic
+## Add subscribers to a Topic
 
 Copy and paste the following code into your app to add subscribers to a topic:
 
@@ -250,7 +250,7 @@ $novu->topic($topicKey)->removeSubscribers($subscribers);
 
 ```
 
-### Sending a notification to a Topic
+## Sending a notification to a Topic
 
 Thanks to the topics feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps avoid listing all subscriber identifiers in the `to` field of the notification trigger.
 
@@ -270,6 +270,6 @@ $novu->triggerEvent([
 
 ```
 
-# Conclusion
+## Conclusion
 
 Great job! If you've reached this point, you should now have successfully created a subscriber, workflow, configured a channel provider and triggered a notification in your application.
