@@ -87,7 +87,7 @@ const router = express.Router();
 
 router.post('/sending-digest', getDigest);
 
-export default router
+export default router;
 ```
 
 Now, we need to write a controller function that will handle the logic for what is to be sent in the trigger function’s payload. In our case, this is the controller function:
@@ -223,7 +223,8 @@ window.location.href = message.cta.data.url;
   );
 };
 
-export default Headerconst novu
+export default Header;
+```
 
 You’ll also need to plug in your `applicationIdentifier`. You can get your `application id` from the settings menu in the Novu dashboard.
 
