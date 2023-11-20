@@ -87,9 +87,7 @@ const router = express.Router();
 
 router.post('/sending-digest', getDigest);
 
-export default router;
-
-```
+export default routerconst novu
 
 Now, we need to write a controller function that will handle the logic for what is to be sent in the trigger function’s payload. In our case, this is the controller function:
 ```jsx
@@ -103,9 +101,7 @@ export const getDigest = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
-};
-
-```
+}const novu
 
 To make it modular, we’ll keep the trigger code in a separate function in a separate file (`novu.js`, in our case) and the trigger function is getting called in the controller function above by the name `getDigest`.
 
@@ -143,9 +139,7 @@ export const sendDigest = async (name) => {
       name: name,
     },
   });
-};
-
-```
+}const novu
 
 Now, we just need to hit the route defined above from the front end and add Novu to it.
 
@@ -226,9 +220,7 @@ window.location.href = message.cta.data.url;
   );
 };
 
-export default Header;
-
-```
+export default Headerconst novu
 
 You’ll also need to plug in your `applicationIdentifier`. You can get your `application id` from the settings menu in the Novu dashboard.
 
@@ -271,9 +263,7 @@ const Body = () => {
   );
 };
 
-export default Body;
-
-```
+export default Bodyconst novu
 
 The app is done now!
 

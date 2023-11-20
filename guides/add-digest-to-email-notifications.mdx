@@ -95,9 +95,7 @@ const router = express.Router();
 
 router.post('/sending-email-digest', getEmailDigest);
 
-export default router;
-
-```
+export default routerconst novu
 
 Now, we need to write a controller function that will handle the logic for what is to be sent in the trigger function’s payload. In our case, this is the controller function:
 
@@ -112,9 +110,7 @@ export const getEmailDigest = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
-};
-
-```
+}const novu
 
 To make it modular, we’ll keep the trigger code in a separate function in a separate file (`novu.js`, in our case) and the trigger function is getting called in the controller function above by the name `getEmailDigest`.
 
@@ -154,9 +150,7 @@ export const sendEmailDigest = async (notif, email) => {
       notif: notif,
     },
   });
-};
-
-```
+}const novu
 
 Now, we just need to hit the route defined above from the front end.
 
@@ -244,9 +238,7 @@ const Body = () => {
       </form>
     </div>
   );
-};
-
-```
+}const novu
 
 We're hitting the backend route we had created earlier. The backend has been deployed on render as can be seen in this code snippet above.
 
