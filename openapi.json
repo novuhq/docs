@@ -3575,6 +3575,47 @@
         ]
       }
     },
+    "/v1/messages/transaction/{transactionId}": {
+      "delete": {
+        "operationId": "MessagesController_deleteMessagesByTransactionId",
+        "summary": "Delete messages by transactionId",
+        "description": "Deletes messages entity from the Novu platform using TransactionId of message",
+        "parameters": [
+          {
+            "name": "channel",
+            "required": false,
+            "in": "query",
+            "description": "The channel of the message to be deleted",
+            "schema": {
+              "enum": [
+                "in_app",
+                "email",
+                "sms",
+                "chat",
+                "push"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Messages"
+        ]
+      }
+    },
     "/v1/blueprints/group-by-category": {
       "get": {
         "operationId": "BlueprintController_getGroupedBlueprints",
