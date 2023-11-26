@@ -92,4 +92,20 @@ When all channels are turned off for that subscriber then subscriber will not re
 3. To disable a workflow for only one subscriber, you can achieve this by having the subscriber disable all channels for that specific workflow through their subscriber preferences. This action will solely impact that particular subscriber.
 </Accordion>
 
+<Accordion title="What is the difference between workflowId and trigger identifier?">
+`workflowId` uniquely identifies each workflow in the Novu ecosystem. When you create a workflow, it encapsulates the entire flow and rules of all messages that are being sent. It includes various components such as trigger, channels, etc.
+<img
+  style={{ borderRadius: '0.5rem' }}
+  src="/images/workflows/workflow-id.png"
+/>
+
+`trigger identifier`, on the other hand, refers to an event or action that initiates the workflow. It serves as the start point which sets the entire workflow into motion. Whenever an event takes place in your system that matches a trigger identifier, Novu gets the signal to start the specified workflows.
+<img
+  style={{ borderRadius: '0.5rem' }}
+  src="/images/workflows/trigger-id.png"
+/>
+
+Hence, while `workflowId` refers to the umbrella structure that holds the entire flow of messages, the `trigger identifier` is the specific event that starts this sequence.
+</Accordion>
+
 </AccordionGroup>
