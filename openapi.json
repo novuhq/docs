@@ -5896,6 +5896,30 @@
           "preference"
         ]
       },
+      "GetSubscriberPreferencesResponseDto": {
+        "type": "object",
+        "properties": {
+          "template": {
+            "description": "The workflow information and if it is critical or not",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TemplateResponse"
+              }
+            ]
+          },
+          "preference": {
+            "description": "The preferences of the subscriber regarding the related workflow",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Preference"
+              }
+            ]
+          }
+        },
+        "required": [
+          "preference"
+        ]
+      },
       "ChannelPreference": {
         "type": "object",
         "properties": {
@@ -5934,6 +5958,22 @@
           "enabled": {
             "type": "boolean",
             "description": "Sets if the workflow is fully enabled for all channels or not for the subscriber."
+          }
+        }
+      },
+      "UpdateSubscriberGlobalPreferencesRequestDto": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Enable or disable the subscriber global preferences."
+          },
+          "preferences": {
+            "description": "The subscriber global preferences for every ChannelTypeEnum.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChannelPreference"
+            }
           }
         }
       },
