@@ -53,6 +53,35 @@
         ]
       }
     },
+    "/v1/environments": {
+      "get": {
+        "operationId": "EnvironmentsController_getMyEnvironments",
+        "summary": "Get environments",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/EnvironmentResponseDto"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "Environments"
+        ]
+      }
+    },
     "/v1/environments/api-keys": {
       "get": {
         "operationId": "EnvironmentsController_getOrganizationApiKeys",
