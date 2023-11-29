@@ -53,69 +53,6 @@
         ]
       }
     },
-    "/v1/environments": {
-      "post": {
-        "operationId": "EnvironmentsController_createEnvironment",
-        "summary": "Create environment",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateEnvironmentRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "$ref": "#/components/schemas/EnvironmentResponseDto"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Environments"
-        ]
-      },
-      "get": {
-        "operationId": "EnvironmentsController_getMyEnvironments",
-        "summary": "Get environments",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/EnvironmentResponseDto"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Environments"
-        ]
-      }
-    },
     "/v1/environments/api-keys": {
       "get": {
         "operationId": "EnvironmentsController_getOrganizationApiKeys",
@@ -3776,20 +3713,6 @@
           "identifier",
           "apiKeys",
           "_parentId"
-        ]
-      },
-      "CreateEnvironmentRequestDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "parentId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
         ]
       },
       "InBoundParseDomainDto": {
