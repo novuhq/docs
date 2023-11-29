@@ -19,6 +19,7 @@ For basic installation, a server with 16GB RAM and 8 CPUs is fine. However, spec
 - If services are running across containers, then it is recommended to run 3 container per service, each container having 2 vCPU and 4GB of RAM.
 - If you're using Kubernetes, then the K8 system needs to have 36 vCPU and 64GB of RAM at least in the cluster to run the servers.
 - On AWS, a c6g.8xlarge instance with 32 vCPU and 64GB of RAM. 
-- In all cases, you need to also have 2 Redis clusters with one having an Append only log file active (AOL),  a MongoDB cluster equivalent to a M40 or greater on Atlas, and S3 storage.
+- In all cases, you need to also have 2 Redis clusters with the queue one having an Append only log file active (AOL) to prevent instances of job loss during an outage,  a MongoDB cluster equivalent to a M20 or greater on Atlas, and 10GB of S3 storage.
+- Lastly, the queue Redis instance should be 8GB MINIMUM as there needs to be enough space to handle spikes in notifications or the whole system will brick.
 
 <Note>Note that these specifications are subject to your requirements, the scale of your operations, and should be adjusted as needed.</Note>
