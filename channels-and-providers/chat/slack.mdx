@@ -27,13 +27,13 @@ There are two ways to integrate Novu with Slack - Novu Managed (recommended) and
 If you use this approach, then Novu will manage the OAuth flow and store the credentials
 
 1. Configure your Slack application as mentioned [below](#configuring-slack-application).
-2. You now need to make a network request to the `Shareable URL` to perform authentication.
+2. You need to make a network request to the `Shareable URL` to perform authentication.
 3. You can find the `Shareable URL` in the [Integration Store](https://web.novu.co/integrations)
 <Frame caption="Use the 'Shareable URL' from the Novu Integration Store"><img src="/images/channels-and-providers/shreable-url.png" /> </Frame>
-4. You can now either add the `Add to Slack` button or use the `Shareable URL` directly, in the application you'll be using Novu in. 
+4. You can either add the `Add to Slack` button or use the `Shareable URL` directly, in the application you'll be using Novu in. 
 <Info>The network request to the 'Shareable URL' will happen when the user clicks the 'Add to Slack' button.</Info>
 5. This is to request permission for access (scope: incoming-webhook).
-6. You can use the generated `Shareable URL` that you can find under the Slack integration in the [Integration Store](https://web.novu.co/integrations). The `Shareable URL` should have the following format:
+6. You can use the generated `Shareable URL` that is found under the Slack integration in the [Integration Store](https://web.novu.co/integrations). The `Shareable URL` should have the following format:
 ```bash
 https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials/slack/oauth?environmentId=<ENVIRONMENT_ID>&integrationIdentifier=<PROVIDER_ID>.
 
