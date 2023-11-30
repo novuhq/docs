@@ -27,7 +27,7 @@ There are two ways to integrate Novu with Slack - Novu Managed (recommended) and
 If you use this approach, then Novu will manage the OAuth flow and store the credentials
 
 1. Configure your Slack application as mentioned [below](#configuring-slack-application).
-2. You now need to make a network request to the `Shareable URL` in order to perform authentication.
+2. You now need to make a network request to the `Shareable URL` to perform authentication.
 3. You can find the `Shareable URL` in the [Integration Store](https://web.novu.co/integrations)
 <Frame caption="Use the 'Shareable URL' from the Novu Integration Store"><img src="/images/channels-and-providers/shreable-url.png" /> </Frame>
 4. You can now either add the `Add to Slack` button or use the `Shareable URL` directly, in the application you'll be using Novu in. 
@@ -65,7 +65,7 @@ If you are using the `Add to Slack` button you have to provide the `Shareable
 <Info>You can use the URL of whichever page you want your users to land on, after successful execution</Info>
 9. That's it! Now you can trigger your workflow and send notifications:
 <Frame caption="Now you can send notifications to the channel you chose earlier"><img src="/images/channels-and-providers/notifications-to-channel.png" /> </Frame>
-<Note>Don't forget to checkout our [dedicated guide](/guides/slack-guide) on integrating Novu in a Slack app for more.</Note>
+<Note>Don't forget to check out our [dedicated guide](/guides/slack-guide) on integrating Novu in a Slack app for more.</Note>
 ### 2. Manually managed
 To use the manually managed option, you need to generate a `webhookUrl` and plug it into your backend. 
 1. Goto 'Incoming Webhooks' in your Slack app settings and turn it on.
@@ -98,14 +98,14 @@ webhookUrl: <Paste the webhookUrl here>,
 ## Configuring Slack application
 
 1. Go to OAuth & Permissions on Slack's Developer Dashboard and add your REDIRECT_URL in Redirect URLs.
-    - If you use a manual Management solution, add the API endpoint you created on Step 1.
+    - If you use a manual Management solution, add the API endpoint you created in Step 1.
     - If you use the Novu Managed solution add `https://api.novu.co/v1/subscribers`.
 2. Go to Incoming Webhooks from the left menu and Activate Incoming Webhooks.
 3. Go to Manage Distribution and at the bottom of the page, tick Remove Hard Coded Information and Activate Public Distribution.
 
 ### Enabling HMAC Encryption
 
-In order to enable Hash-Based Message Authentication Codes, you need to do the following steps:
+To enable Hash-Based Message Authentication Codes, you need to do the following steps:
 
 1. Visit the integration store page and enable HMAC encryption under your chat provider.
 2. The next step would be to generate an HMAC encrypted subscriberId on your backend:
