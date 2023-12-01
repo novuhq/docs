@@ -17,7 +17,7 @@ You can find the code for this project [here](https://github.com/novuhq/react-q
 
 ## Install the Novu React Notification Center Package in your React app
 
-The Novu React package provides a React component library that you can use to add a fully functioning notification centre to your React application.
+The Novu React package provides a React component library that you can use to add a fully functioning notification center to your React application.
 
 To use it, first, install the React Notification Center package by running the following command in your terminal:
 
@@ -93,10 +93,10 @@ await novu.subscribers.identify('789', {
 });
 ```
 
-The `identify` method used above either updates an existing subscriber using the payload data if a subscriber with the same `subscriberId` already exists, or creates a new one if it doesn't. Here, since no subscriber with `firstName` of `Sumit` and `lastName` of `Saurabh` exists, so a new one was created and we can now send a notification to this subscriber by triggering a workflow.
+The `identify` method used above either updates an existing subscriber using the payload data if a subscriber with the same `subscriberId` already exists, or creates a new one if it doesn't. Here, since no subscriber with `firstName` of `Sumit` and `lastName` of `Saurabh` exists, a new one was created and we can now send a notification to this subscriber by triggering a workflow.
 <Info>You can read more about the `identify` method in our [docs](https://docs.novu.co/subscribers/subscribers#create-a-subscriber)<Info/>
 
-You can get your API key from the Novu dashboard. Replace `<NOVU_API_KEY>` with it. Now, if you’ll go to the Novu dashboard, you shall see the subscriber we created above with `subscriberId` of `789`.
+You can get your API key from the Novu dashboard. Replace `<NOVU_API_KEY>` with it. Now, head over to the Novu dashboard and see the newly created subscriber above with a `subscriberId` of `789`..
 
 You can also update information about an already existing subscriber using the `subscriber.update` method as shown below:
 
