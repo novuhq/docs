@@ -5,11 +5,17 @@ openapi: delete /v1/messages/transaction/{transactionId}
 <Snippet file="apikey-warning.mdx" />
 
 <RequestExample>
-
+```cURL
+curl --request DELETE \
+--url 'https://api.novu.co/v1/messages/transaction/{transactionId}' \
+--header 'Authorization: ApiKey <NOVU_API_KEY>'
+```
 
 </RequestExample>
 
 <ResponseExample>
-
+```json
+204 - No Content
+```
 
 </ResponseExample>
