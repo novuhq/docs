@@ -115,6 +115,32 @@ This resource offers comprehensive insights into the utilization of Handlebars.j
   </Tab>
 </Tabs>
 
+### numberFormat
+`numberFormat` helper is used to format numbers with specified decimal length, thousands separator, and decimal separator.
+
+<Tabs>
+  <Tab title="Template">
+```html
+<div>{{numberFormat number decimalSep="," decimalLength="2" thousandsSep="|"}}</div>
+<div>{{numberFormat nonNumber decimalSep="," decimalLength="2" thousandsSep="|"}}</div>
+```
+  </Tab>
+  <Tab title="Context">
+```json
+{
+  "number": 1000000000,
+  "nonNumber": "Not a number"
+}
+```
+  </Tab>
+  <Tab title="Output">
+```html
+<div>1|000|000|000,00</div>
+<div>Not a number</div>
+```
+  </Tab>
+</Tabs>
+
 ### pluralize
 The `pluralize` helper allows you to easily handle pluralization in your templates by providing different forms of a word depending on a variable value.
 
