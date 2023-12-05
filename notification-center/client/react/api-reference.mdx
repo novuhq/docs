@@ -1104,6 +1104,14 @@ customization properties
 | cta.action.buttons        | [IMessageButton[]](#imessagebutton)       | Array of action buttons                                                                              |
 | cta.action.result.payload | `Record<string, unknown>`                 | Payload object that send on updateAction method in useNotifications hook                             |
 | cta.action.result.type    | [ButtonTypeEnum](#buttontypeenum)         | Type of the button                                                                                   |
+| subscriber                | [SubscriberProps](#subscriberprops)       | Payload object that send on updateAction method in useNotifications hook                             |
+
+### SubscriberProps
+| Property     | Type                              | Description                                                      |
+| ------------ | --------------------------------- | ---------------------------------------------------------------- |
+| _id          | string                            | Auto generated identifier for the subscriber entity in database  |
+| firstName    | string                            | First name of the subscriber                                     |
+| subscriberId | string                            | identifier of the subscriber entity in the Novu Web Dashboard    |
 
 ### IMessageButton
 
