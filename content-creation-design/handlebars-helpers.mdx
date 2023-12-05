@@ -165,7 +165,7 @@ In its simplest form, the `pluralize` helper takes three arguments:
 
 In this example, if `dog_count` is equal to 1, it will render "1 dog," and if it's greater than 1, it will render "dogs."
 
-# Use Cases & Examoles
+## Use Cases & Examoles
 
 ### Handling Event Count Display with Excluded Individuals
 
@@ -190,5 +190,43 @@ In this code, we iterate through the `step.events` array and conditionally displ
 
 By using this code, you can achieve a more accurate representation of the event count in your messages, even when some users are individually mentioned in the message text.
 
-<Note> In a future release, we plan to replace handlebar helpers with an alternative solution. Please note that custom handlebars are not currently supported. </Note>
+### Using array length as count 
+
+Array length be used as total number of item. For example, if paylod have fruits property of type array then its length can be used as total number of fruits.
+
+<Tabs>
+  <Tab title="Template">
+```html
+Total number of fruits is {{fruits.length}}.
+```
+  </Tab>
+  <Tab title="Payload">
+```json
+{
+  "fruits": [
+    {
+      "name": "Pine apple",
+      "price": "10$"
+    },
+    {
+      "name": "Apple",
+      "age": "8$"
+    },
+    {
+      "name": "Orange",
+      "age": "5$"
+    }
+  ]
+}
+```
+  </Tab>
+  <Tab title="Output">
+```html
+Total number of fruits is 3.
+```
+  </Tab>
+</Tabs>
+
+
+<Note> In a future release, we plan to replace handlebar helpers with an alternative solution. Please note that custom handlebars in the editor itself are not currently supported. If we are missing any handlebar helper that is blocking you to write template for use case, feel free to reach out to us in [discord](https://discord.gg/novu?ref=docs-handlebar-helper)</Note>
 

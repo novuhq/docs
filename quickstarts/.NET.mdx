@@ -55,11 +55,10 @@ using Novu;
 
  var novuConfiguration = new NovuClientConfiguration
 {
-    ApiKey = "<YOUR_NOVU_API_KEY>",
+    ApiKey = "<NOVU_API_KEY>",
 };
 
 var novu = new NovuClient(novuConfiguration);
-
 ```
 
 Replace the `ApiKey`’s value with the authentic key from the **API Key** section of your [Novu Dashboard](https://web.novu.co/settings) and be sure to use your specific Novu instance URL.
@@ -139,7 +138,6 @@ var newSubscriberDto = new CreateSubscriberDto
 };
 
 var subscriber = await novu.Subscriber.CreateSubscriber(newSubscriberDto);
-
 ```
 
 Run the code in your terminal like so:
@@ -166,7 +164,6 @@ subscriber7789.FirstName = "<insert-firstname>"; // optional
 subscriber7789.LastName = "<insert-lastname>"; // optional
 
 var updatedSubscriber = await novu.Subscriber.UpdateSubscriber("7789",subscriber7789);
-
 ```
 
 Other valid fields that can be updated are `phone`, `avatar`, and `data` . The `data` field can accept an array of metadata that you want to attach to the subscriber.
@@ -225,7 +222,7 @@ Before running the code, make sure you understand the following:
 - The value of `EventName` should be the workflow’s trigger ID/slug.
 <Frame caption="Make sure your workflow's trigger ID/slug matches the value you'd used"><img src="/images/template-nodejs.png" /> </Frame>
 - The value of `Payload` is an array of the data that you want to be dynamically injected into the workflow content.
-- The value of `SubscriberId` is the id of the subscriber on Novu. Replace `7789` with your subscriber ID.
+- The value of `SubscriberId` is the id of the subscriber on Novu. Replace `7789` with your subscriberId.
 
 Run the code to trigger a notification!
 
@@ -263,7 +260,6 @@ var topicRequest = new TopicCreateDto
 };
 
 var topic = await novu.Topic.CreateTopicAsync(topicRequest);
-
 ```
 
 Before running the code, make sure you understand the following:
@@ -289,7 +285,6 @@ var subscriberList = new TopicSubscriberUpdateDto
 };
 
 var result = await novu.Topic.AddSubscriberAsync(topicKey, subscriberList);
-
 ```
 
 ## Sending a Notification to a Topic

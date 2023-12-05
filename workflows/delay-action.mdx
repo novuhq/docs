@@ -25,7 +25,7 @@ Should you wish to, you could override the default delay time interval you set i
 ```tsx
 novu.trigger('template-name', {
   to: {
-    subscriberId: '123',
+    subscriberId: '<SUBSCRIBER_ID>'
   },
   payload: {
     name: 'Hello',
@@ -37,7 +37,6 @@ novu.trigger('template-name', {
     },
   },
 });
-
 ```
 
 ## Scheduled Delay
@@ -60,13 +59,12 @@ For example:
 ```tsx
 novu.trigger('workflow-name', {
   to: {
-    subscriberId: '123',
+    subscriberId: '<SUBSCRIBER_ID>'
   },
   payload: {
     sendAt: '2022-09-21T10:48:44.388Z',
   },
 });
-
 ```
 
 <Note>

@@ -54,40 +54,6 @@
       }
     },
     "/v1/environments": {
-      "post": {
-        "operationId": "EnvironmentsController_createEnvironment",
-        "summary": "Create environment",
-        "parameters": [],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateEnvironmentRequestDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "data": {
-                      "$ref": "#/components/schemas/EnvironmentResponseDto"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "tags": [
-          "Environments"
-        ]
-      },
       "get": {
         "operationId": "EnvironmentsController_getMyEnvironments",
         "summary": "Get environments",
@@ -3619,6 +3585,47 @@
           }
         }
       }
+    },
+    "/v1/messages/transaction/{transactionId}": {
+      "delete": {
+        "operationId": "MessagesController_deleteMessagesByTransactionId",
+        "summary": "Delete messages by transactionId",
+        "description": "Deletes messages entity from the Novu platform using TransactionId of message",
+        "parameters": [
+          {
+            "name": "channel",
+            "required": false,
+            "in": "query",
+            "description": "The channel of the message to be deleted",
+            "schema": {
+              "enum": [
+                "in_app",
+                "email",
+                "sms",
+                "chat",
+                "push"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "transactionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Messages"
+        ]
+      }
     }
   },
   "info": {
@@ -3776,20 +3783,6 @@
           "identifier",
           "apiKeys",
           "_parentId"
-        ]
-      },
-      "CreateEnvironmentRequestDto": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "parentId": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "name"
         ]
       },
       "InBoundParseDomainDto": {
@@ -5896,6 +5889,30 @@
           "preference"
         ]
       },
+      "GetSubscriberPreferencesResponseDto": {
+        "type": "object",
+        "properties": {
+          "template": {
+            "description": "The workflow information and if it is critical or not",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TemplateResponse"
+              }
+            ]
+          },
+          "preference": {
+            "description": "The preferences of the subscriber regarding the related workflow",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Preference"
+              }
+            ]
+          }
+        },
+        "required": [
+          "preference"
+        ]
+      },
       "ChannelPreference": {
         "type": "object",
         "properties": {
@@ -5934,6 +5951,22 @@
           "enabled": {
             "type": "boolean",
             "description": "Sets if the workflow is fully enabled for all channels or not for the subscriber."
+          }
+        }
+      },
+      "UpdateSubscriberGlobalPreferencesRequestDto": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "description": "Enable or disable the subscriber global preferences."
+          },
+          "preferences": {
+            "description": "The subscriber global preferences for every ChannelTypeEnum.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChannelPreference"
+            }
           }
         }
       },

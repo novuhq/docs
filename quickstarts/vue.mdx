@@ -63,7 +63,6 @@ const app = createApp(App);
 
 app.use(NotificationCenterPlugin);
 app.mount('#app');
-
 ```
 
 # Use The Notification Center Component
@@ -140,7 +139,6 @@ If there’s none, create a `.env` file and add it like so:
 
 ```
 VITE_NOVU_APP_IDENTIFIER = YOUR_NOVU_APP_IDENTIFIER;
-
 ```
 
 Replace `YOUR_NOVU_APP_IDENTIFIER` with the real value from your dashboard.
@@ -243,7 +241,7 @@ Now, let's create a subscriber on Novu.
 
 Novu has a plethora of backend SDKs (Node.js, PHP, .NET, Go, Ruby, Python and Kotlin) to choose from to create a subscriber programmatically. This is the recommended method.
 
-Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `YOUR_NOVU_API_KEY_HERE` with it.
+Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `<NOVU_API_KEY>` with it.
 
 Now check your Novu dashboard. You should see the recently created subscriber.
 
@@ -252,13 +250,12 @@ You can also update the subscriber info like so:
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<YOUR_NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.subscribers.update('132', {
   email: 'janedoe@domain.com', // new email
   phone: '+19874567832', // new phone
 });
-
 ```
 
 # Trigger A Notification

@@ -5,9 +5,49 @@ openapi: post /v1/integrations
 <Snippet file="apikey-warning.mdx" />
 
 <RequestExample>
+
+```bash cURL
+curl --location 'https://api.novu.co/v1/integrations' \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+--header 'Authorization: ApiKey <NOVU_API_KEY>' \
+--data '{
+    "name": "SES",
+    "identifier": "ses-NkIQ5Koy3-123",
+    "credentials": {
+        "apiKey": "ACCESS_KEY_ID",
+        "secretKey": "SECRET_ACCESS_KEY",
+        "region": "us-east-2",
+        "from": "FROM_EMAIL_ADDRESS",
+        "senderName": "SENDER_NAME",
+        // ... other credentials as per provider
+    },
+    "conditions": [],
+    "active": true,
+    "check": false,
+    "providerId": "ses",
+    "channel": "email"
+}'
+```
+
 ```javascript Node.js
-import { Novu } from '@novu/node';  
-export const novu = new Novu('<REPLACE_WITH_API_KEY_FROM_ADMIN_PANEL>');
+import { Novu, ChannelTypeEnum, ProvidersIdEnum } from '@novu/node';  
+const novu = new Novu('<NOVU_API_KEY>');
+
+const createPaylod = {
+  name: "SendGrid",
+  identifier: "sendgrid-identifier",
+  credentials: {
+    apiKey: "SUPER_SECRET_API_KEY",
+    from: "sales@novu.co",
+    senderName: "Novu Sales Team",
+    channel: ChannelTypeEnum.EMAIL,
+    // ... other credentials as per provider
+  },
+  active: true,
+  check: false
+}
+
 await novu.integrations.create(ProvidersIdEnum.SendGrid, createPayload);
 ```
 
