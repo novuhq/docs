@@ -78,6 +78,44 @@ This resource offers comprehensive insights into the utilization of Handlebars.j
   </Tab>
 </Tabs>
 
+
+### equals
+`equals` helper allows you to perform comparisons, both for boolean expressions and string comparisons.
+
+<Tabs>
+  <Tab title="Template">
+```html
+<!-- LOGIC -->
+{{#equals value1 value2}}
+   <!-- Code to execute when value1 is equal to value2 -->
+{{else}}
+   <!-- Code to execute when value1 is not equal to value2 -->
+{{/equals}}
+
+
+<!-- Example -->
+{{#equals 10 1}}
+   <h2> 10 is equal to 1 </h2>
+{{else}}
+   <h1> 10 is not equal to 1 </h1>
+{{/equals}}
+```
+  </Tab>
+  <Tab title="Context">
+```json
+{
+  "value1" : 10,
+  "values2" : 1
+}
+```
+  </Tab>
+  <Tab title="Output">
+```html
+   <h1> 10 is not equal to 1 </h1>
+```
+  </Tab>
+</Tabs>
+
 ### numberFormat
 `numberFormat` helper is used to format numbers with specified decimal length, thousands separator, and decimal separator.
 
