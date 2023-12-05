@@ -132,3 +132,18 @@ If you're ready to start using the Headless Notification Center, check out our [
 [Explore Implementation of the Headless Library in an App](https://github.com/novuhq/novu-headless-demo-app)
 
 [Headless Demo](https://headlessdemo.vercel.app)
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="How to use headless library for multiple users? ">
+
+    We have `headless.initializeSession` method to generate token and initialize the session. If user log out and new user login, then calling again this method with second user subscriberId will generate new token and new session.
+  </Accordion>
+
+  <Accordion title="Can headless be used with mobile based platforms like flutter and react native?">
+
+  Currently, headless can not be used with react native and flutter. Checkout the progress on mobile platform support on github issue [#4499](https://github.com/novuhq/novu/issues/4499).
+    
+  </Accordion>
+</AccordionGroup>

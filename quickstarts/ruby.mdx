@@ -44,11 +44,11 @@ To use the library, Create a new file `index.rb` then initialize the client wi
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 ```
 
-Replace the `YOUR_NOVU_API_KEY` argument with the authentic key from the **API Key** section of your [Novu Dashboard](https://web.novu.co/settings).
+Replace the `<NOVU_API_KEY>` argument with the authentic key from the **API Key** section of your [Novu Dashboard](https://web.novu.co/settings).
 
 
 <Note>
@@ -136,7 +136,7 @@ Now, let's create a subscriber on Novu. Copy and paste the following code to do 
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 ## Create subscriber
 
@@ -165,7 +165,7 @@ I’d like to publicly announce that `abc@gmail.com` is a random unlikely emai
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 ## Update subscriber detail
 
@@ -175,7 +175,6 @@ update_payload = {
     'lastName' => 'Obasanjo', # optional
 }
 client.update_subscriber('7789', update_payload);
-
 ```
 
 Other valid fields that can be updated are `phone`, `avatar`, and `data`. The `data` field can accept an object of metadata that you want to attach to the subscriber.
@@ -192,7 +191,7 @@ Copy and paste the following code into your app to trigger a notification:
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 ## trigger a notification
 
@@ -246,7 +245,7 @@ Copy and paste the following code into your app to create a topic:
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 ## Create a Topic
 
 create_topic_payload = {
@@ -269,7 +268,7 @@ Copy and paste the following code into your app to add subscribers to a topic:
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 topicKey = 'frontend-users'
 subscribers = ['6460925ce1a93324257d2fc1', '7789'].to_s
@@ -284,7 +283,7 @@ Also, you can remove subscribers from a topic by using the code snippet below:
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 topicKey = 'frontend-users'
 subscribers = ['6460925ce1a93324257d2fc1', '7789'].to_s
@@ -303,7 +302,7 @@ To trigger a notification to all subscribers of a topic, copy and paste the code
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 ## Send notifications to a topic (all frontend users)
 client.trigger_event({

@@ -11,10 +11,10 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.subscribers.bulkTrigger([
+await novu.events.bulkTrigger([
   {
     name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
-    to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    to: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload: {
       customKey: "customValue",
       customKey1: {
@@ -32,7 +32,7 @@ await novu.subscribers.bulkTrigger([
   },
   {
     name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
-    to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    to: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload: {
       customKey: "customValue",
       customKey1: {

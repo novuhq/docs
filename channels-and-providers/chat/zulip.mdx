@@ -35,15 +35,39 @@ The URL generated above will be the target channel of a subscriber that you want
 
 2. Update the subscriber credentials with this URL using the Zulip provider id. You can do this step by using the `@novu/node` library, as shown below:
 
-```jsx
-import { Novu, ChatProviderIdEnum } from '@novu/node';
+## Update credential webhookUrl
+
+<Tabs>
+  <Tab title="Node.js">
+```javaScript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.subscribers.setCredentials('SUBSCRIBER_ID', ChatProviderIdEnum.Zulip, {
-  webhookUrl: 'https://yourorg.zulipchat.com/api/v1/external/slack_incoming?api_key=APIKEY&stream=general',
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Zulip, {
+  webhookUrl: "<WEBHOOK_URL>",
 });
 ```
+  </Tab>
+  <Tab title="cURL">
+```bash 
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_API_KEY>' \
+-d '{
+  "providerId": "zulip",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "zulip-MnGLxp8uy"
+}'
+```
+  </Tab>
+</Tabs>
 
 - `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
 - `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum to specify the provider.
