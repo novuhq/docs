@@ -22,3 +22,5 @@ All the remaining channels have multiple providers.
 Organizations enable you to segregate notifications across multiple products that you may have. You can use Novu to send notifications across multiple apps and can create organizations. 
 
 <Frame caption="Organizations enable you to segregate notifications across multiple products that you may have. "><img src="/images/org.gif" /> </Frame>
+
+<Warning>Credentials are saved per instance of the active integrations of a provider. In case of more than one active provider of the same type, If `integrationIdentifier` is not sent in [this](https://docs.novu.co/api-reference/subscribers/update-subscriber-credentials) API, then the most recently created provider will be used to update the credentials.</Warning>
