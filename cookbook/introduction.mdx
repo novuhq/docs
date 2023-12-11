@@ -146,3 +146,40 @@ const { data: markAllInAppMessages } = await novu.subscribers.markAllMessagesAs(
 );
 ```
 </CodeGroup>
+
+## Send Slack Notifications
+
+You can send notifications to Slack Channels via Novu like so:
+
+```javascript Node.js
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_API_KEY>");
+
+// Identify Subscriber
+await novu.subscribers.identify('<SUBSCRIBER_ID>', {
+  firstName: 'newSubForSlackChat',
+});
+
+// Set credentials for the Subscriber
+await novu.subscribers.setCredentials('<SUBSCRIBER_ID>', ChatProviderIdEnum.Slack, {
+  webhookUrl: "<WEBHOOK_URL>",
+});
+
+// Trigger slack notification
+await novu.trigger('slack', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>'
+  },
+  payload: {
+    chatMsg: '<INSERT_MESSAGE_CONTENT>'
+  }
+});
+```
+
+where `chatMsg` is a payload variable in the workflow editor.
+
+Follow the [full guide](/guides/slack-guide) on how to send Slack notifications using Novu.
