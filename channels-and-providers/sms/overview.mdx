@@ -1,7 +1,7 @@
 ---
-title: 'SMS Channel Overview'
-sidebarTitle: 'Overview'
-description: 'Learn the process of configuring and using sms providers with Novu'
+title: "SMS Channel Overview"
+sidebarTitle: "Overview"
+description: "Learn the process of configuring and using sms providers with Novu"
 ---
 
 Novu can be used to deliver sms messages to your customers using a unified delivery API. You can easily integrate your favorite sms provider using the built-in integration store.
@@ -14,7 +14,10 @@ When creating a SMS provider integration you will be asked to provide additional
 
 Additional credentials can be API key, username, password or other provider specific credentials.
 
-<Note>Some countries have strict restriction of using verified `from` sender id (name). Kindly check country and provider specific requirements first.</Note>
+<Note>
+  Some countries have strict restriction of using verified `from` sender id
+  (name). Kindly check country and provider specific requirements first.
+</Note>
 
 ## Sending SMS Overrides
 
@@ -41,9 +44,10 @@ novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
 
 ## Using different SMS integration
 
-In Novu integration store, multiple SMS channel type provider integrations can be active at the same time. But only one  provider integration can be primary at a time. This primary integration will be used as a provider to deliver the SMS by default. If you want to use a different active provider integration then you can use the `integrationIdentifier` sms overrides field.
+In Novu integration store, multiple SMS channel type provider integrations can be active at the same time. But only one provider integration can be primary at a time. This primary integration will be used as a provider to deliver the SMS by default. If you want to use a different active provider integration then you can use the `integrationIdentifier` sms overrides field.
 
-If there are 4 active SMS integrations with these identifiers:- 
+If there are 4 active SMS integrations with these identifiers:-
+
 1. twilio-abcdef
 2. twilio-ghijkl
 3. firetext-abcdef
@@ -59,19 +63,28 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-  to: {
-    subscriberId: '<SUBSCRIBER_ID>',
-  },
-  overrides: {
-    sms: {
-      integrationIdentifier: "infobip-abcdef"
-    },
-  },
+to: {
+subscriberId: '<SUBSCRIBER_ID>',
+},
+overrides: {
+sms: {
+integrationIdentifier: "infobip-abcdef"
+},
+},
 });
+
 ```
  </Tab>
 </Tabs>
 
 <Info> Integration identifier is similar to Provider identifier but it is different than Provider Id. It is unique for each integration. You can find the `integrationIdentifier` in the integration store page.  </Info>
 
+## Common errors
+
+Common erros and reason of those errors while sending sms messages using Novu.
+
+1. Subscriber does not have a configured channel.
+    - if the `from` field is missing / null / undefined.
+
 <Snippet file="missing-provider.mdx" />
+```
