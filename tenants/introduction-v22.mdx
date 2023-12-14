@@ -2,8 +2,8 @@
 title: "Tenants"
 description: "Learn all about Tenants"
 icon: 'house'
+version: 'v0.22.0'
 ---
-
 
 
 Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants. 
@@ -13,7 +13,7 @@ Currently, Novu supports the following customizations:
 - Workflow level customizations
 - Integration customizations
 
-## Tenant Management 
+## Tenant Management v22
 
 Tenants can be created and modified via the [API](http://docs.novu.co/api-reference/tenants/get-tenants) or [Web](https://web.novu.co/tenants). Each tenant can have multiple fields on it:
 
@@ -88,67 +88,11 @@ The delivery provider specified will only be used if the trigger is executed wit
 
 <Warning> Unfortunately, this is not available at the moment. However, it will ship with the next release. </Warning>
 
-## Tenant-specific Notification Content
+## Tenant-specific Notification Content (COMING SOON)
 
 When creating a step, variants could be created for each step including digest and delay. For each variant, conditions set can be applied on when this variant could be used. 
 
 Using so different workflow configurations (for example digest duration) could be configured on the individual workflow for a given tenant.
-
-For example, if you want a specific notification content to be sent to a tenant named "JohnDoe", and another to be sent to others. You can do the following:
-
-- Create an email step in your workflow
-- In the email step workflow, click on the "Add variant" icon at the top right to add a new variant.
-<Frame caption="Add variant"><img src="https://github.com/novuhq/docs/assets/2946769/0ca3c7a8-b046-4db5-bb48-b2894d313a35" /></Frame>
-
-- It opens up the condition page. Set the tenant identifier to equal "JohnDoe".
-<Frame caption="Set variant"><img src="https://github.com/novuhq/docs/assets/2946769/c6306feb-5126-47da-8d83-8e01755a3ade" /></Frame>
-
-- Apply Conditions as shown above.
-- Check the email step in the workflow, you'll see the **root variant** and **v1 variant**.
-<Frame caption="See the variants"><img src="https://github.com/novuhq/docs/assets/2946769/d8570463-270e-41a3-be96-e33c178750c3" /></Frame>
-
-Once a trigger runs, the Novu engine checks to see if there's a `tenant` identifier specified in the trigger code.
-
-An example of the trigger code:
-
-<Tabs>
-  <Tab title="Node.js">
-  ```js
-    import { Novu } from '@novu/node';
-
-    const novu = new Novu("<NOVU_API_KEY>");
-
-    await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
-      {
-        to: {
-          subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
-        },
-        tenant: "JohnDoe"
-      }
-    );
-  ```
-  </Tab>
-  <Tab title="PHP">
-  ```php
-    use Novu\SDK\Novu;
-
-    $novu = new Novu('<NOVU_API_KEY_HERE>');
-
-    $novu->triggerEvent([
-      'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
-      'to' => [
-          'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>'
-      ],
-      'tenant': "JohnDoe"
-    ]);
-  ```
-  </Tab>
-</Tabs>
-
-- If it exists, a condition check is done to see if there's a variant that matches the tenant identifier. 
-- If there's a match, the specific variant template will be fired.
-- If there's no match, the root variant template will be fired.
-
 
 It is also possible to use handlebars to have minor tenant adjustments in a single step:
 
@@ -156,4 +100,4 @@ It is also possible to use handlebars to have minor tenant adjustments in a sing
 <img src="{{tenant.data.logo}}" />
 ```
 
-<Warning> For self-hosted users, this is only available from version 0.22.0. </Warning>
+<Warning> Unfortunately, this is not available at the moment. We're currently working on making it available soon. </Warning>
