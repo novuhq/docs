@@ -7,8 +7,9 @@ icon: 'repeat-1'
 Novu supports retrying and concurrent requests for `POST` and `PATCH` operations, ensuring the safety and reliability of your requests, particularly in scenarios where network issues or communication problems can introduce uncertainty into request outcomes. Idempotent requests are essential for business-critical applications, such as for ensuring only once delivery of your notifications.
 
 <Note>
-    This feature will be available with 0.22.0 release.
+    This feature is available from 0.22.0. Currently, the Idempotency headers are not enabled on the Novu cloud but functionality is available for self-hosting. 
 </Note>
+
 ## Performing an Idempotent Request
 
 To make an idempotent request, include the `Idempotency-Key: <key>` header in your request. The idempotency key should be a unique client-generated value with sufficient entropy to prevent collisions. We recommend using V4 UUIDs as your idempotency keys.
