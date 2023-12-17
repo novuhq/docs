@@ -36,7 +36,6 @@ Jobs play a pivotal role in the trigger event lifecycle. They are created based 
 
 ## Job Statuses
 
-<Frame><img src="/images/activity-feed/job-statuses.png"/> </Frame>
 
 | Status      | Description                                                                                                                                                   |
 |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -49,3 +48,24 @@ Jobs play a pivotal role in the trigger event lifecycle. They are created based 
 | **CANCELED**    | When a job is canceled for any reason, its status is set to `CANCELED`. This indicates that the job will not be processed further and is effectively removed from the processing queue. |
 | **MERGED**      | The `MERGED` status is assigned to events that are part of a `digest`. It indicates that an event will be merged into the digesting event. In a digesting process, there is typically a primary or initial event that serves as the digesting event, and subsequent events are merged into it. Instead of having a separate `COMPLETED` status for these merged events, they are marked as `MERGED` to indicate their specific role in the digesting process. |
 | **SKIPPED**     | The `SKIPPED` status is used in the context of backoff versions of digesting. In this scenario, the first event's digesting is skipped, and the second event takes on the digesting role. The `SKIPPED` status is applied to the first event's digesting, indicating that it was intentionally skipped in the digesting process. Subsequent events may be merged into the second event's digesting process, as explained with the `MERGED` status. The `SKIPPED` status helps differentiate the skipped event from others in the digesting sequence. |
+
+**Example:**
+<Frame><img src="/images/activity-feed/job-statuses.png"/> </Frame>
+
+<Steps>
+  <Step title="Step created">
+    `PENDING`
+    </Step>
+  <Step title="Step queued">
+      `QUEUED`
+    </Step>
+  <Step title="Start sending message">
+    `RUNNING`
+  </Step>
+    <Step title="Message created">
+    `RUNNING`
+  </Step>
+    <Step title="Message sent">
+    `COMPLETED`
+  </Step>
+</Steps>
