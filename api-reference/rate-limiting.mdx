@@ -1,0 +1,20 @@
+---
+title: "API Rate Limiting"
+description: "In this page you can learn about how rate limiting works with Novu's API"
+---
+
+<Note>
+  It's important to note that this is not activated for Novu Cloud. However, self-hosting users can enable it immediately via the `IS_REQUEST_RATE_LIMITING_ENABLED` flag.
+</Note>
+
+<Warning>
+  This feature is available from v0.22.0.
+</Warning>
+
+
+Rate limiting is an essential functionality for establishing a robust and resilient system. It safeguards system resources from being misused by malicious actors or being monopolized by one client.
+
+It's important in regulating traffic and preventing sudden spikes that could degrade service quality.
+
+A variable-cost token bucket rate limited algorithm has been added to provide the capability for different API controllers and methods to have a varying cost. It also lays a foundation for dynamic costing of resource consumption.
+
