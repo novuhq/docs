@@ -51,4 +51,24 @@ From here, you can see the details of ‘digest triggered events’ to see exact
 
 <Frame caption="Digest execution detail shows which events were digested and the content of notification that was sent"><img src="/images/digest.gif" /> </Frame>
 
-That sums up the activity feed!
+## Trigger Event Lifecycle
+
+### **Trigger request**
+
+The request contains details such as the identifier for the template, the list of subscribers who will receive the notification, the payload of the notification, and any overrides that need to be applied.
+
+### Trigger endpoint
+
+After the request is sent to the `/event/trigger` endpoint, the initial step involves mapping and validating the subscribers for that event. Following that, we validate the template and steps based on the active status or draft template flag.
+
+Once the validation process is complete, the attachments are uploaded to the storage service. 
+
+Next, the trigger event with mapped subscribers and attachment links is appended to the **trigger event queue**. By queuing the events, we can achieve faster response times.
+
+### **Trigger event processing**
+
+When the event is picked up by the **trigger queue worker** we process it. For every subscriber listed in the trigger event, we create a notification entity and the corresponding jobs based on the notification template steps. The notification contains data related to the organization, template, subscriber, and event payload. It is updated with a channels field that is generated from the steps.
+
+### **Jobs**
+
+Every job is created according to the steps outlined in the template. If the template contains a digest step, the **filtering logic** is applied to produce the appropriate jobs array depending on the type of digesting: **regular** or **backoff**.
