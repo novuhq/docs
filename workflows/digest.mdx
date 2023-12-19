@@ -30,7 +30,7 @@ The digest key might come useful when you want a particular subscriber to get ev
 
 ### Digest Strategy
 
-The strategy which Novu should use handle the digest step. More details on available strategies below.
+The strategy which Novu should use to handle the digest step. More details on available strategies below.
 
 Novu allows you to define different digest strategies depending on the actual use-case you are trying to achieve. At this point we allow you to select from 2 strategies:
 
@@ -94,6 +94,11 @@ Total events in digest:
 
 <Note> Note that if only one matching trigger activates a regular digest during its period, that single item will still come through as a digest with `step.total_count` as 1. </Note>
 
+### Event cancellation from Digest
+
+Any event can be cancelled from the Digest. For example, if there are 5 events in digest, a user should be able to cancel the **2nd**, **3rd**, or **4th** event before digest time completion.
+
+The cancelled event will not be included in the final digest events array.
 
 #### Digest Guides
 
