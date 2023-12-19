@@ -80,6 +80,14 @@ The tenant information can now be used inside the workflow template in the follo
 {{ tenant.data.customProp }}
 ```
 
+## Workflow Settings Override
+
+Workflow settings can now be updated on the workflow per tenant. This enables each tenant to have unique preferences that doesn't affect others within the same workflow. 
+
+The `active` and `channel` preferences fields of a workflow can be updated to be tenant-specific the workflow-overrides API endpoint.
+
+<Warning>This feature is only available from v0.22.0.</Warning>
+
 ## Integration Level Customizations
 
 When creating an integration, you can create a condition where you can specify a delivery provider for a channel when a particular tenant id is matched.
