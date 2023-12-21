@@ -1,0 +1,44 @@
+---
+title: 'Variants'
+description: 'Learn how to create and use multiple variants for workflow steps in Novu.'
+icon: 'code-branch'
+---
+
+Variants is a workflow component that empowers users to create multiple versions of a given workflow step.
+
+You can use variants to ensure that only specific versions of your workflow step (e.g Email) are sent to subscribers. These variants are linked to specific conditions. No variant can exist without a condition. 
+
+Variants are an integral component of our multi-tenancy feature. 
+
+## Steps to create Variants
+
+In this case, we'll use a workflow Email step. Let's create multiple variants for this step.
+
+1. Create an email step in your workflow.
+
+<Frame caption="Email step in workflow"><img src="https://github.com/novuhq/docs/assets/2946769/b7d21890-10db-4452-ad95-2414976786be" /> </Frame>
+
+2. Add a variant to the step as shown below.
+
+<Frame caption="Add variant to workflow step"><img src="https://github.com/novuhq/docs/assets/2946769/79935b8c-e4f2-4953-86f1-22efd47753f5" /> </Frame>
+
+3. A variant must have conditions set. Add a condition or multiple conditions.
+
+<Frame caption="Add conditions"><img src="https://github.com/novuhq/docs/assets/2946769/43bd7041-7508-4343-977d-7c60f1b788ea" /> </Frame>
+
+In this case, we added a condition (as shown below) to check if the tenant identifier passed at the point of trigger is equal to `edenlife`. This is now a **multi-tenant variant**!
+
+Apply conditions to set it successfully.
+
+<Frame caption="Add conditions for the variant"><img src="https://github.com/novuhq/docs/assets/2946769/cf48801a-4a13-4bfa-97ae-4bcb7f761e9a" /> </Frame>
+
+The variant has been created. Click on the **Update** button.
+
+<Frame caption="Update the variant"><img src="https://github.com/novuhq/docs/assets/2946769/cea9815f-6aea-4268-a283-29f8549055f2" /> </Frame>
+
+4. Head over to the email step again. You will see two variants: the **root variant** & **v1 variant**. The **v1 variant** is the one where you set the tenant condition while the **root variant** is the default version of the email step without a condition.
+
+<Frame caption="Root & v1 variants"><img src="https://github.com/novuhq/docs/assets/2946769/abb5a661-2c54-4985-9f4e-4b9cd975bce7" /> </Frame>
+
+
+    
