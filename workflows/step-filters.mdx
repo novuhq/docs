@@ -117,6 +117,26 @@ The online condition feature can be used to determine if a subscriber is online 
 
 For example, to determine if a subscriber has been online in the last 5 minutes, Novu checks if the subscriber is currently online or if the `lastOnlineAt` timestamp value is less than or equal to 5 minutes ago. If either of these conditions are met, the condition is applied.
 
+## Subscriber Seen / Read Conditions
+
+This condition gives the flexibility of executing successive step notifications based on the status of previous step notification. It currently works for in-app and email step notifications.
+
+**Typical Use Case**:
+
+You have a set of customers to whom you need to send a 2-step email. However, they should only get the second email if they have read/seen the first email.
+
+With the seen/read condition, you can do the following in a workflow:
+
+- Set the first email step.
+- Set a delay.
+- Set the second email step.
+- Create a condition on the second email step that indicates if the previous step needs to be seen/read before it should be executed.
+
+<Frame caption="Subscriber seen and read condition"><img src="https://github.com/novuhq/docs/assets/2946769/1c7de884-182d-4ba6-b3b9-843ac3e9a45b" /></Frame>
+
+
+<Note> For this condition to work with emails, the webhook url needs to be set up for the active `email` provider you're using on Novu. It's very essential for the condition to work. No extra set up is needed for `in-app` notifications. </Note>
+
 ## Is Defined Condition
 
 Is Defined condition checks whether specified `key` exists or not. It is different from `Equal` and `Not equal` condition. `Equal` and `Not equal` condition checks whether key value is equal to specified value or not, but `Is Defined` condition just checks whether key is present or not.
@@ -125,9 +145,9 @@ Is Defined condition checks whether specified `key` exists or not. It is diffe
 
 <Note> This condition can be used with subscriber, payload and webhook. It can be applied on all channels. </Note>
 
-## Monitoring the filter's status inside Activity Feed
+## Monitoring the condition's status inside Activity Feed
 
-To check if the notification sent was filtered or not, visit the `Activity Feed` page.
+To check if the notification sent was conditioned or not, visit the `Activity Feed` page.
 
 - Select the notification you're interested in checking the filter status for.
 - A new popup `Execution Details` will open up.
