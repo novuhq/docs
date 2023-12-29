@@ -16,7 +16,7 @@ For some email providers including SendGrid you will have to authenticate the **
 
 ## Sending Email Overrides
 
-The overrides field supports an email property and email field have all email overrides filed like `to`, `from`, `senderName` etc
+The overrides field supports an email property. The email overrides field have properties like `to`, `from`, `senderName` etc
 
 <Tabs>
   <Tab title="Node.js">
@@ -45,6 +45,7 @@ novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
  </Tab>
 </Tabs>
 
+<Note>It's very important to know that Novu merges the `to` field in the email overrides with the subscriber email. It DOES NOT REPLACE IT.</Note>
 
 ## Sending Email attachments
 
