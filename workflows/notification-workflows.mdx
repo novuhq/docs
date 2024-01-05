@@ -58,6 +58,40 @@ Sequential execution provides a predictable and reliable workflow process, ensur
 
 <Note>Subscriber is not allowed to manage subscriber preference for [critical workflow](/subscribers/preferences#exclude-workflows-from-preferences-critical-workflow)</Note>
 
+
+### Workflow Groups
+
+Workflow groups are used to categorize workflows based on their purpose or function. This grouping allows you to organize your workflows in a way that makes sense to you and your team. For example, you may want to group all your onboarding workflows or group all your transactional workflows together. You can create as many groups as you need and assign workflows to them as you see fit.
+
+<Info>Currently workflow group is just for reference purposes and cannot be used for bulk action related to all workflows belonging to a workflow group.</Info>
+
+#### Working with workflow groups
+
+**To create a workflow group, follow these steps:**
+
+1. Navigate to the **Workflows** page in the Novu interface.
+2. Select any workflow from the list.
+3. Click on the **cog** icon on the top right side to open the workflow settings.
+4. Stay on the *General* settings tab.
+5. Click on the **Workflow Group** dropdown and select the group you want to assign to the workflow.
+6. To create a new group start writing some text and a **Create New** option will appear. Click on it to create a new group and select this group for this workflow.
+7. Click on the update button on the top right side to save the changes for the entire workflow.
+
+<Frame caption="Selecting existing workflow group and creating a new workflow group"><img src="/images/workflows/notification-workflows/create-workflow-group.gif" /> </Frame>
+
+To edit a workflow group name, follow these steps:
+
+1. Navigate to the **Settings** page in the Novu interface.
+2. Copy the **API Key** from settings (Each environment has a different API Key).
+3. Navigate to [API Reference](https://docs.novu.co/api-reference/workflow-groups/get-workflow-groups) page to fetch all workflow groups in Novu documentation.
+4. Use the previously copied **API Key** as the **Authorization** header. Make sure it is in the correct format `ApiKey <API_KEY>`
+5. Click on the send button to fetch all the workflow groups.
+6. In the response field copy the **_id** field of the workfow group that you want to edit.
+7. Use the copied **_id** as the **path parameter** in the request URL of [workflow update](https://docs.novu.co/api-reference/workflow-groups/update-workflow-group) API using the same **API Key** as the **Authorization** header. Write the new name for the group in the **body** field.
+8. Click on the send button to update the workflow group name.
+
+<Info>To delete the workflow group use [delete workflow group api](https://docs.novu.co/api-reference/workflow-groups/delete-workflow-group) with the same steps as updating the workflow group name. However, it is not recommended to delete the workflow group if at least one workflow is attached to this workflow group or there exists a change promotion item on the changes page</Info>
+
 ## FAQs
 
 <AccordionGroup>
