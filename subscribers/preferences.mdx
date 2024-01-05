@@ -46,7 +46,6 @@ Our notification center component will show a user the available preferences, us
 Subscribers can set global channel preferences, which override individual settings. For instance, if there are 10 workflows, and a subscriber wants to disable SMS notifications for all of them, they can do so with a single global preference.
 
 ### Get subscriber global preference
-
 <Tabs>
 
   <Tab title="Node.js">
@@ -61,6 +60,8 @@ await novu.subscribers.getGlobalPreference("subscriberId" );
 
   </Tab>
 </Tabs>
+
+[Get subscriber's global preference API](/api-reference/subscribers/get-subscriber-global-preferences)
 
 ### Update subscriber global preference
 
@@ -88,6 +89,8 @@ await novu.subscribers.updateGlobalPreference("subscriberId", {
 
   </Tab>
 </Tabs>
+
+[Update subscriber's global preference API](/api-reference/subscribers/update-subscriber-global-preference)
 
 ## Exclude workflows from preferences (critical workflow)
 
