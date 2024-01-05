@@ -5,6 +5,7 @@
     "dark": "/logo/logo-dark-bg.svg",
     "light": "/logo/logo-light-bg.svg"
   },
+  "openapi": "https://api.novu.co/api-json",
   "favicon": "/favicon.png",
   "colors": {
     "primary": "#0055ff",
@@ -98,10 +99,7 @@
     },
     {
       "group": "Architecture",
-      "pages": [
-        "architecture/introduction",
-        "architecture/diagrams"
-      ]
+      "pages": ["architecture/introduction", "architecture/diagrams"]
     },
     {
       "group": "Getting Started",
@@ -156,6 +154,7 @@
       "group": "Workflows",
       "pages": [
         "workflows/notification-workflows",
+        "workflows/variants",
         "workflows/step-filters",
         "workflows/digest",
         "workflows/delay-action",
@@ -166,14 +165,13 @@
     {
       "group": "Activity Feed",
       "pages": [
-        "activity-feed/introduction"
+        "activity-feed/introduction",
+        "activity-feed/trigger-event-lifecycle"
       ]
     },
     {
       "group": "Tenants",
-      "pages": [
-        "tenants/introduction"
-      ]
+      "pages": ["tenants/introduction"]
     },
     {
       "group": "Platform",
@@ -236,9 +234,7 @@
         {
           "group": "In-App",
           "icon": "bell",
-          "pages": [
-            "channels-and-providers/in-app/introduction"
-          ]
+          "pages": ["channels-and-providers/in-app/introduction"]
         },
         {
           "group": "Email",
@@ -247,6 +243,7 @@
             "channels-and-providers/email/overview",
             "channels-and-providers/email/infobip",
             "channels-and-providers/email/amazon-ses",
+            "channels-and-providers/email/braze",
             "channels-and-providers/email/mailersend",
             "channels-and-providers/email/mailgun",
             "channels-and-providers/email/mailjet",
@@ -271,6 +268,10 @@
             "channels-and-providers/sms/twilio",
             "channels-and-providers/sms/sms77",
             "channels-and-providers/sms/africas-talking",
+            "channels-and-providers/sms/azure",
+            "channels-and-providers/sms/bulk-sms",
+            "channels-and-providers/sms/messagebird",
+            "channels-and-providers/sms/simpletexting",
             "channels-and-providers/sms/infobip",
             "channels-and-providers/sms/sendchamp",
             "channels-and-providers/sms/aws-sns",
@@ -333,9 +334,7 @@
     },
     {
       "group": "Security & Compliance",
-      "pages": [
-        "security-and-compliance/security"
-      ]
+      "pages": ["security-and-compliance/security"]
     },
     {
       "group": "Community & Support",
@@ -389,15 +388,11 @@
     },
     {
       "group": "Cookbook",
-      "pages": [
-        "cookbook/introduction"
-      ]
+      "pages": ["cookbook/introduction"]
     },
     {
       "group": "Demos",
-      "pages": [
-        "demos/introduction"
-      ]
+      "pages": ["demos/introduction"]
     },
     {
       "group": "Use Cases",
@@ -414,9 +409,7 @@
     },
     {
       "group": "FAQs",
-      "pages": [
-        "faqs/questions"
-      ]
+      "pages": ["faqs/questions"]
     },
     {
       "group": "Additional Resources",
@@ -429,9 +422,7 @@
     },
     {
       "group": "API Reference",
-      "pages": [
-        "api-reference/overview"
-      ]
+      "pages": ["api-reference/overview", "api-reference/rate-limiting"]
     },
     {
       "group": "Events",
@@ -457,6 +448,7 @@
         "api-reference/subscribers/get-subscriber-preferences",
         "api-reference/subscribers/get-subscriber-global-preferences",
         "api-reference/subscribers/update-subscriber-preference",
+        "api-reference/subscribers/update-subscriber-global-preference",
         "api-reference/subscribers/get-in-app-notification-feed-for-a-particular-subscriber",
         "api-reference/subscribers/get-the-unseen-in-app-notifications-count-for-subscribers-feed",
         "api-reference/subscribers/mark-a-subscriber-feed-message-as-seen",
@@ -497,6 +489,18 @@
         "api-reference/workflows/update-workflow",
         "api-reference/workflows/delete-workflow",
         "api-reference/workflows/update-workflow-status"
+      ]
+    },
+    {
+      "group": "Workflow Overrides",
+      "pages": [
+        "api-reference/workflow-overrides/create-workflow-overrides",
+        "api-reference/workflow-overrides/get-workflow-overrides",
+        "api-reference/workflow-overrides/get-workflow-override",
+        "api-reference/workflow-overrides/get-workflow-override-by-id",
+        "api-reference/workflow-overrides/update-workflow-override-by-id",
+        "api-reference/workflow-overrides/update-workflow-override",
+        "api-reference/workflow-overrides/delete-workflow-override"
       ]
     },
     {
@@ -558,9 +562,7 @@
     },
     {
       "group": "Execution Details",
-      "pages": [
-        "api-reference/execution-details/get-execution-details"
-      ]
+      "pages": ["api-reference/execution-details/get-execution-details"]
     },
     {
       "group": "Feeds",
@@ -578,6 +580,19 @@
         "api-reference/tenants/get-tenant",
         "api-reference/tenants/update-tenant",
         "api-reference/tenants/delete-tenant"
+      ]
+    },
+    {
+      "group": "Organizations",
+      "pages": [
+        "api-reference/organizations/create-organization",
+        "api-reference/organizations/get-all-organizations",
+        "api-reference/organizations/get-all-members-of-current-organization",
+        "api-reference/organizations/get-current-organization",
+        "api-reference/organizations/rename-organization",
+        "api-reference/organizations/update-member-role-to-admin",
+        "api-reference/organizations/update-organization-branding",
+        "api-reference/organizations/delete-member-from-organization"
       ]
     },
     {
@@ -609,9 +624,7 @@
     "linkedin": "https://www.linkedin.com/company/novuco"
   },
   "api": {
-    "baseUrl": [
-      "https://api.novu.co"
-    ],
+    "baseUrl": ["https://api.novu.co", "https://eu.api.novu.co"],
     "auth": {
       "method": "key",
       "name": "Authorization",
@@ -621,10 +634,5 @@
   "integrations": {
     "intercom": "fqe0apnx"
   },
-  "versions": [
-    "v0.21.0",
-    "v0.20.0",
-    "v0.19.0",
-    "v0.18.0"
-  ]
+  "versions": ["v0.22.0", "v0.21.0", "v0.20.0", "v0.19.0", "v0.18.0"]
 }
