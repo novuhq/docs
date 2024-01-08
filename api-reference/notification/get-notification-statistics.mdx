@@ -6,6 +6,23 @@ openapi: get /v1/notifications/stats
 
 <RequestExample>
 
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.notificationsStats
+
+fun main() {
+    val novu = Novu(apiKey = "<NOVU_API_KEY>")
+    val notificationsStats = novu.notificationsStats()
+    println(notificationsStats)
+}
+```
+
+```bash cURL
+curl --request GET \
+--url https://api.novu.co/v1/notifications/stats \
+--header 'Authorization: ApiKey <NOVU_API_KEY>'
+```
+
 ```python Python
 from novu.api import NotificationApi
 
@@ -16,4 +33,5 @@ notificationApi = NotificationApi(url, api_key)
 
 notification_stats = notificationApi.stats()
 ```
+
 </RequestExample>

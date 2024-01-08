@@ -5,6 +5,7 @@
     "dark": "/logo/logo-dark-bg.svg",
     "light": "/logo/logo-light-bg.svg"
   },
+  "openapi": "https://api.novu.co/api-json",
   "favicon": "/favicon.png",
   "colors": {
     "primary": "#0055ff",
@@ -44,7 +45,7 @@
     {
       "name": "Get instant help",
       "icon": "discord",
-      "url": "https://discord.gg/novu"
+      "url": "https://discord.gg/novu?ref=docs-instant-help"
     },
     {
       "name": "FAQs",
@@ -74,6 +75,10 @@
       "url": "demos"
     },
     {
+      "name": "Architecture",
+      "url": "architecture"
+    },
+    {
       "name": "Community & Support",
       "url": "community"
     },
@@ -88,8 +93,13 @@
       "pages": [
         "getting-started/introduction",
         "getting-started/how-novu-works",
-        "getting-started/concepts"
+        "getting-started/concepts",
+        "getting-started/commercial-open-source"
       ]
+    },
+    {
+      "group": "Architecture",
+      "pages": ["architecture/introduction", "architecture/diagrams"]
     },
     {
       "group": "Getting Started",
@@ -98,6 +108,7 @@
         "getting-started/send-your-first-notification",
         {
           "group": "Quickstarts",
+          "icon": "bolt",
           "pages": [
             "quickstarts/01-introduction",
             "quickstarts/general",
@@ -109,7 +120,8 @@
                 "quickstarts/angular",
                 "quickstarts/vanillajs",
                 "quickstarts/redwoodjs",
-                "quickstarts/iFrame"
+                "quickstarts/iFrame",
+                "quickstarts/nextjs"
               ]
             },
             {
@@ -142,6 +154,7 @@
       "group": "Workflows",
       "pages": [
         "workflows/notification-workflows",
+        "workflows/variants",
         "workflows/step-filters",
         "workflows/digest",
         "workflows/delay-action",
@@ -150,14 +163,11 @@
       ]
     },
     {
-      "group": "Inbound Webhook",
-      "pages": [
-        "inbound-webhook/inbound-parse-webhook"
-      ]
-    },
-    {
       "group": "Activity Feed",
-      "pages": ["activity-feed/introduction"]
+      "pages": [
+        "activity-feed/introduction",
+        "activity-feed/trigger-event-lifecycle"
+      ]
     },
     {
       "group": "Tenants",
@@ -167,7 +177,8 @@
       "group": "Platform",
       "pages": [
         "platform/environments",
-        "platform/webhooks-for-providers"
+        "platform/webhooks-for-providers",
+        "platform/inbound-parse-webhook"
       ]
     },
     {
@@ -176,6 +187,7 @@
         "notification-center/introduction",
         {
           "group": "UI Library Components",
+          "icon": "object-group",
           "pages": [
             {
               "group": "React",
@@ -206,7 +218,7 @@
     {
       "group": "Content Creation & Design",
       "pages": [
-        "content-creation-design/overview",
+        "content-creation-design/variables",
         "content-creation-design/handlebars-helpers",
         "content-creation-design/brand",
         "content-creation-design/notification-content-creation",
@@ -221,16 +233,17 @@
         "channels-and-providers/default-providers",
         {
           "group": "In-App",
-          "pages": [
-            "channels-and-providers/in-app/introduction"
-          ]
+          "icon": "bell",
+          "pages": ["channels-and-providers/in-app/introduction"]
         },
         {
           "group": "Email",
+          "icon": "envelope",
           "pages": [
             "channels-and-providers/email/overview",
             "channels-and-providers/email/infobip",
-            "channels-and-providers/email/amazonses",
+            "channels-and-providers/email/amazon-ses",
+            "channels-and-providers/email/braze",
             "channels-and-providers/email/mailersend",
             "channels-and-providers/email/mailgun",
             "channels-and-providers/email/mailjet",
@@ -249,10 +262,16 @@
         },
         {
           "group": "SMS",
+          "icon": "message-sms",
           "pages": [
+            "channels-and-providers/sms/overview",
             "channels-and-providers/sms/twilio",
             "channels-and-providers/sms/sms77",
             "channels-and-providers/sms/africas-talking",
+            "channels-and-providers/sms/azure",
+            "channels-and-providers/sms/bulk-sms",
+            "channels-and-providers/sms/messagebird",
+            "channels-and-providers/sms/simpletexting",
             "channels-and-providers/sms/infobip",
             "channels-and-providers/sms/sendchamp",
             "channels-and-providers/sms/aws-sns",
@@ -263,26 +282,31 @@
             "channels-and-providers/sms/firetext",
             "channels-and-providers/sms/gupshup",
             "channels-and-providers/sms/clickatell"
-
           ]
         },
         {
           "group": "Push",
+          "icon": "mobile",
           "pages": [
             "channels-and-providers/push/introduction",
             "channels-and-providers/push/fcm",
             "channels-and-providers/push/apns",
             "channels-and-providers/push/expo-push",
             "channels-and-providers/push/onesignal",
-            "channels-and-providers/push/push-webhook"
+            "channels-and-providers/push/pushpad",
+            "channels-and-providers/push/push-webhook",
+            "channels-and-providers/push/pusher-beams"
           ]
         },
         {
           "group": "Chat",
+          "icon": "comments",
           "pages": [
+            "channels-and-providers/chat/overview",
             "channels-and-providers/chat/discord",
             "channels-and-providers/chat/slack",
-            "channels-and-providers/chat/ms-teams"
+            "channels-and-providers/chat/ms-teams",
+            "channels-and-providers/chat/zulip"
           ]
         }
       ]
@@ -292,7 +316,8 @@
       "pages": [
         "self-hosting-novu/introduction",
         "self-hosting-novu/deploy-with-docker",
-        "self-hosting-novu/s3",
+        "self-hosting-novu/object-storage",
+        "self-hosting-novu/commerical-self-host",
         "self-hosting-novu/kubernetes"
       ]
     },
@@ -301,7 +326,11 @@
       "pages": [
         "guides/add-digest-to-inapp-notifications",
         "guides/add-digest-to-email-notifications",
-        "guides/headless-notification-center-guide"
+        "guides/headless-notification-center-guide",
+        "guides/slack-guide",
+        "guides/how-to-integrate-segment-with-novu",
+        "guides/discord-guide",
+        "guides/novu-fcm-web"
       ]
     },
     {
@@ -316,12 +345,13 @@
         "community/roadmap",
         {
           "group": "Machine setup",
-          "pages":[
+          "pages": [
             "community/machine-setup",
             "community/windows-machine-setup"
           ]
         },
         "community/run-in-local-machine",
+        "community/feature-flags",
         "community/monorepo-structure",
         "community/add-a-new-provider"
       ]
@@ -385,9 +415,15 @@
     {
       "group": "Additional Resources",
       "pages": [
-        "additional-resources/rate-limits",
-        "additional-resources/glossary"
+        "additional-resources/idempotency",
+        "additional-resources/data-migrations",
+        "additional-resources/glossary",
+        "additional-resources/posts-videos-and-articles"
       ]
+    },
+    {
+      "group": "API Reference",
+      "pages": ["api-reference/overview", "api-reference/rate-limiting"]
     },
     {
       "group": "Events",
@@ -411,7 +447,9 @@
         "api-reference/subscribers/delete-subscriber-credentials-by-providerid",
         "api-reference/subscribers/update-subscriber-online-status",
         "api-reference/subscribers/get-subscriber-preferences",
+        "api-reference/subscribers/get-subscriber-global-preferences",
         "api-reference/subscribers/update-subscriber-preference",
+        "api-reference/subscribers/update-subscriber-global-preference",
         "api-reference/subscribers/get-in-app-notification-feed-for-a-particular-subscriber",
         "api-reference/subscribers/get-the-unseen-in-app-notifications-count-for-subscribers-feed",
         "api-reference/subscribers/mark-a-subscriber-feed-message-as-seen",
@@ -455,6 +493,18 @@
       ]
     },
     {
+      "group": "Workflow Overrides",
+      "pages": [
+        "api-reference/workflow-overrides/create-workflow-overrides",
+        "api-reference/workflow-overrides/get-workflow-overrides",
+        "api-reference/workflow-overrides/get-workflow-override",
+        "api-reference/workflow-overrides/get-workflow-override-by-id",
+        "api-reference/workflow-overrides/update-workflow-override-by-id",
+        "api-reference/workflow-overrides/update-workflow-override",
+        "api-reference/workflow-overrides/delete-workflow-override"
+      ]
+    },
+    {
       "group": "Workflow groups",
       "pages": [
         "api-reference/workflow-groups/get-workflow-groups",
@@ -462,17 +512,6 @@
         "api-reference/workflow-groups/get-workflow-group",
         "api-reference/workflow-groups/delete-workflow-group",
         "api-reference/workflow-groups/update-workflow-group"
-      ]
-    },
-    {
-      "group": "Notification Templates",
-      "pages": [
-        "api-reference/notification-templates/get-notification-templates",
-        "api-reference/notification-templates/create-notification-template",
-        "api-reference/notification-templates/get-notification-template",
-        "api-reference/notification-templates/update-notification-template",
-        "api-reference/notification-templates/delete-notification-template",
-        "api-reference/notification-templates/update-notification-template-status"
       ]
     },
     {
@@ -509,7 +548,6 @@
       "pages": [
         "api-reference/environments/get-current-environment",
         "api-reference/environments/get-environments",
-        "api-reference/environments/create-environment",
         "api-reference/environments/get-api-keys",
         "api-reference/environments/regenerate-api-keys"
       ]
@@ -546,10 +584,24 @@
       ]
     },
     {
+      "group": "Organizations",
+      "pages": [
+        "api-reference/organizations/create-organization",
+        "api-reference/organizations/get-all-organizations",
+        "api-reference/organizations/get-all-members-of-current-organization",
+        "api-reference/organizations/get-current-organization",
+        "api-reference/organizations/rename-organization",
+        "api-reference/organizations/update-member-role-to-admin",
+        "api-reference/organizations/update-organization-branding",
+        "api-reference/organizations/delete-member-from-organization"
+      ]
+    },
+    {
       "group": "Messages",
       "pages": [
         "api-reference/messages/get-messages",
-        "api-reference/messages/delete-message"
+        "api-reference/messages/delete-message",
+        "api-reference/messages/delete-message-by-transactionid"
       ]
     },
     {
@@ -573,7 +625,7 @@
     "linkedin": "https://www.linkedin.com/company/novuco"
   },
   "api": {
-    "baseUrl": ["https://api.novu.co"],
+    "baseUrl": ["https://api.novu.co", "https://eu.api.novu.co"],
     "auth": {
       "method": "key",
       "name": "Authorization",
@@ -583,8 +635,5 @@
   "integrations": {
     "intercom": "fqe0apnx"
   },
-  "versions": [
-    "v0.19.0",
-    "v0.18.0"
-  ]
+  "versions": ["v0.22.0", "v0.21.0", "v0.20.0", "v0.19.0", "v0.18.0"]
 }

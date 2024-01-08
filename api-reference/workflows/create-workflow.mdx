@@ -60,6 +60,7 @@ await novu.notificationTemplates.create({
             // 'String'
             type: TemplateVariableTypeEnum.STRING,
             required: true,
+            "defaultValue": "default message",
           },
         ],
         content: '{{chatContent}}',
@@ -285,5 +286,4 @@ class Main {
   }
 }
 ```
-
 </ResponseExample>

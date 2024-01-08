@@ -50,8 +50,7 @@ Now, we need to connect it to our app. To do so, the first step is to import Nov
 import { Novu } from '@novu/node';
 
 // replace <NOVU_API_KEY> with your actual API key
-const novu = new Novu(<YOUR_NOVU_API_KEY>);
-
+const novu = new Novu(<NOVU_API_KEY>);
 ```
 
 Novu lets us send notifications across different channels like email, in-app, chat, SMS, etc, and for each channel, one can use a plethora of providers. You just need to set up a provider for the channel you want to use in Novu:
@@ -98,7 +97,7 @@ We’ll first create a subscriber using the following code:
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(<YOUR_NOVU_API_KEY>);
+const novu = new Novu(<NOVU_API_KEY>);
 
 export async function sendEmail(email, description) {
     await novu.subscribers.identify('1234567890', {
@@ -114,7 +113,7 @@ Here, we’re creating a subscriber with the subscriber id of `1234567890` and
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu(<YOUR_NOVU_API_KEY>);
+const novu = new Novu(<NOVU_API_KEY>);
 
 export async function sendEmail(email, description) {
     await novu.subscribers.identify('1234567890', {
@@ -199,7 +198,7 @@ You have the flexibility to assign a descriptive name to a topic. Unlike the top
 
 A topic can have multiple subscribers associated with it. These subscribers will receive notifications whenever a notification is dispatched to the respective topic.
 
-### Create a topic
+## Create a topic
 
 You can create a topic using two entities - `key` and `name`. Keys are unique identifiers for topics and a name is just something you assign to a topic for convenience.
 

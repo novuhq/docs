@@ -6,10 +6,11 @@ icon: "layer-group"
 Novu provides a way to store user preferences in the subscribers data model.
 This allows subscribers to specify and manage their preferences, without your intervention. Customizing preferences has become the standard expected behavior for people and Novu can take the technical burden of managing preferences off of you.
 
-**Novu allows two levels of preferences:**
+**Novu allows several levels of preferences:**
 
 - Workflow level channel preferences
 - Subscriber level channel preferences
+- Global level channel preferences
 
 ## Workflow level channel preferences
 
@@ -38,6 +39,58 @@ Our notification center component will show a user the available preferences, us
   notification center preference page. In case no channel content was found, the
   API will return an empty array.
 </Note>
+
+## Global level channel preferences
+<Info>Since v0.20.0</Info>
+
+Subscribers can set global channel preferences, which override individual settings. For instance, if there are 10 workflows, and a subscriber wants to disable SMS notifications for all of them, they can do so with a single global preference.
+
+### Get subscriber global preference
+<Tabs>
+
+  <Tab title="Node.js">
+
+```javascript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+await novu.subscribers.getGlobalPreference("subscriberId" );
+```
+
+  </Tab>
+</Tabs>
+
+[Get subscriber's global preference API](/api-reference/subscribers/get-subscriber-global-preferences)
+
+### Update subscriber global preference
+
+<Tabs>
+
+  <Tab title="Node.js">
+
+```javascript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+
+// enable in-app channel and disable email channel
+await novu.subscribers.updateGlobalPreference("subscriberId", {
+  enabled: true,
+  preferences: [{
+    type: "in_app"
+    enabled: true
+  }, {
+    type: "email"
+    enabled: false
+  }]
+});
+```
+
+  </Tab>
+</Tabs>
+
+[Update subscriber's global preference API](/api-reference/subscribers/update-subscriber-global-preference)
 
 ## Exclude workflows from preferences (critical workflow)
 
@@ -70,6 +123,26 @@ $novu = new Novu('<NOVU_API_KEY>');
 
 // 111 is subscriberId
 $novu->getSubscriberPreferences('111')->toArray();
+```
+
+  </Tab>
+</Tabs>
+
+## Get subscriber preference by level
+
+<Tabs>
+
+  <Tab title="Node.js">
+
+```javascript
+import { Novu, PreferenceLevelEnum } from '@novu/node';
+
+const novu = new Novu('<NOVU_API_KEY>');
+// Get global level preference
+await novu.subscribers.getPreferenceByLevel("subscriberId", PreferenceLevelEnum.GLOBAL)
+
+// Get template level preference
+await novu.subscribers.getPreferenceByLevel("subscriberId", PreferenceLevelEnum.TEMPLATE);
 ```
 
   </Tab>
@@ -244,5 +317,9 @@ $novu->updateSubscriberPreference('subscriberId', 'workflowIdentfier', [
     In the case of a new workflow, the subscriber will inherit all preferences
     from the workflow.However, after subsequent preference updates, the
     subscriber's preferences will not inherit workflow-level preferences.
+  </Accordion>
+
+    <Accordion title="How to disable a workflow for a single subscriber?">
+    You can turn off all workflow's channels for a subscriber using [subscriber preference](/subscribers/preferences#subscriber-level-channel-preferences). If all channels are off, then the subscriber will not receive any message from any channel step and hence workflow is disabled for that subscriber
   </Accordion>
 </AccordionGroup>

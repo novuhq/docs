@@ -27,7 +27,7 @@ const novu = new Novu("<NOVU_API_KEY>");
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Mattermost, { webhookUrl: '<enter-mattermost-webhook-url>', });
 
 // Send a notification to Mattermost using the subscriber ID and payload.
-await novu.trigger('<WORKFLOW_TRIGGER_ID>',
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
   {
     to: {
       subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
@@ -37,7 +37,6 @@ await novu.trigger('<WORKFLOW_TRIGGER_ID>',
     },
   }
 );
-
 ```
 
 
@@ -57,7 +56,7 @@ const novu = new Novu("<NOVU_API_KEY>");
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Mattermost, { botApiToken: '<enter-mattermost-bot-api-token>' });
 
 // Send a notification to Mattermost using the bot API token.
-await novu.trigger('<WORKFLOW_TRIGGER_ID>', {
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
   to: {
     subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
   },

@@ -4,7 +4,7 @@ description: 'Learn how to use Novu to quickly send multi-channel (SMS, Email, C
 icon: 'golang'
 ---
 
-# Go Quickstart
+## Go Quickstart
 
 Welcome to Go Quickstart guide for Novu. In this guide, you'll learn how to use Novu in a Go application. Novu is a powerful notification service that enables you to send multi-channel (SMS, Email, Chat, Push) notifications. Let's see how you can seamlessly integrate Novu into your Go project!
 
@@ -15,12 +15,13 @@ Before diving into the Quickstart, make sure you have the following:
 - The [Go SDK](https://go.dev/doc/install) installed on your development machine.
 - A Novu account. If you don't have one, sign up for free [here](https://web.novu.co)
 
-### Install and Set Up Novu in your Go Project
+## Install and Set Up Novu in your Go Project
 
 First, you must install the Novu package in your Go project. From your terminal, you can install the Novu package in your project by running the following command:
 
 ```bash
 go get github.com/novuhq/go-novu
+
 ```
 
 Once installed, you can import Novu into your project and initialize it using your Novu account credentials. This step establishes a connection between your app and the Novu notification service.
@@ -31,6 +32,7 @@ import (
 )
 
 novuClient := novu.NewAPIClient("<NOVU_API_KEY>", &novu.Config{})
+
 ```
 
 Replace `<NOVU_API_KEY>` with your own API key that you got from the API Key section of your [Novu Dashboard](https://web.novu.co/settings).
@@ -48,6 +50,7 @@ import (
 )
 
 novuClient := novu.NewAPIClient(apiKey, &novu.Config{RetryConfig: &novu.RetryConfigType{RetryMax: 3, WaitMin: 1 * time.Second, WaitMax: 5 * time.Second, InitialDelay: 0 * time.Second}})
+
 ```
 
 | Options       | Detail                                                             | Default Value   |
@@ -80,13 +83,7 @@ The workflow includes the following:
 - Notification workflow name and Identifier
 - Channel tailored content:
 
-| Channel | Content Style                                                                                 |
-| ------- | --------------------------------------------------------------------------------------------- |
-| Email   | 1. Custom Code (HTML) with option to use custom variables via the handlebars , {{ }}, syntax. |
-|         | 2. Click and place UI items with the visual template editor.                                  |
-| SMS     | Text with the option to use handlebars syntax, {{ }} to inject custom variables.              |
-| Chat    | Text with the option to use handlebars syntax, {{ }} to inject custom variables.              |
-| In-App  | Text                                                                                          |
+<Snippet file="supported-channels.mdx" />                                                                                      
 
 <Note>
 Proper authorization needs to be setup for the Chat channel.
@@ -129,7 +126,7 @@ import (
 )
 
 
-# Create a subscriber
+## Create a subscriber
 func main() {
     ctx := context.Background()
     subscriberID := "<REPLACE_WITH_YOUR_SUBSCRIBER>"
@@ -155,12 +152,14 @@ func main() {
 
  fmt.Println(resp)
 }
+
 ```
 
 Run the code in your terminal like so:
 
 ```bash
 go run main.go # replace main.go with your file name
+
 ```
 
 You should see a new subscriber (that you created above) on your Novu dashboard.
@@ -180,7 +179,7 @@ import (
  novu "github.com/novuhq/go-novu/lib"
 )
 
-# Update subscriber details
+## Update subscriber details
 func main() {
     ctx := context.Background()
     subscriberID := "<REPLACE_WITH_YOUR_SUBSCRIBER>"
@@ -193,6 +192,7 @@ func main() {
 
  fmt.Println(updateResp)
 }
+
 ```
 
 <Note>
@@ -215,9 +215,9 @@ import (
  novu "github.com/novuhq/go-novu/lib"
 )
 
-# Trigger A Notification
+## Trigger A Notification
 func main() {
-    subscriberID := "<<REPLACE_WITH_YOUR_SUBSCRIBER>"
+    subscriberID := "<REPLACE_WITH_YOUR_SUBSCRIBER>"
  apiKey := "<REPLACE_WITH_YOUR_API_KEY>"
  eventId := "<REPLACE_WITH_YOUR_EVENT_ID>"
 
@@ -247,6 +247,7 @@ func main() {
 
  fmt.Println(triggerResp)
 }
+
 ```
 
 Before running the code, make sure you understand the following:
@@ -263,6 +264,7 @@ Run the code to trigger a notification!
 
 ```bash
 go run main.go # replace main.go with your file name
+
 ```
 
 Next, we’ll learn how to send notifications to different groups of subscribers easily via **Topics.**
@@ -279,7 +281,7 @@ The topic key should be unique and can't be changed once chosen. Novu also safe 
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
-### Create a Topic
+## Create a Topic
 
 Copy and paste the following code into your app to create a topic:
 
@@ -294,7 +296,7 @@ import (
  novu "github.com/novuhq/go-novu/lib"
 )
 
-# Create Topic
+## Create Topic
 func main() {
     ctx := context.Background()
     topicKey := "<REPLACE_WITH_YOUR_TOPIC_KEY>"
@@ -307,6 +309,7 @@ func main() {
 
  fmt.Println(createResp)
 }
+
 ```
 
 Before running the code, make sure you understand the following:
@@ -314,7 +317,7 @@ Before running the code, make sure you understand the following:
 - When creating a `key`, ensure it is unique and accurately identifies the topic. Document naming conventions and communicate them to team members to avoid confusion and ensure a smooth workflow.
 - The value of `name` should be a descriptive topic name.
 
-### Add subscribers to a Topic
+## Add subscribers to a Topic
 
 Copy and paste the following code into your app to add subscribers a topic:
 
@@ -329,7 +332,7 @@ import (
  novu "github.com/novuhq/go-novu/lib"
 )
 
-# Add subscriber to Topic
+## Add subscriber to Topic
 func main() {
     ctx := context.Background()
     topicKey := "<REPLACE_WITH_YOUR_TOPIC_KEY>"
@@ -342,6 +345,7 @@ func main() {
 
  fmt.Println(addSubscribersResp)
 }
+
 ```
 
 On the other hand, if you want to remove subscribers from a topic, do the following:
@@ -357,7 +361,7 @@ import (
  novu "github.com/novuhq/go-novu/lib"
 )
 
-# Remove subscriber from Topic
+## Remove subscriber from Topic
 func main() {
     ctx := context.Background()
     topicKey := "<REPLACE_WITH_YOUR_TOPIC_KEY>"
@@ -370,9 +374,10 @@ func main() {
 
  fmt.Println(addSubscribersResp)
 }
+
 ```
 
-### Sending a notification to a Topic
+## Sending a notification to a Topic
 
 Thanks to the topics feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps avoid listing all subscriber identifiers in the `to` field of the notification trigger.
 
@@ -389,9 +394,9 @@ import (
  novu "github.com/novuhq/go-novu/lib"
 )
 
-# Trigger A Notification
+## Trigger A Notification
 func main() {
-    topicKey := "<<REPLACE_WITH_YOUR_TOPIC_KEY>"
+    topicKey := "<REPLACE_WITH_YOUR_TOPIC_KEY>"
  apiKey := "<REPLACE_WITH_YOUR_API_KEY>"
  eventId := "<REPLACE_WITH_YOUR_EVENT_ID>"
  ctx := context.Background()
@@ -419,6 +424,7 @@ func main() {
 
  fmt.Println(triggerResp)
 }
+
 ```
 
 ## Next Steps

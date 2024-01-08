@@ -11,7 +11,7 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.subscribers.broadcast("<WORKFLOW_TRIGGER_ID>", {
+await novu.events.broadcast("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   payload: {
     customKey: "customValue",
     customKey1: {
@@ -33,7 +33,7 @@ use Novu\SDK\Novu;
 $novu = new Novu(<NOVU_API_KEY>);
 
 $novu->broadcastEvent([
-    'name' => '<WORKFLOW_TRIGGER_ID>',
+    'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
     'payload' => ['customVariables' => 'Hello'],
     'transactionId' => '<REPLACE_WITH_TRANSACTION_ID>'
 ])->toArray();
@@ -56,12 +56,11 @@ client.broadcast_event(payload)
 ```
 
 ```bash cURL
-
 curl -X POST https://api.novu.co/v1/events/trigger/broadcast \
   -H "Authorization: ApiKey <NOVU_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "<WORKFLOW_TRIGGER_ID>",
+    "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
     "payload": {
       "customKey": "customValue",
       "customKey1": {
@@ -75,8 +74,6 @@ curl -X POST https://api.novu.co/v1/events/trigger/broadcast \
     },
     "tenant": "tenantIdentifier"
   }'
-
-
 ```
 
 ```go Go
@@ -95,7 +92,7 @@ func main() {
 
 	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
 
-    name := interface{}{"<WORKFLOW_TRIGGER_ID>"}
+    name := interface{}{"<WORKFLOW_TRIGGER_IDENTIFIER>"}
 
 	payload := map[string]interface{}{
 		"name": "Hello World",
@@ -122,13 +119,16 @@ url = "https://api.novu.co"
 api_key = "<NOVU_API_KEY>"
 
 novu = EventApi(url, api_key).broadcast(
-    name="<WORKFLOW_TRIGGER_ID>",
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",
     payload={"customVariable": "value"},  # Optional
 )
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.common.base.Novu;
+import co.novu.api.common.SubscriberRequest;
+import co.novu.api.events.requests.TriggerEventRequest;
+import co.novu.api.events.responses.TriggerEventResponse;
 
 public class Main {
     public static void main(String[] args) {
@@ -136,19 +136,22 @@ public class Main {
 
         Novu novu = new Novu(apiKey);
 
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("customVariables", "Hello");
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest.setFirstName("<FIRST_NAME>");
+        subscriberRequest.setLastName("<LAST_NAME>");
+        subscriberRequest.setPhone("<PHONE_NUMBER>");
+        subscriberRequest.setAvatar("<AVATAR>");
+        subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
 
-        Map<String, Object> event = new HashMap<>();
-        event.put("name", "<WORKFLOW_TRIGGER_IDENTIFIER>");
-        event.put("payload", payload);
-        event.put("transactionId", "<REPLACE_WITH_TRANSACTION_ID>");
-      
-        novu.broadcastEvent(event);
+        TriggerEventRequest triggerEventRequest = new TriggerEventRequest();
+        triggerEventRequest.setName("<NAME>"); 
+        triggerEventRequest.setTo(subscriberRequest);
+        triggerEventRequest.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
+
+        TriggerEventResponse response = novu.broadcastEvent(triggerEventRequest);
     }
 }
-
-
 ```
 
 ```csharp .NET
@@ -174,7 +177,7 @@ var testRecord = new TestRecord
 
 var dto = new EventTriggerDataDto()
 {
-    EventName = "<WORKFLOW_TRIGGER_ID>",
+    EventName = "<WORKFLOW_TRIGGER_IDENTIFIER>",
     To =
     {
         SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"

@@ -11,7 +11,7 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.trigger('<WORKFLOW_TRIGGER_ID>',
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
   {
     to: {
       subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
@@ -35,7 +35,7 @@ use Novu\SDK\Novu;
 $novu = new Novu(<NOVU_API_KEY>);
 
 $novu->triggerEvent([
-    'name' => '<WORKFLOW_TRIGGER_ID>',
+    'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
     'payload' => ['customVariables' => 'Hello'],
     'to' => [
         'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
@@ -50,7 +50,7 @@ curl -X POST https://api.novu.co/v1/events/trigger \
   -H "Authorization: ApiKey <NOVU_API_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
-    "name": "<WORKFLOW_TRIGGER_ID>",
+    "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
     "to": {
       "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
       "email": "john@doemail.com",
@@ -64,8 +64,6 @@ curl -X POST https://api.novu.co/v1/events/trigger \
       }
     }
   }'
-
-
 ```
 
 ```ruby Ruby
@@ -74,7 +72,7 @@ require 'novu'
 client = Novu::Client.new('<NOVU_API_KEY>')
 
 payload = {
-    'name' => '<WORKFLOW_TRIGGER_ID>',
+    'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
     'payload' => { # optional
         'first-name' => 'Adam' # optional
     },
@@ -100,7 +98,7 @@ import (
 func main() {
 	subscriberID := "<UNIQUE_SUBSCRIBER_IDENTIFIER>"
 	apiKey := "<NOVU_API_KEY>"
-	eventId := "<WORKFLOW_TRIGGER_ID>"
+	eventId := "<WORKFLOW_TRIGGER_IDENTIFIER>"
 
 	ctx := context.Background()
 	to := map[string]interface{}{
@@ -136,14 +134,17 @@ url = "https://api.novu.co"
 api_key = "<NOVU_API_KEY>"
 
 novu = EventApi(url, api_key).trigger(
-    name="<WORKFLOW_TRIGGER_ID>",  # This is the Workflow ID. It can be found on the workflow page.
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",  # This is the Workflow ID. It can be found on the workflow page.
     recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>", # The subscriber ID can be gotten from the dashboard.
     payload={},  # Your custom Novu payload goes here
 )
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.common.base.Novu;
+import co.novu.api.common.SubscriberRequest;
+import co.novu.api.events.requests.TriggerEventRequest;
+import co.novu.api.events.responses.TriggerEventResponse;
 
 public class Main {
     public static void main(String[] args) {
@@ -151,23 +152,22 @@ public class Main {
 
         Novu novu = new Novu(apiKey);
 
-        Map<String, Object> payload = new HashMap<>();
-        payload.put("customVariables", "Hello");
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest.setFirstName("<FIRST_NAME>");
+        subscriberRequest.setLastName("<LAST_NAME>");
+        subscriberRequest.setPhone("<PHONE_NUMBER>");
+        subscriberRequest.setAvatar("<AVATAR>");
+        subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
 
-        Map<String, Object> to = new HashMap<>();
-        to.put("subscriberId", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        to.put("phone", "07983882186");
-
-        Map<String, Object> event = new HashMap<>();
-        event.put("name", "<WORKFLOW_TRIGGER_ID>");
-        event.put("payload", payload);
-        event.put("to", to);
+        TriggerEventRequest triggerEventRequest = new TriggerEventRequest();
+        triggerEventRequest.setName("<NAME>");
+        triggerEventRequest.setTo(subscriberRequest);
+        triggerEventRequest.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
         
-        novu.triggerEvent(event);
+        TriggerEventResponse response = novu.triggerEvent(triggerEventRequest);
     }
 }
-
-
 ```
 
 ```csharp .NET
@@ -226,3 +226,8 @@ var trigger = await novu.Event.Trigger(payload);
 ```
 
 </ResponseExample>
+
+<Accordion title="Idempotent nature of transactionId">
+  <Snippet file="idempotent-nature-of-transactionId.mdx" />
+</Accordion>
+

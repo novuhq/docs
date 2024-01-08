@@ -6,6 +6,23 @@ openapi: get /v1/notifications/{notificationId}
 
 <RequestExample>
 
+```kotlin Kotlin
+import co.novu.Novu
+import co.novu.extensions.notification
+
+fun main() {
+    val novu = Novu(apiKey = "<NOVU_API_KEY>")
+    val notification = novu.notification("<NOTIFICATION_ID>")
+    println(notification)
+}
+```
+
+```bash cURL
+curl --request GET \
+--url https://api.novu.co/v1/notifications/{notificationId} \
+--header 'Authorization: ApiKey <NOVU_API_KEY>'
+```
+
 ```python Python
 from novu.api import NotificationApi
 
@@ -17,4 +34,5 @@ notificationApi = NotificationApi(url, api_key)
 notification = notificationApi.get("<notificationId>")
 print(notification)
 ```
+
 </RequestExample>

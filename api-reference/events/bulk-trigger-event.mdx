@@ -11,10 +11,10 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.subscribers.bulkTrigger([
+await novu.events.bulkTrigger([
   {
-    name: "<WORKFLOW_TRIGGER_ID>",
-    to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
+    to: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload: {
       customKey: "customValue",
       customKey1: {
@@ -31,8 +31,8 @@ await novu.subscribers.bulkTrigger([
     tenant: "tenantIdentifier"
   },
   {
-    name: "<WORKFLOW_TRIGGER_ID>",
-    to: "'<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
+    to: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload: {
       customKey: "customValue",
       customKey1: {
@@ -58,12 +58,12 @@ $novu = new Novu(<NOVU_API_KEY>);
 
 $novu->bulkTriggerEvent([
     [
-        'name' => '<WORKFLOW_TRIGGER_ID>', 
+        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>', 
         'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
         'payload' => ['customVariables' => 'Hello']
     ],
     [
-        'name' => '<WORKFLOW_TRIGGER_ID>', 
+        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>', 
         'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
         'payload' => ['customVariables' => 'World']
     ],
@@ -78,7 +78,7 @@ curl -X POST https://api.novu.co/v1/events/trigger/bulk \
   -d '{
     "events": [
       {
-        "name": "<WORKFLOW_TRIGGER_ID>",
+        "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
         "to": {
           "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
           "email": "john@doemail.com"
@@ -98,7 +98,7 @@ curl -X POST https://api.novu.co/v1/events/trigger/bulk \
         "tenant": "tenantIdentifier"
       },
       {
-        "name": "<WORKFLOW_TRIGGER_ID>",
+        "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
         "to": {
           "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
           "email": "janet@doemail.com"
@@ -131,7 +131,7 @@ client = Novu::Client.new('<NOVU_API_KEY>')
 payload = {
     'events' => [
         {
-            'name' => '<WORKFLOW_TRIGGER_ID>',
+            'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
             'payload' => { # optional
                 'first-name' => 'Adam' # optional
             },
@@ -141,7 +141,7 @@ payload = {
             'transactionId' => '89kjfke9893' #optional
         },
         {
-            'name' => '<WORKFLOW_TRIGGER_ID>',
+            'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
             'payload' => { # optional
                 'last-name' => 'Eve' # optional
             },
@@ -172,7 +172,7 @@ func main() {
 	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
 
     event1 := novu.BulkTriggerOptions{
-        Name: []string{"<WORKFLOW_TRIGGER_ID>"},
+        Name: []string{"<WORKFLOW_TRIGGER_IDENTIFIER>"},
         To: map[string]interface{}{
             "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
             "email":        "john@doemail.com",
@@ -185,7 +185,7 @@ func main() {
 	    }
     }
     event2 := novu.BulkTriggerOptions{
-        Name: []string{"<WORKFLOW_TRIGGER_ID>"},
+        Name: []string{"<WORKFLOW_TRIGGER_IDENTIFIER>"},
         To: map[string]interface{}{
             "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
             "email":        "janet@doemail.com",
@@ -217,12 +217,12 @@ url = "https://api.novu.co"
 api_key = "<NOVU_API_KEY>"
 
 event_1 = InputEventDto(
-    name="<WORKFLOW_TRIGGER_ID>",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
     recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload={},  # Your custom Novu payload goes here
 )
 event_2 = InputEventDto(
-    name="<WORKFLOW_TRIGGER_ID>",
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",
     recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
     payload={},
 )
@@ -233,7 +233,11 @@ novu = EventApi(url, api_key).trigger_bulk(
 ```
 
 ```java Java
-import co.novu.sdk.Novu;
+import co.novu.common.base.Novu;
+import co.novu.api.common.SubscriberRequest;
+import co.novu.api.events.requests.TriggerEventRequest;
+import co.novu.api.events.pojos.BulkTriggerEventRequest;
+import co.novu.api.events.responses.BulkTriggerEventResponse;
 
 public class Main {
     public static void main(String[] args) {
@@ -241,39 +245,30 @@ public class Main {
 
         Novu novu = new Novu(apiKey);
 
-        List<Map<String, Object>> events = new ArrayList<>();
-        // First event
-        Map<String, Object> event1 = new HashMap<>();
-        event1.put("name", "<WORKFLOW_TRIGGER_ID>");
-        event1.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload1 = new HashMap<>();
-        payload1.put("customVariables", "Hello");
-        event1.put("payload", payload1);
-        events.add(event1);
+        SubscriberRequest subscriberRequest = new SubscriberRequest();
+        subscriberRequest.setEmail("<EMAIL_ADDRESS>");
+        subscriberRequest.setFirstName("<FIRST_NAME>");
+        subscriberRequest.setLastName("<LAST_NAME>");
+        subscriberRequest.setPhone("<PHONE_NUMBER>");
+        subscriberRequest.setAvatar("<AVATAR>");
+        subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
 
-        // Second event
-        Map<String, Object> event2 = new HashMap<>();
-        event2.put("name", "<WORKFLOW_TRIGGER_ID>");
-        event2.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload2 = new HashMap<>();
-        payload2.put("customVariables", "World");
-        event2.put("payload", payload2);
-        events.add(event2);
+        TriggerEventRequest triggerEventRequest1 = new TriggerEventRequest();
+        triggerEventRequest1.setName("<NAME>");
+        triggerEventRequest1.setTo(subscriberRequest);
+        triggerEventRequest1.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
+        
+        TriggerEventRequest triggerEventRequest2 = new TriggerEventRequest();
+        triggerEventRequest2.setName("<NAME>");
+        triggerEventRequest2.setTo(subscriberRequest);
+        triggerEventRequest2.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
 
-        // Third event
-        Map<String, Object> event3 = new HashMap<>();
-        event3.put("name", "<WORKFLOW_TRIGGER_ID>");
-        event3.put("to", "<UNIQUE_SUBSCRIBER_IDENTIFIER>");
-        Map<String, Object> payload3 = new HashMap<>();
-        payload3.put("customVariables", "Again");
-        event3.put("payload", payload3);
-        events.add(event3);
+        BulkTriggerEventRequest bulkTriggerEventRequest = new BulkTriggerEventRequest();
+        bulkTriggerEventRequest.setEvents(Arrays.asList(triggerEventRequest1, triggerEventRequest2));
 
-        novu.bulkTriggerEvent(events);
+        BulkTriggerEventResponse response = novu.bulkTriggerEvent(bulkTriggerEventRequest);
     }
 }
-
-
 ```
 
 ```csharp .NET
@@ -296,13 +291,13 @@ var payload = new List<EventTriggerDataDto>()
 {
     new()
     {
-        EventName = "<WORKFLOW_TRIGGER_ID>",
+        EventName = "<WORKFLOW_TRIGGER_IDENTIFIER>",
         To = { SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"},
         Payload = new TestRecord(){ Message = "Hello"}
     },
     new()
     {
-        EventName = "<WORKFLOW_TRIGGER_ID>",
+        EventName = "<WORKFLOW_TRIGGER_IDENTIFIER>",
         To = { SubscriberId = "<UNIQUE_SUBSCRIBER_IDENTIFIER>"},
         Payload = new TestRecord(){ Message = "World"}
     },
