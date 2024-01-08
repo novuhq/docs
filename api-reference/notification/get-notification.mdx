@@ -35,4 +35,12 @@ notification = notificationApi.get("<notificationId>")
 print(notification)
 ```
 
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu('<NOVU_API_KEY>');
+
+$notification = $novu->getNotification($notificationId)-toArray();
+```
+
 </RequestExample>

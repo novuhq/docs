@@ -36,4 +36,12 @@ notificationApi = NotificationApi(url, api_key)
 notifications = notificationApi.list()
 ```
 
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu('<NOVU_API_KEY>');
+
+$notifications = $novu->getNotifications()->toArray();
+```
+
 </RequestExample>
