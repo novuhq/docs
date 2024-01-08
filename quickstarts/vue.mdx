@@ -6,7 +6,7 @@ icon: 'vuejs'
 
 Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) notifications and integrate a rich, customizable and ready-to-use realtime UI In-App notification center in Vue apps.
 
-## Requirements
+# Requirements
 
 To follow the steps in this quickstart, you'll need:
 
@@ -15,7 +15,7 @@ To follow the steps in this quickstart, you'll need:
 
 You can also [view the completed code](https://github.com/novuhq/vue-quickstart) of this quick start in a GitHub repo.
 
-## Create a new Vue app
+# Create a new Vue app
 
 If you already have a working Vue app, please feel free to skip this section.
 
@@ -33,7 +33,7 @@ npm install && npm run format && npm run dev
 
 ```
 
-## Install Novu Vue Notification Center Package
+# Install Novu Vue Notification Center Package
 
 The Novu Vue package provides a Vue component wrapper over the web component that you can use to integrate the notification center into your Vue application.
 
@@ -44,7 +44,7 @@ npm install @novu/notification-center-vue
 
 ```
 
-# Register The Notification Center Plugin
+## Register The Notification Center Plugin
 
 First, register the notification center plugin in your app as a global component.
 
@@ -63,10 +63,9 @@ const app = createApp(App);
 
 app.use(NotificationCenterPlugin);
 app.mount('#app');
-
 ```
 
-## Use The Notification Center Component
+# Use The Notification Center Component
 
 Create a new file, `NotificationCenter.vue` in the `src/components` directory. This file will house the Notification Center component.
 
@@ -140,12 +139,11 @@ If there’s none, create a `.env` file and add it like so:
 
 ```
 VITE_NOVU_APP_IDENTIFIER = YOUR_NOVU_APP_IDENTIFIER;
-
 ```
 
 Replace `YOUR_NOVU_APP_IDENTIFIER` with the real value from your dashboard.
 
-## Display The In-App Notification Center UI
+# Display The In-App Notification Center UI
 
 If you started by creating a new Vue app, then do the following:
 
@@ -194,7 +192,7 @@ Simply delete the button element. Your component should look like this:
 
 You should now see a **bell button** that opens the notification center when clicked. This bell can be customized to your preference, and we will style and modify it in a later step.
 
-## Create A Workflow
+# Create A Workflow
 
 The first step to trigger notifications is to create a workflow. A workflow is like a map that holds the entire flow of messages sent to the subscriber.
 
@@ -208,13 +206,7 @@ The workflow includes the following:
 - Workflow name and Identifier
 - Channel tailored content:
 
-| Channel | Content Style |
-| --- | --- |
-| Email | 1. Custom Code (HTML) with option to use custom variables via the handlebars , {{ }}, syntax. |
-|  | 2. Click and place UI items with the visual template editor. |
-| SMS | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
-| Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
-| In-App | Text |
+<Snippet file="supported-channels.mdx" />
 
 Please proceed to create a workflow.
 
@@ -240,7 +232,7 @@ Feel free to add only text for now and rename the workflow to `Onboarding In Ap
 
 Next, we’ll learn how to create subscribers on Novu - *Recipients of Notifications*
 
-## Create A Subscriber
+# Create A Subscriber
 
 Click **Subscribers** on the left sidebar of the [Novu dashboard](https://web.novu.co/subscribers) to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
 <Frame caption="Subscribers from the left sidebar shows all the subscriber"><img src="/images/sub-nodejs.png" /> </Frame>
@@ -249,7 +241,7 @@ Now, let's create a subscriber on Novu.
 
 Novu has a plethora of backend SDKs (Node.js, PHP, .NET, Go, Ruby, Python and Kotlin) to choose from to create a subscriber programmatically. This is the recommended method.
 
-Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `YOUR_NOVU_API_KEY_HERE` with it.
+Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `<NOVU_API_KEY>` with it.
 
 Now check your Novu dashboard. You should see the recently created subscriber.
 
@@ -258,16 +250,15 @@ You can also update the subscriber info like so:
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<YOUR_NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.subscribers.update('132', {
   email: 'janedoe@domain.com', // new email
   phone: '+19874567832', // new phone
 });
-
 ```
 
-## Trigger A Notification
+# Trigger A Notification
 
 To trigger a notification, simply run the codesandbox below with the correct credentials.
 
@@ -303,6 +294,6 @@ Ensure the `subscriberId` value in the backend code that triggers the notifica
 
 Check your app again. You should see the recently triggered notification!
 
-## Conclusion
+# Conclusion
 
 Great job! If you've reached this point, you should now have successfully set up the notification center, created a subscriber, a workflow, configured a channel provider and triggered a notification in your Vue application.

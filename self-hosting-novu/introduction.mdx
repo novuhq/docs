@@ -4,7 +4,23 @@ description: ''
 icon: 'code'
 ---
 
-Self-hosting Novu involves setting up and maintaining your communication infrastructure using your own servers. While this offers full control and customization, some features which are available only for Novu’s cloud-managed won't be available in a self-hosted environment.
+Self-hosting Novu involves setting up and maintaining your communication infrastructure using your own servers.
+While this offers full control and customization,
+some features which are available only for Novu’s cloud-managed won't be available in a self-hosted environment.
 
-<Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations, please don't hesitate to [contact our team](https://calendly.com/novuhq/novu-meeting?utm_source=novuDocs&utm_page=self-hosting-introduction). 
+<Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations,
+    please don't hesitate to [contact our team](https://calendly.com/novuhq/novu-meeting?utm_source=novuDocs&utm_page=self-hosting-introduction).
 They can provide assistance regarding enterprise edition licenses or cloud-prem deployment to meet your specific needs.</Note>
+
+## Minimum System Requirements
+For basic installation, a server with 16GB RAM and 8 CPUs is fine. However, specifications vary depending on requirements and here are sample specifications for handling 1M plus notifications:
+
+- If everything is running on one machine, then at least 36 vCPU and 64GB of RAM.
+- If services are running across containers, then it is recommended to run 3 containers per service, each container having 2 vCPU and 4GB of RAM.
+- If you're using Kubernetes, then the K8 system needs to have 36 vCPU and 64GB of RAM at least in the cluster to run the servers.
+- On AWS, a c6g.8xlarge instance with 32 vCPU and 64GB of RAM. 
+- In all cases, you need to also have 2 Redis clusters with the queue one having an Append only log file active (AOL) to prevent instances of job loss during an outage,  a MongoDB cluster equivalent to a M20 or greater on Atlas, and 10GB of S3 storage.
+- Lastly, the queue Redis instance should be 8GB MINIMUM as there needs to be enough space to handle spikes in notifications or the whole system will brick.
+
+<Note>Note that these specifications are subject to your requirements, the scale of your operations, and should be adjusted as needed.</Note>
+<Warning>Github login is not available in self-hosting. If you're self hosting Novu, use your email and paswword to log into your Novu account!</Warning>

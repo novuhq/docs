@@ -8,7 +8,7 @@ Learn how to integrate Novu into your Ruby project on the fly and send notificat
 
 Let's get started! 💪
 
-# Requirements
+## Requirements
 
 To follow the steps in this quickstart, you'll need:
 
@@ -17,7 +17,7 @@ To follow the steps in this quickstart, you'll need:
 
 You can also [view the completed code](https://github.com/novuhq/novu-ruby-quickstart) of this quick start in a GitHub repo.
 
-# Install Novu Ruby SDK
+## Install Novu Ruby SDK
 
 The [Ruby SDK](http://github.com/novuhq/novu-ruby) provides a fluent and expressive interface for interacting with Novu's API and managing notifications.
 
@@ -37,18 +37,18 @@ gem 'novu'
 
 Then run `bundle install`.
 
-# Initialize & Configure the Novu Ruby SDK
+## Initialize & Configure the Novu Ruby SDK
 
 To use the library, Create a new file `index.rb` then initialize the client with your API token:
 
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 ```
 
-Replace the `YOUR_NOVU_API_KEY` argument with the authentic key from the **API Key** section of your [Novu Dashboard](https://web.novu.co/settings).
+Replace the `<NOVU_API_KEY>` argument with the authentic key from the **API Key** section of your [Novu Dashboard](https://web.novu.co/settings).
 
 
 <Note>
@@ -81,7 +81,7 @@ You should see a result as below:
 
 ```
 
-# Set Up A Channel Provider
+## Set Up A Channel Provider
 
 A channel provider is a service that provides one or more notification functionality such as sending an email, SMS, push notification etc. Our [integration store](https://web.novu.co/integrations) includes four channels: Email, SMS, Chat, and Push. These channels have multiple providers associated with them.
 
@@ -94,7 +94,7 @@ A channel provider is a service that provides one or more notification functiona
 
 Only one provider can be **active** per **channel**. Connect any of your favorite providers to get started. The email channel comes with Novu's email provider, which is active by default and includes 300 credits.
 
-# Create A Workflow
+## Create A Workflow
 
 A workflow is a blueprint for the notifications that will be sent. It holds the entire flow of messages sent to the subscriber. This is where all the different channels are tied together under a single entity.
 
@@ -103,14 +103,7 @@ The workflow includes the following:
 - Workflow name and Identifier
 - Channel-tailored content:
 
-| Channel | Content Style |
-| --- | --- |
-| Email | 1. Custom Code (HTML) with the option to use custom variables via the handlebars, {{ }}, syntax. |
-|  | 2. Click and place UI items with the visual template editor. |
-| SMS | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
-| Chat | Text with the option to use handlebars syntax, {{ }} to inject custom variables. |
-| In-App | Text |
-
+<Snippet file="supported-channels.mdx" />
 
 <Note>
 Proper authorization needs to be set for the Chat channel for subscribers.
@@ -143,9 +136,9 @@ Now, let's create a subscriber on Novu. Copy and paste the following code to do 
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
-# Create subscriber
+## Create subscriber
 
 create_payload = {
     'subscriberId' => '7789', # replace with system_internal_user_id
@@ -172,7 +165,7 @@ I’d like to publicly announce that `abc@gmail.com` is a random unlikely emai
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 ## Update subscriber detail
 
@@ -182,7 +175,6 @@ update_payload = {
     'lastName' => 'Obasanjo', # optional
 }
 client.update_subscriber('7789', update_payload);
-
 ```
 
 Other valid fields that can be updated are `phone`, `avatar`, and `data`. The `data` field can accept an object of metadata that you want to attach to the subscriber.
@@ -199,9 +191,9 @@ Copy and paste the following code into your app to trigger a notification:
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
-# trigger a notification
+## trigger a notification
 
 trigger_payload = {
     'name' => 'Trigger1',
@@ -246,14 +238,14 @@ The topic key should be unique and can't be changed once chosen. Novu also safeg
 
 A topic can have multiple subscribers who will receive a notification whenever a message is sent to the topic.
 
-### Create a Topic
+## Create a Topic
 
 Copy and paste the following code into your app to create a topic:
 
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 ## Create a Topic
 
 create_topic_payload = {
@@ -269,14 +261,14 @@ Before running the code, make sure you understand the following:
 - When creating a `key`, ensure it is unique and accurately identifies the topic. Document naming conventions and communicate them to team members to avoid confusion and ensure a smooth workflow.
 - The value of `name` should be a descriptive topic name.
 
-### Add and Remove Subscribers to a Topic
+## Add and Remove Subscribers to a Topic
 
 Copy and paste the following code into your app to add subscribers to a topic:
 
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 topicKey = 'frontend-users'
 subscribers = ['6460925ce1a93324257d2fc1', '7789'].to_s
@@ -291,7 +283,7 @@ Also, you can remove subscribers from a topic by using the code snippet below:
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
 topicKey = 'frontend-users'
 subscribers = ['6460925ce1a93324257d2fc1', '7789'].to_s
@@ -301,7 +293,7 @@ client.remove_subscribers(topicKey, subscribers)
 
 ```
 
-### Sending a notification to a Topic
+## Sending a notification to a Topic
 
 Thanks to the topics feature, it is possible to trigger a notification to all subscribers assigned to a topic. This helps avoid listing all subscriber identifiers in the `to` field of the notification trigger.
 
@@ -310,9 +302,9 @@ To trigger a notification to all subscribers of a topic, copy and paste the code
 ```ruby
 require 'novu'
 
-client = Novu::Client.new('YOUR_NOVU_API_KEY')
+client = Novu::Client.new('<NOVU_API_KEY>')
 
-# Send notifications to a topic (all frontend users)
+## Send notifications to a topic (all frontend users)
 client.trigger_event({
     'name' => 'Trigger1',
     'to' => {

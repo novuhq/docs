@@ -6,6 +6,12 @@ openapi: get /v1/feeds
 
 <RequestExample>
 
+```bash cURL
+curl --request GET \
+--url https://api.novu.co/v1/feeds \
+--header 'Authorization: ApiKey <NOVU_API_KEY>'
+```
+
 ```javascript Node.js
 import { Novu } from '@novu/node';
 
@@ -19,7 +25,6 @@ use Novu\SDK\Novu;
 $novu = new Novu(<NOVU_API_KEY>);
 
 $novu->getFeeds()->toArray();
-
 ```
 
 ```ruby Ruby

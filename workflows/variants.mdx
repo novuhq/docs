@@ -1,0 +1,113 @@
+---
+title: 'Variants'
+description: 'Learn how to create and use multiple variants for workflow steps in Novu.'
+icon: 'code-branch'
+---
+
+Variants is a workflow component that empowers users to create multiple versions of a given workflow step.
+
+You can use variants to ensure that only specific versions of your workflow step (e.g Email) are sent to subscribers. These variants are linked to specific conditions. No variant can exist without a condition. 
+
+Variants are an integral component of our [multi-tenancy feature](/tenants/introduction#tenant-specific-notification-content). 
+
+## Steps to create Variants
+
+In this case, we'll use a workflow Email step. Let's create multiple variants for this step.
+
+1. Create an email step in your workflow.
+
+<Frame caption="Email step in workflow"><img src="https://github.com/novuhq/docs/assets/2946769/b7d21890-10db-4452-ad95-2414976786be" /> </Frame>
+
+2. Add a variant to the step as shown below.
+
+<Frame caption="Add variant to workflow step"><img src="https://github.com/novuhq/docs/assets/2946769/79935b8c-e4f2-4953-86f1-22efd47753f5" /> </Frame>
+
+3. A variant must have conditions set. Add a condition or multiple conditions.
+
+<Frame caption="Add conditions"><img src="https://github.com/novuhq/docs/assets/2946769/43bd7041-7508-4343-977d-7c60f1b788ea" /> </Frame>
+
+In this case, we added a condition (as shown below) to check if the tenant identifier passed at the point of trigger is equal to `edenlife`. This is now a **multi-tenant variant**!
+
+Apply conditions to set it successfully.
+
+<Frame caption="Add conditions for the variant"><img src="https://github.com/novuhq/docs/assets/2946769/cf48801a-4a13-4bfa-97ae-4bcb7f761e9a" /> </Frame>
+
+The variant has been created. Click on the **Update** button.
+
+<Frame caption="Update the variant"><img src="https://github.com/novuhq/docs/assets/2946769/cea9815f-6aea-4268-a283-29f8549055f2" /> </Frame>
+
+4. Head over to the email step again. You will see two variants: the **root variant** & **v1 variant**. The **v1 variant** is the one where you set the tenant condition while the **root variant** is the default version of the email step without a condition.
+
+<Frame caption="Root & v1 variants"><img src="https://github.com/novuhq/docs/assets/2946769/abb5a661-2c54-4985-9f4e-4b9cd975bce7" /> </Frame>
+
+5. You can add different content to the two variants.
+
+<Frame caption="Root variant"><img src="https://github.com/novuhq/docs/assets/2946769/3559397d-f62b-4efb-b1a8-105d5b0f7117" /> </Frame>
+
+<Frame caption="v1 variant"><img src="https://github.com/novuhq/docs/assets/2946769/e56a88cb-fab8-42d3-85c5-a03f488f47b6" /> </Frame>
+
+
+During the notification sending phase, Novu's logic will determine the appropriate variant based on the contextual information that was passed with the trigger event and the conditions applied to the variants. 
+
+In this case, if a tenant identifier with the value of `edenlife` was passed with the trigger event, then Novu will select the v1 variant and send to subscribers.
+
+On the other hand, if the tenant identifier has a different value or was not passed with the trigger event, then Novu will select the root variant and send to subscribers.
+
+
+<Tabs>
+  <Tab title="Node.js">
+  ```js
+    import { Novu } from '@novu/node';
+
+    const novu = new Novu("<NOVU_API_KEY>");
+
+    await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
+      {
+        to: {
+          subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
+        },
+        payload: {
+          name: "Hello World",
+        },
+        tenant: "edenlife"
+      }
+    );
+  ```
+  </Tab>
+  <Tab title="PHP">
+  ```php
+    use Novu\SDK\Novu;
+
+    $novu = new Novu('<NOVU_API_KEY_HERE>');
+
+    $novu->triggerEvent([
+      'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
+      'payload' => [
+        'name' => 'Hello'
+      ],
+      'to' => [
+          'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>'
+      ],
+      'tenant': "edenlife"
+    ]);
+  ```
+  </Tab>
+</Tabs>
+
+  
+## Variant Conditions
+
+There are so many use cases for variants. It's not limited to [multi-tenancy](/tenants/introduction#tenant-specific-notification-content). 
+
+You can set conditions based on the following data:
+
+- Subscriber
+- Payload 
+- Webhook
+- Is online
+- Last time was online
+
+### Sample Use Cases 
+1. If you're looking to send a different type of email based on whether a subscriber is online, then variants are the right choice.
+
+2. If you want to send different types of email to subscribers based on the specific type of payload or subscriber data passed with the trigger event, variants are a good choice!

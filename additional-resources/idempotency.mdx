@@ -1,0 +1,33 @@
+---
+title: 'Idempotent Requests'
+description: 'Learn how to retry API requests without performing the same operation twice'
+icon: 'repeat-1'
+---
+
+Novu supports retrying and concurrent requests for `POST` and `PATCH` operations, ensuring the safety and reliability of your requests, particularly in scenarios where network issues or communication problems can introduce uncertainty into request outcomes. Idempotent requests are essential for business-critical applications, such as for ensuring only once delivery of your notifications.
+
+<Note>
+    This feature is available from 0.22.0. Currently, the Idempotency headers are not enabled on the Novu cloud but functionality is available for self-hosting. 
+</Note>
+
+## Performing an Idempotent Request
+
+To make an idempotent request, include the `Idempotency-Key: <key>` header in your request. The idempotency key should be a unique client-generated value with sufficient entropy to prevent collisions. We recommend using V4 UUIDs as your idempotency keys.
+
+## Response Replay
+
+When you make idempotent requests, the API stores the status code and response body from the initial request. If the same idempotency key is used in another request, the API replays the saved response, including for client and server error responses like 400 and 500 errors.
+
+When a response is replayed, an `Idempotency-Replay: true` header is included in the response.
+
+## Validation for Idempotent Requests
+
+Idempotent requests are subject to the following validations:
+
+1. If the `<key>` exceeds 255 characters, the API will respond with a `400 Bad Request` error.
+2. If the request body does not match the initial request, the API returns a `422 Unprocessable Entity` error.
+3. If the initial request is still being processed concurrently and hasn't yet responded, the API returns a `409 Conflict` error along with a `Retry-After` header.
+
+## Key Expiration
+
+Idempotency keys are automatically removed if they are at least 24 hours old. After this period, you can reuse a key, and it will be processed as an initial request and response.

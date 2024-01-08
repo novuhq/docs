@@ -20,15 +20,39 @@ To get started with using Novu’s Discord Webhook integration, you need a ‘we
 4. Copy the webhook URL.
 5. After obtaining the webhook URL in the previous step, you need to store it within the subscriber entity. Doing this ensures that Novu knows where (in which discord channel) to send the notification to. Here’s how to do it:
     
-    ```jsx
-    import { Novu, ChatProviderIdEnum } from '@novu/node';
-    
-    const novu = new Novu("<NOVU_API_KEY>");
-    
-    await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Discord, {
-      webhookUrl: 'https://discord.com/api/webhooks/...',
-    });
-    ```
+<Tabs>
+  <Tab title="Node.js">
+```javaScript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_API_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Discord, {
+  webhookUrl: "<WEBHOOK_URL>",
+});
+```
+  </Tab>
+  <Tab title="cURL">
+```bash 
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_API_KEY>' \
+-d '{
+  "providerId": "discord",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "discord-MnGLxp8uy"
+}'
+```
+  </Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
     
     - `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
     - `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum to specify the provider.

@@ -25,13 +25,7 @@ The workflow includes the following:
 - Workflow name and Identifier
 - Channel-tailored content:
 
-| Channel | Content Style |
-| --- | --- |
-| Email | 1. Custom Code (HTML) with option to use custom variables via the handlebars , , syntax. |
-|  | 2. Click and place UI items with the visual workflow editor. |
-| SMS | Text with the option to use handlebars syntax, to inject custom variables. |
-| Chat | Text with the option to use handlebars syntax, to inject custom variables. |
-| In-App | Text |
+<Snippet file="supported-channels.mdx" />
 
 These are the steps to create a workflow:
 
@@ -104,7 +98,7 @@ With Novu, you can create a subscriber using any of its SDKs (Node.js, PHP, .NET
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<YOUR_NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.subscribers.identify('123', {
   firstName: 'Sumit',
@@ -112,14 +106,14 @@ await novu.subscribers.identify('123', {
 });
 ```
 
-You can get your API key from the Novu dashboard. Replace **`YOUR_NOVU_API_KEY_HERE`** with it. Now, if you’ll go to the Novu dashboard, you shall see the subscriber we created above with **`subscriberId`** of **`123`**.
+You can get your API key from the Novu dashboard. Replace **`<NOVU_API_KEY>`** with it. Now, if you’ll go to the Novu dashboard, you shall see the subscriber we created above with **`subscriberId`** of **`123`**.
 
 You can also update information about an already existing subscriber using the **`subscriber.update`** method as shown below:
 
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<YOUR_NOVU_API_KEY>');
+const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.subscribers.update('123', {
   firstName: 'Saurabh', // new first name
