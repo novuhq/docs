@@ -23,4 +23,13 @@ notificationApi = NotificationApi(url, api_key)
 graphStats = notificationApi.graph_stats()
 list(graphStats)
 ```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu('<NOVU_API_KEY>');
+
+$notificationGraphStats = $novu->getNotificationGraphStats()->toArray();
+```
+
 </RequestExample>
