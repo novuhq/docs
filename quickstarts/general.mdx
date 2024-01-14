@@ -7,7 +7,6 @@ To create your free managed, or docker-based Novu environment use our CLI tool:
 
 ```
 npx novu init
-
 ```
 
 After creating your cloud or self-hosted account, the next steps to sending your first notification are outlined in this guide:
@@ -19,7 +18,7 @@ After creating your cloud or self-hosted account, the next steps to sending your
 
 # Connect providers
 
-On the “**Integration Store**” page, you can configure the different providers and their respective credentials. During the alpha phase only a **single provider** is allowed **per channel,** adding a second email provider will de-activate the previously added email provider.
+On the **Integration Store** page, you can configure the different providers and their respective credentials. During the alpha phase only a **single provider** is allowed **per channel**, adding a second email provider will de-activate the previously added email provider.
 
 # Create a workflow
 
@@ -43,11 +42,11 @@ You can specify the content for emails in two ways:
 
 **Custom Code** - You can use the custom code section to specify custom html for the email.
 
-You can specify custom variables using the [{{handlebars}}](https://handlebarsjs.com/guide/) syntax.
+You can specify custom variables using the [handlebars](https://handlebarsjs.com/guide/) syntax.
 
 ### SMS
 
-Inside SMS, you can specify custom variables using [{{handlebars}}](https://handlebarsjs.com/guide/) syntax.
+Inside SMS, you can specify custom variables using [handlebars](https://handlebarsjs.com/guide/) syntax.
 
 ### In-app
 
@@ -55,11 +54,11 @@ In the notification center preview, you can type the content of the notification
 
 ### Chat
 
-You can specify custom variables using the [{{handlebars}}](https://handlebarsjs.com/guide/) syntax.
+You can specify custom variables using the [handlebars](https://handlebarsjs.com/guide/) syntax.
 
 In addition to the integration, any subscriber needs to set credentials to have proper authorization on the channel.
 
-The credentials can be saved through our @novu/node package.
+The credentials can be saved through our `@novu/node` package.
 
 # Trigger the workflow
 
@@ -117,7 +116,6 @@ When the trigger is called, Novu performs an upsert command, which either create
   to: 'SUBSCRIBER_ID',
   payload: {}
 }
-
 ```
 
 In this approach, you only pass the `subscriberId` as part of the trigger, however, this approach requires you to identify the subscriber using the `identify` method from the `@novu/node`library.
