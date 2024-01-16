@@ -146,8 +146,8 @@ import {
   IMessage,
 } from "@novu/notification-center";
 
-function App() {
-  function handlerOnNotificationClick(message: IMessage) {
+function Novu() {
+  function handleOnNotificationClick(message: IMessage) {
     // your logic to handle the notification click
     if (message?.cta?.data?.url) {
       window.location.href = message.cta.data.url;
@@ -161,7 +161,7 @@ function App() {
     >
       <PopoverNotificationCenter
         colorScheme="dark"
-        onNotificationClick={handlerOnNotificationClick}
+        onNotificationClick={handleOnNotificationClick}
       >
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
@@ -178,35 +178,53 @@ This function is invoked when the user clicks on the action CTA buttons of the n
 import {
   NovuProvider,
   PopoverNotificationCenter,
-  NotificationBell,
   IMessage,
+  MessageActionStatusEnum,
+  useUpdateAction,
   ButtonTypeEnum,
+  NotificationBell,
 } from "@novu/notification-center";
 
-function App() {
-  async function handlerOnActionClick(
-    templateIdentifier: string,
-    type: ButtonTypeEnum,
-    message: IMessage
-  ) {
-    if (templateIdentifier === "friend-request") {
-      if (type === "primary") {
-        /** Call your API to accept the friend request here **/
+export default function Novu() {
 
-        /** And then update Novu that this action has been taken, so the user won't see the button again **/
-        await updateAction(message._id, type, MessageActionStatusEnum.DONE);
+  const CustomNotificationCenter = () => {
+    const { updateAction } = useUpdateAction();
+
+    const handleOnActionClick = async (
+      templateIdentifier: string,
+      btnType: ButtonTypeEnum,
+      notification: IMessage
+    ) => {
+      if (templateIdentifier === "friend-request") {
+        if (btnType === "primary") {
+          /** Call your API to accept the friend request here **/
+
+          /** And then update Novu that this action has been taken, so the user won't see the button again **/
+          updateAction({
+            messageId: notification._id,
+            actionButtonType: btnType,
+            status: MessageActionStatusEnum.DONE,
+          });
+        }
       }
-    }
-  }
+    };
+
+    return (
+      <PopoverNotificationCenter
+        colorScheme={"dark"}
+        onActionClick={handleOnActionClick}
+      >
+        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+      </PopoverNotificationCenter>
+    );
+  };
 
   return (
     <NovuProvider
-      subscriberId={"SUBSCRIBER_ID"}
-      applicationIdentifier={"APPLICATION_IDENTIFIER"}
+      subscriberId={SUBSCRIBER_ID}
+      applicationIdentifier={APPLICATION_IDENTIFIER}
     >
-      <PopoverNotificationCenter onActionClick={handlerOnActionClick} colorScheme="dark">
-        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-      </PopoverNotificationCenter>
+      <CustomNotificationCenter />
     </NovuProvider>
   );
 }
@@ -221,7 +239,7 @@ Novu provides a real-time socket API for you to consume and get updates about ne
 ```tsx
 import { NovuProvider, useSocket } from "@novu/notification-center";
 
-function App() {
+function Novu() {
   return (
     <NovuProvider
       subscriberId={"SUBSCRIBER_ID"}
