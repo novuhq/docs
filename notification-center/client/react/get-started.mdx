@@ -146,8 +146,8 @@ import {
   IMessage,
 } from "@novu/notification-center";
 
-function Novu() {
-  function handleOnNotificationClick(message: IMessage) {
+function App() {
+  function handlerOnNotificationClick(message: IMessage) {
     // your logic to handle the notification click
     if (message?.cta?.data?.url) {
       window.location.href = message.cta.data.url;
@@ -161,7 +161,7 @@ function Novu() {
     >
       <PopoverNotificationCenter
         colorScheme="dark"
-        onNotificationClick={handleOnNotificationClick}
+        onNotificationClick={handlerOnNotificationClick}
       >
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
@@ -178,53 +178,35 @@ This function is invoked when the user clicks on the action CTA buttons of the n
 import {
   NovuProvider,
   PopoverNotificationCenter,
-  IMessage,
-  MessageActionStatusEnum,
-  useUpdateAction,
-  ButtonTypeEnum,
   NotificationBell,
+  IMessage,
+  ButtonTypeEnum,
 } from "@novu/notification-center";
 
-export default function Novu() {
+function App() {
+  async function handlerOnActionClick(
+    templateIdentifier: string,
+    type: ButtonTypeEnum,
+    message: IMessage
+  ) {
+    if (templateIdentifier === "friend-request") {
+      if (type === "primary") {
+        /** Call your API to accept the friend request here **/
 
-  const CustomNotificationCenter = () => {
-    const { updateAction } = useUpdateAction();
-
-    const handleOnActionClick = async (
-      templateIdentifier: string,
-      btnType: ButtonTypeEnum,
-      notification: IMessage
-    ) => {
-      if (templateIdentifier === "friend-request") {
-        if (btnType === "primary") {
-          /** Call your API to accept the friend request here **/
-
-          /** And then update Novu that this action has been taken, so the user won't see the button again **/
-          updateAction({
-            messageId: notification._id,
-            actionButtonType: btnType,
-            status: MessageActionStatusEnum.DONE,
-          });
-        }
+        /** And then update Novu that this action has been taken, so the user won't see the button again **/
+        await updateAction(message._id, type, MessageActionStatusEnum.DONE);
       }
-    };
-
-    return (
-      <PopoverNotificationCenter
-        colorScheme={"dark"}
-        onActionClick={handleOnActionClick}
-      >
-        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-      </PopoverNotificationCenter>
-    );
-  };
+    }
+  }
 
   return (
     <NovuProvider
       subscriberId={"SUBSCRIBER_ID"}
       applicationIdentifier={"APPLICATION_IDENTIFIER"}
     >
-      <CustomNotificationCenter />
+      <PopoverNotificationCenter onActionClick={handlerOnActionClick} colorScheme="dark">
+        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+      </PopoverNotificationCenter>
     </NovuProvider>
   );
 }
@@ -239,7 +221,7 @@ Novu provides a real-time socket API for you to consume and get updates about ne
 ```tsx
 import { NovuProvider, useSocket } from "@novu/notification-center";
 
-function Novu() {
+function App() {
   return (
     <NovuProvider
       subscriberId={"SUBSCRIBER_ID"}
@@ -327,11 +309,6 @@ socket.on("notification_received", (data) => {
   <Accordion title="Can bell icon in Novu dashboard be used for in-app channel testing?">
 
   Bell icon and notification center in Novu dashboard is only for receiving system related notifications like user you invited has joined, password reset request sent. It can not to used to test notification center. Consider using our [codesandbox example](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark) instead.
-  
-  </Accordion>
-
-  <Accordion title="How to fix CORS error with notification center?">
-  Our notification center is configures for all hosts. Please disable root level `withCredentials` config in axios or fetch http requests.
   
   </Accordion>
 </AccordionGroup>
