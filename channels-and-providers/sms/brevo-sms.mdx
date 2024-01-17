@@ -3,23 +3,46 @@ title: 'Brevo'
 description: 'Learn how to use the Brevo (formerly SendInBlue) provider to send sms notifications using Novu'
 ---
 
-You can use the [Brevo](https://www.brevo.com/) provider to send transactional sms to your customers using the Novu Platform with a single API.
+<img className="hidden dark:block h-16" src="../../images/channels-and-providers/dark/brevo.svg" alt="brevo logo"/>
+<img className="block dark:hidden h-16" src="../../images/channels-and-providers/light/brevo.svg" alt="brevo logo"/>
+
+You can use the [brevo](https://developers.brevo.com/) provider to send transactional sms to your customers using the Novu Platform with a single API.
 
 # Getting Started
 
-To use the Brevo provider in the email channel, you will need to create a Brevo account and add your API key to the Brevo integration on the Novu platform.
+To use the brevo provider in the sms channel, you will need to [create a brevo account](https://onboarding.brevo.com/account/register) for accessing your dashboard.
 
-# Finding the API Key
-
-- To find your Brevo API key, log into your Brevo account and navigate to the [API Keys](https://account.brevo.com/advanced/api) page.
+<Steps>
+    <Step title="Access to dashboard">
+        Connect to your [brevo](https://account-app.brevo.com/account/login) dashboard.
+    </Step>
+    <Step title="Access to API keys section">
+        Click on your organization name on the top right side to show dropdown menu and then proceed to the `SMTP & API` section then click on `API Keys` [tab](https://app.brevo.com/settings/keys/api).
+    </Step>
+    <Step title="Generate your API key">
+        Generate if needed an API key by clicking on `Generate a new API Key` button where you can set a name then click on `Generate` button.
+    </Step>
+    <Step title="Getting your API key">
+        On the next step you can copy your API key with the `Copy` icon button and keep aside, you'll need it later. Be aware that you cannot get it again later as it will be partially masked and you will have to generate a new one if you lost it.
+    </Step>
+    <Step title="Access to Senders section">
+        Click on your organization name again on the top right side to show dropdown menu and then proceed to the `Senders, Domains & Dedicated IPs` section then click on `Senders` [section](https://app.brevo.com/senders/list).
+    </Step>
+    <Step title="Add a sender">
+        Generate if needed a sender by clicking on `Add a sender` button where you can set the `From name` and the `From email`. Email is not used for this provider but is used for the Brevo Mail API.
+    </Step>
+    <Step title="Getting your sender">
+        Copy and keep aside the sender `From name`. It will be the name that will be displayed on the SMS sender name.
+    </Step>
+</Steps>
 
 # Creating a Brevo integration with Novu
 
 - Visit the [Integrations store](https://web.novu.co/integrations) on the Novu web dashboard.
 - Click on Add a Provider.
 - Select Brevo service.
-- Enter your Brevo API key.
-- Fill in the `From` field.
+- Enter your Brevo API key you generated earlier.
+- Fill in the `From` field with the sender `From name`.
 - Click on the `Disabled` button and mark it as `Active`.
 - Click on the **Update** button.
 - You should now be able to send notifications using Brevo in Novu.
