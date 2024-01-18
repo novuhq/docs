@@ -47,6 +47,8 @@ The ultimate service for managing multi-channel notifications with a single API.
 
 ### 👩‍💻 Docs Contribution
 
+[![how to contribute in Novu Docs](https://cdn.loom.com/sessions/thumbnails/1667ee280c2448c7a40838b72b1399af-1705246340541-with-play.gif)](https://www.loom.com/embed/1667ee280c2448c7a40838b72b1399af)
+
 First, install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) locally. To install, use the following command
 
 ```
