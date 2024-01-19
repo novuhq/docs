@@ -329,4 +329,9 @@ socket.on("notification_received", (data) => {
   Bell icon and notification center in Novu dashboard is only for receiving system related notifications like user you invited has joined, password reset request sent. It can not to used to test notification center. Consider using our [codesandbox example](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark) instead.
   
   </Accordion>
+
+  <Accordion title="How to fix CORS error with notification center?">
+  Our notification center is configures for all hosts. Please disable root level `withCredentials` config in axios or fetch http requests.
+  
+  </Accordion>
 </AccordionGroup>
