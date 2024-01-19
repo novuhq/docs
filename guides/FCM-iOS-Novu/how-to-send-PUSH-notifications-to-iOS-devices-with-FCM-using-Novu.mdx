@@ -3,7 +3,8 @@ title: 'How to send PUSH notifications to iOS devices with FCM using Novu'
 description: 'Learn how to integrate Firebase Cloud Messaging with Novu and send notifications to iOS'
 icon: 'circle-7'
 ---
-## **Prerequisites**
+
+## Prerequisites
 
 To complete this tutorial, you will need the following:
 
@@ -105,7 +106,8 @@ Then, we will copy `firebaseapp.configure()` and place it in `didFinishLaunching
 <Frame><img src="/guides/FCM-iOS-Novu/Assets/29.png"/> </Frame>
 
 
-```swift
+```Swift
+
 //
 //  AppDelegate.swift
 //  PushNotificationDemo
@@ -144,7 +146,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 ```
+
 Click 'Next' and continue to the console.
 
 <Frame><img src="/guides/FCM-iOS-Novu/Assets/30.png"/> </Frame>
@@ -213,7 +217,8 @@ We paste this code block under `firebaseApp.configure()`.
 
 3. Add `import FirebaseMessaging` to the file.
 
-```swift
+```Swift
+
 //
 //  AppDelegate.swift
 //  PushNotificationDemo
@@ -270,6 +275,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
 }
+
 ```
 
 ## Access the Registration Token
@@ -283,7 +289,8 @@ We will now add a 'Messaging' delegate extension to `AppDelegate.swift` file.
 
 <Frame><img src="/guides/FCM-iOS-Novu/Assets/48.png"/> </Frame>
 
-```swift
+```Swift
+
 //
 //  AppDelegate.swift
 //  PushNotificationDemo
@@ -396,6 +403,7 @@ extension AppDelegate: MessagingDelegate {
   
   
 }
+
 ```
 
 ## Receive messages in an Apple App
@@ -406,7 +414,8 @@ extension AppDelegate: MessagingDelegate {
 
 <Frame><img src="/guides/FCM-iOS-Novu/Assets/49.png"/> </Frame>
 
-```swift
+```Swift
+
 //
 //  AppDelegate.swift
 //  PushNotificationDemo
@@ -542,6 +551,7 @@ extension AppDelegate: MessagingDelegate {
   
   
 }
+
 ```
 
 ## Adding app capabilities
@@ -626,7 +636,8 @@ To acquire the account key JSON file for your service account, follow this instr
 
 Make sure your service account key JSON content contains these fields:
 
-```json
+```JSON
+
 {
   "type": "service_account",
   "project_id": "PROJECT_ID",
@@ -639,6 +650,7 @@ Make sure your service account key JSON content contains these fields:
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "CLIENT_X509_CERT_URL"
 }
+
 ```
 
 <Frame><img src="/guides/FCM-iOS-Novu/Assets/69.png"/> </Frame>
@@ -679,7 +691,9 @@ Creating a subscriber in Novu refers to the process of establishing a subscriber
 <Steps>
 
   <Step title="Creating a subscriber">
-    ```json
+
+    ```JSON
+
     curl --location 'https://api.novu.co/v1/subscribers' \
   --header 'Content-Type: application/json' \
   --header 'Accept: application/json' \
@@ -697,7 +711,9 @@ Creating a subscriber in Novu refers to the process of establishing a subscriber
       "customKey": "customValue"
       }
     }'
-    ```
+
+```
+
     <Frame><img src="/guides/FCM-iOS-Novu/Assets/79.png"/> </Frame>
 
   </Step>
@@ -712,7 +728,9 @@ Creating a subscriber in Novu refers to the process of establishing a subscriber
   Here, you can locate the Provider_Identifier.
 
   <Frame><img src="/guides/FCM-iOS-Novu/Assets/81.png"/> </Frame>
-    ```json
+
+```JSON
+
     curl --request PUT \
   --url https://api.novu.co/v1/subscribers/{subscriber_id}/credentials \
 --header 'Content-Type: application/json' \
@@ -724,7 +742,9 @@ Creating a subscriber in Novu refers to the process of establishing a subscriber
   "integrationIdentifier":"<Provider_Identifier>",
   "providerId":"fcm"
 }'
-    ```
+
+```
+
   </Step>
 
 </Steps>
@@ -735,7 +755,9 @@ To send a notification with Novu, you are actually triggering a notification wor
 You have the ability to test the trigger using the user interface or by calling Novu's API.
 
 **Trigger a workflow via the API**
-```json
+
+```JSON
+
 curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
      --header 'Authorization: ApiKey <REPLACE_WITH_API_KEY>' \
      --header 'Content-Type: application/json' \
@@ -746,6 +768,7 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
          },
          "payload": {}
        }'
+
 ```
 
 <Frame><img src="/guides/FCM-iOS-Novu/Assets/82.png"/> </Frame>
@@ -764,7 +787,8 @@ That way, we could insert values through the payload of the API call.
 
 2. Add a 'payload' object to the API call.
 
-```json
+```JSON
+
 curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
      --header 'Authorization: ApiKey <REPLACE_WITH_API_KEY>' \
      --header 'Content-Type: application/json' \
@@ -778,7 +802,9 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
            "body": "Payload notification body"
          },
        }'
-    ```
+
+```
+
 <Frame><img src="/guides/FCM-iOS-Novu/Assets/84.png"/> </Frame>
 
 ## Sound of a notification
@@ -788,7 +814,8 @@ Specify the string "default" to play the system sound.
 
 Use this key for regular notifications. For critical alerts, use the sound dictionary instead.
 
-```json
+```JSON
+
 curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
      --header 'Authorization: ApiKey <YOUR_API_KEY>' \
      --header 'Content-Type: application/json' \
@@ -814,7 +841,7 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
          }
        }'
 
-       ```
+```
 
 ## Priority for notification
 
@@ -826,7 +853,8 @@ Specify `5` to send the notification based on power considerations on the user
 
 Specify `1` to prioritize the device’s power considerations over all other factors for delivery and prevent awakening the device.
 
-```json
+```JSON
+
 curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
      --header 'Authorization: ApiKey <YOUR_API_KEY>' \
      --header 'Content-Type: application/json' \
@@ -853,6 +881,7 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
            }
          }
        }'
+
 ```
 
 ## Sending images
@@ -893,7 +922,8 @@ First, add the following import to the top of the file:
 
 Next, replace the contents of `didReceive(_:withContentHandler:)` with the following:
 
-```swift
+```Swift
+
 self.contentHandler = contentHandler
 bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
@@ -907,6 +937,7 @@ if let messagingContentHandler = self.contentHandler {
 Messaging.serviceExtension().populateNotificationContent(bestAttemptContent, withContentHandler: messagingContentHandler)
  }
 }
+
 ```
 
 Typically, you’d have to search the field containing the image URL, download the image, and finish the presentation with the picture as an attachment. 
@@ -917,7 +948,7 @@ This gives you a chance to gracefully finish up anything you are doing in the ex
 
 This is the entire `NotificationService.swift` file.
 
-```swift
+```Swift
 
 //
 //  NotificationService.swift
@@ -972,7 +1003,8 @@ When making the API call, we should include:
 - URL address of the image.
 
 
-```json
+```JSON
+
 curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
      --header 'Authorization: ApiKey <YOUR_API_KEY>' \
      --header 'Content-Type: application/json' \
@@ -1001,6 +1033,7 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
            }
          }
        }'
+
 ```
 
 <Frame><img src="/guides/FCM-iOS-Novu/Assets/93.png"/> </Frame>
@@ -1014,7 +1047,8 @@ In your `AppDelegate.swift` file, you should define the notification actions you
 You can do this by creating a `UNNotificationAction` for each action you want to include. 
 For example, let's add two actions: "Accept" and "Reject".
 
-```swift
+```Swift
+
 // Add these lines inside your AppDelegate class, preferably below the existing extensions.
 
 extension UNNotificationAction {
@@ -1030,13 +1064,14 @@ extension UNNotificationAction {
         options: [.destructive, .foreground]
     )
 }
+
 ```
 
 2. Register Notification Category:
     
     You need to register the notification category with the actions you defined in your `didFinishLaunchingWithOptions` method:
 
-    ```json 
+    ```
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // ... (your existing code)
 
@@ -1055,13 +1090,16 @@ extension UNNotificationAction {
 
     return true
 }
+
 ```
+
 3. Handle Action Taps:
 
 Now, you need to handle the action taps in the `userNotificationCenter(_:didReceive response:)` method of your `AppDelegate`. 
 You can check which action was tapped by inspecting the `response.actionIdentifier` property:
 
-```json
+```Swift
+
 func userNotificationCenter(_ center: UNUserNotificationCenter,
                             didReceive response: UNNotificationResponse) async {
     let userInfo = response.notification.request.content.userInfo
@@ -1078,14 +1116,14 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
         // Handle other actions or default behavior
         print("User tapped an action with identifier: \(response.actionIdentifier)")
     }
-
-    // ...
 }
+
 ```
 
 Your full `AppDelegate.swift` file should look like this:
 
-```swift
+```Swift
+
 //
 //  AppDelegate.swift
 //  PushNotificationDemo
@@ -1270,7 +1308,8 @@ extension UNNotificationAction {
 
 Now, let’s trigger a notification with actionable buttons:
 
-```json
+```JSON
+
 curl --location --request POST "https://api.novu.co/v1/events/trigger" \
      --header "Authorization: ApiKey 4de014990cfb201033014548be2db904" \
      --header "Content-Type: application/json" \
