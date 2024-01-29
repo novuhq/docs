@@ -21,7 +21,7 @@ Check out the [Flutter app code for this guide on GitHub](https://github.com/nov
 
 If you have an existing Flutter App, you can skip this step.
 
-If you are creating a brand new Flutter app for the first time, please follow this [guide](https://firebase.google.com/codelabs/firebase-fcm-flutter#0).
+If you are creating a brand new Flutter app, please follow this [guide](https://firebase.google.com/codelabs/firebase-fcm-flutter#0).
 
 ## Set up Firebase and FlutterFire
 
@@ -29,13 +29,13 @@ Please follow this [guide to set up a Firebase project and integrate Firebase Cl
 
 ## Set Up Apple Integration
 
-Please follow this [guide to ensure everything is set up on your iOS devices](https://firebase.flutter.dev/docs/messaging/apple-integration) to receive messages.
+Please follow this [guide to ensure that everything is set up on your iOS device](https://firebase.flutter.dev/docs/messaging/apple-integration) to receive messages.
 
 There is an optional section about allowing **Notification Images**. Follow the steps to install and activate the notification service extension. We'll need it later in this guide to display images as part of the push notifications from FCM.
 
 ## Set Up FCM Notification Permission & Registration Token
 
-We'll add code to initialize firebase and ask the user's permission for receiving notifications.
+We'll add code to initialize Firebase and ask the user's permission to receive notifications.
 
 Open up the `lib/main.dart` file in your Flutter app and replace everything with the code below:
 
@@ -183,7 +183,7 @@ There are 4 sections to pay attention to:
 
 <Steps>
   <Step title="The Request permission code block">
-    This shows the notification permission prompt to the user the first time the user interacts with the app. If the user allows it, then we can get a token.
+    This shows the notification permission prompt to the user when the user interacts with the app for the first time. If the user allows it, then we can get a token.
 
     ```dart
     // Request permission
@@ -214,7 +214,7 @@ There are 4 sections to pay attention to:
     ```
   </Step>
   <Step title="The foreground message handler">
-    This handler listens to when a push notification is fired from FCM to the device. If the app is in foreground, then it prints out the notification title, body, messageId and data properties to the console.
+    This handler listens to when a push notification is sent from FCM to the device. If the app is in the foreground, then it prints out the notification title, body, messageId, and data properties to the console.
 
     ```dart
       FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -230,7 +230,7 @@ There are 4 sections to pay attention to:
     ```
   </Step>
   <Step title="The background message handler">
-    This handler listens to when a push notification is fired from FCM to the device. If the app is in background, then it prints out the notification title, body, messageId and data properties to the console.
+    This handler listens to when a push notification is sent from FCM to the device. If the app is in the background, then it prints out the notification title, body, messageId, and data properties to the console.
 
     ```dart
       ...
@@ -254,7 +254,7 @@ There are 4 sections to pay attention to:
   </Step>
 </Steps>
 
-Now, run the Flutter app. Your device should be connected to your machine to enable the app run on it.
+Now, run the Flutter app. Your device should be connected to your machine to enable the app to run on it.
 
 <Frame caption="Running the app to build on my device">
   <img src="https://github.com/novuhq/docs/assets/2946769/71ebea0f-f4fd-49ba-b6ee-591950dd251d"/>
@@ -469,7 +469,7 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
 
 **Receive Triggered Push Workflow on Device**
 
-<Frame caption="Push Notification Received on Device">
+<Frame caption="Push Notification Received on the Device">
   <img src="https://github.com/novuhq/docs/assets/2946769/741dc520-1b0e-429e-bcf8-165536ef5dd4
 "/> 
 </Frame>
@@ -544,7 +544,7 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
 
 ```
 
-<Frame caption="Push & Data Notification received on device in foreground from Novu via FCM">
+<Frame caption="Push & Data Notification received on device in the foreground from Novu via FCM">
   <img src="https://github.com/novuhq/docs/assets/2946769/cac3d859-578e-4df5-9601-9a4a32398688"/>
 </Frame>
 
