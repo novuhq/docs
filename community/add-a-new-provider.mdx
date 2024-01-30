@@ -126,9 +126,9 @@ test('should trigger example-provider library correctly', async () => {});
 
 ### Add provider logos
 
-In order to present this new provider in the `integration store` we need logos in dark and light mode. Add dark and light color logs in respective folders of `apps/web/public/static/images/providers` directory. 
+In order to present this new provider in the `integration store` we need logos in dark and light mode. Add dark color svg logo in  `apps/web/public/static/images/providers/dark/sqaure` directory and light color svg logo in  `apps/web/public/static/images/providers/light/sqaure` directory. 
 
-Use the provider name as the file name. The sample name for our above-added provider is `example-provider.png`. The possible formats are `svg`and `png`.
+Use the provider name as the file name. The sample name for our above-added provider is `example-provider.svg`.
 
 ## Add config items to the list
 
@@ -184,7 +184,7 @@ Now we need to add the provider data to the list located at `libs/shared/src/co
   credentials: exampleProviderConfig,
   // Use valid documentation link
   docReference: 'https://docs.example-provider.com/',
-  logoFileName: { light: 'example-provider.png', dark: 'example-provider.png' }
+  logoFileName: { light: 'example-provider.svg', dark: 'example-provider.svg' }
 }
 ```
 
