@@ -7,7 +7,6 @@ To create your free managed, or docker-based Novu environment use our CLI tool:
 
 ```
 npx novu init
-
 ```
 
 After creating your cloud or self-hosted account, the next steps to sending your first notification are outlined in this guide:
@@ -15,11 +14,11 @@ After creating your cloud or self-hosted account, the next steps to sending your
 - Connect your providers
 - Create a workflow
 - Send a trigger
-- Integrate the [Notification Center](https://docs.novu.co/notification-center/getting-started) within your app *(optional)*
+- Integrate the [Notification Center](https://docs.novu.co/notification-center/getting-started) within your app *(optional)*
 
 # Connect providers
 
-On the “**Integration Store**” page, you can configure the different providers and their respective credentials. During the alpha phase only a **single provider** is allowed **per channel,** adding a second email provider will de-activate the previously added email provider.
+On the **Integration Store** page, you can configure the different providers and their respective credentials. During the alpha phase only a **single provider** is allowed **per channel**, adding a second email provider will de-activate the previously added email provider.
 
 # Create a workflow
 
@@ -31,7 +30,7 @@ After configuring the designated channel provider, you can create your workflow.
 
 ### Workflow Details
 
-The **name** of the workflow is converted to a slug that is used as the trigger identifier which is used when sending the trigger from the back-end.
+The **name** of the workflow is converted to a slug that is used as the trigger identifier which is used when sending the trigger from the back-end.
 
 ### Channel specific content
 
@@ -39,27 +38,27 @@ The **name** of the workflow is converted to a slug that is used as the trigge
 
 You can specify the content for emails in two ways:
 
-**Visual workflow builder** - For simple use cases, you can use our visual workflow editor. The visual workflow builder has limited control over design but is easier to get-started with.
+**Visual workflow builder** - For simple use cases, you can use our visual workflow editor. The visual workflow builder has limited control over design but is easier to get-started with.
 
-**Custom Code** - You can use the custom code section to specify custom html for the email.
+**Custom Code** - You can use the custom code section to specify custom html for the email.
 
-You can specify custom variables using the [{{handlebars}}](https://handlebarsjs.com/guide/) syntax.
+You can specify custom variables using the [handlebars](https://handlebarsjs.com/guide/) syntax.
 
 ### SMS
 
-Inside SMS, you can specify custom variables using [{{handlebars}}](https://handlebarsjs.com/guide/) syntax.
+Inside SMS, you can specify custom variables using [handlebars](https://handlebarsjs.com/guide/) syntax.
 
 ### In-app
 
-In the notification center preview, you can type the content of the notification, select the content, and use `CMD` + `B` to make the selected text bold.
+In the notification center preview, you can type the content of the notification, select the content, and use `CMD` + `B` to make the selected text bold.
 
 ### Chat
 
-You can specify custom variables using the [{{handlebars}}](https://handlebarsjs.com/guide/) syntax.
+You can specify custom variables using the [handlebars](https://handlebarsjs.com/guide/) syntax.
 
 In addition to the integration, any subscriber needs to set credentials to have proper authorization on the channel.
 
-The credentials can be saved through our @novu/node package.
+The credentials can be saved through our `@novu/node` package.
 
 # Trigger the workflow
 
@@ -81,9 +80,9 @@ await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
 
 The trigger function contains a parameters object as the second parameter. Let's explore its different options:
 
-### `to` key
+### `to` key
 
-The `to` parameter contains the information about the subscriber of the notification. You can work with Novu in 2 modes:
+The `to` parameter contains the information about the subscriber of the notification. You can work with Novu in 2 modes:
 
 ### Pass the subscriber information in the trigger (Quickest)
 
@@ -104,24 +103,23 @@ await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
 });
 ```
 
-The `subscriberId` is a custom identifier that identifies users within the Novu platform. We suggest using your internal DB identifier for this field.
+The `subscriberId` is a custom identifier that identifies users within the Novu platform. We suggest using your internal DB identifier for this field.
 
 When the trigger is called, Novu performs an upsert command, which either creates a subscriber with the specified payload, or updates the existing subscriber with the passed information.
 
-**Note:** The API performs a PATCH command, updating only the fields passed to it. So to reset a specific field, you must explicitly pass `null` as the fields param.
+**Note:** The API performs a PATCH command, updating only the fields passed to it. So to reset a specific field, you must explicitly pass `null` as the fields param.
 
-### Pass only the `subscriberId` (Recommended)
+### Pass only the `subscriberId` (Recommended)
 
 ```tsx
 {
   to: 'SUBSCRIBER_ID',
   payload: {}
 }
-
 ```
 
-In this approach, you only pass the `subscriberId` as part of the trigger, however, this approach requires you to identify the subscriber using the `identify` method from the `@novu/node`library.
+In this approach, you only pass the `subscriberId` as part of the trigger, however, this approach requires you to identify the subscriber using the `identify` method from the `@novu/node`library.
 
-### `payload` object
+### `payload` object
 
-The `payload` object can pass any serializable JSON object to be used in the workflows.
+The `payload` object can pass any serializable JSON object to be used in the workflows.
