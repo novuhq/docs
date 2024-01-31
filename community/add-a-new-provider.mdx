@@ -126,9 +126,9 @@ test('should trigger example-provider library correctly', async () => {});
 
 ### Add provider logos
 
-In order to present this new provider in the `integration store` we need logos in dark and light mode. Add dark and light color logs in respective folders of `apps/web/public/static/images/providers` directory. 
+In order to present this new provider in the `integration store` we need logos in dark and light mode. Add dark color svg logo in  `apps/web/public/static/images/providers/dark/sqaure` directory and light color svg logo in  `apps/web/public/static/images/providers/light/sqaure` directory. 
 
-Use the provider name as the file name. The sample name for our above-added provider is `example-provider.png`. The possible formats are `svg`and `png`.
+Use the provider name as the file name. The sample name for our above-added provider is `example-provider.svg`.
 
 ## Add config items to the list
 
@@ -147,6 +147,7 @@ export const exampleProviderConfig: IConfigCredentials[] = [
   {
     key: CredentialsKeyEnum.ApiKey,
     displayName: "API Key",
+    description: "This is API key for example provider",
     type: "text",
     required: true,
   },
@@ -154,11 +155,18 @@ export const exampleProviderConfig: IConfigCredentials[] = [
 ];
 ```
 
-1. Here the `key` is of type `CredentialsKeyEnum`. If you want to add a new type of credentials key, you can add to `CredentialsKeyEnum`.
+1. Here the `key` is of type `CredentialsKeyEnum`.
+
+> If a new key is added, add this key at these 3 places:-
+> - In `CredentialsKeyEnum` at file `libs/shared/src/consts/providers/provider.enum.ts`
+> - In `CredentialsDto` at file `apps/api/src/app/integrations/dtos/credentials.dto.ts`
+> - In `credentials` field of `integrationSchema` at file `libs/dal/src/repositories/integration/integration.schema.ts`
+
 2. `displayName` is a human-friendly easy to understand name which will be shown in the provider integration form for this credential.
-3. `type` here means text field type. this can be a string for text, text for text-area, or a switch for the toggle.
-4. `required` is of boolean type.
-5. `mailConfigBase` is an object having default credentials required by any `email` provider. Make sure not to add duplicate providers which are already there in `mailConfigBase`. In the case of another channel provider, we will use that channel config base in place of `mailConfigBase`.
+3. `description` is a field that can be used to share more information about the credential.
+4. `type` here means text field type. this can be a string for text, text for text-area, or a switch for the toggle.
+5. `required` is of boolean type.
+6. `mailConfigBase` is an object having default credentials required by any `email` provider. Make sure not to add duplicate providers which are already there in `mailConfigBase`. In the case of another channel provider, we will use that channel config base in place of `mailConfigBase`.
 
 > A credential can be made secret by adding in ./secure-credentials.ts file.
 
@@ -184,7 +192,7 @@ Now we need to add the provider data to the list located at `libs/shared/src/co
   credentials: exampleProviderConfig,
   // Use valid documentation link
   docReference: 'https://docs.example-provider.com/',
-  logoFileName: { light: 'example-provider.png', dark: 'example-provider.png' }
+  logoFileName: { light: 'example-provider.svg', dark: 'example-provider.svg' }
 }
 ```
 
@@ -192,7 +200,7 @@ Now we need to add the provider data to the list located at `libs/shared/src/co
 
 ### 1. Adding the provider dependency in the application-generic package
 
-In the previous step, we created a standalone provider package that will be published to NPM. However currently in our development environment, it is not yet published. In order to use it locally please go to the `package.json` located in `apps/packages/application-generic/package.json` and add it manually to the dependencies list: `"@novu/<NEW_PROVIDER_NAME>": "^<VERSION>"`
+In the previous step, we created a standalone provider package that will be published to NPM. However currently in our development environment, it is not yet published. In order to use it locally please go to the `package.json` located in `packages/application-generic/package.json` and add it manually to the dependencies list: `"@novu/<NEW_PROVIDER_NAME>": "^<VERSION>"`
 
 > Please note that the provider name and version can be found from the provider package.json you created earlier.
 
