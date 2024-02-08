@@ -895,6 +895,49 @@ interface IUseRemoveNotificationResult {
 }
 ```
 
+### useRemoveNotifications
+
+<Note>This hook is available from version 0.23.1</Note>
+
+`useRemoveNotification` hook allows you to remove multiple messages with a limit of 100 messageIds in single call.
+
+```typescript
+const onSuccess = (data: IMessage) => {};
+
+const onError = (error: Error) => {};
+
+const { removeNotifications, isLoading, isError, error } = useRemoveNotification({
+  onSuccess,
+  onError,
+});
+```
+
+`useRemoveNotifications` hook args interface
+
+```typescript
+interface IUseRemoveNotificationArgs {
+  onSuccess?: (data: IMessage) => void;
+  onError?: (error: Error) => void;
+  // ... many more from the react-query useMutation hook
+}
+```
+
+`useRemoveNotifications` hook return interface
+
+```typescript
+interface IRemoveNotificationsVariables {
+  messageIds: string[];
+}
+
+interface IUseRemoveNotificationResult {
+  removeNotifications: (args: IRemoveNotificationsVariables) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error?: Error;
+  // ... many more from the react-query useMutation hook result
+}
+```
+
 ### useRemoveAllNotifications
 
 `useRemoveAllNotifications` hook allows you to remove all messages of all feeds. feedId can be used as param to delete only specific feed's messages.
