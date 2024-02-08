@@ -393,7 +393,7 @@ interface IMarkNotificationsAs {
 
 ## removeNotification
 
-remove a single notification using the message id.
+Removes a single notification using the message id.
 
 ```typescript
 headlessService.removeNotification({
@@ -427,7 +427,7 @@ interface IRemoveNotification {
 
 ## removeNotifications
 
-remove multiple notifications using array of message ids.
+Removes multiple notifications using array of message ids.
 
 ```typescript
 headlessService.removeNotifications({
@@ -455,6 +455,36 @@ interface IRemoveNotification {
     result: UpdateResult<IMessage, unknown, { messageId: string }>
   ) => void;
   onSuccess?: (message: IMessage) => void;
+  onError?: (error: unknown) => void;
+}
+```
+
+## removeAllNotifications
+
+Removes all notifications. Can be used to remove all notifications of a feed by passing the `feedId`
+
+```typescript
+headlessService.removeAllNotifications({
+  listener: (result: UpdateResult<void, unknown, undefined>) => {
+    console.log(result);
+  },
+  onSuccess: () => {
+    console.log("success");
+  },
+  onError: (error: unknown) => {
+    console.error(error);
+  },
+  feedId: "feedOne",
+});
+```
+
+### method args interface
+
+```typescript
+interface IRemoveAllNotifications {
+  feedId?: string;
+  listener: (result: UpdateResult<void, unknown, undefined>) => void;
+  onSuccess?: () => void;
   onError?: (error: unknown) => void;
 }
 ```
@@ -558,36 +588,6 @@ interface IMarkAllMessagesAsSeen {
   onSuccess?: (count: number) => void;
   onError?: (error: unknown) => void;
   feedId?: IFeedId;
-}
-```
-
-## removeAllNotifications
-
-Removes all notifications. Can be used to remove all notifications of a feed by passing the `feedId`
-
-```typescript
-headlessService.removeAllNotifications({
-  listener: (result: UpdateResult<void, unknown, undefined>) => {
-    console.log(result);
-  },
-  onSuccess: () => {
-    console.log("success");
-  },
-  onError: (error: unknown) => {
-    console.error(error);
-  },
-  feedId: "feedOne",
-});
-```
-
-### method args interface
-
-```typescript
-interface IRemoveAllNotifications {
-  feedId?: string;
-  listener: (result: UpdateResult<void, unknown, undefined>) => void;
-  onSuccess?: () => void;
-  onError?: (error: unknown) => void;
 }
 ```
 
