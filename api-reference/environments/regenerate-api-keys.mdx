@@ -47,6 +47,12 @@ api_key = "<NOVU_API_KEY>"
 regenerateApiKey = EnvironmentApi(url, api_key).regenerate_api_key()
 ```
 
+```bash cURL
+curl --request POST \
+     --url https://api.novu.co/v1/environments/api-keys/regenerate \
+     --header 'Authorization: ApiKey <NOVU_API_KEY>'
+```
+
 </RequestExample>
 
 <ResponseExample>

@@ -53,6 +53,64 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
 
+## Example paylod sent by novu to webhook url 
+
+```json
+{
+  "target": [
+    "subscriber-token-for-push-webhook-provider"
+  ],
+  "title": "Push Webhook message title",
+  "content": "push Webhook content body",
+  "overrides": {
+    "data": {
+      "custom_message": "this is custom message from payload push webhook demo",
+    }
+  },
+  "payload": {
+    "custom_message": "this is custom message from payload push webhook demo",
+    "__source": "test-workflow",
+    "subscriber": {
+      // subscriber fields
+      "_id": "65c0d71c0959a38e8857b131",
+      "_organizationId": "organizationId",
+      "_environmentId": "environmentId",
+      "firstName": "Pawan",
+      "lastName": "Jain",
+      "phone": "+123456789",
+      "subscriberId": "push-webhook-demo-subscriber-id",
+      "email": "pawan+push+web+hook+demo@domain.com",
+      "channels": [
+        {
+          "credentials": {
+            "deviceTokens": [
+              "subscriber-token-for-push-webhook-provider"
+            ]
+          },
+          "_integrationId": "integrationId",
+          "providerId": "push-webhook"
+        }
+      ],
+      "data": {
+        // custom data field of subscriber
+        "isDeveloper": "true"
+      },
+      "deleted": false,
+      "createdAt": "2024-02-05T12:39:56.379Z",
+      "updatedAt": "2024-02-05T12:54:08.684Z",
+      "__v": 0,
+      "id": "65c0d71c0959a38e8857b131"
+    },
+    "step": {
+      // digest variables
+      "digest": false,
+      "events": [],
+      "total_count": 0
+    }
+  }
+}
+```
+
 ## Checking Authenticity
 
 ```typescript
