@@ -44,11 +44,15 @@ Now visit [http://localhost:4200](http://localhost:4200/) to start using Novu.
 
 While we provide you with some example secrets for getting started, you should NEVER deploy your Novu setup using the defaults provided.
 
-### Update Secrets
+Update the `.env` file with your own secrets. 
 
-Update the `.env` file with your own secrets. In particular, these are required:
+### Required Variables:
 
-- `JWT_SECRET`: used by the API to generate JWT keys
+- `JWT_SECRET`: Used by the API to generate JWT keys.
+- `STORE_ENCRYPTION_KEY`: Used to encrypt/decrypt the provider credentials. It must be 32 charactoer long.
+- `HOST_NAME`: Host name of your installation. This will be the base URL of your installation. For example, if you are deploying to server with ip `35.154.137.80`, then you should set this to `http://35.154.137.80`.
+
+`REDIS_CACHE_SERVICE_HOST` and `REDIS_HOST` can have same value for small deployments. For larger deployments, it is recommended to use separate Redis instances for caching and queue management.
 
 ## Configuration
 
