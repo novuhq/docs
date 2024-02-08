@@ -393,7 +393,7 @@ interface IMarkNotificationsAs {
 
 ## removeNotification
 
-removes a single notification using the message id.
+remove a single notification using the message id.
 
 ```typescript
 headlessService.removeNotification({
@@ -417,6 +417,40 @@ headlessService.removeNotification({
 ```typescript
 interface IRemoveNotification {
   messageId: string;
+  listener: (
+    result: UpdateResult<IMessage, unknown, { messageId: string }>
+  ) => void;
+  onSuccess?: (message: IMessage) => void;
+  onError?: (error: unknown) => void;
+}
+```
+
+## removeNotifications
+
+remove multiple notifications using array of message ids.
+
+```typescript
+headlessService.removeNotifications({
+  listener: (
+    result: UpdateResult<IMessage, unknown, { messageId: string }>
+  ) => {
+    console.log(result);
+  },
+  onSuccess: (message: IMessage) => {
+    console.log(message);
+  },
+  onError: (error: unknown) => {
+    console.error(error);
+  },
+  messageIds: ["message_id_1", "message_id_2" ],
+});
+```
+
+### method args interface
+
+```typescript
+interface IRemoveNotification {
+  messageIds: string[];
   listener: (
     result: UpdateResult<IMessage, unknown, { messageId: string }>
   ) => void;
