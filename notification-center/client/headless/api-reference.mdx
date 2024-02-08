@@ -289,7 +289,7 @@ interface IUpdateUserPreferences {
 
 ## markNotificationsAsRead
 
-mark a single or multiple notifications as read using the message id.
+Mark a single or multiple notifications as read using the message id.
 
 ```typescript
 headlessService.markNotificationsAsRead({
@@ -323,7 +323,7 @@ interface IMarkNotificationsAsRead {
 
 ## markNotificationsAsSeen
 
-mark a single or multiple notifications as seen using the message id.
+Mark a single or multiple notifications as seen using the message id.
 
 ```typescript
 headlessService.markNotificationsAsSeen({
@@ -356,7 +356,7 @@ interface IMarkNotificationsAsSeen {
 
 ## markNotificationsAs
 
-mark a single or multiple notifications using the message id.
+Mark a single or multiple notifications using the message id.
 
 ```typescript
 headlessService.markNotificationsAs({
@@ -393,7 +393,7 @@ interface IMarkNotificationsAs {
 
 ## removeNotification
 
-removes a single notification using the message id.
+Removes a single notification using the message id.
 
 ```typescript
 headlessService.removeNotification({
@@ -425,9 +425,75 @@ interface IRemoveNotification {
 }
 ```
 
+## removeNotifications
+
+<Note>This method is available from version 0.23.1</Note>
+
+Removes multiple notifications using array of message ids (limit of 100).
+
+```typescript
+headlessService.removeNotifications({
+  listener: (
+    result: UpdateResult<IMessage, unknown, { messageId: string }>
+  ) => {
+    console.log(result);
+  },
+  onSuccess: (message: IMessage) => {
+    console.log(message);
+  },
+  onError: (error: unknown) => {
+    console.error(error);
+  },
+  messageIds: ["message_id_1", "message_id_2" ],
+});
+```
+
+### method args interface
+
+```typescript
+interface IRemoveNotification {
+  messageIds: string[];
+  listener: (
+    result: UpdateResult<IMessage, unknown, { messageId: string }>
+  ) => void;
+  onSuccess?: (message: IMessage) => void;
+  onError?: (error: unknown) => void;
+}
+```
+
+## removeAllNotifications
+
+Removes all notifications. Can be used to remove all notifications of a feed by passing the `feedId`
+
+```typescript
+headlessService.removeAllNotifications({
+  listener: (result: UpdateResult<void, unknown, undefined>) => {
+    console.log(result);
+  },
+  onSuccess: () => {
+    console.log("success");
+  },
+  onError: (error: unknown) => {
+    console.error(error);
+  },
+  feedId: "feedOne",
+});
+```
+
+### method args interface
+
+```typescript
+interface IRemoveAllNotifications {
+  feedId?: string;
+  listener: (result: UpdateResult<void, unknown, undefined>) => void;
+  onSuccess?: () => void;
+  onError?: (error: unknown) => void;
+}
+```
+
 ## updateAction
 
-updates the action button for the notifications.
+Updates the action button for the notifications.
 
 ```typescript
 headlessService.updateAction({
@@ -524,36 +590,6 @@ interface IMarkAllMessagesAsSeen {
   onSuccess?: (count: number) => void;
   onError?: (error: unknown) => void;
   feedId?: IFeedId;
-}
-```
-
-## removeAllNotifications
-
-Removes all notifications. Can be used to remove all notifications of a feed by passing the `feedId`
-
-```typescript
-headlessService.removeAllNotifications({
-  listener: (result: UpdateResult<void, unknown, undefined>) => {
-    console.log(result);
-  },
-  onSuccess: () => {
-    console.log("success");
-  },
-  onError: (error: unknown) => {
-    console.error(error);
-  },
-  feedId: "feedOne",
-});
-```
-
-### method args interface
-
-```typescript
-interface IRemoveAllNotifications {
-  feedId?: string;
-  listener: (result: UpdateResult<void, unknown, undefined>) => void;
-  onSuccess?: () => void;
-  onError?: (error: unknown) => void;
 }
 ```
 
