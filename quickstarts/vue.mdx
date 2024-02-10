@@ -23,14 +23,12 @@ Create a new Vue 3 app by running the following command in your terminal:
 
 ```bash
 npx create-vue notifications-app
-
 ```
 
 Interactively run through the questions and answer them according to your preference. Then `cd` into the `notifications-app` folder and run the following:
 
 ```bash
 npm install && npm run format && npm run dev
-
 ```
 
 # Install Novu Vue Notification Center Package
@@ -41,7 +39,6 @@ Now install the Vue Notification Center package by running the following command
 
 ```bash
 npm install @novu/notification-center-vue
-
 ```
 
 ## Register The Notification Center Plugin
@@ -92,7 +89,6 @@ Add the `NotificationCenterComponent` like so:
     <button>Notifications: {{ slot.unseenCount }}</button>
   </NotificationCenterComponent>
 </template>
-
 ```
 
 src/components/NotificationCenter.vue
@@ -126,7 +122,6 @@ export default {
     <button>Notifications: {{ slot.unseenCount }}</button>
   </NotificationCenterComponent>
 </template>
-
 ```
 
 src/components/NotificationCenter.vue
@@ -161,7 +156,6 @@ import NotificationCenter from '../components/NotificationCenter.vue'
     <NotificationCenter />
   </main>
 </template>
-
 ```
 
 src/views/HomeView.vue
@@ -187,10 +181,11 @@ Simply delete the button element. Your component should look like this:
   >
   </NotificationCenterComponent>
 </template>
-
 ```
 
 You should now see a **bell button** that opens the notification center when clicked. This bell can be customized to your preference, and we will style and modify it in a later step.
+
+- [Vue Notification Center Example Repo](https://github.com/novuhq/examples/tree/main/vue-notification-center-example)
 
 # Create A Workflow
 
@@ -289,7 +284,6 @@ Ensure the `subscriberId` value in the backend code that triggers the notifica
         console.log("Notification Center session loaded successfully!")
     }
 </script>
-
 ```
 
 Check your app again. You should see the recently triggered notification!
@@ -297,3 +291,4 @@ Check your app again. You should see the recently triggered notification!
 # Conclusion
 
 Great job! If you've reached this point, you should now have successfully set up the notification center, created a subscriber, a workflow, configured a channel provider and triggered a notification in your Vue application.
+
