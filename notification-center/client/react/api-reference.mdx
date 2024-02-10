@@ -899,14 +899,14 @@ interface IUseRemoveNotificationResult {
 
 <Note>This hook is available from version 0.23.1</Note>
 
-`useRemoveNotification` hook allows you to remove multiple messages with a limit of 100 messageIds in single call.
+`useRemoveNotifications` hook allows you to remove multiple messages with a limit of 100 messageIds in single call.
 
 ```typescript
 const onSuccess = (data: IMessage) => {};
 
 const onError = (error: Error) => {};
 
-const { removeNotifications, isLoading, isError, error } = useRemoveNotification({
+const { removeNotifications, isLoading, isError, error } = useRemoveNotifications({
   onSuccess,
   onError,
 });
