@@ -6,7 +6,7 @@ icon: "language"
 
 <Info>The feature is only available for **Novu Cloud** users with **Business** or **Enterprise** plans.</Info>
 
-### Introduction
+## Introduction
 
 The Translation Management feature allows seamlessly adapt your workflows to different languages and automatically apply them based on your customers' locales. It enhances engagement, personalizes the user experience, and allows you to expand your market reach.
 
@@ -17,7 +17,7 @@ To understand how Translation Management works in Novu we need to review its mai
 - Localized Message Content
 - Subscribers locale
 
-### Translation Groups
+## Translation Groups
 
 Translation Group allows you to efficiently manage translations for diverse languages with shared business significance. For example, the Branding translation group can hold the content related to your company identity, while the Marketing translation group can exclusively house content related to your marketing campaigns. You aren't obligated to divide your translation content, you can manage it all within a single translation group.
 
@@ -39,7 +39,7 @@ After the group is created, you will land on the group details page on which you
 
 <img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_4.png" />
 
-### Translations
+## Translations
 
 Translations are JSON files that contain the content of your messages in a specific language. For example, if you created a Marketing translation group with two target languages English and German, then your translation JSON files might look like this:
 
@@ -90,8 +90,91 @@ Let’s take a look at the example: `{{i18n "marketing.welcome_message"}}`.
 
 <img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_8.png" />
 
-### Subscribers Locale
+## Subscribers Locale
 
 The subscribers locale defines in which language the message should be delivered to that recipient. When the locale is not specified it will fallback to the default locale set for the organization. The locale format includes ISO language plus the region, for example `de_DE` language German and region Germany.
 
 To update the locale you can use Novu API or any of our SDKs, more information can be found [here](https://docs.novu.co/subscribers/subscribers).
+
+## Editor Examples
+
+### Variables
+
+It is possible to include variables in your translation strings, they should be wrapped in double curly brackets. Their value could be set as a string or as a variable - either a system variable or a variable sent through the payload.
+
+```json
+	{
+		"withVariables": "Welcome {{name}} to {{organization}}"
+	}
+```
+
+In the editor:
+
+```handlebars
+{{i18n "welcome.withVariables" name=subscriber.firstName organization="Novu"}}
+```
+
+### Context
+
+By providing a context you can differ translations. Eg. useful to provide gender specific translations.
+
+For example:
+
+```json
+{
+	"friend": "A friend",
+	"friend_male": "A boyfriend",
+	"friend_female": "A girlfriend"
+}
+```
+
+In the editor:
+
+```handlebars
+{{i18n "welcome.friend" context="male"}}
+```
+
+Will result in the message `A boyfriend`. Not adding any context will output `A friend`.
+
+### Plurals
+
+To distinguish between plural translation options.
+
+```json
+{
+	"keyWithCount": "{{count}} item",
+	"keyWithCount_plural": "{{count}} items",
+}
+```
+
+In the editor:
+
+```handlebars
+{{i18n "welcome.keyWithCount" count=7}}
+```
+
+Will result in `7 items`
+
+### Date formats
+
+To control date formats, do as follows:
+
+```json
+{
+  "date": "Current date: {{date, dd/MM/yyyy}}",
+  "try_date": "Current date: {{date, MM/dd/yyyy}}",
+  "intlDateTime": "On the {{date, HH:yyyy}}"
+}
+```
+
+In the editor:
+
+<Tip>
+    Date can be a string or a variable you send in the payload as `{ date: new Date() }`
+</Tip>
+
+```handlebars
+{{i18n "welcome.date" date="12-06-2023"}}
+{{i18n "welcome.try_date" date=date}}
+{{i18n "welcome.intlDateTime" date=date}}
+```
