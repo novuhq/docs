@@ -434,7 +434,7 @@ Removes multiple notifications using array of message ids (limit of 100).
 ```typescript
 headlessService.removeNotifications({
   listener: (
-    result: UpdateResult<IMessage, unknown, { messageId: string }>
+    result: UpdateResult<void, unknown, { messageIds: string[] }>
   ) => {
     console.log(result);
   },
@@ -454,7 +454,7 @@ headlessService.removeNotifications({
 interface IRemoveNotification {
   messageIds: string[];
   listener: (
-    result: UpdateResult<IMessage, unknown, { messageId: string }>
+    result: UpdateResult<void, unknown, { messageIds: string[] }>
   ) => void;
   onSuccess?: (message: IMessage) => void;
   onError?: (error: unknown) => void;
