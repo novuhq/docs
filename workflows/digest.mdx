@@ -58,12 +58,6 @@ Backoff digest has two intervals, `digest interval` and `backoff interval`. Here
 
 <Frame caption="Back-off Strategy"><img src="https://github.com/novuhq/docs/assets/2946769/06708bd4-bb1d-49b3-b297-fd2070c2e4fe" /></Frame>
 
-Let's set the digest interval as 20 minutes and the backoff time as 15 minutes.
-
-If we trigger the first event. Since it is the first event and there was no event triggered in the past 15 minutes (backoff interval), this event will be executed as it is (without digest).
-
-Now, if we trigger a second within 15 minutes, then a new digest will be created with this second event. From now onwards till 20 minutes (digest interval), all triggers will be digested in this digest, and after 20 minutes, the workflow will carry forward to the next step with digested events.
-
 **Example:**
 
 Let's set the digest interval as 20 minutes and the backoff time as 15 minutes.
