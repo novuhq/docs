@@ -1,6 +1,6 @@
 ---
-title: 'How to send push notifications in an android app (react native) with FCM and Novu'
-description: 'Learn how to send FCM push notifications in a React native android app using Novu and FCM'
+title: 'How to send push notifications in an Android app (react native) with FCM and Novu'
+description: 'Learn how to send FCM push notifications in a React native Android app using Novu and FCM'
 ---
 
 ## Prerequisites
@@ -12,7 +12,7 @@ To complete this tutorial, you will need the following:
 - A [Novu](https://web.novu.co/) account
 - An [Expo](https://expo.dev) account
 
-Push notifications are notifications that are sent to a user’s devices whether the user is using the app or not. We’ll be using Firebase Cloud Messaging (FCM) integration of Novu to send these notifications. You can find the complete code for this project in our [Github repo.]() 
+Push notifications are notifications that are sent to a user’s devices whether the user is using the app or not. We’ll be using the Firebase Cloud Messaging (FCM) integration of Novu to send these notifications. You can find the complete code for this project in our [Github repo.]() 
 
 ## Start a React-Native project
 We'll use the `create-expo` tool to initialize a new expo app. It creates a new React Native app with the expo package installed. We're naming our app `fcm-novu-rn2` and hence using the following command:
@@ -26,7 +26,7 @@ Now, go to the project directory and install the `react-native-firebase` package
 ``` bash
 npm install --save @react-native-firebase/app
 ```
-Once this is installed, install the messaging module of firebase using the following command:
+Once this is installed, install the messaging module of Firebase using the following command:
 ``` bash
 npm i --save @react-native-firebase/messaging
 ```
@@ -62,7 +62,7 @@ if (enabled) {
 ```
 
 ## FCM handlers
-FCM uses something called a `background handler` to, as the name suggests handle notifications when the app is in background. So, we'll add it to our app:
+FCM uses something called a `background handler` to, as the name suggests handle notifications when the app is in the background. So, we'll add it to our app:
 ``` jsx
 // Background message handler for incoming messages while the app is in bg
 messaging().setBackgroundMessageHandler(async (remoteMessage) => {
@@ -72,7 +72,7 @@ messaging().setBackgroundMessageHandler(async (remoteMessage) => {
 
 ```
 
-Similarly, we also need a `foreground handler` to handler notifications whem the app is in foreground. In our case, we're updating a state's value in our handler. Here's our foreground handler:
+Similarly, we also need a `foreground handler` to handle notifications when the app is in the foreground. In our case, we're updating a state's value in our handler. Here's our foreground handler:
 ``` jsx
 // handle incoming messages while the app is in the foreground
 const unsubscribe = messaging().onMessage(async (remoteMessage) => {
@@ -98,29 +98,29 @@ eas login
 ```
 It'll ask for your username and password and log you in.
 
-Now, we are ready to create our build of the app. Use the following command to create a development build of the app for the android platform:
+Now, we are ready to create our build of the app. Use the following command to create a development build of the app for the Android platform:
 ``` bash
 eas build --profile development --platform android
 ```
 <Info>If expo asks if you want to automatically create an EAS project for your app, choose yes. Do the same when it asks you if you want to generate a new keystore.</Info>
-<Warning>Do not change the android package name, even if EAS asks you to!</Warning>
+<Warning>Do not change the Android package name, even if EAS asks you to!</Warning>
 
 ## Setting up Firebase
 1. Create a Firebase account if you don't already have one. Then, create a new project and all the relevant details.
 <Frame caption="Create a new Firebase project"><img src="/images/fcm-web-push/project.png" /> </Frame>
 2. Once your project has been created, you'll be greeted with this welcome screen and asked to add Firebase to your app, so let's do that.
 <Frame caption="Now, we need to add firebase to our app"><img src="/images/fcm-novu-rna/greet.png" /> </Frame>
-3. We'll choose the 'Android' option because we're creating an android app.
+3. We'll choose the 'Android' option because we're creating an Android app.
 <Frame caption="Choose the web option to connect to a web app"><img src="/images/fcm-novu-rna/android.png" /> </Frame>
 4. Find the package name from the `app.json` file of the project:
 <Frame caption="Find the package name from the `app.json` file."><img src="/images/fcm-novu-rna/json.png" /> </Frame>
 5. Add this package name to Firebase:
 <Frame caption="Add package name to Firebase."><img src="/images/fcm-novu-rna/package.png" /> </Frame>
-6. Now, we need to add `SHA1` keys from our project to Firebase app. Run the following command to obtain `SHA1` key. We'll get two `SHA1` keys, one of which we'll add to Firebase right now and the other one, later on.
+6. Now, we need to add `SHA1` keys from our project to the Firebase app. Run the following command to obtain `SHA1` key. We'll get two `SHA1` keys, one of which we'll add to Firebase right now and the other one, later on.
 ``` bash
 eas credentials
 ```
-<Info>If it asks you to, chooose the 'Android' platform then 'Development' build then 'Keystore' then 'Set up a new keystore' then 'Select Build Credentials' and then 'Create a new build credential configuration'.</Info>
+<Info>If it asks you to, choose the 'Android' platform then 'Development' build then 'Keystore' then 'Set up a new keystore' then 'Select Build Credentials' and then 'Create a new build credential configuration'.</Info>
 <Frame caption="Run the given command to obtain `SHA1` key."><img src="/images/fcm-novu-rna/keys.png" /> </Frame>
 7. Now copy the `SHA1` key and add it to Firebase and register the app:
 <Frame caption="Add the `SHA1` key to the Firebase app."><img src="/images/fcm-novu-rna/key.png" /> </Frame>
@@ -130,8 +130,8 @@ eas credentials
 <Frame caption="Scroll till you see the `SHA1` key you added earlier."><img src="/images/fcm-novu-rna/settings.png" /> </Frame>
 10. Click on the 'Add fingerprint' button and add the second `SHA1` key here.
 <Frame caption="Add the second `SHA1` key."><img src="/images/fcm-novu-rna/fp.png" /> </Frame>
-11. Now, download the google services file and add it to the project's root directory. We also need to specify its location in the `app.json` file:
-<Frame caption="Specify the location of google services file in the `app.json` file."><img src="/images/fcm-novu-rna/location.png" /> </Frame>
+11. Now, download the Google services file and add it to the project's root directory. We also need to specify its location in the `app.json` file:
+<Frame caption="Specify the location of Google services file in the `app.json` file."><img src="/images/fcm-novu-rna/location.png" /> </Frame>
 12. Now we need to upload the Firebase server key to expo. Go to project settings and find it under the 'Cloud Messaging' tab.
 <Frame caption="Find the server key in the project settings."><img src="/images/fcm-novu-rna/server.png" /> </Frame>
 13. Now, upload that key to expo using the following command:
@@ -142,7 +142,7 @@ expo push:android:upload --api-key <your server key here>
 ``` bash
 eas build --profile development --platform android
 ```
-15. If you have an android device with you, simply scan and install the app. Otherwise, if you want to run it on an emulator, simply copy the link given alongside the QR code and open it on the emulator and then install the app.
+15. If you have an Android device with you, simply scan and install the app. Otherwise, if you want to run it on an emulator, simply copy the link given alongside the QR code and open it on the emulator and then install the app.
 
 16. Start the server to run the app, using the following command:
 ``` bash
@@ -153,7 +153,7 @@ Again, you can either scan the QR code or copy and paste the link.
 <Warning>Sometimes it doesn't fire up the emulator even when you have it installed. In that case, start the emulator manually and run the server again!</Warning>
 
 ## Setting up Novu
-We'll need a workflow to trigger notifications to our user's devices. Follow the steps below to create one to ensure we are on the path to make FCM work as expected:
+We'll need a workflow to trigger notifications to our user's devices. Follow the steps below to create one to ensure we are on the path to making FCM work as expected:
 1. Head over to the [Integrations Store](https://web.novu.co/integrations) on the Novu Web Dashboard and make sure that you've turned on the 'Firebase Cloud Messaging' integration.
 <Frame caption="Turn on Firebase Cloud Messaging integration from the Novu Dashboard"><img src="/images/fcm-web-push/novu-dashboard.png" /> </Frame>
 <Info>If you're doing this for the first time, you'll need to get your service account key from the [Firebase Console](https://console.firebase.google.com/). Read more about it in our [FCM provider docs.](https://docs.novu.co/channels-and-providers/push/fcm)</Info>
@@ -202,7 +202,7 @@ novu.trigger('rna-2', {
     payload: {},
 })
 ```
-When triggered as shown above, this is the notification received on the device:
+When triggered using the trigger code from above, this is the notification received on the device:
 <Frame caption="A notification is successfully received on the device"><img src="/images/fcm-novu-rna/hardcoded.png" /> </Frame>
 
 ## Dynamic content
@@ -210,9 +210,9 @@ So far, we've sent notifications that have had "hard-coded" content. Now we'll s
 
 The way to do so is by changing the values of the title and the body to `{{title}}` and `{{body}}` in our workflow. 
 
-1. Go to the workflow we'd created earlier and chage the values of the title and the body to `{{title}}` and `{{body}}` respectively.
+1. Go to the workflow we'd created earlier and change the values of the title and the body to `{{title}}` and `{{body}}` respectively.
 <Frame caption="You can send dynamic content in notifications by changing the workflow."><img src="/images/fcm-novu-rna/custom.png" /> </Frame>
-2. Simply add these identifers to the payload by changing the trigger code:
+2. Simply add these identifiers to the payload by changing the trigger code:
 ``` jsx
 novu.trigger('rna-2', {
     to: {
@@ -252,12 +252,12 @@ novu.trigger('rna-2', {
     }
 });
 ```
-Following notification is what gets delivered to the subscriber:
+The following notification is what gets delivered to the subscriber:
 
 <Frame caption="A notification with image content is successfully received on the device"><img src="/images/fcm-novu-rna/image.png" /> </Frame>
 
 ## Handling data type messages
-With FCM, you can send `Notification` and `Data` messages. We have handled sending notification messages. Let’s handle data messages. Data type messages are useful when, in addition to the usual data, you want to send some custom data. Maybe whether a subscriber has purchased the pro plan of our product or not, maybe which tier of usage they have purchased etc. You can do this easily by modifying the override. Here's an example of sending the subscription status using the identifer `subStatus`:
+With FCM, you can send `Notification` and `Data` messages. We have handled sending notification messages. Let’s handle data messages. Data type messages are useful when, in addition to the usual data, you want to send some custom data. Maybe whether a subscriber has purchased the pro plan of our product or not, maybe which tier of usage they have purchased etc. You can do this easily by modifying the override. Here's an example of sending the subscription status using the identifier `subStatus`:
 
 ``` jsx
 novu.trigger('rna-2', {
@@ -285,7 +285,7 @@ On the user's device, you can extract this out and have it displayed like this:
 
 ## Priority of a notification
 
-FCM tries to deliver high priority messages immediately. Priority of a notification can also be altered by changing the overrides, as shown below:
+FCM tries to deliver high-priority messages immediately. The priority of a notification can also be altered by changing the overrides, as shown below:
 
 ``` jsx
 novu.trigger('rna-2', {
