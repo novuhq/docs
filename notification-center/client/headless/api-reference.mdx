@@ -195,7 +195,16 @@ headlessService.fetchNotifications({
     );
   },
   page: pageNumber,
-  query: { feedIdentifier: "feedId", read: false, seen: true },
+  query: { 
+    feedIdentifier: "feedId", 
+    read: false, 
+    seen: true, 
+    // payload sent while triggering the workflow
+    payload: {
+      message : "Notification message"
+      type: "product"
+    } 
+  },
   storeId: "storeId",
 });
 ```
