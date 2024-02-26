@@ -34,6 +34,9 @@ npm i --save @react-native-firebase/messaging
 ## Getting the FCM token
 Now, we need to grab the `token key` from FCM. We'll need this to send notifications using FCM. We're using `useEffect` to grab this key as follows:
 ``` jsx
+// import messaging module
+import messaging from '@react-native-firebase/messaging';
+
 // Request permission to send notifications
 const authStatus = await messaging().requestPermission();
 
