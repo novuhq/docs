@@ -1,4 +1,6 @@
 ---
+title: "Email"
+sidebarTitle: "Email"
 icon: "envelope"
 ---
 
@@ -13,3 +15,6 @@ There can be more than one active email integrations of same or different provid
 
 ### What could be the reason of message content could not be generated error?
 This error occurs when the html content is not properly formatted. Make sure the html content is properly formatted and does not contain any syntax errors. Make sure step variables are properly formatted and are not missing opening or closing curly braces.
+
+### Can email, phone be used as step variables?
+Novu recommends not to use subscriber attributes as step variables. Instead, use the subscriber attributes directly in the step. For example, use `{{subscriber.email}}` instead of `{{email}}` as step variable. Novu will pick email from subscriber attributes and inject the value in the content.
