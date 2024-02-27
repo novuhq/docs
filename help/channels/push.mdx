@@ -1,3 +1,17 @@
 ---
 icon: "mobile"
 ---
+
+### Is desktop push notification supported?
+Yes, desktop push notification can be sent using web push notification. It is supported with almost all [push channel](/channels-and-providers/push/overview) providers.
+
+### How to fix unexpected provider error with fcm provider.
+Few possible reasons for this error are:
+- Invalid FCM credentials.
+- Invalid or stale FCM token.
+
+### How to fix Sending message failed due to Requested entity was not found error with fcm provider.
+- This error occurs when the FCM token is invalid or stale. You can fix this by updating the FCM device token.
+
+### How to store device tokens for particular fcm integration in case multiple active fcm provider integrations.
+- Device tokens for particular FCM integration can be stored using the `integrationIdentifier` field of [update subscriber credentials api](/api-reference/subscribers/update-subscriber-credentials). `integrationIdentifier` is the unique identifier of the integration which is similar to `providerIdentifier`. It can be copied from the integration form.
