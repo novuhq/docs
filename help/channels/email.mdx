@@ -1,3 +1,15 @@
 ---
 icon: "envelope"
 ---
+
+### How to override default values of email step?
+All values such as from, to, subject, body, etc. can be overridden by using the `overrides` option while triggering the workflow. Check [email overrides documentation](/channels-and-providers/email/overview#sending-email-overrides) for more details.
+
+### How to send html as value of variable? 
+HTML content as a value of step variable can be sent by replacing the double curly braces `{{}}` variable with triple curly braces `{{{}}}` variable. For example, `{{{htmlContent}}}`.
+
+### I have multiple email integrations active, how to attach one integration with one workflow?
+There can be more than one active email integrations of same or different providers. However only one email integration can be primary at one time per environment. To use different email integration than primary integration, integrationIdentifier field of email overrides can be used. Read using [different email integration](/channels-and-providers/email/overview#using-different-email-integration) for more details.
+
+### What could be the reason of message content could not be generated error?
+This error occurs when the html content is not properly formatted. Make sure the html content is properly formatted and does not contain any syntax errors. Make sure step variables are properly formatted and are not missing opening or closing curly braces.
