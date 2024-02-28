@@ -19,4 +19,10 @@ This error occurs when the html content is not properly formatted. Make sure the
 ### Can email, phone be used as step variables?
 Novu recommends not to use subscriber attributes as step variables. Instead, use the subscriber attributes directly in the step. For example, use `{{subscriber.email}}` instead of `{{email}}` as step variable. Novu will pick email from subscriber attributes and inject the value in the content.
 
+### How to use providers templates in place of email content?
+Currently, we support external provuder template support for [sendgrid](/channels-and-providers/email/sendgrid#using-sendgrid-template) and [mailersend](/channels-and-providers/email/mailersend#using-mailersend-template) only.
+
+### How to retrive only email content?
+Novu does not have a separate API to retrieve email content. However, email content can be retrieved from the email step of the workflow. The email step contains the email content in the `content` field of [get worklfow api](/api-reference/workflows/get-workflow) response.
+
 <Snippet file="contact-support.mdx" />

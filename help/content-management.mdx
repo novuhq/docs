@@ -6,8 +6,16 @@ icon: "file-pen"
 Layouts are like style container for email templates. Layout can be used for organization branding and style. It can be used to define the structure of the email template. It can be used to define the header, footer, and other common elements. It must have `{{{body}}}` variable which will be replaced by the actual email template content.
 
 ### Can layout be used in all channels?
-
 No, layout can be used only in email channel.
+
+### Can mjml templates be used in content editors?
+No, only html templates can be used in content editors. We support [handlebar helpers](/content-creation-design/handlebars-helpers) for common usecase like iteration, conditions etc. If you need any specific handlebar helpers, please reach out to us at support@novu.co
+
+### Can one step content be reused in another step?
+No, currently each step content is separate and cannot be reused.
+
+### Which translation will be used if subscriber's locale field does not match with traslation language files?
+If subscriber's locale field does not match with translation locale files, or it is not available, then default language of translation group will be used.
 
 
 <Snippet file="contact-support.mdx" />

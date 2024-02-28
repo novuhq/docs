@@ -1,5 +1,16 @@
 ---
+title: "Observabilty"
 icon: "magnifying-glass"
+description: "How to analyze the triggerd event and notificaion execution logs"
 ---
+
+### Subscriber have preferences set but activity feed is showing trigger
+Activity feed is a place each event (workflow trigger) is listed. If subscriber has preference set globally for any workflow preference then, novu will send notification to that subscriber as per preference but it will considered as a valid trigger and will be shown in activity feed.
+
+### What's the meaning of step filtered by subscriber preferences in logs?
+It means that the subscriber has set preferences for this step channel and the step is filtered by the subscriber preferences. If subscriber has disabled this step channel then, the step will be filtered and notification will not sent to the subscriber.
+
+### How to export activity feed data?
+Currently, we don't have any option to export activity feed data. But you can use our [API](/api-reference/notification/get-notifications) to fetch the data.
 
 <Snippet file="contact-support.mdx" />
