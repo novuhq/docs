@@ -4,5 +4,11 @@ sidebarTitle: "SMS"
 icon: "message-sms"
 ---
 
+### How to fix subscriber does not have a configured channel error?
+This error occurs when subscriber is missing `phone` attribute. To fix this error, you need to add update the subscriber and set the `phone` attribute with a valid phone number.
+
+### How to change the default sender name for SMS?
+Make sure custom sendername (sender id or from) is allowed with providers. Few counties expect to verify the sendername before using it. You can change the default sender name for SMS by using [overrides](/channels-and-providers/sms/overview#sending-sms-overrides) field while triggering the workflow.
+
 
 <Snippet file="contact-support.mdx" />
