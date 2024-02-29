@@ -63,7 +63,9 @@ import {
 const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.FCM, {
-deviceTokens: ['token1', 'token2'],
+credentials: {
+  deviceTokens: ['token1', 'token2'],
+}
 });
 
 ````
@@ -76,7 +78,12 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 -H 'Authorization: ApiKey <NOVU_API_KEY>' \
 -d '{
   "providerId": "fcm",
-  "deviceTokens": ["token1", "token2"],
+  "credentials": {
+    "deviceTokens" : [
+      "token1", 
+      "token2"
+    ]
+  },
   "integrationIdentifier": "fcm-MnGLxp8uy"
 }'
 ````
