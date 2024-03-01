@@ -1,16 +1,17 @@
 ---
-title: "Observabilty"
+title: "Observability"
 icon: "magnifying-glass"
-description: "How to analyze the triggerd event and notification execution logs"
+description: "Analyzing your Triggered Events and Notification execution logs"
 ---
 
-### Subscriber have preferences set but activity feed is showing trigger
-Activity feed is a place each event (workflow trigger) is listed. If subscriber has preference set globally for any workflow preference then, novu will send notification to that subscriber as per preference but it will considered as a valid trigger and will be shown in activity feed.
+### My Subscribers have preferences set, but the Activity Feed is showing Triggers as being sent.
+The Activity Feed is a place each event (Workflow Trigger) is listed. If a Subscriber has a preference to not receive notifications through a certain channel, Novu’s sytem will adhere to that. However, this is still a valid Trigger as the fanout occurs before preferences are accommodated.
 
-### What's the meaning of step filtered by subscriber preferences in logs?
-It means that the subscriber has set preferences for this step channel and the step is filtered by the subscriber preferences. If subscriber has disabled this step channel then, the step will be filtered and notification will not sent to the subscriber.
+### What does "step filtered by subscriber preferences" mean in the logs?
+It means that the Subscriber has set preferences configured and the step was filtered based on that preference. If the subscriber has disabled a step Channel then, the step will be filtered and notification will not be sent to the subscriber.
 
-### How to export activity feed data?
-Currently, we don't have any option to export activity feed data. But you can use our [API](/api-reference/notification/get-notifications) to fetch the data.
+### How to export Activity Feed data?
+Currently, we don't have any option to export activity feed data. But you can use our [API](/api-reference/notification/get-notifications) to fetch the data. If there is a specific system you’re looking to integrate with, please send us a note at support@novu.co. 
+
 
 <Snippet file="contact-support.mdx" />
