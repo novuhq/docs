@@ -4,16 +4,20 @@ sidebarTitle: "In App"
 icon: "bell"
 ---
 
-### How to create two apps in one account?
-Novu in-app channel requires you to enable in-app integration from integration store. To display in-app notifications to users, any of our [client library](/notification-center/introduction) can be used. Every library requires `applicationIdentifier` and `subscriberId` to fetch notifications. Currently, only one `applicationIdentifier` is supported per environment per organization. Feel free to reach out to us at support@novu.co if you have speicific requirements of multiple `applicationIdentifier` per organization.
+### Creating two In-App Notification Centers in one account
+To configure your In-App notifications, you must use the In-App integration from our integration store.
 
-### On clicking the notification, it is not redirecting to the redirect url.
-To redirect to specified redirect url on clicking the in-app notification, notification click event should be handled in client side code. Checkout [react](/notification-center/client/react/get-started#onnotificationclick) example for this.
+To display in-app notifications to users, any SDKs in our [client library](/notification-center/introduction) can be used. Every library requires `applicationIdentifier` and `subscriberId` to fetch notifications. Currently, only one `applicationIdentifier` is supported per environment per organization. 
 
-### How to chaange default colors of notification center?
-Styling of in-app notification center can be customized using [styles](/notification-center/client/react/customization#customization-using-styles-prop) prop. If you want to customize only single component, you can customize using [available](/notification-center/client/react/customization#popovernotificationcenter-customization) props.
+Feel free to reach out to us at support@novu.co if you have speicific requirements of multiple `applicationIdentifier` per organization.
 
-### How to secure the in-app notification center?
-If someone has subscriberId and applicationIdentifier, then that person can access that subscriber's notifications. To add an extra layer of security, we have HMAC encryption feature which can be used to secure the in-app notification center. Checkout [HMAC](/notification-center/client/react/get-started#hmac-encryption) section for more details.
+### Issues with a redirect URL
+To redirect to specified redirect url on clicking the in-app notification, notification click event should be handled in client side code. Here is an example in [React](/notification-center/client/react/get-started#onnotificationclick).
+
+### Changing the default colors of the Notification Center
+Styling of your In-App Notification Center can be customized using the [styles](/notification-center/client/react/customization#customization-using-styles-prop) prop. If you want to customize only a single component, you can use [available](/notification-center/client/react/customization#popovernotificationcenter-customization) props.
+
+### Additional Security for In-App Notifications
+To add an extra layer of security, we recommend using our HMAC encryption feature to eliminate subscriber impersonation Checkout [HMAC](/notification-center/client/react/get-started#hmac-encryption) section for more details.
 
 <Snippet file="contact-support.mdx" />
