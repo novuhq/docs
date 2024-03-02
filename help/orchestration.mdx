@@ -2,14 +2,18 @@
 icon: "screwdriver-wrench"
 ---
 
-### New event triggers are still merging active digest with old duration.
-When digest is created with some duration and event is triggered, then digest stays active (batch the events) untill the configured duration is over. If before completing the duration, duration is changed in between, previous active digest is still active and new duration is merged with the old duration digest untill the old duration is over. To remove previous digest, use [event cancel api](/api-reference/events/cancel-triggered-event) to cancel all event triggers that are still pending and are merged in active digests.
+### New event triggers are merging an active Digest with an old duration..
+When a Digest is created with a set duration and an event is triggered, the Digest stays active ( and will batch the events) until the configured duration is over. 
 
-### Can we make digest inactive dynamically?
-Yes, digest supports conditions. Conditions rule can be applied to digest step. If triggered event passed any of the conditions, then it will be active or inactive based on the condition.
+If you change the duration before the initial time period has completed , the previous digest will still be active and the new duration is merged with the old duration Digest until the previous duration is complete. 
 
-### Can subscriber control the digest duration and time?
-Unfortunately, No it is not possible currently. Digest duration time can be changed at workflow level only which will be application to all subscribers by default, if that workflow is triggered to any subscriber. If you are looking for this feature, please let us know at support@novu.co.
+To remove the previous Digest, use [event cancel api](/api-reference/events/cancel-triggered-event) to cancel all event triggers that are still pending and are merged in active Digests.
+
+### Can I dynamically make the Digest inactive??
+Yes, Digest supports conditions and can be applied to your Digest step. If the Triggered Event passes the set conditions, then it will be active or inactive based on the condition.
+
+### Can a Subscriber control the Digest duration and time?
+Not currently. The Digest duration  can be changed at the Workflow level only and is applied to all subscribers that Workflow is triggered to. If you have an identified use case for this, please let us know at support@novu.co.
 
 
 <Snippet file="contact-support.mdx" />
