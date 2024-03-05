@@ -60,7 +60,9 @@ novuClient := novu.NewAPIClient(apiKey, &novu.Config{RetryConfig: &novu.RetryCon
 | WaitMax       | Specifies the maximum time to wait before retrying                 | 0               |
 | InitialDelay  | Specifies the initial delay before the first retry attempt         | 0               |
 
-
+<Info>
+Above retry configuration is applied to all the sdk methods.
+</Info>
 ## Set Up A Channel Provider
 
 A channel provider is a service that lets you use one or more notification channels such as sending an email, SMS, push notification etc. Our [integration store](https://web.novu.co/integrations) currently supports four channels: Email, SMS, Chat, and Push. Each of these channels have multiple providers associated with them.
