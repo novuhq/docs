@@ -4,25 +4,25 @@ sidebarTitle: "Email"
 icon: "envelope"
 ---
 
-### How to override default values of email step?
-All values such as from, to, subject, body, etc. can be overridden by using the `overrides` option while triggering the workflow. Check [email overrides documentation](/channels-and-providers/email/overview#sending-email-overrides) for more details.
+### How to override default values of Email?
+All values (from, to, subject, body, etc.) can be overridden by using the `overrides` option while triggering the workflow. Please see our [email overrides documentation](/channels-and-providers/email/overview#sending-email-overrides) for more details.
 
-### How to send html as value of variable? 
+### Sending HTML as the value of a variable
 HTML content as a value of step variable can be sent by replacing the double curly braces `{{}}` variable with triple curly braces `{{{}}}` variable. For example, `{{{htmlContent}}}`.
 
-### I have multiple email integrations active, how to attach one integration with one workflow?
-There can be more than one active email integrations of same or different providers. However only one email integration can be primary at one time per environment. To use different email integration than primary integration, integrationIdentifier field of email overrides can be used. Read using [different email integration](/channels-and-providers/email/overview#using-different-email-integration) for more details.
+### I have multiple Email Providers or integrations active, how do I associate them to a Workflow?
+There can be more than one active email integrations of same or different providers. However only one email integration can be primary at one time per environment. To use a different email integration than your primary integration, the integrationIdentifier field of email overrides can be used. Read about using [different email integration](/channels-and-providers/email/overview#using-different-email-integration) for more details.
 
-### What could be the reason of message content could not be generated error?
-This error occurs when the html content is not properly formatted. Make sure the html content is properly formatted and does not contain any syntax errors. Make sure step variables are properly formatted and are not missing opening or closing curly braces.
+### Why am I getting the error “message content could not be generated”?
+This error occurs when the HTML content is not properly formatted. Make sure the HTML content is properly formatted and does not contain any syntax errors. Make sure Step Variables are properly formatted and are not missing opening or closing curly braces.
 
-### Can email, phone be used as step variables?
-Novu recommends not to use subscriber attributes as step variables. Instead, use the subscriber attributes directly in the step. For example, use `{{subscriber.email}}` instead of `{{email}}` as step variable. Novu will pick email from subscriber attributes and inject the value in the content.
+### Can email or phone be used as step variables?
+Novu recommends not to use subscriber attributes as step variables. Instead, use the subscriber attributes directly in the step. For example, use `{{subscriber.email}}` instead of `{{email}}` as your step variable. Novu will select the email from subscriber attributes and inject the value in the content.
 
-### How to use providers templates in place of email content?
-Currently, we support external provuder template support for [sendgrid](/channels-and-providers/email/sendgrid#using-sendgrid-template) and [mailersend](/channels-and-providers/email/mailersend#using-mailersend-template) only.
+### How to use Provider templates in place of email content?
+Currently, we support external Provider template support for [sendgrid](/channels-and-providers/email/sendgrid#using-sendgrid-template) and [mailersend](/channels-and-providers/email/mailersend#using-mailersend-template) only.
 
-### How to retrive only email content?
+### Can I retrieve only Email content?
 Novu does not have a separate API to retrieve email content. However, email content can be retrieved from the email step of the workflow. The email step contains the email content in the `content` field of [get worklfow api](/api-reference/workflows/get-workflow) response.
 
 <Snippet file="contact-support.mdx" />
