@@ -10,7 +10,7 @@ Learn how to use Novu to quickly send multi-channel (SMS, Email, Chat, Push) not
 
 To follow the steps in this quickstart, you'll need:
 
-- A Novu account. [Sign up for free](http://web.novu.co/) if you don’t have one yet.
+- A Novu account. [Sign up for free](http://web.novu.co/?utm_campaign=docs-gs-quick-vue) if you don’t have one yet.
 - A working Vue development environment with a Vue 3 version.
 
 You can also [view the completed code](https://github.com/novuhq/vue-quickstart) of this quick start in a GitHub repo.
@@ -128,7 +128,7 @@ src/components/NotificationCenter.vue
 
 The `subscriberId` ideally should be the `id` of the **logged in user**. When a user logs into your app, they’ll be able to see all their notifications in the notification center. For this to work successfully, the user should have been created as a subscriber on Novu.
 
-The `applicationIdentifier` is a public key used to identify your application. Obtain it from your [Novu dashboard settings](https://web.novu.co/settings), and add it to your `.env` file.
+The `applicationIdentifier` is a public key used to identify your application. Obtain it from your [Novu dashboard settings](https://web.novu.co/settings?utm_campaign=docs-quick-vue), and add it to your `.env` file.
 
 If there’s none, create a `.env` file and add it like so:
 
@@ -229,14 +229,14 @@ Next, we’ll learn how to create subscribers on Novu - *Recipients of Notifica
 
 # Create A Subscriber
 
-Click **Subscribers** on the left sidebar of the [Novu dashboard](https://web.novu.co/subscribers) to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
+Click **Subscribers** on the left sidebar of the [Novu dashboard](https://web.novu.co/subscribers?utm_campaign=docs-quick-vue) to see all subscribers. By default, the dashboard will display a subscriber, as you were added automatically during sign-up.
 <Frame caption="Subscribers from the left sidebar shows all the subscriber"><img src="/images/sub-nodejs.png" /> </Frame>
 
 Now, let's create a subscriber on Novu.
 
 Novu has a plethora of backend SDKs (Node.js, PHP, .NET, Go, Ruby, Python and Kotlin) to choose from to create a subscriber programmatically. This is the recommended method.
 
-Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings) Replace `<NOVU_API_KEY>` with it.
+Obtain your API key from your [Novu dashboard.](https://web.novu.co/settings?utm_campaign=docs-quick-vue) Replace `<NOVU_API_KEY>` with it.
 
 Now check your Novu dashboard. You should see the recently created subscriber.
 
