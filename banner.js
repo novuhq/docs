@@ -2,7 +2,6 @@ const topNavLinks = [
     { label: "Contributors", link: "/contributors/" },
     { label: "About", link: "/about/" },
     { label: "Blog", link: "/blog/" },
-    { label: "About", link: "/about/" },
 ];
 
 const topNavCta = { label: "Get Started", link: "https://web.novu.co?utm_campaign=gs_top_bar" };
@@ -162,35 +161,38 @@ c7.6,7.4,20.4,11.1,38.3,11.1c6.8,0,12.3-0.2,16.4-0.6c4.3-0.6,7.2-1.1,8.8-1.5V90.
 `
 
 
-console.log("LOADED INSIDE THE LISTENER!")
-    const navbar = document.getElementById('navbar');
+const navbar = document.getElementById('navbar');
 
-    const navItemClassStyles = 'font-medium text-gray-600 dark:text-gray-400 hover:border-b-[1.5px] hover:border-gray-200 dark:hover:border-gray-700 hover:text-gray-800 dark:hover:text-gray-300'
+const navItemClassStyles = 'font-medium text-gray-600 dark:text-gray-400 hover:border-b-[1.5px] hover:border-gray-200 dark:hover:border-gray-700 hover:text-gray-800 dark:hover:text-gray-300'
 
-    // Create the navigation component
-    const navComponent = document.createElement('div');
-    navComponent.id = 'primary-nav';
-    navComponent.innerHTML = `
-    <div class="flex items-center justify-between px-10 py-3 lg:space-x-4 md:px-7 md:py-4 sm:px-4 sm:py-3.5">
-        ${lightLogo}${darkLogo}
-        <div class="flex items-center space-x-16 lg:space-x-8">
-            <nav>
-                <ul class="flex space-x-8 md:hidden px-8">
-                    ${topNavLinks.map((link) => `<li><a class="inline-block leading-none text-sm ${navItemClassStyles} transition-colors duration-200" href="${link.url}">${link.label}</a></li>`).join('')}
-                </ul>
-            </nav>
-            <div class="flex space-x-5 md:hidden">
-            <a style="background-color: rgba(0, 85, 255, 0.8)" class="inline-flex items-center justify-center !leading-none text-center whitespace-nowrap rounded transition-[colors, opacity] duration-200 outline-none uppercase font-medium h-10 px-5 text-xs bg-primary/50 dark:bg-white text-white hover:bg-[rgba(255,255,255,1)]" href="${topNavCta.link}" target="_blank">
-            ${topNavCta.label}
-        </a>
+// Create the navigation component
+const navComponent = document.createElement('div');
+navComponent.id = 'primary-nav';
+navComponent.innerHTML = `
+<div class="relative max-w-8xl mx-auto border-b border-gray-500/10 lg:border-0 dark:border-gray-300/10 lg:border-b lg:border-gray-500/5 dark:border-gray-50/[0.06]">
+    <div class="py-4 lg:px-12 mx-4 lg:mx-0">
+        <div class="flex items-center justify-between">
+            <a href="/">${lightLogo}${darkLogo}</a>
+            <div class="flex items-center space-x-16 lg:space-x-8" style="margin-left: 8px">
+                <nav class="hidden lg:block">
+                    <ul class="flex space-x-8 md:hidden px-8">
+                        ${topNavLinks.map((link) => `<li><a class="inline-block leading-none text-sm ${navItemClassStyles} transition-colors duration-200" href="${link.url}">${link.label}</a></li>`).join('')}
+                    </ul>
+                </nav>
+                <div class="flex space-x-5 md:hidden">
+                    <a style="background-color: rgba(0, 85, 255, 0.8)" class="inline-flex items-center justify-center !leading-none text-center whitespace-nowrap rounded transition-[colors, opacity] duration-200 outline-none uppercase font-medium h-10 px-5 text-xs bg-primary/50 dark:bg-white text-white hover:bg-[rgba(255,255,255,1)]" href="${topNavCta.link}" target="_blank">
+                        ${topNavCta.label}
+                    </a>
+                </div>
             </div>
+            <button class="relative h-8 w-6 hidden md:block" type="button" aria-label="Menu">
+                <span class="absolute left-0 top-[7px] block h-0.5 w-6 rounded-full bg-white"></span>
+                <span class="absolute left-0 top-[15px] block h-0.5 w-4 rounded-full bg-white"></span>
+                <span class="absolute bottom-[7px] left-0 block h-0.5 w-6 rounded-full bg-white"></span>
+            </button>
         </div>
-        <button class="relative h-8 w-6 hidden md:block" type="button" aria-label="Menu">
-            <span class="absolute left-0 top-[7px] block h-0.5 w-6 rounded-full bg-white"></span>
-            <span class="absolute left-0 top-[15px] block h-0.5 w-4 rounded-full bg-white"></span>
-            <span class="absolute bottom-[7px] left-0 block h-0.5 w-6 rounded-full bg-white"></span>
-        </button>
     </div>
+</div>
 `;
 
 // Apply styles to match existing design
@@ -199,11 +201,6 @@ navbar.style.width = '100%';
 navbar.style.top = '0';
 navbar.style.left = '0';
 navbar.style.zIndex = '1000';
-// navbar.style.backgroundColor = '#000'; // Assuming a dark theme; adjust as needed
-// navbar.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)'; // Adds a subtle shadow for depth
-
-navComponent.style.borderBottom = '1px solid rgb(var(--gray-500)/.1)';
-// navComponent.style.backgroundColor = 'rgba(0, 0, 0, 0.2)'; // Assuming a dark theme; adjust as needed for 50% opacity
 
 // Prepend the navigation component as the first child of the navbar
 navbar.insertBefore(navComponent, navbar.firstChild);
