@@ -1,0 +1,14 @@
+---
+title: "Express.js"
+---
+
+```tsx
+import { serve } from "@novu/echo/express";
+import { echo } from "../echo/client";
+
+app.use(express.json()); // Required for Echo POST requests
+app.use(
+  "/api/echo",
+  serve({ client: echo })
+);
+```
