@@ -1,0 +1,27 @@
+---
+title: "Introduction"
+description: "Learn about Echo, the new paradigm when working with Novu."
+---
+
+# Overview
+
+Echo introduces a new networking paradigm when working with Novu: *Edge computing*. Rather than being constrained to utilize Novu’s prebuilt connectors, Echo enables you to connect with your existing environment, granting flexibility to use your own libraries and connect to your own VPC during the Workflow execution.
+
+The diagram below illustrates the Novu Cloud in grey, with your Customer environment in white. The Echo SDK exposes an API client, enabling you to serve your Workflows and their Steps via HTTP. The API can be served using your favourite frameworks, we offer pre-built connectors to make deployment easy. Novu Cloud will make HTTP requests to your Edge Server during Workflow Execution, enabling you to resolve Content and Subscribers *just-in-time*.
+
+![Diagram](/images/echo/diagram.png)
+
+## Notification Infrastructure as Code
+
+Novu Echo is an SDK to define your notification workflows with code. Notification workflows are defined in a structured, functional way, enabling you deeply embed your own libraries and business logic into the Workflow execution flow.
+
+Echo ships with an API Client, which Novu Cloud communicates with to retrieve Workflow Step content during your Notification Workflow. You are free to use your favourite web framework to serve the Echo API Client.
+
+### Core features
+
+- **Edge Compute Flexibility:** Echo integrates with your existing codebase. Natively connect your database, APIs, and more directly into your Echo workflows. The possibilities are limitless.
+- **Durable step execution:** Workflow state and execution are managed by the Novu Platform, Echo restores and hydrates the Workflow state each time your Edge API is invoked by Novu. Echo handles the hard problems in Notifications for you.
+- **Idiomatic:** Echo is designed with idiomatic programming practices in mind, making integration with your existing languages a seamless experience.
+- **Type-safe & Schematised validation:** Bring your own schemas for full, end-to-end validation and type safety between your application and Novu. JSON Schema provides the interoperability layer between developers and component consumers, creating a contract for content management.
+- **Framework agnostic:** The Echo API client is designed to run with your favourite Web framework. We currently support NextJS and Express, with more coming soon.
+![Gif](/images/echo/echo-gif.gif)
