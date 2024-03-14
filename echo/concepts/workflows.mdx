@@ -40,7 +40,7 @@ const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
 }, { payloadSchema: { properties: { userId: { type: 'string' }}}} );
 ```
 
-We call this “just-in-time” notification data fetching[.](http://resolution.It) It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
+We call this “just-in-time” notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
 
 Now, what if you wanted to send another update to the same new user in 1 week? But, you only want to send the follow-up if the User hasn’t been deleted. We can add more steps to the Workflow to achieve this.
 
@@ -88,7 +88,7 @@ With this simple Workflow, we:
 
 You should now have a grasp of the flexibility that Novu Echo offers.
 
-Continue your reading in [Steps](https://www.notion.so/Steps-67928accbb7d4818b2bd5753800dd0a6?pvs=21) to find out the other channels and actions you can use with Echo.
+Continue your reading in [Steps](/echo/concepts/steps) to find out the other channels and actions you can use with Echo.
 
 ### Workflow Interface
 
