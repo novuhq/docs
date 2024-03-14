@@ -195,12 +195,5 @@ navComponent.innerHTML = `
 </div>
 `;
 
-// Apply styles to match existing design
-navbar.style.position = 'fixed';
-navbar.style.width = '100%';
-navbar.style.top = '0';
-navbar.style.left = '0';
-navbar.style.zIndex = '1000';
-
 // Prepend the navigation component as the first child of the navbar
 navbar.insertBefore(navComponent, navbar.firstChild);
