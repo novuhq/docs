@@ -24,7 +24,7 @@
   "topbarLinks": [
     {
       "name": "Get API Key",
-      "url": "https://web.novu.co/settings"
+      "url": "https://web.novu.co/settings?utm_campaign=docs-menu-apikey"
     }
   ],
   "topbarCtaButton": {
@@ -85,6 +85,11 @@
     {
      "name": "Help Center",
      "url": "help"
+    },
+    {
+      "name": "Echo",
+      "url": "echo",
+      "version": "Experimental"
     }
   ],
   "navigation": [
@@ -628,8 +633,35 @@
         "help/content-management",
         "help/observability"
       ]
+    },
+    {
+      "group": "Getting Started",
+      "pages": ["echo/introduction", "echo/quickstart", "echo/features/studio"],
+      "version": "Experimental"
+    },
+    {
+      "group": "Concepts",
+      "pages": ["echo/concepts/workflows", "echo/concepts/steps", "echo/concepts/inputs"],
+      "version": "Experimental"
+    },
+    {
+      "group": "SDK",
+      "pages": ["echo/sdk/client", {
+        "group": "Frameworks",
+        "pages": ["echo/sdk/frameworks/nextjs", "echo/sdk/frameworks/express"]
+      }],
+      "version": "Experimental"
+    },
+    {
+      "group": "Deployment",
+      "pages": ["echo/recipes/cli", "echo/recipes/actions"],
+      "version": "Experimental"
+    },
+    {
+      "group": "Integrations",
+      "pages": ["echo/integrations/react-email", "echo/integrations/nextjs"],
+      "version": "Experimental"
     }
-
   ],
   "backgroundImage": "/background.png",
   "redirects": [
@@ -659,5 +691,5 @@
       "domain": "docs.novu.co"
     }
   },
-  "versions": ["v0.23.0", "v0.22.0", "v0.21.0", "v0.20.0", "v0.19.0", "v0.18.0"]
+  "versions": ["v0.23.0", "v0.22.0", "v0.21.0", "v0.20.0", "v0.19.0", "v0.18.0", "Experimental"]
 }
