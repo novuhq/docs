@@ -1,0 +1,120 @@
+---
+title: "Workflows"
+description: "Workflows are at the core of responding to events in your system with notifications. Echo enables you to declare type-safe, validated, and version-controlled Novu Workflows with code."
+---
+
+
+The most basic Echo Workflow to send a notification in response to an event looks like:
+
+```tsx
+import { Echo } from '@novu/echo';
+const echo = new Echo();
+
+const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
+	// Send a welcome email
+  await step.email('send-email', async () => {
+    return {
+      subject: `Welcome to Acme, ${payload.name}`,
+      body: 'We look forward to helping you achieve mission.',
+    }
+  });
+  // JSON Schema for validation and type-safety. Zod, and others coming soon.
+}, { payloadSchema: { properties: { name: { type: 'string' }}}} );
+```
+
+You can add any custom logic into your steps that you need. Maybe you’d like to fetch some information about your new sign-up from somewhere else during the Workflow execution. You can achieve it with the following changes:
+
+```tsx
+const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
+	// Send a welcome email
+  await step.email('send-email', async () => {
+	  // Fetch the user from your database
+	  const user = await db.getUser(payload.userId);
+    return {
+      subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
+      // 'Welcome to Acme Business tier, John Doe.'
+      body: 'We look forward to helping you achieve mission.',
+    }
+  });
+  // Changing the schema from `name` -> `userId`, for type-safety.
+}, { payloadSchema: { properties: { userId: { type: 'string' }}}} );
+```
+
+We call this “just-in-time” notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
+
+Now, what if you wanted to send another update to the same new user in 1 week? But, you only want to send the follow-up if the User hasn’t been deleted. We can add more steps to the Workflow to achieve this.
+
+```tsx
+const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
+  await step.email('send-email', async () => {
+	  const user = await db.getUser(payload.userId);
+    return {
+      subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
+      body: 'We look forward to helping you achieve mission.',
+    }
+  });
+
+  // Wait for 1 week before continuing. After 1 week, Novu will continue
+  // executing the Workflow from here.
+  await step.delay('onboarding-follow-up', async () => {
+    return { amount: 1, type: 'regular', unit: 'weeks' };
+  });
+
+	// 1 week passed, let's follow up with an in-app notification.
+  await step.inApp('onboarding-follow-up', async (inputs) => {
+	  const user = await db.getUser(payload.userId);
+	  // The `feedbackUrl` can be updated in Novu Web without changing code.
+	  // This helps you to create re-usable Workflow snippets.
+    return {
+      body: `Hey ${user.name}! How do you like the product?
+
+      Let us know <a href="${inputs.feedbackUrl}">here</a>
+      if you have any questions.`
+    };
+	}, {
+			 // Don't follow up if the User got deleted
+			 skip: () => !user.isDeleted,
+			 // Add validation to ensure `feedbackUrl` provided in Web is a `uri`
+			 inputSchema: { properties: { feedbackUrl: { type: 'string', format: 'uri' }}}
+	});
+}, { payloadSchema: { properties: { userId: { type: 'string' }}}} );
+```
+
+With this simple Workflow, we:
+
+- Sent a new signup email
+- Waited 1 week
+- Sent an in-app follow-up notification
+
+You should now have a grasp of the flexibility that Novu Echo offers.
+
+Continue your reading in [Steps](/echo/concepts/steps) to find out the other channels and actions you can use with Echo.
+
+### Workflow Interface
+
+```tsx
+echo.workflow(
+	// the Workflow name. Must be unique across your Echo client.
+	'new-signup',
+	// Workflow resolver, the entry-point for your Workflow steps
+	async ({
+		// Helper function to declare your Workflow Steps.
+		//
+		step,
+		// Workflow Trigger payload
+		payload,
+	}) => {
+	// ...your Workflow Steps
+
+}, {
+	// JSON Schema for validation and type-safety. Zod, and others coming soon.
+	// https://json-schema.org/draft-07/json-schema-release-notes
+
+	// The schema for the Workflow payload passed dynamically via Novu Trigger API
+	// Defaults to an empty schema.
+	payloadSchema: { properties: { name: { type: 'string' }}},
+	// The schema for the Workflow inputs passed statically via Novu Web
+	// Defaults to an empty schema.
+	inputSchema: { properties: { brandColor: { type: 'string' }}},
+});
+```

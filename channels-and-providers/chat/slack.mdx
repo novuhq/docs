@@ -28,20 +28,20 @@ If you use this approach, then Novu will manage the OAuth flow and store the cre
 
 1. Configure your Slack application as mentioned [below](#configuring-slack-application).
 2. You need to make a network request to the `Shareable URL` to perform authentication.
-3. You can find the `Shareable URL` in the [Integration Store](https://web.novu.co/integrations)
+3. You can find the `Shareable URL` in the [Integration Store](https://web.novu.co/integrations?utm_campaign=docs-integrations-slack)
 <Frame caption="Use the 'Shareable URL' from the Novu Integration Store"><img src="/images/channels-and-providers/shreable-url.png" /> </Frame>
 4. You can either add the `Add to Slack` button or use the `Shareable URL` directly, in the application you'll be using Novu in. 
 <Info>The network request to the 'Shareable URL' will happen when the user clicks the 'Add to Slack' button.</Info>
 5. This is to request permission for access (scope: incoming-webhook).
-6. You can use the generated `Shareable URL` that is found under the Slack integration in the [Integration Store](https://web.novu.co/integrations). The `Shareable URL` should have the following format:
+6. You can use the generated `Shareable URL` that is found under the Slack integration in the [Integration Store](https://web.novu.co/integrations?utm_campaign=docs-integrations-slack). The `Shareable URL` should have the following format:
 ```bash
 https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials/slack/oauth?environmentId=<ENVIRONMENT_ID>&integrationIdentifier=<PROVIDER_ID>.
 
 ```
 
 - `SUBSCRIBER_ID` is a custom identifier used when identifying your users within the Novu platform.
-- `ENVIRONMENT_ID` is a context of an environment you can locate your environment id in the setting in the [dashboard settings](https://web.novu.co/settings).
-- `PROVIDER_ID` (optional) is a unique identifier of the integration and is required when you have multiple slack integrations in Novu. You can locate your integration identifier in the [Integration Store](https://web.novu.co/integrations). When not provided, the last created integration will be used.
+- `ENVIRONMENT_ID` is a context of an environment you can locate your environment id in the setting in the [dashboard settings](https://web.novu.co/settings?utm_campaign=docs-integrations-slack).
+- `PROVIDER_ID` (optional) is a unique identifier of the integration and is required when you have multiple slack integrations in Novu. You can locate your integration identifier in the [Integration Store](https://web.novu.co/integrations?utm_campaign=docs-integratons-slack). When not provided, the last created integration will be used.
 If you are using the `Add to Slack` button you have to provide the `Shareable URL` as the `redirect_uri` parameter like in this example. Make sure that the `Shareable URL` is URL encoded:
 
 ```html
@@ -60,7 +60,7 @@ If you are using the `Add to Slack` button you have to provide the `Shareable
 ```
 7. Either you use the 'add to Slack' button or use the `Shareable URL`, you should land here:
 <Frame caption="Select the channel and grant this permission"><img src="/images/channels-and-providers/permission-to-access.png" /> </Frame>
-8. Then you'll be redirected to the address you chose in the [Integration Store](https://web.novu.co/integrations):
+8. Then you'll be redirected to the address you chose in the [Integration Store](https://web.novu.co/integrations?utm_campaign=docs-integrations-slack):
 <Frame caption="Select the channel and grant this permission"><img src="/images/channels-and-providers/redirect-url.png" /> </Frame>
 <Info>You can use the URL of whichever page you want your users to land on, after successful execution</Info>
 9. That's it! Now you can trigger your workflow and send notifications:
