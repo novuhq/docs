@@ -1,0 +1,51 @@
+---
+title: "React E-mail"
+---
+
+To integrate react email with Echo is quite an easy process, to your Next.js app, install the required React Email components:
+
+```bash
+npm i @react-email/components react-email
+```
+
+Next, create a new `.tsx` file with your React Email code:
+
+```tsx
+import { Button, Html } from "@react-email/components";
+import * as React from "react";
+
+function Email(props) {
+  return (
+    <Html>
+      <Button
+        href="https://example.com"
+        style={{ background: "#000", color: "#fff", padding: "12px 20px" }}
+      >
+        Click me
+      </Button>
+    </Html>
+  );
+}
+
+// This will convert your React component to a static HTML content
+export function renderEmail(inputs) {
+	return render(<Email {...inputs} />)
+}
+```
+
+And in your Echo Workflow render the react code:
+
+```tsx
+import { renderEmail } from './react-email.template';
+
+echo.workflow('new-signup', async ({ step, payload }) => {
+  await step.email('send-email', async (inputs) => {
+    return {
+      subject: `Welcome to React E-mail`,
+      body: renderEmail(inputs),
+    }
+  });
+});
+```
+
+See more complex email examples with tailwind here: https://demo.react.email/preview/notifications/vercel-invite-user

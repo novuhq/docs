@@ -1,0 +1,110 @@
+---
+title: "Inputs and Payload"
+---
+
+Inputs and Payload are defined using JSON Schema, providing a strong run-time validation system to your workflows.
+
+This ensures that you as the developer, and your non-technical peers are speaking the same language. Those  responsible for styling and copy can edit with confidence, knowing their changes are tested in code.
+
+- **Step Inputs** - Managed in the Novu Web UI, and are static
+- **Payload Schema** - Passed during the `novu.trigger` method, and are dynamic values for each trigger
+
+## Input Schema
+[Step](/echo/concepts/steps) input schema is defining the input passed during the `step` method. Those inputs can be modified and persisted in the Novu Web UI.
+
+The snippet below shows configuration for the Workflow payload schema and the Step input schema. If you don’t provide a schema, Typescript will infer the data type to `unknown`, reminding you of the best practice to specify your schema.
+
+```tsx
+echo.workflow('new-signup', async ({ step, payload }) => {
+    await step.email(
+      'send-email',
+      async (inputs) => {
+          return {
+            subject: `Welcome to Acme, ${payload.name}.`,
+            body: render(<ReactEmailContent inputs={inputs} />),
+        }
+      }, {
+	      // Learn about JSON Schema here: https://json-schema.org/specification
+        inputSchema: {
+	        // Always `object`
+          type: 'object',
+          // Specify the properties to validate. Supports deep nesting.
+          properties: {
+            hideBanner: { type: 'boolean', default: false },
+            complianceFooter: { type: 'string' },
+            // Allowing no code control over the component in the Web UI
+            components: {
+                type: "array",
+                items: {
+                    type: "string"
+                },
+                default: ["header", "cta-row", "footer"]
+            }
+          },
+          // Specify the array of which properties are required.
+          required: ['complianceFooter'],
+          // Used to enforce full type strictness, with no rogue properties.
+          additionalProperties: false,
+		      // The `as const` is important to let Typescript know that this
+		      // type won't change, enabling strong typing on `inputs` via type
+		      // inference of the provided JSON Schema.
+        } as const,
+      });
+});
+```
+
+Learn more about [JSON Schema here](https://json-schema.org/specification), including the powerful validation features to ensure your Content renders perfectly, every time.
+
+<Note>
+    Other validators, including Zod and more, coming soon.
+    Any validator that supports transformation to JSON Schema can be added.
+</Note>
+
+
+### Payload Schema
+
+Payload schema is defining the payload passed during the `novu.trigger` method. This is useful for ensuring that the payload is correctly formatted and that the data is valid.
+
+
+```tsx
+echo.workflow('comment-on-post', async ({ step, payload }) => {
+    await step.email(
+      'send-email',
+      async () => {
+          return {
+            subject: `Welcome to Acme, ${payload.name}.`,
+            body: render(<ReactEmailContent />),
+        }
+      });
+  },
+  {
+    payloadSchema: {
+            // Always `object`
+          type: 'object',
+          // Specify the properties to validate. Supports deep nesting.
+          properties: {
+            post_id: { type: 'number', maxLength: 100 },
+            comment: { type: 'string', maxLength: 200 },
+          },
+          // Specify the array of which properties are required.
+          required: ['post_id', 'comment'],
+          // Used to enforce full type strictness, with no rogue properties.
+          additionalProperties: false,
+		      // The `as const` is important to let Typescript know that this
+		      // type won't change, enabling strong typing on `inputs` via type
+		      // inference of the provided JSON Schema.
+        } as const,
+  },
+);
+```
+
+Here is an example of the validated payload during trigger:
+```tsx
+novu.trigger('comment-on-post', {
+    to: 'subscriber_id',
+    payload: {
+        post_id: 1234,
+        comment: 'Looks good!'
+    }
+});
+```
