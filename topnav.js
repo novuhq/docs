@@ -1,10 +1,10 @@
 const topNavLinks = [
-    { label: "Contributors", link: "/contributors/" },
-    { label: "About", link: "/about/" },
-    { label: "Blog", link: "/blog/" },
+    { label: "Contributors", link: "https://novu.co/contributors/?utm_campaign=docs_top_nav" },
+    { label: "Pricing", link: "https://novu.co/pricing/?utm_campaign=docs_top_nav" },
+    { label: "Blog", link: "https://novu.co/blog/?utm_campaign=docs_top_nav" },
 ];
 
-const topNavCta = { label: "Get Started", link: "https://web.novu.co?utm_campaign=gs_top_bar" };
+const topNavCta = { label: "Get Started", link: "https://web.novu.co?utm_campaign=docs_top_bar_gs" };
 
 const darkLogo = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 viewBox="0 0 2355.4 300" style="enable-background:new 0 0 2355.4 300;" xml:space="preserve" class="hidden dark:block h-7 w-auto">
