@@ -1,10 +1,10 @@
 const topNavLinks = [
-    { label: "Contributors", link: "https://novu.co/contributors/?utm_campaign=docs_top_nav" },
-    { label: "Pricing", link: "https://novu.co/pricing/?utm_campaign=docs_top_nav" },
-    { label: "Blog", link: "https://novu.co/blog/?utm_campaign=docs_top_nav" },
+    { label: "Contributors", url: "https://novu.co/contributors/?utm_campaign=docs_top_nav" },
+    { label: "Pricing", url: "https://novu.co/pricing/?utm_campaign=docs_top_nav" },
+    { label: "Blog", url: "https://novu.co/blog/?utm_campaign=docs_top_nav" },
 ];
 
-const topNavCta = { label: "Get Started", link: "https://web.novu.co?utm_campaign=docs_top_bar_gs" };
+const topNavCta = { label: "Get Started", url: "https://web.novu.co?utm_campaign=docs_top_bar_gs" };
 
 const darkLogo = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 viewBox="0 0 2355.4 300" style="enable-background:new 0 0 2355.4 300;" xml:space="preserve" class="hidden dark:block h-7 w-auto">
@@ -158,7 +158,7 @@ c7.6,7.4,20.4,11.1,38.3,11.1c6.8,0,12.3-0.2,16.4-0.6c4.3-0.6,7.2-1.1,8.8-1.5V90.
    c0-14.1-1.8-27.4-19.9-27.4c-19.3,0-34,16-34,36.8v39.5h-6.8v-81H2272.8z"/>
 </g>
 </svg>
-`
+`;
 
 
 const navbar = document.getElementById('navbar');
@@ -180,7 +180,7 @@ navComponent.innerHTML = `
                     </ul>
                 </nav>
                 <div class="flex space-x-5 md:hidden">
-                    <a style="background-color: rgba(0, 85, 255, 0.8)" class="inline-flex items-center justify-center !leading-none text-center whitespace-nowrap rounded transition-[colors, opacity] duration-200 outline-none uppercase font-medium h-10 px-5 text-xs bg-primary/50 dark:bg-white text-white hover:bg-[rgba(255,255,255,1)]" href="${topNavCta.link}" target="_blank">
+                    <a style="background-color: rgba(0, 85, 255, 0.8)" class="inline-flex items-center justify-center !leading-none text-center whitespace-nowrap rounded transition-[colors, opacity] duration-200 outline-none uppercase font-medium h-10 px-5 text-xs bg-primary/50 dark:bg-white text-white hover:bg-[rgba(255,255,255,1)]" href="${topNavCta.url}" target="_blank">
                         ${topNavCta.label}
                     </a>
                 </div>
