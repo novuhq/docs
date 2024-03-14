@@ -176,7 +176,7 @@ navComponent.innerHTML = `
             <div class="flex items-center space-x-16 lg:space-x-8" style="margin-left: 8px">
                 <nav class="hidden lg:block">
                     <ul class="flex space-x-8 md:hidden px-8">
-                        ${topNavLinks.map((link) => `<li><a class="inline-block leading-none text-sm ${navItemClassStyles} transition-colors duration-200" href="${link.url}">${link.label}</a></li>`).join('')}
+                        ${topNavLinks.map((link) => `<li><a class="inline-block leading-none text-sm ${navItemClassStyles} transition-colors duration-200" href="${link.url}" target="_blank">${link.label}</a></li>`).join('')}
                     </ul>
                 </nav>
                 <div class="flex space-x-5 md:hidden">
