@@ -125,7 +125,7 @@ Use the delay action whenever you need to pause the execution of your workflow f
 ```tsx
 await step.delay('delay-1-week', async () => {
   return {
-		unit: 'weeks', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+	  unit: 'weeks', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
 	  amount: 1, // the number of units to delay workflow execution for
 	};
 });
@@ -138,7 +138,7 @@ Use the digest action whenever you want to aggregate events into an array for a 
 ```tsx
 await step.digest('digest-3-days', async () => {
   return {
-		unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+	  unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
 	  amount: 3, // the number of units to digest events for
 	};
 });
