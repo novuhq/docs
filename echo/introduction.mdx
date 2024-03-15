@@ -12,7 +12,17 @@ description: "Learn about Echo, the new paradigm when working with Novu."
     - Form: [https://roadmap.novu.co/roadmap](https://roadmap.novu.co/roadmap)
 </Warning>
 
-Looking for a demo video? Checkout this [Loom](https://www.loom.com/share/656c5e2fab7b405b83e9acbcbcd0dad0?sid=892ea01e-f133-44c2-81a4-8eae5d23b316)
+## Core features
+
+- **Content Management:** Create and manage content using any framework like: **React Email**, **MJML**, or a third party CMS (Wordpress, Hubspot, etc...).
+- **GitOps** for Notifications: Define your Notification Workflows in code, and manage them using GitOps. This enables you to version control your Notification Workflows, and collaborate with your team.
+- **Durable step execution:** Workflow state and execution are managed by the Novu Platform, Echo restores and hydrates the Workflow state each time your Edge API is invoked by Novu. Echo handles the hard problems in Notifications for you.
+- **Idiomatic:** Echo is designed with idiomatic programming practices in mind, making integration with your existing languages a seamless experience.
+- **Type-safe & Schematised validation:** Bring your own schemas for full, end-to-end validation and type safety between your application and Novu. JSON Schema provides the interoperability layer between developers and component consumers, creating a contract for content management.
+- **Framework agnostic:** The Echo API client is designed to run with your favourite Web framework. We currently support NextJS and Express, with more coming soon.
+- **Edge Compute Flexibility:** Echo integrates with your existing codebase. Natively connect your database, APIs, and more directly into your Echo workflows. The possibilities are limitless.
+
+## How it Works?
 
 Echo introduces a new networking paradigm when working with Novu: *Edge computing*. Rather than being constrained to utilize Novu’s prebuilt connectors, Echo enables you to connect with your existing environment, granting flexibility to use your own libraries and connect to your own VPC during the Workflow execution.
 
@@ -26,11 +36,6 @@ Novu Echo is an SDK to define your notification workflows with code. Notificatio
 
 Echo ships with an API Client, which Novu Cloud communicates with to retrieve Workflow Step content during your Notification Workflow. You are free to use your favourite web framework to serve the Echo API Client.
 
-## Core features
-
-- **Edge Compute Flexibility:** Echo integrates with your existing codebase. Natively connect your database, APIs, and more directly into your Echo workflows. The possibilities are limitless.
-- **Durable step execution:** Workflow state and execution are managed by the Novu Platform, Echo restores and hydrates the Workflow state each time your Edge API is invoked by Novu. Echo handles the hard problems in Notifications for you.
-- **Idiomatic:** Echo is designed with idiomatic programming practices in mind, making integration with your existing languages a seamless experience.
-- **Type-safe & Schematised validation:** Bring your own schemas for full, end-to-end validation and type safety between your application and Novu. JSON Schema provides the interoperability layer between developers and component consumers, creating a contract for content management.
-- **Framework agnostic:** The Echo API client is designed to run with your favourite Web framework. We currently support NextJS and Express, with more coming soon.
 ![Gif](/images/echo/echo-gif.gif)
+
+Looking for a demo video? Checkout this [Loom](https://www.loom.com/share/656c5e2fab7b405b83e9acbcbcd0dad0?sid=892ea01e-f133-44c2-81a4-8eae5d23b316)
