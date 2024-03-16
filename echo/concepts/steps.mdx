@@ -122,10 +122,10 @@ await step.chat('send-chat', async () => {
 
 Use the delay action whenever you need to pause the execution of your workflow for a period of time.
 
-```
+```tsx
 await step.delay('delay-1-week', async () => {
   return {
-		unit: 'weeks', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+	  unit: 'weeks', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
 	  amount: 1, // the number of units to delay workflow execution for
 	};
 });
@@ -135,10 +135,10 @@ await step.delay('delay-1-week', async () => {
 
 Use the digest action whenever you want to aggregate events into an array for a period of time.
 
-```
+```tsx
 await step.digest('digest-3-days', async () => {
   return {
-		unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+	  unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
 	  amount: 3, // the number of units to digest events for
 	};
 });
