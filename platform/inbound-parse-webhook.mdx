@@ -24,6 +24,7 @@ The feature parses contents of an email and POSTs the information to a specified
    - Create a new MX record for the subdomain you want to process incoming email (e.g. reply.yourdomain.com).
     <Warning>
         You must create a new record for this as this feature does not work if the MX record is already set on the domain.
+        Here is an example with [route 53](https://medium.com/@deep_blue_day/how-to-create-a-subdomain-in-amazon-route-53-81918654f5bf)
     </Warning>
    - Assign the MX record a priority of 10 and point it to the specified inbound mail server that located on the admin dashboard on the Email Settings.
      <Info>
