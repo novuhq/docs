@@ -34,8 +34,8 @@ your forked version of the project:
     </Tab>
     <Tab title="Forked Repo">
        ```shell
-       git clone https://github.com/<YOUR_GITHUB_USER_NAME>/novu.git
-       ````
+       git clone https://github.com/{YOUR_GITHUB_USER_NAME}/novu.git
+       ```
     </Tab>
 </Tabs>
 
@@ -116,7 +116,7 @@ The command `npm run setup:project` creates default environment variables that
     - `NOVU_API_KEY`The api key of web.novu.co used to send various emails
     - `SENTRY_DSN`The DSN of sentry.io used to report errors happening in production
   </Accordion>
-  
+
   <Accordion title="Worker">
     - `NODE_ENV` (default: local)The environment of the app. Possible values are: dev, test, production, ci, local
     - `PORT`The port on which the Worker app should listen on
@@ -168,12 +168,10 @@ The command `npm run setup:project` creates default environment variables that
   </Accordion>
 
   <Accordion title="Web Client">
-    - `REACT_APP_ENVIRONMENT` The environment of the app. Possible values are:
-    dev, test, production, ci, local - `REACT_APP_API_URL` The base url on which
-    your API backend would be accessible - `REACT_APP_WS_URL` The base url on
-    which your WebSocket service would be accessible -
-    `SKIP_PREFLIGHT_CHECK` (default: true)Solves a problem with React App
-    dependency tree.
+    - `REACT_APP_ENVIRONMENT` The environment of the app. Possible values are: dev, test, production, ci, local
+    - `REACT_APP_API_URL` The base url on which your API backend would be accessible
+    - `REACT_APP_WS_URL` The base url on which your WebSocket service would be accessible
+    - `SKIP_PREFLIGHT_CHECK` (default: true)Solves a problem with React App dependency tree.
     <Warning>
         When configuring different than default values for the API and WebSocket URLs,
         in order for the Web app to apply the changes done to the `./env` file, it is
@@ -184,17 +182,18 @@ The command `npm run setup:project` creates default environment variables that
         access to the API backend and the WebSocket service.
     </Warning>
   </Accordion>
+
   <Accordion title="Web Socket">
-    - `NODE_ENV` (default: local)The environment of the app. Possible values are:
-    dev, test, production, ci, local - `SENTRY_DSN`The DSN of sentry.io used to
-    report errors happening in production - `REDIS_HOST`The domain / IP of your
-    redis instance - `REDIS_PORT`The port of your redis instance -
-    `REDIS_DB_INDEX`The database index of your redis instance -
-    `REDIS_PASSWORD`Optional password of your redis instance - `JWT_SECRET`The
-    secret keybase which is used to encrypt / verify the tokens issued for
-    authentication - `MONGO_URL`The URL of your MongoDB instance -
-    `MONGO_MAX_POOL_SIZE`The max pool size of the MongoDB connection - `PORT`The
-    port on which the WebSocket service should listen on
+    - `NODE_ENV` (default: local)The environment of the app. Possible values are: dev, test, production, ci, local
+    - `SENTRY_DSN`The DSN of sentry.io used to report errors happening in production
+    - `REDIS_HOST`The domain / IP of your redis instance
+    - `REDIS_PORT`The port of your redis instance
+    - `REDIS_DB_INDEX`The database index of your redis instance
+    - `REDIS_PASSWORD`Optional password of your redis instance
+    - `JWT_SECRET`The secret keybase which is used to encrypt / verify the tokens issued for authentication
+    - `MONGO_URL`The URL of your MongoDB instance
+    - `MONGO_MAX_POOL_SIZE`The max pool size of the MongoDB connection
+    - `PORT`The port on which the WebSocket service should listen on
   </Accordion>
 </AccordionGroup>
 
