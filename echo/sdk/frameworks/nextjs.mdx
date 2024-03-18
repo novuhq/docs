@@ -2,9 +2,20 @@
 title: "Next.js"
 ---
 
-```tsx
+<CodeGroup>
+```ts App Router
+// app/api/echo/route.ts
 import { serve } from "@novu/echo/next";
 import { echo } from "../../echo/client";
 
 export const { GET, POST, PUT } = serve({ client: echo });
 ```
+
+```ts Pages Router
+// pages/api/echo.ts
+import { serve } from "@novu/echo/next";
+import { echo } from '../../echo/client';
+
+export default serve({ client: echo });
+```
+</CodeGroup>
