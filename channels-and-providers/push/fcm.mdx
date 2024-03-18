@@ -63,9 +63,7 @@ import {
 const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.FCM, {
-credentials: {
   deviceTokens: ['token1', 'token2'],
-}
 });
 
 ````

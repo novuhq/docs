@@ -3,10 +3,41 @@ title: 'AWS'
 description: 'Learn how to deploy Novu to AWS'
 icon: 'amazon'
 ---
-Amazon Web Services (AWS) is a cloud computing platform by Amazon, providing a wide range of on-demand services like computing power, storage, and databases over the internet. 
-It enables businesses and individuals to avoid managing physical infrastructure and offers features for computing, storage, databases, analytics, machine learning, and more. 
+Amazon Web Services (AWS) is a cloud computing platform by Amazon, providing a wide range of on-demand services like computing power, storage, and databases over the internet.
+It enables businesses and individuals to avoid managing physical infrastructure and offers features for computing, storage, databases, analytics, machine learning, and more.
 AWS is known for its scalability, flexibility, and global network of data centers.
 Learn more about [AWS](https://docs.aws.amazon.com/)
+
+## Deploying on EC2 with the Docker Compose File
+Deploying Novu on EC2 with Docker Compose involves several steps.
+
+In general, the steps are as follows:
+1. **Set up an EC2 Instance**: Create an instance on AWS EC2. We reccomend a bare minimum of 4 CPU Cores and 16GB of RAM.
+2. **Install Docker**: Once you have your instance up and running, SSH into it and install Docker. You can do this by running the following commands:
+``` bash
+sudo yum update -y sudo amazon-linux-extras install docker;
+sudo service docker start sudo usermod -a -G docker
+ec2-user
+```
+3. **Install Docker Compose**: Docker Compose will allow you to easily manage your application which will consist of multiple Docker containers.
+Install it by running:
+``` bash
+sudo curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose;
+sudo chmod +x /usr/local/bin/docker-compose
+```
+4. **Deploy Novu**: Now, clone the Novu repository and navigate to the directory containing the docker-compose.yml file.
+To start your Novu instance, simply run:
+``` bash
+docker-compose up -d
+```
+
+Please note, there are user reports indicating an issue with volume persistence when deploying Novu on EC2 with Docker Compose.
+You can see the discussions about this problem [here](https://github.com/novuhq/novu/issues/3339) as we do not provide official support for these types of deployments.
+This is something to be aware of when deploying in this manner, and you may need to adopt additional strategies for data persistence.
+Be sure to consult the Novu documentation as well as any relevant EC2 and Docker documentation for any necessary details related to your specific deployment needs.
+Additionally, keep in mind that these general steps may not cover all nuances or requirements of your particular use case or the specific configuration of the Novu application.
+Always ensure any deployment follows best practices for security, scalability, and maintainability.
+
 
 # 🏗️ This page is still in creation process
 
@@ -20,5 +51,5 @@ By following these steps, you're helping us enhance the quality and depth of our
 
 Your contributions drive progress. Let's build together!
 
-<Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations, please don't hesitate to [contact our team](https://notify.novu.co/meetings/novuhq/notifications-45min?utm_campaign=novuDocs&utm_content=deploy-to-AWS). 
+<Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations, please don't hesitate to [contact our team](https://notify.novu.co/meetings/novuhq/notifications-45min?utm_campaign=novuDocs&utm_content=deploy-to-AWS).
 They can provide assistance regarding enterprise edition licenses or cloud-prem deployment to meet your specific needs.</Note>
