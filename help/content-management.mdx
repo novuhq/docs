@@ -1,21 +1,22 @@
 ---
+title: "Content Management"
+sidebarTitle: "Content Management"
 icon: "file-pen"
 ---
 
-### what is layout and how to use layouts?
-Layouts are like style container for email templates. Layout can be used for organization branding and style. It can be used to define the structure of the email template. It can be used to define the header, footer, and other common elements. It must have `{{{body}}}` variable which will be replaced by the actual email template content.
+### What is a Layout and how can I use them?
+Layout is similar to a style container for email templates. Layouts can be used for your organization’s branding and style. It can be used to define the structure of the email template such as the header, footer, and other common elements. It must have a `{{{body}}}` variable which will be replaced by the actual email template content.
 
-### Can layout be used in all channels?
-No, layout can be used only in email channel.
+### Can Layouts be used across all channels?
+Layouts are specific to Emails.
 
-### Can mjml templates be used in content editors?
-No, only html templates can be used in content editors. We support [handlebar helpers](/content-creation-design/handlebars-helpers) for common usecase like iteration, conditions etc. If you need any specific handlebar helpers, please reach out to us at support@novu.co
+### Can MJML templates be used in content editors?
+Only HTML templates can be used in content editors. We support [handlebar helpers](/content-creation-design/handlebars-helpers) for common use cases like iteration, conditions etc. If you need any specific Handlebar Helpers, please reach out to us at support@novu.co.
 
-### Can one step content be reused in another step?
-No, currently each step content is separate and cannot be reused.
+### Can the content of one Step be used in another?
+Currently each Step has content that is unique to it and can not be reused. If this is important to you, please send us a note at support@novu.co.
 
-### Which translation will be used if subscriber's locale field does not match with translation language files?
-If subscriber's locale field does not match with translation locale files, or it is not available, then default language of translation group will be used.
-
+### Which Translation Language will be used if the Subscriber’s locale field does not match with translation language files?
+If the Subscriber's locale field does not match with Translation locale files, or it is not available, then the defaul language of the translation group will be used. If a default is not set, the automatic fallback is English. 
 
 <Snippet file="contact-support.mdx" />

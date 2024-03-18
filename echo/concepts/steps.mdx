@@ -1,0 +1,146 @@
+---
+title: "Steps"
+description: "Steps control the execution flow of your workflow, whilst Novu provides the context of your notification delivery events back into the Workflow execution context."
+---
+
+
+## Channel Steps Interface
+
+Channel steps are used to send notifications to your Subscribers. Each channel can optionally configure the provider to customise content, enabling you to create enhanced content aligned with the specification of the provider. For example, you might like to use Slack blocks to send your Chat message.
+
+All channels follow the same interface:
+
+```tsx
+await step.chat(
+	// The Step name, must be unique across the Workflow
+	'onboarding-follow-up',
+	// The Step resolver, returns the basic requirements for the channel.
+	// For `chat`, only the `body` field is required.
+	async (
+		// The inputs for the Step, provided statically via Novu Web.
+		inputs
+	) => {
+		return {
+			body: `Hey ${inputs.name}! How do you like the product?`,
+		}
+	}, {
+		// JSON Schema for validation and type-safety. Zod, and others coming soon.
+		// https://json-schema.org/draft-07/json-schema-release-notes
+		//
+		// The schema for the Step inputs passed statically via Novu Web.
+		// Defaults to an empty schema.
+		inputSchema: { properties: { feedbackUrl: { type: 'string', format: 'uri' }}},
+		// An optional callback allowing you to define if the Step should be skipped.
+		// The Step will not run if this returns true.
+		// Defaults to false.
+		skip: () => false, // true | false
+		// The provider overrides for the Channel.
+		// Enables you to construct a specific payload to pass to the provider.
+		providers: {
+			// The provider resolver. The provider `outputs` in the function
+			// arguments are dependent on the Channel, whilst the function result
+			// is dependent on the provider.
+			//
+			// [providerName: string]: (step: {
+			//   inputs: ChannelInput;
+			//   outputs: ChannelOutput;
+			// }) => Promise<ProviderOutput>
+			//
+			// An example is shown below for Slack on the Chat channel.
+			// Intellisense will help you to fill out the required options.
+			slack: async ({
+				// The inputs for the Step, provided statically via Novu Web.
+				inputs, // For the custom schema defined: { feedbackUrl: string }
+				// The outputs from the Step resolver.
+				outputs, // For inApp: { body: string }
+			}) => ({
+				// The specific requirements of the Slack provider.
+        text: outputs.body,
+        blocks: [{ type: 'section', text: { type: 'mrkdwn', text: outputs.body } }],
+        webhookUrl: 'https://hooks.slack.com/onboarding-follow-up',
+      }),
+		}
+	});
+});
+```
+
+### SMS
+
+```tsx
+await step.sms('send-sms', async () => {
+  return {
+    body: 'Hey! How do you like the product?',
+  };
+});
+```
+
+### E-mail
+
+```tsx
+await step.email('send-email', async (inputs) => {
+  return {
+    subject: 'You received a post',
+    body: `<html><body>Hey! How do you like the product?</body></html>`,
+  };
+});
+```
+
+### In-App
+
+```tsx
+await step.inApp('send-inapp', async (inputs) => {
+  return {
+    body: `Hey! How do you like the product?`,
+  };
+});
+```
+
+### Push
+
+```tsx
+await step.push('send-push', async () => {
+  return {
+    subject: 'You received a post',
+    body: 'Hey! How do you like the product?',
+  };
+});
+```
+
+### Chat
+
+```tsx
+await step.chat('send-chat', async () => {
+  return {
+    body: 'Hey! How do you like the product?',
+  };
+});
+```
+
+## Action Steps Interface
+
+### Delay
+
+Use the delay action whenever you need to pause the execution of your workflow for a period of time.
+
+```tsx
+await step.delay('delay-1-week', async () => {
+  return {
+	  unit: 'weeks', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+	  amount: 1, // the number of units to delay workflow execution for
+	};
+});
+```
+
+### Digest
+
+Use the digest action whenever you want to aggregate events into an array for a period of time.
+
+```tsx
+await step.digest('digest-3-days', async () => {
+  return {
+	  unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+	  amount: 3, // the number of units to digest events for
+	};
+});
+```
+
