@@ -45,39 +45,64 @@ We call this “just-in-time” notification data fetching. It allows you pull i
 Now, what if you wanted to send another update to the same new user in 1 week? But, you only want to send the follow-up if the User hasn’t been deleted. We can add more steps to the Workflow to achieve this.
 
 ```tsx
-const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
-  await step.email('send-email', async () => {
-	  const user = await db.getUser(payload.userId);
-    return {
-      subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
-      body: 'We look forward to helping you achieve mission.',
-    }
-  });
+const newSignup = echo.workflow(
+  'new-signup',
+  async ({ step, payload }) => {
+    await step.email('send-email', async () => {
+      const user = await db.getUser(payload.userId);
+      return {
+        subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
+        body: 'We look forward to helping you achieve mission.',
+      };
+    });
 
-  // Wait for 1 week before continuing. After 1 week, Novu will continue
-  // executing the Workflow from here.
-  await step.delay('onboarding-follow-up', async () => {
-    return { amount: 1, type: 'regular', unit: 'weeks' };
-  });
+    // Wait for 1 week before continuing. After 1 week, Novu will continue
+    // executing the Workflow from here.
+    await step.delay('onboarding-follow-up', async () => ({
+      amount: 1,
+      type: 'regular',
+      unit: 'weeks',
+    }));
 
-	// 1 week passed, let's follow up with an in-app notification.
-  await step.inApp('onboarding-follow-up', async (inputs) => {
-	  const user = await db.getUser(payload.userId);
-	  // The `feedbackUrl` can be updated in Novu Web without changing code.
-	  // This helps you to create re-usable Workflow snippets.
-    return {
-      body: `Hey ${user.name}! How do you like the product?
+    // 1 week passed, let's follow up with an in-app notification.
+    await step.inApp(
+      'onboarding-follow-up',
+      async (inputs) => {
+        const user = await db.getUser(payload.userId);
+        // The `feedbackUrl` can be updated in Novu Web without changing code.
+        // This helps you to create re-usable Workflow snippets.
+        return {
+          body: `Hey ${user.name}! How do you like the product?
 
       Let us know <a href="${inputs.feedbackUrl}">here</a>
-      if you have any questions.`
-    };
-	}, {
-			 // Don't follow up if the User got deleted
-			 skip: () => !user.isDeleted,
-			 // Add validation to ensure `feedbackUrl` provided in Web is a `uri`
-			 inputSchema: { properties: { feedbackUrl: { type: 'string', format: 'uri' }}}
-	});
-}, { payloadSchema: { properties: { userId: { type: 'string' }}}} );
+      if you have any questions.`,
+        };
+      },
+      {
+        // Don't follow up if the Subscriber opted out.
+        skip: () => !payload.shouldFollowUp,
+        // Add validation to ensure `feedbackUrl` provided in Web is a `uri`
+        inputSchema: {
+          type: 'object',
+          properties: { feedbackUrl: { type: 'string', format: 'uri' } },
+          required: ['feedbackUrl'],
+          additionalProperties: false,
+        } as const,
+      },
+    );
+  },
+  {
+    payloadSchema: {
+      type: 'object',
+      properties: {
+        userId: { type: 'string' },
+        shouldFollowUp: { type: 'boolean' },
+      },
+      required: ['userId', 'shouldFollowUp'],
+      additionalProperties: false,
+    } as const,
+  },
+);
 ```
 
 With this simple Workflow, we:
