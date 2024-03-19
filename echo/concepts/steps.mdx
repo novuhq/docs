@@ -55,10 +55,10 @@ await step.chat(
 				outputs, // For inApp: { body: string }
 			}) => ({
 				// The specific requirements of the Slack provider.
-        text: outputs.body,
-        blocks: [{ type: 'section', text: { type: 'mrkdwn', text: outputs.body } }],
-        webhookUrl: 'https://hooks.slack.com/onboarding-follow-up',
-      }),
+        			text: outputs.body,
+        			blocks: [{ type: 'section', text: { type: 'mrkdwn', text: outputs.body } }],
+        			webhookUrl: 'https://hooks.slack.com/onboarding-follow-up',
+      			}),
 		}
 	});
 });
