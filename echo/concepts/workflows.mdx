@@ -84,7 +84,7 @@ const newSignup = echo.workflow(
         // Add validation to ensure `feedbackUrl` provided in Web is a `uri`
         inputSchema: {
           type: 'object',
-          properties: { feedbackUrl: { type: 'string', format: 'uri' } },
+          properties: { feedbackUrl: { type: 'string', format: 'uri', default: 'https://acme.com/feedback' } },
           required: ['feedbackUrl'],
           additionalProperties: false,
         } as const,
@@ -96,7 +96,7 @@ const newSignup = echo.workflow(
       type: 'object',
       properties: {
         userId: { type: 'string' },
-        shouldFollowUp: { type: 'boolean' },
+        shouldFollowUp: { type: 'boolean', default: true },
       },
       required: ['userId', 'shouldFollowUp'],
       additionalProperties: false,
