@@ -1,16 +1,13 @@
 ---
-title: "Introduction"
+title: "Quick Start"
 description: "Learn about Echo, the code-first approach when working with Novu."
 ---
 
-<Warning>
-    Echo is currently in Private Alpha mode, and API’s and interfaces are subject to change.
+<Note>
+    **Echo is currently in Public Alpha stage.**
 
-    **How do you provide Feedback or submit Bugs?**
-    - E-mail: radek@novu.co
-    - Discord: https://discord.com/channels/895029566685462578/1217051273434628137 (#echo-beta-feedback channel)
-    - Form: [https://roadmap.novu.co/roadmap](https://roadmap.novu.co/roadmap)
-</Warning>
+    Provide your feedback and suggestions? **[here](https://roadmap.novu.co/roadmap)**
+</Note>
 
 ## Notification Infrastructure as Code
 
@@ -21,15 +18,34 @@ Echo ships with an API Client, which Novu Cloud communicates with to retrieve Wo
 ![Gif](/images/echo/echo-gif.gif)
 
 
-## Core features
+### Core features
 
-- **Content Management:** Create and manage content using any framework like: **React Email**, **MJML**, or a third party CMS (Wordpress, Hubspot, etc...).
-- **GitOps** for Notifications: Define your Notification Workflows in code, and manage them using GitOps. This enables you to version control your Notification Workflows, and collaborate with your team.
-- **Durable step execution:** Workflow state and execution are managed by the Novu Platform, Echo restores and hydrates the Workflow state each time your Echo Client is invoked by Novu. Echo handles the hard problems in Notifications for you.
-- **Idiomatic:** Echo is designed with idiomatic programming practices in mind, making integration with your existing languages a seamless experience.
-- **Type-safe & Schematised validation:** Bring your own schemas for full, end-to-end validation and type safety between your application and Novu. JSON Schema provides the interoperability layer between developers and component consumers, creating a contract for content management.
-- **Framework agnostic:** The Echo API client is designed to run with your favourite Web framework. We currently support NextJS and Express, with more coming soon.
-- **Bring Your Own Code:** Echo integrates with your existing codebase. Natively connect your database, APIs, and more directly into your Echo workflows. The possibilities are limitless.
+<CardGroup cols={2}>
+    <Card title="Integrations" icon="gear" href={'/echo/integrations'}>
+        Use React Email, MJML, 3rd party HTML Renderer or fetch templates from Braze, Hubspot, Sendgrid, and more...
+    </Card>
+    <Card title="GitOps" icon="github">
+        Define your Notification Workflows with code, version and manage them using GitOps.
+    </Card>
+    <Card title="Type-safety" icon="shield">
+        Bring your own schemas for full, end-to-end validation and type safety.
+    </Card>
+    <Card title="Bring Your Own Code" icon="code">
+        Integrates with your existing codebase. Natively connect your database an APIs, directly into your workflows.
+    </Card>
+</CardGroup>
+
+
+## Try it now
+
+To get started, just open your terminal and run:
+
+```shell
+npx novu-labs@latest echo
+```
+
+Follow the instructions on Getting Started on the local Dev Studio
+
 
 ## How it Works?
 
@@ -39,24 +55,3 @@ The diagram below illustrates the Novu Cloud in grey, with your Customer environ
 
 ![Diagram](/images/echo/diagram.png)
 
-
-## Getting Started
-
-<Note>
-    Node version support `>=18.17.0`
-</Note>
-
-<Steps>
-    <Step title="Run Dev Studio">
-        To quickly get started with Echo, simply use the Echo CLI. Running this NPX command will start the Echo Dev Studio on your machine and open the browser:
-
-        ```shell
-        npx novu-labs@latest echo
-        ```
-
-        Follow the instructions on Getting Started on the local Dev Studio
-    </Step>
-    <Step title="Learn More">
-        See [Concepts](/echo/concepts/workflows)  to learn more about what you can do with Echo.
-    </Step>
-</Steps>
