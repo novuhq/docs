@@ -42,7 +42,7 @@ const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
 
 We call this “just-in-time” notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
 
-Now, what if you wanted to send another update to the same new user in 1 week? But, you only want to send the follow-up if the User hasn’t been deleted. We can add more steps to the Workflow to achieve this.
+Now, what if you wanted to send another update to the same new user in 1 week? But, you don't want to send the follow-up if the User opted out. We can add more steps to the Workflow to achieve this.
 
 ```tsx
 const newSignup = echo.workflow(
