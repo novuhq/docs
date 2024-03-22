@@ -1,34 +1,54 @@
 ---
 title: "Quick Start"
-description: "Get started with Echo quickly using the Echo CLI. This guide will help you get started with Echo and develop locally."
+description: "Novu Echo, the first Notifications as Code workflow engine."
 ---
 
-<Warning>
-    Echo is currently in Private Alpha mode, and API’s and interfaces are subject to change.
-
-    **How do you provide Feedback or submit Bugs?**
-    - E-mail: radek@novu.co
-    - Discord: https://discord.com/channels/895029566685462578/1217051273434628137 (#echo-beta-feedback channel)
-    - Form: [https://roadmap.novu.co/roadmap](https://roadmap.novu.co/roadmap)
-</Warning>
+import { EchoTerminal } from '/snippets/echo-terminal.mdx';
 
 <Note>
-    Node version support `>=18.17.0`
+    **Echo is currently in public Alpha.** Need help? Have a suggestion? Join our [Discord community](https://discord.gg/novu).
 </Note>
 
-<Steps>
-    <Step title="Run Dev Studio">
-        To quickly get started with Echo, simply use the Echo CLI. Running this NPX command will start the Echo Dev Studio on your machine and open the browser:
+## Introduction to Echo
 
-        ```shell
-        npx novu-labs@latest echo
-        ```
+Novu Echo SDK allows you to write notification workflows in your codebase. Workflows are functions that execute business logic and use your preferred libraries for email, SMS, and chat generation. You can use Echo with [React.Email](https://react.email/), [MJML](https://mjml.io/), or any other template generator.
 
-        Follow the instructions on Getting Started on the local Dev Studio
-    </Step>
-    <Step title="Learn More">
-        See [Concepts](/echo/concepts/workflows)  to learn more about what you can do with Echo.
-    </Step>
-</Steps>
+<EchoTerminal />
+
+### Try it now
+
+To get started, open your terminal and launch the Dev Studio.
+
+```shell
+npx novu-labs@latest echo
+```
+
+Looking for a Next.js with React.Email example? Clone our [GitHub sample repo](https://github.com/scopsy/echo-nextjs-example).
+
+## Core features
+
+<CardGroup cols={2}>
+    <Card title="Bring Your Own Code" icon="code">
+        Write the notification workflows as functions in your codebase,  version, and manage them using Git.
+    </Card>
+    <Card title="Limitless Integrations" icon="plug" href={'/echo/integrations'}>
+        Use React.email, MJML, or fetch templates from Braze, Hubspot, Sendgrid, and more...
+    </Card>
+    <Card title="Type Safety" icon="shield">
+        Bring your own schemas for full, end-to-end validation and type safety.
+    </Card>
+    <Card title="Cloud Synchronization" icon="cloud">
+        Sync your workflows with Novu Cloud and ease collaboration.
+    </Card>
+</CardGroup>
 
 
+## How it Works?
+
+Echo introduces a new paradigm when working with Novu. Rather than to defining workflows and templates at Novu Cloud, Echo enables you to work in your application, use your own libraries and connect to your production environment during workflow execution over HTTPS.
+
+The Echo SDK exports the client, you use to define and serve your workflows and their steps over HTTPS. The workflows can be added to your preferred framework. During workflow execution Novu Cloud makes HTTPS requests to your server during for *just-in-time* Content and Subscribers resolution.
+
+<Frame>
+  <img src="/images/echo/diagram.png" />
+</Frame>
