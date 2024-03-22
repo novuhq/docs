@@ -2,17 +2,23 @@
 title: "React E-mail"
 ---
 
-To integrate react email with Echo is quite an easy process, to your Next.js app, install the required React Email components:
+Integrating Novu Echo with [React.Email](https://react.email/) for your Next.js application can be done in three steps. If you don't have an app, you can [clone our Next.js example](https://github.com/scopsy/echo-nextjs-example).
 
-```bash
-npm i @react-email/components react-email
-```
 
-Next, create a new `.tsx` file with your React Email code:
+<Steps>
+  <Step title="Install React.Email components">
+    Install the required React.Email components.
 
-```tsx
-import { Button, Html } from "@react-email/components";
+    ```bash
+      npm i @react-email/components react-email
+    ```
+  </Step>
+  <Step title="Write your email">
+    Create a new `sample-email.tsx` file for your email template.
+
+    ```tsx
 import * as React from "react";
+import { Button, Html } from "@react-email/components";
 
 function Email(props) {
   return (
@@ -27,16 +33,15 @@ function Email(props) {
   );
 }
 
-// This will convert your React component to a static HTML content
 export function renderEmail(inputs) {
-	return render(<Email {...inputs} />)
+  return render(<Email {...inputs} />)
 }
 ```
-
-And in your Echo Workflow render the react code:
-
-```tsx
-import { renderEmail } from './react-email.template';
+  </Step>
+  <Step title="Write your workflow">
+    Define your Echo Workflow using the above template
+    ```tsx
+    import { renderEmail } from './react-email.template';
 
 echo.workflow('new-signup', async ({ step, payload }) => {
   await step.email('send-email', async (inputs) => {
@@ -46,6 +51,6 @@ echo.workflow('new-signup', async ({ step, payload }) => {
     }
   });
 });
-```
-
-See more complex email examples with tailwind here: https://demo.react.email/preview/notifications/vercel-invite-user
+    ```
+  </Step>
+</Steps>
