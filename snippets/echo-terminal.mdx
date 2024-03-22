@@ -1,3 +1,6 @@
-export const EchoTerminal = () => (
-  <div id="nv-terminal" class="nv-code nv-terminal"></div>
-);
+export const EchoTerminal = () => {
+  setTimeout(() => {
+    loadTerminal();
+  }, 50);
+  return <div id="nv-terminal" class="nv-code nv-terminal"></div>
+}
