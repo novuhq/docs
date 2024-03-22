@@ -330,7 +330,7 @@ function renderComponent(component, options, createFragment, updateFunction, i, 
     }
     se(r);
 }
-class q {
+class Component {
     constructor() {
         U(this, "$$");
         U(this, "$$set");
@@ -425,7 +425,7 @@ function It(o, e, n) {
         [l, i, t]
     );
 }
-class ie extends q {
+class ie extends Component {
     constructor(e) {
         super(), renderComponent(this, e, It, Et, B, { index: 0 });
     }
@@ -442,7 +442,7 @@ function Ht(o) {
         f = lt(r, o, o[5], null);
     return {
         c() {
-            (e = x("div")), (n = x("div")), f && f.c(), $(n, "class", "nv-snippet-window"), z(n, "is-pop", o[0]), $(e, "class", "nv-snippet-window-wrapper svelte-cqc4oo"), z(e, "is-noninteractable", o[3]), Z(e, "top", t), Z(e, "left", i);
+            (e = x("div")), (n = x("div")), f && f.c(), $(n, "class", "nv-snippet-window"), z(n, "is-pop", o[0]), $(e, "class", "nv-snippet-window-wrapper terminal-cqc4oo"), z(e, "is-noninteractable", o[3]), Z(e, "top", t), Z(e, "left", i);
         },
         m(a, c) {
             b(a, e, c), E(e, n), f && f.m(n, null), (l = !0), s || ((p = ae(e, "mousemove", o[7])), (s = !0));
@@ -485,7 +485,7 @@ function createComponentState(o, e, n) {
         [l, s, p, r, f, i, t, a]
     );
 }
-class G extends q {
+class G extends Component {
     constructor(e) {
         super(), renderComponent(this, e, createComponentState, Ht, B, { pop: 0, line: 1, pos: 2, noninteractable: 3 });
     }
@@ -562,7 +562,7 @@ function Vt(o) {
         },
     };
 }
-class Le extends q {
+class Le extends Component {
     constructor(e) {
         super(), renderComponent(this, e, null, Vt, B, {});
     }
@@ -596,7 +596,7 @@ function Bt(o) {
         },
     };
 }
-class xe extends q {
+class xe extends Component {
     constructor(e) {
         super(), renderComponent(this, e, null, Bt, B, {});
     }
@@ -633,7 +633,7 @@ function Rt(o) {
         },
     };
 }
-class Ae extends q {
+class Ae extends Component {
     constructor(e) {
         super(), renderComponent(this, e, null, Rt, B, {});
     }
@@ -675,7 +675,7 @@ function Te(o) {
                 (f = re(r)),
                 (a = W()),
                 $(n, "class", "nv-completion-icon"),
-                $(e, "class", "nv-completion-item svelte-10kv6jm"),
+                $(e, "class", "nv-completion-item terminal-10kv6jm"),
                 z(e, "is-active", o[10] === o[0].index);
         },
         m(y, d) {
@@ -743,7 +743,7 @@ function qt(o) {
         c() {
             e = x("div");
             for (let c = 0; c < p.length; c += 1) p[c].c();
-            (n = W()), f && f.c(), (i = D()), $(e, "class", "nv-completion-items svelte-10kv6jm"), z(e, "is-selectable", o[1]);
+            (n = W()), f && f.c(), (i = D()), $(e, "class", "nv-completion-items terminal-10kv6jm"), z(e, "is-selectable", o[1]);
         },
         m(c, u) {
             b(c, e, u);
@@ -832,7 +832,7 @@ function Zt(o, e, n) {
         [r, i, l, s, p, t, f, a]
     );
 }
-class mt extends q {
+class mt extends Component {
     constructor(e) {
         super(), renderComponent(this, e, Zt, jt, B, { selectable: 1, noninteractable: 2, pop: 3, completions: 4, completionWindow: 0 });
     }
@@ -1837,7 +1837,7 @@ import OpenAI`,
         [i, g, currentState, animation, a, topText, ve, he, t, openAi, roleDescription, createCompletion, modelReponse, availableModels, setTimer, handleStateTransition, _t, gt, wt]
     );
 }
-class tn extends q {
+class NodeSnippet extends Component {
     constructor(e) {
         super(), renderComponent(this, e, initializeOpenAI, Yt, B, { animated: 0 });
     }
@@ -1896,7 +1896,11 @@ function on(o) {
     let e, n, t;
     return {
         c() {
-            (e = x("div")), (e.textContent = "Streamed Output"), (n = W()), (t = x("div")), $(e, "class", "nv-completion-heading"), $(t, "class", "nv-completion-item");
+            (e = x("div")), (e.textContent = ""), (n = W()), (t = x("div")), $(e, "class", "nv-completion-heading"), $(t, "class", "nv-completion-item");
+            // Remove the following timeout to render the Python popover
+            setTimeout(() => {
+                e.parentNode.style.display = "none";
+            }, 1);
         },
         m(i, l) {
             b(i, e, l), b(i, n, l), b(i, t, l), (t.innerHTML = o[0]);
@@ -1965,38 +1969,10 @@ function ln(o) {
         }
     );
 }
-const De = `Here are some names of blue birds:
-
-- Blue jay
-- Bluebird
-- Mountain bluebird
-- Eastern bluebird
-- Western bluebird
-- Indigo bunting
-- Blue grosbeak
-- Lazuli bunting`;
-function sn(o, e, n) {
+const De = `<kw>Coming soon...</kw>`;
+function renderPythonSnippet(o, e, n) {
     let t;
-    const i = `<kw>import</kw> asyncio
-
-<kw>from</kw> anthropic <kw>import</kw> AsyncAnthropic, HUMAN_PROMPT, AI_PROMPT
-
-<kw>async</kw> <kw>def</kw> main():
-    async_client = AsyncAnthropic()
-
-    stream = <kw>await</kw> async_client.completions.create(
-        prompt=f<str>"{HUMAN_PROMPT} What are some blue birds?{AI_PROMPT}"</str>,
-        model=<str>"claude-2"</str>,
-        stream=<sp>True</sp>,
-        max_tokens_to_sample=300,
-    )
-
-    <kw>async</kw> <kw>for</kw> completion <kw>in</kw> stream:
-        <sp>print</sp>(completion.completion, end=<str>""</str>, flush=<sp>True</sp>)
-
-    <sp>print</sp>()
-
-asyncio.run(main())`,
+    const i = `<kw>Coming soon...</kw>`,
         l = [];
     for (let f = 0; f < De.length; f += 3) l.push(De.slice(f, f + 3));
     let s = "",
@@ -2025,9 +2001,10 @@ asyncio.run(main())`,
         [s, t]
     );
 }
-class rn extends q {
+class PythonSnippet extends Component {
     constructor(e) {
-        super(), renderComponent(this, e, sn, ln, B, {});
+        super();
+        renderComponent(this, e, renderPythonSnippet, ln, B, {});
     }
 }
 function Fe(o, e, n) {
@@ -2114,6 +2091,10 @@ function fn(o) {
             (e = x("div")), (e.textContent = "Auto-Pagination"), (n = W());
             for (let s = 0; s < l.length; s += 1) l[s].c();
             (t = D()), $(e, "class", "nv-completion-heading");
+            // Remove the following timeout to render the Go popover
+            setTimeout(() => {
+                e.parentNode.style.display = "none";
+            }, 1);
         },
         m(s, p) {
             b(s, e, p), b(s, n, p);
@@ -2195,38 +2176,8 @@ function an(o) {
 }
 function pn(o, e, n) {
     let t;
-    const i = `<kw>package</kw> main
-
-<kw>import</kw> (
-    <str>"context"</str>
-    <str>"fmt"</str>
-    <str>"github.com/lithic-com/lithic-go"</str>
-)
-
-<kw>func</kw> main() {
-    client := lithic.NewClient()
-    params := lithic.CardListParams{}
-    iter := client.Cards.ListAutoPaging(context.Background(), params)
-    <kw>for</kw> i := 0; i < 30 && iter.Next(); i++ {
-        card := iter.Current()
-        fmt.Printf(<str>"%+v\\n"</str>, card)
-    }
-    <kw>if</kw> err := iter.Err(); err != <id>nil</id> {
-        <sp>panic</sp>(err.Error())
-    }
-}`,
-        l = [
-            { text: '0: { id: <str>"83e2</str>...' },
-            { text: '1: { id: <str>"4b15</str>...' },
-            { text: '2: { id: <str>"3be2</str>...' },
-            { text: '3: { id: <str>"3041</str>...' },
-            { text: '4: { id: <str>"1de7</str>...' },
-            { text: '5: { id: <str>"8b44</str>...' },
-            { text: '6: { id: <str>"bce3</str>...' },
-            { text: '7: { id: <str>"ffe9</str>...' },
-            { text: '8: { id: <str>"80ef</str>...' },
-            { text: '9: { id: <str>"93e2</str>...' },
-        ];
+    const i = `<kw>Coming soon...</kw>`,
+        l = [];
     let s = [],
         p;
     function r() {
@@ -2255,7 +2206,7 @@ function pn(o, e, n) {
         [s, t]
     );
 }
-class un extends q {
+class GoSnippet extends Component {
     constructor(e) {
         super(), renderComponent(this, e, pn, an, B, {});
     }
@@ -2364,32 +2315,13 @@ function hn(o, e, n) {
     return (
         n(
             0,
-            (t = `<kw>package</kw> com.increase.example;
-
-<kw>import</kw> com.increase.api.client.IncreaseClient;
-<kw>import</kw> com.increase.api.client.okhttp.IncreaseOkHttpClient;
-<kw>import</kw> com.increase.api.models.Account;
-<kw>import</kw> com.increase.api.models.AccountCreateParams;
-
-<kw>public</kw> <kw>class</kw> Main {
-    <kw>public</kw> <kw>static</kw> <kw>void</kw> main(<sp>String</sp>[] args) {
-        <sp>IncreaseClient</sp> client = <sp>IncreaseOkHttpClient</sp>.builder()
-            .fromEnv()
-            .build();
-
-        <sp>AccountCreateParams</sp> params = <sp>AccountCreateParams</sp>.builder()
-            .name(<str>"My first increase account"</str>)
-            .build();
-
-        <sp>Account</sp> account = client.accounts().create(params);
-    }
-}`.split(`
+            (t = `<kw>Coming soon...</kw>`.split(`
 `))
         ),
         [t]
     );
 }
-class _n extends q {
+class JavaSnippet extends Component {
     constructor(e) {
         super(), renderComponent(this, e, hn, dn, B, {});
     }
@@ -2498,24 +2430,13 @@ function $n(o, e, n) {
     return (
         n(
             0,
-            (t = `<kw>package</kw> com.increase.example;
-
-<kw>import</kw> com.increase.api.client.okhttp.IncreaseOkHttpClient;
-<kw>import</kw> com.increase.api.models.AccountCreateParams;
-
-<kw>val</kw> client = <sp>IncreaseOkHttpClient</sp>.builder().fromEnv().build();
-
-<kw>val</kw> params = <sp>AccountCreateParams</sp>.builder()
-    .name(<str>"My first increase account"</str>)
-    .build();
-
-<kw>val</kw> account = client.accounts().create(params);`.split(`
-`))
+            (t = `<kw>Coming soon...</kw>`.split(`
+            `))
         ),
         [t]
     );
 }
-class kn extends q {
+class KotlinSnippet extends Component {
     constructor(e) {
         super(), renderComponent(this, e, $n, wn, B, {});
     }
@@ -2531,7 +2452,7 @@ function tt(o) {
     }
     return {
         c() {
-            (e = x("button")), (e.textContent = `${o[6].name}`), $(e, "class", "nv-terminal-tab svelte-1dfudv"), z(e, "is-active", o[6].name === o[0].name);
+            (e = x("button")), (e.textContent = `${o[6].name}`), $(e, "class", "nv-terminal-tab terminal-1dfudv"), z(e, "is-active", o[6].name === o[0].name);
         },
         m(l, s) {
             b(l, e, s), n || ((t = ae(e, "click", i)), (n = !0));
@@ -2566,7 +2487,7 @@ function bn(o) {
             c() {
                 (e = x("div")), (n = x("div"));
                 for (let _ = 0; _ < a.length; _ += 1) a[_].c();
-                (t = W()), (i = x("div")), l && P(l.$$.fragment), $(n, "class", "nv-terminal-tabs svelte-1dfudv"), $(i, "class", "nv-code-content svelte-1dfudv"), $(e, "id", "nv-terminal"), $(e, "class", "nv-code svelte-1dfudv");
+                (t = W()), (i = x("div")), l && P(l.$$.fragment), $(n, "class", "nv-terminal-tabs terminal-1dfudv"), $(i, "class", "nv-code-content terminal-1dfudv"), $(e, "id", "nv-terminal"), $(e, "class", "nv-code terminal-1dfudv");
             },
             m(_, g) {
                 b(_, e, g), E(e, n);
@@ -2612,7 +2533,7 @@ function bn(o) {
     );
 }
 function vn(o, e, n) {
-    const t = { node: { name: "Node", component: tn }, python: { name: "Python", component: rn }, go: { name: "Go", component: un }, java: { name: "Java", component: _n }, kotlin: { name: "Kotlin", component: kn } };
+    const t = { node: { name: "Node", component: NodeSnippet }, python: { name: "Python", component: PythonSnippet }, go: { name: "Go", component: GoSnippet }, java: { name: "Java", component: JavaSnippet }, kotlin: { name: "Kotlin", component: KotlinSnippet } };
     let i = t.node,
         l = !0;
     return [
@@ -2625,21 +2546,15 @@ function vn(o, e, n) {
         (r) => be.set(r.target.scrollLeft),
     ];
 }
-class yn extends q {
+class Terminal extends Component {
     constructor(e) {
         super(), renderComponent(this, e, vn, bn, B, {});
     }
 }
 
-// // When document is ready
-// document.addEventListener("DOMContentLoaded", function () {
-//     // Get the element with id "nv-terminal"
-//     const nvTerminal = document.getElementById("nv-terminal");
-
-//     // Create a new instance of the component
-//     const app = new yn({
-//         target: nvTerminal,
-//     });
-// });
-
-new yn({ target: document.getElementById("nv-terminal") });
+const loadTerminal = () => {
+    const nt = document.getElementById("nv-terminal"),
+    dt = document.createDocumentFragment();
+    new Terminal({ target: dt });
+    nt.parentNode.replaceChild(dt, nt);
+}
