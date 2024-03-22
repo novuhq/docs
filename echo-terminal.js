@@ -493,6 +493,10 @@ class G extends Component {
 function removeHtmlTags(text) {
     return (text == null ? void 0 : text.replaceAll(/(<\/?[^>]+>)/g, "")) ?? "";
 }
+const TERMINAL_INPUT_SPEED = 2;
+function calcTime(time) {
+    return Math.floor(time / TERMINAL_INPUT_SPEED);
+}
 function addLine(line, spaces = 0, time = 100) {
     return { type: "add-line", line: line, spaces: spaces, time: time };
 }
@@ -510,15 +514,15 @@ function addText(line, text, time = 65) {
             continue;
         }
         if (s[0] === "<") {
-            t.push({ type: "write", line: line, time: time, text: s });
+            t.push({ type: "write", line: line, time: calcTime(time), text: s });
             continue;
         }
-        for (const p of s.split("")) (i += 1), t.push({ type: "write", line: line, time: time, text: p });
+        for (const p of s.split("")) (i += 1), t.push({ type: "write", line: line, time: calcTime(time), text: p });
     }
     return t;
 }
 function openCompletions(o, { completion: e, completions: n, time: t = 800, text: i = "", interval: l = 120, written: s = 0 }) {
-    return [{ type: "start-completion", line: o, time: 0, completions: n, completion: e, index: 0, n: 0 }, ...addText(o, i.slice(s ?? 0), l), { type: "end-completion", line: o, time: t, text: e.slice((i == null ? void 0 : i.length) ?? 0) }];
+    return [{ type: "start-completion", line: o, time: 0, completions: n, completion: e, index: 0, n: 0 }, ...addText(o, i.slice(s ?? 0), l), { type: "end-completion", line: o, time: calcTime(t), text: e.slice((i == null ? void 0 : i.length) ?? 0) }];
 }
 function processAnimationStep(animationSteps, currentStepIndex, animation, textLines) {
     const currentStep = animationSteps[currentStepIndex];
@@ -861,7 +865,7 @@ function CompletionPopover(o) {
         handleOutroTransition(a[d], 1, 1, () => {
             a[d] = null;
         });
-    let u = o[2] === "echo-trigger" && PayloadCompletionPopover(o),
+    let u = o[2] === "echo-payload" && PayloadCompletionPopover(o),
         _ = o[2] === "echo-seen" && SeenCompletionPopover(o),
         g = o[2] === "echo-event" && EventCompletionPopover(o),
         m = o[2] === "echo-client" && EchoCompletionPopover(o),
@@ -887,7 +891,7 @@ function CompletionPopover(o) {
                 for (H(), C = f.length; C < a.length; C += 1) c(C);
                 S();
             }
-            d[2] === "echo-trigger"
+            d[2] === "echo-payload"
                 ? u
                     ? (u.p(d, v), v & 4 && h(u, 1))
                     : ((u = PayloadCompletionPopover(d)), u.c(), h(u, 1), u.m(n.parentNode, n))
@@ -1072,13 +1076,13 @@ function Ee(o) {
         }
     );
 }
-function PayloadCompletionPopover(o) {
+function StepCompletionPopover(o) {
     let e, n;
     return (
         (e = new mt({ props: { completions: o[13], completionWindow: o[7], selectable: !0, pop: !0 } })),
         e.$on("mousemove", o[16]),
         // Commented out to disable the completion popover from modifying the terminal.
-        // e.$on("echo-trigger", o[17]),
+        // e.$on("echo-payload", o[17]),
         {
             c() {
                 P(e.$$.fragment);
@@ -1105,7 +1109,7 @@ function PayloadCompletionPopover(o) {
 function SeenCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 17, pos: 35, pop: !0, noninteractable: !0, $$slots: { default: [MessageCompletionPopover] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 17, pos: 33, pop: !0, noninteractable: !0, $$slots: { default: [SeenCompletionPopoverContent] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1125,7 +1129,7 @@ function SeenCompletionPopover(o) {
         }
     );
 }
-function MessageCompletionPopover(o) {
+function SeenCompletionPopoverContent(o) {
     let e,
         seenCompletionPopoverContent = "<comment>(property) seen: boolean</comment><hr/>Flag indicating if the notification has been seen.";
     return {
@@ -1144,7 +1148,7 @@ function MessageCompletionPopover(o) {
 function EventCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 5, pos: 60, pop: !0, noninteractable: !0, $$slots: { default: [Ut] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 5, pos: 50, pop: !0, noninteractable: !0, $$slots: { default: [Ut] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1225,10 +1229,10 @@ function Jt(o) {
         },
     };
 }
-function StepCompletionPopover(o) {
+function PayloadCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 12, pos: 16, pop: !0, noninteractable: !0, $$slots: { default: [Gt] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 7, pos: 37, pop: !0, noninteractable: !0, $$slots: { default: [Gt] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1448,16 +1452,27 @@ function Yt(o) {
         }
     );
 }
-function initializeEcho(o, options, transitionToState) {
+function initializeEchoNode(o, options, transitionToState) {
     let t,
         { animated: i = !0 } = options;
     const echoCompletionPopoverContent = `(alias) <kw>new</kw> <id>Echo</id>({ apiKey, ...opts }?: ClientOptions): Echo
-import Echo`,
-        stepCompletionPopoverContent = `<comment>(property) CreateChatCompletionRequestMessage.role: "function" | "system" | "user" | "assistant"</comment>
-<hr/>The role of the messages author. One of <code>system</code>, <code>user</code>, <code>assistant</code>, or <code>function</code>.`,
-        eventCompletionPopoverContent =
-            "<comment>(method) Completions.create(body: OpenAI.Chat.Completions.CompletionCreateParamsNonStreaming, options?: RequestOptions<Record<string, unknown> | internal.Readable> | undefined): APIPromise<...> (+1 overload)</comment><hr/>Creates a model response for the given chat conversation.",
-        triggerCompletionPopoverContent = (chosenModel) => `<comment>(property) trigger: Trigger</comment>
+<hr/>Echo, the Notifications as Code client.`,
+        stepCompletionPopoverContent = `<comment>(property) payload: { postId: string }</comment>
+<hr/>The payload for the event, provided during trigger.`,
+        eventCompletionPopoverContent = `(parameter) <kw>event</kw>: {
+  <kw>environment</kw>: { ... };
+  <kw>inputs</kw>: { ... };
+  <kw>payload</kw>: {
+    <kw>postId</kw>: string
+  };
+  <kw>step</kw>: Step;
+  <kw>subscriber</kw>: {
+    <kw>firstName</kw>: string;
+    ...
+  };
+}
+<hr/>The event that triggered the workflow.`,
+        triggerCompletionPopoverContent = (chosenModel) => `<comment>(method) trigger: Trigger</comment>
 <hr/>Trigger a notification workflow.`,
         payloadCompletionPopoverContent = [
             { type: "constant", text: "(property) postId: string" },
@@ -1482,26 +1497,26 @@ import Echo`,
 
 <kw>const</kw> echo = <kw>new</kw> <span class="hover" id="nv-node-echo-client"><id>Echo</id></span>();
 
-<kw>const</kw> commentWorkflow = echo.<fn>workflow</fn>(<str>'comment-on-post'</str>, <kw>async</kw> (<span class="hover" id="nv-node-create">event</span>) => {
-    <kw>const</kw> inAppResponse = <kw>await</kw> event.<fn>step</fn>.<fn>inApp</fn>(<str>'notify-user'</str>, <kw>async</kw> () => ({
-        <fn>body</fn>: <fn>renderReactComponent</fn>(event.<span class="hover" id="nv-node-echo-payload"><fn>payload</fn></span>.<fn>postId</fn>)
-    }));
+<kw>const</kw> commentWorkflow = echo.<fn>workflow</fn>(<str>'comment-on-post'</str>, <kw>async</kw> (<span class="hover" id="nv-node-echo-event">event</span>) => {
+  <kw>const</kw> inAppResponse = <kw>await</kw> event.step.<fn>inApp</fn>(<str>'notify-user'</str>, <kw>async</kw> () => ({
+    body: <fn>renderReactComponent</fn>(event.<span class="hover" id="nv-node-echo-payload">payload</span>.postId)
+  }));
 
-    <kw>const</kw> { events } = <kw>await</kw> event.<fn>step</fn>.<fn>digest</fn>(<str>'1 week'</str>);
+  <kw>const</kw> { events } = <kw>await</kw> event.step.<fn>digest</fn>(<str>'1 week'</str>);
 
-    <kw>await</kw> event.<span class="hover" id="nv-node-echo-step"><fn>step</fn></span>.<fn>email</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {
-        <kw>return</kw> {
-            <fn>subject</fn>: <str>\`Weekly post comments (</str><kw>$\{</kw>events.<fn>length</fn> + 1<kw>}</kw><str>)\`</str>,
-            <fn>body</fn>: <fn>renderReactEmail</fn>(inputs, events)
-        };
-    }, { <fn>skip</fn>: () => inAppResponse.<span class="hover" id="nv-node-echo-seen"><fn>seen</fn></span> });
-
-}, { payloadSchema: z.<fn>object</fn>({ postId: z.<fn>string</fn>() }) });
+  <kw>await</kw> event.<span class="hover" id="nv-node-echo-step">step</span>.<fn>email</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {
+    <kw>return</kw> {
+      subject: <str>\`Weekly post comments (</str><kw>$\{</kw>events.length + 1<kw>}</kw><str>)\`</str>,
+      body: <fn>renderReactEmail</fn>(inputs, events)
+    };
+  }, { <fn>skip</fn>: () => inAppResponse.<span class="hover" id="nv-node-echo-seen">seen</span> });
+}, { payloadSchema: z.<fn>object</fn>({ postId: z.<fn>string</fn>() }) }
+);
 
 <comment>// Use the same familiar syntax to send a notification</comment>
 commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></span>({
-    <fn>to</fn>: { <fn>subscriberId</fn>: <str>'12345'</str> },
-    <fn>payload</fn>: { <fn>postId</fn>: <str>'67890'</str> }
+  to: { subscriberId: <str>'joe@acme.com'</str> },
+  payload: { postId: <str>'12345'</str> }
 });`.trim().split(`
 `);
     const eventCompletions = [
@@ -1510,33 +1525,33 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         { text: "inputs" },
         { text: "payload", description: `<comment>(property) payload: { postId: string }</comment>
 <hr/>The payload for the event, provided during trigger.` },
-        { text: "step", description: `<comment>(property) step: { chat: ChannelStep<Echo.Chat>, delay: ActionStep<Echo.Digest>, ... }</comment>
+        { text: "step", description: `<comment>(method) step: { chat: ChannelStep<Echo.Chat>, delay: ActionStep<Echo.Digest>, ... }</comment>
 <hr/>Define a step in your workflow.` },
         { text: "subscriber", description: `<comment>(property) subscriber: { firstName: string, lastName: string, subscriberId: string }</comment>
 <hr/>The subscriber receiving the notification.` },
     ];
 
     const stepCompletions = [
-        { text: "chat", description: stepCompletionDescription("chat", "channel", "Send a chat message.") },
-        { text: "delay", description: stepCompletionDescription("delay", "action", "Delay the workflow for a period of time.") },
-        { text: "digest", description: stepCompletionDescription("digest", "action", "Aggregate events for a period of time.") },
-        { text: "email", description: stepCompletionDescription("email", "channel", "Send an email.") },
-        { text: "inApp", description: stepCompletionDescription("inApp", "channel", "Send an in-app notification.") },
-        { text: "push", description: stepCompletionDescription("push", "channel", "Send a push notification.") },
-        { text: "sms", description: stepCompletionDescription("sms", "channel", "Send an SMS.") },
+        { type: "method", text: "chat", description: stepCompletionDescription("chat", "channel", "Send a chat message.") },
+        { type: "method", text: "delay", description: stepCompletionDescription("delay", "action", "Delay the workflow for a period of time.") },
+        { type: "method", text: "digest", description: stepCompletionDescription("digest", "action", "Aggregate events for a period of time.") },
+        { type: "method", text: "email", description: stepCompletionDescription("email", "channel", "Send an email.") },
+        { type: "method", text: "inApp", description: stepCompletionDescription("inApp", "channel", "Send an in-app notification.") },
+        { type: "method", text: "push", description: stepCompletionDescription("push", "channel", "Send a push notification.") },
+        { type: "method", text: "sms", description: stepCompletionDescription("sms", "channel", "Send an SMS.") },
     ];
 
     const payloadCompletions = [
-        { text: "postId", description: `(property) postId: string`  },
+        { text: "postId", description: `<comment>(property) postId: string</comment>`  },
     ];
 
     const inAppInputCompletions = [
-        { text: "body", description: `(property) body: string
+        { text: "body", description: `<comment>(property) body: string</comment>
 <hr/>The body of the in-app notification.`  },
     ];
 
     const emailInputCompletions = [
-        { text: "body", description: `(property) body: string
+        { text: "body", description: `<comment>(property) body: string</comment>
 <hr/>The body of the email.`},
         { text: "subject", description: `(property) subject: string
 <hr/>The subject of the email.`  },
@@ -1550,9 +1565,9 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
     ];
 
     const channelResultCompletions = [
-        { text: "seen", description: `(property) seen: boolean
+        { text: "seen", description: `<comment>(property) seen: boolean</comment>
 <hr/>Flag indicating if the notification has been seen.` },
-        { text: "read", description: `(property) read: boolean
+        { text: "read", description: `<comment>(property) read: boolean</comment>
 <hr/>Flag indicating if the notification has been read.` },
     ];
 
@@ -1566,7 +1581,7 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
     ];
 
     const stepOptionsCompletions = [
-        { text: 'skip', description: `(property) skip: () => boolean
+        { text: 'skip', description: `<comment>(property) skip: () => boolean</comment>
 <hr/>Skip the step if the condition is met.` },
     ];
 
@@ -1665,7 +1680,7 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
             interval: 500,
             completion: "length",
             completions: [
-              { text: "length", description: `(property) Array<T>.length: number
+              { text: "length", description: `<comment>(property) Array<T>.length: number</comment>
 <hr/>Gets or sets the length of the array. This is a number one higher than the highest index in the array.` },
             ],
             text: "le",
@@ -1718,7 +1733,7 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
             completions: subscriberCompletions,
             text: "subs",
         }),
-        addText(22, ": <str>'12345'</str> },"),
+        addText(22, ": <str>'joe@acme.com'</str> },"),
         addLine(23, 2),
         openCompletions(23, {
           interval: 100,
@@ -1732,9 +1747,17 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
           completion: "postId",
           completions: payloadCompletions,
         }),
-        addText(23, ": <str>'67890'</str> }"),
+        addText(23, ": <str>'12345'</str> }"),
         addLine(24, 0),
         addText(24, `});`),
+        {
+            type: "callback",
+            time: 100,
+            callback: () => {
+                currentState = "echo-client";
+                transitionToState(0, (i = !1)), transitionToState(2, (m = "echo-client")), setTimer();
+            },
+        },
     ].flat();
     let initialText = `<kw>import</kw> { Echo } <kw>from</kw> <str>'@novu/echo'</str>;
 
@@ -1746,30 +1769,31 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
 `.split(`
 `),
         g,
-        currentState = i ? void 0 : "echo-client",
+        currentState = "echo-client",
         taskTimeout;
     function setTimer(taskDelay = 3e3) {
         clearTimeout(taskTimeout), (taskTimeout = setTimeout(executeStateTransition, taskDelay));
     }
     function executeStateTransition() {
+        console.log("currentState", currentState);
         currentState === "echo-client"
             ? transitionToState(2, (currentState = "echo-event"))
             : currentState === "echo-event"
-            ? transitionToState(2, (currentState = "echo-trigger"))
-            : currentState === "echo-trigger"
+            ? transitionToState(2, (currentState = "echo-payload"))
+            : currentState === "echo-payload"
             ? transitionToState(2, (currentState = "echo-step"))
             : currentState === "echo-step"
-            ? transitionToState(2, (currentState = "echo-trigger"))
-            : currentState === "echo-trigger"
             ? transitionToState(2, (currentState = "echo-seen"))
-            : currentState === "echo-seen" && transitionToState(2, (currentState = "echo-client")),
+            : currentState === "echo-seen"
+            ? transitionToState(2, (currentState = "echo-trigger"))
+            : currentState === "echo-trigger" && transitionToState(2, (currentState = "echo-client")),
             setTimer();
     }
     function handleStateTransition(event) {
         const targetElement = event.target.parentElement.tagName === "SPAN" ? event.target.parentElement : event.target;
         if (targetElement.id === "nv-node-echo-client") transitionToState(2, (currentState = "echo-client"));
-        else if (targetElement.id === "nv-node-create") transitionToState(2, (currentState = "echo-event"));
-        else if (targetElement.id === "nv-node-echo-payload") transitionToState(2, (currentState = "echo-trigger"));
+        else if (targetElement.id === "nv-node-echo-event") transitionToState(2, (currentState = "echo-event"));
+        else if (targetElement.id === "nv-node-echo-payload") transitionToState(2, (currentState = "echo-payload"));
         else if (targetElement.id === "nv-node-echo-step") transitionToState(2, (currentState = "echo-step"));
         else if (targetElement.id === "nv-node-echo-trigger") transitionToState(2, (currentState = "echo-trigger"));
         else if (targetElement.id === "nv-node-echo-seen") transitionToState(2, (currentState = "echo-seen"));
@@ -1794,10 +1818,10 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
     be.subscribe((A) => {
         transitionToState(6, (ve = A));
     });
-    let ModelCompletions = { line: 6, pos: 41, completion: "gpt-4", completions: payloadCompletionPopoverContent, written: 0, index: 0 };
+    let StepCompletionComponent = { line: 11, pos: 18, completion: "email", completions: stepCompletions, written: 0, index: 3 };
     const _t = () => setTimer(1500),
         gt = (A) => {
-            transitionToState(7, (ModelCompletions.completion = A.detail), ModelCompletions), transitionToState(4, (finalStateSnippet[6] = `    model: <span class="hover" id="nv-node-echo-payload"><str>'${A.detail}'</str></span>,`), finalStateSnippet);
+            transitionToState(7, (StepCompletionComponent.completion = A.detail), StepCompletionComponent), transitionToState(4, (finalStateSnippet[6] = `    model: <span class="hover" id="nv-node-echo-step"><str>'${A.detail}'</str></span>,`), finalStateSnippet);
         };
     function wt(A) {
         we[A ? "unshift" : "push"](() => {
@@ -1820,12 +1844,12 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
             }
             o.$$.dirty & 8 && transitionToState(8, (t = (A = animation.completionWindow) == null ? void 0 : A.completions.filter(({ text: V }) => V.startsWith(animation.completionWindow.completion.slice(0, animation.completionWindow.written)))));
         }),
-        [i, g, currentState, animation, finalStateSnippet, initialText, ve, ModelCompletions, t, echoCompletionPopoverContent, stepCompletionPopoverContent, eventCompletionPopoverContent, triggerCompletionPopoverContent, payloadCompletionPopoverContent, setTimer, handleStateTransition, _t, gt, wt]
+        [i, g, currentState, animation, finalStateSnippet, initialText, ve, StepCompletionComponent, t, echoCompletionPopoverContent, stepCompletionPopoverContent, eventCompletionPopoverContent, triggerCompletionPopoverContent, stepCompletions, setTimer, handleStateTransition, _t, gt, wt]
     );
 }
 class NodeSnippet extends Component {
     constructor(e) {
-        super(), renderComponent(this, e, initializeEcho, Yt, B, { animated: 0 });
+        super(), renderComponent(this, e, initializeEchoNode, Yt, B, { animated: 0 });
     }
 }
 function Ze(o, e, n) {
@@ -1955,10 +1979,10 @@ function ln(o) {
         }
     );
 }
-const De = `<kw>Coming soon...</kw>`;
+const De = `<kw># Coming soon...</kw>`;
 function renderPythonSnippet(o, e, n) {
     let t;
-    const i = `<kw>Coming soon...</kw>`,
+    const i = `<kw># Coming soon...</kw>`,
         l = [];
     for (let f = 0; f < De.length; f += 3) l.push(De.slice(f, f + 3));
     let s = "",
@@ -2162,7 +2186,7 @@ function an(o) {
 }
 function pn(o, e, n) {
     let t;
-    const i = `<kw>Coming soon...</kw>`,
+    const i = `<kw>// Coming soon...</kw>`,
         l = [];
     let s = [],
         p;
@@ -2301,7 +2325,7 @@ function hn(o, e, n) {
     return (
         n(
             0,
-            (t = `<kw>Coming soon...</kw>`.split(`
+            (t = `<kw>// Coming soon...</kw>`.split(`
 `))
         ),
         [t]
@@ -2416,7 +2440,7 @@ function $n(o, e, n) {
     return (
         n(
             0,
-            (t = `<kw>Coming soon...</kw>`.split(`
+            (t = `<kw>// Coming soon...</kw>`.split(`
             `))
         ),
         [t]
