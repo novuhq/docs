@@ -243,7 +243,7 @@ function Tt(o) {
         n = [];
     ne.forEach((t) => (o.indexOf(t) === -1 ? e.push(t) : n.push(t))), n.forEach((t) => t()), (ne = e);
 }
-const ue = new Set();
+const outroTransitionSet = new Set();
 let X;
 function H() {
     X = { r: 0, c: [], p: X };
@@ -252,17 +252,17 @@ function S() {
     X.r || fe(X.c), (X = X.p);
 }
 function h(o, e) {
-    o && o.i && (ue.delete(o), o.i(e));
+    o && o.i && (outroTransitionSet.delete(o), o.i(e));
 }
-function w(o, e, n, t) {
-    if (o && o.o) {
-        if (ue.has(o)) return;
-        ue.add(o),
+function handleOutroTransition(component, duration, shouldDestroy, onComplete) {
+    if (component && component.o) {
+        if (outroTransitionSet.has(component)) return;
+        outroTransitionSet.add(component),
             X.c.push(() => {
-                ue.delete(o), t && (n && o.d(1), t());
+                outroTransitionSet.delete(component), onComplete && (shouldDestroy && component.d(1), onComplete());
             }),
-            o.o(e);
-    } else t && t();
+            component.o(duration);
+    } else onComplete && onComplete();
 }
 function I(o) {
     return (o == null ? void 0 : o.length) !== void 0 ? o : Array.from(o);
@@ -408,7 +408,7 @@ function Et(o) {
             l || (h(p, r), (l = !0));
         },
         o(r) {
-            w(p, r), (l = !1);
+            handleOutroTransition(p, r), (l = !1);
         },
         d(r) {
             r && k(e), p && p.d(r);
@@ -458,7 +458,7 @@ function Ht(o) {
             l || (h(f, a), (l = !0));
         },
         o(a) {
-            w(f, a), (l = !1);
+            handleOutroTransition(f, a), (l = !1);
         },
         d(a) {
             a && k(e), f && f.d(a), (s = !1), p();
@@ -686,7 +686,7 @@ function Te(o) {
                 if (t) {
                     H();
                     const v = t;
-                    w(v.$$.fragment, 1, 0, () => {
+                    handleOutroTransition(v.$$.fragment, 1, 0, () => {
                         cleanupComponents(v, 1);
                     }),
                         S();
@@ -699,7 +699,7 @@ function Te(o) {
             c || (t && h(t.$$.fragment, y), (c = !0));
         },
         o(y) {
-            t && w(t.$$.fragment, y), (c = !1);
+            t && handleOutroTransition(t.$$.fragment, y), (c = !1);
         },
         d(y) {
             y && k(e), t && cleanupComponents(t), (u = !1), _();
@@ -735,7 +735,7 @@ function qt(o) {
         p = [];
     for (let c = 0; c < s.length; c += 1) p[c] = Te(Me(o, s, c));
     const r = (c) =>
-        w(p[c], 1, 1, () => {
+        handleOutroTransition(p[c], 1, 1, () => {
             p[c] = null;
         });
     let f = t && Ne(o);
@@ -772,7 +772,7 @@ function qt(o) {
         },
         o(c) {
             p = p.filter(Boolean);
-            for (let u = 0; u < p.length; u += 1) w(p[u]);
+            for (let u = 0; u < p.length; u += 1) handleOutroTransition(p[u]);
             l = !1;
         },
         d(c) {
@@ -800,7 +800,7 @@ function jt(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -816,7 +816,7 @@ function Zt(o, e, n) {
         { completions: p } = e,
         { completionWindow: r } = e;
     const f = (c, u, _) => {
-        i && (n(0, (r.completion = c.text), r), t("completion", c.text), n(0, (r.index = u), r));
+        i && (n(0, (r.completion = c.text), r), t("echo-trigger", c.text), n(0, (r.index = u), r));
     };
     function a(c) {
         pt.call(this, o, c);
@@ -845,7 +845,7 @@ function Oe(o, e, n) {
     const t = o.slice();
     return (t[25] = e[n]), (t[27] = n), t;
 }
-function zt(o) {
+function CompletionPopover(o) {
     let e,
         n,
         t,
@@ -858,15 +858,15 @@ function zt(o) {
         a = [];
     for (let d = 0; d < f.length; d += 1) a[d] = Ee(Pe(o, f, d));
     const c = (d) =>
-        w(a[d], 1, 1, () => {
+        handleOutroTransition(a[d], 1, 1, () => {
             a[d] = null;
         });
-    let u = o[2] === "model" && Ie(o),
-        _ = o[2] === "content" && He(o),
-        g = o[2] === "create" && Se(o),
-        m = o[2] === "openai" && We(o),
-        L = o[2] === "role" && Ve(o),
-        y = o[2] === "completion" && Be(o);
+    let u = o[2] === "echo-trigger" && PayloadCompletionPopover(o),
+        _ = o[2] === "echo-seen" && SeenCompletionPopover(o),
+        g = o[2] === "echo-event" && EventCompletionPopover(o),
+        m = o[2] === "echo-client" && EchoCompletionPopover(o),
+        L = o[2] === "echo-step" && StepCompletionPopover(o),
+        y = o[2] === "echo-trigger" && TriggerCompletionPopover(o);
     return {
         c() {
             for (let d = 0; d < a.length; d += 1) a[d].c();
@@ -887,63 +887,63 @@ function zt(o) {
                 for (H(), C = f.length; C < a.length; C += 1) c(C);
                 S();
             }
-            d[2] === "model"
+            d[2] === "echo-trigger"
                 ? u
                     ? (u.p(d, v), v & 4 && h(u, 1))
-                    : ((u = Ie(d)), u.c(), h(u, 1), u.m(n.parentNode, n))
+                    : ((u = PayloadCompletionPopover(d)), u.c(), h(u, 1), u.m(n.parentNode, n))
                 : u &&
                   (H(),
-                  w(u, 1, 1, () => {
+                  handleOutroTransition(u, 1, 1, () => {
                       u = null;
                   }),
                   S()),
-                d[2] === "content"
+                d[2] === "echo-seen"
                     ? _
                         ? v & 4 && h(_, 1)
-                        : ((_ = He(d)), _.c(), h(_, 1), _.m(t.parentNode, t))
+                        : ((_ = SeenCompletionPopover(d)), _.c(), h(_, 1), _.m(t.parentNode, t))
                     : _ &&
                       (H(),
-                      w(_, 1, 1, () => {
+                      handleOutroTransition(_, 1, 1, () => {
                           _ = null;
                       }),
                       S()),
-                d[2] === "create"
+                d[2] === "echo-event"
                     ? g
                         ? (g.p(d, v), v & 4 && h(g, 1))
-                        : ((g = Se(d)), g.c(), h(g, 1), g.m(i.parentNode, i))
+                        : ((g = EventCompletionPopover(d)), g.c(), h(g, 1), g.m(i.parentNode, i))
                     : g &&
                       (H(),
-                      w(g, 1, 1, () => {
+                      handleOutroTransition(g, 1, 1, () => {
                           g = null;
                       }),
                       S()),
-                d[2] === "openai"
+                d[2] === "echo-client"
                     ? m
                         ? (m.p(d, v), v & 4 && h(m, 1))
-                        : ((m = We(d)), m.c(), h(m, 1), m.m(l.parentNode, l))
+                        : ((m = EchoCompletionPopover(d)), m.c(), h(m, 1), m.m(l.parentNode, l))
                     : m &&
                       (H(),
-                      w(m, 1, 1, () => {
+                      handleOutroTransition(m, 1, 1, () => {
                           m = null;
                       }),
                       S()),
-                d[2] === "role"
+                d[2] === "echo-step"
                     ? L
                         ? (L.p(d, v), v & 4 && h(L, 1))
-                        : ((L = Ve(d)), L.c(), h(L, 1), L.m(s.parentNode, s))
+                        : ((L = StepCompletionPopover(d)), L.c(), h(L, 1), L.m(s.parentNode, s))
                     : L &&
                       (H(),
-                      w(L, 1, 1, () => {
+                      handleOutroTransition(L, 1, 1, () => {
                           L = null;
                       }),
                       S()),
-                d[2] === "completion"
+                d[2] === "echo-trigger"
                     ? y
                         ? (y.p(d, v), v & 4 && h(y, 1))
-                        : ((y = Be(d)), y.c(), h(y, 1), y.m(p.parentNode, p))
+                        : ((y = TriggerCompletionPopover(d)), y.c(), h(y, 1), y.m(p.parentNode, p))
                     : y &&
                       (H(),
-                      w(y, 1, 1, () => {
+                      handleOutroTransition(y, 1, 1, () => {
                           y = null;
                       }),
                       S());
@@ -956,8 +956,8 @@ function zt(o) {
         },
         o(d) {
             a = a.filter(Boolean);
-            for (let v = 0; v < a.length; v += 1) w(a[v]);
-            w(u), w(_), w(g), w(m), w(L), w(y), (r = !1);
+            for (let v = 0; v < a.length; v += 1) handleOutroTransition(a[v]);
+            handleOutroTransition(u), handleOutroTransition(_), handleOutroTransition(g), handleOutroTransition(m), handleOutroTransition(L), handleOutroTransition(y), (r = !1);
         },
         d(d) {
             d && (k(e), k(n), k(t), k(i), k(l), k(s), k(p)), K(a, d), u && u.d(d), _ && _.d(d), g && g.d(d), m && m.d(d), L && L.d(d), y && y.d(d);
@@ -973,11 +973,11 @@ function Dt(o) {
         s = [];
     for (let a = 0; a < l.length; a += 1) s[a] = Re(Oe(o, l, a));
     const p = (a) =>
-        w(s[a], 1, 1, () => {
+        handleOutroTransition(s[a], 1, 1, () => {
             s[a] = null;
         });
     let r = o[3].completionWindow && qe(o),
-        f = o[3].cursor && je(o);
+        f = o[3].cursor && TerminalCursor(o);
     return {
         c() {
             for (let a = 0; a < s.length; a += 1) s[a].c();
@@ -1004,11 +1004,11 @@ function Dt(o) {
                     : ((r = qe(a)), r.c(), h(r, 1), r.m(n.parentNode, n))
                 : r &&
                   (H(),
-                  w(r, 1, 1, () => {
+                  handleOutroTransition(r, 1, 1, () => {
                       r = null;
                   }),
                   S()),
-                a[3].cursor ? (f ? f.p(a, c) : ((f = je(a)), f.c(), f.m(t.parentNode, t))) : f && (f.d(1), (f = null));
+                a[3].cursor ? (f ? f.p(a, c) : ((f = TerminalCursor(a)), f.c(), f.m(t.parentNode, t))) : f && (f.d(1), (f = null));
         },
         i(a) {
             if (!i) {
@@ -1018,8 +1018,8 @@ function Dt(o) {
         },
         o(a) {
             s = s.filter(Boolean);
-            for (let c = 0; c < s.length; c += 1) w(s[c]);
-            w(r), (i = !1);
+            for (let c = 0; c < s.length; c += 1) handleOutroTransition(s[c]);
+            handleOutroTransition(r), (i = !1);
         },
         d(a) {
             a && (k(e), k(n), k(t)), K(s, a), r && r.d(a), f && f.d(a);
@@ -1064,7 +1064,7 @@ function Ee(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1072,12 +1072,13 @@ function Ee(o) {
         }
     );
 }
-function Ie(o) {
+function PayloadCompletionPopover(o) {
     let e, n;
     return (
         (e = new mt({ props: { completions: o[13], completionWindow: o[7], selectable: !0, pop: !0 } })),
         e.$on("mousemove", o[16]),
-        e.$on("completion", o[17]),
+        // Commented out to disable the completion popover from modifying the terminal.
+        // e.$on("echo-trigger", o[17]),
         {
             c() {
                 P(e.$$.fragment);
@@ -1093,7 +1094,7 @@ function Ie(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1101,10 +1102,10 @@ function Ie(o) {
         }
     );
 }
-function He(o) {
+function SeenCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 14, pos: 45, pop: !0, noninteractable: !0, $$slots: { default: [Kt] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 17, pos: 35, pop: !0, noninteractable: !0, $$slots: { default: [MessageCompletionPopover] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1116,7 +1117,7 @@ function He(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1124,15 +1125,15 @@ function He(o) {
         }
     );
 }
-function Kt(o) {
+function MessageCompletionPopover(o) {
     let e,
-        n = "<comment>(property) ChatCompletionMessage.content: string | null</comment><hr/>The contents of the message.";
+        seenCompletionPopoverContent = "<comment>(property) seen: boolean</comment><hr/>Flag indicating if the notification has been seen.";
     return {
         c() {
             (e = x("div")), $(e, "class", "nv-completion-item");
         },
         m(t, i) {
-            b(t, e, i), (e.innerHTML = n);
+            b(t, e, i), (e.innerHTML = seenCompletionPopoverContent);
         },
         p: O,
         d(t) {
@@ -1140,10 +1141,10 @@ function Kt(o) {
         },
     };
 }
-function Se(o) {
+function EventCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 6, pos: 51, pop: !0, noninteractable: !0, $$slots: { default: [Ut] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 5, pos: 60, pop: !0, noninteractable: !0, $$slots: { default: [Ut] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1159,7 +1160,7 @@ function Se(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1182,10 +1183,10 @@ function Ut(o) {
         },
     };
 }
-function We(o) {
+function EchoCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 4, pos: 21, pop: !0, noninteractable: !0, $$slots: { default: [Jt] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 3, pos: 17, pop: !0, noninteractable: !0, $$slots: { default: [Jt] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1201,7 +1202,7 @@ function We(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1224,10 +1225,10 @@ function Jt(o) {
         },
     };
 }
-function Ve(o) {
+function StepCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 9, pos: 6, pop: !0, noninteractable: !0, $$slots: { default: [Gt] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 12, pos: 16, pop: !0, noninteractable: !0, $$slots: { default: [Gt] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1243,7 +1244,7 @@ function Ve(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1266,10 +1267,10 @@ function Gt(o) {
         },
     };
 }
-function Be(o) {
+function TriggerCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 14, pos: 14, pop: !0, noninteractable: !0, $$slots: { default: [Qt] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 22, pos: 16, pop: !0, noninteractable: !0, $$slots: { default: [Qt] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1285,7 +1286,7 @@ function Be(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1349,7 +1350,7 @@ function Re(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1376,7 +1377,7 @@ function qe(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1384,7 +1385,7 @@ function qe(o) {
         }
     );
 }
-function je(o) {
+function TerminalCursor(o) {
     let e,
         n = `calc(${o[3].cursor.line}em * 1.35 + 52px)`,
         t = `calc(${o[3].cursor.pos + 3}ch + 14px - ${o[6]}px)`;
@@ -1405,7 +1406,7 @@ function je(o) {
 }
 function Yt(o) {
     let e, n, t, i, l, s;
-    const p = [Dt, zt],
+    const p = [Dt, CompletionPopover],
         r = [];
     function f(a, c) {
         return a[0] ? 0 : 1;
@@ -1426,7 +1427,7 @@ function Yt(o) {
                     n === u
                         ? r[n].p(a, c)
                         : (H(),
-                          w(r[u], 1, 1, () => {
+                          handleOutroTransition(r[u], 1, 1, () => {
                               r[u] = null;
                           }),
                           S(),
@@ -1439,7 +1440,7 @@ function Yt(o) {
                 i || (h(t), (i = !0));
             },
             o(a) {
-                w(t), (i = !1);
+                handleOutroTransition(t), (i = !1);
             },
             d(a) {
                 a && k(e), r[n].d(), o[18](null), (l = !1), s();
@@ -1447,42 +1448,19 @@ function Yt(o) {
         }
     );
 }
-function initializeOpenAI(o, options, transitionToState) {
+function initializeEcho(o, options, transitionToState) {
     let t,
         { animated: i = !0 } = options;
-    const openAi = `(alias) <kw>new</kw> <id>OpenAI</id>({ apiKey, organization, ...opts }?: ClientOptions): OpenAI
-import OpenAI`,
-        roleDescription = `<comment>(property) CreateChatCompletionRequestMessage.role: "function" | "system" | "user" | "assistant"</comment>
+    const echoCompletionPopoverContent = `(alias) <kw>new</kw> <id>Echo</id>({ apiKey, ...opts }?: ClientOptions): Echo
+import Echo`,
+        stepCompletionPopoverContent = `<comment>(property) CreateChatCompletionRequestMessage.role: "function" | "system" | "user" | "assistant"</comment>
 <hr/>The role of the messages author. One of <code>system</code>, <code>user</code>, <code>assistant</code>, or <code>function</code>.`,
-        createCompletion =
+        eventCompletionPopoverContent =
             "<comment>(method) Completions.create(body: OpenAI.Chat.Completions.CompletionCreateParamsNonStreaming, options?: RequestOptions<Record<string, unknown> | internal.Readable> | undefined): APIPromise<...> (+1 overload)</comment><hr/>Creates a model response for the given chat conversation.",
-        digestCompletion =
-            "(property) digest: ActionStep<{ digestKey?: string | undefined; type: 'regular'; amount: number; unit: 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'; backoff: boolean; }, { events: { id: string; time: string; payload: { ...}; }[]; }>",
-        modelReponse = (chosenModel) => `{
-  <sp>id</sp>: <str>'chatcmpl-7mUrue3RiucrSmHFJA2IJxo4Hfu1Q'</str>,
-  <sp>object</sp>: <str>'chat.completion'</str>,
-  <sp>created</sp>: 1691792758,
-  <sp>model</sp>: <str>'${chosenModel}'</str>,
-  <sp>choices</sp>: [
-    {
-      <sp>index</sp>: 0,
-      <sp>message</sp>: {
-        <sp>role</sp>: <str>'assistant'</str>,
-        <sp>content</sp>: <str>'This is a test.'</str>,
-      },
-      ...
-`,
-        availableModels = [
-            { type: "constant", text: "gpt-4" },
-            { type: "constant", text: "gpt-4-0314" },
-            { type: "constant", text: "gpt-4-0613" },
-            { type: "constant", text: "gpt-4-32k" },
-            { type: "constant", text: "gpt-4-32k-0314" },
-            { type: "constant", text: "gpt-4-32k-0613" },
-            { type: "constant", text: "gpt-3.5-turbo" },
-            { type: "constant", text: "gpt-3.5-turbo-16k" },
-            { type: "constant", text: "gpt-3.5-turbo-0314" },
-            { type: "constant", text: "gpt-3.5-turbo-0613" },
+        triggerCompletionPopoverContent = (chosenModel) => `<comment>(property) trigger: Trigger</comment>
+<hr/>Trigger a notification workflow.`,
+        payloadCompletionPopoverContent = [
+            { type: "constant", text: "(property) postId: string" },
         ];
 
     const actionWaitTime = `\`\${number} minute\` | \`\${number} hour\` | \`\${number} day\` | \`\${number} week\``;
@@ -1500,25 +1478,45 @@ import OpenAI`,
             }
         }
     }
-    let a = `<kw>import</kw> OpenAI <kw>from</kw> <str>'openai'</str>;
+    let finalStateSnippet = `<kw>import</kw> { Echo } <kw>from</kw> <str>'@novu/echo'</str>;
 
-<kw>async</kw> <kw>function</kw> <fn>main</fn>() {
-  <kw>const</kw> openai = <kw>new</kw> <span class="hover" id="nv-node-openai"><id>OpenAI</id></span>();
+<kw>const</kw> echo = <kw>new</kw> <span class="hover" id="nv-node-echo-client"><id>Echo</id></span>();
 
-  <kw>const</kw> completion = <kw>await</kw> openai.chat.completions.<span class="hover" id="nv-node-create"><fn>create</fn></span>({
-    model: <span class="hover" id="nv-node-model"><str>'gpt-4'</str></span>,
-    messages: [{
-      <span class="hover" id="nv-node-role">role</span>: <str>'user'</str>,
-      content: <str>'Say this is a test'</str>,
-    }],
-  });
+<kw>const</kw> commentWorkflow = echo.<fn>workflow</fn>(<str>'comment-on-post'</str>, <kw>async</kw> (<span class="hover" id="nv-node-create">event</span>) => {
+    <kw>const</kw> inAppResponse = <kw>await</kw> event.<fn>step</fn>.<fn>inApp</fn>(<str>'notify-user'</str>, <kw>async</kw> () => ({
+        <fn>body</fn>: <fn>renderReactComponent</fn>(event.<span class="hover" id="nv-node-echo-payload"><fn>payload</fn></span>.<fn>postId</fn>)
+    }));
 
-  <sp>console</sp>.<fn>log</fn>(<span class="hover" id="nv-node-completion">completion</span>.choices[0]?.message.<span class="hover" id="nv-node-content">content</span>);
-}
+    <kw>const</kw> { events } = <kw>await</kw> event.<fn>step</fn>.<fn>digest</fn>(<str>'1 week'</str>);
 
-<fn>main</fn>();`.trim().split(`
+    <kw>await</kw> event.<span class="hover" id="nv-node-echo-step"><fn>step</fn></span>.<fn>email</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {
+        <kw>return</kw> {
+            <fn>subject</fn>: <str>\`Weekly post comments (</str><kw>$\{</kw>events.<fn>length</fn> + 1<kw>}</kw><str>)\`</str>,
+            <fn>body</fn>: <fn>renderReactEmail</fn>(inputs, events)
+        };
+    }, { <fn>skip</fn>: () => inAppResponse.<span class="hover" id="nv-node-echo-seen"><fn>seen</fn></span> });
+
+}, { payloadSchema: z.<fn>object</fn>({ postId: z.<fn>string</fn>() }) });
+
+<comment>// Use the same familiar syntax to send a notification</comment>
+commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></span>({
+    <fn>to</fn>: { <fn>subscriberId</fn>: <str>'12345'</str> },
+    <fn>payload</fn>: { <fn>postId</fn>: <str>'67890'</str> }
+});`.trim().split(`
 `);
-    const stepsCompletions = [
+    const eventCompletions = [
+        { text: "environment", description: `<comment>(property) environment: { id: 'development' | 'production', ... }</comment>
+<hr/>The environment the workflow is running in.` },
+        { text: "inputs" },
+        { text: "payload", description: `<comment>(property) payload: { postId: string }</comment>
+<hr/>The payload for the event, provided during trigger.` },
+        { text: "step", description: `<comment>(property) step: { chat: ChannelStep<Echo.Chat>, delay: ActionStep<Echo.Digest>, ... }</comment>
+<hr/>Define a step in your workflow.` },
+        { text: "subscriber", description: `<comment>(property) subscriber: { firstName: string, lastName: string, subscriberId: string }</comment>
+<hr/>The subscriber receiving the notification.` },
+    ];
+
+    const stepCompletions = [
         { text: "chat", description: stepCompletionDescription("chat", "channel", "Send a chat message.") },
         { text: "delay", description: stepCompletionDescription("delay", "action", "Delay the workflow for a period of time.") },
         { text: "digest", description: stepCompletionDescription("digest", "action", "Aggregate events for a period of time.") },
@@ -1526,18 +1524,6 @@ import OpenAI`,
         { text: "inApp", description: stepCompletionDescription("inApp", "channel", "Send an in-app notification.") },
         { text: "push", description: stepCompletionDescription("push", "channel", "Send a push notification.") },
         { text: "sms", description: stepCompletionDescription("sms", "channel", "Send an SMS.") },
-    ];
-
-    const eventCompletions = [
-        { text: "environment", description: `<comment>(property) environment: { id: 'development' | 'production', ... }</comment>
-<hr/>The environment the workflow is running in.` },
-        { text: "inputs" },
-        { text: "payload", description: `<comment>(property) payload: { postId: string }</comment>
-<hr/>The payload for the event, provided during trigger.` },
-        { text: "step", description: `<comment>(property) step: { chat: ChannelStep<Echo.Chat>, delay: ActionStpe<Echo.Digest>, ... }</comment>
-<hr/>Define a step in your workflow.` },
-        { text: "subscriber", description: `<comment>(property) subscriber: { firstName: string, lastName: string, subscriberId: string }</comment>
-<hr/>The subscriber receiving the notification.` },
     ];
 
     const payloadCompletions = [
@@ -1597,7 +1583,7 @@ import OpenAI`,
         openCompletions(5, {
             interval: 1000,
             completion: "inApp",
-            completions: stepsCompletions,
+            completions: stepCompletions,
             text: "in",
         }),
         // TODO: Automatic completion of the function signature, including brackets and parameters
@@ -1641,7 +1627,7 @@ import OpenAI`,
         openCompletions(9, {
             interval: 1500,
             completion: "digest",
-            completions: stepsCompletions,
+            completions: stepCompletions,
             text: "di",
         }),
         addText(9, "</fn>(<str>'1 week'</str>);"),
@@ -1659,7 +1645,7 @@ import OpenAI`,
         openCompletions(11, {
             interval: 50,
             completion: "email",
-            completions: stepsCompletions,
+            completions: stepCompletions,
             text: "email",
         }),
         addText(11, `</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {`),
@@ -1750,7 +1736,7 @@ import OpenAI`,
         addLine(24, 0),
         addText(24, `});`),
     ].flat();
-    let topText = `<kw>import</kw> { Echo } <kw>from</kw> <str>'@novu/echo'</str>;
+    let initialText = `<kw>import</kw> { Echo } <kw>from</kw> <str>'@novu/echo'</str>;
 
 <kw>const</kw> echo = <kw>new</kw> <id>Echo</id>();
 
@@ -1760,33 +1746,33 @@ import OpenAI`,
 `.split(`
 `),
         g,
-        currentState = i ? void 0 : "openai",
+        currentState = i ? void 0 : "echo-client",
         taskTimeout;
     function setTimer(taskDelay = 3e3) {
         clearTimeout(taskTimeout), (taskTimeout = setTimeout(executeStateTransition, taskDelay));
     }
     function executeStateTransition() {
-        currentState === "openai"
-            ? transitionToState(2, (currentState = "create"))
-            : currentState === "create"
-            ? transitionToState(2, (currentState = "model"))
-            : currentState === "model"
-            ? transitionToState(2, (currentState = "role"))
-            : currentState === "role"
-            ? transitionToState(2, (currentState = "completion"))
-            : currentState === "completion"
-            ? transitionToState(2, (currentState = "content"))
-            : currentState === "content" && transitionToState(2, (currentState = "openai")),
+        currentState === "echo-client"
+            ? transitionToState(2, (currentState = "echo-event"))
+            : currentState === "echo-event"
+            ? transitionToState(2, (currentState = "echo-trigger"))
+            : currentState === "echo-trigger"
+            ? transitionToState(2, (currentState = "echo-step"))
+            : currentState === "echo-step"
+            ? transitionToState(2, (currentState = "echo-trigger"))
+            : currentState === "echo-trigger"
+            ? transitionToState(2, (currentState = "echo-seen"))
+            : currentState === "echo-seen" && transitionToState(2, (currentState = "echo-client")),
             setTimer();
     }
     function handleStateTransition(event) {
         const targetElement = event.target.parentElement.tagName === "SPAN" ? event.target.parentElement : event.target;
-        if (targetElement.id === "nv-node-openai") transitionToState(2, (currentState = "openai"));
-        else if (targetElement.id === "nv-node-create") transitionToState(2, (currentState = "create"));
-        else if (targetElement.id === "nv-node-model") transitionToState(2, (currentState = "model"));
-        else if (targetElement.id === "nv-node-role") transitionToState(2, (currentState = "role"));
-        else if (targetElement.id === "nv-node-completion") transitionToState(2, (currentState = "completion"));
-        else if (targetElement.id === "nv-node-content") transitionToState(2, (currentState = "content"));
+        if (targetElement.id === "nv-node-echo-client") transitionToState(2, (currentState = "echo-client"));
+        else if (targetElement.id === "nv-node-create") transitionToState(2, (currentState = "echo-event"));
+        else if (targetElement.id === "nv-node-echo-payload") transitionToState(2, (currentState = "echo-trigger"));
+        else if (targetElement.id === "nv-node-echo-step") transitionToState(2, (currentState = "echo-step"));
+        else if (targetElement.id === "nv-node-echo-trigger") transitionToState(2, (currentState = "echo-trigger"));
+        else if (targetElement.id === "nv-node-echo-seen") transitionToState(2, (currentState = "echo-seen"));
         else {
             taskTimeout || setTimer(1e3);
             return;
@@ -1796,7 +1782,7 @@ import OpenAI`,
     setTimer(), de(() => clearTimeout(taskTimeout));
     let animation = { timeout: void 0 };
     function executeStateTransitionWithAnimation(A) {
-        transitionToState(3, ({ animation: animation, lines: topText } = processAnimationStep(transitions, A, animation, topText)), animation, transitionToState(5, topText));
+        transitionToState(3, ({ animation: animation, lines: initialText } = processAnimationStep(transitions, A, animation, initialText)), animation, transitionToState(5, initialText));
         const nextTransition = transitions[A + 1];
         nextTransition && transitionToState(3, (animation.timeout = setTimeout(() => executeStateTransitionWithAnimation(A + 1), nextTransition.time)), animation);
     }
@@ -1808,10 +1794,10 @@ import OpenAI`,
     be.subscribe((A) => {
         transitionToState(6, (ve = A));
     });
-    let he = { line: 6, pos: 11, completion: "gpt-4", completions: availableModels, written: 0, index: 0 };
+    let ModelCompletions = { line: 6, pos: 41, completion: "gpt-4", completions: payloadCompletionPopoverContent, written: 0, index: 0 };
     const _t = () => setTimer(1500),
         gt = (A) => {
-            transitionToState(7, (he.completion = A.detail), he), transitionToState(4, (a[6] = `    model: <span class="hover" id="nv-node-model"><str>'${A.detail}'</str></span>,`), a);
+            transitionToState(7, (ModelCompletions.completion = A.detail), ModelCompletions), transitionToState(4, (finalStateSnippet[6] = `    model: <span class="hover" id="nv-node-echo-payload"><str>'${A.detail}'</str></span>,`), finalStateSnippet);
         };
     function wt(A) {
         we[A ? "unshift" : "push"](() => {
@@ -1834,12 +1820,12 @@ import OpenAI`,
             }
             o.$$.dirty & 8 && transitionToState(8, (t = (A = animation.completionWindow) == null ? void 0 : A.completions.filter(({ text: V }) => V.startsWith(animation.completionWindow.completion.slice(0, animation.completionWindow.written)))));
         }),
-        [i, g, currentState, animation, a, topText, ve, he, t, openAi, roleDescription, createCompletion, modelReponse, availableModels, setTimer, handleStateTransition, _t, gt, wt]
+        [i, g, currentState, animation, finalStateSnippet, initialText, ve, ModelCompletions, t, echoCompletionPopoverContent, stepCompletionPopoverContent, eventCompletionPopoverContent, triggerCompletionPopoverContent, payloadCompletionPopoverContent, setTimer, handleStateTransition, _t, gt, wt]
     );
 }
 class NodeSnippet extends Component {
     constructor(e) {
-        super(), renderComponent(this, e, initializeOpenAI, Yt, B, { animated: 0 });
+        super(), renderComponent(this, e, initializeEcho, Yt, B, { animated: 0 });
     }
 }
 function Ze(o, e, n) {
@@ -1884,7 +1870,7 @@ function ze(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -1922,7 +1908,7 @@ function ln(o) {
         s = [];
     for (let r = 0; r < l.length; r += 1) s[r] = ze(Ze(o, l, r));
     const p = (r) =>
-        w(s[r], 1, 1, () => {
+        handleOutroTransition(s[r], 1, 1, () => {
             s[r] = null;
         });
     return (
@@ -1960,8 +1946,8 @@ function ln(o) {
             },
             o(r) {
                 s = s.filter(Boolean);
-                for (let f = 0; f < s.length; f += 1) w(s[f]);
-                w(t.$$.fragment, r), (i = !1);
+                for (let f = 0; f < s.length; f += 1) handleOutroTransition(s[f]);
+                handleOutroTransition(t.$$.fragment, r), (i = !1);
             },
             d(r) {
                 r && k(e), K(s, r), cleanupComponents(t);
@@ -2053,7 +2039,7 @@ function Ue(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -2127,7 +2113,7 @@ function an(o) {
         s = [];
     for (let r = 0; r < l.length; r += 1) s[r] = Ue(Ke(o, l, r));
     const p = (r) =>
-        w(s[r], 1, 1, () => {
+        handleOutroTransition(s[r], 1, 1, () => {
             s[r] = null;
         });
     return (
@@ -2165,8 +2151,8 @@ function an(o) {
             },
             o(r) {
                 s = s.filter(Boolean);
-                for (let f = 0; f < s.length; f += 1) w(s[f]);
-                w(t.$$.fragment, r), (i = !1);
+                for (let f = 0; f < s.length; f += 1) handleOutroTransition(s[f]);
+                handleOutroTransition(t.$$.fragment, r), (i = !1);
             },
             d(r) {
                 r && k(e), K(s, r), cleanupComponents(t);
@@ -2253,7 +2239,7 @@ function Qe(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -2268,7 +2254,7 @@ function dn(o) {
         i = [];
     for (let s = 0; s < t.length; s += 1) i[s] = Qe(Ge(o, t, s));
     const l = (s) =>
-        w(i[s], 1, 1, () => {
+        handleOutroTransition(i[s], 1, 1, () => {
             i[s] = null;
         });
     return {
@@ -2302,7 +2288,7 @@ function dn(o) {
         },
         o(s) {
             i = i.filter(Boolean);
-            for (let p = 0; p < i.length; p += 1) w(i[p]);
+            for (let p = 0; p < i.length; p += 1) handleOutroTransition(i[p]);
             n = !1;
         },
         d(s) {
@@ -2368,7 +2354,7 @@ function Ye(o) {
                 n || (h(e.$$.fragment, t), (n = !0));
             },
             o(t) {
-                w(e.$$.fragment, t), (n = !1);
+                handleOutroTransition(e.$$.fragment, t), (n = !1);
             },
             d(t) {
                 cleanupComponents(e, t);
@@ -2383,7 +2369,7 @@ function wn(o) {
         i = [];
     for (let s = 0; s < t.length; s += 1) i[s] = Ye(Xe(o, t, s));
     const l = (s) =>
-        w(i[s], 1, 1, () => {
+        handleOutroTransition(i[s], 1, 1, () => {
             i[s] = null;
         });
     return {
@@ -2417,7 +2403,7 @@ function wn(o) {
         },
         o(s) {
             i = i.filter(Boolean);
-            for (let p = 0; p < i.length; p += 1) w(i[p]);
+            for (let p = 0; p < i.length; p += 1) handleOutroTransition(i[p]);
             n = !1;
         },
         d(s) {
@@ -2509,7 +2495,7 @@ function bn(o) {
                     if (l) {
                         H();
                         const m = l;
-                        w(m.$$.fragment, 1, 0, () => {
+                        handleOutroTransition(m.$$.fragment, 1, 0, () => {
                             cleanupComponents(m, 1);
                         }),
                             S();
@@ -2524,7 +2510,7 @@ function bn(o) {
                 s || (l && h(l.$$.fragment, _), (s = !0));
             },
             o(_) {
-                l && w(l.$$.fragment, _), (s = !1);
+                l && handleOutroTransition(l.$$.fragment, _), (s = !1);
             },
             d(_) {
                 _ && k(e), K(a, _), l && cleanupComponents(l), (p = !1), r();
