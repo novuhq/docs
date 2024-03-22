@@ -1,58 +1,54 @@
 ---
 title: "Quick Start"
-description: "Learn about Echo, the code-first approach when working with Novu."
+description: "Novu Echo, the first Notifications as Code workflow engine."
 ---
 
 import { EchoTerminal } from '/snippets/echo-terminal.mdx';
 
 <Note>
-    **Echo is currently in Public Alpha stage.**
-
-    Provide your feedback and suggestions **[here](https://roadmap.novu.co/roadmap)**
+    **Echo is currently in public Alpha.** Need help? Have a suggestion? Join our [Discord community](https://discord.gg/novu).
 </Note>
+
+## Introduction to Echo
+
+Novu Echo SDK allows you to write notification workflows in your codebase. Workflows are functions that execute business logic and use your preferred libraries for email, SMS, and chat generation. You can use Echo with [React.Email](https://react.email/), [MJML](https://mjml.io/), or any other template generator.
 
 <EchoTerminal />
 
-## Notification Infrastructure as Code
+### Try it now
 
-Novu Echo is an SDK to define your notification workflows with code. Notification workflows are defined in a structured, functional way, enabling you deeply embed your own libraries and business logic into the Workflow execution flow.
-
-Echo ships with an API Client, which Novu Cloud communicates with to retrieve Workflow Step content during your Notification Workflow. You are free to use your favourite web framework to serve the Echo API Client.
-
-## Try it now
-
-<Tip>
-    ⏱️ It takes less then 10 minutes to setup Echo and send notifications with it.
-</Tip>
-
-To get started, just open your terminal and run the following command. After Dev Studio is launched, follow the instructions.
+To get started, open your terminal and launch the Dev Studio.
 
 ```shell
 npx novu-labs@latest echo
 ```
 
+Looking for a Next.js with React.Email example? Clone our [GitHub sample repo](https://github.com/scopsy/echo-nextjs-example).
+
 ## Core features
 
 <CardGroup cols={2}>
-    <Card title="Integrations" icon="gear" href={'/echo/integrations'}>
-        Use React Email, MJML, 3rd party HTML Renderer or fetch templates from Braze, Hubspot, Sendgrid, and more...
+    <Card title="Bring Your Own Code" icon="code">
+        Write the notification workflows as functions in your codebase,  version, and manage them using Git.
     </Card>
-    <Card title="GitOps" icon="github">
-        Define your Notification Workflows with code, version and manage them using GitOps.
+    <Card title="Limitless Integrations" icon="plug" href={'/echo/integrations'}>
+        Use React.email, MJML, or fetch templates from Braze, Hubspot, Sendgrid, and more...
     </Card>
-    <Card title="Type-safety" icon="shield">
+    <Card title="Type Safety" icon="shield">
         Bring your own schemas for full, end-to-end validation and type safety.
     </Card>
-    <Card title="Bring Your Own Code" icon="code">
-        Integrates with your existing codebase. Natively connect your database an APIs, directly into your workflows.
+    <Card title="Cloud Synchronization" icon="cloud">
+        Sync your workflows with Novu Cloud and ease collaboration.
     </Card>
 </CardGroup>
 
+
 ## How it Works?
 
-Echo introduces a new paradigm when working with Novu. Rather than being constrained to utilize Novu’s prebuilt connectors, Echo enables you to connect with your existing environment, granting flexibility to use your own libraries and connect to your own VPC during the Workflow execution.
+Echo introduces a new paradigm when working with Novu. Rather than to defining workflows and templates at Novu Cloud, Echo enables you to work in your application, use your own libraries and connect to your production environment during workflow execution over HTTPS.
 
-The diagram below illustrates the Novu Cloud in grey, with your Customer environment in white. The Echo SDK exposes an API client, enabling you to serve your Workflows and their Steps via HTTP. The API can be served using your favourite frameworks, we offer pre-built connectors to make deployment easy. Novu Cloud will make HTTP requests to your Edge Server during Workflow Execution, enabling you to resolve Content and Subscribers *just-in-time*.
+The Echo SDK exports the client, you use to define and serve your workflows and their steps over HTTPS. The workflows can be added to your preferred framework. During workflow execution Novu Cloud makes HTTPS requests to your server during for *just-in-time* Content and Subscribers resolution.
 
-![Diagram](/images/echo/diagram.png)
-
+<Frame>
+  <img src="/images/echo/diagram.png" />
+</Frame>
