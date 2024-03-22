@@ -1481,14 +1481,14 @@ function initializeEchoNode(o, options, transitionToState) {
     const actionWaitTime = `\`\${number} minute\` | \`\${number} hour\` | \`\${number} day\` | \`\${number} week\``;
     const stepCompletionDescription = (stepId, stepType, textDescription = '') => {
         if (stepType === "channel") {
-            return `<comment>(property) Echo.${stepId}: ChannelStep<{ body: string }, { seen: boolean; ... }></comment>
+            return `<comment>(method) Echo.${stepId}: ChannelStep<{ body: string }, { seen: boolean; ... }></comment>
 <hr/>${textDescription}`;
         } else if (stepType === "action") {
             if (stepId === "digest") {
-                return `<comment>(property) digest: ActionStep<${actionWaitTime}, { events: { id: string; timestamp: string; payload: { ... } }[]; }></comment>
+                return `<comment>(method) digest: ActionStep<${actionWaitTime}, { events: { id: string; timestamp: string; payload: { ... } }[]; }></comment>
 <hr/>${textDescription}`;
             } else if (stepId === 'delay') {
-              return `<comment>(property) delay: ActionStep<${actionWaitTime}, { duration: number } }[]; }></comment>
+              return `<comment>(method) delay: ActionStep<${actionWaitTime}, { duration: number } }[]; }></comment>
 <hr/>${textDescription}`;
             }
         }
@@ -1581,7 +1581,7 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
     ];
 
     const stepOptionsCompletions = [
-        { text: 'skip', description: `<comment>(property) skip: () => boolean</comment>
+        { type: "method", text: 'skip', description: `<comment>(method) skip: () => boolean</comment>
 <hr/>Skip the step if the condition is met.` },
     ];
 
