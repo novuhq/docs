@@ -1,6 +1,7 @@
+{/* Allow 1 tick for the terminal to render in the DOM before loading the terminal. */}
 export const EchoTerminal = () => {
   setTimeout(() => {
-    loadTerminal();
-  }, 50);
+    loadTerminal(); 
+  }, 1);
   return <div id="nv-terminal" class="nv-code nv-terminal"></div>
 }
