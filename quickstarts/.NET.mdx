@@ -117,7 +117,7 @@ Now, let's create a subscriber on Novu. Copy and paste the following code to do 
 ```csharp
 // Create subscriber
 
-var newSubscriberDto = new CreateSubscriberDto
+var newSubscriberDto = new SubscriberCreateData
 {
   SubscriberId = "77809", //replace with system_internal_user_id
   FirstName = "John",
@@ -137,7 +137,7 @@ var newSubscriberDto = new CreateSubscriberDto
   }
 };
 
-var subscriber = await novu.Subscriber.CreateSubscriber(newSubscriberDto);
+var subscriber = await novu.Subscriber.Create(newSubscriberDto);
 ```
 
 Run the code in your terminal like so:
@@ -201,7 +201,7 @@ var onboardingMessage = new OnboardEventPayload
   WelcomeMessage = "Welcome to novu-dotnet"
 };
 
-var payload = new EventTriggerDataDto()
+var payload = new EventCreateData()
 {
   EventName = "onboarding", //make sure you have a trigger named "onboarding"
   To = { SubscriberId = "7789" },
@@ -210,7 +210,7 @@ var payload = new EventTriggerDataDto()
 
 var trigger = await novu.Event.Trigger(payload);
 
-if (trigger.TriggerResponsePayloadDto.Acknowledged)
+if (trigger.Data.Acknowledged)
 {
   Console.WriteLine("Trigger has been created.");
 }
