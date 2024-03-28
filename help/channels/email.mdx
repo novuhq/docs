@@ -25,4 +25,7 @@ Currently, we support external Provider template support for [sendgrid](/channel
 ### Can I retrieve only Email content?
 Novu does not have a separate API to retrieve email content. However, email content can be retrieved from the email step of the workflow. The email step contains the email content in the `content` field of [get worklfow api](/api-reference/workflows/get-workflow) response.
 
+### How to send inline images in email?
+Inline images can be sent using `<img>` tag in the email content. PNG, JPEG, GIF are supported. SVGs are not supported as inline images by most of email clients like gmail, outlook.
+
 <Snippet file="contact-support.mdx" />
