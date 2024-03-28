@@ -57,11 +57,13 @@ And subscribers are users to which notifications will be sent. They are identifi
 If you click “Subscriber” on the left sidebar of the [Novu dashboard](https://web.novu.co/subscribers?utm_campaign=docs-quick-vanilla), you’ll see the subscriber list. By default, there will only be one subscriber as you’re automatically added as a subscriber when you sign up for Novu:
 <Frame caption="Subscribers from the left sidebar shows all the subscriber"><img src="/images/sub-nodejs.png" /> </Frame>
 
+<Note>If you don't see the default subscriber, follow [how to create subscriber](/subscribers/subscribers#create-a-subscriber) documentation to learn on how to create one </Note>
+
 Now, let’s create a subscriber on Novu. After creating a subscriber, we’ll trigger a notification to this subscriber. Subscribers are identified by a unique `subscriberId`.
 
 With Novu, you can create a subscriber using any of its SDKs (Node.js, PHP, .NET, Go, Ruby, Python and Kotlin). The code to create a subscriber in Novu is:
 
-```typesctipt
+```typescript
 import { Novu } from '@novu/node';
 
 const novu = new Novu('<NOVU_API_KEY>');
