@@ -25,6 +25,9 @@ SMS and Email channels are a bit different because all providers can work with t
 ### Can Subscriber preferences be updated while adding a new Subscriber?
 Subscriber preference cannot be updated while adding a new subscriber. Novu sets all channels as true by default for new subscribers. You can modify preferences at any time. Read more about [subscriber preferences](/subscribers/preferences).
 
+### Can two subscribers with different `subscriberId`s have the same email address?
+Yes, it is possible for two subscribers to have the same email address in our system. This is because the `subscriberId` is the unique identifier that distinguishes one subscriber from another. Even if two subscribers share the same email address, they will have different `subscriberId`s, which allows our system to identify and manage them separately.
+
 ## Topics
 
 ### Can a Subscriber be added to multiple topics at once?
