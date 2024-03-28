@@ -19,7 +19,7 @@ A workflow acts as the blueprint for the notifications that will be sent. The wo
   src="/images/workflow-mental-model.png"
 />
 
-### Each workflow comprises the following components:
+## Workflow Components
 
 <Steps>
   <Step title="Name and Identifier">
@@ -42,7 +42,7 @@ A workflow acts as the blueprint for the notifications that will be sent. The wo
   </Step>
 </Steps>
 
-### Execution of Workflow Steps
+## Execution of Workflow Steps
 
 Once a workflow is initiated by its trigger, the steps (and channels) within the workflow are executed in a specific sequence. This sequential execution ensures that each step is completed before the next one begins, maintaining a controlled and orderly flow of the notification process. Here's what you need to know about this process:
 
@@ -59,13 +59,13 @@ Sequential execution provides a predictable and reliable workflow process, ensur
 <Note>Subscriber is not allowed to manage subscriber preference for [critical workflow](/subscribers/preferences#exclude-workflows-from-preferences-critical-workflow)</Note>
 
 
-### Workflow Groups
+## Workflow Groups
 
 Workflow groups are used to categorize workflows based on their purpose or function. This grouping allows you to organize your workflows in a way that makes sense to you and your team. For example, you may want to group all your onboarding workflows or group all your transactional workflows together. You can create as many groups as you need and assign workflows to them as you see fit.
 
 <Info>Currently workflow group is just for reference purposes and cannot be used for bulk action related to all workflows belonging to a workflow group.</Info>
 
-#### Working with workflow groups
+### Working with workflow groups
 
 **To create a workflow group, follow these steps:**
 
@@ -93,7 +93,7 @@ To edit a workflow group name, follow these steps:
 <Info>To delete the workflow group use [delete workflow group api](https://docs.novu.co/api-reference/workflow-groups/delete-workflow-group) with the same steps as updating the workflow group name. However, it is not recommended to delete the workflow group if at least one workflow is attached to this workflow group or there exists a change promotion item on the changes page</Info>
 
 
-### Searching Workflows
+## Searching Workflows
 
 Workflows can be searched by their name or trigger identifier. This feature makes it easy to find the desired workflow and quickly access its details.
 
