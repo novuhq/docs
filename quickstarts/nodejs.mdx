@@ -199,7 +199,7 @@ To trigger a notification to all subscribers of a topic, use Novu's API as follo
 
 ```jsx
 const topicKey = '<TOPIC_KEY>';
-const notificationTemplateId = '<NOTIFICATION_TEMPLATE_ID>';
+const notificationTemplateId = '<WORKFLOW_TRIGGER_IDENTIFIER>';
 
 await novu.trigger(notificationTemplateId, {
   to: [{ type: 'Topic', topicKey: topicKey }],
