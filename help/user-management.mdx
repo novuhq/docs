@@ -4,6 +4,8 @@ sidebarTitle: "User Management"
 icon: "users"
 ---
 
+## Subscribers
+
 ### What is a Subscriber?
 A subscriber is an entity to which notifications are sent. It is a Novu term similar to a user in your system. As in your system, a user is identified by a unique id, similarly in Novu, a subscriber is identified by a unique id called `subscriberId`. We recommend that the existing value you use in your system as a `userId` to be used as `subscriberId` in Novu. Read more about subscribers on [subscribers documentation page](/subscribers/subscribers).
 
@@ -22,3 +24,8 @@ SMS and Email channels are a bit different because all providers can work with t
 
 ### Can Subscriber preferences be updated while adding a new Subscriber?
 Subscriber preference cannot be updated while adding a new subscriber. Novu sets all channels as true by default for new subscribers. You can modify preferences at any time. Read more about [subscriber preferences](/subscribers/preferences).
+
+## Topics
+
+### Can a Subscriber be added to multiple topics at once?
+Currently, Novu supports adding a subscriber to only one topic at a time. You can add a subscriber to multiple topics by calling the [add subscriber to topic api](/api-reference/topics/subscribers-addition) multiple times with a particular topic key
