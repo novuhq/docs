@@ -53,7 +53,7 @@ Head over to `web/src/layouts/BlogLayout/BlogLayout.js` file of the recently clo
 
 The file should look like this:
 
-```js
+```javascript
 import {
   NovuProvider,
   PopoverNotificationCenter,
@@ -200,7 +200,7 @@ I’ll briefly explain the function of each label in the image above.
 
 In the In-App channel `Editor`, add the following content and rename the step to `Onboarding In App` :
 
-```js
+```javascript
 Hi {{ name }},
 <br/>
 <p>Thanks for indicating interest in attending RedwoodJS conference. Here is your message: </p>
@@ -225,7 +225,7 @@ Add `Sender name` and `Subject`. Ensure the `Default Layout` is selected for the
 
 Switch to the `Custom Code` section and add the following:
 
-```js
+```javascript
 Hi {{ name }},
 
 <br />
@@ -245,7 +245,7 @@ Next, we’ll learn how to trigger notifications to subscribers.
 
 Open up `api/src/services/contacts/contacts.js`, and add the following code into your app to trigger a notification:
 
-```js
+```javascript
 import { Novu } from '@novu/node'
 
 const novu = new Novu(process.env.NOVU_API_KEY)
