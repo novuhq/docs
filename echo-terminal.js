@@ -2562,15 +2562,15 @@ class Terminal extends Component {
 }
 
 const loadTerminal = () => {
-    const nt = document.getElementById("nv-terminal"),
-    dt = document.createDocumentFragment();
-    new Terminal({ target: dt });
-    nt.parentNode.replaceChild(dt, nt);
+    const nvTerminal = document.getElementById("nv-terminal"),
+    docFragment = document.createDocumentFragment();
+    new Terminal({ target: docFragment });
+    nvTerminal.replaceWith(docFragment);
 }
 
 setTimeout(() => {
     loadTerminal();
     setTimeout(() => {
         loadTerminal();
-    }, 100);
+    }, 1);
 }, 100);
