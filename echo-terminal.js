@@ -1775,7 +1775,6 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         clearTimeout(taskTimeout), (taskTimeout = setTimeout(executeStateTransition, taskDelay));
     }
     function executeStateTransition() {
-        console.log("currentState", currentState);
         currentState === "echo-client"
             ? transitionToState(2, (currentState = "echo-event"))
             : currentState === "echo-event"
@@ -2568,3 +2567,7 @@ const loadTerminal = () => {
     new Terminal({ target: dt });
     nt.parentNode.replaceChild(dt, nt);
 }
+
+setTimeout(() => {
+    loadTerminal();
+}, 100);
