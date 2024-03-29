@@ -2568,6 +2568,3 @@ const loadTerminal = () => {
     nvTerminal.replaceWith(docFragment);
 }
 
-setTimeout(() => {
-    loadTerminal();
-}, 200);
