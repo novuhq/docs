@@ -2570,7 +2570,4 @@ const loadTerminal = () => {
 
 setTimeout(() => {
     loadTerminal();
-    setTimeout(() => {
-        loadTerminal();
-    }, 1);
-}, 100);
+}, 200);
