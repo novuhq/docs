@@ -1775,7 +1775,6 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         clearTimeout(taskTimeout), (taskTimeout = setTimeout(executeStateTransition, taskDelay));
     }
     function executeStateTransition() {
-        console.log("currentState", currentState);
         currentState === "echo-client"
             ? transitionToState(2, (currentState = "echo-event"))
             : currentState === "echo-event"
@@ -2563,8 +2562,12 @@ class Terminal extends Component {
 }
 
 const loadTerminal = () => {
-    const nt = document.getElementById("nv-terminal"),
-    dt = document.createDocumentFragment();
-    new Terminal({ target: dt });
-    nt.parentNode.replaceChild(dt, nt);
+    const nvTerminal = document.getElementById("nv-terminal"),
+    docFragment = document.createDocumentFragment();
+    new Terminal({ target: docFragment });
+    nvTerminal.replaceWith(docFragment);
 }
+
+setTimeout(() => {
+    loadTerminal();
+}, 200);
