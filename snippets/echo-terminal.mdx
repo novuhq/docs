@@ -1,9 +1,12 @@
-{/* Allow 1 tick for the terminal to render in the DOM before loading the terminal. */}
 export const EchoTerminal = () => {
-  setTimeout(() => {
-    if (typeof document !== "undefined") {
-      loadTerminal(); 
+  if (typeof document === "undefined") {
+    return null;
+  } else {
+    const clientComponent = document.getElementById("client-component");
+    if (clientComponent) {
+      clientComponent.innerHTML = '<echo-terminal></echo-terminal>';
     }
-  }, 1);
-  return <div id="nv-terminal" class="nv-code nv-terminal"></div>
+
+    return <div id="client-component"></div>
+  }
 }

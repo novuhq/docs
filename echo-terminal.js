@@ -1,3 +1,10 @@
+/**
+ * @type {HTMLElement}
+ * @description Novu Echo Terminal Code Snippet
+ * 
+ * DO NOT RENAME THIS FILE, IT IS REFERENCED EXTERNALLY FROM THIS SITE
+ */
+
 var $t = Object.defineProperty;
 var kt = (o, e, n) => (e in o ? $t(o, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : (o[e] = n));
 var U = (o, e, n) => (kt(o, typeof e != "symbol" ? e + "" : e, n), n);
@@ -2474,7 +2481,7 @@ function tt(o) {
         },
     };
 }
-function bn(o) {
+function TerminalWrapperComponent(o) {
     let e,
         n,
         t,
@@ -2541,7 +2548,7 @@ function bn(o) {
         }
     );
 }
-function vn(o, e, n) {
+function TerminalComponent(o, e, n) {
     const t = { node: { name: "Node", component: NodeSnippet }, python: { name: "Python", component: PythonSnippet }, go: { name: "Go", component: GoSnippet }, java: { name: "Java", component: JavaSnippet }, kotlin: { name: "Kotlin", component: KotlinSnippet } };
     let i = t.node,
         l = !0;
@@ -2557,7 +2564,7 @@ function vn(o, e, n) {
 }
 class Terminal extends Component {
     constructor(e) {
-        super(), renderComponent(this, e, vn, bn, B, {});
+        super(), renderComponent(this, e, TerminalComponent, TerminalWrapperComponent, B, {});
     }
 }
 
@@ -2568,3 +2575,15 @@ const loadTerminal = () => {
     nvTerminal.replaceWith(docFragment);
 }
 
+if (typeof customElements !== "undefined") {
+    customElements.define("echo-terminal", class extends HTMLElement {
+        connectedCallback() {
+            this.mount();
+        }
+
+        mount() {
+            this.innerHTML = '<div id="nv-terminal" class="nv-code nv-terminal"></div>';
+            loadTerminal(); // Mount the terminal
+        }
+    });
+}
