@@ -2568,21 +2568,26 @@ class Terminal extends Component {
     }
 }
 
+const CUSTOM_ELEMENTS_NAME = "nv-echo-terminal";
+const TERMINAL_ID = "nv-terminal";
+const TERMINAL_CLASSES = ["nv-code", "nv-terminal"];
+
 const loadTerminal = () => {
-    const nvTerminal = document.getElementById("nv-terminal"),
+    const nvTerminal = document.getElementById(TERMINAL_ID),
     docFragment = document.createDocumentFragment();
     new Terminal({ target: docFragment });
     nvTerminal.replaceWith(docFragment);
 }
 
 if (typeof customElements !== "undefined") {
-    customElements.define("echo-terminal", class extends HTMLElement {
+    customElements.define(CUSTOM_ELEMENTS_NAME, class extends HTMLElement {
         connectedCallback() {
             this.mount();
         }
 
         mount() {
-            this.innerHTML = '<div id="nv-terminal" class="nv-code nv-terminal"></div>';
+            this.id = TERMINAL_ID;
+            this.classList.add(...TERMINAL_CLASSES);
             loadTerminal(); // Mount the terminal
         }
     });
