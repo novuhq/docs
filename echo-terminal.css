@@ -1,3 +1,76 @@
+/* Terminal Wrapper Styles */
+
+.nv-snippet-window-wrapper.terminal-cqc4oo {
+  position: absolute;
+  font-size: .875rem;
+  font-family: var(--nv-monospace-font)
+}
+
+.nv-snippet-window-wrapper.is-noninteractable.terminal-cqc4oo {
+  opacity: 1;
+  -webkit-user-select: none;
+  user-select: none;
+  -moz-user-select: -moz-none;
+  transition: opacity .1s ease, filter .1s ease
+}
+
+.nv-snippet-window-wrapper.is-noninteractable.terminal-cqc4oo:hover {
+  opacity: .3;
+  filter: blur(2px)
+}
+
+.is-selectable.terminal-10kv6jm .nv-completion-item.terminal-10kv6jm:hover {
+  background: var(--nv-bg-light) !important
+}
+
+#nv-terminal {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  max-width: 700px;
+  box-shadow: 0 4px 8px -2px #0f111a29, 0 10px 15px -4px #0f111a29, 0 30px 32px -15px #0f111a29, 0 60px 64px -25px #0f111a29
+}
+
+#nv-terminal.terminal-1dfudv>.nv-code-content.terminal-1dfudv .line {
+  min-width: 60ch
+}
+
+.nv-terminal-tabs.terminal-1dfudv.terminal-1dfudv {
+  display: flex;
+  border-radius: 8px 8px 0 0;
+  padding: 0 4px;
+  border-bottom: 1px solid #444
+}
+
+button.nv-terminal-tab.terminal-1dfudv.terminal-1dfudv {
+  position: relative;
+  font-family: inherit;
+  border: 0;
+  background: none;
+  color: #99a;
+  font-size: 1rem;
+  padding: .5rem .75rem
+}
+
+button.nv-terminal-tab.is-active.terminal-1dfudv.terminal-1dfudv {
+  color: #dde
+}
+
+button.nv-terminal-tab.is-active.terminal-1dfudv.terminal-1dfudv:after {
+  position: absolute;
+  top: 0;
+  bottom: -1px;
+  left: calc(.75rem - 2px);
+  right: calc(.75rem - 2px);
+  content: "";
+  border-bottom: 1px solid #ffffff7f
+}
+
+button.nv-terminal-tab.terminal-1dfudv.terminal-1dfudv:hover {
+  color: #dde
+}
+
+/* Terminal Code Snippet Styles */
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
 
 .nv-code {
@@ -22,21 +95,27 @@
 .nv-code kw {
   color: rgb(255 225 77);
 }
+
 .nv-code fn {
   color: rgb(255 51 222);
 }
+
 .nv-code str {
   color: rgb(0 213 255);
 }
+
 .nv-code id {
   color: #ffcc4a;
 }
+
 .nv-code sp {
   color: #6fedb7;
 }
+
 .nv-code const {
   color: #b486fd;
 }
+
 .nv-code comment {
   color: #8f9397;
 }
@@ -133,6 +212,7 @@
 .nv-code .nv-snippet-window.is-pop {
   animation: nv-snippet-window-pop-in 0.3s forwards ease;
 }
+
 .nv-code .nv-snippet-window-wrapper hr {
   box-sizing: content-box;
   height: 0;
@@ -146,10 +226,12 @@
     transform: scale(0);
     opacity: 0;
   }
+
   70% {
     transform: scale(1.05);
     opacity: 0.5;
   }
+
   100% {
     transform: scale(1);
     opacity: 1;
