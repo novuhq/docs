@@ -2595,16 +2595,14 @@ const loadTerminal = () => {
     nvTerminal.replaceWith(docFragment);
 }
 
-if (typeof customElements !== "undefined") {
-    customElements.define(CUSTOM_ELEMENTS_NAME, class extends HTMLElement {
-        connectedCallback() {
-            this.mount();
-        }
+customElements.define(CUSTOM_ELEMENTS_NAME, class extends HTMLElement {
+    connectedCallback() {
+        this.mount();
+    }
 
-        mount() {
-            this.id = TERMINAL_ID;
-            this.classList.add(...TERMINAL_CLASSES);
-            loadTerminal(); // Mount the terminal
-        }
-    });
-}
+    mount() {
+        this.id = TERMINAL_ID;
+        this.classList.add(...TERMINAL_CLASSES);
+        loadTerminal(); // Mount the terminal
+    }
+});
