@@ -6,7 +6,11 @@ The JSDelivr URLs below point to the latest commit in the main branch, ensuring 
 
 [See here for more options when testing using JSDelivr](https://www.jsdelivr.com/).
 
-## Loading with Javascript (preferred)
+## Usage
+
+The Echo terminal can be loaded via both JS and HTML.
+
+### Loading with Javascript (preferred)
 Use this method if you have access to custom JS.
 
 ```javascript
@@ -19,7 +23,7 @@ Use this method if you have access to custom JS.
 <nv-echo-terminal></nv-echo-terminal>
 ```
 
-## Loading with HTML
+### Loading with HTML
 Use this method if you only have access to modify the `<head>` element.
 
 ```html
