@@ -163,7 +163,7 @@ subscriber7789.Email = "validemail@gmail.com"; // replace with valid email
 subscriber7789.FirstName = "<insert-firstname>"; // optional
 subscriber7789.LastName = "<insert-lastname>"; // optional
 
-var updatedSubscriber = await novu.Subscriber.UpdateSubscriber("7789",subscriber7789);
+var updatedSubscriber = await novu.Subscriber.Update("7789",subscriber7789);
 ```
 
 Other valid fields that can be updated are `phone`, `avatar`, and `data` . The `data` field can accept an array of metadata that you want to attach to the subscriber.
@@ -219,7 +219,7 @@ if (trigger.Data.Acknowledged)
 
 Before running the code, make sure you understand the following:
 
-- The value of `EventName` should be the workflow’s trigger ID/slug.
+- The value of `EventName` should be the workflow’s trigger ID/slug(it's the value all in small caps).
 <Frame caption="Make sure your workflow's trigger ID/slug matches the value you'd used"><img src="/images/template-nodejs.png" /> </Frame>
 - The value of `Payload` is an array of the data that you want to be dynamically injected into the workflow content.
 - The value of `SubscriberId` is the id of the subscriber on Novu. Replace `7789` with your subscriberId.
@@ -252,14 +252,14 @@ Copy and paste the following code into your app to create a topic:
 
 ```csharp
 // Create Topic
-var topicRequest = new TopicCreateDto
+var topicRequest = new TopicCreateData
 {
     Key = "frontend-users",
     Name = "All frontend users",
 
 };
 
-var topic = await novu.Topic.CreateTopicAsync(topicRequest);
+var topic = await novu.Topic.Create(topicRequest);
 ```
 
 Before running the code, make sure you understand the following:
@@ -284,7 +284,15 @@ var subscriberList = new TopicSubscriberUpdateDto
     }
 };
 
-var result = await novu.Topic.AddSubscriberAsync(topicKey, subscriberList);
+//Or
+
+var subscriberList = new TopicSubscriberCreateData(new List<string>
+{
+    "7789",
+    "7790"
+});
+
+var result = await novu.Topic.AddSubscriber(topicKey, subscriberList);
 ```
 
 ## Sending a Notification to a Topic
