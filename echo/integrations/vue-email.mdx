@@ -13,11 +13,25 @@ For a Quickstart Boilerplate project using Vue Email, check out the [Vue Email S
         Install the required Vue.Email components.
 
         ```bash
-        npm install vue-email
+        npm install vue-email @vue-email/compiler @vue-email/nuxt
         ```
     </Step>
     <Step title="Create templates folder">
         Create a `templates` folder in the root of your Nuxt app
+    </Step>
+    <Step title="Update nuxt.config.ts File">
+        Update your `nuxt.config.ts` file to include the Vue Email module.
+
+        ```ts nuxt.config.ts
+        export default defineNuxtConfig({
+            devtools: { enabled: true },
+            components: true,
+
+            modules: [
+                '@vue-email/nuxt',
+            ],
+        })
+        ```
     </Step>
     <Step title="Write your email">
         Create a new `sample-email.vue` file in the `templates` folder for your email template.
