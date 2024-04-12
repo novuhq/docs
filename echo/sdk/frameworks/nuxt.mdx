@@ -1,0 +1,15 @@
+---
+title: "Nuxt"
+---
+
+Echo works out of the box with Nuxt.js. You can use the `@novu/echo/nuxt` package to serve your Echo client in your Nuxt.js application.
+
+<CodeGroup>
+```ts API Routes
+import { serve } from "@novu/echo/nuxt";
+import { echo } from "../echo";
+
+export default defineEventHandler(serve({ client: echo }));
+```
+
+</CodeGroup>
