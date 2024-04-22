@@ -1,0 +1,19 @@
+---
+title: 'WhatsApp'
+description: 'Learn about how to use WhatsApp for chat notifications'
+---
+
+The Twilio API for WhatsApp is the quickest way to send messages on WhatsApps with Novu by prefixing the phone number of the subscriber with `whatsapp:` as shown below.
+
+```ts
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
+  {
+    to: {
+      subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
+      phone: 'whatsapp:555-4242`
+    },
+  }
+);
+```
+
+Read more about [sending a Message with the Twilio API for WhatsApp](https://www.twilio.com/docs/whatsapp/tutorial).
