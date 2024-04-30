@@ -7,12 +7,12 @@ You can utilize the [Twilio](https://www.twilio.com/) API to communicate with 
 
 # Setting up Twilio
 
-1. First, go to [Twilio](https://www.twilio.com/) and create an account, probably starting with their free trial. 
+1. First, go to [Twilio](https://www.twilio.com/) and create an account, probably starting with their free trial.
 2. You’ll be asked to verify your email and your phone number. Get them verified.
 3. Once you’re done with that, you’ll get an option to ‘get a Twilio phone number’ from your Twilio console.
-4. Click on it to get your Twilio phone number. 
+4. Click on it to get your Twilio phone number.
 
-When first using Twilio there should be an option to get a Twilio phone number in the main console. Otherwise, you may have to [Buy](https://console.twilio.com/us1/develop/phone-numbers/manage/search?frameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3Fx-target-region%3Dus1&currentFrameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3FisoCountry%3DUS%26searchTerm%3D%26searchFilter%3Dleft%26searchType%3Dnumber%26x-target-region%3Dus1%26__override_layout__%3Dembed%26bifrost%3Dtrue) a number from that link to begin using it. Assuming this is the first run though, utilize the free number given to us. 
+When first using Twilio there should be an option to get a Twilio phone number in the main console. Otherwise, you may have to [Buy](https://console.twilio.com/us1/develop/phone-numbers/manage/search?frameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3Fx-target-region%3Dus1&currentFrameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3FisoCountry%3DUS%26searchTerm%3D%26searchFilter%3Dleft%26searchType%3Dnumber%26x-target-region%3Dus1%26__override_layout__%3Dembed%26bifrost%3Dtrue) a number from that link to begin using it. Assuming this is the first run though, utilize the free number given to us.
 
 Simply follow one of their many [Tutorials](https://www.twilio.com/docs/usage/requests-to-twilio) within their docs to understand every part of the process.
 
@@ -37,3 +37,20 @@ Creating a Twilio integration with Novu is quite simple. Just follow these steps
 - Enter your `Account SID`, `Auth Token` and `Twilio Phone Number`.
 - Click on the **Save** button.
 - You should now be able to send SMS notifications using **Twilio** in Novu.
+
+## Sending an WhatsApp message with Twillio
+
+To send a WhatsApps message with Twillio integration prefix the phone number of the subscriber with `whatsapp:` as shown below.
+
+```ts
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
+  {
+    to: {
+      subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
+      phone: 'whatsapp:555-4242`
+    },
+  }
+);
+```
+
+Read more about [sending a Message with the Twilio API for WhatsApp](https://www.twilio.com/docs/whatsapp/tutorial).
