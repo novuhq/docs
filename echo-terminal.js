@@ -1,3 +1,10 @@
+/**
+ * @type {HTMLElement}
+ * @description Novu Echo Terminal Code Snippet
+ * 
+ * DO NOT RENAME THIS FILE, IT IS REFERENCED EXTERNALLY FROM THIS SITE
+ */
+
 var $t = Object.defineProperty;
 var kt = (o, e, n) => (e in o ? $t(o, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : (o[e] = n));
 var U = (o, e, n) => (kt(o, typeof e != "symbol" ? e + "" : e, n), n);
@@ -24,7 +31,7 @@ var U = (o, e, n) => (kt(o, typeof e != "symbol" ? e + "" : e, n), n);
         fetch(i.href, l);
     }
 })();
-function O() {}
+function O() { }
 function bt(o, e) {
     for (const n in e) o[n] = e[n];
     return o;
@@ -214,21 +221,21 @@ function ut() {
     const o = ce;
     do {
         try {
-            for (; Y < dirtyComponents.length; ) {
+            for (; Y < dirtyComponents.length;) {
                 const e = dirtyComponents[Y];
                 Y++, se(e), Mt(e.$$);
             }
         } catch (e) {
             throw ((dirtyComponents.length = 0), (Y = 0), e);
         }
-        for (se(null), dirtyComponents.length = 0, Y = 0; we.length; ) we.pop()();
+        for (se(null), dirtyComponents.length = 0, Y = 0; we.length;) we.pop()();
         for (let e = 0; e < ne.length; e += 1) {
             const n = ne[e];
             _e.has(n) || (_e.add(n), n());
         }
         ne.length = 0;
     } while (dirtyComponents.length);
-    for (; Ce.length; ) Ce.pop()();
+    for (; Ce.length;) Ce.pop()();
     ($e = !1), _e.clear(), se(o);
 }
 function Mt(o) {
@@ -312,15 +319,15 @@ function renderComponent(component, options, createFragment, updateFunction, i, 
     if (
         ((f.ctx = createFragment
             ? createFragment(component, options.props || {}, (c, u, ..._) => {
-                  const g = _.length ? _[0] : u;
-                  return f.ctx && i(f.ctx[c], (f.ctx[c] = g)) && (!f.skip_bound && f.bound[c] && f.bound[c](g), a && markComponentAsDirty(component, c)), u;
-              })
+                const g = _.length ? _[0] : u;
+                return f.ctx && i(f.ctx[c], (f.ctx[c] = g)) && (!f.skip_bound && f.bound[c] && f.bound[c](g), a && markComponentAsDirty(component, c)), u;
+            })
             : []),
-        f.update(),
-        (a = !0),
-        fe(f.before_update),
-        (f.fragment = updateFunction ? updateFunction(f.ctx) : !1),
-        options.target)
+            f.update(),
+            (a = !0),
+            fe(f.before_update),
+            (f.fragment = updateFunction ? updateFunction(f.ctx) : !1),
+            options.target)
     ) {
         if (options.hydrate) {
             const c = yt(options.target);
@@ -528,13 +535,13 @@ function processAnimationStep(animationSteps, currentStepIndex, animation, textL
     const currentStep = animationSteps[currentStepIndex];
     return currentStep
         ? (currentStep.type === "add-line" && (textLines.splice(currentStep.line, 0, ""), (textLines[currentStep.line] = " ".repeat(currentStep.spaces)), (animation.cursor = { line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length })),
-          currentStep.type === "write" && ((textLines[currentStep.line] += currentStep.text), (animation.cursor = { line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length }), animation.completionWindow && ((animation.completionWindow.pos = removeHtmlTags(textLines[currentStep.line]).length), (animation.completionWindow.written += 1))),
-          currentStep.type === "rewrite" && ((textLines[currentStep.line] = textLines[currentStep.line].slice(0, -currentStep.delete) + currentStep.text), (animation.cursor = { line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length }), animation.completionWindow && (animation.completionWindow.pos = removeHtmlTags(textLines[currentStep.line]).length)),
-          currentStep.type === "start-completion" && (animation.completionWindow = { completion: currentStep.completion, completions: currentStep.completions, line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length - (currentStep.n ?? 0), written: currentStep.n ?? 0, index: 0 }),
-          currentStep.type === "change-completion" && (animation.completionWindow.index = currentStep.index),
-          currentStep.type === "end-completion" && ((animation.completionWindow = void 0), (textLines[currentStep.line] += currentStep.text), (animation.cursor = { line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length })),
-          currentStep.type === "callback" && currentStep.callback(),
-          { animation: animation, lines: textLines })
+            currentStep.type === "write" && ((textLines[currentStep.line] += currentStep.text), (animation.cursor = { line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length }), animation.completionWindow && ((animation.completionWindow.pos = removeHtmlTags(textLines[currentStep.line]).length), (animation.completionWindow.written += 1))),
+            currentStep.type === "rewrite" && ((textLines[currentStep.line] = textLines[currentStep.line].slice(0, -currentStep.delete) + currentStep.text), (animation.cursor = { line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length }), animation.completionWindow && (animation.completionWindow.pos = removeHtmlTags(textLines[currentStep.line]).length)),
+            currentStep.type === "start-completion" && (animation.completionWindow = { completion: currentStep.completion, completions: currentStep.completions, line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length - (currentStep.n ?? 0), written: currentStep.n ?? 0, index: 0 }),
+            currentStep.type === "change-completion" && (animation.completionWindow.index = currentStep.index),
+            currentStep.type === "end-completion" && ((animation.completionWindow = void 0), (textLines[currentStep.line] += currentStep.text), (animation.cursor = { line: currentStep.line, pos: removeHtmlTags(textLines[currentStep.line]).length })),
+            currentStep.type === "callback" && currentStep.callback(),
+            { animation: animation, lines: textLines })
         : { animation: animation, lines: textLines };
 }
 function Vt(o) {
@@ -896,61 +903,61 @@ function CompletionPopover(o) {
                     ? (u.p(d, v), v & 4 && h(u, 1))
                     : ((u = PayloadCompletionPopover(d)), u.c(), h(u, 1), u.m(n.parentNode, n))
                 : u &&
-                  (H(),
-                  handleOutroTransition(u, 1, 1, () => {
-                      u = null;
-                  }),
-                  S()),
+                (H(),
+                    handleOutroTransition(u, 1, 1, () => {
+                        u = null;
+                    }),
+                    S()),
                 d[2] === "echo-seen"
                     ? _
                         ? v & 4 && h(_, 1)
                         : ((_ = SeenCompletionPopover(d)), _.c(), h(_, 1), _.m(t.parentNode, t))
                     : _ &&
-                      (H(),
-                      handleOutroTransition(_, 1, 1, () => {
-                          _ = null;
-                      }),
-                      S()),
+                    (H(),
+                        handleOutroTransition(_, 1, 1, () => {
+                            _ = null;
+                        }),
+                        S()),
                 d[2] === "echo-event"
                     ? g
                         ? (g.p(d, v), v & 4 && h(g, 1))
                         : ((g = EventCompletionPopover(d)), g.c(), h(g, 1), g.m(i.parentNode, i))
                     : g &&
-                      (H(),
-                      handleOutroTransition(g, 1, 1, () => {
-                          g = null;
-                      }),
-                      S()),
+                    (H(),
+                        handleOutroTransition(g, 1, 1, () => {
+                            g = null;
+                        }),
+                        S()),
                 d[2] === "echo-client"
                     ? m
                         ? (m.p(d, v), v & 4 && h(m, 1))
                         : ((m = EchoCompletionPopover(d)), m.c(), h(m, 1), m.m(l.parentNode, l))
                     : m &&
-                      (H(),
-                      handleOutroTransition(m, 1, 1, () => {
-                          m = null;
-                      }),
-                      S()),
+                    (H(),
+                        handleOutroTransition(m, 1, 1, () => {
+                            m = null;
+                        }),
+                        S()),
                 d[2] === "echo-step"
                     ? L
                         ? (L.p(d, v), v & 4 && h(L, 1))
                         : ((L = StepCompletionPopover(d)), L.c(), h(L, 1), L.m(s.parentNode, s))
                     : L &&
-                      (H(),
-                      handleOutroTransition(L, 1, 1, () => {
-                          L = null;
-                      }),
-                      S()),
+                    (H(),
+                        handleOutroTransition(L, 1, 1, () => {
+                            L = null;
+                        }),
+                        S()),
                 d[2] === "echo-trigger"
                     ? y
                         ? (y.p(d, v), v & 4 && h(y, 1))
                         : ((y = TriggerCompletionPopover(d)), y.c(), h(y, 1), y.m(p.parentNode, p))
                     : y &&
-                      (H(),
-                      handleOutroTransition(y, 1, 1, () => {
-                          y = null;
-                      }),
-                      S());
+                    (H(),
+                        handleOutroTransition(y, 1, 1, () => {
+                            y = null;
+                        }),
+                        S());
         },
         i(d) {
             if (!r) {
@@ -1007,11 +1014,11 @@ function Dt(o) {
                     ? (r.p(a, c), c & 8 && h(r, 1))
                     : ((r = qe(a)), r.c(), h(r, 1), r.m(n.parentNode, n))
                 : r &&
-                  (H(),
-                  handleOutroTransition(r, 1, 1, () => {
-                      r = null;
-                  }),
-                  S()),
+                (H(),
+                    handleOutroTransition(r, 1, 1, () => {
+                        r = null;
+                    }),
+                    S()),
                 a[3].cursor ? (f ? f.p(a, c) : ((f = TerminalCursor(a)), f.c(), f.m(t.parentNode, t))) : f && (f.d(1), (f = null));
         },
         i(a) {
@@ -1431,14 +1438,14 @@ function Yt(o) {
                     n === u
                         ? r[n].p(a, c)
                         : (H(),
-                          handleOutroTransition(r[u], 1, 1, () => {
-                              r[u] = null;
-                          }),
-                          S(),
-                          (t = r[n]),
-                          t ? t.p(a, c) : ((t = r[n] = p[n](a)), t.c()),
-                          h(t, 1),
-                          t.m(e, null));
+                            handleOutroTransition(r[u], 1, 1, () => {
+                                r[u] = null;
+                            }),
+                            S(),
+                            (t = r[n]),
+                            t ? t.p(a, c) : ((t = r[n] = p[n](a)), t.c()),
+                            h(t, 1),
+                            t.m(e, null));
             },
             i(a) {
                 i || (h(t), (i = !0));
@@ -1488,7 +1495,7 @@ function initializeEchoNode(o, options, transitionToState) {
                 return `<comment>(method) digest: ActionStep<${actionWaitTime}, { events: { id: string; timestamp: string; payload: { ... } }[]; }></comment>
 <hr/>${textDescription}`;
             } else if (stepId === 'delay') {
-              return `<comment>(method) delay: ActionStep<${actionWaitTime}, { duration: number }></comment>
+                return `<comment>(method) delay: ActionStep<${actionWaitTime}, { duration: number }></comment>
 <hr/>${textDescription}`;
             }
         }
@@ -1520,14 +1527,18 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
 });`.trim().split(`
 `);
     const eventCompletions = [
-        { text: "environment", description: `<comment>(property) environment: { id: 'development' | 'production', ... }</comment>
+        {
+            text: "environment", description: `<comment>(property) environment: { id: 'development' | 'production', ... }</comment>
 <hr/>The environment the workflow is running in.` },
         { text: "inputs" },
-        { text: "payload", description: `<comment>(property) payload: { postId: string }</comment>
+        {
+            text: "payload", description: `<comment>(property) payload: { postId: string }</comment>
 <hr/>The payload for the event, provided during trigger.` },
-        { text: "step", description: `<comment>(method) step: { chat: ChannelStep<Echo.Chat>, delay: ActionStep<Echo.Digest>, ... }</comment>
+        {
+            text: "step", description: `<comment>(method) step: { chat: ChannelStep<Echo.Chat>, delay: ActionStep<Echo.Digest>, ... }</comment>
 <hr/>Define a step in your workflow.` },
-        { text: "subscriber", description: `<comment>(property) subscriber: { firstName: string, lastName: string, subscriberId: string }</comment>
+        {
+            text: "subscriber", description: `<comment>(property) subscriber: { firstName: string, lastName: string, subscriberId: string }</comment>
 <hr/>The subscriber receiving the notification.` },
     ];
 
@@ -1542,46 +1553,57 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
     ];
 
     const payloadCompletions = [
-        { text: "postId", description: `<comment>(property) postId: string</comment>`  },
+        { text: "postId", description: `<comment>(property) postId: string</comment>` },
     ];
 
     const inAppInputCompletions = [
-        { text: "body", description: `<comment>(property) body: string</comment>
+        {
+            text: "body", description: `<comment>(property) body: string</comment>
 <hr/>The body of the in-app notification.`  },
     ];
 
     const emailInputCompletions = [
-        { text: "body", description: `<comment>(property) body: string</comment>
+        {
+            text: "body", description: `<comment>(property) body: string</comment>
 <hr/>The body of the email.`},
-        { text: "subject", description: `(property) subject: string
+        {
+            text: "subject", description: `(property) subject: string
 <hr/>The subject of the email.`  },
     ];
 
     const triggerCompletions = [
-        { text: "payload", description: `<comment>(property) payload: { postId: string }</comment>
+        {
+            text: "payload", description: `<comment>(property) payload: { postId: string }</comment>
 <hr/>The event payload for the workflow.`  },
-        { text: "to", description: `<comment>(property) to: { subscriberId: string, firstName: string, lastName: string }</comment>
+        {
+            text: "to", description: `<comment>(property) to: { subscriberId: string, firstName: string, lastName: string }</comment>
 <hr/>The subscriber to notify.`  },
     ];
 
     const channelResultCompletions = [
-        { text: "seen", description: `<comment>(property) seen: boolean</comment>
+        {
+            text: "seen", description: `<comment>(property) seen: boolean</comment>
 <hr/>Flag indicating if the notification has been seen.` },
-        { text: "read", description: `<comment>(property) read: boolean</comment>
+        {
+            text: "read", description: `<comment>(property) read: boolean</comment>
 <hr/>Flag indicating if the notification has been read.` },
     ];
 
     const subscriberCompletions = [
-        { text: "firstName", description: `<comment>(property) firstName: string</comment>
+        {
+            text: "firstName", description: `<comment>(property) firstName: string</comment>
 <hr/>The subscriber's first name.`  },
-{ text: "lastName", description: `<comment>(property) lastName: string</comment>
+        {
+            text: "lastName", description: `<comment>(property) lastName: string</comment>
 <hr/>The subscriber's last name.`  },
-{ text: "subscriberId", description: `<comment>(property) subscriberId: string</comment>
+        {
+            text: "subscriberId", description: `<comment>(property) subscriberId: string</comment>
 <hr/>The subscriber's unique identifier.`  },
     ];
 
     const stepOptionsCompletions = [
-        { type: "method", text: 'skip', description: `<comment>(method) skip: () => boolean</comment>
+        {
+            type: "method", text: 'skip', description: `<comment>(method) skip: () => boolean</comment>
 <hr/>Skip the step if the condition is met.` },
     ];
 
@@ -1615,16 +1637,16 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         }),
         addText(6, ": <fn>renderReactComponent</fn>(event."),
         openCompletions(6, {
-          interval: 1000,
-          completion: "payload",
-          completions: eventCompletions,
-          text: "pay",
+            interval: 1000,
+            completion: "payload",
+            completions: eventCompletions,
+            text: "pay",
         }),
         addText(6, "."),
         openCompletions(6, {
-          interval: 1500,
-          completion: "postId",
-          completions: payloadCompletions,
+            interval: 1500,
+            completion: "postId",
+            completions: payloadCompletions,
         }),
         addText(6, ")"),
         addLine(7, 2, 500),
@@ -1633,10 +1655,10 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         addLine(9, 2, 500),
         addText(9, "<kw>const</kw> { events } = <kw>await</kw> event."),
         openCompletions(9, {
-          interval: 1500,
-          completion: "step",
-          completions: eventCompletions,
-          text: "st",
+            interval: 1500,
+            completion: "step",
+            completions: eventCompletions,
+            text: "st",
         }),
         addText(9, ".<fn>"),
         openCompletions(9, {
@@ -1651,10 +1673,10 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         addLine(11, 2, 500),
         addText(11, `<kw>await</kw> event.`),
         openCompletions(11, {
-          interval: 1500,
-          completion: "step",
-          completions: eventCompletions,
-          text: "st",
+            interval: 1500,
+            completion: "step",
+            completions: eventCompletions,
+            text: "st",
         }),
         addText(11, ".<fn>"),
         openCompletions(11, {
@@ -1680,7 +1702,8 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
             interval: 500,
             completion: "length",
             completions: [
-              { text: "length", description: `<comment>(property) Array<T>.length: number</comment>
+                {
+                    text: "length", description: `<comment>(property) Array<T>.length: number</comment>
 <hr/>Gets or sets the length of the array. This is a number one higher than the highest index in the array.` },
             ],
             text: "le",
@@ -1721,10 +1744,10 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         addText(21, `commentWorkflow.<fn>trigger</fn>({`),
         addLine(22, 2),
         openCompletions(22, {
-          interval: 500,
-          completion: "to",
-          completions: triggerCompletions,
-          text: "to",
+            interval: 500,
+            completion: "to",
+            completions: triggerCompletions,
+            text: "to",
         }),
         addText(22, ": { "),
         openCompletions(22, {
@@ -1736,16 +1759,16 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         addText(22, ": <str>'joe@acme.com'</str> },"),
         addLine(23, 2),
         openCompletions(23, {
-          interval: 100,
-          completion: "payload",
-          completions: triggerCompletions,
-          text: "payload",
+            interval: 100,
+            completion: "payload",
+            completions: triggerCompletions,
+            text: "payload",
         }),
         addText(23, ": { "),
         openCompletions(23, {
-          interval: 500,
-          completion: "postId",
-          completions: payloadCompletions,
+            interval: 500,
+            completion: "postId",
+            completions: payloadCompletions,
         }),
         addText(23, ": <str>'12345'</str> }"),
         addLine(24, 0),
@@ -1778,14 +1801,14 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         currentState === "echo-client"
             ? transitionToState(2, (currentState = "echo-event"))
             : currentState === "echo-event"
-            ? transitionToState(2, (currentState = "echo-payload"))
-            : currentState === "echo-payload"
-            ? transitionToState(2, (currentState = "echo-step"))
-            : currentState === "echo-step"
-            ? transitionToState(2, (currentState = "echo-seen"))
-            : currentState === "echo-seen"
-            ? transitionToState(2, (currentState = "echo-trigger"))
-            : currentState === "echo-trigger" && transitionToState(2, (currentState = "echo-client")),
+                ? transitionToState(2, (currentState = "echo-payload"))
+                : currentState === "echo-payload"
+                    ? transitionToState(2, (currentState = "echo-step"))
+                    : currentState === "echo-step"
+                        ? transitionToState(2, (currentState = "echo-seen"))
+                        : currentState === "echo-seen"
+                            ? transitionToState(2, (currentState = "echo-trigger"))
+                            : currentState === "echo-trigger" && transitionToState(2, (currentState = "echo-client")),
             setTimer();
     }
     function handleStateTransition(event) {
@@ -2474,7 +2497,7 @@ function tt(o) {
         },
     };
 }
-function bn(o) {
+function TerminalWrapperComponent(o) {
     let e,
         n,
         t,
@@ -2541,7 +2564,7 @@ function bn(o) {
         }
     );
 }
-function vn(o, e, n) {
+function TerminalComponent(o, e, n) {
     const t = { node: { name: "Node", component: NodeSnippet }, python: { name: "Python", component: PythonSnippet }, go: { name: "Go", component: GoSnippet }, java: { name: "Java", component: JavaSnippet }, kotlin: { name: "Kotlin", component: KotlinSnippet } };
     let i = t.node,
         l = !0;
@@ -2557,14 +2580,296 @@ function vn(o, e, n) {
 }
 class Terminal extends Component {
     constructor(e) {
-        super(), renderComponent(this, e, vn, bn, B, {});
+        super(), renderComponent(this, e, TerminalComponent, TerminalWrapperComponent, B, {});
     }
 }
 
+// A noop JS template literal to syntax highlight `css`
+const css = (strings, ...values) => strings[0];
+
+/**
+ * Load the styles
+ */
+const echoTerminalCss = css`
+/* Terminal Wrapper Styles */
+
+.nv-snippet-window-wrapper.terminal-cqc4oo {
+  position: absolute;
+  font-size: .875rem;
+  font-family: var(--nv-monospace-font)
+}
+
+.nv-snippet-window-wrapper.is-noninteractable.terminal-cqc4oo {
+  opacity: 1;
+  -webkit-user-select: none;
+  user-select: none;
+  -moz-user-select: -moz-none;
+  transition: opacity .1s ease, filter .1s ease
+}
+
+.nv-snippet-window-wrapper.is-noninteractable.terminal-cqc4oo:hover {
+  opacity: .3;
+  filter: blur(2px)
+}
+
+.is-selectable.terminal-10kv6jm .nv-completion-item.terminal-10kv6jm:hover {
+  background: var(--nv-bg-light) !important
+}
+
+#nv-terminal {
+  position: relative;
+  width: 100%;
+  height: 600px;
+  max-width: 700px;
+  box-shadow: 0 4px 8px -2px #0f111a29, 0 10px 15px -4px #0f111a29, 0 30px 32px -15px #0f111a29, 0 60px 64px -25px #0f111a29
+}
+
+#nv-terminal.terminal-1dfudv>.nv-code-content.terminal-1dfudv .line {
+  min-width: 60ch
+}
+
+.nv-terminal-tabs.terminal-1dfudv.terminal-1dfudv {
+  display: flex;
+  border-radius: 8px 8px 0 0;
+  padding: 0 4px;
+  border-bottom: 1px solid #444
+}
+
+button.nv-terminal-tab.terminal-1dfudv.terminal-1dfudv {
+  position: relative;
+  font-family: inherit;
+  border: 0;
+  background: none;
+  color: #99a;
+  font-size: 1rem;
+  padding: .5rem .75rem
+}
+
+button.nv-terminal-tab.is-active.terminal-1dfudv.terminal-1dfudv {
+  color: #dde
+}
+
+button.nv-terminal-tab.is-active.terminal-1dfudv.terminal-1dfudv:after {
+  position: absolute;
+  top: 0;
+  bottom: -1px;
+  left: calc(.75rem - 2px);
+  right: calc(.75rem - 2px);
+  content: "";
+  border-bottom: 1px solid #ffffff7f
+}
+
+button.nv-terminal-tab.terminal-1dfudv.terminal-1dfudv:hover {
+  color: #dde
+}
+
+/* Terminal Code Snippet Styles */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap');
+
+.nv-code {
+  display: flex;
+  flex-direction: column;
+  --nv-color: #f9fafc;
+  --nv-monospace-font: 'Source Code Pro', 'Monaco', 'Consolas', monospace;
+  --nv-bg: #27292e;
+  --nv-bg-light: #373a3f;
+  --nv-border-color: rgb(73, 76, 95);
+  width: 100%;
+  font-size: 0.875rem;
+  font-family: var(--nv-monospace-font);
+  line-height: 1.35;
+  color: var(--nv-color);
+  border: 1px solid #555;
+  background: var(--nv-bg);
+  border-radius: 8px;
+  box-shadow: 0px 1px 3px 1px rgba(17, 19, 33, 0.4);
+}
+
+.nv-code kw {
+  color: rgb(255 225 77);
+}
+
+.nv-code fn {
+  color: rgb(255 51 222);
+}
+
+.nv-code str {
+  color: rgb(0 213 255);
+}
+
+.nv-code id {
+  color: #ffcc4a;
+}
+
+.nv-code sp {
+  color: #6fedb7;
+}
+
+.nv-code const {
+  color: #b486fd;
+}
+
+.nv-code comment {
+  color: #8f9397;
+}
+
+.nv-code .nv-code-content {
+  padding: 0.75rem;
+  overflow: auto;
+  flex: 1;
+}
+
+.nv-code .line {
+  display: block;
+  font-family: var(--nv-monospace-font);
+  margin: 0;
+  white-space: pre;
+}
+
+.nv-code .line-number {
+  display: inline-block;
+  font-family: var(--nv-monospace-font);
+  width: 2ch;
+  text-align: right;
+  margin-right: 1ch;
+  opacity: 0.5;
+  user-select: none;
+}
+
+.nv-code .nv-completion-heading {
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  background: var(--nv-bg-light);
+}
+
+.nv-code .nv-completion-items {
+  padding: 0.25rem 0;
+}
+
+.nv-code .nv-completion-item {
+  padding: 0.25rem 0.5rem;
+  white-space: pre-wrap;
+}
+
+.nv-code .nv-completion-item.is-active {
+  background-color: var(--nv-bg-light);
+}
+
+.nv-code .nv-completion-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin: -0.25rem 0;
+}
+
+.nv-code .nv-completion-description {
+  padding: 0.5rem 0.5rem;
+  border-top: 1px solid var(--nv-border-color);
+}
+
+.nv-code .nv-cursor {
+  font-family: var(--nv-monospace-font);
+  color: white;
+  position: absolute;
+  transform: translateX(-45%);
+  font-size: 0.875rem;
+  animation: nv-cursor-blinker 1s step-start infinite;
+}
+
+.nv-code .nv-cursor::before {
+  content: '│';
+}
+
+.nv-code span.hover {
+  background-color: var(--nv-bg-light);
+  outline: 1px solid #aac;
+}
+
+.nv-code span.hover.is-active {
+  background-color: var(--nv-bg);
+}
+
+.nv-code .nv-snippet-window {
+  font-size: 0.875rem;
+  font-family: var(--nv-monospace-font);
+  display: block;
+  background-color: var(--nv-bg);
+  border: 1px solid var(--nv-border-color);
+  border-radius: 5px;
+  min-width: 20ch;
+  max-width: 50ch;
+  whitespace: pre-wrap;
+  overflow-wrap: break-word;
+  box-shadow: 0px 1px 2px 1px rgba(17, 19, 33, 0.3);
+}
+
+.nv-code .nv-snippet-window.is-pop {
+  animation: nv-snippet-window-pop-in 0.3s forwards ease;
+}
+
+.nv-code .nv-snippet-window-wrapper hr {
+  box-sizing: content-box;
+  height: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-color: var(--nv-color);
+}
+
+@keyframes nv-snippet-window-pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  70% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes nv-cursor-blinker {
+  50% {
+    opacity: 0;
+  }
+}
+`
+!function(id) {
+    if (!document.getElementById(id)) {
+        var link = document.createElement('style');
+        link.type = 'text/css';
+        link.innerHTML = echoTerminalCss;
+        link.id = id; // Set the ID for deduplication
+        document.head.appendChild(link); // Append to the head for CSS
+    }
+}("echo-terminal-css-loader");
+
+/*
+ * Load the `nv-echo-terminal` web component
+ */
+
+const CUSTOM_ELEMENTS_NAME = "nv-echo-terminal";
+const TERMINAL_ID = "nv-terminal";
+const TERMINAL_CLASSES = ["nv-code", "nv-terminal"];
+
 const loadTerminal = () => {
-    const nvTerminal = document.getElementById("nv-terminal"),
-    docFragment = document.createDocumentFragment();
+    const nvTerminal = document.getElementById(TERMINAL_ID),
+        docFragment = document.createDocumentFragment();
     new Terminal({ target: docFragment });
     nvTerminal.replaceWith(docFragment);
 }
 
+customElements.define(CUSTOM_ELEMENTS_NAME, class extends HTMLElement {
+    connectedCallback() {
+        this.mount();
+    }
+
+    mount() {
+        this.id = TERMINAL_ID;
+        this.classList.add(...TERMINAL_CLASSES);
+        loadTerminal(); // Mount the terminal
+    }
+});
