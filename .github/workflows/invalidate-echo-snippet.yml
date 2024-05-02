@@ -1,0 +1,19 @@
+name: Invalidate Echo Snippet JSDelivr Cache
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - next
+      - main
+    paths:
+      - 'echo-terminal.js'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+    
+        steps:
+        - run: "curl -X GET https://purge.jsdelivr.net/gh/novuhq/docs/echo-terminal.min.js"
+        - run: "curl -X GET https://purge.jsdelivr.net/gh/novuhq/docs/echo-terminal.js"
+     
