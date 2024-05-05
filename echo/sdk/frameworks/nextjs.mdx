@@ -1,21 +1,27 @@
 ---
-title: "Next.js"
+title: "Integrate Novu with Next.js"
+sidebarTitle: "Next.js"
 ---
 
+## App Router
+
 <CodeGroup>
-```ts App Router
-// app/api/echo/route.ts
+```ts app/api/echo/route.ts
 import { serve } from "@novu/echo/next";
 import { echo } from "../../echo/client";
 
 export const { GET, POST, PUT } = serve({ client: echo });
 ```
 
-```ts Pages Router
-// pages/api/echo.ts
-import { serve } from "@novu/echo/next";
-import { echo } from '../../echo/client';
+</CodeGroup>
 
-export default serve({ client: echo });
-```
+## Pages Router
+
+<CodeGroup>
+    ```ts pages/api/echo.ts
+    import { serve } from "@novu/echo/next";
+    import { echo } from '../../echo/client';
+
+    export default serve({ client: echo });
+    ```
 </CodeGroup>
