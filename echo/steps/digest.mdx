@@ -3,13 +3,43 @@ title: "Digest Action Step"
 sidebarTitle: "Digest"
 ---
 
-Use the digest action whenever you want to aggregate events into an array for a period of time.
+The digest engine is designed to streamline notifications by accumulating multiple trigger events into one coherent message before delivery to the subscriber.
+
+This function proves beneficial when a user needs to be alerted about numerous triggers, but it's important to minimize the frequency of notifications. Novu automates this process, batching incoming trigger events according to a unique subscriberId. There is also the option to include a digestKey, providing additional control over event digestion workflows.
+
+## Step Interface
 
 ```tsx
-await step.digest('digest-3-days', async () => {
+const digestResult = await step.digest('digest-3-days', async () => {
   return {
 	  unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
 	  amount: 3, // the number of units to digest events for
 	};
 });
 ```
+## Using the digested triggers
+
+The digest function returns an array of triggers that have been digested.
+You can use this array to perform any necessary actions on the digested triggers. Like Sending and email, or updating a database.
+
+```tsx
+const digestResult = await step.digest('digest-3-days', async () => {
+  return {
+	  unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+	  amount: 3, // the number of units to digest events for
+	};
+});
+
+await step.email('send-email', async () => {
+  return {
+    subject: 'Digest Email',
+    body: `You have ${digestResult.events.length} new events`,
+ };
+});
+```
+
+The digest step returns an object with `events` array. Each event in the array has the following properties:
+
+- `id` - The `job id` of the digested event
+- `time` - The time when the event was triggered
+- `payload` - The original payload passed to the event
