@@ -3,7 +3,7 @@ title: "Workflows"
 description: "Workflows are at the core of responding to events in your system with notifications. Echo enables you to declare type-safe, validated, and version-controlled Novu Workflows with code."
 ---
 
-
+## Introduction
 The most basic Echo Workflow to send a notification in response to an event looks like:
 
 ```tsx
@@ -22,6 +22,7 @@ const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
 }, { payloadSchema: { properties: { name: { type: 'string' }}}} );
 ```
 
+## Just-in-time data fetching
 You can add any custom logic into your steps that you need. Maybe you’d like to fetch some information about your new sign-up from somewhere else during the Workflow execution. You can achieve it with the following changes:
 
 ```tsx
@@ -30,18 +31,19 @@ const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
   await step.email('send-email', async () => {
 	  // Fetch the user from your database
 	  const user = await db.getUser(payload.userId);
-    return {
-      subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
-      // 'Welcome to Acme Business tier, John Doe.'
-      body: 'We look forward to helping you achieve mission.',
-    }
-  });
-  // Changing the schema from `name` -> `userId`, for type-safety.
-}, { payloadSchema: { properties: { userId: { type: 'string' }}}} );
+        return {
+          subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
+          // 'Welcome to Acme Business tier, John Doe.'
+          body: 'We look forward to helping you achieve mission.',
+        }
+      });
+      // Changing the schema from `name` -> `userId`, for type-safety.
+    }, { payloadSchema: { properties: { userId: { type: 'string' }}}} );
 ```
 
 We call this “just-in-time” notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
 
+## Multi-step workflow
 Now, what if you wanted to send another update to the same new user in 1 week? But, you don't want to send the follow-up if the User opted out. We can add more steps to the Workflow to achieve this.
 
 ```tsx
@@ -115,7 +117,7 @@ You should now have a grasp of the flexibility that Novu Echo offers.
 
 Continue your reading in [Steps](/echo/concepts/steps) to find out the other channels and actions you can use with Echo.
 
-### Workflow Interface
+## Workflow Interface
 
 ```tsx
 echo.workflow(
