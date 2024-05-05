@@ -1,0 +1,15 @@
+---
+title: "Digest Action Step"
+sidebarTitle: "Digest"
+---
+
+Use the digest action whenever you want to aggregate events into an array for a period of time.
+
+```tsx
+await step.digest('digest-3-days', async () => {
+  return {
+	  unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+	  amount: 3, // the number of units to digest events for
+	};
+});
+```
