@@ -1,0 +1,65 @@
+---
+title: "Echo Endpoint"
+---
+
+## Echo Endpoint
+
+Echo requires a **single** `HTTP` endpoint (`/api/echo` or similar) to be exposed by your application. This endpoint is used to receive events from our Worker Engine.
+
+You can view the Echo Endpoint as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
+
+## The `serve` function
+
+We offer framework specific wrappers in form of an exported `serve` function that abstracts away:
+
+- Parsing the incoming request for `GET`, `POST` and `PUT` requests
+- HMAC Header Authentication
+- Framework Specific response and error handling
+
+Currently, we offer `serve` functions for the following frameworks:
+- [Next.js](/echo/sdk/frameworks/nextjs)
+- [Express.js](/echo/sdk/frameworks/express)
+- [Nuxt](/echo/sdk/frameworks/nuxt)
+
+If we currently don't support your framework, you can write a custom `serve` function that adheres to the following signature:
+
+## Writing a custom `serve` function
+
+Here is an example of a custom `serve` function for:
+
+```ts
+import { type Request, type Response } from 'express';
+import { EchoRequestHandler, ServeHandlerOptions } from '@novu/echo';
+
+export const serve = (options: ServeHandlerOptions): any => {
+  const echoHandler = new EchoRequestHandler({
+    frameworkName: 'express',
+    ...options,
+    handler: (
+      incomingRequest: Request,
+      response: Response,
+    ) => ({
+        method: () => incomingRequest.method,
+        headers: (key) => {
+            const header = incomingRequest.headers[key];
+            return Array.isArray(header) ? header[0] : header;
+        },
+        queryString: (key) => {
+                const qs = incomingRequest.query[key];
+                return Array.isArray(qs) ? qs[0] : qs;
+        },
+        body: () => incomingRequest.body,
+        url: () => new URL(incomingRequest.url, `https://${incomingRequest.headers.get("host") || ""}`),
+        transformResponse: ({ body, headers, status }) => {
+            Object.entries(headers).forEach(([headerName, headerValue]) => {
+              response.setHeader(headerName, headerValue);
+            });
+
+            return response.status(status).send(body);
+       },
+    }),
+  });
+
+  return echoHandler.createHandler();
+};
+```
