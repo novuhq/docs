@@ -65,8 +65,6 @@ pnpm run generate:provider
 Choose the provider type.
 
 ```shell
-> generate:provider
-> npx hygen provider new
 
 ? What type
 ❯ EMAIL
@@ -87,9 +85,9 @@ Make sure your selected name is not conflicting with our existing provider's nam
 
 > In above example, we have given our provider name as example-provider for simplicity. If provider you want to add have name as twilio, don't use twilio-provider as name, instead use twilio only. If one provider supports multiple channels like infobip supports both sms and email channels, use infobip-email or infobip-sms to differentiate these providers.
 
-Once our `example-provider` is generated we will need to begin working from within `/providers/example-provider` directory. Make sure to write the test for this new provider.
+Once our `example-provider` is generated we will need to begin working from within `packages/providers/src/lib/example-provider` directory. Make sure to write the test for this new provider.
 
-```ts providers/example-provider/src/lib/example-provider.provider.ts
+```ts packages/providers/src/lib/example-provider/example-provider.provider.ts
 import {
   ChannelTypeEnum,
   ISendMessageSuccessResponse,
@@ -117,7 +115,7 @@ export class ExampleProviderEmailProvider implements IEmailProvider {
 
 ### Template test case for `example-provider`.
 
-```ts providers/example-provider/src/lib/example-provider.provider.sepc.ts
+```ts packages/providers/src/lib/example-provider/example-provider.provider.sepc.ts
 import { ExampleProviderEmailProvider } from './example-provider.provider';
 
 test('should trigger example-provider library correctly', async () => {});
