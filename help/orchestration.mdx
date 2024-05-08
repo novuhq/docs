@@ -1,7 +1,11 @@
 ---
 icon: "screwdriver-wrench"
 ---
+
+import ContactSupportSnippet from "/snippets/contact-support.mdx";
+
 ## Digest
+
 ### New event triggers are merging an active Digest with an old duration..
 When a Digest is created with a set duration and an event is triggered, the Digest stays active ( and will batch the events) until the configured duration is over. 
 
@@ -16,7 +20,8 @@ Yes, Digest supports conditions and can be applied to your Digest step. If the T
 Not currently. The Digest duration  can be changed at the Workflow level only and is applied to all subscribers that Workflow is triggered to. If you have an identified use case for this, please let us know at support@novu.co.
 
 ## Delay
+
 ### What happens if the delay scheduled date and time is in the past?
 If the delay scheduled date and time is in the past, the delay step will fail. Based on the step configuration, workflow will either continue to the next step or workflow will be failed
 
-<Snippet file="contact-support.mdx" />
+<ContactSupportSnippet />
