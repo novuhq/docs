@@ -228,6 +228,16 @@ var trigger = await novu.Event.Trigger(payload);
 </ResponseExample>
 
 <Accordion title="Idempotent nature of transactionId">
-  <Snippet file="idempotent-nature-of-transactionId.mdx" />
+The `transactionId` within Novu is a unique identifier that is used to ensure the idempotent nature of notification delivery. 
+
+When you trigger an event to send a notification, you have the option to provide a `transactionId`. If you do not provide one, Novu will generate a UUID for you. 
+
+**This identifier is particularly useful for preventing the same notification from being sent multiple times in case the trigger event is inadvertently called more than once.**
+
+By leveraging the `transactionId`, you can make idempotent requests, which means if the same `transactionId` is used in another request, Novu's API will recognize it and will not send the same notification again. 
+
+<Note>
+This upholds the principle of idempotency, ensuring that the effect of the operation is the same, no matter how many times the request is repeated with the same `transactionId`.
+</Note>
 </Accordion>
 
