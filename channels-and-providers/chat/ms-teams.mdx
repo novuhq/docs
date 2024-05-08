@@ -3,23 +3,19 @@ title: 'MS Teams'
 description: 'Learn about how to use MS Teams provider for chat notifications'
 ---
 
-MS Teams does not need any API Key or client ID to push messages in it. All it needs is the webhook URL of the channel you want to send messages to. That itself acts as the credential.
+import ProviderImplementation from '/snippets/provider-implementation.mdx';
 
-Similar to **[Discord](https://www.notion.so/Additional-Resources-65ef4aca5d0f4115947030c2f5705101?pvs=21)**, the credential for this provider needs to be stored in the subscriber entity.
+MS Teams does not need any `API Key` or `Client ID` to send notifications. Our current implementation is based on the [Incoming Webhook URL](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cjavascript). It is a URL that you can use to send messages to a specific channel. This URL needs to be stored on the subscriber entity
 
-## ****Getting an MS Teams webhook URL****
+Similar to [Discord](https://www.notion.so/Additional-Resources-65ef4aca5d0f4115947030c2f5705101?pvs=21), the credential for this provider needs to be stored in the [subscriber entity](/api-reference/subscribers/update-subscriber-credentials).
 
-In order to get a webhook url linked to a specific channel, you should:
+## Creating incoming webhook URL
 
-Click on the three dots button next to the channel name and select the 'Connectors' option.
+Checkout step by step instructions on microsoft team's documentation on how to [create an incoming webhook url](https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cjavascript).
 
-Search for the 'Incoming Webhook' connector and click on 'Configure'.
+<Frame caption="Steps to create incoming webhook url"><img src="/images/channels-and-providers/chat/msteams/create-incoming-webhook.gif" /> </Frame>
 
-Set a name for the connector and click on the 'Create' button at the bottom.
-
-A new URL will be generated (only for this channel). This is the credential URL you need.
-
-## ****Connecting our subscribers to MS Teams****
+## Storing webhook url on subscriber entity
 
 The URL generated above will be the target channel of a subscriber that you want to integrate with. To make this connection, you have to:
 
@@ -36,9 +32,12 @@ import {
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.MsTeams, {
-  webhookUrl: "<WEBHOOK_URL>",
-});
+await novu.subscribers.setCredentials(
+  'subscriberId', 
+  ChatProviderIdEnum.MsTeams, // providerId
+  { webhookUrl: "<WEBHOOK_URL>" },
+  'msteams-MnGLxp8uy' // integration identifier
+);
 ```
   </Tab>
   <Tab title="cURL">
@@ -63,4 +62,6 @@ Checkout the [API reference](/api-reference/subscribers/update-subscriber-creden
 - `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
 - `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum to specify the provider.
 - The third parameter is the credentials object, in this case, we use the `webhookUrl` property to specify the MS Teams channel webhook URL or by calling the `Update Subscriber Credentials` endpoint on Novu API. Check endpoint details [here](https://docs.novu.co/api/update-subscriber-credentials/).
-1. You are all set up and ready to send your first chat message via our `@novu/node` package or directly using the REST API.
+
+
+<ProviderImplementation provider="Microsoft Teams" />
