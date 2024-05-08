@@ -4,6 +4,8 @@ sidebarTitle: "Overview"
 description: "Learn how to send push notifications with Novu using external providers like FCM, Expo etc."
 ---
 
+import { MissingProvider } from "/snippets/missing-provider.mdx";
+
 Push notifications are short, targeted messages delivered to a user's device or browser, often through mobile apps or websites. They serve as a powerful communication tool, offering real-time updates, reminders, and personalized content. Push notifications can range from news alerts and social media updates to promotional offers and important app notifications.
 
 These messages are designed to engage users and keep them informed about relevant events or activities, even when they are not actively using an app or browsing a website. They play a crucial role in user engagement and retention for businesses and organizations, as they can re-engage users and prompt them to take specific actions.
@@ -32,7 +34,9 @@ To send a push notification to subscribers (users) using Novu:
 
 <Note>Novu supports multiple active providers for push channel.</Note>
 
-<Snippet file="missing-provider.mdx" />
+<Tip>
+  <MissingProvider channelName="SMS"/>
+</Tip>
 
 ## Frequently Asked Questions
 
