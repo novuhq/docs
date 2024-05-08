@@ -1,3 +1,5 @@
-<Tip>
-Are we missing a provider you'd like to use for this channel? Please consider adding a new feature request on [github](https://github.com/novuhq/novu/issues/new?assignees=&labels=feature&projects=&template=feature_request.yml&title=%F0%9F%9A%80+Feature%3A+) or help us upvoting the existing ones on our public [roadmap](https://roadmap.novu.co/roadmap).
-</Tip>
+export const MissingProvider = ({ channelName }) => (
+  <span>
+    Are we missing a provider you'd like to use for {channelName ? channelName : "this"} channel? Please consider adding a new feature request on <a href="https://github.com/novuhq/novu/issues/new?assignees=&labels=feature&projects=&template=feature_request.yml&title=%F0%9F%9A%80+Feature%3A+">github</a> or help us upvoting the existing ones on our public <a href="https://roadmap.novu.co/roadmap" >roadmap</a>
+  </span>
+);

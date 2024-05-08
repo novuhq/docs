@@ -3,6 +3,7 @@ title: "SMS Channel Overview"
 sidebarTitle: "Overview"
 description: "Learn the process of configuring and using sms providers with Novu"
 ---
+import { MissingProvider } from "/snippets/missing-provider.mdx";
 
 Novu can be used to deliver sms messages to your customers using a unified delivery API. You can easily integrate your favorite sms provider using the built-in integration store.
 
@@ -87,5 +88,6 @@ Common errors and reason for these errors while sending sms messages using Novu.
 1. Subscriber does not have a configured channel.
     - if the `from` field is missing / null / undefined.
 
-<Snippet file="missing-provider.mdx" />
-```
+<Tip>
+  <MissingProvider channelName="SMS"/>
+</Tip>
