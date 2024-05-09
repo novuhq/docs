@@ -68,18 +68,16 @@ After this period, the reused key will be treated as a new request and response.
 
         const novu = new Novu("<NOVU_API_KEY>");
 
-        await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
-            {
-                to: {
-                subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
-            },
-                payload: {
-                name: "Hello World",
-            },
-                actor: "actorId"
-                tenant: "tenantIdentifier"
-            }
-            );
+        await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
+          to: {
+            subscriberId: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+          },
+          payload: {
+            name: "Hello World",
+          },
+          actor: "actorId",
+          tenant: "tenantIdentifier",
+        });
             ```
     </Tab>
 </Tabs>
