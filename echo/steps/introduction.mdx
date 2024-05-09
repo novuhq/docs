@@ -1,7 +1,23 @@
 ---
-title: "Steps"
+title: "Workflow Steps"
+sidebarTitle: "Introduction"
 description: "Steps control the execution flow of your workflow, whilst Novu provides the context of your notification delivery events back into the Workflow execution context."
 ---
+
+## Supported Steps
+
+Novu Supports Channel and Action steps to be used as part of the workflow execution.
+
+### Channel Steps
+- [E-mail](/echo/steps/email)
+- [Chat](/echo/steps/chat)
+- [SMS](/echo/steps/sms)
+- [Push](/echo/steps/push)
+- [In-App](/echo/steps/in-app)
+
+### Action steps
+- [Delay](/echo/steps/delay)
+- [Digest](/echo/steps/digest)
 
 ## Channel Steps Interface
 
@@ -21,92 +37,6 @@ await step.email('new-post', async (inputs) => {
 - `new-post` is the unique to the workflow identifier for this step. You cannot have 2 steps using the same identifier
 - `resolver` function, used to return the content of the channel.
 - `options` this is an optional configuration object that defines: [Input Schema](/echo/concepts/inputs), [Provider Overrides](#provider-overrides), skip and other configurations...
-
-### E-mail
-
-E-mail expected to be an object with the following properties:
-- `subject` - The subject of the email
-- `body` - The HTML body of the email
-
-Any content generation framework like [React Email](/echo/integrations/react-email) can be used here to generate the HTML Content.
-
-```tsx
-await step.email('send-email', async (inputs) => {
-  return {
-    subject: 'You received a post',
-    body: `<html><body>A new post has been created</body></html>`,
-  };
-});
-```
-
-### In-App
-
-```tsx
-await step.inApp('send-inapp', async (inputs) => {
-  return {
-    body: `A new post has been created`,
-  };
-});
-```
-
-### SMS
-
-```tsx
-await step.sms('send-sms', async () => {
-  return {
-    body: 'A new post has been created',
-  };
-});
-```
-
-### Push
-
-```tsx
-await step.push('send-push', async () => {
-  return {
-    subject: 'You received a post',
-    body: 'A new post has been created',
-  };
-});
-```
-
-### Chat
-
-```tsx
-await step.chat('send-chat', async () => {
-  return {
-    body: 'A new post has been created',
-  };
-});
-```
-
-## Action Steps Interface
-
-### Delay
-
-Use the delay action whenever you need to pause the execution of your workflow for a period of time.
-
-```tsx
-await step.delay('delay-1-week', async () => {
-  return {
-	  unit: 'weeks', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
-	  amount: 1, // the number of units to delay workflow execution for
-	};
-});
-```
-
-### Digest
-
-Use the digest action whenever you want to aggregate events into an array for a period of time.
-
-```tsx
-await step.digest('digest-3-days', async () => {
-  return {
-	  unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
-	  amount: 3, // the number of units to digest events for
-	};
-});
-```
 
 ## Provider Overrides
 
