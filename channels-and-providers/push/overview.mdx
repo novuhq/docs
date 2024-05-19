@@ -23,7 +23,7 @@ To send a push notification to subscribers (users) using Novu:
 - Make sure all provider specific steps are configured properly before triggering workflow. Read provider related documentation for all required steps.
 - Trigger the workflow.
 
-## Supported providers:-
+## Supported providers
 
 - [Firebase Cloud Messaging (FCM)](/channels-and-providers/push/fcm)
 - [Expo Push](/channels-and-providers/push/expo-push)
@@ -35,12 +35,45 @@ To send a push notification to subscribers (users) using Novu:
 <Note>Novu supports multiple active providers for push channel.</Note>
 
 <Tip>
-  <MissingProvider channelName="SMS"/>
+  <MissingProvider channelName="PUSH"/>
 </Tip>
+
+## Managing push device tokens
+
+To send push notifications to subscribers, you need to store device tokens or identifiers in subscriber profiles. These tokens are unique identifiers that help push notification providers deliver messages to the correct devices. Each provider has its own method for obtaining and storing device tokens.
+
+Novu offers to ways of keeping your device tokens in sync with subscriber profiles:
+- Just-in-time: Pass device tokens in the payload when triggering a workflow. Novu will automatically update subscriber profiles with the new device tokens.
+- Manual: Update subscriber profiles with device tokens using the Novu Set Credentials API.
+
+### Just-in-time
+
+When triggering a workflow, you can pass the `channels` array on the subscriber object with the device tokens for the push provider of your choice. Here is an example with fcm:
+
+```typescript
+novu.trigger('workflow-id', {
+  to: {
+    subscriberId: 'subscriber-id',
+    channels: [
+      {
+        providerId: 'fcm',
+        credentials: {
+          deviceTokens: ['token-1', 'token-2'],
+        },
+      },
+    ],
+  },
+  payload: {},
+});
+```
+
+### Manual
+
+Use the Novu Set Credentials API to update subscriber profiles with device tokens. You can read more about the API in the [API Reference](/api-reference/subscribers/update-subscriber-credentials) or the [FCM Example](/channels-and-providers/push/fcm#setting-device-token)
 
 ## Frequently Asked Questions
 
-### 1. How to remove one device token from subscriber credentials?
+### How to remove one device token from subscriber credentials?
 
 To remove a device token from subscriber credentials, you need to get the current device tokens from subscriber credentials, remove all deviceTokens, remove the token you want to remove and then update the subscriber credentials with new device tokens.
 
