@@ -35,7 +35,6 @@ cp .env.example ./local/deployment/.env
 
 # Start Novu
 docker-compose -f ./local/deployment/docker-compose.yml up
-
 ```
 
 Now visit [http://localhost:4200](http://localhost:4200/) to start using Novu.
@@ -121,8 +120,87 @@ Currently, we are caching data in the most heavily loaded areas of the system: t
 <Note>If you require guidance on setting up a production-scale configuration, official IaaS recommendations, please don't hesitate to [contact our team](https://notify.novu.co/meetings/novuhq/notifications-45min?utm_campaign=novuDocs&utm_content=deploy-with-Docker-docs).
 They can provide assistance regarding enterprise edition licenses or cloud-prem deployment to meet your specific needs.</Note>
 
-### Reverse-Proxy / Load Balancers
+### NGINX based reverse proxy
+This method uses `nginxproxy/nginx-proxy` and `nginxproxy/acme-companion` docker image to provide a reverse proxy. SSL certificates are managed using Let's Encrypt. Fresh certificates will be stored after 90 days for each service.
 
+Steps to configure:-
+
+<Steps>
+  <Step title="Create EC2 instance" >
+    Create a new EC2 instance in preferred AWS region having minimum configuration as below
+    - Instance type - `t2.medium`
+    - Storage - `32GB`
+    - Number of vCPUs - `2`
+
+    Above configuration is minimum requirement. You can choose higher configuration based on your requirement.
+  </Step>
+  <Step title="Security Group Rules">
+    Add the following rules to the security group of the EC2 instance
+    - Inbound rules
+      - Type - `HTTP`, Protocol - `TCP`, Port Range - `80`, Source - `Anywhere`
+      - Type - `HTTPS`, Protocol - `TCP`, Port Range - `443`, Source - `Anywhere`
+      - (Optional) - Type - `SSH`, Protocol - `TCP`, Port Range - `22`, Source - `Your IP`
+    - Outbound rules
+      - Type - `All traffic`, Protocol - `All`, Port Range - `All`, Destination - `Anywhere`
+    </Step>
+
+  <Step title="Public IPv4">
+  Copy the public IPv4 address of the EC2 instance. If using [elastic ip](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html), copy the elastic ip.
+  </Step>
+
+  <Step title="Update DNS Records">
+    In above step, incoming request is allowed only on port 80 and 443. Update the DNS records of the domain to point to the public IPv4 address of the EC2 instance:
+    - Go to the DNS provider's website.
+    - Go to DNS settings of domain.
+    - Add an A record with the name as `novu` and value as the above copied IPv4 address.
+    - Add an A record with the name as `api.novu` and value as the above copied IPv4 address.
+    - Add an A record with the name as `ws.novu` and value as the above copied IPv4 address.
+    - Add an A record with the name as `embed.novu` and value as the above copied IPv4 address.
+    - Add an A record with the name as `widget.novu` and value as the above copied IPv4 address.
+  </Step>
+
+  <Step title="Clone Novu repository">
+  ```bash
+  # Get the code
+  git clone --depth 1 https://github.com/novuhq/novu
+
+  # Go to the nginx-based folder
+  cd novu/docker/local/deployment/nginx-based/
+
+  # Copy the example env file
+  cp .env.example .env
+  ```
+  </Step>
+  <Step title="Update the environment variables">
+  Update the following environment variables in the `.env` file:
+  - `LETSENCRYPT_EMAIL` - Email address to register with Let's Encrypt to remind you about certificate expiry.
+  - `JWT_SECRET` - Used as a secret to verify the JWT token signature
+  - `STORE_ENCRYPTION_KEY` - used to encrypt/decrypt the provider credentials. It must be 32 characters long
+
+  Above environment variables are mandatory. Update other environment variables as per your configuration and requirements.
+  </Step>
+  <Step title="Start the docker compose">
+  Make sure current directory is `novu/docker/local/deployment/nginx-based/` and run below command:
+
+  ```bash
+  docker compose up
+  ```
+  
+  To run in background
+  ```bash
+  docker compose up -d
+  ```
+  </Step>
+
+   <Step title="Access Novu web dashboard">
+  Open the browser and access the Novu web dashboard using the domain name. For example, `https://novu.domain.com`. Replace `domain.com` with your domain name.
+   </Step>
+</Steps>
+
+### Reverse-Proxy / Load Balancers
+<Note>
+  This method is deprecated and will be removed in future versions of Novu. Please use the above method (NGINX based reverse proxy).
+</Note>
 To implement a reverse-proxy or load balancer in front of Novu, you need to set the GLOBAL_CONTEXT_PATH for the base path of the application.
 This is the path that the application will be served from after the domain.
 For example:
