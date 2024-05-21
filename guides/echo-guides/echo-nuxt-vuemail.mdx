@@ -1,0 +1,476 @@
+---
+title: 'How to send notifications with Nuxt.js and Vuemail'
+description: 'Learn how to send email notifications with Nuxt.js, Vuemail and Novu'
+---
+
+This guide assumes you know what [a notification workflow](https://docs.novu.co/workflows/notification-workflows) is and why you need it. It also assumes you are aware of [Nuxt](https://nuxt.com/) and [VueEmail](https://vuemail.net/). 
+Fantastic. Now that we are all on the same page let’s proceed.
+
+Novu recently released a new way of baking notification workflows into your apps via code, and it’s huge! Let me walk you through it.
+
+It’s called Novu Echo(The name might change, but we will roll with it now). To learn about Novu Echo, visit the related [documentation](https://docs.novu.co/echo/quickstart). You might also benefit from reading this excellent [Code-First Approach to Managing Notification Workflows](https://novu.co/blog/a-code-first-approach-to-managing-notification-workflows/) article.
+
+If you prefer to clone the repository from GitHub and get your hands dirty, we aren’t going to stop you. You can find it [here](https://github.com/iampearceman/Novu_Echo-Nuxt-VueEmail-Example).
+
+Still here? Good, I wrote this guide for you!
+
+## Getting Started
+
+## 1. Initialize **New Nuxt Project**
+
+We will follow the [official installation guide from Nuxt](https://nuxt.com/docs/getting-started/installation), open your terminal / IDE, and run the following command: 
+
+```jsx
+npx nuxi@latest init <project-name>
+```
+
+## 2. **Integrate Novu Echo Into Our App (Notification Workflow)**
+
+1. We will install the `@novu/echo` package in the root of our Nuxt app directory by running the following command:
+
+```jsx
+npm install @novu/echo
+```
+
+2. We must provide an API endpoint for the [Novu Dev Studio](https://docs.novu.co/echo/concepts/studio) to fetch our notification workflow. (Don’t worry; we guide you through all the steps.) Navigate to your app's `app/server` directory and create a new directory named `api`. 
+
+```jsx
+cd app/server
+
+mkdir api
+```
+
+Create a file within the `app/server/api` directory and name it `echo.ts`.  Copy and paste the code snippet below:
+
+```jsx
+//..app/server/api/echo.ts
+import { serve } from "@novu/echo/nuxt";
+import { echo } from "../echo/echo-client";
+
+export default defineEventHandler(serve({ client: echo }));
+```
+
+3. Now, let's create the instance where we will build and maintain our notification workflow:
+
+Navigate to your `app/server` directory and create another directory named `echo`.
+
+```jsx
+cd app/server
+
+mkdir echo
+```
+
+Create a file within the `app/server/echo` directory and name it `echo-client.ts`.  Copy and paste the code snippet below:
+
+```jsx
+//..app/server/echo/echo-client.ts
+// This workflow already renders vue email template.
+
+import { config } from '@vue-email/compiler'
+import { Echo } from '@novu/echo';
+
+const vueEmail = config('templates', {
+  verbose: false,
+  options: {
+  },
+})
+
+export const echo = new Echo({
+  /**
+   * Enable this flag only during local development
+   * For production this should be false
+   */
+  devModeBypassAuthentication: true
+});
+
+echo.workflow('hello-world', async ({ step, payload }) => {
+    await step.email(
+        'send-email',
+        async () => {
+            const template = await vueEmail.render('sample-email.vue', {
+                props: payload,
+            });
+            return {
+                subject: `You have a new invitation from: ${payload.username}.`,
+                body: template.html,
+            }
+        });
+},
+    {
+        payloadSchema: {
+            // Always `object`
+            type: 'object',
+            // Specify the properties to validate. Supports deep nesting.
+            properties: {
+                        username: { type: "string" },
+                        invitedByEmail: { type: "string" },
+                        inviteLink: { type: "string" },
+                        inviteFromIp: { type: "string" },
+                        inviteFromLocation: { type: "string" }
+            },
+            // Used to enforce full type strictness, with no rogue properties.
+            additionalProperties: false,
+            // The `as const` is important to let Typescript know that this
+            // type won't change, enabling strong typing on `inputs` via type
+            // inference of the provided JSON Schema.
+        } as const,
+    },
+);
+```
+
+We haven’t finished the guide yet but have everything to build a notification workflow.
+
+Below, We can see a “plain” echo client instance to shape your desired workflow.
+
+```jsx
+//..app/server/echo/echo-client.ts
+// This is Echo Client instance concept - not a working instance!
+
+import { Echo } from '@novu/echo';
+
+export const echo = new Echo({
+  /**
+   * Enable this flag only during local development
+   * For production this should be false
+   */
+  devModeBypassAuthentication: true
+});
+
+echo.workflow(
+	'<WORKFLOW_NAME>', // The Workflow name. Must be unique across your Echo client.
+	// Workflow resolver, the entry-point for your Workflow steps
+	async ({
+		// Helper function to declare your Workflow Steps.
+		step,
+		// Workflow Trigger payload
+		payload,
+	}) => {
+	// ...your Workflow Steps
+}, {
+	// JSON Schema for validation and type-safety. Zod, and others coming soon.
+	// https://json-schema.org/draft-07/json-schema-release-notes
+
+	// The schema for the Workflow payload passed dynamically via Novu Trigger API
+	// Defaults to an empty schema.
+	payloadSchema: { properties: { name: { type: 'string' }}},
+	// The schema for the Workflow inputs passed statically via Novu Web
+	// Defaults to an empty schema.
+	inputSchema: { properties: { brandColor: { type: 'string' }}},
+});
+```
+
+We can:
+
+- Select a name for our workflow.
+- Declare [Workflow Steps](https://docs.novu.co/echo/steps/introduction) as we see fit for our use case
+- Configure what could be passed in the payload of the Workflow Trigger ([payloadSchema](https://docs.novu.co/echo/concepts/inputs))
+- Configure what inputs could be passed statically via Novu Web ([inputSchema](https://docs.novu.co/echo/concepts/inputs))
+
+Note: You can create and manage as many workflows as you wish within `app/server/echo/echo-client.ts`; make sure to provide each workflow with a unique name.
+
+## 3. Adding Vuemail in our notification workflow
+
+1. We will install the `vue-email` package in the root of our Nuxt app directory by running the following command:
+
+```jsx
+npm install vue-email
+```
+
+2. We will create one more directory in the root of our directory and name it `templates`. That is where our vue-email templates will be stored.
+
+```c
+mkdir templates
+```
+
+3. In the `app/templates` directory, we will create a file for our first vue-email template and name it `sample-email.vue`.
+
+[You can find examples of Vue email templates here.](https://vuemail.net/playground)
+
+```jsx
+//..app/templates/sample-email.vue
+
+<script setup lang="ts">
+import { defineProps, withDefaults } from 'vue'
+
+interface Props {
+  invitedByUsername?: string
+  teamName?: string
+  username?: string
+  invitedByEmail?: string
+  inviteLink?: string
+  inviteFromIp?: string
+  inviteFromLocation?: string
+  showFootnote?: boolean;
+  components: string[] | null
+}
+
+const baseUrl = "https://react-email-demo-bdj5iju9r-resend.vercel.app";
+
+const props = withDefaults(defineProps<Props>(), {
+  teamName: 'Cleaning',
+  username: 'John Doe',
+  invitedByEmail: 'anpch@example.com',
+  inviteLink: 'https://acme.com/projects/accept/foo',
+  inviteFromIp: '172.0.0.1',
+  inviteFromLocation: 'San Francisco, CA',
+  showFootnote: true,
+  components: null
+})
+
+const previewText = `Join ${props.invitedByUsername} on Vercel`
+</script>
+
+<template>
+  <ETailwind>
+    <EHtml>
+      <EHead />
+      <EPreview>{{ previewText }}</EPreview>
+      <EBody class="bg-white my-auto mx-auto font-sans">
+        <EContainer class="border border-solid border-[#eaeaea] p-[20px] md:p-7 rounded my-[40px] mx-auto max-w-[465px]">
+          <div v-for="item in components || []">
+            <EButton v-if="item === 'button'" px="20" py="12" class="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center" :href="inviteLink"> Accept </EButton>
+            <EText v-if="item === 'text'" class="text-black text-[14px] leading-[24px]"> Hello {{ username }}, </EText>
+            <EHr v-if="item === 'divider'" class="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
+          </div>
+          <ESection class="mt-[32px]">
+            <EImg :src="`${baseUrl}/static/vercel-logo.png`" width="40" height="37" alt="Vercel" class="my-0 mx-auto" />
+          </ESection>
+          <Hello />
+          <EHeading class="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
+            New Project <strong>{{ teamName }}</strong> available
+          </EHeading>
+          <EText class="text-black text-[14px] leading-[24px]"> Hello {{ username }}, </EText>
+          <EText class="text-black text-[14px] leading-[24px]">
+            <strong>{{invitedByUsername}}</strong> (
+            <ELink :href="`mailto:${invitedByEmail}`" class="text-blue-600 no-underline">
+              {{ invitedByEmail }}
+            </ELink>
+            ) has invited you to the <strong>{{ teamName }}</strong> project on <strong>Acme</strong>.
+          </EText>
+          <ESection>
+            <ERow>
+              <EColumn align="right">
+                <EImg class="rounded-full" :src="`${baseUrl}/static/vercel-user.png`" width="64" height="64" />
+              </EColumn>
+              <EColumn align="center">
+                <EImg :src="`${baseUrl}/static/vercel-arrow.png`" width="12" height="9" alt="invited you to" />
+              </EColumn>
+              <EColumn align="left">
+                <EImg class="rounded-full" :src="`${baseUrl}/static/vercel-team.png`" width="64" height="64" />
+              </EColumn>
+            </ERow>
+          </ESection>
+          <ESection class="text-center mt-[32px] mb-[32px]">
+            <EButton px="20" py="12" class="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center" :href="inviteLink"> Accept </EButton>
+            <EButton px="20" py="12" class="rounded text-[12px] font-semibold no-underline text-center" :href="inviteLink"> Decline </EButton>
+
+          </ESection>
+          <EText class="text-black text-[14px] leading-[24px]">
+            or copy and paste this URL into your browser:
+            <ELink :href="inviteLink" class="text-blue-600 no-underline">
+              {{ inviteLink }}
+            </ELink>
+          </EText>
+
+          <EHr class="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
+          <EText v-if="showFootnote" class="text-[#666666] text-[12px] leading-[24px]">
+            This invitation was intended for
+            <span class="text-black">{{ username }} </span>.This invite was sent from <span class="text-black">{{ inviteFromIp }}</span> located in
+            <span class="text-black">{{ inviteFromLocation }}</span
+            >. If you were not expecting this invitation, you can ignore this email. If you are concerned about your account's safety, please reply to this email to get in touch
+            with us.
+          </EText>
+
+        </EContainer>
+      </EBody>
+    </EHtml>
+  </ETailwind>
+</template>
+```
+
+## 4. Launching The Dev Studio
+
+Now that we have everything in our notification workflow configured along with the vue-email template we will use, it’s time to see a visual representation of what we have built.
+
+1. If you haven’t run the development environment for your Nuxt app, now is the time.
+    
+    ```jsx
+    npm run dev
+    ```
+    
+2. Do you remember that we exposed an echo API endpoint in our app for Dev Studio to catch? This is where it happens.
+    
+    Run the following command in a separate terminal:
+    
+    ```jsx
+    npx novu-labs@latest echo
+    ```
+    
+    If you’ve followed this guide, you should see this:
+
+    <Frame caption="Launching the dev studio"><img src="/images/echo-nuxt-vuemail/one.png" /></Frame>
+    
+    Here is where our exact API endpoint goes. If our application runs on a different port, we should change the URL manually to point Dev Studio in the right direction.
+    
+    <Frame caption="Provide Echo endpoint"><img src="/images/echo-nuxt-vuemail/two.png" /></Frame>
+    
+    Also, if we have configured everything correctly, we should see that Dev Studio sees our workflow identifier (Workflow unique name).
+    
+    <Frame caption="Dev studio locates our workflow"><img src="/images/echo-nuxt-vuemail/three.png" /></Frame>
+    
+3. Click the “View Workflow” button in the Dev Studio to see the workflow.
+    
+    We should see the following:
+    
+    <Frame caption="Viewing the workflow"><img src="/images/echo-nuxt-vuemail/four.png" /></Frame>
+    
+
+Click on the workflow step node called `send-email`. We should see a preview of our email template and the `Step Input` and `Payload` variables we have configured in the workflow schemas.
+
+<Frame caption="Preview of our email template"><img src="/images/echo-nuxt-vuemail/five.png" /></Frame>
+
+4. This is the time to adjust the email template, step input schema, or define the properties we anticipate in the payload. We have a live representation of everything. You can add more steps like In-App, SMS, and chat.
+
+## 5. Syncing our workflow to Novu Cloud
+
+Having completed crafting, designing, and modifying our notification workflow to suit our requirements, we're ready to push it to Novu Cloud. There, it will handle the heavy lifting and seamlessly execute all the steps we've configured whenever we trigger the workflow.
+
+1. Click on the `Sync to Cloud` button on the top right.
+    
+    <Frame caption="Sync to Cloud"><img src="/images/echo-nuxt-vuemail/six.png" /></Frame>
+    
+2. We will need to create a local tunnel that the Novu Cloud environment can reach for local experimentation purposes.
+    
+    <Frame caption="Create a local tunnel"><img src="/images/echo-nuxt-vuemail/seven.png" /></Frame>
+    
+    On a separate terminal, run the following command:
+    
+    ```jsx
+    // Change to the port where the app is currently running
+    
+    npx localtunnel --port 3000
+    ```
+    
+    We should get something like:
+    
+    ```jsx
+    your url is: https://famous-pumas-clap.loca.lt
+    ```
+    
+    <Frame caption="Local tunnel url should be the same in the image here"><img src="/images/echo-nuxt-vuemail/eight.png" /></Frame>
+    
+3. Click the `Create Diff` button. To push (merge) the workflow code to the cloud, an API Key from our Novu account should be added to our echo instance.
+    
+    <Frame caption="Create Diff"><img src="/images/echo-nuxt-vuemail/nine.png" /></Frame>
+    
+    Let’s navigate to `../app/server/echo/echo-client.ts` file and add our Novu API Key.
+    
+    ```jsx
+    //..app/server/echo/echo-client.ts
+    // This workflow already renders vue email template.
+    
+    import { config } from '@vue-email/compiler'
+    import { Echo } from '@novu/echo';
+    
+    const vueEmail = config('templates', {
+      verbose: false,
+      options: {
+      },
+    })
+    
+    export const echo = new Echo({
+      
+      apiKey: process.env.NOVU_API_KEY, // <<-- Your Novu API KEY
+      /**
+       * Enable this flag only during local development
+       * For production this should be false
+       */
+      devModeBypassAuthentication: true
+    });
+    
+    echo.workflow('hello-world', async ({ step, payload }) => {
+        await step.email(
+            'send-email',
+            async () => {
+                const template = await vueEmail.render('sample-email.vue', {
+                    props: payload,
+                });
+                return {
+                    subject: `You have a new invitation from: ${payload.username}.`,
+                    body: template.html,
+                }
+            });
+    },
+        {
+            payloadSchema: {
+                // Always `object`
+                type: 'object',
+                // Specify the properties to validate. Supports deep nesting.
+                properties: {
+                            username: { type: "string" },
+                            invitedByEmail: { type: "string" },
+                            inviteLink: { type: "string" },
+                            inviteFromIp: { type: "string" },
+                            inviteFromLocation: { type: "string" }
+                },
+                // Used to enforce full type strictness, with no rogue properties.
+                additionalProperties: false,
+                // The `as const` is important to let Typescript know that this
+                // type won't change, enabling strong typing on `inputs` via type
+                // inference of the provided JSON Schema.
+            } as const,
+        },
+    );
+    ```
+    
+    We will now click the `Create Diff` button again.
+    
+    <Frame caption="Launching the dev studio"><img src="/images/echo-nuxt-vuemail/ten.png" /></Frame>
+    
+    This is where you can review all the changes made to the workflow. Once you have verified that everything is in order, go ahead and click the `Deploy Changes` button.
+    
+    <Frame caption="Deploy changes"><img src="/images/echo-nuxt-vuemail/eleven.png" /></Frame>
+    
+    ## 6. Testing Our Notification Workflow
+    
+    There are many ways to test and [trigger our workflow](https://docs.novu.co/api-reference/events/trigger-event), but we'll make a `cURL` API call to Novu Cloud from our terminal in this guide.
+    
+    If we don't have any subscribers or users in our database or within our Novu Cloud organization, we'll send the test to ourselves for simplicity.
+    
+    - In the `subscriberId` key, input a random number or even our email address (as long as we do not try to assign the same ID key to another subscriber, we should be good).
+    - For the `email` key, we will need to insert a valid email address so we can actually receive the email.
+    
+    
+    <Info>**Note:** Learn more about the structure of [subscriber properties](https://docs.novu.co/subscribers/subscribers).</Info>
+    
+    We can leave the payload empty or add properties aligned with the `payloadSchema` we established in the echo notification workflow instance. 
+    
+    ```jsx
+    
+    curl -X POST https://api.novu.co/v1/events/trigger \
+      -H "Authorization: ApiKey <NOVU_API_KEY>" \
+      -H "Content-Type: application/json" \
+      -d '{
+        "name": "hello-world",
+        "to": {
+          "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+          "email": "john@doemail.com",
+        },
+        "payload": {
+            "username": "Jane Doe",
+    		    "invitedByEmail": "Jane@doemail.com",
+    		    "inviteLink": "https://acme.com/projects/accept/foo",
+    		    "inviteFromIp": "172.0.0.1",
+    		    "inviteFromLocation": "New York, DC"
+        }
+      }'
+    
+    ```
+    
+    Now, let’s check our email inbox. 
+    
+    - No longer limited by UI notification steps and rigidity.
+    - No longer limited by notification content editors and systems. The more, the merrier!
+    - Now an IFTTT (If-This-Then-That) pro engineer!
+    
+    Have fun, and share your use case on Discord with us!
