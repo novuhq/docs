@@ -1,0 +1,315 @@
+---
+title: 'How to send notifications with Next.js and MJML'
+description: 'Leverage MJML package to send email notifications'
+---
+
+# Introduction
+
+This guide will walk you through how to send notifications with MJML and Novu. You can check out the code for a [sample demo app](https://github.com/novuhq/echo-mjml).
+
+## Pre-requisites
+- A Novu account
+- Node installed on your machine
+- A working NextJS development environment
+
+## Get started with Echo
+
+[Novu Echo](https://docs.novu.co/echo/quickstart) is a "notifications as code" approach that enables developers to define workflows as functions and integrate them with their preferred libraries for email, SMS, and chat generation.
+
+1. To get started with Echo, just run this command in your terminal, it’ll scaffold a new NextJS project with Echo and we’ll be ready to roll!
+
+```jsx
+npx create-echo-app
+
+```
+2. Once you execute this command, you’ll be asked to give your project a name. I’ll keep the default `my-echo-app` but you can choose your own.
+<Frame caption="Give your app a name"><img src="/images/echo-react-email/1.png" /> </Frame>
+3. You’ll then be asked if you want to use React-email or not. Since, we’ll be using MJML, I’m choosing the default 'No' option.
+<Frame caption="Choose if you want to install React email or not"><img src="/images/echo-react-email/2.png" /> </Frame>
+4. After this step, all the dependencies will be installed and you will be able to start using the magic called Echo.
+<Frame caption="Let all the dependencies get installed"><img src="/images/echo-react-email/3.png" /> </Frame>
+5. Once this installation is complete, simply cd into the directory and start your app using the `npm run dev` command, and your app will be served on `localhost:4000`
+
+<Note>
+Make sure that the port 4000 isn’t already being used!
+</Note>
+
+You’ll now have a NextJS app running on `http://localhost:4000` and you can make changes to your app as you see fit. Let’s now move to the meaty stuff - using Novu Echo in a NextJS app and the magic of Dev Studio.
+
+## Echo Dev Studio
+
+The Echo Dev Studio is a companion app to the Echo Client SDK. Its goal is to provide a local environment that lives near your code.
+
+To launch the dev studio locally you can run: `npx novu-labs@latest echo`. The Dev Studio will be started by default on port `2022`, and accessible via: `http://localhost:2022`
+<Frame caption="Echo Dev Studio runs on 'localhost:2022' by default. Here I’m already using port 2022 so it is starting on a different port but we recommend ensuring that port 2022 is free"><img src="/images/echo-react-email/4.png" /> </Frame>
+
+Here’s how the Dev Studio looks on the first run:
+<Frame caption="Echo Dev Studio on the first run"><img src="/images/echo-react-email/5.png" /> </Frame>
+You’ll notice that it asks for an `Echo endpoint` at the bottom. Novu Echo requires a single HTTP endpoint (`/api/echo` or similar) to be exposed by your application. This endpoint is used to receive events from our Worker Engine. We have more on Echo endpoint [in our docs.](https://docs.novu.co/echo/concepts/endpoint)
+
+<Note>
+You can view the Echo Endpoint as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
+</Note>
+
+Just enter the full URL of your Echo Endpoint. In our case, it is `http://localhost:4000/api/echo`
+<Frame caption="Enter Echo endpoint URL"><img src="/images/echo-react-email/6.png" /> </Frame>
+Once you do, you’ll see a green checkmark alongside the URL input box and a green `connected` highlight at the top right corner.
+
+## Installing and configuring MJML
+
+Integrating MJML with Novu in our NextJS app is quite straightforward, with just one small caveat. Following are the steps to get it installed and configured:
+
+1. Simply run the following command to install it like any other npm package:
+
+```bash
+npm i mjml
+```
+
+<Warning>
+Once installed, you need to keep in mind that, MJML doesn’t play very nice with newer web technologies such as Next.js that we’re using today. In order to overcome some hurdles, we need to use the `require` statement when importing MJML in our files, such as when defining the template.
+</Warning>
+
+2. To write an email template, you can look over some of the examples in the MJML documentation to get inspiration from. In our case, this is the template:
+```jsx
+// notice the use of require statement here:
+const mjml2html = require("mjml")
+
+export const mjmlTemplate = (inputs: Inputs) => {
+    const { text, buttonText, imageUrl, buttonUrl } = inputs;
+    return (mjml2html(`
+    <mjml>
+    <mj-body background-color="#d7dde5">
+      <mj-section full-width="full-width">
+        <mj-column width="66.66666666666666%" vertical-align="middle">
+          <mj-text align="left" font-size="11px" padding-bottom="0px" padding-top="0"><span style="font-size: 11px">${text}</span></mj-text>
+        </mj-column>
+        <mj-column width="33.33333333333333%" vertical-align="middle">
+          <mj-text align="right" font-size="11px" padding-bottom="0px" padding-top="0"><span style="font-size: 11px"><a href="${buttonUrl}" style="text-decoration: none; color: inherit;">OnePage</a></span></mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section background-color="#ffffff" full-width="full-width">
+        <mj-column width="33.33333333333333%" vertical-align="middle">
+          <mj-image src="http://191n.mj.am/img/191n/1t/hx.png" alt="OnePage" padding-bottom="0px" padding-top="10px"></mj-image>
+        </mj-column>
+        <mj-column width="66.66666666666666%" vertical-align="middle">
+          <mj-text align="center" padding-bottom="0px" padding-top="10px"><a href="${buttonUrl}" style="text-decoration: none; color: inherit;">Home</a>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;<a href="${buttonUrl}" style="text-decoration: none; color: inherit;">Features</a>&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;&#xA0;
+            <a href="${buttonUrl}" style="text-decoration: none; color: inherit;">Portfolio</a>
+          </mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section background-url="${imageUrl}" vertical-align="middle" background-size="cover" full-width="full-width" background-repeat="no-repeat">
+        <mj-column width="100%" vertical-align="middle">
+          <mj-text align="center" font-size="14px" color="#45474e" padding-bottom="10px" padding-top="45px"><span style="font-size: 30px; line-height: 30px;">More than an email template</span><br /><br />Only on <span style="color: #e85034">Mailjet</span> template builder</mj-text>
+          <mj-button align="center" background-color="#e85034" color="#fff" border-radius="24px" href="${buttonUrl}" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" padding-bottom="45px" padding-top="10px">${buttonText}</mj-button>
+        </mj-column>
+      </mj-section>
+      <mj-section background-color="#ffffff" vertical-align="top" full-width="full-width">
+        <mj-column vertical-align="top" width="33.33333333333333%">
+          <mj-image src="http://191n.mj.am/img/191n/1t/hs.png" alt="" width="50px"></mj-image>
+          <mj-text align="center" color="#9da3a3" font-size="11px" padding-bottom="30px"><span style="font-size: 14px; color: #e85034">Best audience</span><br /><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend sagittis nunc, et fermentum est ullamcorper dignissim.</mj-text>
+        </mj-column>
+        <mj-column vertical-align="top" width="33.33333333333333%">
+          <mj-image src="http://191n.mj.am/img/191n/1t/hm.png" alt="" width="50px"></mj-image>
+          <mj-text align="center" color="#9da3a3" font-size="11px" padding-bottom="30px"><span style="font-size: 14px; color: #e85034">Higher rates</span><br /><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend sagittis nunc, et fermentum est ullamcorper dignissim.</mj-text>
+        </mj-column>
+        <mj-column vertical-align="top" width="33.33333333333333%">
+          <mj-image src="http://191n.mj.am/img/191n/1t/hl.png" alt="" width="50px"></mj-image>
+          <mj-text align="center" color="#9da3a3" font-size="11px" padding-bottom="30px" padding-top="3px"><span style="font-size: 14px; color: #e85034">24/7 Support</span><br /><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend sagittis nunc, et fermentum est ullamcorper dignissim.</mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section background-color="#e85034" vertical-align="middle" full-width="full-width">
+        <mj-column width="100%" vertical-align="middle">
+          <mj-text align="center" color="#ffffff" font-size="18px" padding-bottom="10px">Why choose us?</mj-text>
+          <mj-divider border-color="#fff" border-style="solid" border-width="1px" padding-left="100px" padding-right="100px" padding-bottom="20px" padding-top="20px"></mj-divider>
+          <mj-text align="center" color="#f8d5d1" font-size="11px" padding-bottom="25px">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</mj-text>
+        </mj-column>
+      </mj-section>
+      <mj-section vertical-align="middle" background-color="#ffffff" full-width="full-width">
+        <mj-column width="50%" vertical-align="middle">
+          <mj-image src="http://191n.mj.am/img/191n/1t/h2.jpg" alt="" padding-bottom="20px" padding-top="20px"></mj-image>
+        </mj-column>
+        <mj-column width="50%" vertical-align="middle">
+          <mj-text align="left" color="#9da3a3" font-size="11px" padding-bottom="25px" padding-top="25px"><span style="font-weight: bold; font-size: 14px; color: #45474e">Great newsletter for the best company out there</span><br /><br />Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+            aliqua. Ut enim ad minim veniam.</mj-text>
+          <mj-button align="left" background-color="#e85034" color="#fff" border-radius="24px" font-size="11px" href="${buttonUrl}" font-family="Ubuntu, Helvetica, Arial, sans-serif, Helvetica, Arial, sans-serif" padding-bottom="45px" padding-top="10px">READ MORE</mj-button>
+        </mj-column>
+      </mj-section>
+      <mj-section full-width="full-width">
+        <mj-column width="100%" vertical-align="middle">
+          <mj-text align="center" font-size="11px" padding-bottom="0px" padding-top="0px">
+          <p style="font-size: 11px">
+          Please contact us if you have any questions. 
+          </mj-text>
+        </mj-column>
+      </mj-section>
+    </mj-body>
+  </mjml>
+    `));
+}
+```
+
+3. And as final step, we need to define the workflow that uses the template defined above.
+```jsx
+import { Echo } from "@novu/echo";
+import { mjmlTemplate } from "./mjml";
+
+export const echo = new Echo({
+  apiKey: '<Your Novu API key here>',
+  devModeBypassAuthentication: process.env.NODE_ENV === "development",
+});
+
+echo.workflow('mjml-email-workflow', async ({ payload, step }) => {
+  await step.email('send-email', async (inputs) => {
+
+
+    return {
+      subject: `Welcome to MJML with Echo, ${payload.text}!`,
+      body: mjmlTemplate(inputs).html,
+    };
+  }, {
+    inputSchema: {
+      type: 'object',
+      properties: {
+        text: { type: 'string', default: 'Welcome to our service' },
+        imageUrl: { type: 'string', default: 'https://picsum.photos/id/11/2000/300' },
+        buttonText: { type: 'string', default: 'Sign up' },
+        buttonUrl: { type: 'string', default: 'https://novu.co' },
+      },
+      additionalProperties: false,
+    } as const
+  });
+}, {
+  payloadSchema: {
+    properties: {
+      text: { type: 'string', default: 'Sumit' },
+    },
+    additionalProperties: false,
+  }
+});
+```
+Once you do this, you’ll see this workflow, the steps in the workflow, step inputs, payload variables and the rendered view of this workflow on the Echo Dev Studio:
+<Frame caption="Echo Dev Studio now picks up the workflow we just created"><img src="/images/echo-mjml/1.png" /> </Frame>
+Here, from the Dev Studio, you or your peers can change things like the text of a button, toggle visibility of a button, static text content etc and have it synced with the cloud with the `Sync to Cloud` button.
+
+### Payload vs Step Inputs
+
+Notice that in the Echo dev studio above, we’ve used payload as well as step inputs. Here’s how you can decide if you need either or both:
+| Payload | Step Inputs                           |
+| -------- | ------------------------------------- |
+| is used for dynamic content that changes from one notification to another based on events occurring in your system. | are used for static elements or predefined options that non-technical team members can modify without altering the codebase.|
+| is controlled by developers and passed dynamically through the novu.trigger method.      | are defined by developers but aremeant to be utilized and modified by non-technical peers.|
+| Payload examples include User ID, Post ID, Comment, Order ID, 2FA token, etc., which are likely to change with each notification.  | Step Inputs examples include the text of a button, whether a section should be shown, static text content, etc., which are generally static but configurable elements.|
+| Payload modifications are made in the code by developers at the time of triggering a notification.      |   Step Inputs can be modified directly in the UI, offering a no-code solution for non-technical team members to make changes.|
+| Payload data is passed during the novu.trigger method and is part of the dynamic data handling process within notification workflows.| Step Inputs are predefined in the workflow configuration and can be adjusted through the Echo Dev Studio, affecting how notifications are rendered without changing the workflow logic.|
+
+
+## Syncing with the cloud, with the click of a button
+
+Once done with the workflow, now we need to sync it to the cloud. Fortunately, Echo makes it a breeze to sync changes from the local machine to the cloud and it all happens with a click of a button.
+
+To enable our cloud environment to talk to your local Echo instance, you need to supply an Echo endpoint URL. This sets up a communication channel between our cloud environment and your local instance. To allow Novu to communicate with your local machine a tunnel will need to be generated. The quickest way to do it is with `localtunnel`. To this you can use either `localtunnel` or `ngrok`:
+```bash
+// using local tunnel
+npx localtunnel --port <YOUR_EDGE_PORT>
+```
+```bash
+// using ngrok 
+ngrok http http://localhost:<YOUR_EDGE_PORT>      
+```
+In our case, the app is running on port 4000 so we’ll use:
+```bash
+ngrok http http://localhost:4000
+```
+This will create a tunnel and you’ll see something like this in the terminal:
+<Frame caption="ngrok has done its magic"><img src="/images/echo-mjml/2.png" /> </Frame>
+Remember, the exact URL (`/api/echo` or similar) you expose in your application for handling Echo requests is what you'd consider the `Echo URL`. 
+
+This URL would be the endpoint within your application's domain where Novu's Worker Engine sends requests to fetch notification content or subscriber details dynamically. In our case, it is this: https://faec-2409-40f2-3c-3b57-400e-a7f7-1fc0-1e5.ngrok-free.app/api/echo
+So, we’ll enter this Echo URL:
+<Frame caption="Enter the Echo URL in the Dev Studio"><img src="/images/echo-mjml/3.png" /> </Frame>
+And create diff:
+<Frame caption="Echo Dev Studio will create a diff for you"><img src="/images/echo-mjml/4.png" /> </Frame>
+
+## Testing our workflow
+Once you’ve synced your changes in the previous step, you’ll see a notification that says ‘Sync complete’ and you can now go to Novu Cloud using the ‘Test your workflows’ link and trigger a notification.
+<Frame caption="Test your workflow will take you to Novu Cloud"><img src="/images/echo-mjml/5.png" /> </Frame>
+You’ll see the workflow you’ve created using Echo with a blue lightning bolt icon. That icon signifies that the corresponding workflow has been created with Echo:
+<Frame caption="You'll see the workflow created using Echo with the blue lightning bolt icon"><img src="/images/echo-mjml/6.png" /> </Frame>
+Simply open the workflow and you can send a test email from there. 
+
+<Note>
+Make sure that all the expected payload variables and step inputs are being sent in their respective fields!
+</Note>
+<Frame caption="Enter the respective data and test your workflow"><img src="/images/echo-mjml/7.png" /> </Frame>
+This is the workflow test email in my inbox:
+<Frame caption="Workflow test email in my inbox"><img src="/images/echo-mjml/8.png" /> </Frame>
+Once tested, you can simply have this workflow triggered whenever you want. For instance, a typical use case is to have a workflow triggered when an event occurs. To replicate it, I’ve attached a handler function that triggers this workflow when the `submit` event fires:
+
+Here’s a simple replication of the stipulated scenario:
+```jsx
+'use client';
+
+import { useState } from 'react';
+
+export default function Home() {
+  const [loading, setLoading] = useState(false);
+  const [text, setText] = useState('')
+  const [email, setEmail] = useState('')
+
+
+  const triggerWorkflow = async () => {
+    setLoading(true);
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: text,
+        email: email
+      }),
+    });
+    const result = await response.json();
+    setLoading(false);
+    console.log(result);
+  };
+  return (
+    <div>
+      <h1>MJML Email with Novu Echo</h1>
+      <input placeholder='Enter customer name' onChange={e => setText(e.target.value)} value={text} />
+      <input placeholder='Enter customer email' onChange={e => setEmail(e.target.value)} value={email} />
+      <button onClick={triggerWorkflow} disabled={loading}>
+        {loading ? 'Sending...' : 'Send Email'}
+      </button>
+    </div>
+  );
+}
+
+```
+And the corresponding route it hits:
+```jsx
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<Your Novu API Key>');
+
+export async function POST(request: Request) {
+  const res = await request.json();
+
+  await novu.trigger('mjml-email-workflow', {
+    to: {
+      subscriberId: 'echo-sub-two',
+      email: res.email
+    },
+    payload: {
+      text: res.text,
+    },
+  });
+
+  console.log('triggered')
+  return Response.json({ success: true });
+}
+```
+So there you go!
+
+This is how you create workflows using Echo and deploy your changes seamlessly to the Novu cloud. You can check out the code for a [sample demo app](https://github.com/novuhq/echo-mjml). Don’t forget to share your workflows with us and as always, hit us up on Discord with any questions you might have!
