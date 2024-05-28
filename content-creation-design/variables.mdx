@@ -81,21 +81,21 @@ Data payload variables encompass the dynamic data intended to be injected into t
 Here's a more illustrative example of how data payload variables can be employed:
 
 ```jsx
-curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
-     --header 'Authorization: ApiKey <REPLACE_WITH_API_KEY>' \
-     --header 'Content-Type: application/json' \
-     --data-raw '{
-         "name": "password-reset",
-         "to": {
-           "subscriberId": "6427e97d0136cef86a315c46",
-           "email": "john.doe@acme.com"
-         },
-         "payload": {
-					 "username": "Jhontheman1969",
-           "resetLink": "http://sample.info/password.reset",
-           "securityEmail": "john.doe.backup@acme.com",
-         }
-       }'
+curl -L -X POST 'https://api.novu.co/v1/events/trigger' \
+-H 'Authorization: ApiKey <REPLACE_WITH_API_KEY>' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+    "name": "password-reset",
+    "to": {
+        "subscriberId": "6427e97d0136cef86a315c46",
+        "email": "john.doe@acme.com"
+    },
+    "payload": {
+        "username": "Jhontheman1969",
+        "resetLink": "http://sample.info/password.reset",
+        "securityEmail": "john.doe.backup@acme.com",
+    }
+}'
 ```
 
 Within this code snippet, the variables `username` and `resetLink` are representative of data payload variables. 
