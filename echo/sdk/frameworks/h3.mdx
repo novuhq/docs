@@ -1,0 +1,23 @@
+---
+title: "Integrate Novu with H3"
+sidebarTitle: "H3"
+---
+
+```tsx
+import { createApp, eventHandler, toNodeListener } from "h3";
+import { serve } from "@novu/echo/h3";
+import { createServer } from "node:http";
+import { echo } from "./echo/client";
+
+const app = createApp();
+app.use(
+  "/api/echo",
+  eventHandler(
+    serve({
+      client: echo,
+    })
+  )
+);
+
+createServer(toNodeListener(app)).listen(process.env.PORT || 3000);
+```

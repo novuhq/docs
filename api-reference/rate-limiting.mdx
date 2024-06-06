@@ -3,14 +3,6 @@ title: "API Rate Limiting"
 description: "In this page you can learn about how rate limiting works with Novu's API"
 ---
 
-<Warning>
-  It’s important to note that this feature is still in beta release, and is not activated for Novu Cloud. However, self-hosting users can enable it immediately via the `IS_REQUEST_RATE_LIMITING_ENABLED` flag.
-
-  This release of the rate limiting feature is a beta version and has not yet undergone full load testing. While we have made every effort to ensure the functionality of this feature, its performance under high load conditions is currently not guaranteed.
-
-  As such, we strongly recommend that you use this feature with caution in production environments, and monitor its performance closely. We appreciate your understanding and patience as we continue to improve and optimize this feature.
-</Warning>
-
 <Note>
   This feature is available from v0.22.0.
 </Note>
@@ -18,7 +10,16 @@ description: "In this page you can learn about how rate limiting works with Novu
 
 Rate limiting is an essential functionality for establishing a robust and resilient system. It safeguards system resources from being misused by malicious actors or being monopolized by one client.
 
-It's important in regulating traffic and preventing sudden spikes that could degrade service quality.
-
 A variable-cost token bucket rate limited algorithm has been added to provide the capability for different API controllers and methods to have a varying cost. It also lays a foundation for dynamic costing of resource consumption.
 
+## Limits
+
+The following limits apply to each category of the Novu system. Each category has an independent bucket of rate-limit tokens to consume.
+Bulk requests have a rate limit cost of 100 times the base limit and consume from the same token pool. For example, the free tier would allow a combined maximum of 10 standard trigger events and 2 bulk trigger events in the same 1-second window.
+
+
+| Category        | Free     | Business | Endpoints                    |
+|-----------------|----------|----------|------------------------------|
+| Events          | 60 rps      | 600 rps     | Trigger                      |
+| Configuration   | 15 rps      | 150 rps     | Subscribers, Topics, Tenants |
+| Global          | 30 rps      | 300 rps     | All other endpoints consume rate limiting tokens from this category. |
