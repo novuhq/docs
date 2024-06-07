@@ -18,7 +18,7 @@ npx create-echo-app
 
 ```
 
-2. Once this installation is complete, simply `cd` into the directory and start your app using the npm run dev command, and your app will be served on `localhost:4000`
+2. Once this installation is complete, simply `cd` into the directory and start your app using the `npm run dev command`.
 3. As the last step, don’t forget to install the `react-email` package by executing the following command:
 
 ```bash
@@ -234,11 +234,11 @@ export function renderOTPEmail(payload: any) {
 }
 ```
 
-2. Launch Dev Studio - Novu’s code-first approach lets you see how the template would look when rendered, right when defining it, using the Dev Studio. To launch the dev studio locally you can run npx novu-labs@latest echo. The Dev Studio will be started by default on port 2022, and accessible via: http://localhost:2022
+2. Launch Dev Studio - Novu’s code-first approach lets you see how the template would look when rendered, right when defining it, using the Dev Studio. To launch the dev studio locally you can run `npx novu-labs@latest echo`. The Dev Studio will be started by default on port 2022, and accessible via: http://localhost:2022
 
 <Frame caption="Dev Studio lets you see the workflow you wrote without sending it off!"><img src="/images/echo-otp/studio.png" /> </Frame>
 
-3. Defining a workflow that uses that template to send notifications - In this step, we need to define a workflow that uses the template we wrote above to render the email notification:
+3. Define a workflow that uses that template to send notifications - In this step, we need to define a workflow that uses the template we wrote above to render the email notification:
 ```ts
 import { Echo } from "@novu/echo";
 import { renderOTPEmail } from "./otp";
@@ -289,7 +289,7 @@ const otpFlow = echo.workflow('otp-flow', async ({ step, payload }) => {
   // JSON Schema for validation and type-safety. Zod, and others coming soon.
 }, { payloadSchema: { properties: { text: { type: 'string' } } } });
 ```
-4. Establishing the route - Lastly, we need a route that triggers the workflow when it is hit. Here’s the route we’re using:
+4. Triggering the workflow - Lastly, we need to trigger the workflow we created above. Here’s how to trigger it:
 ```ts
 import { Novu } from '@novu/node';
 
