@@ -30,4 +30,8 @@ Novu does not have a separate API to retrieve email content. However, email cont
 ### How to send inline images in email?
 Inline images can be sent using `<img>` tag in the email content. PNG, JPEG, GIF are supported. SVGs are not supported as inline images by most of email clients like gmail, outlook.
 
+### How to add unsubscribe link in emails?
+
+Add `{{unsubscribe}}` variable in email step content editor and send url value of this variable in payload. Create a simple html page to [fetch preferences](https://docs.novu.co/api-reference/subscribers/get-subscriber-preferences) and then use [update preference api](https://docs.novu.co/api-reference/subscribers/update-subscriber-preference) to update.
+
 <ContactSupportSnippet />
