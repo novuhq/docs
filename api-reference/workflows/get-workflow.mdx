@@ -1,5 +1,5 @@
 ---
-openapi: get /v1/workflows/{workflowId}
+openapi: get /v1/workflows/{workflowIdOrIdentifier}
 ---
 
 import ApikeyWarning from "/snippets/apikey-warning.mdx";
@@ -10,7 +10,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 
 ```bash cURL
   curl --request GET \
-  --url https://api.novu.co/v1/workflows/{workflowId} \
+  --url https://api.novu.co/v1/workflows/{workflowIdOrIdentifier} \
   --header 'Authorization: <authorization>'
 ```
 
@@ -19,7 +19,7 @@ import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from
 
 const novu = new Novu('<NOVU_API_KEY>');
 
-await novu.notificationTemplates.getOne("workflowId");
+await novu.notificationTemplates.getOne("workflowIdOrIdentifier");
 ```
 
 ```php PHP
