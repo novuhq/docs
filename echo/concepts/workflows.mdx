@@ -41,7 +41,7 @@ const newSignup = echo.workflow('new-signup', async ({ step, payload }) => {
     }, { payloadSchema: { properties: { userId: { type: 'string' }}}} );
 ```
 
-We call this “just-in-time” notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
+We call this **just-in-time** notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
 
 ## Multi-step workflow
 Now, what if you wanted to send another update to the same new user in 1 week? But, you don't want to send the follow-up if the User opted out. We can add more steps to the Workflow to achieve this.
@@ -126,7 +126,6 @@ echo.workflow(
 	// Workflow resolver, the entry-point for your Workflow steps
 	async ({
 		// Helper function to declare your Workflow Steps.
-		//
 		step,
 		// Workflow Trigger payload
 		payload,
