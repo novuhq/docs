@@ -1,23 +1,24 @@
 ---
-title: "React E-mail"
+title: "Remix w/ React E-mail"
 ---
 
-Integrating Novu Echo with [React.Email](https://react.email/) for your Next.js application can be done in three steps. If you don't have an app, you can [clone our Next.js example](https://github.com/scopsy/echo-nextjs-example).
-
+Integrating Novu Echo with [React email](https://react.email/) for your Remix application can be done in three steps. If you don't have an app, you can [clone our Remix example](https://github.com/novuhq/novu-echo-remix-example).
 
 <Steps>
-  <Step title="Install React.Email components">
-    Install the required React.Email components.
+  <Step title="Install React email components">
+    Install the required React email components.
 
     ```bash
       npm i @react-email/components react-email
     ```
   </Step>
+  <Step title="Create email templates folder">
+        Create an `emails` folder in the `src/lib` directory of your Svelte app.
+  </Step>
   <Step title="Write your email">
     Create a new `sample-email.tsx` file for your email template.
 
-    ```tsx
-    import * as React from "react";
+    ```ts
     import { Button, Html } from "@react-email/components";
 
     function Email(props) {
@@ -37,7 +38,6 @@ Integrating Novu Echo with [React.Email](https://react.email/) for your Next.js 
       return render(<Email {...inputs} />);
     }
     ```
-    
   </Step>
   <Step title="Write your workflow">
     Define your Echo Workflow using the above template
@@ -51,7 +51,7 @@ Integrating Novu Echo with [React.Email](https://react.email/) for your Next.js 
     echo.workflow('new-signup', async ({ step, payload }) => {
       await step.email('send-email', async (inputs) => {
         return {
-          subject: `Welcome to React E-mail`,
+          subject: `Welcome to Remix and React E-mail`,
           body: renderEmail(inputs),
         }
       });
