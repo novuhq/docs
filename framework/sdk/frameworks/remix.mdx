@@ -1,0 +1,18 @@
+---
+title: "Integrate Novu with Remix"
+sidebarTitle: "Remix"
+---
+
+```tsx
+import { serve } from "@novu/framework/remix";
+import { myWorkflow } from "../novu/workflows";
+
+const handler = serve({
+    workflows: [myWorkflow],
+  });
+  
+export { handler as action, handler as loader };
+```
+
+Check out a comprehensive [guide on sending notifications in Remix with React email](/guides/framework-guides/echo-remix).
+

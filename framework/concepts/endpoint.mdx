@@ -1,0 +1,67 @@
+---
+title: "Bridge Endpoint"
+---
+
+## Bridge Endpoint
+
+Novu Framework requires a **single** `HTTP` endpoint (`/api/novu` or similar) to be exposed by your application. This endpoint is used to receive events from our Worker Engine.
+
+You can view the Bridge Endpoint as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
+
+Using the `create-novu-app` command creates a Bridge application for you with a Bridge endpoint ready to go.
+
+## The `serve` function
+
+We offer framework specific wrappers in form of an exported `serve` function that abstracts away:
+
+- Parsing the incoming request for `GET`, `POST`, `PUT` and `OPTIONS` requests
+- HMAC header authentication
+- Framework specific response and error handling
+
+Currently, we offer `serve` functions for the following frameworks:
+- [Next.js](/framework/sdk/frameworks/nextjs)
+- [Express.js](/framework/sdk/frameworks/express)
+- [Nuxt](/framework/sdk/frameworks/nuxt)
+- [h3](/framework/sdk/frameworks/h3)
+- [Remix](/framework/sdk/frameworks/remix)
+
+## Writing a custom `serve` function
+
+If we currently don't support your framework, you can write a custom `serve` function like the following example:
+
+```ts
+import { type Request, type Response } from 'express';
+import { NovuRequestHandler, ServeHandlerOptions } from '@novu/framework';
+
+export const serve = (options: ServeHandlerOptions): any => {
+  const requestHandler = new NovuRequestHandler({
+    frameworkName: 'express',
+    ...options,
+    handler: (
+      incomingRequest: Request,
+      response: Response,
+    ) => ({
+        method: () => incomingRequest.method,
+        headers: (key) => {
+            const header = incomingRequest.headers[key];
+            return Array.isArray(header) ? header[0] : header;
+        },
+        queryString: (key) => {
+                const qs = incomingRequest.query[key];
+                return Array.isArray(qs) ? qs[0] : qs;
+        },
+        body: () => incomingRequest.body,
+        url: () => new URL(incomingRequest.url, `https://${incomingRequest.headers.get("host") || ""}`),
+        transformResponse: ({ body, headers, status }) => {
+            Object.entries(headers).forEach(([headerName, headerValue]) => {
+              response.setHeader(headerName, headerValue);
+            });
+
+            return response.status(status).send(body);
+       },
+    }),
+  });
+
+  return requestHandler.createHandler();
+};
+```
