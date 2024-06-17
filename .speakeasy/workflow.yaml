@@ -1,9 +1,12 @@
 workflowVersion: 1.0.0
 sources:
-    json-development:
+    openapi-with-code-samples:
         inputs:
-            - location: https://api.novu.co/openapi.json
+            # - location: https://api.novu.co/openapi.json
+            - location: registry.speakeasyapi.dev/novu/novu/json-development:main
         overlays:
             - location: registry.speakeasyapi.dev/novu/novu/code-samples-typescript:main
-        output: ./openapi.json
+        output: ./openapi.yaml
+        registry:
+            location: registry.speakeasyapi.dev/novu/novu/openapi-with-code-samples
 targets: {}
