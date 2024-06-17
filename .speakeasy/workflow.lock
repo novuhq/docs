@@ -2,8 +2,8 @@ speakeasyVersion: 1.308.1
 sources:
     openapi-with-code-samples:
         sourceNamespace: openapi-with-code-samples
-        sourceRevisionDigest: sha256:fa499df2a7e5253ccf63e9a19eba93b99afac72f92f10cf3e3dc74fc20007f53
-        sourceBlobDigest: sha256:3a719560d0e975ad6f68f2690e35c1d91285c715bfa21509a2530f6146356d94
+        sourceRevisionDigest: sha256:617c44a40241b737a7a90189f233e176386f37d1e96abbc788ccc19f8ef71818
+        sourceBlobDigest: sha256:04472ffb95da929366bd443beeeabb328baa3660dacd96fff806004d7bfdc643
         tags:
             - latest
 targets: {}
@@ -15,7 +15,7 @@ workflow:
                 - location: registry.speakeasyapi.dev/novu/novu/json-development:main
             overlays:
                 - location: registry.speakeasyapi.dev/novu/novu/code-samples-typescript:main
-            output: ./openapi.yaml
+            output: ./openapi.json
             registry:
                 location: registry.speakeasyapi.dev/novu/novu/openapi-with-code-samples
     targets: {}
