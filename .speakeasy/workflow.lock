@@ -1,0 +1,21 @@
+speakeasyVersion: 1.308.1
+sources:
+    openapi-with-code-samples:
+        sourceNamespace: openapi-with-code-samples
+        sourceRevisionDigest: sha256:617c44a40241b737a7a90189f233e176386f37d1e96abbc788ccc19f8ef71818
+        sourceBlobDigest: sha256:04472ffb95da929366bd443beeeabb328baa3660dacd96fff806004d7bfdc643
+        tags:
+            - latest
+targets: {}
+workflow:
+    workflowVersion: 1.0.0
+    sources:
+        openapi-with-code-samples:
+            inputs:
+                - location: registry.speakeasyapi.dev/novu/novu/json-development:main
+            overlays:
+                - location: registry.speakeasyapi.dev/novu/novu/code-samples-typescript:main
+            output: ./openapi.json
+            registry:
+                location: registry.speakeasyapi.dev/novu/novu/openapi-with-code-samples
+    targets: {}
