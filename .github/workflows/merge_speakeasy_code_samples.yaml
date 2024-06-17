@@ -1,4 +1,4 @@
-name: Generate
+name: Merge speakeasy code samples
 permissions:
   checks: write
   contents: write
@@ -8,7 +8,7 @@ permissions:
   workflow_dispatch:
     inputs:
       force:
-        description: Force generation of SDKs
+        description: Force merge OpenAPI spec and code samples
         type: boolean
         default: false
   schedule:
