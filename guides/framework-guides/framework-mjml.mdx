@@ -12,21 +12,21 @@ This guide will walk you through how to send notifications with MJML and Novu. Y
 - Node installed on your machine
 - A working NextJS development environment
 
-## Get started with Echo
+## Get started with Novu Framework
 
-[Novu Echo](https://docs.novu.co/echo/quickstart) is a "notifications as code" approach that enables developers to define workflows as functions and integrate them with their preferred libraries for email, SMS, and chat generation.
+[Novu Framework](https://docs.novu.co/framework/quickstart) is a "notifications as code" approach that enables developers to define workflows as functions and integrate them with their preferred libraries for email, SMS, and chat generation.
 
-1. To get started with Echo, just run this command in your terminal, it’ll scaffold a new NextJS project with Echo and we’ll be ready to roll!
+1. To get started with Novu Framework, just run this command in your terminal, it’ll scaffold a new NextJS project with Novu Framework and we’ll be ready to roll!
 
 ```jsx
-npx create-echo-app
+npx create-novu-app --api-key=<YOUR_API_KEY>
 
 ```
-2. Once you execute this command, you’ll be asked to give your project a name. I’ll keep the default `my-echo-app` but you can choose your own.
+2. Once you execute this command, you’ll be asked to give your project a name. I’ll keep the default `my-novu-app` but you can choose your own.
 <Frame caption="Give your app a name"><img src="/images/framework-react-email/1.png" /> </Frame>
 3. You’ll then be asked if you want to use React-email or not. Since, we’ll be using MJML, I’m choosing the default 'No' option.
 <Frame caption="Choose if you want to install React email or not"><img src="/images/framework-react-email/2.png" /> </Frame>
-4. After this step, all the dependencies will be installed and you will be able to start using the magic called Echo.
+4. After this step, all the dependencies will be installed and you will be able to start using Novu Framework.
 <Frame caption="Let all the dependencies get installed"><img src="/images/framework-react-email/3.png" /> </Frame>
 5. Once this installation is complete, simply cd into the directory and start your app using the `npm run dev` command, and your app will be served on `localhost:4000`
 
@@ -151,15 +151,15 @@ export const mjmlTemplate = (inputs: Inputs) => {
 
 3. And as final step, we need to define the workflow that uses the template defined above.
 ```jsx
-import { Echo } from "@novu/echo";
+import { Client, workflow } from "@novu/framework";
 import { mjmlTemplate } from "./mjml";
 
-export const echo = new Echo({
+export const client = new Client({
   apiKey: '<Your Novu API key here>',
-  devModeBypassAuthentication: process.env.NODE_ENV === "development",
+  strictAuthentication: process.env.NODE_ENV !== "development",
 });
 
-echo.workflow('mjml-email-workflow', async ({ payload, step }) => {
+export const emailWorkflow = workflow('mjml-email-workflow', async ({ payload, step }) => {
   await step.email('send-email', async (inputs) => {
 
 
@@ -206,13 +206,15 @@ Notice that in the Echo dev studio above, we’ve used payload as well as step i
 
 ## Syncing with the cloud, with the click of a button
 
-Once done with the workflow, now we need to sync it to the cloud. Fortunately, Echo makes it a breeze to sync changes from the local machine to the cloud and it all happens with a click of a button.
+Once done with the workflow, now we need to sync it to the cloud. Fortunately, Novu Framework makes it a breeze to sync changes from the local machine to the cloud and it all happens with a click of a button.
 
-To enable our cloud environment to talk to your local Echo instance, you need to supply an Echo endpoint URL. This sets up a communication channel between our cloud environment and your local instance. To allow Novu to communicate with your local machine a tunnel will need to be generated. The quickest way to do it is with `localtunnel`. To this you can use either `localtunnel` or `ngrok`:
-```bash
-// using local tunnel
-npx localtunnel --port <YOUR_EDGE_PORT>
-```
+To enable our cloud environment to talk to your local Bridge instance, you need to supply an Bridge endpoint URL. This sets up a communication channel between our cloud environment and your local instance. To allow Novu to communicate with your local machine a tunnel will need to be generated. 
+
+
+The `create-novu-app` command sets up `localtunnel` for you. Running the `npm run dev` script in the project launches both the Bridge application and the tunnel solution. The tunnel URL shows up in the console output.
+
+You can also use a tool like `ngrok`:
+
 ```bash
 // using ngrok 
 ngrok http http://localhost:<YOUR_EDGE_PORT>      
@@ -223,10 +225,10 @@ ngrok http http://localhost:4000
 ```
 This will create a tunnel and you’ll see something like this in the terminal:
 <Frame caption="ngrok has done its magic"><img src="/images/framework-mjml/2.png" /> </Frame>
-Remember, the exact URL (`/api/echo` or similar) you expose in your application for handling Echo requests is what you'd consider the `Echo URL`. 
+Remember, the exact URL (`/api/novu` or similar) you expose in your application for handling Novu Framework requests is what you'd consider the `Bridge URL`. 
 
 This URL would be the endpoint within your application's domain where Novu's Worker Engine sends requests to fetch notification content or subscriber details dynamically. In our case, it is this: https://faec-2409-40f2-3c-3b57-400e-a7f7-1fc0-1e5.ngrok-free.app/api/echo
-So, we’ll enter this Echo URL:
+So, we’ll enter this Bridge URL:
 <Frame caption="Enter the Echo URL in the Dev Studio"><img src="/images/framework-mjml/3.png" /> </Frame>
 And create diff:
 <Frame caption="Echo Dev Studio will create a diff for you"><img src="/images/framework-mjml/4.png" /> </Frame>
@@ -234,7 +236,7 @@ And create diff:
 ## Testing our workflow
 Once you’ve synced your changes in the previous step, you’ll see a notification that says ‘Sync complete’ and you can now go to Novu Cloud using the ‘Test your workflows’ link and trigger a notification.
 <Frame caption="Test your workflow will take you to Novu Cloud"><img src="/images/framework-mjml/5.png" /> </Frame>
-You’ll see the workflow you’ve created using Echo with a blue lightning bolt icon. That icon signifies that the corresponding workflow has been created with Echo:
+You’ll see the workflow you’ve created has a blue lightning bolt icon. That icon signifies that the corresponding workflow has been created with Novu Framework:
 <Frame caption="You'll see the workflow created using Echo with the blue lightning bolt icon"><img src="/images/framework-mjml/6.png" /> </Frame>
 Simply open the workflow and you can send a test email from there. 
 
@@ -276,7 +278,7 @@ export default function Home() {
   };
   return (
     <div>
-      <h1>MJML Email with Novu Echo</h1>
+      <h1>MJML Email with Novu Framework</h1>
       <input placeholder='Enter customer name' onChange={e => setText(e.target.value)} value={text} />
       <input placeholder='Enter customer email' onChange={e => setEmail(e.target.value)} value={email} />
       <button onClick={triggerWorkflow} disabled={loading}>
@@ -298,7 +300,7 @@ export async function POST(request: Request) {
 
   await novu.trigger('mjml-email-workflow', {
     to: {
-      subscriberId: 'echo-sub-two',
+      subscriberId: 'novu-sub-two',
       email: res.email
     },
     payload: {
@@ -312,8 +314,8 @@ export async function POST(request: Request) {
 ```
 So there you go!
 
-This is how you create workflows using Echo and deploy your changes seamlessly to the Novu cloud. You can check out the code for a [sample demo app](https://github.com/novuhq/framework-mjml).
+This is how you create workflows using Novu Framework and deploy your changes seamlessly to the Novu cloud. You can check out the code for a [sample demo app](https://github.com/novuhq/framework-mjml).
 
-Once you've built the workflow, you might want read one of [our other guides](/guides/echo-guides/product) on how to empower product teams to manage notification workflows.
+Once you've built the workflow, you might want read one of [our other guides](/guides/framework-guides/product) on how to empower product teams to manage notification workflows.
 
 Don’t forget to share your workflows with us and as always, hit us up on Discord with any questions you might have!

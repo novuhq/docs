@@ -8,7 +8,7 @@ Fantastic. Now that we are all on the same page let’s proceed.
 
 Novu recently released a new way of baking notification workflows into your apps via code, and it’s huge! Let me walk you through it.
 
-It’s called Novu Echo(The name might change, but we will roll with it now). To learn about Novu Echo, visit the related [documentation](https://docs.novu.co/echo/quickstart). You might also benefit from reading this excellent [Code-First Approach to Managing Notification Workflows](https://novu.co/blog/a-code-first-approach-to-managing-notification-workflows/) article.
+It’s called Novu Framework and you can learn more about it by visiting the related [documentation](https://docs.novu.co/framework/quickstart). You might also benefit from reading this excellent [Code-First Approach to Managing Notification Workflows](https://novu.co/blog/a-code-first-approach-to-managing-notification-workflows/) article.
 
 If you prefer to clone the repository from GitHub and get your hands dirty, we aren’t going to stop you. You can find it [here](https://github.com/iampearceman/Novu_Echo-Nuxt-VueEmail-Example).
 
@@ -24,15 +24,15 @@ We will follow the [official installation guide from Nuxt](https://nuxt.com/docs
 npx nuxi@latest init <project-name>
 ```
 
-## 2. **Integrate Novu Echo Into Our App (Notification Workflow)**
+## 2. **Integrate Novu Framework Into Our App (Notification Workflow)**
 
-1. We will install the `@novu/echo` package in the root of our Nuxt app directory by running the following command:
+1. We will install the `@novu/framework` package in the root of our Nuxt app directory by running the following command:
 
 ```jsx
-npm install @novu/echo
+npm install @novu/framework
 ```
 
-2. We must provide an API endpoint for the [Novu Dev Studio](https://docs.novu.co/echo/concepts/studio) to fetch our notification workflow. (Don’t worry; we guide you through all the steps.) Navigate to your app's `app/server` directory and create a new directory named `api`. 
+2. We must provide an API endpoint for the [Novu Dev Studio](https://docs.novu.co/framework/concepts/studio) to fetch our notification workflow. (Don’t worry; we guide you through all the steps.) Navigate to your app's `app/server` directory and create a new directory named `api`. 
 
 ```jsx
 cd app/server
@@ -40,34 +40,34 @@ cd app/server
 mkdir api
 ```
 
-Create a file within the `app/server/api` directory and name it `echo.ts`.  Copy and paste the code snippet below:
+Create a file within the `app/server/api` directory and name it `novu.ts`.  Copy and paste the code snippet below:
 
 ```jsx
-//..app/server/api/echo.ts
-import { serve } from "@novu/echo/nuxt";
-import { echo } from "../echo/echo-client";
+// app/server/api/novu.ts
+import { serve } from "@novu/framework/nuxt";
+import { client, myWorkflow } from "../novu/workflows";
 
-export default defineEventHandler(serve({ client: echo }));
+export default defineEventHandler(serve({ client: client, workflows: [myWorkflow] }));
 ```
 
 3. Now, let's create the instance where we will build and maintain our notification workflow:
 
-Navigate to your `app/server` directory and create another directory named `echo`.
+Navigate to your `app/server` directory and create another directory named `novu`.
 
 ```jsx
 cd app/server
 
-mkdir echo
+mkdir novu
 ```
 
-Create a file within the `app/server/echo` directory and name it `echo-client.ts`.  Copy and paste the code snippet below:
+Create a file within the `app/server/novu` directory and name it `workflows.ts`.  Copy and paste the code snippet below:
 
 ```jsx
-//..app/server/echo/echo-client.ts
+// app/server/novu/workflows.ts
 // This workflow already renders vue email template.
 
 import { config } from '@vue-email/compiler'
-import { Echo } from '@novu/echo';
+import { Client, workflow } from '@novu/framework';
 
 const vueEmail = config('templates', {
   verbose: false,
@@ -75,15 +75,15 @@ const vueEmail = config('templates', {
   },
 })
 
-export const echo = new Echo({
+export const client = new Client({
   /**
-   * Enable this flag only during local development
-   * For production this should be false
+   * Disable this flag only during local development
+   * For production this should be true
    */
-  devModeBypassAuthentication: true
+  strictAuthentication: false
 });
 
-echo.workflow('hello-world', async ({ step, payload }) => {
+export const myWorkflow = workflow('hello-world', async ({ step, payload }) => {
     await step.email(
         'send-email',
         async () => {
@@ -120,24 +120,24 @@ echo.workflow('hello-world', async ({ step, payload }) => {
 
 We haven’t finished the guide yet but have everything to build a notification workflow.
 
-Below, We can see a “plain” echo client instance to shape your desired workflow.
+Below, We can see a “plain” Client instance and shaping your desired workflow.
 
 ```jsx
-//..app/server/echo/echo-client.ts
-// This is Echo Client instance concept - not a working instance!
+// app/server/novu/workflows.ts
+// This is Client instance concept - not a working instance!
 
-import { Echo } from '@novu/echo';
+import { Client, workflow } from '@novu/framework';
 
-export const echo = new Echo({
+export const client = new Client({
   /**
-   * Enable this flag only during local development
-   * For production this should be false
+   * Disable this flag only during local development
+   * For production this should be true
    */
-  devModeBypassAuthentication: true
+  strictAuthentication: false
 });
 
-echo.workflow(
-	'<WORKFLOW_NAME>', // The Workflow name. Must be unique across your Echo client.
+export const myWorkflow = workflow(
+	'<WORKFLOW_NAME>', // The Workflow name. Must be unique across your Bridge application.
 	// Workflow resolver, the entry-point for your Workflow steps
 	async ({
 		// Helper function to declare your Workflow Steps.
@@ -162,11 +162,11 @@ echo.workflow(
 We can:
 
 - Select a name for our workflow.
-- Declare [Workflow Steps](https://docs.novu.co/echo/steps/introduction) as we see fit for our use case
-- Configure what could be passed in the payload of the Workflow Trigger ([payloadSchema](https://docs.novu.co/echo/concepts/inputs))
-- Configure what inputs could be passed statically via Novu Web ([inputSchema](https://docs.novu.co/echo/concepts/inputs))
+- Declare [Workflow Steps](https://docs.novu.co/framework/steps/introduction) as we see fit for our use case
+- Configure what could be passed in the payload of the Workflow Trigger ([payloadSchema](https://docs.novu.co/framework/concepts/inputs))
+- Configure what inputs could be passed statically via Novu Web ([inputSchema](https://docs.novu.co/framework/concepts/inputs))
 
-Note: You can create and manage as many workflows as you wish within `app/server/echo/echo-client.ts`; make sure to provide each workflow with a unique name.
+Note: You can create and manage as many workflows as you wish within `app/server/novu/workflows.ts`; make sure to provide each workflow with a unique name.
 
 ## 3. Adding Vuemail in our notification workflow
 
@@ -298,7 +298,7 @@ Now that we have everything in our notification workflow configured along with t
     npm run dev
     ```
     
-2. Do you remember that we exposed an echo API endpoint in our app for Dev Studio to catch? This is where it happens.
+2. Do you remember that we exposed an Bridge API endpoint in our app for Dev Studio to catch? This is where it happens.
     
     Run the following command in a separate terminal:
     
@@ -359,69 +359,68 @@ Having completed crafting, designing, and modifying our notification workflow to
     
     <Frame caption="Local tunnel url should be the same in the image here"><img src="/images/framework-nuxt-vuemail/eight.png" /></Frame>
     
-3. Click the `Create Diff` button. To push (merge) the workflow code to the cloud, an API Key from our Novu account should be added to our echo instance.
+3. Click the `Create Diff` button. To push (merge) the workflow code to the cloud, an API Key from our Novu account should be added to our Framework Client instance.
     
     <Frame caption="Create Diff"><img src="/images/framework-nuxt-vuemail/nine.png" /></Frame>
     
-    Let’s navigate to `../app/server/echo/echo-client.ts` file and add our Novu API Key.
+    Let’s navigate to `../app/server/novu/workflows.ts` file and add our Novu API Key.
     
-    ```jsx
-    //..app/server/echo/echo-client.ts
-    // This workflow already renders vue email template.
-    
-    import { config } from '@vue-email/compiler'
-    import { Echo } from '@novu/echo';
-    
-    const vueEmail = config('templates', {
-      verbose: false,
-      options: {
-      },
-    })
-    
-    export const echo = new Echo({
-      
-      apiKey: process.env.NOVU_API_KEY, // <<-- Your Novu API KEY
-      /**
-       * Enable this flag only during local development
-       * For production this should be false
-       */
-      devModeBypassAuthentication: true
-    });
-    
-    echo.workflow('hello-world', async ({ step, payload }) => {
-        await step.email(
-            'send-email',
-            async () => {
-                const template = await vueEmail.render('sample-email.vue', {
-                    props: payload,
-                });
-                return {
-                    subject: `You have a new invitation from: ${payload.username}.`,
-                    body: template.html,
-                }
+```jsx
+// app/server/novu/workflows.ts
+// This workflow already renders vue email template.
+
+import { config } from '@vue-email/compiler'
+import { Client, workflow } from '@novu/framework';
+
+const vueEmail = config('templates', {
+  verbose: false,
+  options: {
+  },
+})
+
+export const client = new Client({
+  apiKey: process.env.NOVU_API_KEY, // <<-- Your Novu API KEY
+  /**
+   * Disable this flag only during local development
+   * For production this should be true
+   */
+  strictAuthentication: false
+});
+
+export const myWorkflow = workflow('hello-world', async ({ step, payload }) => {
+    await step.email(
+        'send-email',
+        async () => {
+            const template = await vueEmail.render('sample-email.vue', {
+                props: payload,
             });
+            return {
+                subject: `You have a new invitation from: ${payload.username}.`,
+                body: template.html,
+            }
+        });
+},
+    {
+        payloadSchema: {
+            // Always `object`
+            type: 'object',
+            // Specify the properties to validate. Supports deep nesting.
+            properties: {
+                        username: { type: "string" },
+                        invitedByEmail: { type: "string" },
+                        inviteLink: { type: "string" },
+                        inviteFromIp: { type: "string" },
+                        inviteFromLocation: { type: "string" }
+            },
+            // Used to enforce full type strictness, with no rogue properties.
+            additionalProperties: false,
+            // The `as const` is important to let Typescript know that this
+            // type won't change, enabling strong typing on `inputs` via type
+            // inference of the provided JSON Schema.
+        } as const,
     },
-        {
-            payloadSchema: {
-                // Always `object`
-                type: 'object',
-                // Specify the properties to validate. Supports deep nesting.
-                properties: {
-                            username: { type: "string" },
-                            invitedByEmail: { type: "string" },
-                            inviteLink: { type: "string" },
-                            inviteFromIp: { type: "string" },
-                            inviteFromLocation: { type: "string" }
-                },
-                // Used to enforce full type strictness, with no rogue properties.
-                additionalProperties: false,
-                // The `as const` is important to let Typescript know that this
-                // type won't change, enabling strong typing on `inputs` via type
-                // inference of the provided JSON Schema.
-            } as const,
-        },
-    );
-    ```
+);
+```
     
     We will now click the `Create Diff` button again.
     
@@ -443,7 +442,7 @@ Having completed crafting, designing, and modifying our notification workflow to
     
     <Info>**Note:** Learn more about the structure of [subscriber properties](https://docs.novu.co/subscribers/subscribers).</Info>
     
-    We can leave the payload empty or add properties aligned with the `payloadSchema` we established in the echo notification workflow instance. 
+    We can leave the payload empty or add properties aligned with the `payloadSchema` we established in the workflow definition. 
     
     ```jsx
     
@@ -473,4 +472,4 @@ Having completed crafting, designing, and modifying our notification workflow to
     - No longer limited by notification content editors and systems. The more, the merrier!
     - Now an IFTTT (If-This-Then-That) pro engineer!
     
-    Once you've built the workflow, you might want read one of [our other guides](/guides/echo-guides/product) on how to empower product teams to manage notification workflows. Have fun, and share your use case on Discord with us!
+    Once you've built the workflow, you might want read one of [our other guides](/guides/framework-guides/product) on how to empower product teams to manage notification workflows. Have fun, and share your use case on Discord with us!
