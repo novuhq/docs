@@ -9,21 +9,16 @@ In this guide, you’ll learn how to send OTP verification email notifications u
 
 ## Getting started
 
-Integrating Novu’s code-first workflow with React.Email for your Next.js application can be done in three steps
+Integrating Novu’s code-first workflow with React.Email for your Next.js application can be done in a few steps:
 
 1. Create a NextJS app and wait for the installation:
 
 ```bash
-npx create-echo-app
+npx create-novu-app@latest --api-key=<YOUR_API_KEY>
 
+// The command will ask you if you want to include react-email into your new project.
 ```
-
-2. Once this installation is complete, simply `cd` into the directory and start your app using the `npm run dev command`.
-3. As the last step, don’t forget to install the `react-email` package by executing the following command:
-
-```bash
-  npm i @react-email/components react-email
-```
+2. Once this installation is complete, simply `cd` into the directory and start your app using the `npm run dev` command.
 
 ## Using a code-first workflow
 
@@ -236,24 +231,22 @@ export function renderOTPEmail(payload: any) {
 
 2. Launch Dev Studio - Novu’s code-first approach lets you see how the template would look when rendered, right when defining it, using the Dev Studio. To launch the dev studio locally you can run `npx novu-labs@latest echo`. The Dev Studio will be started by default on port 2022, and accessible via: http://localhost:2022
 
-<Frame caption="Dev Studio lets you see the workflow you wrote without sending it off!"><img src="/images/echo-otp/studio.png" /> </Frame>
+<Frame caption="Dev Studio lets you see the workflow you wrote without sending it off!"><img src="/images/otp/studio.png" /> </Frame>
 
 3. Define a workflow that uses that template to send notifications - In this step, we need to define a workflow that uses the template we wrote above to render the email notification:
 ```ts
-import { Echo } from "@novu/echo";
+import { Client, workflow } from "@novu/framework";
 import { renderOTPEmail } from "./otp";
 
-export const echo = new Echo({
+export const client = new Client({
   apiKey: '<NOVU_API_KEY>',
   /**
-   * Enable this flag only during local development
+   * Disable this flag only during local development
    */
-
-  // backendUrl: 'https://api.novu.co',
-  devModeBypassAuthentication: process.env.NODE_ENV === "development",
+  strictAuthentication: process.env.NODE_ENV !== "development",
 });
 
-const otpFlow = echo.workflow('otp-flow', async ({ step, payload }) => {
+export const otpFlow = workflow('otp-flow', async ({ step, payload }) => {
   // Send a welcome email
   await step.email('send-email', async (inputs) => {
     return {
@@ -298,7 +291,7 @@ const novu = new Novu('<NOVU_API_KEY>');
 export async function POST(request: Request) {
   const res = await request.json();
 
-  await novu.trigger('new-signup', {
+  await novu.trigger('otp-flow', {
     to: {
       subscriberId: 'new-user',
     },
@@ -313,11 +306,11 @@ export async function POST(request: Request) {
 }
 ```
 When we trigger this workflow, here’s the email received on the client-side:
-<Frame caption="The workflow as delivered on a client-side device"><img src="/images/echo-otp/render.png" /> </Frame>
+<Frame caption="The workflow as delivered on a client-side device"><img src="/images/otp/render.png" /> </Frame>
 That’s it!
 
-That’s how you create and use an OTP workflow. You can check out [our docs](https://docs.novu.co/guides/echo-guides/echo-react-email) for a hands on guide with more in-depth instructions.
+That’s how you create and use an OTP workflow. You can check out [our docs](https://docs.novu.co/guides/framework-guides/framework-react-email) for a hands on guide with more in-depth instructions.
 
-Once you've built the workflow, you might want read one of [our other guides](/guides/echo-guides/product) on how to empower product teams to manage notification workflows.
+Once you've built the workflow, you might want read one of [our other guides](/guides/framework-guides/product) on how to empower product teams to manage notification workflows.
 
 Don’t forget to share your workflows with us and as always, hit us up on Discord with any questions you might have!

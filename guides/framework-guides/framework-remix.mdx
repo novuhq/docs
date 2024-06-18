@@ -1,0 +1,319 @@
+---
+title: 'How to send notifications with Remix and React email'
+description: 'Learn how to send email notifications with Remix, React email and Novu'
+---
+
+# Introduction
+
+Learn how to send notifications with Remix, React email and Novu. You can check out the complete code for a [working app](https://github.com/novuhq/novu-echo-remix-example).
+
+## Prerequisites
+- A Novu account
+- Node installed on your machine
+- A working Remix app
+
+## Follow these Steps
+
+### 1. Install all dependencies including react email components
+
+```jsx
+  npm install @novu/framework @react-email/components react-email
+```
+
+### 2. Integrate Novu with Remix
+
+Within the `app/routes` directory, create an `api.novu.tsx` file.
+
+```jsx
+// app/routes/api.novu.tsx
+
+import { serve } from "@novu/framework/remix";
+import { client, signUpWorkflow } from "~/novu/workflows";
+
+const handler = serve({
+    client: client,
+    workflows: [signUpWorkflow]
+  });
+  
+export { handler as action, handler as loader };
+```
+
+### 3. Create an email template in your Remix app
+
+Within the `app` directory, create an `emails` folder and add an email template file to it. 
+
+In this scenario, create a `vercel-invite-user.tsx` file and the code below to it:
+
+```ts
+// app/emails/vercel-invite-user.tsx
+
+import {
+    Body,
+    Button,
+    Container,
+    Column,
+    Head,
+    Heading,
+    Hr,
+    Html,
+    Img,
+    Link,
+    render,
+    Row,
+    Section,
+    Text,
+    Tailwind,
+  } from "@react-email/components";
+  
+  interface VercelInviteUserEmailProps {
+    username?: string;
+    userImage?: string;
+    invitedByUsername?: string;
+    invitedByEmail?: string;
+    teamName?: string;
+    teamImage?: string;
+    inviteLink?: string;
+    inviteFromIp?: string;
+    showJoinButton?: boolean;
+    inviteFromLocation?: string;
+    buttonText?: string
+  }
+  
+  const baseUrl = process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "";
+  
+  export const VercelInviteUserEmail = ({
+    username,
+    userImage,
+    invitedByUsername,
+    invitedByEmail,
+    teamName,
+    teamImage,
+    inviteLink,
+    inviteFromIp,
+    inviteFromLocation,
+    showJoinButton,
+    buttonText
+  }: VercelInviteUserEmailProps) => {
+  
+    return (
+      <Html>
+        <Head />
+        <Tailwind>
+          <Body className="bg-white my-auto mx-auto font-sans px-2">
+            <Container className="border border-solid border-[#eaeaea] rounded my-[40px] mx-auto p-[20px] max-w-[465px]">
+              <Section className="mt-[32px]">
+                <Img
+                  src={`https://react-email-demo-ndjnn09xj-resend.vercel.app/static/vercel-logo.png`}
+                  width="40"
+                  height="37"
+                  alt="Vercel"
+                  className="my-0 mx-auto"
+                />
+              </Section>
+              <Heading className="text-black text-[24px] font-normal text-center p-0 my-[30px] mx-0">
+                Join <strong>{teamName}</strong> on <strong>Vercel</strong>
+              </Heading>
+              <Text className="text-black text-[14px] leading-[24px]">
+                Hello {username},
+              </Text>
+              <Text className="text-black text-[14px] leading-[24px]">
+                <strong>{invitedByUsername}</strong> (
+                <Link
+                  href={`mailto:${invitedByEmail}`}
+                  className="text-blue-600 no-underline"
+                >
+                  {invitedByEmail}
+                </Link>
+                ) has invited you to the <strong>{teamName}</strong> team on{" "}
+                <strong>Vercel</strong>.
+              </Text>
+              <Section>
+                <Row>
+                  <Column align="right">
+                    <Img
+                      className="rounded-full"
+                      src={userImage}
+                      width="64"
+                      height="64"
+                    />
+                  </Column>
+                  <Column align="center">
+                    <Img
+                      src={`https://react-email-demo-ndjnn09xj-resend.vercel.app/static/vercel-arrow.png`}
+                      width="12"
+                      height="9"
+                      alt="invited you to"
+                    />
+                  </Column>
+                  <Column align="left">
+                    <Img
+                      className="rounded-full"
+                      src={teamImage}
+                      width="64"
+                      height="64"
+                    />
+                  </Column>
+                </Row>
+              </Section>
+              {showJoinButton && (
+                <Section className="text-center mt-[32px] mb-[32px]">
+                  <Button
+                    className="bg-[#000000] rounded text-white text-[12px] font-semibold no-underline text-center px-5 py-3"
+                    href={inviteLink}
+                  >
+                    {buttonText}
+                  </Button>
+                </Section>
+              )}
+              <Text className="text-black text-[14px] leading-[24px]">
+                or copy and paste this URL into your browser:{" "}
+                <Link href={inviteLink} className="text-blue-600 no-underline">
+                  {inviteLink}
+                </Link>
+              </Text>
+              <Hr className="border border-solid border-[#eaeaea] my-[26px] mx-0 w-full" />
+              <Text className="text-[#666666] text-[12px] leading-[24px]">
+                This invitation was intended for{" "}
+                <span className="text-black">{username}</span>. This invite was
+                sent from <span className="text-black">{inviteFromIp}</span>{" "}
+                located in{" "}
+                <span className="text-black">{inviteFromLocation}</span>. If you
+                were not expecting this invitation, you can ignore this email. If
+                you are concerned about your account's safety, please reply to
+                this email to get in touch with us.
+              </Text>
+            </Container>
+          </Body>
+        </Tailwind>
+      </Html>
+    );
+  };
+  
+  VercelInviteUserEmail.PreviewProps = {
+    username: "alanturing",
+    userImage: `${baseUrl}/static/vercel-user.png`,
+    invitedByUsername: "Alan",
+    invitedByEmail: "alan.turing@example.com",
+    teamName: "Enigma",
+    teamImage: `${baseUrl}/static/vercel-team.png`,
+    inviteLink: "https://vercel.com/teams/invite/foo",
+    inviteFromIp: "204.13.186.218",
+    inviteFromLocation: "São Paulo, Brazil",
+  } as VercelInviteUserEmailProps;
+  
+  export default VercelInviteUserEmail;
+  
+  export function renderEmail(input: any, payload: any) {
+    return render(<VercelInviteUserEmail {...input}{...payload} />);
+  }
+```
+### 4. Create a Novu Workflow
+
+Next, create a Novu workflow with an email step. This code-first notification workflow approach makes it easy for product teams to modify notification content.
+
+Within the `app` directory, create an `novu` folder and add a `workflows.ts` file to it. Copy/paste the code below to the recently created file.
+
+```jsx
+// app/novu/workflows.ts
+
+import { Client } from '@novu/framework';
+import { renderEmail } from '~/emails/vercel-invite-user';
+
+export const client = new Client({
+
+  apiKey: process.env.NOVU_API_KEY,
+  /**
+   * Disable this flag only during local development
+   * For production this should be true
+   */
+  strictAuthentication: true
+});
+
+export const signUpWorkflow = workflow('new-signup', async ({ step, payload }) => {
+  // Send a welcome email
+  await step.email('send-email', async (inputs) => {
+    return {
+      subject: `Welcome to sending emails with Novu & Remix`,
+      body: renderEmail(inputs, payload),
+    };
+  }, {
+    inputSchema: {
+      type: "object",
+      properties: {
+        showJoinButton: { type: "boolean", default: true },
+        buttonText: { type: "string", default: "Join the team" },
+        userImage: {
+          type: "string",
+          default: "https://react-email-demo-bdj5iju9r-resend.vercel.app/static/vercel-user.png",
+          format: "uri",
+        },
+        invitedByUsername: { type: "string", default: "Alan" },
+        invitedByEmail: {
+          type: "string",
+          default: "alan.turing@example.com",
+          format: "email",
+        },
+        teamName: { type: "string", default: "Team Awesome" },
+        teamImage: {
+          type: "string",
+          default: "https://react-email-demo-bdj5iju9r-resend.vercel.app/static/vercel-team.png",
+          format: "uri",
+        },
+        inviteLink: {
+          type: "string",
+          default: "https://vercel.com/teams/invite/foo",
+          format: "uri",
+        },
+        inviteFromIp: { type: "string", default: "204.13.186.218" },
+        inviteFromLocation: {
+          type: "string",
+          default: "São Paulo, Brazil",
+        },
+      },
+    },
+  });
+  // JSON Schema for validation and type-safety. Zod, and others coming soon.
+}, { payloadSchema: { properties: { text: { type: 'string' } } } });
+```
+
+### 5. Preview Email Workflow & Sync to Novu Cloud
+
+Open Novu Dev Studio to preview and make changes to the email workflow as needed via the command below:
+
+```jsx
+npx novu-labs@latest echo
+```
+
+1. Run the Studio
+<Frame caption="Novu Dev Studio on the first run"><img src="/images/framework-remix/novu-dev-studio-first-run.png" /> </Frame>
+
+**Note:** Use the port on which your Remix app is running for the Bridge endpoint so that the Novu Dev Studio can connect to your API route as highlighted in the image above.
+
+2. Check out the signup email workflow and test
+
+<Frame caption="Preview Email workflow with Step Inputs & Payload"><img src="/images/framework-remix/signup-email-workflow-preview.png" /> </Frame>
+
+3. Deploy to Novu Cloud when you're done.
+
+On the top right(as seen in the image above) of the Novu Dev Studio, you can sync to Novu Cloud when you're done working locally.
+
+**Note:** You'll need to create a local tunnel that the Novu Cloud environment can reach for local experimentation purposes. Ngrok is a good tunnel.
+
+### 6. Send a Notification
+
+Trigger a notification using the recently deployed workflow either via your [Novu Cloud dashboard](https://web.novu.co) or [code](/quickstarts/react#trigger-a-notification).
+
+```js
+import { Novu } from "@novu/node";
+
+const novu = new Novu("<API_KEY>");
+
+novu.trigger("new-signup", {
+  to: {
+    subscriberId: "789",
+  }
+});
+```
+Once you've built the workflow, you might want read one of [our other guides](/guides/framework-guides/product) on how to empower product teams to manage notification workflows.
