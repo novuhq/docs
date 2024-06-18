@@ -35,8 +35,8 @@ HMAC Verification is turned on by default
 
 ```typescript
 export const client = new Client({
-  apiKey: YOUR_API_KEY,
-  strictAuthentication: true, // set to true by default
+  apiKey: process.env.NOVU_API_KEY,,
+  strictAuthentication: process.env.NODE_ENV !== "development", // set to true by default
 });
 ```
 

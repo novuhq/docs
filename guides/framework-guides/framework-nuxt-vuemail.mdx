@@ -80,7 +80,7 @@ export const client = new Client({
    * Disable this flag only during local development
    * For production this should be true
    */
-  strictAuthentication: false
+  strictAuthentication: process.env.NODE_ENV !== "development"
 });
 
 export const myWorkflow = workflow('hello-world', async ({ step, payload }) => {
@@ -133,7 +133,7 @@ export const client = new Client({
    * Disable this flag only during local development
    * For production this should be true
    */
-  strictAuthentication: false
+  strictAuthentication: process.env.NODE_ENV !== "development"
 });
 
 export const myWorkflow = workflow(
@@ -187,7 +187,7 @@ mkdir templates
 [You can find examples of Vue email templates here.](https://vuemail.net/playground)
 
 ```jsx
-//..app/templates/sample-email.vue
+// app/templates/sample-email.vue
 
 <script setup lang="ts">
 import { defineProps, withDefaults } from 'vue'
@@ -384,7 +384,7 @@ export const client = new Client({
    * Disable this flag only during local development
    * For production this should be true
    */
-  strictAuthentication: false
+  strictAuthentication: process.env.NODE_ENV !== "development"
 });
 
 export const myWorkflow = workflow('hello-world', async ({ step, payload }) => {

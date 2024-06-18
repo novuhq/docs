@@ -34,7 +34,7 @@ npx create-novu-app --api-key=<YOUR_API_KEY>
 Make sure that the port 4000 isn’t already being used!
 </Note>
 
-You’ll now have a NextJS app running on `http://localhost:4000` and you can make changes to your app as you see fit. Let’s now move to the meaty stuff - using Novu Echo in a NextJS app and the magic of Dev Studio.
+You’ll now have a NextJS app running on `http://localhost:4000` and you can make changes to your app as you see fit. Let’s now move to the meaty stuff - using Novu Framework in a NextJS app and the magic of Dev Studio.
 
 ## Echo Dev Studio
 
@@ -155,16 +155,14 @@ import { Client, workflow } from "@novu/framework";
 import { mjmlTemplate } from "./mjml";
 
 export const client = new Client({
-  apiKey: '<Your Novu API key here>',
+  apiKey: process.env.NOVU_API_KEY,
   strictAuthentication: process.env.NODE_ENV !== "development",
 });
 
 export const emailWorkflow = workflow('mjml-email-workflow', async ({ payload, step }) => {
   await step.email('send-email', async (inputs) => {
-
-
     return {
-      subject: `Welcome to MJML with Echo, ${payload.text}!`,
+      subject: `Welcome to MJML with Novu Framework, ${payload.text}!`,
       body: mjmlTemplate(inputs).html,
     };
   }, {

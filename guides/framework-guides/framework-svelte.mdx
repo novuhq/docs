@@ -28,7 +28,7 @@ Within the `src/routes` directory, create an `api/novu` folder and add a `+serve
 ```jsx
 // src/routes/api/novu/+server.ts
 
-import { svelteWorkflow, client } from '$lib/workflows';
+import { svelteWorkflow, client } from '$lib/echo/workflows';
 import { serve } from '@novu/framework/sveltekit';
 
 export const { GET, POST, PUT } = serve({ client: client, workflows: [svelteWorkflow] });
@@ -36,7 +36,7 @@ export const { GET, POST, PUT } = serve({ client: client, workflows: [svelteWork
 
 ### 3. Create an email template in Svelte
 
-Within the `src/routes` directory, create an `emails` folder and add an email template in a `.svelte` file to it. 
+Within the `src/lib` directory, create an `emails` folder and add an email template in a `.svelte` file to it. 
 
 For example, `airbnb-review.svelte`:
 
@@ -207,7 +207,7 @@ For example, `airbnb-review.svelte`:
 Next, create a Novu workflow with an email step. This code-first notification workflow approach makes it easy for product teams to modify notification content.
 
 ```jsx
-// src/lib/workflows/index.ts
+// src/lib/novu/workflows.ts
 
 import { Client, workflow } from '@novu/framework';
 import { render } from 'svelte-email';
@@ -224,7 +224,7 @@ export const client = new Client({
    * Disable this flag only during local development
    * For production this should be true
    */
-  strictAuthentication: false
+  strictAuthentication: process.env.NODE_ENV !== "development"
 });
 
 export const svelteWorkflow = workflow('airbnb-review', async ({ step, payload }) => {

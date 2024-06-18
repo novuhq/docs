@@ -218,7 +218,7 @@ Within the `app` directory, create an `novu` folder and add a `workflows.ts` fil
 ```jsx
 // app/novu/workflows.ts
 
-import { Client } from '@novu/framework';
+import { Client, workflow } from '@novu/framework';
 import { renderEmail } from '~/emails/vercel-invite-user';
 
 export const client = new Client({
@@ -228,7 +228,7 @@ export const client = new Client({
    * Disable this flag only during local development
    * For production this should be true
    */
-  strictAuthentication: true
+  strictAuthentication: process.env.NODE_ENV !== "development"
 });
 
 export const signUpWorkflow = workflow('new-signup', async ({ step, payload }) => {

@@ -239,7 +239,7 @@ import { Client, workflow } from "@novu/framework";
 import { renderOTPEmail } from "./otp";
 
 export const client = new Client({
-  apiKey: '<NOVU_API_KEY>',
+  apiKey: process.env.NOVU_API_KEY,
   /**
    * Disable this flag only during local development
    */
