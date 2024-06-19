@@ -232,6 +232,43 @@ export default function Novu() {
 
 <Note>CTA buttons text and redirect url field supports dynamic variables</Note>
 
+
+## Avatar Icons
+
+Avatar images can be shown with in-app notifications. To do so, enable `Add an Avatar` option in in-app step editor as shown below
+
+<Frame caption="How to enable avatar icon for in-app notifications">
+  <img src="/images/notification-center/client/react/get-started/avatar-in-app-1.png" />
+</Frame>
+
+**There are 3 ways to show the avatar images in the notifications:**
+
+<Frame caption="Ways to show the avatar icons in in-app notifications">
+  <img src="/images/notification-center/client/react/get-started/avatar-in-app-2.png" />
+</Frame>
+
+### User Avatar
+This option will show the avatar of the actor user. actor field can be sent while triggering the worklfow. Each subscriber has `avatar` field. For this option to work actor should have `avatar` field set with valid publicly accessible image URL. If the actor doesn't have `avatar` field, then the default avatar will be shown. Worklfow trigger example with avatar
+
+```javascript
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: 'subscriberId_1',
+  },
+  payload: {
+    "key": "value"
+  },
+  actor: "subscriberId_2"
+});
+```
+Here subscriberId_2 is used as actor and workflow is triggered to subscriberId_1
+
+### Static Avatar Url
+This option can be used if you want to show same, static and custom avatar icon for each in-app notification of this workflow in-app step. Make sure to toggle off **User Avatar** option to enable this. This is a input field where only valid publicly accessible image URL can be entered. Currently variables are not supported in this field.
+
+### System Avatar Icons
+Novu supports 6 system avatar icons. These are default icons that can be selected as avatar icon. Once selected, same icon will be used as avatar icons for all notifications of this in-app step.
+
 ## Realtime sockets
 
 Novu provides a real-time socket API for you to consume and get updates about new notifications added to the user's feed. To use the socket connection you can use the `useSocket` hook provided by the `@novu/notification-center` library. Let's see an example of that:
