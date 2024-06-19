@@ -14,7 +14,7 @@ Integrating Novu’s code-first workflow with React.Email for your Next.js appli
 1. Create a fully-featured Novu NextJS app with the command below:
 
 ```bash
-npx create-echo-app
+npx create-novu-app
 ```
 
 1. Once this installation is complete, simply `cd` into the directory and start your app using the `npm run dev` command.
@@ -34,19 +34,17 @@ Novu’s Digest Engine is designed to consolidate multiple trigger events into a
 1. Write a workflow and add a digest node to it:
 
 ```tsx
-import { Echo } from "@novu/echo";
+import { Client } from "@novu/framework";
 
-export const echo = new Echo({
+export const client = new Client({
   apiKey: '<YOUR_NOVU_API_KEY>',
   /**
    * Enable this flag only during local development
    */
-
-  // backendUrl: 'https://api.novu.co',
-  devModeBypassAuthentication: process.env.NODE_ENV === "development",
+  strictAuthentication: process.env.NODE_ENV !== "development",
 });
 
-echo.workflow('echo-digest',
+export const digestWorkflow = workflow('novu-digest',
   
   async ({ step, payload }) => {
   
@@ -175,9 +173,9 @@ const novu = new Novu('<YOUR_NOVU_API_KEY>');
 export async function POST(request: Request) {
     const res = await request.json();
 
-    await novu.trigger('echo-digest', {
+    await novu.trigger('novu-digest', {
         to: {
-            subscriberId: 'echo-sub-digest',
+            subscriberId: 'novu-sub-digest',
         },
         payload: {
             email: res.email,
