@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 		  - name: Sync State to Novu
-		    uses: novuhq/actions-echo-sync@v0.0.4
+		    uses: novuhq/actions-novu-sync@v0.0.4
 		    with:
 		      novu-api-key: ${{secrets.NOVU_API_KEY}} # Your Dev or Prod API Key to Novu
 		      bridge-url: "" # This will be your target environment bridge url

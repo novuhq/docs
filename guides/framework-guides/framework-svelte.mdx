@@ -28,7 +28,7 @@ Within the `src/routes` directory, create an `api/novu` folder and add a `+serve
 ```jsx
 // src/routes/api/novu/+server.ts
 
-import { svelteWorkflow, client } from '$lib/echo/workflows';
+import { svelteWorkflow, client } from '$lib/novu/workflows';
 import { serve } from '@novu/framework/sveltekit';
 
 export const { GET, POST, PUT } = serve({ client: client, workflows: [svelteWorkflow] });
