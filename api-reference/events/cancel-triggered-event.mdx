@@ -5,7 +5,7 @@ openapi: delete /v1/events/trigger/{transactionId}
 import ApikeyWarning from "/snippets/apikey-warning.mdx";
 
 <ApikeyWarning />
-
+<Info> If `false` value is returned in response, it means that event has already been completed its execution or cancelled before. Already completed event can not be cancelled. If `true` value is returned in response, then it means that event execution has been cancelled successfully. Any digest or delay step with pending exection will also be cancelled.</Info>
 <RequestExample>
 
 ```javascript Node.js
