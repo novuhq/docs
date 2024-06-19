@@ -90,6 +90,7 @@ Let’s take a look at the example: `{{i18n "marketing.welcome_message"}}`.
 
 <img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_8.png" />
 
+<Info>i18n variables can be used in `subject` and `preheader` fields of the email step.</Info>
 ## Subscribers Locale
 
 The subscribers locale defines in which language the message should be delivered to that recipient. When the locale is not specified it will fallback to the default locale set for the organization. The locale format includes ISO language plus the region, for example `de_DE` language German and region Germany.
@@ -103,9 +104,9 @@ To update the locale you can use Novu API or any of our SDKs, more information c
 It is possible to include variables in your translation strings, they should be wrapped in double curly brackets. Their value could be set as a string or as a variable - either a system variable or a variable sent through the payload.
 
 ```json
-	{
-		"withVariables": "Welcome {{name}} to {{organization}}"
-	}
+{
+  "withVariables": "Welcome {{name}} to {{organization}}"
+}
 ```
 
 In the editor:
