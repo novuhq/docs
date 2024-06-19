@@ -16,6 +16,7 @@ You need the following installed in your system:
 
 <iframe src="https://www.loom.com/embed/3af13939bfa54076a63c6360b7edaa19" width="100%" height="400px" frameBorder="0" allowFullScreen></iframe>
 
+<Info>In above loom video `local/deployment` directory is used. Now it has been moved to `docker/community`. Follow below mentioned steps.</Info>
 
 ## Quick Start
 
@@ -27,15 +28,14 @@ Clone the Novu repo and enter the docker directory locally:
 # Get the code
 git clone --depth 1 https://github.com/novuhq/novu
 
-# Go to the docker folder
-cd novu/docker
+# Go to the docker community folder
+cd novu/docker/community
 
 # Copy the example env file
-cp .env.example ./local/deployment/.env
+cp .env.example .env
 
 # Start Novu
-docker-compose -f ./local/deployment/docker-compose.yml up
-
+docker-compose -f docker-compose.yml up
 ```
 
 Now visit [http://localhost:4200](http://localhost:4200/) to start using Novu.
