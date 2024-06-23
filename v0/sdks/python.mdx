@@ -1,0 +1,38 @@
+---
+title: "Python SDK"
+description: "Connect a Python application to Novu"
+icon: 'python'
+---
+
+Novu's Python SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your Python application.
+
+[Explore the source code on GitHub](https://github.com/novuhq/novu-python)
+
+## Installation
+
+```python
+# Via pip
+pip install novu
+
+# Via poetry
+poetry add novu
+```
+
+<Tip> If you're ready to start integrating in your Python app, jump straight to our [Python quickstart.](/quickstarts/python)</Tip>
+
+## Usage 
+
+```python
+from novu.api import EventApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+# You can sign up on https://web.novu.co to get your API key from https://web.novu.co/settings
+
+novu = EventApi(url, api_key).trigger(
+    name="digest-workflow-example",  # This is the Workflow ID. It can be found on the workflow page.
+    recipients="<SUBSCRIBER_IDENTIFIER>", # The subscriber ID can be gotten from the dashboard.
+    payload={},  # Your custom Novu payload goes here
+)
+```

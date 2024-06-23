@@ -1,0 +1,196 @@
+---
+openapi: get /v1/subscribers/{subscriberId}/notifications/feed
+---
+
+import ApikeyWarning from "/snippets/apikey-warning.mdx";
+
+<ApikeyWarning />
+
+<RequestExample>
+``` java Java
+import co.novu.common.base.Novu;
+import co.novu.api.subscribers.responses.SubscriberNotificationResponse;
+
+public class Main {
+   public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+        Novu novu = new Novu(apiKey);
+        String subscriberId = "<SUBSCRIBER_ID>";
+
+        SubscriberNotificationResponse response = novu.getSubscriberNotificationsFeed(subscriberId);
+    }
+}
+```
+</RequestExample>
+<ResponseExample>
+```json Response
+{
+  "data": [
+    {
+      "_environmentId": "string",
+      "_feedId": "string",
+      "_id": "string",
+      "_messageTemplateId": "string",
+      "_notificationId": "string",
+      "_organizationId": "string",
+      "_subscriberId": "string",
+      "_templateId": "string",
+      "channel": "in_app",
+      "createdAt": "string",
+      "cta": {
+        "action": {
+          "buttons": [
+            {
+              "content": "string",
+              "resultContent": "string",
+              "type": "primary"
+            }
+          ],
+          "result": {
+            "payload": "object",
+            "type": "primary"
+          },
+          "status": "pending"
+        },
+        "data": {
+          "url": "string"
+        },
+        "type": "redirect"
+      },
+      "deviceTokens": [
+        "string"
+      ],
+      "directWebhookUrl": "string",
+      "email": "string",
+      "errorId": "string",
+      "errorText": "string",
+      "lastSeenDate": "string",
+      "overrides": "object",
+      "payload": "object",
+      "phone": "string",
+      "providerId": "string",
+      "seen": "boolean",
+      "status": "sent",
+      "subject": "string",
+      "subscriber": {
+        "__v": "number",
+        "_environmentId": "string",
+        "_id": "string",
+        "_organizationId": "string",
+        "avatar": "string",
+        "channels": [
+          {
+            "_integrationId": "string",
+            "credentials": {
+              "channel": "string",
+              "deviceTokens": [
+                "string"
+              ],
+              "webhookUrl": "string"
+            },
+            "integrationIdentifier": "string",
+            "providerId": "slack"
+          }
+        ],
+        "createdAt": "string",
+        "deleted": "boolean",
+        "email": "string",
+        "firstName": "string",
+        "isOnline": "boolean",
+        "lastName": "string",
+        "lastOnlineAt": "string",
+        "locale": "string",
+        "phone": "string",
+        "subscriberId": "string",
+        "updatedAt": "string"
+      },
+      "template": {
+        "_creatorId": "string",
+        "_environmentId": "string",
+        "_id": "string",
+        "_notificationGroupId": "string",
+        "_organizationId": "string",
+        "_parentId": "string",
+        "active": "boolean",
+        "critical": "boolean",
+        "data": "object",
+        "deleted": "boolean",
+        "deletedAt": "string",
+        "deletedBy": "string",
+        "description": "string",
+        "draft": "boolean",
+        "name": "string",
+        "notificationGroup": {
+          "_environmentId": "string",
+          "_id": "string",
+          "_organizationId": "string",
+          "_parentId": "string",
+          "name": "string"
+        },
+        "preferenceSettings": {
+          "chat": "boolean",
+          "email": "boolean",
+          "in_app": "boolean",
+          "push": "boolean",
+          "sms": "boolean"
+        },
+        "steps": [
+          {
+            "_id": "string",
+            "_parentId": "object",
+            "_templateId": "string",
+            "active": "boolean",
+            "filters": [
+              {
+                "children": [
+                  {
+                    "field": "string",
+                    "operator": "LARGER",
+                    "true": "subscriber",
+                    "value": "string"
+                  }
+                ],
+                "isNegated": "boolean",
+                "type": "BOOLEAN",
+                "value": "AND"
+              }
+            ],
+            "name": "string",
+            "replyCallback": "object",
+            "shouldStopOnFail": "boolean",
+            "template": "object",
+            "uuid": "string"
+          }
+        ],
+        "tags": [
+          "string"
+        ],
+        "triggers": [
+          {
+            "identifier": "string",
+            "subscriberVariables": [
+              {
+                "name": "string"
+              }
+            ],
+            "type": "string",
+            "variables": [
+              {
+                "name": "string"
+              }
+            ]
+          }
+        ],
+        "workflowIntegrationStatus": "object"
+      },
+      "templateIdentifier": "string",
+      "title": "string",
+      "transactionId": "string"
+    }
+  ],
+  "hasMore": "boolean",
+  "page": "number",
+  "pageSize": "number"
+}
+```
+</ResponseExample>

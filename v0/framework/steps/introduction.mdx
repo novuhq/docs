@@ -1,0 +1,90 @@
+---
+title: "Workflow Steps"
+sidebarTitle: "Introduction"
+description: "Steps control the execution flow of your workflow, whilst Novu provides the context of your notification delivery events back into the Workflow execution context."
+---
+
+## Supported Steps
+
+Novu Supports Channel and Action steps to be used as part of the workflow execution.
+
+### Channel Steps
+- [E-mail](/framework/steps/email)
+- [Chat](/framework/steps/chat)
+- [SMS](/framework/steps/sms)
+- [Push](/framework/steps/push)
+- [In-App](/framework/steps/in-app)
+
+### Action steps
+- [Delay](/framework/steps/delay)
+- [Digest](/framework/steps/digest)
+
+## Channel Steps Interface
+
+Channel steps are used to send notifications to your Subscribers. Each channel can optionally configure the provider to customize content, enabling you to create enhanced content aligned with the specification of the provider. For example, you might like to use Slack blocks to send your Chat message.
+
+All channels follow the same interface:
+
+```tsx
+await step.email('new-post', async (inputs) => {
+    return {
+        subject: 'You received a post',
+        body: `<html><body>A new post has been created</body></html>`,
+    }
+}, options);
+```
+
+- `new-post` is the unique to the workflow identifier for this step. You cannot have 2 steps using the same identifier
+- `resolver` function, used to return the content of the channel.
+- `options` this is an optional configuration object that defines: [Input Schema](/framework/concepts/inputs), [Provider Overrides](#provider-overrides), skip and other configurations...
+
+## Provider Overrides
+
+Provider overrides are used to customize the content of the notification for a specific provider. For example, you might like to use Slack blocks to send your Chat message.
+
+Those overrides are mapped directly to the provider specific SDKs, so you can use the same properties and methods that you would use in the provider SDK.
+
+```tsx
+await step.chat('send-chat', async () => {
+  return {
+    body: 'A new post has been created',
+  };
+}, {
+    providers: {
+        slack: ({ inputs }) => ({
+            text: 'A new post has been created',
+            blocks: [
+                {
+                    type: 'section',
+                    text: {
+                        type: 'mrkdwn',
+                        text: 'A new post has been created',
+                    },
+                },
+            ],
+        }),
+    }
+});
+```
+
+<Info>
+    Currently we only support `Slack` provider overrides. We are working on adding more providers.
+</Info>
+
+When overriding a provider specific behavior, Novu still requires the default content to be returned from the resolver function.
+This is because the default content is used for the fallback provider, or when the provider override is not available.
+
+## Skip Step
+
+A step can be conditionally skipped by returning `true` from the resolver function. This is helpful when you want to use your existing user-preference system instead of Novu.
+Or conditionally skip a step if it's not relevant any more for delivery.
+
+```tsx
+await step.chat('send-chat', async () => {
+  return {
+    body: 'A new post has been created',
+  };
+}, {
+    skip: () => true,
+});
+```

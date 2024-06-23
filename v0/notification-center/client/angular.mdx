@@ -1,0 +1,80 @@
+---
+title: "Angular Component"
+icon: "angular"
+sidebarTitle: "Angular"
+---
+
+The `@novu/notification-center-angular` package provides an Angular component wrapper over the Notification Center Web Component that you can use to integrate the notification center into your Angular application.
+
+## Installation
+
+<Tip>Novu supports Angular version 15 and higher.</Tip>
+
+<CodeGroup>
+```bash pnpm
+pnpm i @novu/notification-center-angular
+```
+```bash npm
+npm i @novu/notification-center-angular
+```
+```bash yarn
+yarn add @novu/notification-center-angular
+```
+</CodeGroup>
+
+## Example usage
+
+Module:
+
+```tsx
+import { NotificationCenterModule } from '@novu/notification-center-angular';
+
+@NgModule({
+  imports: [..., NotificationCenterModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class TheModule {}
+```
+
+Component:
+
+```tsx
+import { Component } from "@angular/core";
+import { environment } from "../environments/environment";
+
+@Component({
+  selector: "my-component",
+  templateUrl: "./component.html",
+})
+export class AppComponent {
+  subscriberId = environment.subscriberId;
+  applicationIdentifier = environment.applicationIdentifier;
+
+  sessionLoaded = (data: unknown) => {
+    console.log("loaded", { data });
+  };
+}
+```
+
+Component HTML template:
+
+```html
+<notification-center-component
+  [subscriberId]="subscriberId"
+  [applicationIdentifier]="applicationIdentifier"
+  [sessionLoaded]="sessionLoaded"
+></notification-center-component>
+```
+
+## Props
+
+The `notification-center-component` accepts the same set of props as the [web component](/notification-center/client/web-component).
+
+<Tip>
+  You may need to add `"allowSyntheticDefaultImports": true` in tsconfig.json for the web component's React imports to work correctly.
+</Tip>
+
+## Example
+
+- [Angular Notification Center Example Repo](https://github.com/novuhq/examples/tree/main/novu-angular-notification-center)
+- [Example Source Code 🔗](https://github.com/novuhq/examples/tree/main/novu-angular-notification-center)

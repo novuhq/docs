@@ -1,0 +1,125 @@
+---
+title: 'Glossary'
+description: 'Definitions'
+icon: 'book-open'
+---
+
+## Introduction
+
+In this section, you’ll find a list of key terms, their definitions and various concepts associated with Novu. Familiarising yourself with these will help you understand and use Novu better. They will help you navigate our docs more effectively and utilise Novu to its maximum potential.
+
+If you have any questions or need further clarification on any of the terms listed above, please feel free to reach out to our support team or join our community!
+
+## List of key terms and definitions
+
+## Notification 
+A brief message or alert that informs users about events, updates, or some other information
+## Channels 
+Novu lets you send notifications across different communication mediums, including emails, in-app messages, push notifications, SMS, and chat. Each of these five communication mediums is referred to as a notification ‘channel’.
+
+<Frame caption="Channels in Novu"><img src="/images/channels.gif" /> </Frame>
+## Providers
+Providers are responsible for handling message delivery across various channels. Novu currently supports multiple notification channels, each with its own set of providers.
+
+   - Chat: This channel offers these providers:
+      - Discord
+      - MS Teams
+      - Slack
+      - Zulip
+   - Email: The Email channel features these providers: 
+     - Sendgrid
+     - Amazon SES
+     - Sendinblue
+     - Resend
+     - SparkPost
+     - Postmark
+     - Mailjet
+     - Mailtrap
+     - Plunk
+     - Braze
+     - Mailersend
+     - Outlook 365 (based on a custom SMTP server)
+     - Mailgun
+     - Mandrill
+     - Netcore
+     - Infobip, and
+     - Custom SMTP
+   - SMS: The SMS channel features these providers:
+     - Twilio SMS
+     - SMS77
+     - Africa’s Talking
+     - Infobip
+     - Nexmo
+     - Plivo
+     - Sendchamp
+     - AWS SNS
+     - Telnyx
+     - Termii
+     - Firetext
+     - Gupshup
+     - Clickatell
+     - Azure SMS
+     - BulkSMS
+     - SimpleTexting
+     - MessageBird
+   - Push Notification Providers: This channel includes these providers: 
+     - Firebase Cloud Messaging (FCM)
+     - Expo Push
+     - Apple Push Notification Service (APNS)
+     - One Signal
+     - Pushpad
+     - Pusher Beams
+     - Push Webhook
+   - In-app Notification Center: Novu provides you with a set of APIs and components to create rich customized notification center experiences: 
+     - React component
+     - Angular component
+     - Vue component
+     - Web component
+     - iFrame embed
+     - Custom styling
+     - Headless notification center
+
+## Subscribers
+Subscribers are entities designated to receive the notifications you send. Each subscriber in Novu is uniquely identified by their `subscriberId`.
+
+## Actor
+An `actor` refers to a user or subscriber who initiates actions that trigger events within the system. Each actor is uniquely identified by an "actorId," also known as "subscriberId," which distinguishes them from others. 
+
+Actors hold user-related variables, such as subscriber properties and data payload, containing information like names, emails, and custom data. 
+
+Additionally, actors can enhance notifications by allowing their avatars to be displayed, improving the context and identification of notifications. 
+
+
+Including actors in event data enables precise tracking and personalization of actions and events in the Novu platform.
+
+## Workflow
+Workflow templates define the flow of messages sent to subscribers.
+## Topics
+Topics facilitate bulk notifications to multiple subscribers simultaneously, streamlining communication.
+## Digest Engine
+The digest engine aggregates multiple trigger events into a single message, ensuring efficient communication.
+## Delay Actions
+Delay actions introduce time intervals between workflow steps, optimizing message delivery timing.
+## Step Filter
+Step filters customize workflow by specifying notification criteria, enhancing communication efficiency.
+## Organizations
+Organizations allow separation of notifications across multiple products, managed through the Novu web dashboard.
+<Frame caption="Organizations in Novu"><img src="/images/org.gif" /> </Frame>
+
+## Environments
+Novu runs all your requests in the context of an environment. By default, Novu creates two environments when your account was created, `development` and `production`.
+    1. `Development environment`: The development environment is used for testing purposes and validating notification changes prior to committing them to the production environment.
+    2. `Production environment`: It will be your live/production environment, you cannot make changes to this environment directly. You will first have to make the changes in the `development` environment and then promote it to `production`. This is a read-only environment.
+## Data associated with an environment
+        - Subscribers (can’t be promoted to production)
+        - Workflows (can be promoted to production)
+        - Messages
+        - Execution logs
+        - Connected integrations (can’t be promoted to production)
+        - Notification feeds (can be promoted to production)
+        - Brand-related assets and settings
+## Team members 
+Members of a team have access to the Novu web dashboard. This allows you to have individuals work on and manage templates and notifications.
+## Layouts 
+Layouts are HTML designs or structures to wrap the content of email notifications. Layouts can be manipulated and assigned to new or existing workflows within the Novu platform, allowing users to create, manage, and assign these layouts to workflows, so they can be reused to structure the appearance of notifications sent through the platform.
+

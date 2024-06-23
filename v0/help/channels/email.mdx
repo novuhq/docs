@@ -1,0 +1,37 @@
+---
+title: "Email"
+sidebarTitle: "Email"
+icon: "envelope"
+---
+
+import ContactSupportSnippet from "/snippets/contact-support.mdx";
+
+### How to override default values of Email?
+All values (from, to, subject, body, etc.) can be overridden by using the `overrides` option while triggering the workflow. Please see our [email overrides documentation](/channels-and-providers/email/overview#sending-email-overrides) for more details.
+
+### Sending HTML as the value of a variable
+HTML content as a value of step variable can be sent by replacing the double curly braces `{{}}` variable with triple curly braces `{{{}}}` variable. For example, `{{{htmlContent}}}`.
+
+### I have multiple Email Providers or integrations active, how do I associate them to a Workflow?
+There can be more than one active email integrations of same or different providers. However only one email integration can be primary at one time per environment. To use a different email integration than your primary integration, the integrationIdentifier field of email overrides can be used. Read about using [different email integration](/channels-and-providers/email/overview#using-different-email-integration) for more details.
+
+### Why am I getting the error “message content could not be generated”?
+This error occurs when the HTML content is not properly formatted. Make sure the HTML content is properly formatted and does not contain any syntax errors. Make sure Step Variables are properly formatted and are not missing opening or closing curly braces.
+
+### Can email or phone be used as step variables?
+Novu recommends not to use subscriber attributes as step variables. Instead, use the subscriber attributes directly in the step. For example, use `{{subscriber.email}}` instead of `{{email}}` as your step variable. Novu will select the email from subscriber attributes and inject the value in the content.
+
+### How to use Provider templates in place of email content?
+Currently, we support external Provider template support for [sendgrid](/channels-and-providers/email/sendgrid#using-sendgrid-template) and [mailersend](/channels-and-providers/email/mailersend#using-mailersend-template) only.
+
+### Can I retrieve only Email content?
+Novu does not have a separate API to retrieve email content. However, email content can be retrieved from the email step of the workflow. The email step contains the email content in the `content` field of [get worklfow api](/api-reference/workflows/get-workflow) response.
+
+### How to send inline images in email?
+Inline images can be sent using `<img>` tag in the email content. PNG, JPEG, GIF are supported. SVGs are not supported as inline images by most of email clients like gmail, outlook.
+
+### How to add unsubscribe link in emails?
+
+Add `{{unsubscribe}}` variable in email step content editor and send url value of this variable in payload. Create a simple html page to [fetch preferences](https://docs.novu.co/api-reference/subscribers/get-subscriber-preferences) and then use [update preference api](https://docs.novu.co/api-reference/subscribers/update-subscriber-preference) to update.
+
+<ContactSupportSnippet />

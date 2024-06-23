@@ -1,0 +1,73 @@
+---
+title: 'Delay Action'
+description: 'More on how Delay Action Node works'
+icon: 'clock'
+---
+
+The delay action awaits a specified amount of time before moving on to trigger the following steps of the workflow.
+
+### Delay Action Node
+
+After adding a delay node in the workflow editor, the immediate next step will only be triggered after the specified period of time has elapsed.
+
+# Configurations
+
+## Regular Delay
+
+Regular Delay will determine how long it will take before triggering the next step.
+
+## Time Interval
+
+You can specify the amount and time unit that best suits your needs.
+
+Should you wish to, you could override the default delay time interval you set in the creation of the delay node.
+
+```tsx
+novu.trigger('template-name', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>'
+  },
+  payload: {
+    name: 'Hello',
+  },
+  overrides: {
+    delay: {
+      unit: 'days',
+      amount: 2,
+    },
+  },
+});
+```
+
+## Scheduled Delay
+
+Scheduled Delay allows delaying up to a future date before continuation of steps execution. All steps after delay node will be triggered only after said date.
+
+### Payload Path[](https://docs.novu.co/platform/delay#payload-path)
+
+Payload path will determine the path in payload for the scheduled date.
+
+That path must be included in your payload on trigger execution and must be a date in strict ISO format.
+
+For example:
+
+<img
+  style={{ borderRadius: '0.5rem' }}
+  src="/images/Deley-action-properties.png"
+/>
+
+```tsx
+novu.trigger('workflow-name', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>'
+  },
+  payload: {
+    sendAt: '2022-09-21T10:48:44.388Z',
+  },
+});
+```
+
+<Note>
+Date must be in ISO date format of YYYY-MM-DDThh:mm:ss.SSSZ
+</Note>
+

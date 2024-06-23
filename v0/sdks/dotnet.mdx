@@ -1,0 +1,69 @@
+---
+title: "C#/.NET"
+description: "Connect a .NET application to Novu"
+icon: "microsoft"
+---
+
+Novu's .NET SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your C#/.NET application.
+
+[Explore the source code on GitHub](https://github.com/novuhq/novu-dotnet)
+
+## Installation
+
+```dotnet
+dotnet add package Novu
+```
+
+<Tip>
+   If you're ready to start integrating in your .NET app, jump straight to
+  our [.NET quickstart.](/quickstarts/.NET)
+</Tip>
+
+## Usage
+
+```dotnet
+using Novu.DTO;
+using Novu.Models;
+using Novu;
+...
+
+var novuConfiguration = new NovuClientConfiguration
+{
+    // Defaults to https://api.novu.co/v1
+    Url = "https://novu-api.my-domain.com/v1",
+    ApiKey = "12345",
+};
+
+var novu = new NovuClient(novuConfiguration);
+
+// OnboardEventPayload.cs
+public class OnboardEventPayload
+{
+  [JsonProperty("username")]
+  public string Username { get; set; }
+
+  [JsonProperty("welcomeMessage")]
+  public string WelcomeMessage { get; set; }
+}
+
+// MyFile.cs
+var onboardingMessage = new OnboardEventPayload
+{
+  Username = "jdoe",
+  WelcomeMessage = "Welcome to novu-dotnet"
+};
+
+var payload = new EventTriggerDataDto()
+{
+  EventName = "onboarding",
+  To = { SubscriberId = "subscriberId" },
+  Payload = onboardingMessage
+};
+
+var trigger = await novu.Event.Trigger(payload);
+
+if (trigger.TriggerResponsePayloadDto.Acknowledged)
+{
+  Console.WriteLine("Trigger has been created.");
+}
+```

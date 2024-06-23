@@ -1,0 +1,734 @@
+---
+title: 'How to send push notifications to Flutter apps (Android & iOS) with FCM using Novu'
+description: 'Learn how to integrate Firebase Cloud Messaging with Novu and send notifications to Flutter apps'
+---
+
+## Prerequisites
+
+To complete this guide, you will need the following:
+
+- [Apple Developer](https://developer.apple.com/) membership (to obtain the required permissions to send push notifications).
+- A machine running MacOS to work on building the Flutter app for iOS devices.
+- [Firebase](https://firebase.google.com/) account
+- [Novu](https://web.novu.co/?utm_campaign=docs-gs-guides-fcm-flutter) account.
+- [Android Studio](https://developer.android.com/studio/install) configured with Dart and Flutter plugins.
+- [Xcode](https://developer.apple.com/xcode/) installed on your machine.
+
+Check out the [Flutter app code for this guide on GitHub](https://github.com/novuhq/flutter-fcm-novu).
+
+## Set up and Create a Flutter App
+
+If you have an existing Flutter App, you can skip this step.
+
+If you are creating a brand new Flutter app, please follow this [guide](https://firebase.google.com/codelabs/firebase-fcm-flutter#0).
+
+## Set up Firebase and FlutterFire
+
+Please follow this [guide to set up a Firebase project and integrate Firebase Cloud Messaging in your Flutter app](https://firebase.google.com/codelabs/firebase-fcm-flutter#2).
+
+## Set Up Apple Integration
+
+Please follow this [guide to ensure that everything is set up on your iOS device](https://firebase.flutter.dev/docs/messaging/apple-integration) to receive messages.
+
+There is an optional section about allowing **Notification Images**. Follow the steps to install and activate the notification service extension. We'll need it later in this guide to display images as part of the push notifications from FCM.
+
+## Set Up FCM Notification Permission & Registration Token
+
+We'll add code to initialize Firebase and ask the user's permission to receive notifications.
+
+Open up the `lib/main.dart` file in your Flutter app and replace everything with the code below:
+
+```dart
+import 'package:flutter/foundation.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'firebase_options.dart';
+import 'package:firebase_messaging/firebase_messaging.dart'; // FlutterFire's Firebase Cloud Messaging plugin
+
+// Add Stream controller
+import 'package:rxdart/rxdart.dart';
+
+// for passing messages from event handler to the UI
+final _messageStreamController = BehaviorSubject<RemoteMessage>();
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp();
+
+  print("Handling a background message: ${message.messageId}");
+  print('Message data: ${message.data}');
+  print('Message notification: ${message.notification?.title}');
+  print('Message notification: ${message.notification?.body}');
+
+}
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Request permission
+  final messaging = FirebaseMessaging.instance;
+
+  // Web/iOS app users need to grant permission to receive messages
+  final settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  if (kDebugMode) {
+    print('Permission granted: ${settings.authorizationStatus}');
+  }
+
+  // Register with FCM
+  // It requests a registration token for sending messages to users from your App server or other trusted server environment.
+  String? token = await messaging.getToken();
+
+  if (kDebugMode) {
+    print('Registration Token=$token');
+  }
+
+  // Set up foreground message handler
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    if (kDebugMode) {
+      print('Handling a foreground message: ${message.messageId}');
+      print('Message data: ${message.data}');
+      print('Message notification: ${message.notification?.title}');
+      print('Message notification: ${message.notification?.body}');
+    }
+
+    _messageStreamController.sink.add(message);
+  });
+
+  // Set up background message handler
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  String _lastMessage = "";
+
+  _MyHomePageState() {
+    _messageStreamController.listen((message) {
+      setState(() {
+        if (message.notification != null) {
+          _lastMessage = 'Received a notification message:'
+              '\nTitle=${message.notification?.title},'
+              '\nBody=${message.notification?.body},'
+              '\nData=${message.data}';
+        } else {
+          _lastMessage = 'Received a data message: ${message.data}';
+        }
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text('Last message from Firebase Messaging:',
+                style: Theme.of(context).textTheme.titleLarge),
+            Text(_lastMessage, style: Theme.of(context).textTheme.bodyLarge),
+          ],
+        ),
+      ),
+    );
+  }
+}
+```
+_lib/main.dart_
+
+There are 4 sections to pay attention to:
+
+<Steps>
+  <Step title="The Request permission code block">
+    This shows the notification permission prompt to the user when the user interacts with the app for the first time. If the user allows it, then we can get a token.
+
+    ```dart
+    // Request permission
+    final messaging = FirebaseMessaging.instance;
+
+    // Web/iOS app users need to grant permission to receive messages
+    final settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    ```
+
+  </Step>
+  <Step title="Registering and obtaining the FCM token for the device">
+    A device's token is needed for the specific device to receive messages. The `getToken()` returns the registration token for the app instance on the device.
+
+    ```dart
+      String? token = await messaging.getToken();
+
+      if (kDebugMode) {
+        print('Registration Token=$token');
+      }
+    ```
+  </Step>
+  <Step title="The foreground message handler">
+    This handler listens to when a push notification is sent from FCM to the device. If the app is in the foreground, then it prints out the notification title, body, messageId, and data properties to the console.
+
+    ```dart
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+        if (kDebugMode) {
+          print('Handling a foreground message: ${message.messageId}');
+          print('Message data: ${message.data}');
+          print('Message notification: ${message.notification?.title}');
+          print('Message notification: ${message.notification?.body}');
+        }
+
+        _messageStreamController.sink.add(message);
+      });
+    ```
+  </Step>
+  <Step title="The background message handler">
+    This handler listens to when a push notification is sent from FCM to the device. If the app is in the background, then it prints out the notification title, body, messageId, and data properties to the console.
+
+    ```dart
+      ...
+      @pragma('vm:entry-point')
+      Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+        // If you're going to use other Firebase services in the background, such as Firestore,
+        // make sure you call `initializeApp` before using other Firebase services.
+        await Firebase.initializeApp();
+
+        print("Handling a background message: ${message.messageId}");
+        print('Message data: ${message.data}');
+        print('Message notification: ${message.notification?.title}');
+        print('Message notification: ${message.notification?.body}');
+
+      }
+      ...
+
+
+      FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    ```
+  </Step>
+</Steps>
+
+Now, run the Flutter app. Your device should be connected to your machine to enable the app to run on it.
+
+<Frame caption="Running the app to build on my device">
+  <img src="https://github.com/novuhq/docs/assets/2946769/71ebea0f-f4fd-49ba-b6ee-591950dd251d"/>
+</Frame>
+<br />
+<Frame caption="Notification Permission Prompt">
+  <img src="https://github.com/novuhq/docs/assets/2946769/907564e3-6d93-4d0a-881c-792cbb471665"/>
+</Frame>
+<br />
+<Frame caption="Flutter app running waiting to receive push notifications">
+  <img src="https://github.com/novuhq/docs/assets/2946769/e1c4bfb7-9cfa-421a-820b-53f4bfe2ab65"/>
+</Frame>
+
+
+## Cloud Message Test
+
+In your Firebase project, navigate to `Engage` section and click on `Messaging`.
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/56.png"/> </Frame>
+
+Click on `Create your first campaign` and select `Firebase Notification messages`.
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/57.png"/> </Frame>
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/58.png"/> </Frame>
+
+Enter the `Notification title` and the `Nabigateotification text`, and click on `Send test message`.
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/59.png"/> </Frame>
+
+We must copy and paste this FCM registration token to confirm our device. You can find it logged as shown earlier in our editor.
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/60.png"/> </Frame>
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/62.png"/> </Frame>
+
+Click on 'Test'.
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/63.png"/> </Frame>
+
+You should see the notification on your device!
+
+<Frame caption="Yaay! Push Notification from FCM on my device">
+  <img src="https://github.com/novuhq/docs/assets/2946769/a8d83c16-a016-4c81-9375-9e0cecd202f2"/>
+</Frame>
+
+## Sign Up on Novu
+
+Let's use Novu to fire push notifications via FCM. First, sign up on [Novu Cloud](https://web.novu.co)?utm_campaign=docs-gs-guides-fc-flutter.
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/65.png"/> </Frame>
+
+Next, immediately configure FCM as a Push channel provider.
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/66.png"/> </Frame>
+
+You can also do this by heading straight to the `Integrations Store`. Click on `Add a provider`.
+
+## Connect  FCM as a Push Channel provider
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/67.png"/> </Frame>
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/68.png"/> </Frame>
+
+You only need to configure FCM with Novu with the Firebase Service Accounts private key. 
+
+To acquire the account key JSON file for your service account, follow this instructions:
+
+1. Select your project. Click the gear icon on the top of the sidebar.
+2. Head to project settings.
+3. Navigate to the `Service accounts` tab.
+4. Click `Generate new private key`, then confirm by clicking `Generate key`.
+5. Click `Generate key` to download the JSON file.
+6. Once the file is on your machine, paste the entire JSON file content in the `Service Account` field of the FCM provider in the Integration store on Novu’s web dashboard.
+
+Make sure your service account key JSON content contains these fields:
+
+```JSON
+
+{
+  "type": "service_account",
+  "project_id": "PROJECT_ID",
+  "private_key_id": "PRIVATE_KEY_ID",
+  "private_key": "PRIVATE_KEY",
+  "client_email": "FIREBASE_ADMIN_SDK_EMAIL",
+  "client_id": "CLIENT_ID",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "CLIENT_X509_CERT_URL"
+}
+
+```
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/69.png"/> </Frame>
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/70.png"/> </Frame>
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/71.png"/> </Frame>
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/72.png"/> </Frame>
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/73.png"/> </Frame>
+
+## Create a Notification Workflow
+
+In Novu, creating a workflow means establishing a blueprint for sending notifications within your app. This unified structure ties together email, in-app messages, SMS, push notifications, and chat into **one entity**.
+
+Each workflow has a unique name and identifier and includes customized content for various channels, using `{{handlebars}}` variables for personalization. 
+
+This ensures consistent platform notifications and allows dynamic adjustments for individual subscribers, scenarios, and use cases.
+
+<Steps>
+  <Step title="Navigate to 'Workflows' tab and click on 'Blank Workflow'">
+    <Frame><img src="/guides/FCM-iOS-Novu/Assets/74.png"/> </Frame>
+    <Frame><img src="/guides/FCM-iOS-Novu/Assets/75.png"/> </Frame>
+  </Step>
+  <Step title="Add (Drag & Drop) the Push channel node to the workflow">
+  <Frame><img src="/guides/FCM-iOS-Novu/Assets/76.png"/> </Frame>
+  </Step>
+  <Step title="Click on the node, and start to modify the content. Add a title and content. Once you are done, click on 'Update'">
+    <Frame><img src="/guides/FCM-iOS-Novu/Assets/77.png"/> </Frame>
+  </Step>
+</Steps>
+
+We need to fire notifications to subscribers. So, let's create a subscriber!
+
+## Create A Subscriber & Update Credentials
+
+A subscriber is essentially the recipient of the notifications sent through Novu's system. When you create a subscriber, you're setting up the necessary information for Novu to send targeted notifications to that individual.
+
+You can see the list of subscribers in the `Subscribers` section of the Novu dashboard.
+
+<Frame><img src="/guides/FCM-iOS-Novu/Assets/78.png"/> </Frame>
+
+<Steps>
+
+  <Step title="Create a subscriber">
+
+    ```JSON
+
+    curl --location 'https://api.novu.co/v1/subscribers' \
+  --header 'Content-Type: application/json' \
+  --header 'Accept: application/json' \
+  --header 'Authorization: ApiKey <YOUR_API_KEY>' \
+  --data-raw '{
+    "subscriberId": "584349343",
+    "firstName": "Flutter",
+    "lastName": "Boy",
+    "email": "flutterboy@gmail.com",
+    }'
+
+```
+
+    <Frame><img src="https://github.com/novuhq/docs/assets/2946769/e844e408-d6f6-47f4-ad89-4e8481b17e95"/> </Frame>
+
+  </Step>
+
+  <Step title="Grab the FCM device token from your Editor log">
+    <Frame><img src="https://github.com/novuhq/docs/assets/2946769/c0d1117e-6545-4c57-b463-3c25e3b165f3"/> </Frame>
+  </Step>
+
+  <Step title="Add Device Tokens to Subscriber by Updating Subscriber Credentials">
+  <Note> Subscriber can have multiple device tokens </Note>
+
+  Here, you can locate the Provider_Identifier.
+
+  <Frame><img src="/guides/FCM-iOS-Novu/Assets/81.png"/> </Frame>
+
+  ```JSON
+
+    curl --request PUT \
+        --url https://api.novu.co/v1/subscribers/{subscriber_id}/credentials \
+        --header 'Content-Type: application/json' \
+        --header 'Authorization: ApiKey <YOUR_API_KEY>' \
+        --data '{
+            "credentials":{
+              "deviceTokens": ["<insert-fcm-token>"]
+          },
+          "integrationIdentifier":"<Provider_Identifier>",
+          "providerId":"fcm"
+    }'
+
+  ```
+  _Update the Subscriber Credentials by adding the device tokens to the subscriber_
+
+  </Step>
+
+</Steps>
+
+## Sending a Push Notification to a Device(Android/iOS) with Novu
+
+To send a notification with Novu, you are actually triggering a notification workflow. 
+You have the ability to test the trigger using the Novu UI or by calling Novu's API.
+
+**Trigger a workflow via the API**
+
+Insert the `trigger identifier` as the name in the API request below:
+
+```JSON
+
+curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
+     --header 'Authorization: ApiKey <REPLACE_WITH_API_KEY>' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "name": "novu-push-workflow-for-flutter",
+         "to": {
+           "subscriberId": "<REPLACE_WITH_DATA>"
+         },
+         "payload": {}
+       }'
+
+```
+
+**Trigger a workflow via the Novu Dashboard**
+
+<Frame caption="Add Push title and content"><img src="https://github.com/novuhq/docs/assets/2946769/e6f5aefb-4abe-4190-8d94-16f31650427d"/> </Frame>
+<Frame caption="Trigger Workflow"><img src="https://github.com/novuhq/docs/assets/2946769/cfa2e904-f07a-4796-9020-6917fdb17aa8"/> </Frame>
+
+**Receive Triggered Push Workflow on Device**
+
+<Frame caption="Push Notification Received on the Device">
+  <img src="https://github.com/novuhq/docs/assets/2946769/741dc520-1b0e-429e-bcf8-165536ef5dd4
+"/> 
+</Frame>
+
+
+## Dynamic Content
+
+When we were creating the first workflow, we "Hardcoded" the content of the notification.
+
+Now, we will determine the content when calling the API.
+
+1. In the workflow, we should change the values of the `title` and the `body` to `{{title}}` and `{{body}}`.
+That way, we could insert values through the payload of the API call.
+
+<Frame><img src="https://github.com/novuhq/docs/assets/2946769/03c268b1-8c7a-4c8b-9a67-b4a401139bd4"/> </Frame>
+
+2. Add a `payload` object to the API call.
+
+Insert the `trigger identifier` as the name in the API request below:
+
+```JSON
+
+curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
+     --header 'Authorization: ApiKey <REPLACE_WITH_API_KEY>' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "name": "novu-push-workflow-for-flutter",
+         "to": {
+           "subscriberId": "584349343"
+         },
+         "payload": {
+           "title": "This title was set via the Payload",
+           "body": "This body was set via the Payload"
+         },
+       }'
+
+```
+
+<Frame caption="Push Notification received on device from Novu via FCM"><img src="https://github.com/novuhq/docs/assets/2946769/b7a2d4b2-003b-423a-856c-207072f0bed6"/> </Frame>
+
+## Handling Data Type Messages
+
+With FCM, you can send `Notification` and `Data` messages. We have handled sending notification messages. Let's handle data messages.
+
+Data messages contain user-defined custom key-value pairs. The information is encapsulated in the `data` key. The app can do whatever it pleases with the data once it's received by the device.
+
+**Via the Trigger API call**
+
+```JSON
+
+curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
+     --header 'Authorization: ApiKey <REPLACE_WITH_API_KEY>' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "name": "novu-push-workflow-for-flutter",
+         "to": {
+           "subscriberId": "584349343"
+         },
+         "payload": {
+           "title": "This title was set via the Payload",
+           "body": "This body was set via the Payload"
+         },
+         "overrides": {
+          "fcm": {
+            "data": {
+              "subscription_status": "active",
+              "renewed_by": "bisola"
+            }
+          }
+         }
+       }'
+
+```
+
+<Frame caption="Push & Data Notification received on device in the foreground from Novu via FCM">
+  <img src="https://github.com/novuhq/docs/assets/2946769/cac3d859-578e-4df5-9601-9a4a32398688"/>
+</Frame>
+
+
+## Sound of a notification
+
+You can use the name of a sound file in your app's main bundle or in the Library/Sounds folder of your app's container directory. 
+
+Specify the string "default" to play the system sound. Use it for regular notifications. For critical alerts, use the sound dictionary instead.
+
+
+The code below works for iOS devices:
+
+```JSON
+
+curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
+     --header 'Authorization: ApiKey <YOUR_API_KEY>' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "name": "novu-push-workflow-for-flutter",
+         "to": {
+           "subscriberId": "584349343"
+         },
+         "payload": {
+           "title": "Notification With Sound",
+           "body": "Hello World from Novu"
+         },
+         "overrides": {
+           "fcm": {
+             "apns": {
+               "payload": {
+                 "aps": {
+                   "sound": "default" // configure sound to the notification
+                 }
+               }
+             }
+           }
+         }
+       }'
+
+```
+
+For Android devices, use the following:
+
+```JSON
+
+curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
+     --header 'Authorization: ApiKey <YOUR_API_KEY>' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "name": "novu-push-workflow-for-flutter",
+         "to": {
+           "subscriberId": "584349343"
+         },
+         "payload": {
+           "title": "Notification With Sound",
+           "body": "Hello World from Novu"
+         },
+         "overrides": {
+           "fcm": {
+             "android": {
+               "notification": {
+                 "defaultSound": true // This uses the Android framework's default sound for the notification.
+               }
+             }
+           }
+         }
+       }'
+
+```
+
+## Priority for notification
+
+If you omit this header, APNs (iOS) set the notification priority to `10`.
+
+- Specify `10` to send the notification immediately.
+- Specify `5` to send the notification based on power considerations on the user’s device.
+- Specify `1` to prioritize the device’s power considerations over all other factors for delivery and prevent awakening the device.
+
+```JSON
+
+curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
+     --header 'Authorization: ApiKey <YOUR_API_KEY>' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "name": "novu-push-workflow-for-flutter",
+         "to": {
+           "subscriberId": "584349343"
+         },
+         "payload": {
+           "title": "apns-priority: 5",
+           "body": "Novu's API"
+         },
+         "overrides": {
+           "fcm": {
+             "apns": {
+               "headers": {
+				          "apns-priority":"5" //priority for notifications
+			          },
+               "payload": {
+                 "aps": {}
+               },
+               "fcm_options": {}
+             }
+           }
+         }
+       }'
+
+```
+
+For Android devices, specify `high` or `normal` for the priority of the notification message.
+
+```JSON
+
+curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
+     --header 'Authorization: ApiKey <YOUR_API_KEY>' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "name": "novu-push-workflow-for-flutter",
+         "to": {
+           "subscriberId": "584349343"
+         },
+         "payload": {
+           "title": "priority",
+           "body": "Novu's API"
+         },
+         "overrides": {
+           "fcm": {
+             "android": {
+               "priority": "high"
+             }
+           }
+         }
+       }'
+
+```
+
+
+## Sending Push Notification With Image
+
+Up to this point, your notifications have all contained only text. But if you’ve received many notifications, you know that notifications can have rich content, such as images. It’d be great if your notifications showed users a nice image related to their content. Once again, Firebase makes this super simple.
+
+To show an image in push notifications, you’ll need to create a ***Notification Service Extension***. We handled it earlier in this guide during the Apple setup.
+
+For reiteration, follow [this guide](https://firebase.flutter.dev/docs/messaging/apple-integration#advanced-optional-allowing-notification-images
+) to ensure it is properly set up for iOS devices. 
+
+
+When making the API call, we should include:
+- "mutable-content": 1 inside the “aps” object.
+- "image" in "fcm_options" object, 
+- URL address of the image.
+
+
+```JSON
+
+curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
+     --header 'Authorization: ApiKey <YOUR_API_KEY>' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+         "name": "untitled",
+         "to": {
+           "subscriberId": "12345678"
+         },
+         "payload": {
+           "title": "This is a notification with an image",
+           "body": "Check this out"
+         },
+         "overrides": {
+           "fcm": {
+             "apns": {
+                "payload": {
+                  "aps": {
+                    "mutable-content": 1
+                  }
+                },
+                "fcm_options": {
+                  "image": "https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg"
+                  }
+            }
+          }
+        }
+    }'
+```
+
+## Additional resources
+
+- [Notifications Usage - Flutter Fire](https://firebase.flutter.dev/docs/messaging/notifications)
