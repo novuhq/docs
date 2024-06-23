@@ -1,0 +1,127 @@
+---
+openapi: delete /v1/events/trigger/{transactionId}
+---
+
+import ApikeyWarning from "/snippets/apikey-warning.mdx";
+
+<ApikeyWarning />
+<Info> If `false` value is returned in response, it means that event has already been completed its execution or cancelled before. Already completed event can not be cancelled. If `true` value is returned in response, then it means that event execution has been cancelled successfully. Any digest or delay step with pending exection will also be cancelled.</Info>
+<RequestExample>
+
+```javascript Node.js
+import { Novu } from '@novu/node';
+
+const novu = new Novu("<NOVU_API_KEY>");
+
+await novu.events.cancel("transactionId");
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu(<NOVU_API_KEY>);
+
+$transactionId = "transactionId";
+
+$novu->cancelEvent($transactionId);
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.cancel_triggered_event('transactionId')
+```
+
+```go Go
+package main
+
+import (
+	"context"
+	"fmt"
+	novu "github.com/novuhq/go-novu/lib"
+	"log"
+)
+
+func main() {
+	apiKey := "<NOVU_API_KEY>"
+	ctx := context.Background()
+
+	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
+
+    transactionId := "<transaction_id>";
+
+	resp, err := novuClient.EventApi.CancelTrigger(ctx, transactionId)
+
+	if err != nil {
+		log.Fatal("novu error", err.Error())
+		return
+	}
+}
+```
+
+```bash cURL
+
+curl --request DELETE \
+  --url https://api.novu.co/v1/events/trigger/<transaction_id> \
+  --header 'Authorization: ApiKey <NOVU_API_KEY>'
+
+```
+
+```python Python
+from novu.api import EventApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+novu = EventApi(url, api_key).delete("transactionId");
+```
+
+```java Java
+import co.novu.common.base.Novu;
+import co.novu.api.events.responses.CancelEventResponse;
+
+public class Main {
+    public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+
+        Novu novu = new Novu(apiKey);
+
+        String transactionId = "<REPLACE_WITH_TRANSACTION_ID>";
+
+        CancelEventResponse response = novu.cancelTriggeredEvent(transactionId);
+    }
+}
+```
+
+```csharp .NET
+using Novu.DTO;
+using Novu.Models;
+using Novu;
+
+var novuConfiguration = new NovuClientConfiguration
+{
+    /** 
+    * Defaults to https://api.novu.co/v1 
+    */
+    Url = "https://novu-api.my-domain.com/v1", 
+    ApiKey = "12345",
+};
+
+var novu = new NovuClient(novuConfiguration);
+
+var cancelled = await novu.Event.TriggerCancelAsync("triggerTransactionId");
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{ 
+  data: true
+}
+```
+
+</ResponseExample>

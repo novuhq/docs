@@ -1,0 +1,43 @@
+---
+title: "Inbound Parse Webhook"
+description: "Learn how to process incoming emails for a domain or subdomain"
+icon: "inbox-full"
+---
+
+import CloudOnlyFeature from "/snippets/cloud-only-feature.mdx"
+
+Inbound Webhook is a feature that allows processing of incoming emails for a domain or subdomain.
+The feature parses contents of an email and POSTs the information to a specified URL in a `multipart/form-data` format.
+
+<CloudOnlyFeature />
+
+## Steps to set up Inbound Webhook
+
+1. Set up an MX Record:
+   - Log in to your domain host's website and navigate to the MX Records page.
+   - Create a new MX record for the subdomain you want to process incoming email (e.g. reply.yourdomain.com).
+    <Warning>
+        You must create a new record for this as this feature does not work if the MX record is already set on the domain.
+        Here is an example with [route 53](https://medium.com/@deep_blue_day/how-to-create-a-subdomain-in-amazon-route-53-81918654f5bf)
+    </Warning>
+   - Assign the MX record a priority of 10 and point it to the specified inbound mail server that located on the admin dashboard on the Email Settings.
+     <Info>
+       For US, use `inbound-mail.novu.co` and For EU, use
+       `eu.inbound-mail.novu.co`
+     </Info>
+2. Add Domain to allowed list:
+   - Log in to the dashboard.
+   - Go to the Setting tab in the left vertical navbar.
+   - Navigate to Email Settings on the settings page.
+   - Add your domain to the allowed domain box.
+    <Warning>
+        You can only add one Inbound Webhook domain per organization.
+    </Warning>
+3. Enable Inbound Parse and Set Webhook URL:
+   - Log in to the dashboard.
+   - Navigate to the Workflow Editor.
+   - Select the email step.
+   - Enable the Inbound Parse feature.
+   - Set the Webhook URL to the location where you want the parsed data to be POSTed.
+
+<Note>The Webhook URL must be publicly accessible without authentication.</Note>

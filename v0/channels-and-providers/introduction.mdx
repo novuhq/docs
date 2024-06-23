@@ -1,0 +1,26 @@
+---
+title: 'Overview'
+description: 'Learn about what channels, providers and oganizations are'
+icon: 'code'
+---
+
+## Channels:
+
+Novu lets you send notifications across different communication mediums, including emails, in-app messages, push notifications, SMS, and chat. Each of these five communication mediums is referred to as a notification ‘channel’.
+
+<Frame caption="There are five channels in Novu"><img src="/images/channels.gif" /> </Frame>
+
+## Providers:
+
+Providers are what allow us to handle message delivery over multiple channels. Of the five notification channels that Novu currently supports, each channel except the ‘in-app’ channel has multiple providers.
+
+The in-app channel only has one provider (the default Novu provider). 
+
+All the remaining channels have multiple providers.
+
+## Organizations: 
+Organizations enable you to segregate notifications across multiple products that you may have. You can use Novu to send notifications across multiple apps and can create organizations. 
+
+<Frame caption="Organizations enable you to segregate notifications across multiple products that you may have. "><img src="/images/org.gif" /> </Frame>
+
+<Warning>Credentials are saved per instance of the active integrations of a provider. In case of more than one active provider of the same type, If `integrationIdentifier` is not sent in [this](https://docs.novu.co/api-reference/subscribers/update-subscriber-credentials) API, then the most recently created provider will be used to update the credentials.</Warning>

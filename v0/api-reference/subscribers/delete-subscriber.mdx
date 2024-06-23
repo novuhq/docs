@@ -1,0 +1,94 @@
+---
+openapi: delete /v1/subscribers/{subscriberId}
+---
+
+import ApikeyWarning from "/snippets/apikey-warning.mdx";
+
+<ApikeyWarning />
+
+<RequestExample>
+
+```javascript Node.js
+import { Novu } from '@novu/node';
+
+const novu = new Novu("<NOVU_API_KEY>");
+
+await novu.subscribers.delete("subscriberId");
+```
+
+```php PHP
+use Novu\SDK\Novu;
+
+$novu = new Novu('<NOVU_API_KEY>');
+
+$novu->deleteSubscriber($subscriberId);
+```
+
+```ruby Ruby
+require 'novu'
+
+client = Novu::Client.new('<NOVU_API_KEY>')
+
+client.delete_subscriber('<insert-subscriber-id>')
+```
+
+
+```python Python
+from novu.dto.event import InputEventDto
+from novu.api import EventApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+# Delete a subscriber
+novu = SubscriberApi(url, api_key).delete(subscriber_id)
+```
+
+``` java Java
+import co.novu.common.base.Novu;
+import co.novu.api.subscribers.responses.SubscriberDeleteResponse;
+
+public class Main {
+   public static void main(String[] args) {
+        String apiKey = "<NOVU_API_KEY>";
+        Novu novu = new Novu(apiKey);
+        String subscriberId = "<SUBSCRIBER_ID>";
+
+        SubscriberDeleteResponse response = novu.deleteSubscriber(subscriberId);
+    }
+}
+```
+
+```csharp .NET
+using Novu.DTO;
+using Novu.Models;
+using Novu;
+
+var novuConfiguration = new NovuClientConfiguration
+{
+    /** 
+    * Defaults to https://api.novu.co/v1 
+    */
+    Url = "https://novu-api.my-domain.com/v1", 
+    ApiKey = "12345",
+};
+
+var novu = new NovuClient(novuConfiguration);
+
+var deleted = await novu.Subscriber.DeleteSubscriber("subscriberId");
+```
+
+</RequestExample>
+
+<ResponseExample>
+
+```json Response
+{
+    "data": {
+        "acknowledged": true,
+        "status": "deleted"
+    }
+}
+```
+
+</ResponseExample>

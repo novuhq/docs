@@ -1,6 +1,6 @@
 ---
-title: 'Digest Engine'
-description: 'Deep dive into Digest functionality'
+title: 'Digest Action'
+description: 'Deep dive into Digest Engine functionality'
 icon: 'box-archive'
 ---
 The digest engine collects multiple trigger events, aggregates them into a single message and delivers it to the subscriber.
@@ -13,7 +13,7 @@ After adding a digest node in the workflow editor, each node that will be below 
 
 <Frame caption="Digest Nodes"><img src="https://github.com/novuhq/docs/assets/2946769/3fa668ea-0f94-49f9-9784-211db64a7a36" /></Frame>
 
-In the image above, there are two nodes (`Email` and `SMS`) after the digest node and one node (`In-App`) before the digest node in the workflow. 
+In the image above, there are two nodes (`Email` and `SMS`) after the digest node and one node (`In-App`) before the digest node in the workflow.
 
 For this workflow, if we trigger 10 events within the digest interval, the `In-App` step will be executed 10 times, and `Email` and `SMS` will be executed only 1 time with digested events data.
 
@@ -66,7 +66,7 @@ If we trigger the first event. Since it is the first event and there was no even
 
 Now, if we trigger a second within 15 minutes, then a new digest will be created with this second event. From now onwards till 20 minutes (digest interval), all triggers will be digested in this digest, and after 20 minutes, the workflow will carry forward to the next step with digested events.
 
-## Scheduled Digest 
+## Scheduled Digest
 
 **Minutes:**
 
@@ -179,7 +179,7 @@ Hey, {{subscriber.firstName}} your id is {{subscriber.subscriberId}}
 
 Any event can be cancelled from the Digest via the [event cancellation API](/api-reference/events/cancel-triggered-event) using transactionId of triggered event. For example, if there are 5 events in digest, a user should be able to cancel the **2nd**, **3rd**, or **4th** event before digest time completion.
 
-The cancelled event will not be included in the final digest events array. 
+The cancelled event will not be included in the final digest events array.
 
 ## Digest Guides
 

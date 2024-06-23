@@ -1,0 +1,208 @@
+---
+title: 'Digest Engine'
+description: 'Deep dive into Digest functionality'
+icon: 'box-archive'
+---
+The digest engine collects multiple trigger events, aggregates them into a single message and delivers it to the subscriber.
+
+This becomes useful when a user needs to be notified on a large amount of triggers and you want to avoid sending too many notifications. Novu will automatically batch the incoming trigger events based on the `subscriberId` and an **optional** `digestKey` that can be added to control the digestion of the events.
+
+### Digest Node
+
+After adding a digest node in the workflow editor, each node that will be below the digest node will be only triggered once in the specified digest interval. You can decide to send messages before adding a digest node and they will be triggered in real-time.
+
+<Frame caption="Digest Nodes"><img src="https://github.com/novuhq/docs/assets/2946769/3fa668ea-0f94-49f9-9784-211db64a7a36" /></Frame>
+
+In the image above, there are two nodes (`Email` and `SMS`) after the digest node and one node (`In-App`) before the digest node in the workflow. 
+
+For this workflow, if we trigger 10 events within the digest interval, the `In-App` step will be executed 10 times, and `Email` and `SMS` will be executed only 1 time with digested events data.
+
+## Digest Configuration
+
+### 1. Digest Key
+
+If specified, the digest engine will group the events based on the `digestKey` and `subscriberId`, otherwise the digest engine will group the events based only on the subscriberId.
+
+The digest key might come useful when you want a particular subscriber to get events grouped on a custom field. For example when an actor likes the user's post, you might want to digest based on the `post_id` key.
+
+<Frame caption="Digest Key"><img src="https://github.com/novuhq/docs/assets/2946769/a9c4c1a5-ecd7-414e-aa63-ec7f340f95fb" /></Frame>
+
+### 2. Time Interval
+
+The time interval determines how long the digest engine will wait before sending the message once created. You can specify the amount and the unit that best suits your needs.
+
+Here, in the image below, `5` is the interval amount, and `mins` is the interval unit. Interval units can be `sec(s)`, `min(s)`, `hour(s)`, or `day(s)`.
+
+<Frame caption="Time interval"><img src="https://github.com/novuhq/docs/assets/2946769/f78b31e2-8bbf-444c-823d-30749669d9e5" /></Frame>
+
+## Digest Strategy Types
+
+The strategy which Novu should use to handle the digest step. More details on available strategies below.
+
+Novu allows you to define different digest strategies depending on the actual use-case you are trying to achieve. At this point we allow you to select from 2 strategies:
+
+- Regular Strategy
+- Back-off Strategy
+
+Let's explore them in detail:
+
+#### Regular Strategy
+
+In regular strategy, a digest will always be created for the specified window time. Which means that from the first event trigger, if no active digest exists for this subscriber, one will be created and the user will receive the message only when the digest window time is reached.
+
+#### Back-off Strategy
+
+In the back-off strategy, before creating a digest, Novu will check if a message was sent to the user in the back-off period. If a message was sent, a digest will be created. Otherwise, a message will be sent directly to the user and the digest creation will be skipped.
+
+Backoff digest has two intervals, `digest interval` and `backoff interval`. Here, in the image below, the `digest interval` is `20 minutes`, and the `backoff interval` is `15 minutes`. In the case of a backoff digest, first, it checks if any event is triggered within the past backoff interval, only then a digest is created for the digest interval. If not, the event is considered non-digest and workflow execution continues to the next step.
+
+<Frame caption="Back-off Strategy"><img src="https://github.com/novuhq/docs/assets/2946769/06708bd4-bb1d-49b3-b297-fd2070c2e4fe" /></Frame>
+
+**Example:**
+
+Let's set the digest interval as 20 minutes and the backoff time as 15 minutes.
+
+If we trigger the first event. Since it is the first event and there was no event triggered in the past 15 minutes (backoff interval), this event will be executed as it is (without digest).
+
+Now, if we trigger a second within 15 minutes, then a new digest will be created with this second event. From now onwards till 20 minutes (digest interval), all triggers will be digested in this digest, and after 20 minutes, the workflow will carry forward to the next step with digested events.
+
+## Scheduled Digest 
+
+**Minutes:**
+
+It digests events for every specified minutes. For example, as per the image below, events will be digested for 20 minutes and after 20 minutes, workflow will carry forward to the next step. It will be repeated after every 20 minutes.
+
+<Frame caption="Scheduled Digest in Minutes"><img src="https://github.com/novuhq/docs/assets/2946769/4b50ab88-ae3c-405d-b206-93d734b6561a" /></Frame>
+
+**Hour:**
+
+It digests events for given hours. After given hours, a new digest is created.
+
+<Frame caption="Scheduled Digest in Hours"><img src="https://github.com/novuhq/docs/assets/2946769/ed3d8cc2-ec71-4dc2-be84-51a33b43e0e3" /></Frame>
+
+**Daily:**
+
+It digests events for specified days till given time. After those days and time, a new digest is created and events are digested in this new digest.
+
+<Frame caption="Scheduled Digest Daily"><img src="https://github.com/novuhq/docs/assets/2946769/8d37a085-2583-4aea-a29c-8c04aaad7be7" /></Frame>
+
+**Weekly:**
+
+It digests events for specified weekdays. Only at the specified time, the workflow continues to the next step after the digest step. A new digest is created and events are digested in this new digest till these weeks and time.
+
+<Frame caption="Scheduled Digest Weekly"><img src="https://github.com/novuhq/docs/assets/2946769/f5331c48-76e8-49b4-b977-7a45fca8e4ed" /></Frame>
+
+**Monthly:**
+
+<Frame caption="Scheduled Digest Monthly"><img src="https://github.com/novuhq/docs/assets/2946769/6db92aed-8dcb-4f23-a19d-481881bf7a8d" /></Frame>
+
+
+## Writing digest templates
+
+In many cases, you will need to access all the digested events payload in order to show the user all or parts of the events included in this digest. For example: **"John and 5 others liked your photo."**
+
+As part of the digested template, you will have access to a few properties:
+
+| Property | Description |
+| --- | --- |
+| `step.events` | An array of all the events aggregated under this digest. This will be the "payload" object passed to each trigger.event sent in the digest period |
+| `step.total_count` | The number of total events in this digest |
+| `step.digest` | A boolean flag to indicate if we are in a digest mode right now |
+
+Let's look at a handlebars syntax example for the following triggers:
+
+```tsx
+novu.trigger('workflow-name', {
+  to: '123',
+  payload: {
+    name: 'Hello',
+  },
+});
+
+novu.trigger('workflow-name', {
+  to: '123',
+  payload: {
+    name: 'World',
+  },
+});
+```
+
+After these two triggers, digest variables are as follows:
+
+| Property | Description |
+| --- | --- |
+| `step.events` | `[ { "name" : "Hello" }, { "name": "World" } ]` |
+| `step.total_count` | `2` |
+| `step.digest` | `true` |
+
+Using the following template:
+
+```HTML
+Total events in digest:
+{{step.total_count}}
+
+{{#if step.digest}}
+  {{#each step.events}}
+    {{name}}
+  {{/each}}
+{{else}}
+  Not a digested template
+{{/if}}
+```
+
+It will render as:
+
+`Total events in digest: 2 This is Hello payload event This is World payload event`
+
+<Note> Note that if only one matching trigger activates a regular digest during its period, that single item will still come through as a digest with `step.total_count` as 1. </Note>
+
+### Using subscriber variables
+
+Subscriber variables like `{{subscriber.firstName}}` , `{{subscriber.email}}` etc are system reserved variables. These variables can be used in the same form if used outside of `step.events` iteration. If you want to use subscriber variables inside `step.events` iteration, you can use `{{../subscriber.firstName}}` , `{{../subscriber.email}}`. Reason of this change inside `step.events` iteration is the context change. Subscriber variables are available in the parent context of `step.events` iteration.
+
+```HTML
+Total events in digest:
+{{step.total_count}}
+Hey, {{subscriber.firstName}} your id is {{subscriber.subscriberId}}
+{{#if step.digest}}
+  {{#each step.events}}
+    {{name}}
+    <br/>
+    {{../subscriber.firstName}} your email is {{../subscriber.email}}
+  {{/each}}
+{{else}}
+  Not a digested template
+{{/if}}
+```
+
+## Event cancellation from Digest
+
+Any event can be cancelled from the Digest via the [event cancellation API](/api-reference/events/cancel-triggered-event) using transactionId of triggered event. For example, if there are 5 events in digest, a user should be able to cancel the **2nd**, **3rd**, or **4th** event before digest time completion.
+
+The cancelled event will not be included in the final digest events array. 
+
+## Digest Guides
+
+<CardGroup cols={2}>
+  <Card title="Add Digest to Email Notifications" icon="envelope" color="#ea5a0c" href="/guides/add-digest-to-email-notifications">
+    Learn how to add digest functionality to email notifications.
+  </Card>
+  <Card title="Add Digest to In-App Notifications" icon="bell" color="#0285c7" href="/guides/add-digest-to-inapp-notifications">
+  Learn how to add digest functionality to a In-App feed within React app.
+  </Card>
+</CardGroup>
+
+
+## Frequently Asked Questions
+<Note>All digest times are in UTC time</Note>
+
+<AccordionGroup>
+  <Accordion title="If scheduled digest is set for 9:00 AM daily then will the digest be sent at 9:00 AM every day without any event triggered?">
+  If scheduled digest is sent for 9:00 daily, then novu will collect all events triggered between 9:00 AM today till 9:00 AM tomorrow and send the digest at 9:00 AM tomorrow. This process is repeated daily. If there is no any event triggered between 9:00 AM today and 9:00 AM tomorrow, then no digest will be sent.
+  </Accordion>
+
+  <Accordion title="What is the difference between Regular and Schedules Digest set to 1 Hour?">
+  Both digests are same in this case.
+  </Accordion>
+
+</AccordionGroup>

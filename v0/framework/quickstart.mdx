@@ -1,0 +1,60 @@
+---
+title: "Quick Start"
+description: "Novu Framework, the Code-first notification workflow engine. Build advanced workflows while giving your non-technical teammates complete control over content and behavior."
+---
+
+import { EchoTerminal } from '/snippets/echo-terminal.mdx';
+
+<Note>
+    **Novu Framework is currently in public Alpha.** Need help? Have a suggestion? Join our [Discord community](https://discord.gg/novu).
+</Note>
+
+## Introduction to Novu Framework
+
+Novu Framework allows you to write notification workflows in your codebase. Workflows are functions that execute business logic and use your preferred libraries for email, SMS, and chat generation. You can use Novu Framework with [React.Email](https://react.email/), [MJML](https://mjml.io/), or any other template generator.
+
+<EchoTerminal />
+
+## Try it now
+
+To create a new Bridge application that will allow you to define your workflow in code, open your terminal and execute the `create-novu-app` command.
+
+```shell
+npx create-novu-app@latest --api-key=<API_KEY_HERE>
+```
+
+The command will ask you if you wish to install from a React.Email template or a clean project.
+
+## Core features
+
+<CardGroup cols={2}>
+    <Card title="Bring Your Own Code" icon="code">
+        Write the notification workflows as functions in your codebase,  version, and manage them using Git.
+    </Card>
+    <Card title="Limitless Integrations" icon="plug" href={'/framework/integrations'}>
+        Use React.email, MJML, or fetch templates from Braze, Hubspot, Sendgrid, and more...
+    </Card>
+    <Card title="Type Safety" icon="shield">
+        Bring your own schemas for full, end-to-end validation and type safety.
+    </Card>
+    <Card title="Cloud Synchronization" icon="cloud">
+        Sync your workflows with Novu Cloud and ease collaboration.
+    </Card>
+</CardGroup>
+
+
+## How it Works?
+
+Novu Framework introduces a new paradigm when working with Novu. Rather than defining workflows and templates at Novu Cloud, Novu Framework enables you to work in your application, use your own libraries and connect to your production environment during workflow execution over HTTPS.
+
+The Novu Framework exports the client you use to define and serve your workflows and their steps over HTTPS. The workflows can be added to your preferred framework. During workflow execution Novu Cloud makes HTTPS requests to your Bridge server for *just-in-time* Content and Subscribers resolution.
+
+<Frame>
+  <img src="/images/framework/diagram.png" />
+</Frame>
+
+## For Non-Technical Users
+
+Novu Framework was built with non-technical user in mind. Engineers can write complex workflows and expose a type-safe [Inputs](/framework/concepts/inputs) interface powered by JSON-Schema.
+This enables Non-Technical teammates to safely modify the workflow without breaking mission critical notifications.
+

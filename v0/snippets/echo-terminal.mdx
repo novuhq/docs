@@ -1,0 +1,12 @@
+export const EchoTerminal = () => {
+  if (typeof document === "undefined") {
+    return null;
+  } else {
+    const clientComponent = document.getElementById("nv-echo-terminal-snippet");
+    if (clientComponent) {
+      clientComponent.innerHTML = '<nv-echo-terminal></nv-echo-terminal>';
+    }
+
+    return <div id="nv-echo-terminal-snippet"></div>
+  }
+}

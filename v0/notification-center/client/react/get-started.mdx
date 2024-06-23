@@ -1,0 +1,374 @@
+---
+title: "React Get Started"
+sidebarTitle: "Get Started"
+description: "Learn how to add novu powered In-App notification center to your React app"
+---
+
+Novu provides the `@novu/notification-center` a React library that helps to add a fully functioning notification center to your web application in minutes. Let's do a quick recap on how you can easily use it in your application.
+
+1. Install `@novu/notification-center` npm package in your react app
+
+```jsx
+npm install @novu/notification-center
+```
+
+2. Add the below code in the app.tsx file
+
+```jsx
+import {
+  NovuProvider,
+  PopoverNotificationCenter,
+  NotificationBell,
+  IMessage,
+} from "@novu/notification-center";
+
+function Novu() {
+  return (
+    <NovuProvider
+      subscriberId={"SUBSCRIBER_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
+    >
+      <PopoverNotificationCenter colorScheme="dark">
+        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+      </PopoverNotificationCenter>
+    </NovuProvider>
+  );
+}
+```
+
+[![Edit kind-nova-xv6s9g](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark)
+
+Go to this react app browser tab, there will be a bell icon. On clicking that bell icon, you will see a notification component popover
+
+
+<Frame caption="subscriberId">
+  <img src="/images/notification-center/client/react/get-started/subscriberId.png" />
+</Frame>
+
+<Frame caption="applicationIdentifier">
+  <img src="/images/notification-center/client/react/get-started/application-identifier.png" />
+</Frame>
+
+## Use your own backend and socket URL
+
+By default, Novu's hosted services of API and socket are used. If you want, you can override them and configure your own.
+
+```tsx
+import {
+  NovuProvider,
+  PopoverNotificationCenter,
+  NotificationBell,
+} from "@novu/notification-center";
+
+function Novu() {
+  return (
+    <NovuProvider
+      backendUrl={"YOUR_BACKEND_URL"}
+      socketUrl={"YOUR_SOCKET_URL"}
+      subscriberId={"SUBSCRIBER_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
+    >
+      <PopoverNotificationCenter colorScheme="dark">
+        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+      </PopoverNotificationCenter>
+    </NovuProvider>
+  );
+}
+```
+
+## Notification center without bell
+If you don't want to show the bell icon, you can directly render the notification center component without passing the bell, use `<NotificationCenter>` component in place of `<PopoverNotificationCenter>`
+```jsx
+import {
+  NovuProvider,
+  NotificationCenter,
+} from "@novu/notification-center";
+
+<NovuProvider
+  subscriberId={"SUBSCRIBER_ID"}
+  applicationIdentifier={"APPLICATION_IDENTIFIER"}
+>
+  <NotificationCenter colorScheme="dark" />
+</NovuProvider>
+```
+
+## HMAC Encryption
+
+When Novu's user adds the notification center to their application they are required to pass a `subscriberId` which identifies the user's end-customer, and the application Identifier which is acted as a public key to communicate with the notification feed API.
+
+A malicious actor can access the user feed by accessing the API and passing another `subscriberId` using the public application identifier.
+
+HMAC encryption will make sure that a `subscriberId` is encrypted using the secret API key, and those will prevent malicious actors from impersonating users.
+
+### Enabling HMAC Encryption
+
+In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel In-App settings page and enable HMAC encryption for your environment.
+
+<Frame caption="How to enable HMAC encryption for In-App notification center">
+  <img src="/images/notification-center/client/react/get-started/hmac-encryption-enable.png" />
+</Frame>
+
+1. Next step would be to generate an HMAC encrypted subscriberId on your backend:
+
+```jsx
+import { createHmac } from "crypto";
+
+const hmacHash = createHmac("sha256", process.env.NOVU_API_KEY)
+  .update(subscriberId)
+  .digest("hex");
+```
+
+2. Then pass the created HMAC to your client side application forward it to the component:
+
+```jsx
+<NovuProvider
+  subscriberId={"SUBSCRIBER_ID_PLAIN_VALUE"}
+  subscriberHash={"SUBSCRIBER_ID_HASH_VALUE"}
+  applicationIdentifier={"APPLICATION_IDENTIFIER"}
+>
+  <NotificationCenter colorScheme="dark" />
+</NovuProvider>
+```
+
+<Info>If HMAC encryption is active in In-App provider settings and  `subscriberHash` along with `subscriberId` is not provided, then notification center will not load</Info>
+
+## Notification Actions
+
+### onNotificationClick
+
+This function is invoked when the user clicks anywhere on the notification except for CTA actions.
+
+```jsx
+import {
+  NovuProvider,
+  PopoverNotificationCenter,
+  NotificationBell,
+  IMessage,
+} from "@novu/notification-center";
+
+function Novu() {
+  function handleOnNotificationClick(message: IMessage) {
+    // your logic to handle the notification click
+    if (message?.cta?.data?.url) {
+      window.location.href = message.cta.data.url;
+    }
+  }
+
+  return (
+    <NovuProvider
+      subscriberId={"SUBSCRIBER_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
+    >
+      <PopoverNotificationCenter
+        colorScheme="dark"
+        onNotificationClick={handleOnNotificationClick}
+      >
+        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+      </PopoverNotificationCenter>
+    </NovuProvider>
+  );
+}
+```
+
+### onActionClick
+
+This function is invoked when the user clicks on the action CTA buttons of the notification
+
+```jsx
+import {
+  NovuProvider,
+  PopoverNotificationCenter,
+  IMessage,
+  MessageActionStatusEnum,
+  useUpdateAction,
+  ButtonTypeEnum,
+  NotificationBell,
+} from "@novu/notification-center";
+
+export default function Novu() {
+
+  const CustomNotificationCenter = () => {
+    const { updateAction } = useUpdateAction();
+
+    const handleOnActionClick = async (
+      templateIdentifier: string,
+      btnType: ButtonTypeEnum,
+      notification: IMessage
+    ) => {
+      if (templateIdentifier === "friend-request") {
+        if (btnType === "primary") {
+          /** Call your API to accept the friend request here **/
+
+          /** And then update Novu that this action has been taken, so the user won't see the button again **/
+          updateAction({
+            messageId: notification._id,
+            actionButtonType: btnType,
+            status: MessageActionStatusEnum.DONE,
+          });
+        }
+      }
+    };
+
+    return (
+      <PopoverNotificationCenter
+        colorScheme={"dark"}
+        onActionClick={handleOnActionClick}
+      >
+        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
+      </PopoverNotificationCenter>
+    );
+  };
+
+  return (
+    <NovuProvider
+      subscriberId={"SUBSCRIBER_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
+    >
+      <CustomNotificationCenter />
+    </NovuProvider>
+  );
+}
+```
+
+<Note>CTA buttons text and redirect url field supports dynamic variables</Note>
+
+
+## Avatar Icons
+
+Avatar images can be shown with in-app notifications. To do so, enable `Add an Avatar` option in in-app step editor as shown below
+
+<Frame caption="How to enable avatar icon for in-app notifications">
+  <img src="/images/notification-center/client/react/get-started/avatar-in-app-1.png" />
+</Frame>
+
+**There are 3 ways to show the avatar images in the notifications:**
+
+<Frame caption="Ways to show the avatar icons in in-app notifications">
+  <img src="/images/notification-center/client/react/get-started/avatar-in-app-2.png" />
+</Frame>
+
+### User Avatar
+This option will show the avatar of the actor user. actor field can be sent while triggering the worklfow. Each subscriber has `avatar` field. For this option to work actor should have `avatar` field set with valid publicly accessible image URL. If the actor doesn't have `avatar` field, then the default avatar will be shown. Worklfow trigger example with avatar
+
+```javascript
+await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: 'subscriberId_1',
+  },
+  payload: {
+    "key": "value"
+  },
+  actor: "subscriberId_2"
+});
+```
+Here subscriberId_2 is used as actor and workflow is triggered to subscriberId_1
+
+### Static Avatar Url
+This option can be used if you want to show same, static and custom avatar icon for each in-app notification of this workflow in-app step. Make sure to toggle off **User Avatar** option to enable this. This is a input field where only valid publicly accessible image URL can be entered. Currently variables are not supported in this field.
+
+### System Avatar Icons
+Novu supports 6 system avatar icons. These are default icons that can be selected as avatar icon. Once selected, same icon will be used as avatar icons for all notifications of this in-app step.
+
+## Realtime sockets
+
+Novu provides a real-time socket API for you to consume and get updates about new notifications added to the user's feed. To use the socket connection you can use the `useSocket` hook provided by the `@novu/notification-center` library. Let's see an example of that:
+
+```tsx
+import { NovuProvider, useSocket } from "@novu/notification-center";
+
+function Novu() {
+  return (
+    <NovuProvider
+      subscriberId={"SUBSCRIBER_ID"}
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
+    >
+      <CustomNotificationCenter />
+    </NovuProvider>
+  );
+}
+
+function CustomNotificationCenter() {
+  const { socket } = useSocket();
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("notification_received", (data) => {
+        console.log(data);
+      });
+    }
+
+    return () => {
+      if (socket) {
+        socket.off("notification_received");
+      }
+    };
+  }, [socket]);
+
+  return <></>;
+}
+```
+
+There are three sockets events available:
+
+1. `unseen_count_changed`
+2. `unread_count_changed`
+3. `notification_received`
+
+### Toast notification
+
+Novu does not have a native taost component. However, if your project is using any UI library like chakra, material-ui, mantine then toast component (snackbar in case of material-ui) of these libraries can be used with `useSocket` hook. Add the toast opening code in `socket.on` callback.
+
+```javascript toast.tsx
+socket.on("notification_received", (data) => {
+  console.log(data);
+  // set received notification content as toast content
+  setToastContent(data.content)
+  // open the toast
+  openToast(true)
+});
+```
+
+
+## Example
+
+[![Edit kind-nova-xv6s9g](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark)
+
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="The notification center is not loading properly.">
+
+  Possible reasons for the notification center not loading properly:    
+
+    - Invalid subscriberId
+    - Invalid applicationIdentifier
+    - Invalid subscriberHash (in case of active HMAC encryption)
+    - Invalid backendUrl (in case of self-hosted)
+    - Invalid socketUrl (in case of self-hosted)
+    
+  </Accordion>
+
+  <Accordion title="There is a render error due to the notification center in React.">
+
+  The notification center should be wrapped in `<NovuProvider>`
+    
+  </Accordion>
+
+  <Accordion title="What is the difference between a redirect URL and CTA?">
+
+  The redirect URL is for the entire notification item, When the user clicks the notification, the user will be routed to that url. CTA are two call-to-action buttons. `onNotificationClick` function prop is used for redirecting url and the `onActionClick` function prop is used for CTA.
+    
+  </Accordion>
+   
+  <Accordion title="Can bell icon in Novu dashboard be used for in-app channel testing?">
+
+  Bell icon and notification center in Novu dashboard is only for receiving system related notifications like user you invited has joined, password reset request sent. It can not to used to test notification center. Consider using our [codesandbox example](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark) instead.
+  
+  </Accordion>
+
+  <Accordion title="How to fix CORS error with notification center?">
+  Our notification center is configures for all hosts. Please disable root level `withCredentials` config in axios or fetch http requests.
+  
+  </Accordion>
+</AccordionGroup>

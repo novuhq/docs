@@ -1,0 +1,41 @@
+---
+title: "Webhooks for Providers"
+description: "Learn how to setup webhook support for a provider."
+icon: "webhook"
+---
+
+import CloudOnlyFeature from "/snippets/cloud-only-feature.mdx"
+
+Novu provides a URL that you can use to setup webhook support for your integrated provider.
+
+This enables to receive much more detailed information from the provider about the outgoing messages in the [Activity Feed](/activity-feed/introduction) section.
+
+Currently, only `Email` and `SMS` channels are supported with limited providers. Support for more providers will be added in future.
+
+<CloudOnlyFeature />
+
+## Get your Webhook URL
+
+To get your provider specific webhook URL, follow the below steps:
+
+- Open your already connected provider from the `Integration Store` page.
+- Scroll down the modal to find the `Webhook URL` field.
+- Copy the given URL to configure it on the provider's webhook setup page.
+
+<Frame caption="Webhook URL for connected providers!">
+  <img src="/images/providers-webhook-url.png" /> 
+</Frame>
+
+<br />
+
+<Note> Webhook URL will only be visible for connected providers and after you've connected the provider. </Note>
+
+## Supported Providers
+
+- [Mailjet](/channels-and-providers/email/mailjet)
+- [Mandrill](/channels-and-providers/email/mandrill)
+- [Postmark](/channels-and-providers/email/postmark)
+- [Sendgrid](/channels-and-providers/email/sendgrid)
+- [Sendinblue](/channels-and-providers/email/sendinblue)
+- [Telnyx](/channels-and-providers/sms/telnyx)
+- [Twilio](/channels-and-providers/sms/twilio)
