@@ -64,6 +64,10 @@
     {
       "name": "Recipes",
       "url": "recipes"
+    },
+    {
+      "name": "Community",
+      "url": "community"
     }
   ],
   "navigation": [
@@ -72,32 +76,32 @@
       "pages": [
         "getting-started/introduction",
         "getting-started/how-novu-works",
-        "getting-started/non-technical",
-        {
-          "group": "Quickstart",
-          "pages": [
-            "getting-started/quickstart/introduction",
-            "getting-started/quickstart/next",
-            "getting-started/quickstart/svelte",
-            "getting-started/quickstart/remix",
-            "getting-started/quickstart/express",
-            "getting-started/quickstart/nuxt",
-            "getting-started/quickstart/hono"
-          ]
-        }
+        "getting-started/non-technical"
+      ]
+    },
+    {
+      "group": "Quickstart",
+      "pages": [
+        "getting-started/quickstart/next",
+        "getting-started/quickstart/svelte",
+        "getting-started/quickstart/remix",
+        "getting-started/quickstart/express",
+        "getting-started/quickstart/nuxt",
+        "getting-started/quickstart/hono"
       ]
     },
     {
       "group": "Concepts",
       "pages": [
+        "concepts/workflows",
+        "concepts/inputs",
+        "concepts/trigger",
+        "concepts/subscribers",
         "concepts/endpoint",
         "concepts/environments",
-        "concepts/subscribers",
-        "concepts/topics",
         "concepts/preferences",
-        "concepts/activity-feed",
         "concepts/tenants",
-        "concepts/integration-store"
+        "concepts/topics"
       ]
     },
     {
@@ -108,25 +112,17 @@
       ]
     },
     {
-      "group": "Workflows",
+      "group": "Steps",
       "pages": [
-        "workflows/workflows",
-        "workflows/payload",
-        "workflows/inputs",
-        "workflows/trigger",
-        {
-          "group": "Steps",
-          "pages": [
-            "workflows/steps/email",
-            "workflows/steps/in-app",
-            "workflows/steps/sms",
-            "workflows/steps/push",
-            "workflows/steps/chat",
-            "workflows/steps/digest",
-            "workflows/steps/delay",
-            "workflows/steps/custom"
-          ]
-        }
+        "steps/introduction",
+        "steps/email",
+        "steps/in-app",
+        "steps/sms",
+        "steps/push",
+        "steps/chat",
+        "steps/digest",
+        "steps/delay",
+        "steps/custom"
       ]
     },
     {
@@ -171,7 +167,7 @@
     {
       "group": "Community",
       "pages": [
-        "self-hosting-novu/introduction",
+        "community/deploy-with-docker",
         "community/code-of-conduct",
         "community/get-involved",
         "community/changelog",
