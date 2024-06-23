@@ -1,19 +1,17 @@
 ---
 title: "Tenants"
 description: "Learn all about Tenants"
-icon: 'house'
 ---
 
 
-
-Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants. 
+Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants.
 
 Currently, Novu supports the following customizations:
 
 - Workflow level customizations
 - Integration customizations
 
-## Tenant Management 
+## Tenant Management
 
 Tenants can be created and modified via the [API](http://docs.novu.co/api-reference/tenants/get-tenants) or [Web](https://web.novu.co/tenants?utm_campaign=docs-tenants). Each tenant can have multiple fields on it:
 
@@ -82,7 +80,7 @@ The tenant information can now be used inside the workflow template in the follo
 
 ## Workflow Settings Override
 
-Workflow settings can now be updated on the workflow per tenant. This enables each tenant to have unique preferences that doesn't affect others within the same workflow. 
+Workflow settings can now be updated on the workflow per tenant. This enables each tenant to have unique preferences that doesn't affect others within the same workflow.
 
 The `active` and `channel` preferences fields of a workflow can be updated to be tenant-specific the [workflow-overrides API endpoint](/api-reference/workflow-overrides/create-workflow-overrides).
 
@@ -100,7 +98,7 @@ The delivery provider specified will only be used if the trigger is executed wit
 
 ## Tenant-specific Notification Content
 
-When creating a step, variants could be created for each step including digest and delay. For each variant, conditions set can be applied on when this variant could be used. 
+When creating a step, variants could be created for each step including digest and delay. For each variant, conditions set can be applied on when this variant could be used.
 
 Using so different workflow configurations (for example digest duration) could be configured on the individual workflow for a given tenant.
 
@@ -155,7 +153,7 @@ An example of the trigger code:
   </Tab>
 </Tabs>
 
-- If it exists, a condition check is done to see if there's a variant that matches the tenant identifier. 
+- If it exists, a condition check is done to see if there's a variant that matches the tenant identifier.
 - If there's a match, the specific variant template will be fired.
 - If there's no match, the root variant template will be fired.
 

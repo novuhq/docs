@@ -1,7 +1,6 @@
 ---
 title: 'Activity Feed'
 description: 'Monitor all your activity from one place'
-icon: 'code'
 ---
 
 ## Introduction
@@ -61,7 +60,7 @@ The request contains details such as the identifier for the template, the list o
 
 After the request is sent to the `/event/trigger` endpoint, the initial step involves mapping and validating the subscribers for that event. Following that, we validate the template and steps based on the active status or draft template flag.
 
-Once the validation process is complete, the attachments are uploaded to the storage service. 
+Once the validation process is complete, the attachments are uploaded to the storage service.
 
 Next, the trigger event with mapped subscribers and attachment links is appended to the **trigger event queue**. By queuing the events, we can achieve faster response times.
 
