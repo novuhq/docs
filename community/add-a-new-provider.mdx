@@ -197,9 +197,9 @@ Now we need to add the provider data to the list located at `libs/shared/src/co
 
 ## Add provider handler in the API
 
-### 1. Adding the provider dependency in the application-generic package
+### 1. Adding the provider dependency in the application-generic service
 
-In the previous step, we created a standalone provider package that will be published to NPM. However currently in our development environment, it is not yet published. In order to use it locally please go to the `package.json` located in `packages/application-generic/package.json` and add it manually to the dependencies list: `"@novu/<NEW_PROVIDER_NAME>": "^<VERSION>"`
+In the previous step, we created a standalone provider package that will be published to NPM. However currently in our development environment, it is not yet published. In order to use it locally please go to the `package.json` located in `libs/application-generic/package.json` and add it manually to the dependencies list: `"@novu/<NEW_PROVIDER_NAME>": "^<VERSION>"`
 
 > Please note that the provider name and version can be found from the provider package.json you created earlier.
 
@@ -207,11 +207,11 @@ After adding the dependency run `pnpm run setup:project` from the root of the 
 
 ### 2. Create a provider handler
 
-In order to map internally the different providers’ credentials, we need to add a provider handler at the respective channel handlers located. For Email, it can be found at `apps/packages/application-generic/src/factories/mail/handlers`. Other channel handlers can also be found here.
+In order to map internally the different providers’ credentials, we need to add a provider handler at the respective channel handlers located. For Email, it can be found at `libs/application-generic/src/factories/mail/handlers`. Other channel handlers can also be found here.
 
 Create a new file `example-provider.handler.ts` here with the following code
 
-```tsx packages/application-generic/src/factories/mail/handlers/example-provider.handler.ts
+```tsx libs/application-generic/src/factories/mail/handlers/example-provider.handler.ts
 import { ChannelTypeEnum } from "@novu/shared";
 import { ExampleProviderEmailProvider } from "@novu/example-provider";
 import { BaseHandler } from "./base.handler";
@@ -231,15 +231,15 @@ export class ExampleProviderHandler extends BaseHandler {
 
 Add this line given below to export this handler
 
-```tsx packages/application-generic/src/factories/mail/handlers/index.ts
+```tsx libs/application-generic/src/factories/mail/handlers/index.ts
 export * from "./example-provider.handler";
 ```
 
 ### 3. Add handler to factory
 
-The last step is to initialize the handler in the factory located in `packages/application-generic/src/factories/mail/mail.factory.ts`
+The last step is to initialize the handler in the factory located in `libs/application-generic/src/factories/mail/mail.factory.ts`
 
-```tsx packages/application-generic/src/factories/mail/mail.factory.ts
+```tsx libs/application-generic/src/factories/mail/mail.factory.ts
 import { ExampleProviderHandler } from "./handlers";
 
 export class MailFactory {
