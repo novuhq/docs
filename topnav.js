@@ -169,14 +169,14 @@ const navItemClassStyles = 'font-medium text-gray-600 dark:text-gray-400 hover:b
 const navComponent = document.createElement('div');
 navComponent.id = 'primary-nav';
 navComponent.innerHTML = `
-<div class="relative max-w-8xl mx-auto border-b border-gray-500/10 lg:border-0 dark:border-gray-300/10 lg:border-b lg:border-gray-500/5 dark:border-gray-50/[0.06]">
+<div class="navbar-transition relative max-w-8xl mx-auto border-b border-gray-500/10 lg:border-0 dark:border-gray-300/10 lg:border-b lg:border-gray-500/5 dark:border-gray-50/[0.06] backdrop-blur flex-none transition-colors duration-500 supports-backdrop-blur:bg-background-light/95 dark:bg-background-dark/75">
     <div class="py-4 lg:px-12 mx-4 lg:mx-0">
         <div class="flex items-center justify-between">
             <a href="/">${lightLogo}${darkLogo}</a>
             <div class="flex items-center space-x-16 lg:space-x-8" style="margin-left: 8px">
                 <nav class="hidden lg:block">
                     <ul class="flex space-x-8 md:hidden px-8">
-                        ${topNavLinks.map((link) => `<li><a class="inline-block leading-none text-sm ${navItemClassStyles} transition-colors duration-200" href="${link.url}" target="_blank">${link.label}</a></li>`).join('')}
+                        ${topNavLinks.map((link) => `<li class="inline-block mx-8 p-2"><a class="inline-block leading-none text-sm ${navItemClassStyles} transition-colors duration-200" href="${link.url}" target="_blank">${link.label}</a></li>`).join('')}
                     </ul>
                 </nav>
                 <div class="flex space-x-5 md:hidden">

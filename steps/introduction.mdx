@@ -17,24 +17,9 @@ Novu Supports Channel and Action steps to be used as part of the workflow execut
 - [Delay](/framework/steps/delay)
 - [Digest](/framework/steps/digest)
 
-## Channel Steps Interface
-
-Channel steps are used to send notifications to your Subscribers. Each channel can optionally configure the provider to customize content, enabling you to create enhanced content aligned with the specification of the provider. For example, you might like to use Slack blocks to send your Chat message.
-
-All channels follow the same interface:
-
-```tsx
-await step.email('new-post', async (inputs) => {
-    return {
-        subject: 'You received a post',
-        body: `<html><body>A new post has been created</body></html>`,
-    }
-}, options);
-```
-
 - `new-post` is the unique to the workflow identifier for this step. You cannot have 2 steps using the same identifier
 - `resolver` function, used to return the content of the channel.
-- `options` this is an optional configuration object that defines: [Input Schema](/framework/concepts/inputs), [Provider Overrides](#provider-overrides), skip and other configurations...
+- `options` this is an optional configuration object that defines: [Controls Schema](/framework/concepts/inputs), [Provider Overrides](#provider-overrides), skip and other configurations...
 
 ## Provider Overrides
 

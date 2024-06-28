@@ -32,21 +32,7 @@
     "url": "https://github.com/novuhq/novu"
   },
   "anchors": [
-    {
-      "name": "API Reference",
-      "icon": "square-terminal",
-      "url": "api-reference"
-    },
-    {
-      "name": "Integrations",
-      "icon": "bolt",
-      "url": "integrations"
-    },
-    {
-      "name": "Discord Support",
-      "icon": "discord",
-      "url": "https://discord.gg/novu?ref=docs-instant-help"
-    }
+
   ],
   "tabs": [
     {
@@ -82,12 +68,12 @@
     {
       "group": "Quickstart",
       "pages": [
-        "getting-started/quickstart/next",
-        "getting-started/quickstart/svelte",
-        "getting-started/quickstart/remix",
-        "getting-started/quickstart/express",
-        "getting-started/quickstart/nuxt",
-        "getting-started/quickstart/hono"
+        "quickstart/next",
+        "quickstart/svelte",
+        "quickstart/remix",
+        "quickstart/express",
+        "quickstart/nuxt",
+        "quickstart/h3"
       ]
     },
     {
@@ -192,8 +178,25 @@
       ]
     },
     {
-      "group": "Framework SDK",
-      "pages": ["sdks/framework/typescript"]
+      "group": "Framework Typescript SDK",
+      "pages": [
+        "sdks/framework/typescript/overview",
+        "sdks/framework/typescript/client",
+        "sdks/framework/typescript/workflow",
+        {
+        "group": "Steps",
+        "pages": [
+          "sdks/framework/typescript/steps/introduction",
+          "sdks/framework/typescript/steps/email",
+          "sdks/framework/typescript/steps/inbox",
+          "sdks/framework/typescript/steps/sms",
+          "sdks/framework/typescript/steps/push",
+          "sdks/framework/typescript/steps/chat",
+          "sdks/framework/typescript/steps/digest",
+          "sdks/framework/typescript/steps/delay",
+          "sdks/framework/typescript/steps/custom"
+        ]
+      }]
     },
     {
       "group": "Rest API SDK",
@@ -422,18 +425,6 @@
       "pages": [
         "api-reference/get-v1blueprintsgroup-by-category",
         "api-reference/get-v1blueprints"
-      ]
-    },
-
-    {
-      "group": "Frameworks",
-      "pages": [
-        "integrations/frameworks/nextjs",
-        "integrations/frameworks/nuxt",
-        "integrations/frameworks/express",
-        "integrations/frameworks/remix",
-        "integrations/frameworks/sveltekit",
-        "integrations/frameworks/h3"
       ]
     },
 
