@@ -1,8 +1,16 @@
 ---
-title: "Typescript"
+title: "Overview"
 ---
 
 import { EchoTerminal } from '/snippets/echo-terminal.mdx';
+
+Although you can trigger Novu workflows from any programming language using our Rest API SDKs.
+
+We believe that the best way to build your notification strategy is to treat your templates and workflows as your Notification Design System.
+Building reusable components to be consumed and embeded by your non-technical peers in any combination.
+
+Typescript SDKs allow creating stunning channel content like E-mails using modern technologies like React/Vue/etc...
+Treating your emails as front end concern, opens the world of possibilities to reuse design tokens, components, and even entire templates across your applications for a cohesive user experience.
 
 Novu Framework was built and optimized for extreme focus on Developer Experience.
 Our `@novu/framework` SDK is written in Typescript, and we recommend using Typescript for your own projects as well.
@@ -25,8 +33,6 @@ const myWorkflow = workflow('new-signup', async ({ step, payload }) => {
         }
 	});
 }, {
-	// JSON Schema for validation and type-safety. Zod, and others coming soon.
-	// https://json-schema.org/draft-07/json-schema-release-notes
 	payloadSchema: { properties: { name: { type: 'string' }}},
 });
 ```
@@ -34,3 +40,10 @@ const myWorkflow = workflow('new-signup', async ({ step, payload }) => {
 ## Type Safe Steps
 
 Similarly, when defining a [step](/framework/concepts/steps) schema, our SDK will automatically infer it to a Typescript interface.
+
+## Step Controls
+
+Build and define type safe controls to expose no-code editing capabilities to your teammates.
+
+## Explore the SDK
+- Client

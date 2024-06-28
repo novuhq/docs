@@ -1,0 +1,91 @@
+---
+title: "Digest Action Step"
+sidebarTitle: "Workflow"
+---
+
+
+<RequestExample>
+    ```typescript Regular
+    import { workflow } from '@novu/framework';
+
+    workflow('id', async ({ step, payload }) => {
+        await step.digest('digest', async () => {
+            return {
+                amount: 1,
+                unit: 'hours',
+            }
+        });
+    });
+    ```
+
+    ```typescript Context
+    workflow('id', async (context) => {
+        const { step, payload, subscriber } = context;
+    });
+    ```
+
+    ```typescript Payload Schema
+    workflow('id', handler, {
+        payloadSchema: z.object({
+            hello: z.string(),
+        }),
+    });
+    ```
+</RequestExample>
+
+
+## Workflow Interface
+
+```typescript
+import { workflow } from '@novu/framework';
+
+workflow(
+  workflowId: string,
+  handler: WorkflowHandler,
+  options?: WorkflowOptions
+): WorkflowInstance;
+```
+
+<ParamField path="workflowId" type="number" required>
+    This id should be unique withing your organization.
+</ParamField>
+
+<ParamField path="handler" type="(context: WorkflowContext) => Promise<void>" required>
+    The definition function of the workflow.
+</ParamField>
+
+<ParamField path="options" type="WorkflowOptions">
+    An optional options object for workflow level configurations
+
+    <Expandable title="properties">
+        <ParamField path="payloadSchema" type="JSON Schema | Zod">
+            The schema to validate the event payload against, can be used to provide default values.
+        </ParamField>
+    </Expandable>
+</ParamField>
+
+## Workflow Context
+
+This context is passed by the workflow engine to provide contextual information about current workflow execution.
+
+<ParamField path="subscriber" type="Subscriber">
+    <Expandable title="properties">
+        <ParamField path="subscriberId" type="string" required>
+            The id of the subscriber, as passed during `/events/trigger` request.
+        </ParamField>
+        <ParamField path="firstName" type="string">
+            Nullable, the first name of the subscriber.
+        </ParamField>
+        <ParamField path="lastName" type="string">
+            Nullable, the last name of the subscriber.
+        </ParamField>
+    </Expandable>
+</ParamField>
+
+<ParamField path="payload" type="object">
+    The payload of the event that triggered the workflow, will be validated against the `payloadSchema` if provided.
+</ParamField>
+
+<ParamField path="step" type="object">
+    The object that contains all the step functions, read more at [Step Functions](/sdks/framework/typescript/steps/introduction).
+</ParamField>
