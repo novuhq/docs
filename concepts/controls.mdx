@@ -2,7 +2,7 @@
 title: "Controls"
 ---
 
-Controls are defined using [JSON Schema](/framework/recipes/json-schema) (Zod is supported as well), providing a strong run-time validation system for your workflows.
+Controls are defined using [JSON Schema](/recipes/json-schema) or Zod, providing a strong run-time validation system for your workflows.
 
 This ensures that you as the developer, and your non-technical peers are speaking the same language.
 Those responsible for styling and copy can edit with confidence, knowing their changes are tested in code.
@@ -21,7 +21,7 @@ Those responsible for styling and copy can edit with confidence, knowing their c
 
 ## Step Controls
 
-[Step](/framework/concepts/steps) control schema is defining the control passed during the `step` method. Those controls can be modified and persisted in the Novu Dashboard UI.
+Step control schema is defining the control passed during the `step` method. Those controls can be modified and persisted in the Novu Dashboard UI.
 
 The snippet below shows configuration for the Workflow payload schema and the Step input schema. If you don’t provide a schema, Typescript will infer the data type to `unknown`, reminding you of the best practice to specify your schema.
 
@@ -67,7 +67,6 @@ workflow('new-signup', async ({ step, payload }) => {
 Learn more about [JSON Schema here](https://json-schema.org/specification), including the powerful validation features to ensure your Content renders perfectly, every time.
 
 <Note>
-    Other validators, including Zod and more, coming soon.
     Any validator that supports transformation to JSON Schema can be added.
 </Note>
 

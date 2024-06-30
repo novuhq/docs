@@ -13,7 +13,7 @@ Upon sending the request to the `/event/trigger` endpoint, a series of essential
 
 1. **Subscriber Mapping and Validation:** The first step involves mapping and validating the subscribers for the specified event. This ensures that notifications are sent to the correct recipients.
 
-2. **Template Validation:** Following subscriber validation, the template associated with the event is validated. This validation process considers factors such as the active status or draft template flag to determine if it meets the necessary criteria for processing.
+2. **Workflow Validation:** Following subscriber validation, the workflow associated with the event is validated. This validation process considers factors such as the active status to determine if it meets the necessary criteria for processing.
 
 3. **Attachment Upload:** Once the validation process is successfully completed, any attachments associated with the event are uploaded to the designated storage service.
 
@@ -29,12 +29,9 @@ When an event is picked up by the **trigger queue worker**, the processing phase
 
 ## Jobs
 
-Jobs play a pivotal role in the trigger event lifecycle. They are created based on the steps outlined in the notification template. Depending on the presence of a digest step, the following logic is applied:
+Jobs play a crucial role in the trigger event lifecycle. They are created based on the steps outlined in the workflow.
 
-- **Digest Step:** If the template includes a digest step, filtering logic is applied to produce an appropriate array of jobs. This logic differentiates between two types of digesting: **regular** and **backoff**, each serving distinct purposes in event processing.
-
-## Job Statuses
-
+### Job Statuses
 
 | Status      | Description                                                                                                                                                   |
 |-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -51,21 +48,4 @@ Jobs play a pivotal role in the trigger event lifecycle. They are created based 
 **Example:**
 <Frame><img src="/images/activity-feed/job-statuses.png"/> </Frame>
 
-<Steps>
-  <Step title="Step created">
-    `PENDING`
-    </Step>
-  <Step title="Step queued">
-      `QUEUED`
-    </Step>
-  <Step title="Start sending message">
-    `RUNNING`
-  </Step>
-    <Step title="Message created">
-    `RUNNING`
-  </Step>
-    <Step title="Message sent">
-    `COMPLETED`
-  </Step>
-</Steps>
 
