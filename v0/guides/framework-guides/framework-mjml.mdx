@@ -139,7 +139,7 @@ export const mjmlTemplate = (inputs: Inputs) => {
         <mj-column width="100%" vertical-align="middle">
           <mj-text align="center" font-size="11px" padding-bottom="0px" padding-top="0px">
           <p style="font-size: 11px">
-          Please contact us if you have any questions. 
+          Please contact us if you have any questions.
           </mj-text>
         </mj-column>
       </mj-section>
@@ -166,7 +166,7 @@ export const emailWorkflow = workflow('mjml-email-workflow', async ({ payload, s
       body: mjmlTemplate(inputs).html,
     };
   }, {
-    inputSchema: {
+    controlSchema: {
       type: 'object',
       properties: {
         text: { type: 'string', default: 'Welcome to our service' },
@@ -206,7 +206,7 @@ Notice that in the Echo dev studio above, we’ve used payload as well as step i
 
 Once done with the workflow, now we need to sync it to the cloud. Fortunately, Novu Framework makes it a breeze to sync changes from the local machine to the cloud and it all happens with a click of a button.
 
-To enable our cloud environment to talk to your local Bridge instance, you need to supply an Bridge endpoint URL. This sets up a communication channel between our cloud environment and your local instance. To allow Novu to communicate with your local machine a tunnel will need to be generated. 
+To enable our cloud environment to talk to your local Bridge instance, you need to supply an Bridge endpoint URL. This sets up a communication channel between our cloud environment and your local instance. To allow Novu to communicate with your local machine a tunnel will need to be generated.
 
 
 The `create-novu-app` command sets up `localtunnel` for you. Running the `npm run dev` script in the project launches both the Bridge application and the tunnel solution. The tunnel URL shows up in the console output.
@@ -214,8 +214,8 @@ The `create-novu-app` command sets up `localtunnel` for you. Running the `npm ru
 You can also use a tool like `ngrok`:
 
 ```bash
-// using ngrok 
-ngrok http http://localhost:<YOUR_EDGE_PORT>      
+// using ngrok
+ngrok http http://localhost:<YOUR_EDGE_PORT>
 ```
 In our case, the app is running on port 4000 so we’ll use:
 ```bash
@@ -223,7 +223,7 @@ ngrok http http://localhost:4000
 ```
 This will create a tunnel and you’ll see something like this in the terminal:
 <Frame caption="ngrok has done its magic"><img src="/images/framework-mjml/2.png" /> </Frame>
-Remember, the exact URL (`/api/novu` or similar) you expose in your application for handling Novu Framework requests is what you'd consider the `Bridge URL`. 
+Remember, the exact URL (`/api/novu` or similar) you expose in your application for handling Novu Framework requests is what you'd consider the `Bridge URL`.
 
 This URL would be the endpoint within your application's domain where Novu's Worker Engine sends requests to fetch notification content or subscriber details dynamically. In our case, it is this: https://faec-2409-40f2-3c-3b57-400e-a7f7-1fc0-1e5.ngrok-free.app/api/echo
 So, we’ll enter this Bridge URL:
@@ -236,7 +236,7 @@ Once you’ve synced your changes in the previous step, you’ll see a notificat
 <Frame caption="Test your workflow will take you to Novu Cloud"><img src="/images/framework-mjml/5.png" /> </Frame>
 You’ll see the workflow you’ve created has a blue lightning bolt icon. That icon signifies that the corresponding workflow has been created with Novu Framework:
 <Frame caption="You'll see the workflow created using Echo with the blue lightning bolt icon"><img src="/images/framework-mjml/6.png" /> </Frame>
-Simply open the workflow and you can send a test email from there. 
+Simply open the workflow and you can send a test email from there.
 
 <Note>
 Make sure that all the expected payload variables and step inputs are being sent in their respective fields!

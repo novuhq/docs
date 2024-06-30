@@ -134,7 +134,7 @@ const myWorkflow = workflow(
         // Don't follow up if the Subscriber opted out.
         skip: () => !payload.shouldFollowUp,
         // Add validation to ensure `feedbackUrl` provided in Web is a `uri`
-        inputSchema: {
+        controlSchema: {
           type: 'object',
           properties: { feedbackUrl: { type: 'string', format: 'uri', default: 'https://acme.com/feedback' } },
           required: ['feedbackUrl'],

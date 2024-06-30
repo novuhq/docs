@@ -1,0 +1,62 @@
+---
+title: "Building notification workflows with the Novu Framework"
+sidebarTitle: "Overview"
+---
+
+The Novu framework allows you to build and manage advanced notification workflows with code, and expose No-Code controls for non-technical users to modify.
+
+Workflows are the building blocks of your Customer notification experience, they will define the what, when, how and where of your notifications.
+
+## Building blocks
+
+Each Novu workflow is composed of 3 main components:
+- **Trigger** - The event that will start the workflow
+- **Channel Steps** - The delivery method of the notification with the content
+- **Action Steps** - Actions that will happen before and after a given channel step is executed.
+
+Let's take a look at a simple example of a workflow that sends an email after one day:
+
+```typescript
+import { workflow } from '@novu/framework';
+
+workflow('sample-workflow', async (step) => {
+    await step.delay('delay', async () => {
+        return {
+            unit: 'day',
+            amount: 1,
+        };
+    });
+
+    await step.email('email-step', async () => {
+        return {
+            subject: 'Welcome to Novu',
+            body: 'Hello, welcome to Novu!'
+        };
+    });
+});
+```
+
+### Trigger
+
+The trigger is the event that will start the workflow. In our current example the `sample-workflow` identifier will be used as our trigger id.
+Workflow identifiers should be unique to your application and should be descriptive of the workflow's purpose.
+
+### Channel Steps
+
+Channel steps are the delivery methods of the notification. In our example, we have an email channel step that will send an email with the subject `Welcome to Novu` and the body `Hello, welcome to Novu!`.
+Our durable workflow execution engine will select the relevant delivery provider configured for this channel and send the notification with the specified content.
+
+Novu supports a variety of common notification channels out-of-the-box, including **email**, **SMS**, **push**, **inbox**, and **chat**.
+
+### Action Steps
+
+Action steps are purpose built functions that help you manage the flow of your workflow. In our example, we have a delay action step that will pause the workflow for one day before sending the email.
+
+You can also use action steps to perform other tasks such as fetching data from an external API, updating a database, or sending a notification to another channel.
+
+Novu supported the following action steps: **delay**, **custom** and **digest**.
+
+
+
+
+
