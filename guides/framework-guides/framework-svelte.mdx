@@ -36,7 +36,7 @@ export const { GET, POST, PUT } = serve({ client: client, workflows: [svelteWork
 
 ### 3. Create an email template in Svelte
 
-Within the `src/lib` directory, create an `emails` folder and add an email template in a `.svelte` file to it. 
+Within the `src/lib` directory, create an `emails` folder and add an email template in a `.svelte` file to it.
 
 For example, `airbnb-review.svelte`:
 
@@ -214,7 +214,7 @@ import { render } from 'svelte-email';
 import AirbnbReview from '$lib/emails/airbnb-review.svelte';
 
 export const client = new Client({
-  
+
   /**
    * The Novu API key is needed for when you
    * need to sync to Novu Cloud
@@ -248,7 +248,7 @@ export const svelteWorkflow = workflow('airbnb-review', async ({ step, payload }
                 body: html,
             }
         }, {
-            inputSchema: {
+            controlSchema: {
                 type: "object",
                 properties: {
                   showFeedbackButton: { type: "boolean", default: true },

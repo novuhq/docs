@@ -254,7 +254,7 @@ export const otpFlow = workflow('otp-flow', async ({ step, payload }) => {
       body: renderOTPEmail(inputs, payload),
     };
   }, {
-    inputSchema: {
+    controlSchema: {
       type: "object",
       properties: {
         showJoinButton: { type: "boolean", default: true },

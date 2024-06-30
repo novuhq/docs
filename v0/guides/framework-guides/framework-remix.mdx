@@ -34,13 +34,13 @@ const handler = serve({
     client: client,
     workflows: [signUpWorkflow]
   });
-  
+
 export { handler as action, handler as loader };
 ```
 
 ### 3. Create an email template in your Remix app
 
-Within the `app` directory, create an `emails` folder and add an email template file to it. 
+Within the `app` directory, create an `emails` folder and add an email template file to it.
 
 In this scenario, create a `vercel-invite-user.tsx` file and the code below to it:
 
@@ -64,7 +64,7 @@ import {
     Text,
     Tailwind,
   } from "@react-email/components";
-  
+
   interface VercelInviteUserEmailProps {
     username?: string;
     userImage?: string;
@@ -78,11 +78,11 @@ import {
     inviteFromLocation?: string;
     buttonText?: string
   }
-  
+
   const baseUrl = process.env.VERCEL_URL
     ? `https://${process.env.VERCEL_URL}`
     : "";
-  
+
   export const VercelInviteUserEmail = ({
     username,
     userImage,
@@ -96,7 +96,7 @@ import {
     showJoinButton,
     buttonText
   }: VercelInviteUserEmailProps) => {
-  
+
     return (
       <Html>
         <Head />
@@ -190,7 +190,7 @@ import {
       </Html>
     );
   };
-  
+
   VercelInviteUserEmail.PreviewProps = {
     username: "alanturing",
     userImage: `${baseUrl}/static/vercel-user.png`,
@@ -202,9 +202,9 @@ import {
     inviteFromIp: "204.13.186.218",
     inviteFromLocation: "São Paulo, Brazil",
   } as VercelInviteUserEmailProps;
-  
+
   export default VercelInviteUserEmail;
-  
+
   export function renderEmail(input: any, payload: any) {
     return render(<VercelInviteUserEmail {...input}{...payload} />);
   }
@@ -239,7 +239,7 @@ export const signUpWorkflow = workflow('new-signup', async ({ step, payload }) =
       body: renderEmail(inputs, payload),
     };
   }, {
-    inputSchema: {
+    controlSchema: {
       type: "object",
       properties: {
         showJoinButton: { type: "boolean", default: true },
