@@ -85,7 +85,10 @@ headlessService.fetchNotifications({
 });
 ```
 
-<Note>fetchNotifications and other methods of the headless service should be used after initializing the session using headlessService.initializeSession</Note>
+<Note>
+  fetchNotifications and other methods of the headless service should be used
+  after initializing the session using headlessService.initializeSession
+</Note>
 
 ## HMAC Encryption
 
@@ -126,7 +129,8 @@ headlessService.listenUnreadCountChange({
 ```
 
 <Tip>
-If you're ready to start using the Headless Notification Center, check out our [guide!](/guides/headless-notification-center-guide)
+  If you're ready to start using the Headless Notification Center, check out our
+  [guide!](/guides/headless-notification-center-guide)
 </Tip>
 
 [Explore Implementation of the Headless Library in an App](https://github.com/novuhq/novu-headless-demo-app)
@@ -139,11 +143,12 @@ If you're ready to start using the Headless Notification Center, check out our [
   <Accordion title="How to use headless library for multiple users? ">
 
     We have `headless.initializeSession` method to generate token and initialize the session. If user log out and new user login, then calling again this method with second user subscriberId will generate new token and new session.
+
   </Accordion>
 
   <Accordion title="Can headless be used with mobile based platforms like flutter and react native?">
 
-  Currently, headless can not be used with react native and flutter. Checkout the progress on mobile platform support on github issue [#4499](https://github.com/novuhq/novu/issues/4499).
-    
+Currently, headless can not be used with react native and flutter. Checkout the progress on mobile platform support on github issue [#4499](https://github.com/novuhq/novu/issues/4499).
+
   </Accordion>
 </AccordionGroup>

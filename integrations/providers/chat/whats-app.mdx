@@ -1,7 +1,7 @@
 ---
-title: 'How to send WhatsApp Business notifications with Novu'
-sidebarTitle: 'WhatsApp Business'
-description: 'Learn about how to use WhatsApp for chat notifications'
+title: "How to send WhatsApp Business notifications with Novu"
+sidebarTitle: "WhatsApp Business"
+description: "Learn about how to use WhatsApp for chat notifications"
 ---
 
 ## Getting Started
@@ -21,12 +21,14 @@ On the App Setup page, click on "Set Up" under the "WhatsApp" product. You will 
 ### Step 3: Send a Sandbox Message
 
 Copy the following pieces and paste them in the Novu WhatsApp Business integration settings:
+
 - Temporary Access Token - Access API token Field
 - Phone Number ID - Phone Number Identification Field
 
 <Warning>
-It's important to note that the test credentials for whatsapp cannot be used in production and will expire in 24 hours.
-    You will need to submit your app for review to obtain production credentials.
+  It's important to note that the test credentials for whatsapp cannot be used
+  in production and will expire in 24 hours. You will need to submit your app
+  for review to obtain production credentials.
 </Warning>
 
 ### Step 4: Add a Test Phone Number
@@ -63,12 +65,13 @@ and in the `overrides` field, add the following:
 ```
 
 <Info>
-    For test credentials you can only used the built in Whats App Template.
+  For test credentials you can only used the built in Whats App Template.
 </Info>
 
 ## Going to Production
 
 ### Register a Business Phone Number
+
 To go live you will need to add a real business phone number and submit your app for review.
 Follow the [Facebook Instructions](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started/add-a-phone-number) on how to proceed.
 
@@ -76,7 +79,6 @@ Follow the [Facebook Instructions](https://developers.facebook.com/docs/whatsapp
 
 Follow the [Facebook Instructions](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started/) on how to generate a permanent access token.
 Depending on your use case.
-
 
 ### Create a WhatsApp Template
 
@@ -86,21 +88,21 @@ After your template is approved, you can use the `template_name` to send notific
 To send a notification with a template, you will need to add the following to the `overrides` field:
 
 ```typescript
-novu.trigger('workflow-id', {
-    to: {
-        subscriberId: "SUBSCRIBER_ID",
-        phone: "+11111111111"
+novu.trigger("workflow-id", {
+  to: {
+    subscriberId: "SUBSCRIBER_ID",
+    phone: "+11111111111",
+  },
+  payload: {},
+  overrides: {
+    chat: {
+      template: {
+        name: "template_name",
+        language: {
+          code: "en_US",
+        },
+      },
     },
-    payload: {},
-    overrides: {
-        chat: {
-            template: {
-                name: "template_name",
-                language: {
-                    code: "en_US"
-                }
-            }
-        }
-    }
-})
+  },
+});
 ```

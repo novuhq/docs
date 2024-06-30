@@ -16,9 +16,14 @@ curl --request POST \
 ```
 
 ```javascript Node.js
-import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+import {
+  Novu,
+  TemplateVariableTypeEnum,
+  FilterPartTypeEnum,
+  StepTypeEnum,
+} from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.notificationGroups.create("Product Updates");
 ```
@@ -89,7 +94,7 @@ func main() {
   body, _ := ioutil.ReadAll(resp.Body)
   fmt.Println(string(body))
 }
-    
+
 ```
 
 </RequestExample>

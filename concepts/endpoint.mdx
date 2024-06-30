@@ -17,6 +17,7 @@ We offer framework specific wrappers in form of an exported `serve` function tha
 - Framework specific response and error handling
 
 Currently, we offer `serve` functions for the following frameworks:
+
 - [Next.js](/quickstart/next)
 - [Express.js](/quickstart/express)
 - [Nuxt](/quickstart/nuxt)
@@ -29,35 +30,36 @@ Currently, we offer `serve` functions for the following frameworks:
 If we currently don't support your framework, you can write a custom `serve` function like the following example:
 
 ```ts
-import { type Request, type Response } from 'express';
-import { NovuRequestHandler, ServeHandlerOptions } from '@novu/framework';
+import { type Request, type Response } from "express";
+import { NovuRequestHandler, ServeHandlerOptions } from "@novu/framework";
 
 export const serve = (options: ServeHandlerOptions): any => {
   const requestHandler = new NovuRequestHandler({
-    frameworkName: 'express',
+    frameworkName: "express",
     ...options,
-    handler: (
-      incomingRequest: Request,
-      response: Response,
-    ) => ({
-        method: () => incomingRequest.method,
-        headers: (key) => {
-            const header = incomingRequest.headers[key];
-            return Array.isArray(header) ? header[0] : header;
-        },
-        queryString: (key) => {
-                const qs = incomingRequest.query[key];
-                return Array.isArray(qs) ? qs[0] : qs;
-        },
-        body: () => incomingRequest.body,
-        url: () => new URL(incomingRequest.url, `https://${incomingRequest.headers.get("host") || ""}`),
-        transformResponse: ({ body, headers, status }) => {
-            Object.entries(headers).forEach(([headerName, headerValue]) => {
-              response.setHeader(headerName, headerValue);
-            });
+    handler: (incomingRequest: Request, response: Response) => ({
+      method: () => incomingRequest.method,
+      headers: (key) => {
+        const header = incomingRequest.headers[key];
+        return Array.isArray(header) ? header[0] : header;
+      },
+      queryString: (key) => {
+        const qs = incomingRequest.query[key];
+        return Array.isArray(qs) ? qs[0] : qs;
+      },
+      body: () => incomingRequest.body,
+      url: () =>
+        new URL(
+          incomingRequest.url,
+          `https://${incomingRequest.headers.get("host") || ""}`
+        ),
+      transformResponse: ({ body, headers, status }) => {
+        Object.entries(headers).forEach(([headerName, headerValue]) => {
+          response.setHeader(headerName, headerValue);
+        });
 
-            return response.status(status).send(body);
-       },
+        return response.status(status).send(body);
+      },
     }),
   });
 

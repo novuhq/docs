@@ -1,6 +1,6 @@
 ---
-title: 'Expo Push'
-description: 'Learn how to use the Expo push provider to send push notifications using Novu'
+title: "Expo Push"
+description: "Learn how to use the Expo push provider to send push notifications using Novu"
 ---
 
 [Expo Push](https://docs.expo.dev/push-notifications/overview/) is a notification delivery service provided by Expo.
@@ -10,16 +10,16 @@ To enable Expo Push integration, you need to create an [Expo Application Servic
 The overrides field supports all [Message Request](https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format) values. An example of the same follows:
 
 ```jsx
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: "<SUBSCRIBER_ID>",
   },
   payload: {
-    abc: 'def',
+    abc: "def",
   },
 });
 ```
@@ -36,12 +36,13 @@ import {
 const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.EXPO, {
-  deviceTokens: ['token1', 'token2'],
+deviceTokens: ['token1', 'token2'],
 });
-```
+
+````
   </Tab>
   <Tab title="cURL">
-```bash 
+```bash
 curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
@@ -51,7 +52,8 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   "deviceTokens": ["token1", "token2"],
   "integrationIdentifier": "expo-MnGLxp8uy"
 }'
-```
+````
+
   </Tab>
 </Tabs>
 

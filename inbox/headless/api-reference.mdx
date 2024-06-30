@@ -195,15 +195,15 @@ headlessService.fetchNotifications({
     );
   },
   page: pageNumber,
-  query: { 
-    feedIdentifier: "feedId", 
-    read: false, 
-    seen: true, 
+  query: {
+    feedIdentifier: "feedId",
+    read: false,
+    seen: true,
     // payload sent while triggering the workflow
     payload: {
-      message : "Notification message",
+      message: "Notification message",
       type: "product",
-    } 
+    },
   },
   storeId: "storeId",
 });
@@ -399,7 +399,6 @@ interface IMarkNotificationsAs {
 }
 ```
 
-
 ## removeNotification
 
 Removes a single notification using the message id.
@@ -442,9 +441,7 @@ Removes multiple notifications using array of message ids (limit of 100).
 
 ```typescript
 headlessService.removeNotifications({
-  listener: (
-    result: UpdateResult<void, unknown, { messageIds: string[] }>
-  ) => {
+  listener: (result: UpdateResult<void, unknown, { messageIds: string[] }>) => {
     console.log(result);
   },
   onSuccess: (message: IMessage) => {
@@ -453,7 +450,7 @@ headlessService.removeNotifications({
   onError: (error: unknown) => {
     console.error(error);
   },
-  messageIds: ["message_id_1", "message_id_2" ],
+  messageIds: ["message_id_1", "message_id_2"],
 });
 ```
 

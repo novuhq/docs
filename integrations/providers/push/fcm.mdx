@@ -63,12 +63,13 @@ import {
 const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.setCredentials(
-  'subscriberId', 
-  PushProviderIdEnum.FCM, 
-  { deviceTokens: ['token1', 'token2'] }, 
-  'fcm-MnGLxp8uy'
+'subscriberId',
+PushProviderIdEnum.FCM,
+{ deviceTokens: ['token1', 'token2'] },
+'fcm-MnGLxp8uy'
 );
-```
+
+````
   </Tab>
 
   <Tab title="cURL">
@@ -81,13 +82,14 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   "providerId": "fcm",
   "credentials": {
     "deviceTokens" : [
-      "token1", 
+      "token1",
       "token2"
     ]
   },
   "integrationIdentifier": "fcm-MnGLxp8uy"
 }'
-```
+````
+
   </Tab>
 </Tabs>
 
@@ -192,7 +194,8 @@ novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   </Tab>
 </Tabs>
 
-## FCM Cost 
+## FCM Cost
+
 As per Firebase [pricing](https://firebase.google.com/pricing), **Cloud Messaging** product is free of cost to use. If other Firebase products are used, the cost will be charged as per the product.
 
 ## FAQs

@@ -5,14 +5,13 @@ description: "Workflows are at the core of responding to events in your system w
 
 A workflow holds the entire flow of steps (nodes) that are sent to the subscriber. This is where all the different channels are tied together under a single entity.
 
-
 ## Structure
 
 A workflow acts as the blueprint for the notifications that will be sent. The workflow encapsulates the entire flow and rules of messages that are being sent. This is where all the different channels, filters, rules and actions are tied together under a single entity.
 
 <img
-    style={{ borderRadius: '0.5rem' }}
-    src="/images/workflow-mental-model.png"
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/workflow-mental-model.png"
 />
 
 ## Workflow Components
@@ -41,6 +40,7 @@ A workflow acts as the blueprint for the notifications that will be sent. The wo
         - **Digest** (to group multiple notifications into a single message)
         - **Custom** (to execute custom logic like calling an HTTP API, database query, etc.)
     </Step>
+
 </Steps>
 
 ## Execution of Workflow Steps
@@ -52,74 +52,87 @@ Once a workflow is initiated by its trigger, the steps (and channels) within the
 - **Order of Channels:** The order in which channels are listed in the workflow is crucial, as it dictates the sequence of their execution. You should carefully consider the order when setting up your workflows to align with your notification strategy.
 
 Sequential execution provides a predictable and reliable workflow process, ensuring that messages are sent out in an organized manner and that each step's output potentially influences the subsequent ones.
+
 <br />
 
-<Warning>Once a workflow is triggered, it can not be changed.
-    <br /> <br /> Workflow can be canceled only using  [DELETE /events/cancel api](/api-reference/workflows/delete-workflow)
+<Warning>
+  Once a workflow is triggered, it can not be changed.
+  <br /> <br /> Workflow can be canceled only using [DELETE /events/cancel api](/api-reference/workflows/delete-workflow)
 </Warning>
 
 ## Create a Workflow
+
 The most basic Workflow to send a notification in response to an event looks like:
 
 ```tsx
-import { workflow } from '@novu/framework';
+import { workflow } from "@novu/framework";
 
-const myWorkflow = workflow('new-signup', async ({ step, payload }) => {
-	// Send a welcome email
-  await step.email('send-email', async () => {
-    return {
-      subject: `Welcome to Acme, ${payload.name}`,
-      body: 'We look forward to helping you achieve mission.',
-    }
-  });
-  // JSON Schema or compatible library like Zod for validation and type-safety
-}, { payloadSchema: z.object({ name: z.string() }) });
+const myWorkflow = workflow(
+  "new-signup",
+  async ({ step, payload }) => {
+    // Send a welcome email
+    await step.email("send-email", async () => {
+      return {
+        subject: `Welcome to Acme, ${payload.name}`,
+        body: "We look forward to helping you achieve mission.",
+      };
+    });
+    // JSON Schema or compatible library like Zod for validation and type-safety
+  },
+  { payloadSchema: z.object({ name: z.string() }) }
+);
 ```
 
 ## Just-in-time data fetching
+
 You can add any custom logic into your steps that you need. Maybe you’d like to fetch some information about your new sign-up from somewhere else during the Workflow execution. You can achieve it with the following changes:
 
 ```tsx
-const myWorkflow = workflow('new-signup', async ({ step, payload }) => {
-  await step.email('send-email', async () => {
-    // Fetch the user from your database
-    const user = await db.getUser(payload.userId);
-    return {
-          subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
-          // 'Welcome to Acme Business tier, John Doe.'
-          body: 'We look forward to helping you achieve mission.',
-        }
-  });
-}, { payloadSchema: z.object({ userId: z.string() }) });
+const myWorkflow = workflow(
+  "new-signup",
+  async ({ step, payload }) => {
+    await step.email("send-email", async () => {
+      // Fetch the user from your database
+      const user = await db.getUser(payload.userId);
+      return {
+        subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
+        // 'Welcome to Acme Business tier, John Doe.'
+        body: "We look forward to helping you achieve mission.",
+      };
+    });
+  },
+  { payloadSchema: z.object({ userId: z.string() }) }
+);
 ```
 
 We call this **just-in-time** notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
 
 ## Multi-step workflow
+
 Now, what if you wanted to send another update to the same new user in 1 week? But, you don't want to send the follow-up if the User opted out. We can add more steps to the Workflow to achieve this.
 
 ```tsx
 const myWorkflow = workflow(
-  'new-signup',
+  "new-signup",
   async ({ step, payload }) => {
-    await step.email('send-email', async () => {
+    await step.email("send-email", async () => {
       const user = await db.getUser(payload.userId);
       return {
         subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
-        body: 'We look forward to helping you achieve mission.',
+        body: "We look forward to helping you achieve mission.",
       };
     });
 
     // Wait for 1 week before continuing. After 1 week, Novu will continue
     // executing the Workflow from here.
-    await step.delay('onboarding-follow-up', async () => ({
+    await step.delay("onboarding-follow-up", async () => ({
       amount: 1,
-      unit: 'weeks',
+      unit: "weeks",
     }));
 
     // 1 week passed, let's follow up with an in-app notification.
     await step.inApp(
-      'onboarding-follow-up',
+      "onboarding-follow-up",
       async (inputs) => {
         const user = await db.getUser(payload.userId);
         // The `feedbackUrl` can be updated in Novu Web without changing code.
@@ -136,25 +149,31 @@ const myWorkflow = workflow(
         skip: () => !payload.shouldFollowUp,
         // Add validation to ensure `feedbackUrl` provided in Web is a `uri`
         controlSchema: {
-          type: 'object',
-          properties: { feedbackUrl: { type: 'string', format: 'uri', default: 'https://acme.com/feedback' } },
-          required: ['feedbackUrl'],
+          type: "object",
+          properties: {
+            feedbackUrl: {
+              type: "string",
+              format: "uri",
+              default: "https://acme.com/feedback",
+            },
+          },
+          required: ["feedbackUrl"],
           additionalProperties: false,
         } as const,
-      },
+      }
     );
   },
   {
     payloadSchema: {
-      type: 'object',
+      type: "object",
       properties: {
-        userId: { type: 'string' },
-        shouldFollowUp: { type: 'boolean', default: true },
+        userId: { type: "string" },
+        shouldFollowUp: { type: "boolean", default: true },
       },
-      required: ['userId', 'shouldFollowUp'],
+      required: ["userId", "shouldFollowUp"],
       additionalProperties: false,
     } as const,
-  },
+  }
 );
 ```
 
@@ -173,35 +192,35 @@ Continue your reading in [Controls](/concepts/controls) to find out how to expos
 Payload schema is defining the payload passed during the `novu.trigger` method. This is useful for ensuring that the payload is correctly formatted and that the data is valid.
 
 ```tsx
-workflow('comment-on-post', async ({ step, payload }) => {
-    await step.email(
-      'send-email',
-      async () => {
-          return {
-            subject: `You have a new comment from: ${payload.author_name}.`,
-            body: render(<ReactEmailContent comment={payload.comment} />),
-        }
-      });
+workflow(
+  "comment-on-post",
+  async ({ step, payload }) => {
+    await step.email("send-email", async () => {
+      return {
+        subject: `You have a new comment from: ${payload.author_name}.`,
+        body: render(<ReactEmailContent comment={payload.comment} />),
+      };
+    });
   },
   {
     payloadSchema: {
-            // Always `object`
-          type: 'object',
-          // Specify the properties to validate. Supports deep nesting.
-          properties: {
-            post_id: { type: 'number' },
-            author_name: { type: 'string' },
-            comment: { type: 'string', maxLength: 200 },
-          },
-          // Specify the array of which properties are required.
-          required: ['post_id', 'comment'],
-          // Used to enforce full type strictness, with no rogue properties.
-          additionalProperties: false,
-		      // The `as const` is important to let Typescript know that this
-		      // type won't change, enabling strong typing on `inputs` via type
-		      // inference of the provided JSON Schema.
-        } as const,
-  },
+      // Always `object`
+      type: "object",
+      // Specify the properties to validate. Supports deep nesting.
+      properties: {
+        post_id: { type: "number" },
+        author_name: { type: "string" },
+        comment: { type: "string", maxLength: 200 },
+      },
+      // Specify the array of which properties are required.
+      required: ["post_id", "comment"],
+      // Used to enforce full type strictness, with no rogue properties.
+      additionalProperties: false,
+      // The `as const` is important to let Typescript know that this
+      // type won't change, enabling strong typing on `inputs` via type
+      // inference of the provided JSON Schema.
+    } as const,
+  }
 );
 ```
 
@@ -210,12 +229,12 @@ workflow('comment-on-post', async ({ step, payload }) => {
 Here is an example of the validated payload during trigger:
 
 ```tsx
-novu.trigger('comment-on-post', {
-    to: 'subscriber_id',
-    payload: {
-        post_id: 1234,
-        author_name: 'John Doe',
-        comment: 'Looks good!'
-    }
+novu.trigger("comment-on-post", {
+  to: "subscriber_id",
+  payload: {
+    post_id: 1234,
+    author_name: "John Doe",
+    comment: "Looks good!",
+  },
 });
 ```

@@ -40,7 +40,6 @@ function Novu() {
 
 Go to this react app browser tab, there will be a bell icon. On clicking that bell icon, you will see a notification component popover
 
-
 <Frame caption="subscriberId">
   <img src="/images/notification-center/client/react/get-started/subscriberId.png" />
 </Frame>
@@ -77,19 +76,18 @@ function Novu() {
 ```
 
 ## Notification center without bell
+
 If you don't want to show the bell icon, you can directly render the notification center component without passing the bell, use `<NotificationCenter>` component in place of `<PopoverNotificationCenter>`
+
 ```jsx
-import {
-  NovuProvider,
-  NotificationCenter,
-} from "@novu/notification-center";
+import { NovuProvider, NotificationCenter } from "@novu/notification-center";
 
 <NovuProvider
   subscriberId={"SUBSCRIBER_ID"}
   applicationIdentifier={"APPLICATION_IDENTIFIER"}
 >
   <NotificationCenter colorScheme="dark" />
-</NovuProvider>
+</NovuProvider>;
 ```
 
 ## HMAC Encryption
@@ -130,7 +128,11 @@ const hmacHash = createHmac("sha256", process.env.NOVU_API_KEY)
 </NovuProvider>
 ```
 
-<Info>If HMAC encryption is active in In-App provider settings and  `subscriberHash` along with `subscriberId` is not provided, then notification center will not load</Info>
+<Info>
+  If HMAC encryption is active in In-App provider settings and `subscriberHash`
+  along with `subscriberId` is not provided, then notification center will not
+  load
+</Info>
 
 ## Notification Actions
 
@@ -186,7 +188,6 @@ import {
 } from "@novu/notification-center";
 
 export default function Novu() {
-
   const CustomNotificationCenter = () => {
     const { updateAction } = useUpdateAction();
 
@@ -285,24 +286,22 @@ Novu does not have a native taost component. However, if your project is using a
 socket.on("notification_received", (data) => {
   console.log(data);
   // set received notification content as toast content
-  setToastContent(data.content)
+  setToastContent(data.content);
   // open the toast
-  openToast(true)
+  openToast(true);
 });
 ```
-
 
 ## Example
 
 [![Edit kind-nova-xv6s9g](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark)
-
 
 ## Frequently Asked Questions
 
 <AccordionGroup>
   <Accordion title="The notification center is not loading properly.">
 
-  Possible reasons for the notification center not loading properly:
+Possible reasons for the notification center not loading properly:
 
     - Invalid subscriberId
     - Invalid applicationIdentifier
@@ -314,19 +313,19 @@ socket.on("notification_received", (data) => {
 
   <Accordion title="There is a render error due to the notification center in React.">
 
-  The notification center should be wrapped in `<NovuProvider>`
+The notification center should be wrapped in `<NovuProvider>`
 
   </Accordion>
 
   <Accordion title="What is the difference between a redirect URL and CTA?">
 
-  The redirect URL is for the entire notification item, When the user clicks the notification, the user will be routed to that url. CTA are two call-to-action buttons. `onNotificationClick` function prop is used for redirecting url and the `onActionClick` function prop is used for CTA.
+The redirect URL is for the entire notification item, When the user clicks the notification, the user will be routed to that url. CTA are two call-to-action buttons. `onNotificationClick` function prop is used for redirecting url and the `onActionClick` function prop is used for CTA.
 
   </Accordion>
 
   <Accordion title="Can bell icon in Novu dashboard be used for in-app channel testing?">
 
-  Bell icon and notification center in Novu dashboard is only for receiving system related notifications like user you invited has joined, password reset request sent. It can not to used to test notification center. Consider using our [codesandbox example](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark) instead.
+Bell icon and notification center in Novu dashboard is only for receiving system related notifications like user you invited has joined, password reset request sent. It can not to used to test notification center. Consider using our [codesandbox example](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark) instead.
 
   </Accordion>
 

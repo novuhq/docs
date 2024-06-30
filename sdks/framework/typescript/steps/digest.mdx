@@ -3,7 +3,6 @@ title: "Digest Action Step"
 sidebarTitle: "Digest"
 ---
 
-
 <RequestExample>
     ```typescript Regular
     await step.digest('digest', async (controls) => {
@@ -43,6 +42,7 @@ sidebarTitle: "Digest"
         }
     });
     ```
+
 </RequestExample>
 
 <ResponseExample>
@@ -55,17 +55,24 @@ sidebarTitle: "Digest"
         payload
     } = events[0];
     ```
+
 </ResponseExample>
 
 ## Digest Step Output
+
 ### Regular Digest
 
 <ParamField path="amount" type="number" required>
-    This combined with the unit field determines the amount of time to digest events for.
+  This combined with the unit field determines the amount of time to digest
+  events for.
 </ParamField>
 
-<ParamField path="unit" type="Enum: 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months'" required>
-    The measurement unit for the amount field.
+<ParamField
+  path="unit"
+  type="Enum: 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months'"
+  required
+>
+  The measurement unit for the amount field.
 </ParamField>
 
 <ParamField path="digestKey" type="string">
@@ -73,6 +80,7 @@ sidebarTitle: "Digest"
     When provided, events will be grouped by the `subscriberId` and the `digestKey`.
 
     The digest key must match the `payloadSchema` key provided on the workflow.
+
 </ParamField>
 
 <ParamField path="lookbackWindow" type="LookBackWindow">
@@ -87,6 +95,7 @@ sidebarTitle: "Digest"
             An example of a parameter field
         </ParamField>
     </Expandable>
+
 </ParamField>
 
 ### Scheduled Digest
@@ -105,11 +114,13 @@ sidebarTitle: "Digest"
         }
     });
     ```
+
 </ParamField>
 
 <ParamField path="digestKey" type="string">
-    This key is used to group events for the digest engine, if not provided all events will be digested together on the subscriber level.
-    When provided, events will be grouped by the `subscriberId` and the `digestKey`.
+  This key is used to group events for the digest engine, if not provided all
+  events will be digested together on the subscriber level. When provided,
+  events will be grouped by the `subscriberId` and the `digestKey`.
 </ParamField>
 
 ## Digest Step Result
@@ -129,4 +140,5 @@ sidebarTitle: "Digest"
             The original payload passed to the digested event
         </ParamField>
     </Expandable>
+
 </ParamField>

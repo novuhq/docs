@@ -1,14 +1,20 @@
 ---
-title: 'E-mail Provider Integrations'
-sidebarTitle: 'Overview'
-description: 'Learn the process of configuring email providers with Novu'
+title: "E-mail Provider Integrations"
+sidebarTitle: "Overview"
+description: "Learn the process of configuring email providers with Novu"
 ---
 
 import { MissingProvider } from "/snippets/missing-provider.mdx";
 
 Novu can be used to deliver email messages to your customers using a unified delivery API. You can easily integrate your favorite email provider using the built-in integration store.
 
-<iframe src="https://www.loom.com/embed/dbe39c7fc0aa42c8b39bea73d8aee9a4" width="100%" height="400px" frameBorder="0" allowFullScreen></iframe>
+<iframe
+  src="https://www.loom.com/embed/dbe39c7fc0aa42c8b39bea73d8aee9a4"
+  width="100%"
+  height="400px"
+  frameBorder="0"
+  allowFullScreen
+></iframe>
 
 ## Configuring email providers
 
@@ -31,22 +37,23 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-  to: {
-    subscriberId: '<SUBSCRIBER_ID>',
-  },
-  overrides: {
-    email: {
-      to: ['to@novu.co'],
-      from: 'from@novu.co',
-      senderName: 'Novu Team',
-      text: 'text version of email using overrides',
-      replyTo: 'no-reply@novu.co',
-      cc: ['1@novu.co'],
-      bcc: ['2@novu.co'],
-    },
-  },
+to: {
+subscriberId: '<SUBSCRIBER_ID>',
+},
+overrides: {
+email: {
+to: ['to@novu.co'],
+from: 'from@novu.co',
+senderName: 'Novu Team',
+text: 'text version of email using overrides',
+replyTo: 'no-reply@novu.co',
+cc: ['1@novu.co'],
+bcc: ['2@novu.co'],
+},
+},
 });
-```
+
+````
  </Tab>
 </Tabs>
 
@@ -78,15 +85,17 @@ novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
     ],
   },
 });
-```
+````
+
   </Tab>
 </Tabs>
 
 ## Using different email integration
 
-In Novu integration store, multiple email channel type provider integrations can be active at the same time. But only one  provider integration can be primary at a time. This primary integration will be used as a provider to deliver the email by default. If you want to use a different active provider integration then you can use the `integrationIdentifier` email overrides field.
+In Novu integration store, multiple email channel type provider integrations can be active at the same time. But only one provider integration can be primary at a time. This primary integration will be used as a provider to deliver the email by default. If you want to use a different active provider integration then you can use the `integrationIdentifier` email overrides field.
 
 If there are 4 active email integrations with these identifiers:-
+
 1. sendgrid-abcdef
 2. sendgrid-ghijkl
 3. brevo-abcdef
@@ -102,15 +111,16 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-  to: {
-    subscriberId: '<SUBSCRIBER_ID>',
-  },
-  overrides: {
-    email: {
-      integrationIdentifier: "brevo-abcdef"
-    },
-  },
+to: {
+subscriberId: '<SUBSCRIBER_ID>',
+},
+overrides: {
+email: {
+integrationIdentifier: "brevo-abcdef"
+},
+},
 });
+
 ```
  </Tab>
 </Tabs>
@@ -120,3 +130,4 @@ novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
 <Tip>
   <MissingProvider channelName="SMS"/>
 </Tip>
+```

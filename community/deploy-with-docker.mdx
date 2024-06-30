@@ -1,7 +1,7 @@
 ---
-title: 'Deploy with Docker'
-description: 'Learn how to deploy Novu with Docker'
-icon: 'docker'
+title: "Deploy with Docker"
+description: "Learn how to deploy Novu with Docker"
+icon: "docker"
 ---
 
 Docker compose is the easiest way to get started with self-hosted Novu.
@@ -13,10 +13,18 @@ You need the following installed in your system:
 - [Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/)
 - [Git](https://git-scm.com/downloads)
 
+<iframe
+  src="https://www.loom.com/embed/3af13939bfa54076a63c6360b7edaa19"
+  width="100%"
+  height="400px"
+  frameBorder="0"
+  allowFullScreen
+></iframe>
 
-<iframe src="https://www.loom.com/embed/3af13939bfa54076a63c6360b7edaa19" width="100%" height="400px" frameBorder="0" allowFullScreen></iframe>
-
-<Info>In above loom video `local/deployment` directory is used. Now it has been moved to `docker/community`. Follow below mentioned steps.</Info>
+<Info>
+  In above loom video `local/deployment` directory is used. Now it has been
+  moved to `docker/community`. Follow below mentioned steps.
+</Info>
 
 ## Quick Start
 
@@ -44,7 +52,7 @@ Now visit [http://localhost:4200](http://localhost:4200/) to start using Novu.
 
 While we provide you with some example secrets for getting started, you should NEVER deploy your Novu setup using the defaults provided.
 
-Update the `.env` file with your own secrets. 
+Update the `.env` file with your own secrets.
 
 ### Required Variables:
 
@@ -68,17 +76,17 @@ We strongly recommend that you decouple your database before deploying.
 When self-hosting Novu, in order to trigger an event you must first create a new `Novu` object and configure it with the proper `backendUrl`.
 
 ```tsx
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 const config = {
-  backendUrl: '<REPLACE_WITH_BACKEND_URL>',
+  backendUrl: "<REPLACE_WITH_BACKEND_URL>",
 };
 
-const novu = new Novu('<API_KEY>', config);
+const novu = new Novu("<API_KEY>", config);
 
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: "<SUBSCRIBER_ID>",
   },
   payload: {},
 });
@@ -91,17 +99,16 @@ When using the IFrame embed to attach the notification center rather than the Re
 ```html
 <script>
   novu.init(
-    '<REPLACE_APPLICATION_ID>',
+    "<REPLACE_APPLICATION_ID>",
     {
-      unseenBadgeSelector: '#unseen-badge',
-      bellSelector: '#notification-bell',
-      backendUrl: 'https://api.example.com',
-      socketUrl: 'https://ws.example.com',
+      unseenBadgeSelector: "#unseen-badge",
+      bellSelector: "#notification-bell",
+      backendUrl: "https://api.example.com",
+      socketUrl: "https://ws.example.com",
     },
     {}
   );
 </script>
-
 ```
 
 ### Using React Component with custom installation
@@ -121,8 +128,7 @@ Currently, we are caching data in the most heavily loaded areas of the system: t
 
 To implement a reverse-proxy or load balancer in front of Novu, you need to set the GLOBAL_CONTEXT_PATH for the base path of the application.
 This is the path that the application will be served from after the domain.
-For example:
-    - company.com/novu
+For example: - company.com/novu
 This is used to set the base path for the application, and is used to set the base path for the API, web, and websocket connections.
 
 The following environment variables are used to set the context path for each public service that Novu provides:
@@ -140,17 +146,15 @@ the WIDGET_CONTEXT_PATH to widget,
 the WS_CONTEXT_PATH to ws,
 and the WEB_CONTEXT_PATH to web.
 
-This would produce the following urls:
-    - API: company.com/novu/api
-    - WIDGET: company.com/novu/widget
-    - WS: company.com/novu/ws
-    - WEB: company.com/novu/web
+This would produce the following urls: - API: company.com/novu/api - WIDGET: company.com/novu/widget - WS: company.com/novu/ws - WEB: company.com/novu/web
 
 However the Service context path can be used entirely independently of the GLOBAL_CONTEXT_PATH.
 
 For example, if I wanted to expose the api as novu-api, I would set the API_CONTEXT_PATH to novu-api without setting the GLOBAL_CONTEXT_PATH.
-This would producte the following url:
-    - API: company.com/novu-api
+This would producte the following url: - API: company.com/novu-api
 
-<Note> These env variables should be present on all services novu provides due to tight coupling.</Note>
-
+<Note>
+  {" "}
+  These env variables should be present on all services novu provides due to tight
+  coupling.
+</Note>

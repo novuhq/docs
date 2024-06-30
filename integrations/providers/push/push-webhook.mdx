@@ -32,12 +32,13 @@ const novu = new Novu("<NOVU_API_KEY>");
 
 // PushProviderIdEnum.PushWebhook = push-webhook
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.PushWebhook, {
-  deviceTokens: ['ANY_RANDOM_STRING'],
+deviceTokens: ['ANY_RANDOM_STRING'],
 });
-```
+
+````
   </Tab>
   <Tab title="cURL">
-```bash 
+```bash
 curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
@@ -47,24 +48,23 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   "deviceTokens": ['ANY_RANDOM_STRING'],
   "integrationIdentifier": "push-webhook-MnGLxp8uy"
 }'
-```
+````
+
   </Tab>
 </Tabs>
 
 Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
 
-## Example paylod sent by novu to webhook url 
+## Example paylod sent by novu to webhook url
 
 ```json
 {
-  "target": [
-    "subscriber-token-for-push-webhook-provider"
-  ],
+  "target": ["subscriber-token-for-push-webhook-provider"],
   "title": "Push Webhook message title",
   "content": "push Webhook content body",
   "overrides": {
     "data": {
-      "custom_message": "this is custom message from payload push webhook demo",
+      "custom_message": "this is custom message from payload push webhook demo"
     }
   },
   "payload": {
@@ -83,9 +83,7 @@ Checkout the [API reference](/api-reference/subscribers/update-subscriber-creden
       "channels": [
         {
           "credentials": {
-            "deviceTokens": [
-              "subscriber-token-for-push-webhook-provider"
-            ]
+            "deviceTokens": ["subscriber-token-for-push-webhook-provider"]
           },
           "_integrationId": "integrationId",
           "providerId": "push-webhook"

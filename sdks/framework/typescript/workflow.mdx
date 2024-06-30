@@ -3,7 +3,6 @@ title: "Digest Action Step"
 sidebarTitle: "Workflow"
 ---
 
-
 <RequestExample>
     ```typescript Regular
     import { workflow } from '@novu/framework';
@@ -31,8 +30,8 @@ sidebarTitle: "Workflow"
         }),
     });
     ```
-</RequestExample>
 
+</RequestExample>
 
 ## Workflow Interface
 
@@ -47,11 +46,15 @@ workflow(
 ```
 
 <ParamField path="workflowId" type="number" required>
-    This id should be unique withing your organization.
+  This id should be unique withing your organization.
 </ParamField>
 
-<ParamField path="handler" type="(context: WorkflowContext) => Promise<void>" required>
-    The definition function of the workflow.
+<ParamField
+  path="handler"
+  type="(context: WorkflowContext) => Promise<void>"
+  required
+>
+  The definition function of the workflow.
 </ParamField>
 
 <ParamField path="options" type="WorkflowOptions">
@@ -62,6 +65,7 @@ workflow(
             The schema to validate the event payload against, can be used to provide default values.
         </ParamField>
     </Expandable>
+
 </ParamField>
 
 ## Workflow Context
@@ -69,23 +73,25 @@ workflow(
 This context is passed by the workflow engine to provide contextual information about current workflow execution.
 
 <ParamField path="subscriber" type="Subscriber">
-    <Expandable title="properties">
-        <ParamField path="subscriberId" type="string" required>
-            The id of the subscriber, as passed during `/events/trigger` request.
-        </ParamField>
-        <ParamField path="firstName" type="string">
-            Nullable, the first name of the subscriber.
-        </ParamField>
-        <ParamField path="lastName" type="string">
-            Nullable, the last name of the subscriber.
-        </ParamField>
-    </Expandable>
+  <Expandable title="properties">
+    <ParamField path="subscriberId" type="string" required>
+      The id of the subscriber, as passed during `/events/trigger` request.
+    </ParamField>
+    <ParamField path="firstName" type="string">
+      Nullable, the first name of the subscriber.
+    </ParamField>
+    <ParamField path="lastName" type="string">
+      Nullable, the last name of the subscriber.
+    </ParamField>
+  </Expandable>
 </ParamField>
 
 <ParamField path="payload" type="object">
-    The payload of the event that triggered the workflow, will be validated against the `payloadSchema` if provided.
+  The payload of the event that triggered the workflow, will be validated
+  against the `payloadSchema` if provided.
 </ParamField>
 
 <ParamField path="step" type="object">
-    The object that contains all the step functions, read more at [Step Functions](/sdks/framework/typescript/steps/introduction).
+  The object that contains all the step functions, read more at [Step
+  Functions](/sdks/framework/typescript/steps/introduction).
 </ParamField>

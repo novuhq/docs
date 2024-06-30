@@ -44,31 +44,38 @@ title: "Step Interface"
 All channels follow the same shared interface:
 
 <ParamField path="stepId" type="string" required>
-    This is the unique identifier for the step in the workflow context. It is used to reference and display the step in the dashboard interface.
+  This is the unique identifier for the step in the workflow context. It is used
+  to reference and display the step in the dashboard interface.
 </ParamField>
 
 <ParamField path="resolver" type="Promise" required>
-    This is an async function that returns the content of the step which called `Outputs`. Each channel has its own output schema.
+  This is an async function that returns the content of the step which called
+  `Outputs`. Each channel has its own output schema.
 </ParamField>
 
-<ParamField path="options" type="StepOptions" >
-    Additional step configuration.
+<ParamField path="options" type="StepOptions">
+  Additional step configuration.
 </ParamField>
 
 ## Options Object
 
 This is an optional configuration object that defines: [Controls Schema](/framework/concepts/inputs), [Provider Overrides](#provider-overrides), skip and other configurations...
 
-<ResponseField name="skip" type="(controls: StepControlSchema) => boolean | Promise<boolean>">
-    A function that returns a boolean value to skip the step. This is helpful when you want to use previous step results or other custom logic to skip the step from executing.
+<ResponseField
+  name="skip"
+  type="(controls: StepControlSchema) => boolean | Promise<boolean>"
+>
+  A function that returns a boolean value to skip the step. This is helpful when
+  you want to use previous step results or other custom logic to skip the step
+  from executing.
 </ResponseField>
 
 <ResponseField name="controlSchema" type="JSON Schema | Zod">
-    This defined the UI Controls exposed in the dashboard for the step. They can be nested and of any JSON Schema supported structure.
+  This defined the UI Controls exposed in the dashboard for the step. They can
+  be nested and of any JSON Schema supported structure.
 </ResponseField>
 
-<ResponseField name="providers" type="ProvidersOverride">
-</ResponseField>
+<ResponseField name="providers" type="ProvidersOverride"></ResponseField>
 
 ### Providers Overrides Object
 
@@ -76,13 +83,15 @@ This object used to access and override the underlying deliver providers SDKs. T
 
 ```typescript
 type ProvidersOverride = {
-  [key: ProviderEnum]: ProviderCallback
-}
+  [key: ProviderEnum]: ProviderCallback;
+};
 
-type ProviderCallback = (params: ProviderOverridesParams) => Promise<ProviderOverrideResponse>;
+type ProviderCallback = (
+  params: ProviderOverridesParams
+) => Promise<ProviderOverrideResponse>;
 
 type ProviderOverridesParams = {
-    controls: StepControls;
-    output: StepOutput;
+  controls: StepControls;
+  output: StepOutput;
 };
 ```

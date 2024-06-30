@@ -1,6 +1,6 @@
 ---
-title: 'How to send notifications with Nuxt.js and Vuemail'
-description: 'Learn how to send email notifications with Nuxt.js, Vuemail and Novu'
+title: "How to send notifications with Nuxt.js and Vuemail"
+description: "Learn how to send email notifications with Nuxt.js, Vuemail and Novu"
 ---
 
 This guide assumes you know what [a notification workflow](https://docs.novu.co/workflows/notification-workflows) is and why you need it. It also assumes you are aware of [Nuxt](https://nuxt.com/) and [VueEmail](https://vuemail.net/).
@@ -40,14 +40,16 @@ cd app/server
 mkdir api
 ```
 
-Create a file within the `app/server/api` directory and name it `novu.ts`.  Copy and paste the code snippet below:
+Create a file within the `app/server/api` directory and name it `novu.ts`. Copy and paste the code snippet below:
 
 ```jsx
 // app/server/api/novu.ts
 import { serve } from "@novu/framework/nuxt";
 import { client, myWorkflow } from "../novu/workflows";
 
-export default defineEventHandler(serve({ client: client, workflows: [myWorkflow] }));
+export default defineEventHandler(
+  serve({ client: client, workflows: [myWorkflow] })
+);
 ```
 
 3. Now, let's create the instance where we will build and maintain our notification workflow:
@@ -60,7 +62,7 @@ cd app/server
 mkdir novu
 ```
 
-Create a file within the `app/server/novu` directory and name it `workflows.ts`.  Copy and paste the code snippet below:
+Create a file within the `app/server/novu` directory and name it `workflows.ts`. Copy and paste the code snippet below:
 
 ```jsx
 // app/server/novu/workflows.ts
@@ -126,37 +128,39 @@ Below, We can see a “plain” Client instance and shaping your desired workflo
 // app/server/novu/workflows.ts
 // This is Client instance concept - not a working instance!
 
-import { Client, workflow } from '@novu/framework';
+import { Client, workflow } from "@novu/framework";
 
 export const client = new Client({
   /**
    * Disable this flag only during local development
    * For production this should be true
    */
-  strictAuthentication: process.env.NODE_ENV !== "development"
+  strictAuthentication: process.env.NODE_ENV !== "development",
 });
 
 export const myWorkflow = workflow(
-	'<WORKFLOW_NAME>', // The Workflow name. Must be unique across your Bridge application.
-	// Workflow resolver, the entry-point for your Workflow steps
-	async ({
-		// Helper function to declare your Workflow Steps.
-		step,
-		// Workflow Trigger payload
-		payload,
-	}) => {
-	// ...your Workflow Steps
-}, {
-	// JSON Schema for validation and type-safety. Zod, and others coming soon.
-	// https://json-schema.org/draft-07/json-schema-release-notes
+  "<WORKFLOW_NAME>", // The Workflow name. Must be unique across your Bridge application.
+  // Workflow resolver, the entry-point for your Workflow steps
+  async ({
+    // Helper function to declare your Workflow Steps.
+    step,
+    // Workflow Trigger payload
+    payload,
+  }) => {
+    // ...your Workflow Steps
+  },
+  {
+    // JSON Schema for validation and type-safety. Zod, and others coming soon.
+    // https://json-schema.org/draft-07/json-schema-release-notes
 
-	// The schema for the Workflow payload passed dynamically via Novu Trigger API
-	// Defaults to an empty schema.
-	payloadSchema: { properties: { name: { type: 'string' }}},
-	// The schema for the Workflow inputs passed statically via Novu Web
-	// Defaults to an empty schema.
-	controlSchema: { properties: { brandColor: { type: 'string' }}},
-});
+    // The schema for the Workflow payload passed dynamically via Novu Trigger API
+    // Defaults to an empty schema.
+    payloadSchema: { properties: { name: { type: "string" } } },
+    // The schema for the Workflow inputs passed statically via Novu Web
+    // Defaults to an empty schema.
+    controlSchema: { properties: { brandColor: { type: "string" } } },
+  }
+);
 ```
 
 We can:
@@ -294,40 +298,49 @@ Now that we have everything in our notification workflow configured along with t
 
 1. If you haven’t run the development environment for your Nuxt app, now is the time.
 
-    ```jsx
-    npm run dev
-    ```
+   ```jsx
+   npm run dev
+   ```
 
 2. Do you remember that we exposed an Bridge API endpoint in our app for Dev Studio to catch? This is where it happens.
 
-    Run the following command in a separate terminal:
+   Run the following command in a separate terminal:
 
-    ```jsx
-    npx novu-labs@latest echo
-    ```
+   ```jsx
+   npx novu-labs@latest echo
+   ```
 
-    If you’ve followed this guide, you should see this:
+   If you’ve followed this guide, you should see this:
 
-    <Frame caption="Launching the dev studio"><img src="/images/framework-nuxt-vuemail/one.png" /></Frame>
+   <Frame caption="Launching the dev studio">
+     <img src="/images/framework-nuxt-vuemail/one.png" />
+   </Frame>
 
-    Here is where our exact API endpoint goes. If our application runs on a different port, we should change the URL manually to point Dev Studio in the right direction.
+   Here is where our exact API endpoint goes. If our application runs on a different port, we should change the URL manually to point Dev Studio in the right direction.
 
-    <Frame caption="Provide Echo endpoint"><img src="/images/framework-nuxt-vuemail/two.png" /></Frame>
+   <Frame caption="Provide Echo endpoint">
+     <img src="/images/framework-nuxt-vuemail/two.png" />
+   </Frame>
 
-    Also, if we have configured everything correctly, we should see that Dev Studio sees our workflow identifier (Workflow unique name).
+   Also, if we have configured everything correctly, we should see that Dev Studio sees our workflow identifier (Workflow unique name).
 
-    <Frame caption="Dev studio locates our workflow"><img src="/images/framework-nuxt-vuemail/three.png" /></Frame>
+   <Frame caption="Dev studio locates our workflow">
+     <img src="/images/framework-nuxt-vuemail/three.png" />
+   </Frame>
 
 3. Click the “View Workflow” button in the Dev Studio to see the workflow.
 
-    We should see the following:
+   We should see the following:
 
-    <Frame caption="Viewing the workflow"><img src="/images/framework-nuxt-vuemail/four.png" /></Frame>
-
+   <Frame caption="Viewing the workflow">
+     <img src="/images/framework-nuxt-vuemail/four.png" />
+   </Frame>
 
 Click on the workflow step node called `send-email`. We should see a preview of our email template and the `Step Input` and `Payload` variables we have configured in the workflow schemas.
 
-<Frame caption="Preview of our email template"><img src="/images/framework-nuxt-vuemail/five.png" /></Frame>
+<Frame caption="Preview of our email template">
+  <img src="/images/framework-nuxt-vuemail/five.png" />
+</Frame>
 
 4. This is the time to adjust the email template, step input schema, or define the properties we anticipate in the payload. We have a live representation of everything. You can add more steps like In-App, SMS, and chat.
 
@@ -337,33 +350,41 @@ Having completed crafting, designing, and modifying our notification workflow to
 
 1. Click on the `Sync to Cloud` button on the top right.
 
-    <Frame caption="Sync to Cloud"><img src="/images/framework-nuxt-vuemail/six.png" /></Frame>
+   <Frame caption="Sync to Cloud">
+     <img src="/images/framework-nuxt-vuemail/six.png" />
+   </Frame>
 
 2. We will need to create a local tunnel that the Novu Cloud environment can reach for local experimentation purposes.
 
-    <Frame caption="Create a local tunnel"><img src="/images/framework-nuxt-vuemail/seven.png" /></Frame>
+   <Frame caption="Create a local tunnel">
+     <img src="/images/framework-nuxt-vuemail/seven.png" />
+   </Frame>
 
-    On a separate terminal, run the following command:
+   On a separate terminal, run the following command:
 
-    ```jsx
-    // Change to the port where the app is currently running
+   ```jsx
+   // Change to the port where the app is currently running
 
-    npx localtunnel --port 3000
-    ```
+   npx localtunnel --port 3000
+   ```
 
-    We should get something like:
+   We should get something like:
 
-    ```jsx
-    your url is: https://famous-pumas-clap.loca.lt
-    ```
+   ```jsx
+   your url is: https://famous-pumas-clap.loca.lt
+   ```
 
-    <Frame caption="Local tunnel url should be the same in the image here"><img src="/images/framework-nuxt-vuemail/eight.png" /></Frame>
+   <Frame caption="Local tunnel url should be the same in the image here">
+     <img src="/images/framework-nuxt-vuemail/eight.png" />
+   </Frame>
 
 3. Click the `Create Diff` button. To push (merge) the workflow code to the cloud, an API Key from our Novu account should be added to our Framework Client instance.
 
-    <Frame caption="Create Diff"><img src="/images/framework-nuxt-vuemail/nine.png" /></Frame>
+   <Frame caption="Create Diff">
+     <img src="/images/framework-nuxt-vuemail/nine.png" />
+   </Frame>
 
-    Let’s navigate to `../app/server/novu/workflows.ts` file and add our Novu API Key.
+   Let’s navigate to `../app/server/novu/workflows.ts` file and add our Novu API Key.
 
 ```jsx
 // app/server/novu/workflows.ts

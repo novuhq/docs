@@ -9,9 +9,9 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 <RequestExample>
 
 ```javascript Node.js
-import { Novu, ProvidersIdEnum } from '@novu/node'; 
+import { Novu, ProvidersIdEnum } from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 const updatePayload = {
   name: "SendGrid",
@@ -19,14 +19,17 @@ const updatePayload = {
   credentials: {
     apiKey: "SUPER_SECRET_API_KEY",
     from: "no-reply@novu.co",
-    senderName: "Novu Team"
+    senderName: "Novu Team",
     // ... other credentials as per provider
   },
   active: true,
-  check: false
-}
+  check: false,
+};
 
-await novu.integrations.getWebhookProviderStatus(ProvidersIdEnum.SendGrid, updatePayload);
+await novu.integrations.getWebhookProviderStatus(
+  ProvidersIdEnum.SendGrid,
+  updatePayload
+);
 ```
 
 ```php PHP
@@ -79,7 +82,6 @@ public class Main {
     }
 }
 ```
-
 
 </RequestExample>
 
