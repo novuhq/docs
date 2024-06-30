@@ -35,7 +35,7 @@ To send a push notification to subscribers (users) using Novu:
 <Note>Novu supports multiple active providers for push channel.</Note>
 
 <Tip>
-  <MissingProvider channelName="PUSH"/>
+  <MissingProvider channelName="PUSH" />
 </Tip>
 
 ## Managing push device tokens
@@ -43,6 +43,7 @@ To send a push notification to subscribers (users) using Novu:
 To send push notifications to subscribers, you need to store device tokens or identifiers in subscriber profiles. These tokens are unique identifiers that help push notification providers deliver messages to the correct devices. Each provider has its own method for obtaining and storing device tokens.
 
 Novu offers to ways of keeping your device tokens in sync with subscriber profiles:
+
 - Just-in-time: Pass device tokens in the payload when triggering a workflow. Novu will automatically update subscriber profiles with the new device tokens.
 - Manual: Update subscriber profiles with device tokens using the Novu Set Credentials API.
 
@@ -51,14 +52,14 @@ Novu offers to ways of keeping your device tokens in sync with subscriber profil
 When triggering a workflow, you can pass the `channels` array on the subscriber object with the device tokens for the push provider of your choice. Here is an example with fcm:
 
 ```typescript
-novu.trigger('workflow-id', {
+novu.trigger("workflow-id", {
   to: {
-    subscriberId: 'subscriber-id',
+    subscriberId: "subscriber-id",
     channels: [
       {
-        providerId: 'fcm',
+        providerId: "fcm",
         credentials: {
-          deviceTokens: ['token-1', 'token-2'],
+          deviceTokens: ["token-1", "token-2"],
         },
       },
     ],
@@ -89,29 +90,31 @@ const subscriber = await novu.subscribers.get('subscriberId');
 
 // get current device tokens from subscriber credentials for the provider
 const currentDeviceTokens = subsciber.data.data.channels.find(
-    // _integrationId can also be checked in place of providerId ;
-    (channel) => channel.providerId === PushProviderIdEnum.FCM,
+// \_integrationId can also be checked in place of providerId ;
+(channel) => channel.providerId === PushProviderIdEnum.FCM,
 ).credentials.deviceTokens;
 
 // remove all device tokens
 await this.novu.subscribers.setCredentials(
-    'subscriberId',
-    PushProviderIdEnum.FCM,
-    { deviceTokens: [] },
+'subscriberId',
+PushProviderIdEnum.FCM,
+{ deviceTokens: [] },
 );
 
 // remove the token you want to remove
 const newDeviceTokens = currentDeviceTokens.filter(
-    (token) => token !== 'token-to-be-removed',
+(token) => token !== 'token-to-be-removed',
 );
 
 // update subscriber credentials with new device tokens
 await this.novu.subscribers.setCredentials(
-    'subscriberId',
-    PushProviderIdEnum.FCM,
-    { deviceTokens: newDeviceTokens },
+'subscriberId',
+PushProviderIdEnum.FCM,
+{ deviceTokens: newDeviceTokens },
 );
+
 ```
   </Tab>
 </Tabs>
 
+```

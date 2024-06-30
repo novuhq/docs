@@ -1,10 +1,19 @@
 const topNavLinks = [
-    { label: "Pricing", url: "https://novu.co/pricing/?utm_campaign=docs_top_nav" },
-    { label: "Blog", url: "https://novu.co/blog/?utm_campaign=docs_top_nav" },
-    { label: "Contact us", url: "https://novu.co/contact-us/?utm_campaign=docs_top_nav" }
+  {
+    label: "Pricing",
+    url: "https://novu.co/pricing/?utm_campaign=docs_top_nav",
+  },
+  { label: "Blog", url: "https://novu.co/blog/?utm_campaign=docs_top_nav" },
+  {
+    label: "Contact us",
+    url: "https://novu.co/contact-us/?utm_campaign=docs_top_nav",
+  },
 ];
 
-const topNavCta = { label: "Get Started", url: "https://web.novu.co?utm_campaign=docs_top_bar_gs" };
+const topNavCta = {
+  label: "Get Started",
+  url: "https://web.novu.co?utm_campaign=docs_top_bar_gs",
+};
 
 const darkLogo = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 viewBox="0 0 2355.4 300" style="enable-background:new 0 0 2355.4 300;" xml:space="preserve" class="hidden dark:block h-7 w-auto">
@@ -160,14 +169,14 @@ c7.6,7.4,20.4,11.1,38.3,11.1c6.8,0,12.3-0.2,16.4-0.6c4.3-0.6,7.2-1.1,8.8-1.5V90.
 </svg>
 `;
 
+const navbar = document.getElementById("navbar");
 
-const navbar = document.getElementById('navbar');
-
-const navItemClassStyles = 'font-medium text-gray-600 dark:text-gray-400 hover:border-b-[1.5px] hover:border-gray-200 dark:hover:border-gray-700 hover:text-gray-800 dark:hover:text-gray-300'
+const navItemClassStyles =
+  "font-medium text-gray-600 dark:text-gray-400 hover:border-b-[1.5px] hover:border-gray-200 dark:hover:border-gray-700 hover:text-gray-800 dark:hover:text-gray-300";
 
 // Create the navigation component
-const navComponent = document.createElement('div');
-navComponent.id = 'primary-nav';
+const navComponent = document.createElement("div");
+navComponent.id = "primary-nav";
 navComponent.innerHTML = `
 <div class="navbar-transition relative max-w-8xl mx-auto border-b border-gray-500/10 lg:border-0 dark:border-gray-300/10 lg:border-b lg:border-gray-500/5 dark:border-gray-50/[0.06] backdrop-blur flex-none transition-colors duration-500 supports-backdrop-blur:bg-background-light/95 dark:bg-background-dark/75">
     <div class="py-4 lg:px-12 mx-4 lg:mx-0">
@@ -176,11 +185,18 @@ navComponent.innerHTML = `
             <div class="flex items-center space-x-16 lg:space-x-8" style="margin-left: 8px">
                 <nav class="hidden lg:block">
                     <ul class="flex space-x-8 md:hidden px-8">
-                        ${topNavLinks.map((link) => `<li class="inline-block mx-8 p-2"><a class="inline-block leading-none text-sm ${navItemClassStyles} transition-colors duration-200" href="${link.url}" target="_blank">${link.label}</a></li>`).join('')}
+                        ${topNavLinks
+                          .map(
+                            (link) =>
+                              `<li class="inline-block mx-8 p-2"><a class="inline-block leading-none text-sm ${navItemClassStyles} transition-colors duration-200" href="${link.url}" target="_blank">${link.label}</a></li>`
+                          )
+                          .join("")}
                     </ul>
                 </nav>
                 <div class="flex space-x-5 md:hidden">
-                    <a style="background-color: rgba(0, 85, 255, 0.8)" class="inline-flex items-center justify-center !leading-none text-center whitespace-nowrap rounded transition-[colors, opacity] duration-200 outline-none uppercase font-medium h-10 px-5 text-xs bg-primary/50 dark:bg-white text-white hover:bg-[rgba(255,255,255,1)]" href="${topNavCta.url}" target="_blank">
+                    <a style="background-color: rgba(0, 85, 255, 0.8)" class="inline-flex items-center justify-center !leading-none text-center whitespace-nowrap rounded transition-[colors, opacity] duration-200 outline-none uppercase font-medium h-10 px-5 text-xs bg-primary/50 dark:bg-white text-white hover:bg-[rgba(255,255,255,1)]" href="${
+                      topNavCta.url
+                    }" target="_blank">
                         ${topNavCta.label}
                     </a>
                 </div>

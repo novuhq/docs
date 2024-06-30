@@ -3,7 +3,6 @@ title: "Tenants"
 description: "Learn all about Tenants"
 ---
 
-
 Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants.
 
 Currently, Novu supports the following customizations:
@@ -15,9 +14,9 @@ Currently, Novu supports the following customizations:
 
 Tenants can be created and modified via the [API](http://docs.novu.co/api-reference/tenants/get-tenants) or [Web](https://web.novu.co/tenants?utm_campaign=docs-tenants). Each tenant can have multiple fields on it:
 
-* Identifier - The identifier is a unique value, and can be used later when pointing to this tenant during trigger calls.
-* Name - A human-readable name of the tenant.
-* Data - A custom data object that can store information about the tenant. This data can be later accessed inside workflows.
+- Identifier - The identifier is a unique value, and can be used later when pointing to this tenant during trigger calls.
+- Name - A human-readable name of the tenant.
+- Data - A custom data object that can store information about the tenant. This data can be later accessed inside workflows.
 
 ## Workflow Level Customizations
 
@@ -42,26 +41,28 @@ When triggering a workflow, it is possible to pass the tenant information (id or
         tenant: "tenantIdentifier"
       }
     );
-  ```
-  </Tab>
-  <Tab title="PHP">
-  ```php
-    use Novu\SDK\Novu;
 
-    $novu = new Novu('<NOVU_API_KEY_HERE>');
+````
+</Tab>
+<Tab title="PHP">
+```php
+  use Novu\SDK\Novu;
 
-    $novu->triggerEvent([
-      'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
-      'payload' => [
-        'name' => 'Hello'
-      ],
-      'to' => [
-          'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>'
-      ],
-      'actor': "actorId"
-      'tenant': "tenantIdentifier"
-    ]);
-  ```
+  $novu = new Novu('<NOVU_API_KEY_HERE>');
+
+  $novu->triggerEvent([
+    'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
+    'payload' => [
+      'name' => 'Hello'
+    ],
+    'to' => [
+        'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>'
+    ],
+    'actor': "actorId"
+    'tenant': "tenantIdentifier"
+  ]);
+````
+
   </Tab>
 </Tabs>
 
@@ -71,6 +72,10 @@ When creating an integration, you can create a condition where you can specify a
 
 The delivery provider specified will only be used if the trigger is executed with the tenant id.
 
-<Frame caption="Add provider instance"><img src="https://github.com/novuhq/docs/assets/2946769/583824c7-766b-49fc-bb8e-7cf72dd74eee" /></Frame>
+<Frame caption="Add provider instance">
+  <img src="https://github.com/novuhq/docs/assets/2946769/583824c7-766b-49fc-bb8e-7cf72dd74eee" />
+</Frame>
 
-<Frame caption="Set conditions"><img src="https://github.com/novuhq/docs/assets/2946769/9c1c33f5-f5eb-4e4b-82b7-f4c05bdf00d7" /></Frame>
+<Frame caption="Set conditions">
+  <img src="https://github.com/novuhq/docs/assets/2946769/9c1c33f5-f5eb-4e4b-82b7-f4c05bdf00d7" />
+</Frame>

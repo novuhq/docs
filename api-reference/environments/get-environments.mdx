@@ -13,14 +13,15 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.environments.getAll();
-```
+
+````
 
 ```php PHP
 use Novu\SDK\Novu;
 
 $novu = new Novu(<NOVU_API_KEY>);
 $novu->getEnvironments()->toArray();
-```
+````
 
 ```ruby Ruby
 require 'novu'

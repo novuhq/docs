@@ -3,11 +3,18 @@ title: "SMS Channel Overview"
 sidebarTitle: "Overview"
 description: "Learn the process of configuring and using sms providers with Novu"
 ---
+
 import { MissingProvider } from "/snippets/missing-provider.mdx";
 
 Novu can be used to deliver sms messages to your customers using a unified delivery API. You can easily integrate your favorite sms provider using the built-in integration store.
 
-<iframe src="https://www.loom.com/embed/1d12bede8bf5482185ac626c2130cf33" width="100%" height="400px" frameBorder="0" allowFullScreen></iframe>
+<iframe
+  src="https://www.loom.com/embed/1d12bede8bf5482185ac626c2130cf33"
+  width="100%"
+  height="400px"
+  frameBorder="0"
+  allowFullScreen
+></iframe>
 
 ## Configuring SMS providers
 
@@ -66,15 +73,16 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-  to: {
-    subscriberId: '<SUBSCRIBER_ID>',
-  },
-  overrides: {
-    sms: {
-      integrationIdentifier: "infobip-abcdef"
-    },
-  },
+to: {
+subscriberId: '<SUBSCRIBER_ID>',
+},
+overrides: {
+sms: {
+integrationIdentifier: "infobip-abcdef"
+},
+},
 });
+
 ```
  </Tab>
 </Tabs>
@@ -91,3 +99,4 @@ Common errors and reason for these errors while sending sms messages using Novu.
 <Tip>
   <MissingProvider channelName="SMS"/>
 </Tip>
+```

@@ -8,8 +8,5 @@ import { serve } from "@novu/framework/express";
 import { myWorkflow } from "../novu/workflows";
 
 app.use(express.json()); // Required for Novu POST requests
-app.use(
-  "/api/novu",
-  serve({ workflows: [myWorkflow] })
-);
+app.use("/api/novu", serve({ workflows: [myWorkflow] }));
 ```

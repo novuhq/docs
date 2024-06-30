@@ -22,10 +22,10 @@ It's responsible for establishing the notification center session, managing the 
 | socketUrl               | string (optional)                                                              | The custom socket URL, your own deployed instance of the WS app. The default is https://ws.novu.co/.                                                                                                                                                                                                                                                                            |
 | applicationIdentifier   | string                                                                         | The app id is taken from the Novu Settings -> API Keys tab.                                                                                                                                                                                                                                                                                                                     |
 | subscriberId            | string                                                                         | The unique user id from your system.                                                                                                                                                                                                                                                                                                                                            |
-| subscriberHash          | string (optional)                                                              | The HMAC encrypted subscriberId. Read about [hmac encryption](/notification-center/client/react/get-started#hmac-encryption)                                                                                                                                                                                                                                                                |
+| subscriberHash          | string (optional)                                                              | The HMAC encrypted subscriberId. Read about [hmac encryption](/notification-center/client/react/get-started#hmac-encryption)                                                                                                                                                                                                                                                    |
 | stores                  | [IStore](#store-interface) (optional)                                          | The connection object between feed and notification center tab.                                                                                                                                                                                                                                                                                                                 |
 | i18n                    | [ITranslationEntry \| ITranslationContent](#i18nlanguage-interface) (optional) | The prop allows to configure the UI language.                                                                                                                                                                                                                                                                                                                                   |
-| styles                  | [NotificationCenterStyles](#styles-interface) (optional)                       | The prop allowing to style the notification center. It's based on the CSSInterpolation object from the [@emotion/css](https://emotion.sh/docs/@emotion/css#object-styles) package.                                                                                                                                                   |
+| styles                  | [NotificationCenterStyles](#styles-interface) (optional)                       | The prop allowing to style the notification center. It's based on the CSSInterpolation object from the [@emotion/css](https://emotion.sh/docs/@emotion/css#object-styles) package.                                                                                                                                                                                              |
 | initialFetchingStrategy | [IFetchingStrategy](#fetching-strategy-interface) (optional)                   | The fetching strategy. By default notifications feed and user preferences are not fetched until the notification center is opened. You might need to tweak this configuration when building a custom UI and if you need to fetch notifications right away. Also it's possible to change it when some action happens using the useNovuContext hook and setFetchingStrategy prop. |
 | children                | object                                                                         | The ReactNode object type, the "consumer" of the NovuProvider context.                                                                                                                                                                                                                                                                                                          |
 | onLoad                  | [function](#props-interface) (optional)                                        | The function that is called with an organization object after the notification center session is initialized.                                                                                                                                                                                                                                                                   |
@@ -60,7 +60,7 @@ interface IStoreQuery {
   feedIdentifier?: string | string[];
   seen?: boolean;
   read?: boolean;
-  limit?: number; 
+  limit?: number;
   payload?: Record<string, unknown>;
 }
 ```
@@ -173,6 +173,7 @@ type ObjectWithRoot<T = {}> = T & {
   root: CSSFunctionOrObject;
 };
 ```
+
 <Accordion title="How to use the Styles Interface?">
 To use the Styles Interface, you need to identify the property you need to modify to achieve your desired look and pass it as an object in the `styles` prop. 
   <br/>
@@ -200,6 +201,7 @@ Now, that we know which property needs to change, all we need to do is pass an o
             {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
         </PopoverNotificationCenter>
     </NovuProvider>
+
 </div >
 ```
 This gives us the desired result:
@@ -376,12 +378,13 @@ interface ISvgStopColor {
   stopColorOffset?: string;
 }
 ```
+
 ## Hooks
 
 ### useNotifications
 
 This hook that allows you to get the notifications feed data and unseen notifications count. The notifications are fetched only when the `fetchingStrategy.fetchNotifications` is set to true interface, check the `initialFetchingStrategy` prop on the [NovuProvider](#novuprovider) component.
-  
+
 ```typescript
 const result = useNotifications();
 ```
@@ -413,31 +416,31 @@ interface INotificationsContext {
   removeAllMessages: (feedId?: string) => void;
 }
 ```
+
 Description of the `useNotifications` hook return interface properties
 
-| Prop | Type | Description |
-| --- | --- | --- |
-| storeId | string | active `storeId` |
-| stores | [IStore[]](#store-interface) | array of [IStore](#store-interface) passed to the [NovuProvider](#novuprovider). |
-| unseenCount | number | unseen notifications (messages) count. |
-| notifications | [IMessage[]](#the-notification-imessage-model) | The feed notifications array. |
-| hasNextPage | boolean | flag indicating if the next notifications page to fetch is available. |
-| isLoading | boolean | flag indicating if the initial notifications fetch request is on the fly. |
-| isFetching | boolean | flag indicating if the notifications are fetching including initial fetch. |
-| isFetchingNextPage | boolean | flag indicating if the next notifications page request in on the fly. |
-| setStore | function | function used to change the current notifications [IStore](#store-interface) |
-| fetchNextPage | function | function that fires the fetch request for the next notifications page. |
-| refetch | function | function used to refetch all the notifications, when multiple page requests were made it will refetch all of them. |
-| markNotificationAsRead | function | function takes the notification (message) `messageId` as an argument and marks that notification (message) as read. |
-| markNotificationAsUnRead | function | function takes the notification (message) `messageId` as an argument and marks that notification (message) as unread. |
-| markNotificationAsSeen | function | function takes the notification (message) `messageId` as an argument and marks that notification (message) as seen. |
-| markFetchedNotificationsAsRead | function | function marks all the fetched notifications as read. |
-| markFetchedNotificationsAsSeen | function | function allowing you to mark all the fetched notifications as seen. |
-| markAllNotificationsAsRead | function | function allowing you to mark all notifications as read. |
-| markAllNotificationsAsSeen | function | function allowing you to mark notifications as seen. |
-| removeMessage | function | function takes the notification (message) `messageId` as an argument and delete a notification. |
-| removeAllMessages | function | The function allowing you to delete all notifications or a specific feed's (store's) notifications at once. |
-
+| Prop                           | Type                                           | Description                                                                                                           |
+| ------------------------------ | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| storeId                        | string                                         | active `storeId`                                                                                                      |
+| stores                         | [IStore[]](#store-interface)                   | array of [IStore](#store-interface) passed to the [NovuProvider](#novuprovider).                                      |
+| unseenCount                    | number                                         | unseen notifications (messages) count.                                                                                |
+| notifications                  | [IMessage[]](#the-notification-imessage-model) | The feed notifications array.                                                                                         |
+| hasNextPage                    | boolean                                        | flag indicating if the next notifications page to fetch is available.                                                 |
+| isLoading                      | boolean                                        | flag indicating if the initial notifications fetch request is on the fly.                                             |
+| isFetching                     | boolean                                        | flag indicating if the notifications are fetching including initial fetch.                                            |
+| isFetchingNextPage             | boolean                                        | flag indicating if the next notifications page request in on the fly.                                                 |
+| setStore                       | function                                       | function used to change the current notifications [IStore](#store-interface)                                          |
+| fetchNextPage                  | function                                       | function that fires the fetch request for the next notifications page.                                                |
+| refetch                        | function                                       | function used to refetch all the notifications, when multiple page requests were made it will refetch all of them.    |
+| markNotificationAsRead         | function                                       | function takes the notification (message) `messageId` as an argument and marks that notification (message) as read.   |
+| markNotificationAsUnRead       | function                                       | function takes the notification (message) `messageId` as an argument and marks that notification (message) as unread. |
+| markNotificationAsSeen         | function                                       | function takes the notification (message) `messageId` as an argument and marks that notification (message) as seen.   |
+| markFetchedNotificationsAsRead | function                                       | function marks all the fetched notifications as read.                                                                 |
+| markFetchedNotificationsAsSeen | function                                       | function allowing you to mark all the fetched notifications as seen.                                                  |
+| markAllNotificationsAsRead     | function                                       | function allowing you to mark all notifications as read.                                                              |
+| markAllNotificationsAsSeen     | function                                       | function allowing you to mark notifications as seen.                                                                  |
+| removeMessage                  | function                                       | function takes the notification (message) `messageId` as an argument and delete a notification.                       |
+| removeAllMessages              | function                                       | The function allowing you to delete all notifications or a specific feed's (store's) notifications at once.           |
 
 ### useFetchNotifications
 
@@ -447,8 +450,8 @@ Description of the `useNotifications` hook return interface properties
 const query: IStoreQuery = {
   limit: 10,
   payload: {
-    key: "value"
-  }
+    key: "value",
+  },
 };
 
 const onSuccess = (data: IPaginatedResponse<IMessage>) => {};
@@ -474,7 +477,6 @@ interface IUseFetchNotificationsArgs {
   onError?: (error: Error) => void;
   // ... many more from the react-query useInfiniteQuery hook
 }
-
 ```
 
 `useFetchNotifications` hook return interface
@@ -507,7 +509,10 @@ const onSuccess = ({ count }: ICountData) => {};
 
 const onError = (error: Error) => {};
 
-const { data, isLoading, isError, error } = useUnseenCount({ onSuccess, onError });
+const { data, isLoading, isError, error } = useUnseenCount({
+  onSuccess,
+  onError,
+});
 ```
 
 `useUnseenCount` hook args interface
@@ -593,7 +598,7 @@ interface ICountData {
 }
 
 const query: IStoreQuery = {
-  feedIdentifier: "product-updates"
+  feedIdentifier: "product-updates",
 };
 
 const onSuccess = (data: ICountData) => {};
@@ -636,7 +641,7 @@ interface IOrganizationEntity {
   members: {
     _id: string;
     _userId?: string;
-    user?: Pick<IUserEntity, 'firstName' | '_id' | 'lastName' | 'email'>;
+    user?: Pick<IUserEntity, "firstName" | "_id" | "lastName" | "email">;
     roles: MemberRoleEnum[];
     invite?: IMemberInvite;
     memberStatus: MemberStatusEnum;
@@ -647,7 +652,7 @@ interface IOrganizationEntity {
     fontColor: string;
     fontFamily: string;
     contentBackground: string;
-    direction: 'ltr' | 'rtl';
+    direction: "ltr" | "rtl";
   };
 }
 
@@ -736,10 +741,11 @@ const onSuccess = (data: IUserPreferenceSettings) => {};
 
 const onError = (error: Error) => {};
 
-const { updateUserPreferences, isLoading, isError, error } = useUpdateUserPreferences({
-  onSuccess,
-  onError,
-});
+const { updateUserPreferences, isLoading, isError, error } =
+  useUpdateUserPreferences({
+    onSuccess,
+    onError,
+  });
 ```
 
 `useUpdateUserPreferences` hook args interface
@@ -779,7 +785,10 @@ const onSuccess = (data: IMessage) => {};
 
 const onError = (error: Error) => {};
 
-const { updateAction, isLoading, isError, error } = useUpdateAction({ onSuccess, onError });
+const { updateAction, isLoading, isError, error } = useUpdateAction({
+  onSuccess,
+  onError,
+});
 ```
 
 `useUpdateAction` hook args interface
@@ -820,10 +829,11 @@ const onSuccess = (data: IMessage[]) => {};
 
 const onError = (error: Error) => {};
 
-const { markNotificationsAs, isLoading, isError, error } = useMarkNotificationsAs({
-  onSuccess,
-  onError,
-});
+const { markNotificationsAs, isLoading, isError, error } =
+  useMarkNotificationsAs({
+    onSuccess,
+    onError,
+  });
 ```
 
 `useMarkNotificationsAs` hook args interface
@@ -863,10 +873,12 @@ const onSuccess = (data: IMessage) => {};
 
 const onError = (error: Error) => {};
 
-const { removeNotification, isLoading, isError, error } = useRemoveNotification({
-  onSuccess,
-  onError,
-});
+const { removeNotification, isLoading, isError, error } = useRemoveNotification(
+  {
+    onSuccess,
+    onError,
+  }
+);
 ```
 
 `useRemoveNotification` hook args interface
@@ -906,10 +918,11 @@ const onSuccess = (data: IMessage) => {};
 
 const onError = (error: Error) => {};
 
-const { removeNotifications, isLoading, isError, error } = useRemoveNotifications({
-  onSuccess,
-  onError,
-});
+const { removeNotifications, isLoading, isError, error } =
+  useRemoveNotifications({
+    onSuccess,
+    onError,
+  });
 ```
 
 `useRemoveNotifications` hook args interface
@@ -947,10 +960,11 @@ const onSuccess = (data: IMessage) => {};
 
 const onError = (error: Error) => {};
 
-const { removeAllNotifications, isLoading, isError, error } = useRemoveAllNotifications({
-  onSuccess,
-  onError,
-});
+const { removeAllNotifications, isLoading, isError, error } =
+  useRemoveAllNotifications({
+    onSuccess,
+    onError,
+  });
 ```
 
 `useRemoveAllNotifications` hook args interface
@@ -1150,11 +1164,12 @@ customization properties
 | subscriber                | [SubscriberProps](#subscriberprops)       | Subscriber object that contains information about the subscriber                                     |
 
 ### SubscriberProps
-| Property     | Type                              | Description                                                          |
-| ------------ | --------------------------------- | -------------------------------------------------------------------- |
-| _id          | string                            | Auto-generated identifier for the subscriber entity in the database  |
-| firstName    | string                            | First name of the subscriber                                         |
-| subscriberId | string                            | identifier of the subscriber entity in the Novu Web Dashboard        |
+
+| Property     | Type   | Description                                                         |
+| ------------ | ------ | ------------------------------------------------------------------- |
+| \_id         | string | Auto-generated identifier for the subscriber entity in the database |
+| firstName    | string | First name of the subscriber                                        |
+| subscriberId | string | identifier of the subscriber entity in the Novu Web Dashboard       |
 
 ### IMessageButton
 

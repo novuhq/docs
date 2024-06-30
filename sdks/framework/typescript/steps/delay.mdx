@@ -15,25 +15,27 @@ sidebarTitle: "Delay"
 </RequestExample>
 
 <ResponseExample>
-    ```typescript Delay Result
-    const { duration } = await step.delay('delay-1-week', resolver);
-    ```
+  ```typescript Delay Result const {duration} = await step.delay('delay-1-week',
+  resolver); ```
 </ResponseExample>
 
 ## Step Outputs
 
 <ParamField path="amount" type="number" required>
-    This combined with the unit field determines the amount of time to digest events for.
+  This combined with the unit field determines the amount of time to digest
+  events for.
 </ParamField>
 
-<ParamField path="unit" type="Enum: 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months'" required>
-    The measurement unit for the amount field.
+<ParamField
+  path="unit"
+  type="Enum: 'seconds', 'minutes', 'hours', 'days', 'weeks', 'months'"
+  required
+>
+  The measurement unit for the amount field.
 </ParamField>
 
 ## Step Result
 
 <ParamField path="duration" type="number">
-    The duration of the delay in milliseconds.
+  The duration of the delay in milliseconds.
 </ParamField>
-
-

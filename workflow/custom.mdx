@@ -16,21 +16,25 @@ A custom steps allows to execute any custom logic and persist in the durable exe
 ## Custom Step Interface
 
 ```tsx
-const stepResult = await step.custom('custom-step', async () => {
-  return {
-    item_name: 'A product name',
-    item_price: 100,
-  };
-}, {
+const stepResult = await step.custom(
+  "custom-step",
+  async () => {
+    return {
+      item_name: "A product name",
+      item_price: 100,
+    };
+  },
+  {
     outputSchema: {
-        type: 'object',
-        properties: {
-            item_name: { type: 'string' },
-            item_price: { type: 'number' },
-        },
-        required: ['item_name', 'item_price'],
-    }
-});
+      type: "object",
+      properties: {
+        item_name: { type: "string" },
+        item_price: { type: "number" },
+      },
+      required: ["item_name", "item_price"],
+    },
+  }
+);
 ```
 
 ### Output Schema Definition
@@ -47,38 +51,42 @@ The Custom Step function should return a valid serializable object. The return v
 The result can only be used in the `resolver` of the step/providers/skip functions of subsequent steps.
 
 ```typescript
-workflow('hello-world-workflow', async ({ payload }) => {
-    const task = await step.custom('fetch-db-data', async () => {
-        const taskData = db.fetchTask(payload.task_id);
-        return {
-            task_id: taskData.id,
-            task_title: taskData.title,
-            complete: taskData.complete,
-        };
-    }, {
-        outputSchema: {
-            type: 'object',
-            properties: {
-                task_title: { type: 'string' },
-                task_id: { type: 'string' },
-                complete: { type: 'boolean' },
-            },
-            required: ['task_id', 'complete'],
-        }
-    });
+workflow("hello-world-workflow", async ({ payload }) => {
+  const task = await step.custom(
+    "fetch-db-data",
+    async () => {
+      const taskData = db.fetchTask(payload.task_id);
+      return {
+        task_id: taskData.id,
+        task_title: taskData.title,
+        complete: taskData.complete,
+      };
+    },
+    {
+      outputSchema: {
+        type: "object",
+        properties: {
+          task_title: { type: "string" },
+          task_id: { type: "string" },
+          complete: { type: "boolean" },
+        },
+        required: ["task_id", "complete"],
+      },
+    }
+  );
 
-    await step.email('send-email', () => {
-        return {
-            subject: `Task reminder for ${task.task_title}`,
-            body: 'Task is not yet complete. Please complete the task.'
-        }
-    }, {
-        // Only send the reminder E-mail if the task is not complete
-        skip: () => !task.complete
-    })
+  await step.email(
+    "send-email",
+    () => {
+      return {
+        subject: `Task reminder for ${task.task_title}`,
+        body: "Task is not yet complete. Please complete the task.",
+      };
+    },
+    {
+      // Only send the reminder E-mail if the task is not complete
+      skip: () => !task.complete,
+    }
+  );
 });
-
-
-
 ```
-

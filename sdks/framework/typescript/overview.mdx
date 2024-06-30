@@ -2,7 +2,7 @@
 title: "Overview"
 ---
 
-import { EchoTerminal } from '/snippets/echo-terminal.mdx';
+import { EchoTerminal } from "/snippets/echo-terminal.mdx";
 
 Although you can trigger Novu workflows from any programming language using our Rest API SDKs.
 
@@ -22,19 +22,23 @@ Our `@novu/framework` SDK is written in Typescript, and we recommend using Types
 When defining a [workflow payload](/framework/concepts/payload) schema, our SDK will automatically infer it to a Typescript interface.
 
 ```typescript
-import { workflow } from '@novu/framework';
+import { workflow } from "@novu/framework";
 
-const myWorkflow = workflow('new-signup', async ({ step, payload }) => {
-	await step.email('send-email', () => {
-        return {
-            subject: 'Hello World',
-            // The payload object here is type-safe
-            body: `Hi ${payload.name}, welcome to our platform!`
-        }
-	});
-}, {
-	payloadSchema: { properties: { name: { type: 'string' }}},
-});
+const myWorkflow = workflow(
+  "new-signup",
+  async ({ step, payload }) => {
+    await step.email("send-email", () => {
+      return {
+        subject: "Hello World",
+        // The payload object here is type-safe
+        body: `Hi ${payload.name}, welcome to our platform!`,
+      };
+    });
+  },
+  {
+    payloadSchema: { properties: { name: { type: "string" } } },
+  }
+);
 ```
 
 ## Type Safe Steps
@@ -46,4 +50,5 @@ Similarly, when defining a [step](/framework/concepts/steps) schema, our SDK wil
 Build and define type safe controls to expose no-code editing capabilities to your teammates.
 
 ## Explore the SDK
+
 - Client

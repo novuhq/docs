@@ -15,9 +15,19 @@ description: "Prerequisites and steps to run Novu in local machine. Learn how to
 
 Need help installing the requirements? Read more [here](/community/machine-setup).
 
-<Note>We recommend having at least 8GB of RAM to run Novu on a local machine as Novu has multiple services running together with external services like redis, mongodb etc.</Note>
+<Note>
+  We recommend having at least 8GB of RAM to run Novu on a local machine as Novu
+  has multiple services running together with external services like redis,
+  mongodb etc.
+</Note>
 
-<iframe src="https://www.loom.com/embed/40c5da9a8b0c4bddb100c262f6b451d4" width="100%" height="400px" frameBorder="0" allowFullScreen></iframe>
+<iframe
+  src="https://www.loom.com/embed/40c5da9a8b0c4bddb100c262f6b451d4"
+  width="100%"
+  height="400px"
+  frameBorder="0"
+  allowFullScreen
+></iframe>
 
 ### Setup the project
 
@@ -27,16 +37,12 @@ your forked version of the project:
 1.  Clone the repository
 
 <Tabs>
-    <Tab title="Novu Org">
-        ```shell
-       git clone https://github.com/novuhq/novu.git
-       ````
-    </Tab>
-    <Tab title="Forked Repo">
-       ```shell
-       git clone https://github.com/{YOUR_GITHUB_USER_NAME}/novu.git
-       ```
-    </Tab>
+  <Tab title="Novu Org">
+    ```shell git clone https://github.com/novuhq/novu.git ````
+  </Tab>
+  <Tab title="Forked Repo">
+    ```shell git clone https://github.com/{YOUR_GITHUB_USER_NAME}/novu.git ```
+  </Tab>
 </Tabs>
 
 2.  Install all dependencies
@@ -64,9 +70,21 @@ The `npm run start` will start the Jarvis CLI tool which allows you to run the
 - **start:node** - Runs the `@novu/node` package in watch mode
 - **start:notification-center** - Runs and builds the React package for the Novu notification center
 
-<iframe src="https://www.loom.com/embed/239c1b7ec057409ba6c0d55ceef82135" width="100%" height="400px" frameBorder="0" allowFullScreen></iframe>
+<iframe
+  src="https://www.loom.com/embed/239c1b7ec057409ba6c0d55ceef82135"
+  width="100%"
+  height="400px"
+  frameBorder="0"
+  allowFullScreen
+></iframe>
 
-<iframe src="https://www.loom.com/embed/497ed0fecfb2476a85e902365a07cbb1" width="100%" height="400px" frameBorder="0" allowFullScreen></iframe>
+<iframe
+  src="https://www.loom.com/embed/497ed0fecfb2476a85e902365a07cbb1"
+  width="100%"
+  height="400px"
+  frameBorder="0"
+  allowFullScreen
+></iframe>
 
 ### Set up your environment variables
 
@@ -117,71 +135,70 @@ The command `npm run setup:project` creates default environment variables that
     - `SENTRY_DSN`The DSN of sentry.io used to report errors happening in production
   </Accordion>
 
-  <Accordion title="Worker">
-    - `NODE_ENV` (default: local)The environment of the app. Possible values are: dev, test, production, ci, local
-    - `PORT`The port on which the Worker app should listen on
-    - `STORE_ENCRYPTION_KEY`The encryption key used to encrypt/decrypt provider credentials
-    - `MAX_NOVU_INTEGRATION_MAIL_REQUESTS`The number of free emails that can be sent with the Novu email provider
-    - `NOVU_EMAIL_INTEGRATION_API_KEY`The Novu email provider Sentry API key
-    - `STORAGE_SERVICE`The storage service name: AWS, GCS, or AZURE
-    - `S3_LOCAL_STACK`The LocalStack service URL
-    - `S3_BUCKET_NAME`The name of the S3 Bucket
-    - `S3_REGION`The AWS region of the S3 Bucket
-    - `GCS_BUCKET_NAME`The name of the GCS Bucket
-    - `AZURE_ACCOUNT_NAME`The name of the Azure account
-    - `AZURE_ACCOUNT_KEY`The Azure account key
-    - `AZURE_HOST_NAME`The Azure host name
-    - `AZURE_CONTAINER_NAME`The Azure container name
-    - `AWS_ACCESS_KEY_ID`The AWS access key
-    - `AWS_SECRET_ACCESS_KEY`The AWS secret access key
-    - `REDIS_HOST`The domain / IP of your redis instance
-    - `REDIS_PORT`The port of your redis instance
-    - `REDIS_PASSWORD`Optional password of your redis instance
-    - `REDIS_DB_INDEX`The Redis database index
-    - `REDIS_CACHE_SERVICE_HOST`The domain / IP of your redis instance for caching
-    - `REDIS_CACHE_SERVICE_PORT`The port of your redis instance for caching
-    - `REDIS_DB_INDEX`The Redis cache database index
-    - `REDIS_CACHE_TTL`The Redis cache ttl
-    - `REDIS_CACHE_PASSWORD`The Redis cache password
-    - `REDIS_CACHE_CONNECTION_TIMEOUT`The Redis cache connection timeout
-    - `REDIS_CACHE_KEEP_ALIVE`The Redis cache TCP keep alive on the socket timeout
-    - `REDIS_CACHE_FAMILY`The Redis cache IP stack version
-    - `REDIS_CACHE_KEY_PREFIX`The Redis cache prefix prepend to all keys
-    - `REDIS_CACHE_SERVICE_TLS`The Redis cache TLS connection support
-    - `IN_MEMORY_CLUSTER_MODE_ENABLED`The flag that enables the cluster mode. It might be Redis or ElastiCache cluster, depending on the env variables set for either service.
-    - `ELASTICACHE_CLUSTER_SERVICE_HOST`ElastiCache cluster host
-    - `ELASTICACHE_CLUSTER_SERVICE_PORT`ElastiCache cluster port
-    - `REDIS_CLUSTER_SERVICE_HOST`Redis cluster host
-    - `REDIS_CLUSTER_SERVICE_PORTS`Redis cluster ports
-    - `REDIS_CLUSTER_DB_INDEX`Redis cluster database index
-    - `REDIS_CLUSTER_TTL`Redis cluster ttl
-    - `REDIS_CLUSTER_PASSWORD`Redis cluster password
-    - `REDIS_CLUSTER_CONNECTION_TIMEOUT`Redis cluster connection timeout
-    - `REDIS_CLUSTER_KEEP_ALIVE`Redis cluster TCP keep alive on the socket timeout
-    - `REDIS_CLUSTER_FAMILY`Redis cluster IP stack version
-    - `REDIS_CLUSTER_KEY_PREFIX`Redis cluster prefix prepend to all keys
-    - `MONGO_URL`The URL of your MongoDB instance
-    - `MONGO_MAX_POOL_SIZE`The max pool size of the MongoDB connection
-    - `NEW_RELIC_APP_NAME`The New Relic app name
-    - `NEW_RELIC_LICENSE_KEY`The New Relic license key
-    - `SEGMENT_TOKEN`The Segment Analytics token
-  </Accordion>
+{" "}
+<Accordion title="Worker">
+  - `NODE_ENV` (default: local)The environment of the app. Possible values are:
+  dev, test, production, ci, local - `PORT`The port on which the Worker app
+  should listen on - `STORE_ENCRYPTION_KEY`The encryption key used to
+  encrypt/decrypt provider credentials - `MAX_NOVU_INTEGRATION_MAIL_REQUESTS`The
+  number of free emails that can be sent with the Novu email provider -
+  `NOVU_EMAIL_INTEGRATION_API_KEY`The Novu email provider Sentry API key -
+  `STORAGE_SERVICE`The storage service name: AWS, GCS, or AZURE -
+  `S3_LOCAL_STACK`The LocalStack service URL - `S3_BUCKET_NAME`The name of the
+  S3 Bucket - `S3_REGION`The AWS region of the S3 Bucket - `GCS_BUCKET_NAME`The
+  name of the GCS Bucket - `AZURE_ACCOUNT_NAME`The name of the Azure account -
+  `AZURE_ACCOUNT_KEY`The Azure account key - `AZURE_HOST_NAME`The Azure host
+  name - `AZURE_CONTAINER_NAME`The Azure container name - `AWS_ACCESS_KEY_ID`The
+  AWS access key - `AWS_SECRET_ACCESS_KEY`The AWS secret access key -
+  `REDIS_HOST`The domain / IP of your redis instance - `REDIS_PORT`The port of
+  your redis instance - `REDIS_PASSWORD`Optional password of your redis instance
+  - `REDIS_DB_INDEX`The Redis database index - `REDIS_CACHE_SERVICE_HOST`The
+  domain / IP of your redis instance for caching - `REDIS_CACHE_SERVICE_PORT`The
+  port of your redis instance for caching - `REDIS_DB_INDEX`The Redis cache
+  database index - `REDIS_CACHE_TTL`The Redis cache ttl -
+  `REDIS_CACHE_PASSWORD`The Redis cache password -
+  `REDIS_CACHE_CONNECTION_TIMEOUT`The Redis cache connection timeout -
+  `REDIS_CACHE_KEEP_ALIVE`The Redis cache TCP keep alive on the socket timeout -
+  `REDIS_CACHE_FAMILY`The Redis cache IP stack version -
+  `REDIS_CACHE_KEY_PREFIX`The Redis cache prefix prepend to all keys -
+  `REDIS_CACHE_SERVICE_TLS`The Redis cache TLS connection support -
+  `IN_MEMORY_CLUSTER_MODE_ENABLED`The flag that enables the cluster mode. It
+  might be Redis or ElastiCache cluster, depending on the env variables set for
+  either service. - `ELASTICACHE_CLUSTER_SERVICE_HOST`ElastiCache cluster host -
+  `ELASTICACHE_CLUSTER_SERVICE_PORT`ElastiCache cluster port -
+  `REDIS_CLUSTER_SERVICE_HOST`Redis cluster host -
+  `REDIS_CLUSTER_SERVICE_PORTS`Redis cluster ports -
+  `REDIS_CLUSTER_DB_INDEX`Redis cluster database index -
+  `REDIS_CLUSTER_TTL`Redis cluster ttl - `REDIS_CLUSTER_PASSWORD`Redis cluster
+  password - `REDIS_CLUSTER_CONNECTION_TIMEOUT`Redis cluster connection timeout
+  - `REDIS_CLUSTER_KEEP_ALIVE`Redis cluster TCP keep alive on the socket timeout
+  - `REDIS_CLUSTER_FAMILY`Redis cluster IP stack version -
+  `REDIS_CLUSTER_KEY_PREFIX`Redis cluster prefix prepend to all keys -
+  `MONGO_URL`The URL of your MongoDB instance - `MONGO_MAX_POOL_SIZE`The max
+  pool size of the MongoDB connection - `NEW_RELIC_APP_NAME`The New Relic app
+  name - `NEW_RELIC_LICENSE_KEY`The New Relic license key - `SEGMENT_TOKEN`The
+  Segment Analytics token
+</Accordion>
 
-  <Accordion title="Web Client">
-    - `REACT_APP_ENVIRONMENT` The environment of the app. Possible values are: dev, test, production, ci, local
-    - `REACT_APP_API_URL` The base url on which your API backend would be accessible
-    - `REACT_APP_WS_URL` The base url on which your WebSocket service would be accessible
-    - `SKIP_PREFLIGHT_CHECK` (default: true)Solves a problem with React App dependency tree.
-    <Warning>
-        When configuring different than default values for the API and WebSocket URLs,
-        in order for the Web app to apply the changes done to the `./env` file, it is
-        needed to run the script `pnpm envsetup`. This will generate a file
-        called `env-config.js` that will be copied inside of the `public` folder of
-        the application. Its purpose is to inject in the `window._env_`object the
-        chosen environment variables that manage the URLs the Web client will call to
-        access to the API backend and the WebSocket service.
-    </Warning>
-  </Accordion>
+{" "}
+<Accordion title="Web Client">
+  - `REACT_APP_ENVIRONMENT` The environment of the app. Possible values are:
+  dev, test, production, ci, local - `REACT_APP_API_URL` The base url on which
+  your API backend would be accessible - `REACT_APP_WS_URL` The base url on
+  which your WebSocket service would be accessible -
+  `SKIP_PREFLIGHT_CHECK` (default: true)Solves a problem with React App
+  dependency tree.
+  <Warning>
+    When configuring different than default values for the API and WebSocket
+    URLs, in order for the Web app to apply the changes done to
+    the `./env` file, it is needed to run the script `pnpm envsetup`. This will
+    generate a file called `env-config.js` that will be copied inside of
+    the `public` folder of the application. Its purpose is to inject in
+    the `window._env_`object the chosen environment variables that manage the
+    URLs the Web client will call to access to the API backend and the WebSocket
+    service.
+  </Warning>
+</Accordion>
 
   <Accordion title="Web Socket">
     - `NODE_ENV` (default: local)The environment of the app. Possible values are: dev, test, production, ci, local
