@@ -11,9 +11,17 @@
 }
 
 /* Remove the logo */
+/*
 #navbar > div#primary-nav + div a[href="/"] {
     display: none;
 }
+
+*/
+
+#navbar > div#primary-nav + div a[href="/"]:has(img) {
+    display: none;
+}
+
 #navbar > div#primary-nav + div div.relative {
     margin-left: 0;
 }
