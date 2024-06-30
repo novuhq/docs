@@ -29,12 +29,17 @@ A workflow acts as the blueprint for the notifications that will be sent. The wo
 
         Within the Novu framework, channels are categorized into various types, each of which is linked with at least one corresponding provider that can be tailored as needed:
 
+        #### Channel Steps
         - **Email** (examples include Sendgrid, Postmark)
-        - **In-App** (such as feeds, toasts, banners)
+        - **Inbox** (such as feeds, toasts, banners)
         - **Push** (such as APNS, FCM)
         - **SMS** (examples include Twilio, Telnyx)
         - **Chat** (such as Slack, Microsoft Teams, and Discord)
-        - **Webhook** (used to send webhooks to custom channels or enable your customers to configure webhooks within your product)
+
+        #### Action Steps
+        - **Delay** (to pause the workflow for a specified duration)
+        - **Digest** (to group multiple notifications into a single message)
+        - **Custom** (to execute custom logic like calling an HTTP API, database query, etc.)
     </Step>
 </Steps>
 
@@ -50,9 +55,8 @@ Sequential execution provides a predictable and reliable workflow process, ensur
 <br />
 
 <Warning>Once a workflow is triggered, it can not be changed.
-    <br /> <br /> Workflow can be canceled only using  [DELETE /events/cancel api](/api-reference/workflows/delete-workflow)</Warning>
-
-<Note>Subscriber is not allowed to manage subscriber preference for [critical workflow](/subscribers/preferences#exclude-workflows-from-preferences-critical-workflow)</Note>
+    <br /> <br /> Workflow can be canceled only using  [DELETE /events/cancel api](/api-reference/workflows/delete-workflow)
+</Warning>
 
 ## Create a Workflow
 The most basic Workflow to send a notification in response to an event looks like:
@@ -68,8 +72,8 @@ const myWorkflow = workflow('new-signup', async ({ step, payload }) => {
       body: 'We look forward to helping you achieve mission.',
     }
   });
-  // JSON Schema for validation and type-safety. Zod, and others coming soon.
-}, { payloadSchema: { properties: { name: { type: 'string' }}}} );
+  // JSON Schema or compatible library like Zod for validation and type-safety
+}, { payloadSchema: z.object({ name: z.string() }) });
 ```
 
 ## Just-in-time data fetching
@@ -77,18 +81,16 @@ You can add any custom logic into your steps that you need. Maybe you’d like t
 
 ```tsx
 const myWorkflow = workflow('new-signup', async ({ step, payload }) => {
-	// Send a welcome email
   await step.email('send-email', async () => {
-	  // Fetch the user from your database
-	  const user = await db.getUser(payload.userId);
-        return {
+    // Fetch the user from your database
+    const user = await db.getUser(payload.userId);
+    return {
           subject: `Welcome to Acme ${user.productTier} tier, ${user.name}.`,
           // 'Welcome to Acme Business tier, John Doe.'
           body: 'We look forward to helping you achieve mission.',
         }
-      });
-      // Changing the schema from `name` -> `userId`, for type-safety.
-    }, { payloadSchema: { properties: { userId: { type: 'string' }}}} );
+  });
+}, { payloadSchema: z.object({ userId: z.string() }) });
 ```
 
 We call this **just-in-time** notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
@@ -112,7 +114,6 @@ const myWorkflow = workflow(
     // executing the Workflow from here.
     await step.delay('onboarding-follow-up', async () => ({
       amount: 1,
-      type: 'regular',
       unit: 'weeks',
     }));
 
@@ -165,34 +166,7 @@ With this simple Workflow, we:
 
 You should now have a grasp of the flexibility that Novu Framework offers.
 
-Continue your reading in [Steps](/framework/concepts/steps) to find out the other channels and actions you can use with Novu Framework.
-
-## Workflow Interface
-
-```tsx
-workflow(
-	// the Workflow name. Must be unique across your Bridge server.
-	'new-signup',
-	// Workflow resolver, the entry-point for your Workflow steps
-	async ({
-		// Helper function to declare your Workflow Steps.
-		step,
-		// Workflow Trigger payload
-		payload,
-	}) => {
-	// ...your Workflow Steps
-
-}, {
-	// JSON Schema for validation and type-safety. Zod, and others coming soon.
-	// https://json-schema.org/draft-07/json-schema-release-notes
-
-	// The schema for the Workflow payload passed dynamically via Novu Trigger API
-	// Defaults to an empty schema.
-	payloadSchema: { properties: { name: { type: 'string' }}},
-});
-```
-
-
+Continue your reading in [Controls](/concepts/controls) to find out how to expose no-code editing capabilities to your peers.
 
 ## Payload Schema
 

@@ -2,8 +2,6 @@
 title: "Bridge Endpoint"
 ---
 
-## Bridge Endpoint
-
 Novu Framework requires a **single** `HTTP` endpoint (`/api/novu` or similar) to be exposed by your application. This endpoint is used to receive events from our Worker Engine.
 
 You can view the Bridge Endpoint as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
@@ -19,12 +17,12 @@ We offer framework specific wrappers in form of an exported `serve` function tha
 - Framework specific response and error handling
 
 Currently, we offer `serve` functions for the following frameworks:
-- [Next.js](/framework/sdk/frameworks/nextjs)
-- [Express.js](/framework/sdk/frameworks/express)
-- [Nuxt](/framework/sdk/frameworks/nuxt)
-- [h3](/framework/sdk/frameworks/h3)
-- [Remix](/framework/sdk/frameworks/remix)
-- [Sveltekit](/framework/sdk/frameworks/sveltekit)
+- [Next.js](/quickstart/next)
+- [Express.js](/quickstart/express)
+- [Nuxt](/quickstart/nuxt)
+- [h3](/quickstart/h3)
+- [Remix](/quickstart/remix)
+- [Sveltekit](/quickstart/svelte)
 
 ## Writing a custom `serve` function
 

@@ -7,9 +7,9 @@ The digest engine collects multiple trigger events, aggregates them into a singl
 
 This becomes useful when a user needs to be notified on a large amount of triggers and you want to avoid sending too many notifications. Novu will automatically batch the incoming trigger events based on the `subscriberId` and an **optional** `digestKey` that can be added to control the digestion of the events.
 
-### Digest Node
+## Digest Step
 
-After adding a digest node to a workflow, each node that will be below the digest node will be only triggered once in the specified digest interval.
+After adding a digest step to a workflow, each node that will be below the digest node will be only triggered once in the specified digest interval.
 You can decide to send messages before adding a digest node and they will be triggered in real-time.
 
 <Frame caption="Digest Nodes"><img src="https://github.com/novuhq/docs/assets/2946769/3fa668ea-0f94-49f9-9784-211db64a7a36" /></Frame>
@@ -131,5 +131,4 @@ The digest step returns an object with `events` array. Each event in the array h
     <Accordion title="What is the difference between Regular and Schedules Digest set to 1 Hour?">
         Both digests are same in this case.
     </Accordion>
-
 </AccordionGroup>
