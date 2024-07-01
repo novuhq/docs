@@ -1,36 +1,23 @@
 ---
-title: "OTP (One-Time Password)"
-description: "Send OTPs without setting up your own infrastructure"
+title: ""
+description: ""
 ---
 
 ## Intro
 
-Sending One-Time Passwords (OTP) is often unnecessarily complicated, requiring engineering teams to waste valuable development cycles setting up SMS infrastructure and getting email reputation satisfactory for sending six digit passcodes. This three channel workflow example shows how to send an email, push notification, or SMS OTP.
 
 [Explore the source code on GitHub](https://github.com/novuhq/examples/tree/main/novu-workflows/react/otp)
 
 ## Preview
 
-Send an email
 <img
   style={{ borderRadius: '0.5rem' }}
-  src="/images/how-to/otp-email.png"
-/>
-
-Send a mobile push notification
-<img
-  style={{ borderRadius: '1.5rem' }}
-  src="/images/how-to/otp-push.png"
-/>
-
-Send an SMS notification
-<img
-  style={{ borderRadius: '1rem' }}
-  src="/images/how-to/otp-sms.png"
+  src="/images/how-to/otp.png"
 />
 
 
-## Code Sample
+
+## Code Example
 
 ```javascript
 import { Client, workflow } from "@novu/framework";
@@ -129,3 +116,14 @@ export const SlackVerificationOTP = workflow(
 );
 
 ```
+
+## Installation
+
+```
+npm run dev
+```
+
+<Tip>
+   If you're ready to start integrating in your .NET app, jump straight to
+  our [.NET quickstart.](/quickstarts/.NET)
+</Tip>

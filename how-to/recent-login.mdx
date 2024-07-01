@@ -1,8 +1,11 @@
 ---
 title: "Recent Login"
-description: "Notify users of suspicious or recent login activity"
+description: "Notify users of recent login activity"
 ---
 
+## Intro
+
+Sending recent logins is a great way to inform users of possible unusal activity and verify their usage. This workflow example leverages the payload schema to display the login IP, and notifies users through both email and a push notification.
 
 [Explore the source code on GitHub](https://github.com/novuhq/examples/tree/main/novu-workflows/react/recent-login)
 
@@ -14,19 +17,123 @@ description: "Notify users of suspicious or recent login activity"
 />
 
 
-## Installation
+## Code Example
 
+```javascript
+import { Client, workflow } from "@novu/framework";
+import { renderLoginEmail } from "./emails/yelp-recent-login";
+
+export const client = new Client({
+  /**
+   * Enable this flag only during local development
+   */
+  strictAuthentication: false,
+});
+
+/**
+ * Recent Login Workflow
+ */
+const date = new Date();
+const formattedDate = new Intl.DateTimeFormat("en", {
+  dateStyle: "long",
+  timeStyle: "short",
+}).format(date);
+
+export const YelpRecentLogin = workflow(
+  "Yelp Recent Login",
+  async ({ step, payload }) => {
+    /**
+     *  Email Flow
+     */
+    await step.email(
+      "send-email",
+      async (inputs) => {
+        return {
+          subject: "Recent login to your Account",
+          body: renderLoginEmail(inputs, payload),
+        };
+      },
+      {
+        inputSchema: {
+          type: "object",
+          properties: {
+            receiptSubject: {
+              title: "Email Subject",
+              type: "string",
+              default: "Recent login to your Account"
+            },
+            noticeHeaderText: {
+              type: "string",
+              default: "We noticed a recent login to your Yelp account.",
+              title: "Notice Header"
+            },
+            headerImage: {
+              title: "Header Image",
+              type: "string",
+              enum: [
+                'yellow', 
+                'purple', 
+              ],
+              default: "yellow"
+            },
+            bodyContentText: {
+              title: "First Content Text",
+              type: "string",
+              default: "If this was you, there's nothing else you need to do."
+            },
+            additionalBodyContentText: {
+              title: "Additional Content Text",
+              type: "string",
+              default: "If this wasn't you or if you have additional questions, please see our support page."
+            }
+          },
+        },
+      },
+    );
+
+    /** 
+     *  Push Flow
+     */
+    await step.push(
+      "send-push",
+      async () => {
+        return {
+          subject: "Recent login to your Yelp Account",
+          body: `Hi ${payload.userFirstName}, we noticed a recent login to your Yelp account. If this was you, there's nothing else you need to do. If this wasn't you or please see our support page.`,
+        };
+      }
+    );
+  },
+  { payloadSchema: {
+      type: "object",
+      properties: {
+        time: {
+          title: "Time",
+          type: "string",
+          default: formattedDate
+        },
+        loginDevice: {
+          title: "Device",
+          type: "string",
+          default: 'Desktop',
+        },
+        loginLocation: {
+          title: "Location",
+          type: "string",
+          default: "London, United Kingdom"
+        },
+        loginIp: {
+          title: "IP Address",
+          type: "string",
+          default: "47.149.53.167",
+        },
+        userFirstName: {
+          title: "User First Name",
+          type: "string",
+          default: "Jane"
+        }
+      }
+    }
+  },
+);
 ```
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-
-```
-
-<Tip>
-   If you're ready to start integrating in your 
-</Tip>
