@@ -161,7 +161,7 @@ c7.6,7.4,20.4,11.1,38.3,11.1c6.8,0,12.3-0.2,16.4-0.6c4.3-0.6,7.2-1.1,8.8-1.5V90.
 `;
 
 
-const navbar = document.getElementById('navbar');
+const navbar = document.getElementById('navbar-transition');
 
 const navItemClassStyles = 'font-medium text-gray-600 dark:text-gray-400 hover:border-b-[1.5px] hover:border-gray-200 dark:hover:border-gray-700 hover:text-gray-800 dark:hover:text-gray-300'
 
