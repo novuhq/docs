@@ -11,9 +11,14 @@
 }
 
 /* Remove the logo */
-#navbar > div#primary-nav + div a[href="/"] {
+#navbar img[alt="light logo"], #navbar img[alt="dark logo"] {
     display: none;
 }
+
+#navbar .gap-x-4 {
+    column-gap: 0;
+}
+
 #navbar > div#primary-nav + div div.relative {
     margin-left: 0;
 }
