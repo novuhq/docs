@@ -46,9 +46,9 @@ Novu Framework allows you to use [Zod](https://zod.dev/) to define the [Control]
 
 ## Controls and Payload UI
 
-When you define a `controlSchema` for a step, Novu Studio will automatically generate a UI for the controls in the workflow editor.
+When you define a `controlSchema` for a step, Novu will automatically generate a UI for the controls in the workflow editor.
 
-- **Form Input Title** - Will be derived from the key of the Zod schema. Unfortuently Zod does not support custom titles at this point.
+- **Form Input Title** - Will be derived from the key of the Zod schema. Unfortunately Zod does not support custom titles at this point.
 - **Form Input Type** - Will be derived from the Zod schema type, with support for `string`, `number`, `boolean`, and `enum` and `array` types.
 - **Default Value** - Will be derived from the Zod schema default value.
 - **Validation** - Will be derived from the Zod schema validation rules, including `min`, `max`, `email`, `url`, `regex` and etc...
