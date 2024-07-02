@@ -31,19 +31,19 @@ In this guide, we will add a Novu Bridge Endpoint to a Svelte application and se
     <WorkflowStep path="src/lib/novu/workflows.ts" />
 
     <Step title="Start your application">
-        To start your Remix server with the Novu Endpoint configured, run the following command:
+        To start your Svelte server with the Novu Endpoint configured, run the following command:
 
         ```tsx
         cd my-novu-app && npm run dev
         ```
 
-        If your Remix application is running on other than `4000` port, restart the `npx novu dev` command with the port:
+        If your Svelte application is running on other than `4000` port, restart the `npx novu dev` command with the port:
 
         ```tsx
-        npx novu@latest dev --port <YOUR_REMIX_PORT>
+        npx novu@latest dev --port <YOUR_SVELTE_PORT>
         ```
     </Step>
-    <TestStep framework="Remix" />
+    <TestStep framework="Svelte" />
     <DeployApp />
 
 </Steps>
