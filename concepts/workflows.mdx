@@ -24,9 +24,7 @@ A workflow acts as the blueprint for the notifications that will be sent. This i
         The "Trigger" refers to an event or action that initiates the workflow. It signifies a call to the Novu API with a specified workflow ID, along with the necessary payload data that the workflow content will utilize.
     </Step>
     <Step title="Steps">
-        In Novu, a channel refers to a preconfigured provider through which notifications are dispatched to recipients. In most instances within Novu, these channels utilize the credentials you provide to ensure the delivery of notifications on your behalf. The combination of these credentials and accompanying settings constitutes a configured channel.
-
-        Within the Novu framework, channels are categorized into various types, each of which is linked with at least one corresponding provider that can be tailored as needed:
+        Within the Novu framework, steps are categorized into various types, each of which is linked with at least one corresponding action:
 
         #### Channel Steps
         - **Email** (examples include Sendgrid, Postmark)
@@ -45,14 +43,9 @@ A workflow acts as the blueprint for the notifications that will be sent. This i
 
 ## Execution of Workflow Steps
 
-Once a workflow is initiated by its trigger, the steps (and channels) within the workflow are executed in a specific sequence. This sequential execution ensures that each step is completed before the next one begins, maintaining a controlled and orderly flow of the notification process. Here's what you need to know about this process:
+Once a workflow is initiated by its trigger, the steps within the workflow are executed in a specific sequence. This sequential execution ensures that each step is completed before the next one begins, maintaining a controlled and orderly flow of the notification process. Here's what you need to know about this process:
 
-- **Sequential Execution:** Each channel in the workflow is activated one after the other, in the order they are listed within the workflow. This method ensures that each step is given the necessary attention and that dependencies or prerequisites of later steps are adequately met.
-
-- **Order of Channels:** The order in which channels are listed in the workflow is crucial, as it dictates the sequence of their execution. You should carefully consider the order when setting up your workflows to align with your notification strategy.
-
+Each step in the workflow is activated one after the other, in the order they are listed within the workflow. This method ensures that each step is given the necessary attention and that dependencies or prerequisites of later steps are adequately met.
 Sequential execution provides a predictable and reliable workflow process, ensuring that messages are sent out in an organized manner and that each step's output potentially influences the subsequent ones.
-
 <br />
-
 Read more about building workflows [here](/workflow/introduction).
