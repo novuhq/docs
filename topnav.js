@@ -12,7 +12,7 @@ const topNavLinks = [
 
 const topNavCta = {
   label: "Get Started",
-  url: "https://web.novu.co?utm_campaign=docs_top_bar_gs",
+  url: "https://dashboard.novu.co?utm_campaign=docs_top_bar_gs",
 };
 
 const darkLogo = `<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
