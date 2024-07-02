@@ -137,7 +137,7 @@ A non-existing subscriber can be added by sending subscriber data in `to` fiel
 
 You can also pass only the `subscriberId` during a request, and hydrate the data directly from your database or other sources during the trigger execution. This is useful when you don't want to store all the subscriber data in Novu.
 
-### Ahead of Trigger (Optional)
+### Migration (Optional)
 
 Create the subscriber and then trigger the notification to this subscriber. Here `subscriberId` is the required field and other fields are optional.
 
@@ -149,13 +149,13 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.subscribers.identify('111', {
-email: 'john.doe@domain.com',
-firstName: 'John',
-lastName: 'Doe',
-phone: '+13603963366',
-avatar: 'https://example.com/images/avatar.jpg',
-locale: 'en-US',
-data: { customKey1: 'customVal1', customKey2: 'customVal2' },
+  email: 'john.doe@domain.com',
+  firstName: 'John',
+  lastName: 'Doe',
+  phone: '+13603963366',
+  avatar: 'https://example.com/images/avatar.jpg',
+  locale: 'en-US',
+  data: { customKey1: 'customVal1', customKey2: 'customVal2' },
 });
 
 ````
@@ -191,119 +191,3 @@ Novu will create a subscriber if one does not exist and will update the existing
 
 You can create subscribers in bulk _(up to 500 at once)_ via the SDKs or [API](/api-reference/subscribers/bulk-create-subscribers).
 
-<Tabs>
-  <Tab title="Node.js">
-```javascript
-await novu.subscribers.bulkCreate([
-  {
-    subscriberId: 'test-subscriber-1',
-    email: 'test-user@sd.com',
-    firstName: 'subscriber-1',
-    lastName: 'test-1',
-  },
-  {
-    subscriberId: 'test-subscriber-2',
-    email: 'test-user-2@sd.com',
-    firstName: 'subscriber-2',
-    lastName: 'test-2',
-  },
-  {
-    subscriberId: 'test-subscriber-3',
-  },
-]);
-```
-  </Tab>
-</Tabs>
-
-## Delete a subscriber
-
-To stop a subscriber from receiving notifications, you can delete the subscriber. This will hard delete the subscriber and means you will not be able to access this subscriber later. You will have to create this subscriber again.
-
-<Tabs>
-  <Tab title="Node.js">
-    ```jsx
-import { Novu } from '@novu/node';
-
-const novu = new Novu('<NOVU_API_KEY>');
-
-await novu.subscribers.delete('111');
-
-````
-  </Tab>
-  <Tab title="PHP">
-```php
-use Novu\SDK\Novu;
-
-$novu = new Novu('<NOVU_API_KEY>');
-
-$novu->deleteSubscriber('111');
-````
-
-</Tab>
-</Tabs>
-
-## Update a subscriber
-
-In some cases, you want to access a subscriber to update a specific user data field or custom data field. For example, when the users change their email address or personal details.
-
-<Tabs>
-  <Tab title="Node.js">
-```jsx
-import { Novu } from '@novu/node';
-
-const novu = new Novu('<NOVU_API_KEY>');
-
-await novu.subscribers.update('111', {
-// new email
-email: 'john@domain.com',
-// new phone
-phone: '+19874567832',
-});
-
-````
-  </Tab>
-  <Tab title="PHP">
-```php
-use Novu\SDK\Novu;
-
-$novu = new Novu('<NOVU_API_KEY>');
-
-$novu->updateSubscriber('111', [
-    // new email
-    'email' => 'john@domain.com',
-    // new phone
-    'phone' => '+19874567832',
-])->toArray();
-````
-
-</Tab>
-</Tabs>
-
-## Find a subscriber
-
-Any subscriber can be retrieved using a unique subscriber identifier `subscriberId`. Check the returned subscriber schema [here](#subscriber-response-schema).
-
-<Tabs>
-  <Tab title="Node.js">
-
-```javascript
-import { Novu } from "@novu/node";
-
-const novu = new Novu("<NOVU_API_KEY>");
-
-await novu.subscribers.get("111");
-```
-
-  </Tab>
-  <Tab title="PHP">
-
-```php
-use Novu\SDK\Novu;
-
-$novu = new Novu('<NOVU_API_KEY>');
-
-$novu->getSubscriber('111')->toArray();
-```
-
-  </Tab>
-</Tabs>
