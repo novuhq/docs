@@ -2,16 +2,16 @@
 title: "Going to Production"
 ---
 
-Novu operates in a multi environment setup. Currently Novu Supports 2 environments:
+Novu operates in a multi environment setup.  Novu currently supports 2 environments:
 
-- **Development** - This is the environment where the development team works on workflows.
-- **Production** - This is the environment that is used to trigger workflows to your customers.
+- **Development** - For creating, editing, and previewing workflows.
+- **Production** - For triggering workflows to your customers.
 
-## Pushing changes to Cloud
+## Pushing changes to Novu Cloud
 
 Novu Framework operates in a GitOps model. This means that the source of truth for your workflows and configurations are located in your Git as Code.
 
-The general workflow for pushing changes to Cloud is as follows:
+The general workflow for pushing changes to Novu Cloud is as follows:
 
 - Create a feature branch
 - Develop workflows locally in your Bridge application
@@ -24,7 +24,7 @@ The general workflow for pushing changes to Cloud is as follows:
 
 ## Networking
 
-Novu Cloud workers will need to be able to communicated with your [Bridge Endpoint](/concepts/endpoint). You will need to ensure that your firewall rules allow traffic from the internet.
+Novu Cloud workers will need to be able to communicate with your [Bridge Endpoint](/concepts/endpoint). You will need to ensure that your firewall rules allow traffic from the internet.
 Due to the autoscaling nature of Novu Cloud, we don't have a set of IP Addresses that you can whitelist.
 
 ## Security
@@ -47,10 +47,12 @@ export const client = new Client({
 </Info>
 
 The `X-Novu-Signature` header included in each signed event contains a timestamp and one or more signatures that we verify.
-The timestamp is prefixed by t=, and each signature is prefixed by a scheme.
-Schemes start with v, followed by an integer. Currently, the only valid live signature scheme is v1.
+The timestamp is prefixed by `t=`, and each signature is prefixed by a scheme.
+Schemes start with `v`, followed by an integer. Currently, the only valid live signature scheme is v1.
 
-Handling the signature verification is done by the Novu Framework, you don't need to perform any action.
+<!-- todo add an example of the x-novu-signature header here -->
+
+Handling the signature verification is done by the Novu Framework, so you don't need to perform any action.
 
 ## CI/CD Integrations
 
