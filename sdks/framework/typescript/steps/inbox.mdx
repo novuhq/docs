@@ -1,0 +1,46 @@
+---
+title: "In-App Channel Step"
+sidebarTitle: "Inbox"
+---
+
+<RequestExample>
+    ```typescript Inbox
+    await step.inApp('inbox', async () => {
+        return {
+            body: 'A new notification has been created',
+        };
+    });
+    ```
+</RequestExample>
+
+<ResponseExample>
+    ```typescript Inbox
+    const {
+        seen,
+        read,
+        lastSeenDate,
+        lastReadDate,
+    } = await step.inApp('inbox', handler);
+    ```
+</ResponseExample>
+
+## Inbox Step Output
+
+<ParamField path="body" type="string" required>
+  The body of the inbox notification
+</ParamField>
+
+## Inbox Step Result
+
+<ParamField path="seen" type="boolean" required>
+  The body of the inbox notification
+</ParamField>
+<ParamField path="read" type="boolean" required>
+  The body of the inbox notification
+</ParamField>
+<ParamField path="lastSeenDate" type="date" required>
+  The body of the inbox notification
+</ParamField>
+<ParamField path="lastReadDate" type="date" required>
+  The body of the inbox notification
+</ParamField>

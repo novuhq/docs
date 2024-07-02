@@ -1,6 +1,6 @@
 ---
-title: 'How to Add Digest to Email Notifications'
-description: 'Leverage the digest functionality to send email notifications'
+title: "How to Add Digest to Email Notifications"
+description: "Leverage the digest functionality to send email notifications"
 ---
 
 # Introduction
@@ -9,9 +9,10 @@ In this guide, you’ll learn how to add digest functionality to email notificat
 
 You can find the entire code(frontend as well as backend) for this app [here](https://github.com/novuhq/digest-email-app).
 
-
 <Note>
-If, instead, you want to add digest to in-app notifications, we have a guide for that as well. Take a look [here](/guides/add-digest-to-inapp-notifications).
+  If, instead, you want to add digest to in-app notifications, we have a guide
+  for that as well. Take a
+  look [here](/guides/add-digest-to-inapp-notifications).
 </Note>
 ### What is a Digest Notification?
 
@@ -23,7 +24,7 @@ A digest notification is a notification that consolidates information from sever
 
 ### How does Digest Notification Work?
 
-Novu has a built-in digest engine that collects multiple trigger events, aggregates them into a single message, and delivers it to the subscriber. You can use the digest engine by adding a ‘digest node’ to your workflow in the workflow editor in the [Novu dashboard](https://web.novu.co/workflows?utm_campaign=docs-digests). If you want to learn more about it, [this](/getting-started/concepts#digest) is a great place to start.
+Novu has a built-in digest engine that collects multiple trigger events, aggregates them into a single message, and delivers it to the subscriber. You can use the digest engine by adding a ‘digest node’ to your workflow in the workflow editor in the [Novu dashboard](https://dashboard.novu.co/workflows?utm_campaign=docs-digests). If you want to learn more about it, [this](/getting-started/concepts#digest) is a great place to start.
 
 Let’s see it in action now!
 
@@ -31,7 +32,7 @@ Let’s see it in action now!
 
 To get started with this, you need the following:
 
-- A Novu account. [Sign up for free](http://web.novu.co/?utm_campaign=docs-gs-digests) if you don’t have one yet.
+- A Novu account. [Sign up for free](http://dashboard.novu.co/?utm_campaign=docs-gs-digests) if you don’t have one yet.
 - A working React development environment.
 
 # Workflow setup in Novu
@@ -41,24 +42,42 @@ Once, you have these, follow the steps below:
 1. Head over to the Novu Dashboard.
 2. Click `Workflows` on the left sidebar of your Novu dashboard.
 3. Click the `Create Workflow` button on the top right:
-<Frame caption="Creating workflows is simple"><img src="/images/create-workflow.png" /> </Frame>
-Once you click the `create workflow` button, you’ll see a dropdown. Select `blank workflow` from the dropdown:
-<Frame caption="Select 'blank workflow' from the dropdown"><img src="/images/blank-workflow.png" /> </Frame>
-You’ll now be taken to the workflow editor:
-<Frame caption="Workflow editor allows you to create and edit workflows"><img src="/images/workflow-editor.png" /> </Frame>
-Once here, you can add the channels you want to use for sending notifications and configure them. For this guide, we’ll use the `Email` channel. You’ll also see the `Digest` action on the right sidebar.
-
+   <Frame caption="Creating workflows is simple">
+     <img src="/images/create-workflow.png" />{" "}
+   </Frame>
+   Once you click the `create workflow` button, you’ll see a dropdown. Select `blank
+   workflow` from the dropdown:
+   <Frame caption="Select 'blank workflow' from the dropdown">
+     <img src="/images/blank-workflow.png" />{" "}
+   </Frame>
+   You’ll now be taken to the workflow editor:
+   <Frame caption="Workflow editor allows you to create and edit workflows">
+     <img src="/images/workflow-editor.png" />{" "}
+   </Frame>
+   Once here, you can add the channels you want to use for sending notifications
+   and configure them. For this guide, we’ll use the `Email` channel. You’ll also
+   see the `Digest` action on the right sidebar.
 
 <Note>
-Each node that is added below the digest node will only be triggered after the specified time interval
+  Each node that is added below the digest node will only be triggered after the
+  specified time interval
 </Note>
 
 For example, in our case, say we want the email notification to be sent after every 6 hours. So, add the `digest` action below the `trigger node`, and add the `email` channel node below the `digest` node as shown below:
-<Frame caption="Adding a digest node to an email notification workflow"><img src="/images/digest-email.png" /> </Frame>
-The `digest` node allows you to set a specific time interval for when notifications should be sent:
-<Frame caption="Setting time-interval in digest node"><img src="/images/digest.png" /> </Frame>
-Once, you’ve configured it. Go ahead and configure the `email` channel as per your need:
-<Frame caption="Configuring the email node as per our requirements"><img src="/images/email-node.png" /> </Frame>
+
+<Frame caption="Adding a digest node to an email notification workflow">
+  <img src="/images/digest-email.png" />{" "}
+</Frame>
+The `digest` node allows you to set a specific time interval for when notifications
+should be sent:
+<Frame caption="Setting time-interval in digest node">
+  <img src="/images/digest.png" />{" "}
+</Frame>
+Once, you’ve configured it. Go ahead and configure the `email` channel as per your
+need:
+<Frame caption="Configuring the email node as per our requirements">
+  <img src="/images/email-node.png" />{" "}
+</Frame>
 Here’s a brief explanation of all the options:
 
 - **1-Preview:** This shows you a glimpse of what the email notification item will look like when delivered to the client.
@@ -71,7 +90,10 @@ Here’s a brief explanation of all the options:
 You can write your own digest template in the 'custom code' section or just follow this guide as shown in the picture above. Once you’re done configuring this to your liking, click on the `update` button on the top right.
 
 It’ll automatically create a trigger code that you can use in your app. To get it, click on the `get snippet` button on the top right and copy it:
-<Frame caption="Getting trigger code is simple"><img src="/images/trigger-code.png" /> </Frame>
+
+<Frame caption="Getting trigger code is simple">
+  <img src="/images/trigger-code.png" />{" "}
+</Frame>
 Now, let’s see how to add Novu to our app!
 
 # Add Novu to the Backend and Configure it
@@ -86,26 +108,27 @@ npm install @novu/node
 Now, create a route that you want to hit when called from the front end. In our demo app, this is the route:
 
 ```jsx
-import express from 'express';
+import express from "express";
 
-import { getEmailDigest } from '../controller/emaildigest.js';
+import { getEmailDigest } from "../controller/emaildigest.js";
 
 const router = express.Router();
 
-router.post('/sending-email-digest', getEmailDigest);
+router.post("/sending-email-digest", getEmailDigest);
 
 export default router;
 ```
+
 Now, we need to write a controller function that will handle the logic for what is to be sent in the trigger function’s payload. In our case, this is the controller function:
 
 ```jsx
-import { sendEmailDigest } from '../novu/novu.js';
+import { sendEmailDigest } from "../novu/novu.js";
 
 export const getEmailDigest = async (req, res) => {
   const { notif, email } = req.body;
   try {
     await sendEmailDigest(notif, email);
-    res.status(201).json({ message: 'success', notif: notif });
+    res.status(201).json({ message: "success", notif: notif });
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
@@ -116,13 +139,13 @@ To make it modular, we’ll keep the trigger code in a separate function in a se
 
 If you’re following the guide, you’ve already copied the trigger function. But before we can add it to our app, we need one key thing - Subscribers.
 
-Subscribers are users to which the notifications are sent. You can see a list of subscribers in the [Novu dashboard](https://web.novu.co/subscribers?utm_campaign=docs-digests) as well.
+Subscribers are users to which the notifications are sent. You can see a list of subscribers in the [Novu dashboard](https://dashboard.novu.co/subscribers?utm_campaign=docs-digests) as well.
 
 In our app, we’ll create a subscriber in Node.js as we’re writing our backend in Node.js, but we also have backend [SDKs](/sdks/introduction) ([Node.js](https://github.com/novuhq/novu/tree/next/packages/node), [PHP](https://github.com/novuhq/novu-php), [.NET](https://github.com/novuhq/novu-dotnet), [Elixir](https://github.com/novuhq/novu-elixir), [Go](https://github.com/novuhq/go-novu), [Ruby](https://github.com/novuhq/novu-ruby), [Python](https://github.com/novuhq/novu-python), and [Kotlin](https://github.com/novuhq/novu-kotlin)) to choose from. The recommended way to create a subscriber in NodeJS is as follows:
 
 ```jsx
-await novu.subscribers.identify('digestEmailSub', {
-  firstName: 'digest email subscriber',
+await novu.subscribers.identify("digestEmailSub", {
+  firstName: "digest email subscriber",
   email: email,
 });
 ```
@@ -132,18 +155,18 @@ Here, we’re creating a subscriber with the `subscriberID` of `digestEmailSu
 Back in our app, we can now add the trigger function:
 
 ```jsx
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 export const sendEmailDigest = async (notif, email) => {
   const novu = new Novu(process.env.YOUR_NOVU_API_KEY);
-  await novu.subscribers.identify('digestEmailSub', {
-    firstName: 'digest email subscriber',
+  await novu.subscribers.identify("digestEmailSub", {
+    firstName: "digest email subscriber",
     email: email,
   });
 
-  novu.trigger('emaildigestworkflow', {
+  novu.trigger("emaildigestworkflow", {
     to: {
-      subscriberId: 'digestEmailSub',
+      subscriberId: "digestEmailSub",
       email: email,
     },
     payload: {
@@ -161,23 +184,23 @@ From the front end, we just need to hit the route we had defined above. Below, I
 
 ```jsx
 const Body = () => {
-  const [formInput, setFormInput] = useState({ notif: '', email: '' });
+  const [formInput, setFormInput] = useState({ notif: "", email: "" });
   const [buttonClicked, setButtonClicked] = useState(false);
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      'https://emaildigestbackend.onrender.com/api/v1/sending-email-digest',
+      "https://emaildigestbackend.onrender.com/api/v1/sending-email-digest",
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formInput),
       }
     );
     console.log(response.data);
-    setFormInput({ notif: '' });
+    setFormInput({ notif: "" });
   };
 
   const handleClick = () => {
@@ -190,7 +213,8 @@ const Body = () => {
   };
 
   const onChangeHandler = (e) => {
-    const value = e.target.name === 'email' ? e.target.value.trim() : e.target.value;
+    const value =
+      e.target.name === "email" ? e.target.value.trim() : e.target.value;
 
     setFormInput((prev) => ({
       ...prev,
@@ -201,9 +225,9 @@ const Body = () => {
     <div>
       <h1>Email Digest Playground</h1>
       <p>
-        Don't know how to? Start{' '}
+        Don't know how to? Start{" "}
         <a className="underline" href="https://docs.novu.co/platform/digest/">
-          {' '}
+          {" "}
           here
         </a>
       </p>
@@ -247,7 +271,10 @@ We're hitting the backend route we had created earlier. The backend has been dep
 Congratulations on following the guide up until this point. We can style our app a little using [some TailwindCSS](https://github.com/novuhq/digest-email-app/blob/main/frontend/src/app.css).
 
 If you’ve done everything as recommended, you’ll end up with an app that looks like this:
-<Frame caption="Filtering by channel"><img src="/images/email-digest.gif" /> </Frame>
+
+<Frame caption="Filtering by channel">
+  <img src="/images/email-digest.gif" />{" "}
+</Frame>
 
 In this app, when we enter the email id, some text in the input box, and click send, the notification appears in the inbox after the delay specified above (when we’re creating the workflow).
 

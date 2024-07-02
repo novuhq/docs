@@ -13,22 +13,23 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 const payload = {
-  content: "<h1>Layout Start</h1>{{{body}}}<h1>Layout End</h1>",
-  description: "Organisation's first layout",
-  name: "First Layout",
-  identifier: "firstlayout",
-  variables: [
-    {
-      type: "String",
-      name: "body"
-      required: true
-      defValue: ""
-    }
-  ]
-  isDefault: "false"
+content: "<h1>Layout Start</h1>{{{body}}}<h1>Layout End</h1>",
+description: "Organisation's first layout",
+name: "First Layout",
+identifier: "firstlayout",
+variables: [
+{
+type: "String",
+name: "body"
+required: true
+defValue: ""
+}
+]
+isDefault: "false"
 }
 await novu.layouts.create(payload);
-```
+
+````
 
 ```ruby Ruby
 require 'novu'
@@ -42,7 +43,7 @@ payload = {
     'isDefault' => true # optional
 }
 client.create_layout(payload)
-```
+````
 
 ```python Python
 from novu.api import LayoutApi
@@ -73,7 +74,7 @@ public class Main {
 
 ```json Response
 {
-    "data": {
+  "data": {
     "_id": "Layout identifier"
   }
 }

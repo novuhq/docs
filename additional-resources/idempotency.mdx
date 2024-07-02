@@ -1,7 +1,7 @@
 ---
-title: 'Idempotent Requests'
-description: 'Retry API requests fearlessly, ensuring the operation performs just once!'
-icon: 'repeat-1'
+title: "Idempotent Requests"
+description: "Retry API requests fearlessly, ensuring the operation performs just once!"
+icon: "repeat-1"
 ---
 
 Our platform has a seamless integration of optional [idempotent](https://en.wikipedia.org/wiki/Idempotence) requests for `POST` and `PATCH` operations.
@@ -12,24 +12,24 @@ Leveraging this feature guarantees the safety and reliability of your requests, 
 Idempotent requests are <b>critical</b> for workflows that require the insurance of only one successful delivery request.
 
 <Note>
-    This feature was introduced in version 0.22.0 and is fully operable from 0.24.0 and beyond. Currently, the Idempotency headers are not enabled on the cloud platform but are available for self-hosting.
+  This feature was introduced in version 0.22.0 and is fully operable from
+  0.24.0 and beyond. Currently, the Idempotency headers are not enabled on the
+  cloud platform but are available for self-hosting.
 </Note>
 
 <Warning>
-    Please be aware that idempotency might not be supported in all community SDKs.
+  Please be aware that idempotency might not be supported in all community SDKs.
 </Warning>
-
 
 ## How to Perform an Idempotent Request with SDKs
 
 Supporting SDKS will implement Idempotency for you as long as you have retries turned on.
 Not only is this seamless but it also ensures that no event request is dropped provided that your system stays up.
 
-<Note>
-    Idempotency is only implemented for /events/trigger endpoint.
-</Note>
+<Note>Idempotency is only implemented for /events/trigger endpoint.</Note>
 
 ### Idempotent request with api
+
 To make an idempotent request, simply include the `Idempotency-Key: <key>` in your request header.
 This key should be a unique client-generated value, boasting enough entropy to prevent collisions;
 we recommend a collision-resistant Unique Identifier, such as UUIDv7, CUID, or ULID, as your idempotency keys.
@@ -51,7 +51,7 @@ Here are some unique pieces constraints you should be aware of especially if you
 3. A ongoing processing of the initial request that hasn't yet responded will result in a `409 Conflict` error. This will include a `Retry-After` header.
 
 <Note>
-    Results will <b>not</b> saved if an API request is invalid.
+  Results will <b>not</b> saved if an API request is invalid.
 </Note>
 
 ## Expiring Keys
@@ -60,7 +60,9 @@ All idempotency keys are ensured to be automatically removed once they are 24 ho
 After this period, the reused key will be treated as a new request and response.
 
 ## Practical Examples
+
 ### Example 1 - No idempotency
+
 <Tabs>
     <Tab title="Node.js">
         ```javascript
@@ -80,9 +82,11 @@ After this period, the reused key will be treated as a new request and response.
         });
             ```
     </Tab>
+
 </Tabs>
 
 ### Example 2 - Idempotency Active
+
 <Tabs>
     <Tab title="Node.js">
         ```javascript
@@ -107,8 +111,8 @@ After this period, the reused key will be treated as a new request and response.
         });
             ```
     </Tab>
-</Tabs>
 
+</Tabs>
 
 ## References
 

@@ -1,18 +1,18 @@
 ---
-title: 'Workflow Editor'
-description: ''
-icon: 'code'
+title: "Workflow Editor"
+description: ""
+icon: "code"
 ---
 
-Novu's content creation tools allow developers to utilize a wealth of variables when designing notification workflows. 
+Novu's content creation tools allow developers to utilize a wealth of variables when designing notification workflows.
 
 As developers construct workflows using Novu, certain status facets—results of batch functions and other steps in the workflow—are auto-generated and can be utilized to control the content displayed in notification templates.
 
-These variables offer dynamic and automated properties that hold subscriber information, such as first and last name, email, phone, and avatar. 
+These variables offer dynamic and automated properties that hold subscriber information, such as first and last name, email, phone, and avatar.
 
 For example, developers can insert a subscriber's first name into a workflow by using `{{ subscriber.firstName }}`.
 
-In addition to the subscriber's details, developers can use data payload variables that encapsulate dynamic data meant to be injected into the content of a workflow. 
+In addition to the subscriber's details, developers can use data payload variables that encapsulate dynamic data meant to be injected into the content of a workflow.
 
 For instance, in the code example the variables username and resetLink are data payload variables that would be adjusted based on the workflow's purpose.
 
@@ -20,59 +20,58 @@ For instance, in the code example the variables username and resetLink are data 
 
 ## System Variables
 
-
 ### Subscriber Variables
 
-| Variable      | Type     | Description                                            |
-| ------------- | -------- | ------------------------------------------------------ |
-| `subscriber`  | `Object` | Represents someone who is intended to receive a notification. |
-| `firstName`   | `String` | The first name of the subscriber.                      |
-| `lastName`    | `String` | The last name of the subscriber.                       |
-| `email`       | `String` | The subscriber's email address.                         |
-| `phone`       | `String` | The phone number associated with the subscriber.        |
-| `avatar`      | `String` | A URL or reference to the subscriber’s avatar or profile picture. |
-| `locale`      | `String` | The preferred locale or language of the subscriber.     |
-| `subscriberId` | `String` | Unique identifier for the subscriber.                   |
-| `data`        | `Object` | An additional object that can hold custom subscriber data as key-value pairs. |
+| Variable       | Type     | Description                                                                   |
+| -------------- | -------- | ----------------------------------------------------------------------------- |
+| `subscriber`   | `Object` | Represents someone who is intended to receive a notification.                 |
+| `firstName`    | `String` | The first name of the subscriber.                                             |
+| `lastName`     | `String` | The last name of the subscriber.                                              |
+| `email`        | `String` | The subscriber's email address.                                               |
+| `phone`        | `String` | The phone number associated with the subscriber.                              |
+| `avatar`       | `String` | A URL or reference to the subscriber’s avatar or profile picture.             |
+| `locale`       | `String` | The preferred locale or language of the subscriber.                           |
+| `subscriberId` | `String` | Unique identifier for the subscriber.                                         |
+| `data`         | `Object` | An additional object that can hold custom subscriber data as key-value pairs. |
 
 ### Actor Variables
 
-| Variable      | Type     | Description                                            |
-| ------------- | -------- | ------------------------------------------------------ |
-| `actor`       | `Object` | A subscriber who initiates actions triggering events.  |
-| `firstName`   | `String` | The first name of the actor.                           |
-| `lastName`    | `String` | The last name of the actor.                            |
-| `email`       | `String` | The actor's email address.                             |
-| `phone`       | `String` | The phone number associated with the actor.            |
-| `avatar`      | `String` | A URL or reference to the actor’s avatar or profile picture. |
-| `locale`      | `String` | The preferred locale or language of the actor.         |
-| `subscriberId` | `String` | Unique identifier for the actor.                       |
-| `data`        | `Object` | An additional object that can hold custom actor data as key-value pairs. |
+| Variable       | Type     | Description                                                              |
+| -------------- | -------- | ------------------------------------------------------------------------ |
+| `actor`        | `Object` | A subscriber who initiates actions triggering events.                    |
+| `firstName`    | `String` | The first name of the actor.                                             |
+| `lastName`     | `String` | The last name of the actor.                                              |
+| `email`        | `String` | The actor's email address.                                               |
+| `phone`        | `String` | The phone number associated with the actor.                              |
+| `avatar`       | `String` | A URL or reference to the actor’s avatar or profile picture.             |
+| `locale`       | `String` | The preferred locale or language of the actor.                           |
+| `subscriberId` | `String` | Unique identifier for the actor.                                         |
+| `data`         | `Object` | An additional object that can hold custom actor data as key-value pairs. |
 
 ### Step Variables
 
-| Variable      | Type     | Description                                            |
-| ------------- | -------- | ------------------------------------------------------ |
-| `step`        | `Object` | A component in the execution of a workflow.            |
-| `digest`      | `Boolean` | Indicates whether digest mode is active or not.        |
-| `events`      | `Array`  | An aggregated collection of events (that are stored when digest is active). |
-| `total_count` | `Number` | Represents the total number of events in the digest.   |
+| Variable      | Type      | Description                                                                 |
+| ------------- | --------- | --------------------------------------------------------------------------- |
+| `step`        | `Object`  | A component in the execution of a workflow.                                 |
+| `digest`      | `Boolean` | Indicates whether digest mode is active or not.                             |
+| `events`      | `Array`   | An aggregated collection of events (that are stored when digest is active). |
+| `total_count` | `Number`  | Represents the total number of events in the digest.                        |
 
 ### Brand Variables
 
-| Variable  | Type     | Description                                            |
-| --------- | -------- | ------------------------------------------------------ |
-| `branding` | `Object` | Enables customization of the notification's visual identity. |
-| `logo`     | `String` | Insert the brand logo.                                 |
+| Variable   | Type     | Description                                                                 |
+| ---------- | -------- | --------------------------------------------------------------------------- |
+| `branding` | `Object` | Enables customization of the notification's visual identity.                |
+| `logo`     | `String` | Insert the brand logo.                                                      |
 | `color`    | `String` | Set the primary color of the notification based on the brand configuration. |
 
 ### Tenant Variables
 
-| Variable  | Type     | Description                                            |
-| --------- | -------- | ------------------------------------------------------ |
-| `tenant`  | `Object` | Group of users or an organization.                     |
-| `name`    | `String` | Insert the brand logo.                                 |
-| `data`    | `Object` | An additional object that can hold custom tenant data as key-value pairs. |
+| Variable | Type     | Description                                                               |
+| -------- | -------- | ------------------------------------------------------------------------- |
+| `tenant` | `Object` | Group of users or an organization.                                        |
+| `name`   | `String` | Insert the brand logo.                                                    |
+| `data`   | `Object` | An additional object that can hold custom tenant data as key-value pairs. |
 
 ## Data Payload Variables
 
@@ -98,7 +97,7 @@ curl -L -X POST 'https://api.novu.co/v1/events/trigger' \
 }'
 ```
 
-Within this code snippet, the variables `username` and `resetLink` are representative of data payload variables. 
+Within this code snippet, the variables `username` and `resetLink` are representative of data payload variables.
 
 Importantly, it's worth noting that the payload itself can encompass any serializable JSON object.
 

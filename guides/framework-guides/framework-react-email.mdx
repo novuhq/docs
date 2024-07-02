@@ -1,6 +1,6 @@
 ---
-title: 'How to send notifications with Next.js and React email'
-description: 'Leverage the React email package to send email notifications'
+title: "How to send notifications with Next.js and React email"
+description: "Leverage the React email package to send email notifications"
 ---
 
 # Introduction
@@ -8,6 +8,7 @@ description: 'Leverage the React email package to send email notifications'
 In this guide, you’ll learn how to send email notifications using the React email package. But before we jump into it, let's first take a look at the prerequisites!
 
 ## Pre-requisites
+
 - A Novu account
 - Node installed on your machine
 - A working NextJS development environment
@@ -17,20 +18,26 @@ In this guide, you’ll learn how to send email notifications using the React em
 [Novu Framework](https://docs.novu.co/framework/quickstart) is a "notifications as code" approach that enables developers to define workflows as functions and integrate them with their preferred libraries for email, SMS, and chat generation.
 
 1. To get started with Novu Framework, just run this command in your terminal, it’ll scaffold a new NextJS project with Novu Framework and we’ll be ready to roll!
+
 ```jsx
 npx create-novu-app --api-key=<YOUR_API_KEY>
 ```
+
 2. Once you execute this command, you’ll be asked to give your project a name. I’ll keep the default `my-novu-app` but you can choose your own.
-<Frame caption="Give your app a name"><img src="/images/framework-react-email/1.png" /> </Frame>
+   <Frame caption="Give your app a name">
+     <img src="/images/framework-react-email/1.png" />{" "}
+   </Frame>
 3. You’ll then be asked if you want to use React-email or not. You can choose to install it at this step itself or proceed with No and then install it later. I’m choosing the default No option.
-<Frame caption="Choose if you want to install React email or not"><img src="/images/framework-react-email/2.png" /> </Frame>
+   <Frame caption="Choose if you want to install React email or not">
+     <img src="/images/framework-react-email/2.png" />{" "}
+   </Frame>
 4. After this step, all the dependencies will be installed and you will be able to start using Novu Framework.
-<Frame caption="Let all the dependencies get installed"><img src="/images/framework-react-email/3.png" /> </Frame>
+   <Frame caption="Let all the dependencies get installed">
+     <img src="/images/framework-react-email/3.png" />{" "}
+   </Frame>
 5. Once this installation is complete, simply cd into the directory and start your app using the `npm run dev` command, and your app will be served on `localhost:4000`
 
-<Note>
-Make sure that the port 4000 isn’t already being used!
-</Note>
+<Note>Make sure that the port 4000 isn’t already being used!</Note>
 
 You’ll now have a NextJS app running on `http://localhost:4000` and you can make changes to your app as you see fit. Let’s now move to the meaty stuff - using Novu Framework in a NextJS app and the magic of Dev Studio.
 
@@ -39,25 +46,39 @@ You’ll now have a NextJS app running on `http://localhost:4000` and you can ma
 The Echo Dev Studio is a companion app to the Echo Client SDK. Its goal is to provide a local environment that lives near your code.
 
 To launch the dev studio locally you can run: `npx novu-labs@latest echo`. The Dev Studio will be started by default on port `2022`, and accessible via: `http://localhost:2022`
-<Frame caption="Echo Dev Studio runs on 'localhost:2022' by default. Here I’m already using port 2022 so it is starting on a different port but we recommend ensuring that port 2022 is free"><img src="/images/framework-react-email/4.png" /> </Frame>
+
+<Frame caption="Echo Dev Studio runs on 'localhost:2022' by default. Here I’m already using port 2022 so it is starting on a different port but we recommend ensuring that port 2022 is free">
+  <img src="/images/framework-react-email/4.png" />{" "}
+</Frame>
 
 Here’s how the Dev Studio looks on the first run:
-<Frame caption="Echo Dev Studio on the first run"><img src="/images/framework-react-email/5.png" /> </Frame>
-You’ll notice that it asks for an `Bridge endpoint` at the bottom. Novu Framework requires a single HTTP endpoint (`/api/novu` or similar) to be exposed by your application. This endpoint is used to receive events from our Worker Engine. We have more on Bridge endpoint [in our docs.](https://docs.novu.co/framework/concepts/endpoint)
+
+<Frame caption="Echo Dev Studio on the first run">
+  <img src="/images/framework-react-email/5.png" />{" "}
+</Frame>
+You’ll notice that it asks for an `[Bridge Endpoint](/concepts/endpoint)` at the bottom. Novu Framework
+requires a single HTTP endpoint (`/api/novu` or similar) to be exposed by your application.
+This endpoint is used to receive events from our Worker Engine. We have more on Bridge
+endpoint [in our docs.](https://docs.novu.co/framework/concepts/endpoint)
 
 <Note>
-You can view the Bridge Endpoint as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
+You can view the [Bridge Endpoint](/concepts/endpoint) as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
 
 </Note>
 
-Just enter the full URL of your Bridge Endpoint. In our case, it is `http://localhost:4000/api/echo`
-<Frame caption="Enter Echo endpoint URL"><img src="/images/framework-react-email/6.png" /> </Frame>
-Once you do, you’ll see a green checkmark alongside the URL input box and a green `connected` highlight at the top right corner.
+Just enter the full URL of your [Bridge Endpoint](/concepts/endpoint). In our case, it is `http://localhost:4000/api/echo`
+
+<Frame caption="Enter Echo endpoint URL">
+  <img src="/images/framework-react-email/6.png" />{" "}
+</Frame>
+Once you do, you’ll see a green checkmark alongside the URL input box and a green
+`connected` highlight at the top right corner.
 
 ## Installing and configuring React Email
 
 <Note>
-If you opted for installing React Email in our CLI set-up process, you can skip installing it again.
+  If you opted for installing React Email in our CLI set-up process, you can
+  skip installing it again.
 </Note>
 
 Integrating React Email with Novu in our NextJS app is quite straightforward. Following are the steps to get it installed and configured:
@@ -71,6 +92,7 @@ Integrating React Email with Novu in our NextJS app is quite straightforward. Fo
 Once installed, proceed to write an email template in the next step
 
 2. To write an email template, you can look over some of the examples in the [React Email documentation](https://react.email/examples) to get inspiration. In our case, this is the template:
+
 ```jsx
 import {
   Body,
@@ -234,56 +256,73 @@ export function renderReactEmail(input: any, payload: any) {
 ```
 
 3. And as final step, we need to define the workflow that uses the template defined above.
+
 ```jsx
-export const newSignup = workflow('new-signup', async ({ step, payload }) => {
-  // Send a welcome email
-  await step.email('send-email', async (inputs) => {
-    return {
-      subject: `Welcome to Novu, ${payload.username}`,
-      body: renderReactEmail(inputs, payload),
-    };
-  }, {
-    inputSchema: {
-      type: "object",
-      properties: {
-        showJoinButton: { type: "boolean", default: true },
-        buttonText: { type: "string", default: "Join the team" },
-        userImage: {
-          type: "string",
-          default: "https://react-email-demo-bdj5iju9r-resend.vercel.app/static/vercel-user.png",
-          format: "uri",
-        },
-        invitedByUsername: { type: "string", default: "Alan" },
-        invitedByEmail: {
-          type: "string",
-          default: "alan.turing@example.com",
-          format: "email",
-        },
-        teamName: { type: "string", default: "Team Awesome" },
-        teamImage: {
-          type: "string",
-          default: "https://react-email-demo-bdj5iju9r-resend.vercel.app/static/vercel-team.png",
-          format: "uri",
-        },
-        inviteLink: {
-          type: "string",
-          default: "https://vercel.com/teams/invite/foo",
-          format: "uri",
-        },
-        inviteFromIp: { type: "string", default: "204.13.186.218" },
-        inviteFromLocation: {
-          type: "string",
-          default: "São Paulo, Brazil",
-        },
+export const newSignup = workflow(
+  "new-signup",
+  async ({ step, payload }) => {
+    // Send a welcome email
+    await step.email(
+      "send-email",
+      async (inputs) => {
+        return {
+          subject: `Welcome to Novu, ${payload.username}`,
+          body: renderReactEmail(inputs, payload),
+        };
       },
-    },
-  });
-  // JSON Schema for validation and type-safety. Zod, and others coming soon.
-}, { payloadSchema: { properties: { text: { type: 'string' } } } });
+      {
+        controlSchema: {
+          type: "object",
+          properties: {
+            showJoinButton: { type: "boolean", default: true },
+            buttonText: { type: "string", default: "Join the team" },
+            userImage: {
+              type: "string",
+              default:
+                "https://react-email-demo-bdj5iju9r-resend.vercel.app/static/vercel-user.png",
+              format: "uri",
+            },
+            invitedByUsername: { type: "string", default: "Alan" },
+            invitedByEmail: {
+              type: "string",
+              default: "alan.turing@example.com",
+              format: "email",
+            },
+            teamName: { type: "string", default: "Team Awesome" },
+            teamImage: {
+              type: "string",
+              default:
+                "https://react-email-demo-bdj5iju9r-resend.vercel.app/static/vercel-team.png",
+              format: "uri",
+            },
+            inviteLink: {
+              type: "string",
+              default: "https://vercel.com/teams/invite/foo",
+              format: "uri",
+            },
+            inviteFromIp: { type: "string", default: "204.13.186.218" },
+            inviteFromLocation: {
+              type: "string",
+              default: "São Paulo, Brazil",
+            },
+          },
+        },
+      }
+    );
+    // JSON Schema for validation and type-safety. Zod, and others coming soon.
+  },
+  { payloadSchema: { properties: { text: { type: "string" } } } }
+);
 ```
+
 Once you do this, you’ll see this workflow, the steps in the workflow, step inputs, payload variables and, the rendered view of this workflow on the Echo Dev Studio:
-<Frame caption="Echo Dev Studio now picks up the workflow we just created"><img src="/images/framework-react-email/7.png" /> </Frame>
-Here, from the Dev Studio, you or your peers can change things like the text of a button, toggle visibility of a button, static text content, etc, and have it synced with the cloud with the `Sync to Cloud` button.
+
+<Frame caption="Echo Dev Studio now picks up the workflow we just created">
+  <img src="/images/framework-react-email/7.png" />{" "}
+</Frame>
+Here, from the Dev Studio, you or your peers can change things like the text of a
+button, toggle visibility of a button, static text content, etc, and have it synced
+with the cloud with the `Sync to Cloud` button.
 
 ### Payload vs Step Inputs
 
@@ -304,57 +343,85 @@ Notice that in the Echo dev studio above, we’ve used payload as well as step i
 
 Once done with the workflow, now we need to sync it to the cloud. Fortunately, Novu Framework makes it a breeze to sync changes from the local machine to the cloud and it all happens with a click of a button.
 
-To enable our cloud environment to talk to your local Echo instance, you need to supply an Echo endpoint URL. This sets up a communication channel between our cloud environment and your local instance. To allow Novu to communicate with your local machine a tunnel will need to be generated. 
+To enable our cloud environment to talk to your local Echo instance, you need to supply an Echo endpoint URL. This sets up a communication channel between our cloud environment and your local instance. To allow Novu to communicate with your local machine a tunnel will need to be generated.
 
 The `create-novu-app` command sets up `localtunnel` for you. Running the `npm run dev` script in the project launches both the Bridge application and the tunnel solution. The tunnel URL shows up in the console output.
 
 You can also use a tool like `ngrok`:
+
 ```bash
-// using ngrok 
-ngrok http http://localhost:<YOUR_EDGE_PORT>      
+// using ngrok
+ngrok http http://localhost:<YOUR_EDGE_PORT>
 ```
+
 In our case, the app is running on port 4000 so we’ll use:
+
 ```bash
 ngrok http http://localhost:4000
 ```
+
 This will create a tunnel and you’ll see something like this in the terminal:
-<Frame caption="ngrok has done its magic"><img src="/images/framework-react-email/8.png" /> </Frame>
-Remember, the exact URL (`/api/novu` or similar) you expose in your application for handling Novu Framework requests is what you'd consider the `Bridge URL`. 
+
+<Frame caption="ngrok has done its magic">
+  <img src="/images/framework-react-email/8.png" />{" "}
+</Frame>
+Remember, the exact URL (`/api/novu` or similar) you expose in your application for
+handling Novu Framework requests is what you'd consider the `Bridge URL`.
 
 This URL would be the endpoint within your application's domain where Novu's Worker Engine sends requests to fetch notification content or subscriber details dynamically. In our case, it is this: `https://0536-2409-40f2-1039-43e1-3053-d98e-c276-ee5.ngrok-free.app/api/echo`
 
 So, we’ll enter this Bridge URL:
-<Frame caption="Enter the Bridge URL in the Dev Studio"><img src="/images/framework-react-email/9.png" /> </Frame>
+
+<Frame caption="Enter the Bridge URL in the Dev Studio">
+  <img src="/images/framework-react-email/9.png" />{" "}
+</Frame>
 And create diff:
-<Frame caption="Echo Dev Studio will create a diff for you"><img src="/images/framework-react-email/10.png" /> </Frame>
+<Frame caption="Echo Dev Studio will create a diff for you">
+  <img src="/images/framework-react-email/10.png" />{" "}
+</Frame>
 
 ## Testing our workflow
+
 Once you’ve synced your changes in the previous step, you’ll see a notification that says ‘Sync complete’ and you can now go to Novu Cloud using the ‘Test your workflows’ link and trigger a notification.
-<Frame caption="Test your workflow will take you to Novu Cloud"><img src="/images/framework-react-email/11.png" /> </Frame>
-You’ll see the workflow you’ve created has a blue lightning bolt icon. That icon signifies that the corresponding workflow has been created with Novu Framework:
-<Frame caption="You'll see the workflow created using Novu Framework with the blue lightning bolt icon"><img src="/images/framework-react-email/12.png" /> </Frame>
-Simply open the workflow and you can send a test email from there. 
+
+<Frame caption="Test your workflow will take you to Novu Cloud">
+  <img src="/images/framework-react-email/11.png" />{" "}
+</Frame>
+You’ll see the workflow you’ve created has a blue lightning bolt icon. That icon
+signifies that the corresponding workflow has been created with Novu Framework:
+<Frame caption="You'll see the workflow created using Novu Framework with the blue lightning bolt icon">
+  <img src="/images/framework-react-email/12.png" />{" "}
+</Frame>
+Simply open the workflow and you can send a test email from there.
 
 <Note>
-Make sure that all the expected payload variables and step inputs are being sent in their respective fields!
+  Make sure that all the expected payload variables and step inputs are being
+  sent in their respective fields!
 </Note>
-<Frame caption="Enter the respective data and test your workflow"><img src="/images/framework-react-email/13.png" /> </Frame>
+<Frame caption="Enter the respective data and test your workflow">
+  <img src="/images/framework-react-email/13.png" />{" "}
+</Frame>
 This is the workflow test email in my inbox:
-<Frame caption="Workflow test email in my inbox"><img src="/images/framework-react-email/14.png" /> </Frame>
-Once tested, you can simply have this workflow triggered whenever you want. For instance, a typical use case is to have a workflow triggered when an event occurs. To replicate it, I’ve attached a handler function that triggers this workflow when the `submit` event fires:
+<Frame caption="Workflow test email in my inbox">
+  <img src="/images/framework-react-email/14.png" />{" "}
+</Frame>
+Once tested, you can simply have this workflow triggered whenever you want. For
+instance, a typical use case is to have a workflow triggered when an event
+occurs. To replicate it, I’ve attached a handler function that triggers this
+workflow when the `submit` event fires:
 
 Here’s a simple replication of the stipulated scenario:
+
 ```jsx
-"use client"
+"use client";
 import Image from "next/image";
 import styles from "./page.module.css";
 import React, { useState } from "react";
 import axios from "axios";
 
 export default function Home() {
-
-  const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
 
   const onClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -372,23 +439,30 @@ export default function Home() {
 
       // console.log('working fine');
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
   return (
-    <main style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <main
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <form onSubmit={(e) => onClickHandler(e)}>
         <input
           placeholder="Enter email id"
           onChange={(e) => setEmail(e.target.value)}
           style={{
             // Add your CSS-in-JS styles here
-            padding: '0.5rem',
-            marginBottom: '1rem',
-            borderRadius: '0.25rem',
-            border: '1px solid #ccc',
-            width: '100%',
-            boxSizing: 'border-box',
+            padding: "0.5rem",
+            marginBottom: "1rem",
+            borderRadius: "0.25rem",
+            border: "1px solid #ccc",
+            width: "100%",
+            boxSizing: "border-box",
           }}
         />
         <input
@@ -396,25 +470,30 @@ export default function Home() {
           onChange={(e) => setUsername(e.target.value)}
           style={{
             // Add your CSS-in-JS styles here
-            padding: '0.5rem',
-            marginBottom: '1rem',
-            borderRadius: '0.25rem',
-            border: '1px solid #ccc',
-            width: '100%',
-            boxSizing: 'border-box',
+            padding: "0.5rem",
+            marginBottom: "1rem",
+            borderRadius: "0.25rem",
+            border: "1px solid #ccc",
+            width: "100%",
+            boxSizing: "border-box",
           }}
         />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <button
             style={{
               // Add your CSS-in-JS styles here
-              padding: '0.5rem 1rem',
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '0.25rem',
-              cursor: 'pointer',
+              padding: "0.5rem 1rem",
+              backgroundColor: "#4CAF50",
+              color: "white",
+              border: "none",
+              borderRadius: "0.25rem",
+              cursor: "pointer",
             }}
           >
             Submit
@@ -425,18 +504,20 @@ export default function Home() {
   );
 }
 ```
-And the corresponding route it hits:
-```jsx
-import { Novu } from '@novu/node';
 
-const novu = new Novu('<Your Novu API Key>');
+And the corresponding route it hits:
+
+```jsx
+import { Novu } from "@novu/node";
+
+const novu = new Novu("<Your Novu API Key>");
 
 export async function POST(request: Request) {
   const res = await request.json();
 
-  await novu.trigger('<Workflow name>', {
+  await novu.trigger("<Workflow name>", {
     to: {
-      subscriberId: '<subscriber ID>',
+      subscriberId: "<subscriber ID>",
     },
     payload: {
       email: res.email,
@@ -444,23 +525,31 @@ export async function POST(request: Request) {
     },
   });
 
-  console.log('triggered')
+  console.log("triggered");
   return Response.json({ success: true });
 }
 ```
+
 ## More workflow examples
 
 Creating workflows with Novu Framework is a breeze. Here are a couple of other examples from React email docs created with Novu Framework:
 
 1. AWS Email verification example
-<Frame caption="AWS verification example"><img src="/images/framework-react-email/15.png" /> </Frame>
+   <Frame caption="AWS verification example">
+     <img src="/images/framework-react-email/15.png" />{" "}
+   </Frame>
 2. Apple invoice email example
-<Frame caption="Apple invoice email example"><img src="/images/framework-react-email/16.png" /> </Frame>
+   <Frame caption="Apple invoice email example">
+     <img src="/images/framework-react-email/16.png" />{" "}
+   </Frame>
 
 ## Conclusion
+
 So there you go!
 
-This is how you create workflows using Novu Framework and deploy your changes seamlessly to the Novu cloud. You can check out the code for a [sample demo app](https://github.com/novuhq/novu-framework-nextjs-react-email-example). 
+This is how you create workflows using Novu Framework and deploy your changes seamlessly to the Novu cloud. You can check out the code for a [sample demo app](https://github.com/novuhq/novu-framework-nextjs-react-email-example).
 Once you've built the workflow, you might want read one of [our other guides](/guides/framework-guides/product) on how to empower product teams to manage notification workflows.
-<br/>
-Don’t forget to share your workflows with us and as always, hit us up on Discord with any questions you might have!
+
+<br />
+Don’t forget to share your workflows with us and as always, hit us up on Discord
+with any questions you might have!

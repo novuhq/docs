@@ -19,13 +19,18 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```
 
 ```javascript Node.js
-import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+import {
+  Novu,
+  TemplateVariableTypeEnum,
+  FilterPartTypeEnum,
+  StepTypeEnum,
+} from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.notificationTemplates.update("workflowId", {
   name: "Send daily digest email update",
-  description: "This workflow will send daily digest email to user at 9:00 AM"
+  description: "This workflow will send daily digest email to user at 9:00 AM",
   /**
    * all other fields from create workflow payload
    */
@@ -62,7 +67,7 @@ body = {
     'description' => 'description', # optional
     'steps' => [ # optional
        # insert all fields here
-    ], 
+    ],
     'active' => true, # optional
     'draft' => true, # optional
     'critical' => true, # optional
@@ -128,7 +133,7 @@ func main() {
   body, _ := ioutil.ReadAll(resp.Body)
   fmt.Println(string(body))
 }
-    
+
 ```
 
 ```kotlin Kotlin
@@ -165,9 +170,7 @@ class Main {
       "push": true
     },
     "critical": true,
-    "tags": [
-      "string"
-    ],
+    "tags": ["string"],
     "steps": [
       {
         "_id": "string",

@@ -8,18 +8,19 @@ To demonstrate the extensive range of possibilities, we've crafted a subscriber 
 
 ```typescript
 const subscriber = {
-    subscriberId: '6427e97d0136cef86a315c46',
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@gmail.com',
-    phone: '+98712345677',
-    avatar: 'https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg',
-    locale: 'en-US',
-    data: {
-        plan: 'basic',
-        zipcode: 14925,
-        validVehicleLicense: true
-    }
+  subscriberId: "6427e97d0136cef86a315c46",
+  firstName: "John",
+  lastName: "Doe",
+  email: "john.doe@gmail.com",
+  phone: "+98712345677",
+  avatar:
+    "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg",
+  locale: "en-US",
+  data: {
+    plan: "basic",
+    zipcode: 14925,
+    validVehicleLicense: true,
+  },
 };
 ```
 
@@ -42,19 +43,12 @@ Example: Send a personalized welcome email to a user by leveraging their propert
 **Input:**
 
 ```html
-Hello {{subscriber.firstName}} {{subscriber.lastName}}!
-
-We are excited to welcome you to our {{subscriber.data.plan}} plan.
-Look forward to receiving daily updates from us on your phone number: {{subscriber.phone}}.
-
-{{#if subscriber.data.validVehicleLicense}}
-Why not consider renting a car to visit us?
-{{else}}
-We're delighted to offer you a train ticket to come see us.
-{{/if}}
-
-Should you require any assistance, don't hesitate to reach out.
-Best regards,
+Hello {{subscriber.firstName}} {{subscriber.lastName}}! We are excited to
+welcome you to our {{subscriber.data.plan}} plan. Look forward to receiving
+daily updates from us on your phone number: {{subscriber.phone}}. {{#if
+subscriber.data.validVehicleLicense}} Why not consider renting a car to visit
+us? {{else}} We're delighted to offer you a train ticket to come see us. {{/if}}
+Should you require any assistance, don't hesitate to reach out. Best regards,
 Your friends at Novu.
 ```
 
@@ -66,16 +60,10 @@ Your friends at Novu.
 **Output:**
 
 ```html
-Hello John Doe!
-
-We are excited to welcome you to our basic plan.
-Look forward to receiving daily updates from us on your phone
-number: +98712345677.
-
-Why not consider renting a car to visit us?
-Should you require any assistance, don't hesitate to reach out.
-Best regards,
-Your friends at Novu.
+Hello John Doe! We are excited to welcome you to our basic plan. Look forward to
+receiving daily updates from us on your phone number: +98712345677. Why not
+consider renting a car to visit us? Should you require any assistance, don't
+hesitate to reach out. Best regards, Your friends at Novu.
 ```
 
 <img
@@ -170,8 +158,11 @@ Your friends at Novu.
 
 <img style={{ borderRadius: "0.5rem" }} src="/images/custom-code-output.png" />
 
-<Info>Email Subject, Sender Name and Preheader field accepts system, payload variables and handlebar helpers</Info>
-[Explore how to manage Email layouts.](/content-creation-design/layouts) 
+<Info>
+  Email Subject, Sender Name and Preheader field accepts system, payload
+  variables and handlebar helpers
+</Info>
+[Explore how to manage Email layouts.](/content-creation-design/layouts){" "}
 
 ## In-App
 
@@ -206,7 +197,9 @@ You have the ability to utilize all variables to craft dynamic and personalized 
 />
 
 ## Push
+
 Push channel has two fields `Push Message Title` and `Push Message Content` where user can write hard coded text content or use system, dynamic variables or handlebar helpers to customize notification content.
+
 <img
   style={{ borderRadius: "0.5rem" }}
   src="/images/content-creation-design/push-editor.png"

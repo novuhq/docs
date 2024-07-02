@@ -14,15 +14,13 @@ curl --request GET \
  ```
 
 ```javascript Node.js
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
-const response = await fetch('https://api.novu.co/v1/execution-details', {
-  method: 'GET',
-  
+const response = await fetch("https://api.novu.co/v1/execution-details", {
+  method: "GET",
 });
 const data = await response.json();
 ```
-
 
 ```php PHP
 use Novu\SDK\Novu;

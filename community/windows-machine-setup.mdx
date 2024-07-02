@@ -18,13 +18,14 @@ Download the .exe installation file for NVM for Windows [here](https://github.co
 After installing NVM for Windows, check that the installation is successfull and added to path by running `nvm -v` on a terminal.
 
 <Note>
-  After installing NVM, if you get `nvm: command not found` or see
-  no feedback from your terminal after you type `nvm -v`, simply **close
-  your current terminal, open a new terminal**, and try verifying again.
+  After installing NVM, if you get `nvm: command not found` or see no feedback
+  from your terminal after you type `nvm -v`, simply **close your current
+  terminal, open a new terminal**, and try verifying again.
 </Note>
 
 Once nvm is installed and working you can install any version of Node using the syntax `nvm install vX.Y.Z` and to switch to a node version,
 run `nvm use vX.Y.Z`. Novu requires node v20.8.1 or higher:
+
 ```shell
 nvm install v18.17.0
 nvm use v18.17.0
@@ -37,12 +38,15 @@ For package management, we use [PNPM](https://pnpm.io/) instead of npm or yarn t
 ```shell
 npm install -g pnpm
 ```
+
 ### MongoDB
+
 for detailed instructions on installing MongoDB community edition on a Windows machine please refere to the MongoDB doc [here](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows).
 
 After installation, whether you have installed as a Windows service or just the binaries, ensure that the MongoDB instance is started before you proceed.
 
 ### Redis
+
 To install Redis for local development you'll first need to enable WSL2 (Windows Subsystem for Linux). detailed instructions for installing
 WSL can be found [here](https://learn.microsoft.com/en-us/windows/wsl/install)
 
@@ -50,11 +54,13 @@ If you have WSL installed and enabled, you can easily install Redis using the na
 for Ubuntu or Debian which is the default distro installed by WSL, use the following commands
 
 1. First install `lsb-release`, `curl` and `gpg` if you do not already have them:
+
 ```shell
 sudo apt install lsb-release curl gpg
 ```
 
 2. Add the repository to the apt index, update it, and then install:
+
 ```shell
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
 
@@ -63,10 +69,13 @@ echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://pack
 sudo apt-get update
 sudo apt-get install redis
 ```
+
 3. Lastly, start the Redis server like so:
+
 ```shell
 sudo service redis-server start
 ```
+
 ### Docker
 
 Docker is not a requirement to run Novu on your local machine, but if you would prefer to use Docker, Follow the installation guide on [docker website](https://docs.docker.com/desktop/install/windows-install/) to install **Docker Desktop** on your Windows machine.
@@ -90,6 +99,7 @@ If needed, see:
 This will allow you to use [local.novu.co](http://local.novu.co) instead of [localhost](http://localhost) when accessing the service on your machine.
 
 Navigate to `C:\Windows\System32\drivers\etc` in the file explorer and open the `hosts` file with a text editor (like Notepad):
+
 <Note>
   Note that this file can only be edited when running as an Administrator.
 </Note>

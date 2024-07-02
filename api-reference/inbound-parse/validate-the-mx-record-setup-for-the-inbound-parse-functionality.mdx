@@ -9,11 +9,10 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 <RequestExample>
 
 ```javascript Node.js
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
-const response = await fetch('https://api.novu.co/v1/inbound-parse/mx/status', {
-  method: 'GET',
-  
+const response = await fetch("https://api.novu.co/v1/inbound-parse/mx/status", {
+  method: "GET",
 });
 const data = await response.json();
 ```
@@ -63,7 +62,7 @@ public class Main {
 
 ```json Response
 {
-    "data": {
+  "data": {
     "mxRecordConfigured": true
   }
 }

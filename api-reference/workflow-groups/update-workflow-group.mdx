@@ -16,11 +16,18 @@ curl --request PATCH \
 ```
 
 ```javascript Node.js
-import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+import {
+  Novu,
+  TemplateVariableTypeEnum,
+  FilterPartTypeEnum,
+  StepTypeEnum,
+} from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.notificationGroups.update("notificationGroupId", { name: "Changelog Updates"});
+await novu.notificationGroups.update("notificationGroupId", {
+  name: "Changelog Updates",
+});
 ```
 
 ```php PHP
@@ -44,7 +51,7 @@ $result = file_get_contents($url, false, $context);
 if ($result === FALSE) { /* Handle error */ }
 
 echo $result;
-    
+
 ```
 
 ```ruby Ruby
@@ -65,7 +72,7 @@ request.add_field('Authorization', 'ApiKey REPLACE_WITH_API_KEY')
 response = http.request(request)
 
 puts response.body
-    
+
 ```
 
 ```python Python
@@ -79,7 +86,7 @@ response = requests.patch('https://api.novu.co/v1/notification-groups/:id', json
 })
 
 print(response.json())
-    
+
 ```
 
 ```java Java

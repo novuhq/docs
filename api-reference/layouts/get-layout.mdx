@@ -13,7 +13,8 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.layouts.get("layoutId");
-```
+
+````
 
 ```ruby Ruby
 require 'novu'
@@ -27,7 +28,7 @@ body = {
     },
 }
 client.layout('<insert-layout-id>')
-```
+````
 
 ```python Python
 from novu.api import LayoutApi
@@ -69,9 +70,7 @@ public class Main {
     "channel": "in_app",
     "content": "string",
     "contentType": "string",
-    "variables": [
-      {}
-    ],
+    "variables": [{}],
     "isDefault": true,
     "isDeleted": true,
     "createdAt": "string",

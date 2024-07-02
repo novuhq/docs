@@ -1,0 +1,24 @@
+---
+title: "SMS Channel Step"
+sidebarTitle: "SMS"
+---
+
+## Chat Output
+
+<RequestExample>
+    ```typescript SMS
+    await step.sms('chat', async () => {
+        return {
+            body: 'A new post has been created',
+        };
+    });
+    ```
+</RequestExample>
+
+<ParamField path="body" type="string" required>
+  The message to be sent to the sms channel.
+</ParamField>
+
+## SMS Result
+
+The `SMS` step does not return any result object.

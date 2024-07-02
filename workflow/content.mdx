@@ -1,0 +1,52 @@
+---
+title: "Manage notification workflow content"
+sidebarTitle: "Manage Content"
+description: "Learn how to manage your notification workflow and allow no-code users to modify it."
+---
+
+Our philosophy is to allow developers to build and manage advanced components and customized views with modern technologies, and expose No-Code controls for non-technical users to modify and maintain.
+
+## Notification content management is hard
+
+One of the main challenges with transactional notifications and existing off-the-shelve solutions is that in a lot of cases they are built with either: A very technical developer oriented user in mind, or a complete no-code WYSIWYG solution.
+
+Both paths lead to frustration.
+
+### Code Based Editors
+
+This path allow developers to craft tailored experiences that are consistent with the company brand, but often this leads to require engineers time for any modification needed.
+
+With a lot of UI based notification platforms, you will be bound and limited by their choice of templating language (Liquid, handlebars, etc...) which will force engineers to do some really complex manipulations to build the usecase they need.
+
+Which leads to un-maintainable notification content that will require engineer for every change.
+
+### No-Code Editors
+
+Those platforms give a lot of control and flexibility to a non-technical user with a great looking WYSIWIG interface, but most often this can lead to:
+
+- The loss of confidence in the end result, as a critical notification workflow can be easily broken.
+- A lot of limits on the implementation, that usually requires engineer intervention and using HTML directly. Which again, losses the whole point of a no-code editor.
+
+## The Novu Way
+
+History have shown us that catering to an individual persona can lead to a lot of frustration, which in the end generated a non-consistent end-user experience.
+
+We strongly believe that for a truly amazing notificaton experience, both functions need to work in harmony.
+
+### Your notification design-system
+
+Instead of building isolated emails, messages and workflows, we recommend thinking about your notification strategy as carefully crafted Design System Components.
+
+This will allow you to build a consistent and maintainable notification experience that can be easily consumed by your internal teams.
+
+### Abstract complex logic
+
+Step Controls are the `props` in your design system components. They are the knobs and dials that allow you to modify the content and behavior of notification template.
+
+There might a lot of complex logic that goes into a notification template, and for mission-critical notifications like your `Password reset` email,
+you might want to expose controls for the static content before and after the password reset link, but to not accidentally to delete the dynamic `{{resetLinkUrl}}` button.
+
+### Use modern frameworks
+
+With Novu we recommend using a modern content framework SDK such as: MJML, React Email, Vue Email, Maizzle and etc...
+Using a technical stack that is close to your front-end stack will allow reusing a lot of existing application logic and design tokens as part of your workflows.

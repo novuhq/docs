@@ -21,12 +21,17 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```
 
 ```javascript Node.js
-import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+import {
+  Novu,
+  TemplateVariableTypeEnum,
+  FilterPartTypeEnum,
+  StepTypeEnum,
+} from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.notificationTemplates.create({
-  name: 'Onboarding Workflow',
+  name: "Onboarding Workflow",
   // taking first workflow group id
   notificationGroupId: workflowGroupsData.data[0]._id,
   steps: [
@@ -35,16 +40,16 @@ await novu.notificationTemplates.create({
       active: true,
       shouldStopOnFail: false,
       // UUID is optional.
-      uuid: '78ab8c72-46de-49e4-8464-257085960f9e',
-      name: 'Chat',
+      uuid: "78ab8c72-46de-49e4-8464-257085960f9e",
+      name: "Chat",
       filters: [
         {
-          value: 'AND',
+          value: "AND",
           children: [
             {
-              field: '{{chatContent}}',
-              value: 'flag',
-              operator: 'NOT_IN',
+              field: "{{chatContent}}",
+              value: "flag",
+              operator: "NOT_IN",
               // 'payload'
               on: FilterPartTypeEnum.PAYLOAD,
             },
@@ -55,22 +60,22 @@ await novu.notificationTemplates.create({
         // 'chat'
         type: StepTypeEnum.CHAT,
         active: true,
-        subject: '',
+        subject: "",
         variables: [
           {
-            name: 'chatContent',
+            name: "chatContent",
             // 'String'
             type: TemplateVariableTypeEnum.STRING,
             required: true,
-            "defaultValue": "default message",
+            defaultValue: "default message",
           },
         ],
-        content: '{{chatContent}}',
-        contentType: 'editor',
+        content: "{{chatContent}}",
+        contentType: "editor",
       },
     },
   ],
-  description: 'Onboarding workflow to trigger after user sign up',
+  description: "Onboarding workflow to trigger after user sign up",
   active: true,
   draft: false,
   critical: false,
@@ -107,7 +112,7 @@ body = {
     'description' => 'description', # optional
     'steps' => [ # optional
        # insert all fields here
-    ], 
+    ],
     'active' => true, # optional
     'draft' => true, # optional
     'critical' => true, # optional
@@ -211,9 +216,7 @@ class Main {
       "push": true
     },
     "critical": true,
-    "tags": [
-      "string"
-    ],
+    "tags": ["string"],
     "steps": [
       {
         "_id": "string",
@@ -288,4 +291,5 @@ class Main {
   }
 }
 ```
+
 </ResponseExample>

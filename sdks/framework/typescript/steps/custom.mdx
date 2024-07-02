@@ -1,0 +1,39 @@
+---
+title: "Custom Action Step"
+sidebarTitle: "Custom"
+description: "Used to execute any custom code as a step in the workflow."
+---
+
+<RequestExample>
+    ```typescript Custom Step
+    await step.custom('custom', async () => {
+        return {
+            hello: 'world',
+        }
+    }, {
+        outputSchema: z.object({
+            hello: z.string(),
+        }),
+    });
+    ```
+</RequestExample>
+
+<ResponseExample>
+  ```typescript Custom Step Result 
+  const { hello } = await step.custom('custom', resolver);
+  ```
+</ResponseExample>
+
+## Custom Step Outputs
+
+<ParamField path="object" type="object" required>
+  The custom step is a unique step that allows you to specify the output of the
+  step, the output is strongly typed using the `outputSchema`.
+</ParamField>
+
+## Custom Step Result
+
+<ParamField path="object" type="object">
+  The custom step returns any object that you responded with in the step
+  resolver function.
+</ParamField>

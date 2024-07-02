@@ -1,13 +1,13 @@
 ---
-title: 'How To Integrate Segment With Novu'
-description: ''
+title: "How To Integrate Segment With Novu"
+description: ""
 ---
 
 [Segment](https://segment.com/) is a customer data platform that helps businesses collect, manage, and analyze customer data from multiple sources. It streamlines data integration, ensures data quality, and aids in compliance with regulations. Segment's tools enable better understanding of customer behavior and facilitate personalized customer experiences. It's useful for marketing, analytics, and product teams in diverse industries.
 
 If this is your first time working with the tool, consider consulting the 'Get Started' guide in [Segment's official documentation](https://segment.com/docs/getting-started/).
 
-## Examples Use Case 
+## Examples Use Case
 
 **Enhancing Customer Engagement and Conversion Rates**
 
@@ -16,12 +16,12 @@ If this is your first time working with the tool, consider consulting the 'Get S
     - The e-commerce platform uses Segment to collect and unify customer data from various sources like website visits, purchase history, and customer interactions.
     - Segment helps in creating a unified customer profile by consolidating data from different touchpoints – mobile app usage, website browsing patterns, and previous purchase behavior.
 
-    <iframe 
-    width="560" 
-    height="315" 
-    src="https://www.youtube.com/embed/2fErE_8hFEc?si=DZ-j2vF1pJJv0A_K&amp;clip=UgkxPJQujqPlfFfQ0o7FAPP1FiE-P8a2dD_h&amp;clipt=EJqJFRjflRg" 
-    title="YouTube video player" 
-    frameBorder="0" 
+    <iframe
+    width="560"
+    height="315"
+    src="https://www.youtube.com/embed/2fErE_8hFEc?si=DZ-j2vF1pJJv0A_K&amp;clip=UgkxPJQujqPlfFfQ0o7FAPP1FiE-P8a2dD_h&amp;clipt=EJqJFRjflRg"
+    title="YouTube video player"
+    frameBorder="0"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
     </iframe>
 
@@ -30,15 +30,18 @@ If this is your first time working with the tool, consider consulting the 'Get S
     - The data collected is analyzed to understand customer preferences, buying patterns, and engagement levels.
     - Customers are segmented into different groups based on their behavior, interests, and purchase history. For instance, one segment might include frequent shoppers, while another might focus on those who browse but rarely purchase.
 
-<iframe 
-width="560" 
-height="315" 
-src="https://www.youtube.com/embed/2fErE_8hFEc?si=2pPpf7wG2Mnmw2Vt&amp;clip=UgkxEcJdj-m2g4WG_siE5UpuBqUuiWoKB3g-&amp;clipt=EN75HRi-ziE" 
-title="YouTube video player" 
-frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-</iframe>
+<iframe
+  width="560"
+  height="315"
+  src="https://www.youtube.com/embed/2fErE_8hFEc?si=2pPpf7wG2Mnmw2Vt&amp;clip=UgkxEcJdj-m2g4WG_siE5UpuBqUuiWoKB3g-&amp;clipt=EN75HRi-ziE"
+  title="YouTube video player"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  allowfullscreen
+></iframe>
 
     </Step>
+
   <Step title="Personalized Notification with Novu">
     - Novu is used to craft and send personalized notifications to these segmented groups.
     - For frequent shoppers, notifications about new arrivals or exclusive deals might be sent. For those who browse but rarely buy, notifications could include special discount codes or reminders about items left in the cart.
@@ -62,7 +65,6 @@ frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media
     </Step>
 </Steps>
 
-
 **Outcome:**
 
 - Enhanced customer engagement through personalized and timely notifications.
@@ -78,17 +80,26 @@ As of <Tooltip tip="November 16th, 2023">today</Tooltip> Segment doesn’t have 
 We will be using [Destination Functions](https://segment.com/docs/connections/functions/destination-functions/). Destination functions allow you to transform and annotate your Segment events and send them to any external tool or API without worrying about setting up or maintaining any infrastructure.
 
 ### Create a destination function
+
 - From your workspace, go to `Connections > Catalog` and click the `Functions` tab.
 - Click `New Function`.
 - Select `Destination` as the function type and click `Build`.
 - After you click `Build`, a code editor appears. Use the editor to write the code for your function, configure settings, and test the function’s behavior.
 
-<Tip>Want to see some example functions? Check out the templates available in the Functions UI, or in the open-source Segment Functions Library.</Tip>
+<Tip>
+  Want to see some example functions? Check out the templates available in the
+  Functions UI, or in the open-source Segment Functions Library.
+</Tip>
 
 ### Code the destination function
+
 Segment invokes a separate part of the function (called a “handler”) for each event type that you send to your destination function.
 
-<Note> Your function isn’t invoked for an event if you’ve configured a destination filter, and the event doesn’t pass the filter. </Note>
+<Note>
+  {" "}
+  Your function isn’t invoked for an event if you’ve configured a destination filter,
+  and the event doesn’t pass the filter.{" "}
+</Note>
 
 The default source code template includes handlers for all event types. You don’t need to implement all of them - just use the ones you need, and skip the ones you don’t.
 
@@ -105,7 +116,7 @@ Destination functions can define handlers for each message type in the Segment s
 
 Each of the functions above accepts two arguments:
 
-`event` - Segment event object, where fields and values depend on the event type. 
+`event` - Segment event object, where fields and values depend on the event type.
 For example, in “Identify” events, Segment formats the object to match the Identify spec.
 
 `settings` - Set of settings for this function.
@@ -113,26 +124,28 @@ The example below shows a destination function that listens for “Track” even
 
 ```javascript
 async function onTrack(event) {
-  await fetch('https://example-service.com/api', {
-    method: 'POST',
+  await fetch("https://example-service.com/api", {
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       event_name: event.event,
       event_properties: event.properties,
-      timestamp: event.timestamp
-    })
-  })
+      timestamp: event.timestamp,
+    }),
+  });
 }
 ```
-To change which event type the handler listens to, you can rename it to the name of the message type. 
+
+To change which event type the handler listens to, you can rename it to the name of the message type.
 
 For example, if you rename this function `onIdentify`, it listens for “Identify” events instead.
 
 <Tip>
-If you you need an example of Novu destination function, you can find it in [here](https://github.com/novuhq/segment-novu-destination-scripts).
-Feel free to submit your function examples as well!
+  If you you need an example of Novu destination function, you can find it in
+  [here](https://github.com/novuhq/segment-novu-destination-scripts). Feel free
+  to submit your function examples as well!
 </Tip>
 
 ### Sending a payload to Novu
@@ -148,54 +161,56 @@ To successfully send a payload to Novu, triggering the appropriate [workflow](/g
 
 ```javascript
 async function onTrack(event, settings) {
-	const eventProperties = event.properties;
+  const eventProperties = event.properties;
 
-	if (!eventProperties.environment) {
-		throw new InvalidEventPayload('environment property is required');
-	}
-	if (!eventProperties.name) {
-		throw new InvalidEventPayload('Workflow name property is required');
-	}
+  if (!eventProperties.environment) {
+    throw new InvalidEventPayload("environment property is required");
+  }
+  if (!eventProperties.name) {
+    throw new InvalidEventPayload("Workflow name property is required");
+  }
 
-	console.log('environment:', eventProperties.environment);
+  console.log("environment:", eventProperties.environment);
 
-	const payload = {
-		name: eventProperties.name,
-		to: {
-			subscriberId: eventProperties.user.subscriberId,
-			email: eventProperties.user.email,
-			firstName: eventProperties.user.firstName,
-			lastName: eventProperties.user.lastName
-		},
-		payload: { eventProperties }
-	};
-	const endpoint = settings.novuEndpoint;
-	console.log('endpoint:', endpoint);
+  const payload = {
+    name: eventProperties.name,
+    to: {
+      subscriberId: eventProperties.user.subscriberId,
+      email: eventProperties.user.email,
+      firstName: eventProperties.user.firstName,
+      lastName: eventProperties.user.lastName,
+    },
+    payload: { eventProperties },
+  };
+  const endpoint = settings.novuEndpoint;
+  console.log("endpoint:", endpoint);
 
-	const ApiKey = settings.novuApiKey; // Your NOVU API key
-	if (eventProperties.environment === settings.environment) {
-		let response;
-		try {
-			response = await fetch(endpoint, {
-				method: 'POST',
-				headers: {
-					Authorization: `ApiKey ${ApiKey}`,
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify(payload)
-			});
-		} catch (error) {
-			// Retry on connection error
-			throw new RetryError(error.message);
-		}
-		if (response.status >= 500 || response.status === 429) {
-			// Retry on 5xx (server errors) and 429s (rate limits)
-			throw new RetryError(`Failed with ${response.status}`);
-		}
-	}
+  const ApiKey = settings.novuApiKey; // Your NOVU API key
+  if (eventProperties.environment === settings.environment) {
+    let response;
+    try {
+      response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          Authorization: `ApiKey ${ApiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+    } catch (error) {
+      // Retry on connection error
+      throw new RetryError(error.message);
+    }
+    if (response.status >= 500 || response.status === 429) {
+      // Retry on 5xx (server errors) and 429s (rate limits)
+      throw new RetryError(`Failed with ${response.status}`);
+    }
+  }
 }
 ```
+
 #### Create Settings and Secrets
+
 Segment's settings allow you to pass configurable variables to your function, which is the best way to pass sensitive information such as security tokens. For example, you might use settings as placeholders to use information such as an API endpoint and API key.
 You can learn more about it [here](https://segment.com/docs/connections/functions/destination-functions/#create-settings-and-secrets).
 
@@ -216,6 +231,7 @@ Now, while configuring the function, Add these three variables to be then used i
 </Frame>
 
 #### Test the destination function
+
 You can test your code directly from the editor in two ways:
 
 **1. Use sample events for testing**
@@ -235,6 +251,7 @@ You can also manually include your own JSON payload of a Segment event, instead 
 </Frame>
 
 **Here is the the event example JSON we will use**
+
 ```JSON
 {
   "type": "track",
@@ -258,21 +275,14 @@ We will now execute the function based on the manual event input we've provided.
   <img src="/images/guides/segment-novu-integration/running-segment-func-for-novu-destination.gif" />
 </Frame>
 
-Whether you chose the first or second option to test your Destination Function, you can also check if the function triggered your workflow and whether it was delivered through Novu's [Activity Feed](https://web.novu.co/activities?utm_campaign=docs-guides-segment).
+Whether you chose the first or second option to test your Destination Function, you can also check if the function triggered your workflow and whether it was delivered through Novu's [Activity Feed](https://dashboard.novu.co/activities?utm_campaign=docs-guides-segment).
 
 <Frame>
   <img src="/images/guides/segment-novu-integration/activity-feed.gif" />
 </Frame>
 
-
 This guide was inspired by the following resources:
+
 - https://discord.com/channels/895029566685462578/1060308007658987571/1077377322547687475
 - https://segment.com/docs/getting-started/05-data-to-destinations/
 - https://aviyel.com/post/3381/how-to-integrate-novu-with-segment
-
-
-
-
-
-
-

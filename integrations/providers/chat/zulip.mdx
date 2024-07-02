@@ -1,0 +1,86 @@
+---
+title: "Zulip"
+description: "Learn about how to use Zulip provider for chat notifications"
+---
+
+Zulip does not need any API Key or client ID to push messages in it. All it needs is the webhook URL of the channel you want to send messages to. That itself acts as the credential.
+
+Similar to Discord, the credential for this provider needs to be stored in the subscriber entity.
+
+## Getting a Zulip webhook URL
+
+- Sign up or Login to your Zulip account.
+
+- Click on the Settings icon in the top right corner of the screen, and then click "Personal settings" from the drop-down menu.
+
+<Frame>
+  <img src="/images/channels-and-providers/chat/zulip/step_01.png" />
+</Frame>
+
+- Click "Add a new bot" button in "Bots" tab.
+
+<Frame>
+  <img src="/images/channels-and-providers/chat/zulip/step_02.png" />{" "}
+</Frame>
+
+- Set bot type as "Incoming webhook".
+
+<Frame>
+  <img src="/images/channels-and-providers/chat/zulip/step_03.png" />{" "}
+</Frame>
+
+- Click the small link icon to generate webhook URL for provider. Set Integration as `Slack compatible webhook`, choose your channel and copy webhook URL.
+
+<Frame>
+  <img src="/images/channels-and-providers/chat/zulip/step_04.png" />{" "}
+</Frame>
+
+## Connecting our subscribers to Zulip
+
+The URL generated above will be the target channel of a subscriber that you want to integrate with. To make this connection, you have to:
+
+1. Copy the URL that you generated above
+
+2. Update the subscriber credentials with this URL using the Zulip provider id. You can do this step by using the `@novu/node` library, as shown below:
+
+## Update credential webhookUrl
+
+<Tabs>
+  <Tab title="Node.js">
+```javaScript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_API_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Zulip, {
+webhookUrl: "<WEBHOOK_URL>",
+});
+
+````
+  </Tab>
+  <Tab title="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_API_KEY>' \
+-d '{
+  "providerId": "zulip",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "zulip-MnGLxp8uy"
+}'
+````
+
+  </Tab>
+</Tabs>
+
+- `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
+- `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum to specify the provider.
+- The third parameter is the credentials object, in this case, we use the `webhookUrl` property to specify the MS Teams channel webhook URL or by calling the `Update Subscriber Credentials` endpoint on Novu API. Check endpoint details [here](https://docs.novu.co/api/update-subscriber-credentials/).
+
+3. You are all set up and ready to send your first chat message via our `@novu/node` package or directly using the REST API.

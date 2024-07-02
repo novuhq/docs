@@ -3,8 +3,8 @@ openapi: delete /v1/workflows/{workflowId}
 ---
 
 ---
-openapi: post /v1/workflows
----
+
+## openapi: post /v1/workflows
 
 import ApikeyWarning from "/snippets/apikey-warning.mdx";
 
@@ -19,9 +19,14 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```
 
 ```javascript Node.js
-import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+import {
+  Novu,
+  TemplateVariableTypeEnum,
+  FilterPartTypeEnum,
+  StepTypeEnum,
+} from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.notificationTemplates.delete("workflowId");
 ```
@@ -109,7 +114,7 @@ class Main {
 
 ```json Response
 {
-    "data": true
+  "data": true
 }
 ```
 

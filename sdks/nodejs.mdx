@@ -1,7 +1,7 @@
 ---
 title: "NodeJS SDK"
 description: "Connect a Node.js application to Novu"
-icon: 'node'
+icon: "node"
 ---
 
 Novu's Node.js SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your Node.js application.
@@ -11,28 +11,31 @@ Novu's Node.js SDK provides simple, yet comprehensive notification management, a
 ## Installation
 
 ```javascript
-npm install @novu/node 
+npm install @novu/node
 ```
 
-<Tip> If you're ready to start integrating in your Node.js app, jump straight to our [Nodejs quickstart.](/quickstarts/nodejs)</Tip>
+<Tip>
+   If you're ready to start integrating in your Node.js app, jump straight to
+  our [Nodejs quickstart.](/quickstarts/nodejs)
+</Tip>
 
-## Usage 
+## Usage
 
 ```javascript
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   to: {
-    subscriberId: '<USER_IDENTIFIER>',
-    email: 'test@email.com',
-    firstName: 'John',
-    lastName: 'Doe',
+    subscriberId: "<USER_IDENTIFIER>",
+    email: "test@email.com",
+    firstName: "John",
+    lastName: "Doe",
   },
   payload: {
     organization: {
-      logo: 'https://evilcorp.com/logo.png',
+      logo: "https://evilcorp.com/logo.png",
     },
   },
 });

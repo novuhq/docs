@@ -1,0 +1,38 @@
+---
+title: "Environments"
+description: "Learn about environments in Novu"
+---
+
+Novu runs all your requests in the context of an environment. By default, Novu creates two environments when your account was just created, `development` and `production`.
+
+## Development environment
+
+The development environment is used for testing purposes and validating notification changes prior to committing them to the production environment.
+
+## Production environment
+
+It will be your live/production environment, you cannot make changes to this environment directly. You will first have to make the changes in the `development` environment and then promote it to `production`. This is a read-only environment.
+
+## Data associated with environments
+
+Novu will separate most of the data associated with your account based on the current accessed environment. This will include:
+
+- Subscribers
+- Workflows
+- Messages
+- Execution logs
+- Connected integrations
+- Notification feeds
+- Brand related assets and settings
+
+Each environment will be accessed using a separate credential set:
+
+- **Application Identifier** - This is a public identifier used in client-side applications to identify your application. It is unique to an environment in an organization and is different from `Provider Identifier`.
+- **Provider Identifier** - This is an identifier for a provider in a channel. For example, say you're using email notifications. Here, two different providers will have two different `Provider Identifier`. Even if you're using two different integration of the same provider, you'll have two different `Provider Identifier`, each unique to one integration. For example, if you've two slack integrations, they will have two different `Provider Identifier`.
+- **API Secret Key** - A secret key used when communicating with the `Novu API` from your backend services.
+
+We suggest configuring these key sets based on your active environment, the same as you would use to manage different service credentials and serve them based on the current environment in which your code is deployed.
+
+## Promoting changes to production
+
+When moving changes from the `development` environment to the `production` environment, we suggest using your CI/CD pipeline to promote the changes.

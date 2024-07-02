@@ -9,26 +9,24 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 <RequestExample>
 
 ```javascript Node.js
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
-  {
-    to: {
-      subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
-      email: 'john@doemail.com',
-      firstName: 'John',
-      lastName: 'Doe',
+await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
+  to: {
+    subscriberId: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    email: "john@doemail.com",
+    firstName: "John",
+    lastName: "Doe",
+  },
+  payload: {
+    name: "Hello World",
+    organization: {
+      logo: "https://happycorp.com/logo.png",
     },
-    payload: {
-      name: "Hello World",
-      organization: {
-        logo: 'https://happycorp.com/logo.png',
-      },
-    },
-  }
-);
+  },
+});
 ```
 
 ```php PHP
@@ -166,7 +164,7 @@ public class Main {
         triggerEventRequest.setName("<NAME>");
         triggerEventRequest.setTo(subscriberRequest);
         triggerEventRequest.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
-        
+
         TriggerEventResponse response = novu.triggerEvent(triggerEventRequest);
     }
 }
@@ -179,10 +177,10 @@ using Novu;
 
 var novuConfiguration = new NovuClientConfiguration
 {
-    /** 
-    * Defaults to https://api.novu.co/v1 
+    /**
+    * Defaults to https://api.novu.co/v1
     */
-    Url = "https://novu-api.my-domain.com/v1", 
+    Url = "https://novu-api.my-domain.com/v1",
     ApiKey = "12345",
 };
 
@@ -219,27 +217,26 @@ var trigger = await novu.Event.Trigger(payload);
 
 ```json Response
 {
-    "data": {
-        "acknowledged": true,
-        "status": "processed",
-        "transactionId": "string"
-    }
+  "data": {
+    "acknowledged": true,
+    "status": "processed",
+    "transactionId": "string"
+  }
 }
 ```
 
 </ResponseExample>
 
 <Accordion title="Idempotent nature of transactionId">
-The `transactionId` within Novu is a unique identifier that is used to ensure the idempotent nature of notification delivery. 
+The `transactionId` within Novu is a unique identifier that is used to ensure the idempotent nature of notification delivery.
 
-When you trigger an event to send a notification, you have the option to provide a `transactionId`. If you do not provide one, Novu will generate a UUID for you. 
+When you trigger an event to send a notification, you have the option to provide a `transactionId`. If you do not provide one, Novu will generate a UUID for you.
 
 **This identifier is particularly useful for preventing the same notification from being sent multiple times in case the trigger event is inadvertently called more than once.**
 
-By leveraging the `transactionId`, you can make idempotent requests, which means if the same `transactionId` is used in another request, Novu's API will recognize it and will not send the same notification again. 
+By leveraging the `transactionId`, you can make idempotent requests, which means if the same `transactionId` is used in another request, Novu's API will recognize it and will not send the same notification again.
 
 <Note>
 This upholds the principle of idempotency, ensuring that the effect of the operation is the same, no matter how many times the request is repeated with the same `transactionId`.
 </Note>
 </Accordion>
-

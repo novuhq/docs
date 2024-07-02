@@ -1,5 +1,5 @@
 ---
-title: 'How to batch product notifications via code'
+title: "How to batch product notifications via code"
 description: "Leverage Novu's Digest Engine to batch product notifications"
 ---
 
@@ -37,43 +37,42 @@ Novu’s Digest Engine is designed to consolidate multiple trigger events into a
 import { Client } from "@novu/framework";
 
 export const client = new Client({
-  apiKey: '<YOUR_NOVU_API_KEY>',
+  apiKey: "<YOUR_NOVU_API_KEY>",
   /**
    * Enable this flag only during local development
    */
   strictAuthentication: process.env.NODE_ENV !== "development",
 });
 
-export const digestWorkflow = workflow('novu-digest',
-  
+export const digestWorkflow = workflow(
+  "novu-digest",
+
   async ({ step, payload }) => {
-  
     // Add Digest Node
-    const digestResult = await step.digest('email-digest', async () => ({
-      unit: 'seconds',
+    const digestResult = await step.digest("email-digest", async () => ({
+      unit: "seconds",
       amount: 30,
     }));
 
     // Send a welcome email
-    await step.email('send-email', () => {
+    await step.email("send-email", () => {
       const resObj = {
         subject: `Welcome to Novu`,
-        body: (digestResult.events.map((event) => event.payload.text).join('\n')),
-      }
-      return resObj
+        body: digestResult.events.map((event) => event.payload.text).join("\n"),
+      };
+      return resObj;
     });
   },
   {
     payloadSchema: {
       properties: {
-        email: { type: 'string' },
-        text: { type: 'string', default: 'Sumit' },
+        email: { type: "string" },
+        text: { type: "string", default: "Sumit" },
       },
-      required: ['text'],
+      required: ["text"],
     },
   }
 );
-
 ```
 
 <Info>
@@ -84,13 +83,12 @@ export const digestWorkflow = workflow('novu-digest',
 2. Here’s a simple client-side app with a handler function attached to the `submit` event:
 
 ```tsx
-"use client"
+"use client";
 import React, { useState } from "react";
 
 export default function Home() {
-
-  const [email, setEmail] = useState('')
-  const [text, setText] = useState('')
+  const [email, setEmail] = useState("");
+  const [text, setText] = useState("");
 
   const onClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
@@ -108,23 +106,30 @@ export default function Home() {
 
       // console.log('working fine');
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
   return (
-    <main style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <main
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <form onSubmit={(e) => onClickHandler(e)}>
         <input
           placeholder="Enter email id"
           onChange={(e) => setEmail(e.target.value)}
           style={{
             // Add your CSS-in-JS styles here
-            padding: '0.5rem',
-            marginBottom: '1rem',
-            borderRadius: '0.25rem',
-            border: '1px solid #ccc',
-            width: '100%',
-            boxSizing: 'border-box',
+            padding: "0.5rem",
+            marginBottom: "1rem",
+            borderRadius: "0.25rem",
+            border: "1px solid #ccc",
+            width: "100%",
+            boxSizing: "border-box",
           }}
         />
         <input
@@ -132,25 +137,30 @@ export default function Home() {
           onChange={(e) => setText(e.target.value)}
           style={{
             // Add your CSS-in-JS styles here
-            padding: '0.5rem',
-            marginBottom: '1rem',
-            borderRadius: '0.25rem',
-            border: '1px solid #ccc',
-            width: '100%',
-            boxSizing: 'border-box',
+            padding: "0.5rem",
+            marginBottom: "1rem",
+            borderRadius: "0.25rem",
+            border: "1px solid #ccc",
+            width: "100%",
+            boxSizing: "border-box",
           }}
         />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <button
             style={{
               // Add your CSS-in-JS styles here
-              padding: '0.5rem 1rem',
-              backgroundColor: '#4CAF50',
-              color: 'white',
-              border: 'none',
-              borderRadius: '0.25rem',
-              cursor: 'pointer',
+              padding: "0.5rem 1rem",
+              backgroundColor: "#4CAF50",
+              color: "white",
+              border: "none",
+              borderRadius: "0.25rem",
+              cursor: "pointer",
             }}
           >
             Submit
@@ -160,33 +170,31 @@ export default function Home() {
     </main>
   );
 }
-
 ```
 
 3. And the corresponding route that it hits once the event fires:
 
 ```tsx
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
-const novu = new Novu('<YOUR_NOVU_API_KEY>');
+const novu = new Novu("<YOUR_NOVU_API_KEY>");
 
 export async function POST(request: Request) {
-    const res = await request.json();
+  const res = await request.json();
 
-    await novu.trigger('novu-digest', {
-        to: {
-            subscriberId: 'novu-sub-digest',
-        },
-        payload: {
-            email: res.email,
-            text: res.text
-        },
-    });
+  await novu.trigger("novu-digest", {
+    to: {
+      subscriberId: "novu-sub-digest",
+    },
+    payload: {
+      email: res.email,
+      text: res.text,
+    },
+  });
 
-    console.log('triggered')
-    return Response.json({ success: true });
+  console.log("triggered");
+  return Response.json({ success: true });
 }
-
 ```
 
 That’s it!

@@ -9,9 +9,9 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 <RequestExample>
 
 ```javascript Node.js
-import { Novu, ChannelTypeEnum } from '@novu/node';
+import { Novu, ChannelTypeEnum } from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.messages.deleteById("<Message_Id>");
 ```
@@ -38,7 +38,7 @@ from novu.api import MessageApi
 url = "https://api.novu.co"
 api_key = "<NOVU_API_KEY>"
 novu = MessageApi(url, api_key).delete(
-    message_id= "The message ID to delete",    
+    message_id= "The message ID to delete",
 )
 ```
 
