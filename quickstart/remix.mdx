@@ -8,7 +8,7 @@ import DeployApp from "/snippets/quickstart/deploy.mdx";
 import TestStep from "/snippets/quickstart/test.mdx";
 import PackagesStep from "/snippets/quickstart/packages.mdx";
 import SecretStep from "/snippets/quickstart/secret.mdx";
-import WorkflowStep from "/snippets/quickstart/workflow.mdx";
+import WorkflowCode from "/snippets/quickstart/workflow.mdx";
 
 In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Remix application and send our first test workflow.
 
@@ -34,7 +34,11 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Rem
     </Step>
 
     <SecretStep />
-    <WorkflowStep test="testing here" />
+    <Step title="Create your workflow definition">
+        Add a `novu` folder in your app folder as such ```app/novu/workflows.ts``` that will contain your workflow definitions 
+
+        <WorkflowCode test="testing here" />
+    </Step>
 
     <Step title="Start your application">
         To start your Remix server with the Novu Endpoint configured, run the following command:
