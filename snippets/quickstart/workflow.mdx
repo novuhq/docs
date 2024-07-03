@@ -1,7 +1,7 @@
 ```
 import { workflow } from '@novu/framework';
 import { z } from 'zod';
-{test}
+
 export const testWorkflow = workflow('test-workflow', async ({ step, payload }) => {
     await step.email('send-email', async (controls) => {
         return {
