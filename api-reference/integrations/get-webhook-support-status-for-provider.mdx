@@ -8,25 +8,28 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 
 <RequestExample>
 ```javascript Node.js
-import { Novu, ProvidersIdEnum } from '@novu/node';  
+import { Novu, ProvidersIdEnum } from '@novu/node';
 
 const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.integrations.getWebhookProviderStatus(ProvidersIdEnum.SendGrid);
-```
+
+````
 ```php PHP
 // Get integrations
 use Novu\SDK\Novu;
 
 $novu = new Novu(<NOVU_API_KEY>);
 $novu->getWebhookSupportStatusForProvider($providerId)->toArray();
-```
+````
+
 ```ruby Ruby
 require 'novu'
 
 client = Novu::Client.new('<NOVU_API_KEY>')
 client.webhook_provider_status('<insert-provider-id>')
 ```
+
 ```python Python
 from novu.api import IntegrationApi
 
@@ -36,6 +39,7 @@ novu = IntegrationApi(url, api_key).status(
     provider_id="<The_Provider_ID>", # Get webhook support status for a given provider using its providerID.
 )
 ```
+
 ```java Java
 import co.novu.sdk.Novu;
 
@@ -49,14 +53,13 @@ public class Main {
 }
 ```
 
-
 </RequestExample>
 
 <ResponseExample>
 
 ```json Response
 {
-    200: "The status of the webhook for the provider requested"
+  "200": "The status of the webhook for the provider requested"
 }
 ```
 

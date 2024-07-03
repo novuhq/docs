@@ -1,0 +1,27 @@
+---
+title: "Email Channel Step"
+sidebarTitle: "Email"
+---
+
+<RequestExample>
+    ```typescript Email
+    await step.email('email', async () => {
+        return {
+            subject: 'You received a message',
+            body: 'A new post has been created',
+        };
+    });
+    ```
+</RequestExample>
+
+## Email Step Output
+
+<ParamField path="subject" type="string" required>
+  The title or subject email
+</ParamField>
+
+<ParamField path="body" type="string" required>
+  The HTML body of the email
+</ParamField>
+
+## Email Step Result

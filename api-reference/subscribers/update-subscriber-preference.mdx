@@ -12,11 +12,11 @@ import co.novu.api.subscribers.requests.UpdateSubscriberPreferenceRequest;
 import co.novu.api.subscribers.responses.SingleSubscriberPrefResponse;
 
 public class Main {
-    public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
-        Novu novu = new Novu(apiKey);
-        String subscriberId = "<SUBSCRIBER_ID>";
-        String templateId = "<TEMPLATE_ID>";
+public static void main(String[] args) {
+String apiKey = "<NOVU_API_KEY>";
+Novu novu = new Novu(apiKey);
+String subscriberId = "<SUBSCRIBER_ID>";
+String templateId = "<TEMPLATE_ID>";
 
         PreferenceChannel channel = new PreferenceChannel();
         channel.setType("<TYPE>");
@@ -28,8 +28,10 @@ public class Main {
 
         SingleSubscriberPrefResponse response = novu.updateSubscriberPreferences(request, subscriberId, templateId);
     }
+
 }
-```
+
+````
 </RequestExample>
 
 <ResponseExample>
@@ -53,5 +55,6 @@ public class Main {
     }
   }
 }
-```
+````
+
 </ResponseExample>

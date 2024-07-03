@@ -12,7 +12,8 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu('<NOVU_API_KEY>');
 await novu.changes.applyMany(["changeId1", "changeId2"]);
-```
+
+````
 
 ```php PHP
 use Novu\SDK\Novu;
@@ -23,7 +24,7 @@ $novu->applyBulkChanges([
         '<insert-all-the-change-ids>'
     ]
 ])->toArray();
-```
+````
 
 ```ruby Ruby
 require 'novu'

@@ -1,6 +1,6 @@
 ---
-title: 'How to send notifications with Svelte and Svelte email'
-description: 'Learn how to send email notifications with Svelte, Svelte email and Novu'
+title: "How to send notifications with Svelte and Svelte email"
+description: "Learn how to send email notifications with Svelte, Svelte email and Novu"
 ---
 
 # Introduction
@@ -8,6 +8,7 @@ description: 'Learn how to send email notifications with Svelte, Svelte email an
 Learn how to send notifications with Svelte, Svelte email and Novu. You can check out the complete code for a [working app](https://github.com/novuhq/novu-svelte-email).
 
 ## Prerequisites
+
 - A Novu account
 - Node installed on your machine
 - A working SvelteKit app
@@ -24,19 +25,21 @@ Learn how to send notifications with Svelte, Svelte email and Novu. You can chec
 
 Within the `src/routes` directory, create an `api/novu` folder and add a `+server.ts` file to it.
 
-
 ```jsx
 // src/routes/api/novu/+server.ts
 
-import { svelteWorkflow, client } from '$lib/novu/workflows';
-import { serve } from '@novu/framework/sveltekit';
+import { svelteWorkflow, client } from "$lib/novu/workflows";
+import { serve } from "@novu/framework/sveltekit";
 
-export const { GET, POST, PUT } = serve({ client: client, workflows: [svelteWorkflow] });
+export const { GET, POST, PUT } = serve({
+  client: client,
+  workflows: [svelteWorkflow],
+});
 ```
 
 ### 3. Create an email template in Svelte
 
-Within the `src/lib` directory, create an `emails` folder and add an email template in a `.svelte` file to it. 
+Within the `src/lib` directory, create an `emails` folder and add an email template in a `.svelte` file to it.
 
 For example, `airbnb-review.svelte`:
 
@@ -202,6 +205,7 @@ For example, `airbnb-review.svelte`:
 	</Section>
 </Html>
 ```
+
 ### 4. Create a Novu Workflow
 
 Next, create a Novu workflow with an email step. This code-first notification workflow approach makes it easy for product teams to modify notification content.
@@ -209,12 +213,11 @@ Next, create a Novu workflow with an email step. This code-first notification wo
 ```jsx
 // src/lib/novu/workflows.ts
 
-import { Client, workflow } from '@novu/framework';
-import { render } from 'svelte-email';
-import AirbnbReview from '$lib/emails/airbnb-review.svelte';
+import { Client, workflow } from "@novu/framework";
+import { render } from "svelte-email";
+import AirbnbReview from "$lib/emails/airbnb-review.svelte";
 
 export const client = new Client({
-  
   /**
    * The Novu API key is needed for when you
    * need to sync to Novu Cloud
@@ -224,55 +227,61 @@ export const client = new Client({
    * Disable this flag only during local development
    * For production this should be true
    */
-  strictAuthentication: process.env.NODE_ENV !== "development"
+  strictAuthentication: process.env.NODE_ENV !== "development",
 });
 
-export const svelteWorkflow = workflow('airbnb-review', async ({ step, payload }) => {
+export const svelteWorkflow = workflow(
+  "airbnb-review",
+  async ({ step, payload }) => {
     await step.email(
-        'send-email',
-        async (inputs) => {
-            const html = render({
-                template: AirbnbReview,
-                props: {
-                    authorName: inputs.authorName,
-                    showFeedbackButton: inputs.showFeedbackButton,
-                    showLogoImage: inputs.showLogoImage,
-                    feedbackButtonText: inputs.feedbackButtonText,
-                    bottomAddress: inputs.bottomAddress,
-                    authorImage: inputs.authorImage,
-                    logoImage: inputs.logoImage
-                },
-            });
-            return {
-                subject: `Here's Your Host Feedback`,
-                body: html,
-            }
-        }, {
-            inputSchema: {
-                type: "object",
-                properties: {
-                  showFeedbackButton: { type: "boolean", default: true },
-                  showLogoImage: { type: "boolean", default: true },
-                  authorName: { type: "string", default: "Alex" },
-                  feedbackButtonText: { type: "string", default: "Send My Feedback" },
-                  authorImage: {
-                    type: "string",
-                    default: "https://react-email-demo-bdj5iju9r-resend.vercel.app/static/vercel-user.png",
-                    format: "uri",
-                  },
-                  logoImage: {
-                    type: "string",
-                    default: "https://svelte-email-rjaapma15-konzeptfabrik.vercel.app/airbnb-logo.png",
-                    format: "uri",
-                  },
-                  bottomAddress: {
-                    type: "string",
-                    default: "Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103",
-                  },
-                },
-            },
+      "send-email",
+      async (inputs) => {
+        const html = render({
+          template: AirbnbReview,
+          props: {
+            authorName: inputs.authorName,
+            showFeedbackButton: inputs.showFeedbackButton,
+            showLogoImage: inputs.showLogoImage,
+            feedbackButtonText: inputs.feedbackButtonText,
+            bottomAddress: inputs.bottomAddress,
+            authorImage: inputs.authorImage,
+            logoImage: inputs.logoImage,
+          },
         });
-    }
+        return {
+          subject: `Here's Your Host Feedback`,
+          body: html,
+        };
+      },
+      {
+        controlSchema: {
+          type: "object",
+          properties: {
+            showFeedbackButton: { type: "boolean", default: true },
+            showLogoImage: { type: "boolean", default: true },
+            authorName: { type: "string", default: "Alex" },
+            feedbackButtonText: { type: "string", default: "Send My Feedback" },
+            authorImage: {
+              type: "string",
+              default:
+                "https://react-email-demo-bdj5iju9r-resend.vercel.app/static/vercel-user.png",
+              format: "uri",
+            },
+            logoImage: {
+              type: "string",
+              default:
+                "https://svelte-email-rjaapma15-konzeptfabrik.vercel.app/airbnb-logo.png",
+              format: "uri",
+            },
+            bottomAddress: {
+              type: "string",
+              default: "Airbnb, Inc., 888 Brannan St, San Francisco, CA 94103",
+            },
+          },
+        },
+      }
+    );
+  }
 );
 ```
 
@@ -285,13 +294,17 @@ npx novu-labs@latest echo
 ```
 
 1. Run the Studio
-<Frame caption="Novu Dev Studio on the first run"><img src="/images/framework-svelte-email/dev-studio-first-run.png" /> </Frame>
+   <Frame caption="Novu Dev Studio on the first run">
+     <img src="/images/framework-svelte-email/dev-studio-first-run.png" />{" "}
+   </Frame>
 
 **Note:** Use the port on which your Svelte app is running for the Bridge endpoint so that the Novu Dev Studio can connect to your API route.
 
 2. Check out the email workflow and test
 
-<Frame caption="Preview Email workflow with Step Inputs & Payload"><img src="/images/framework-svelte-email/email-workflow-preview.png" /> </Frame>
+<Frame caption="Preview Email workflow with Step Inputs & Payload">
+  <img src="/images/framework-svelte-email/email-workflow-preview.png" />{" "}
+</Frame>
 
 3. Deploy to Novu Cloud when you're done.
 
@@ -301,6 +314,6 @@ On the top right of the Novu Dev Studio, you can sync to Novu Cloud when you're 
 
 ### 6. Send a Notification
 
-Trigger a notification using the recently deployed workflow either via your [Novu Cloud dashboard](https://web.novu.co) or [code](/quickstarts/react#trigger-a-notification).
+Trigger a notification using the recently deployed workflow either via your [Novu Cloud dashboard](https://dashboard.novu.co) or [code](/quickstarts/react#trigger-a-notification).
 
 Once you've built the workflow, you might want read one of [our other guides](/guides/framework-guides/product) on how to empower product teams to manage notification workflows.

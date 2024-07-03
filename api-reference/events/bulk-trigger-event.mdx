@@ -60,13 +60,13 @@ $novu = new Novu(<NOVU_API_KEY>);
 
 $novu->bulkTriggerEvent([
     [
-        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>', 
-        'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
+        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
+        'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
         'payload' => ['customVariables' => 'Hello']
     ],
     [
-        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>', 
-        'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>', 
+        'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
+        'to' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
         'payload' => ['customVariables' => 'World']
     ],
 ])->toArray();
@@ -259,7 +259,7 @@ public class Main {
         triggerEventRequest1.setName("<NAME>");
         triggerEventRequest1.setTo(subscriberRequest);
         triggerEventRequest1.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
-        
+
         TriggerEventRequest triggerEventRequest2 = new TriggerEventRequest();
         triggerEventRequest2.setName("<NAME>");
         triggerEventRequest2.setTo(subscriberRequest);
@@ -280,10 +280,10 @@ using Novu;
 
 var novuConfiguration = new NovuClientConfiguration
 {
-    /** 
-    * Defaults to https://api.novu.co/v1 
+    /**
+    * Defaults to https://api.novu.co/v1
     */
-    Url = "https://novu-api.my-domain.com/v1", 
+    Url = "https://novu-api.my-domain.com/v1",
     ApiKey = "12345",
 };
 
@@ -314,13 +314,13 @@ var trigger = await novu.Event.TriggerBulkAsync(payload);
 
 ```json Response
 {
-    "data": [
-        {
-            "acknowledged": true,
-            "status": "processed",
-            "transactionId": "string"
-        }
-    ]
+  "data": [
+    {
+      "acknowledged": true,
+      "status": "processed",
+      "transactionId": "string"
+    }
+  ]
 }
 ```
 

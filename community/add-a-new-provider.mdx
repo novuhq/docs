@@ -8,7 +8,7 @@ Interested in expanding Novu's capabilities? By contributing to our growing ecos
 
 ## How to add a new provider?
 
-Novu currently supports five channels `in_app`, `push`, `email`, `chat` and `sms`. 
+Novu currently supports five channels `in_app`, `push`, `email`, `chat` and `sms`.
 
 For `in_app` we support only our own provider, so new providers cannot be added to this channel. For the other four channels, we support the integration of external providers. This guide will help in adding new providers for any of these 4 channels.
 
@@ -16,7 +16,7 @@ In this guide, we are adding a new provider for the email channel, but all of th
 
 ## Description
 
-Providers allow us to handle message delivery over multiple channels. 
+Providers allow us to handle message delivery over multiple channels.
 
 We have multiple providers for each channel (SMS, Email, Push and Chat). To get started with adding a new provider let's look at setting up our repository.
 
@@ -30,7 +30,10 @@ We have multiple providers for each channel (SMS, Email, Push and Chat). To get 
 
 Need help installing the requirements? [Read more here](/community/run-in-local-machine)
 
-<Note> We have used pnpm package manager in this guide. You can use npm as well. </Note>
+<Note>
+  {" "}
+  We have used pnpm package manager in this guide. You can use npm as well.{" "}
+</Note>
 
 ## Initialization
 
@@ -116,16 +119,23 @@ export class ExampleProviderEmailProvider implements IEmailProvider {
 ### Template test case for `example-provider`.
 
 ```ts packages/providers/src/lib/example-provider/example-provider.provider.sepc.ts
-import { ExampleProviderEmailProvider } from './example-provider.provider';
+import { ExampleProviderEmailProvider } from "./example-provider.provider";
 
-test('should trigger example-provider library correctly', async () => {});
+test("should trigger example-provider library correctly", async () => {});
 ```
 
-<Info> Add the provider's SDK as a dependency in the provider's package.json file. Run `pnpm run setup:project` to build all dependencies again. Use this new sdk method to complete the provider's `sendMessage` function. Check the **[reference links for adding new providers](#reference-for-adding-new-providers)** section for each channel's provider example. </Info>
+<Info>
+  {" "}
+  Add the provider's SDK as a dependency in the provider's package.json file. Run
+  `pnpm run setup:project` to build all dependencies again. Use this new sdk method
+  to complete the provider's `sendMessage` function. Check the **[reference links
+  for adding new providers](#reference-for-adding-new-providers)** section for each
+  channel's provider example.{" "}
+</Info>
 
 ### Add provider logos
 
-In order to present this new provider in the `integration store` we need logos in dark and light mode. Add dark color svg logo in  `apps/web/public/static/images/providers/dark/sqaure` directory and light color svg logo in  `apps/web/public/static/images/providers/light/sqaure` directory. 
+In order to present this new provider in the `integration store` we need logos in dark and light mode. Add dark color svg logo in  `apps/web/public/static/images/providers/dark/sqaure` directory and light color svg logo in  `apps/web/public/static/images/providers/light/sqaure` directory.
 
 Use the provider name as the file name. The sample name for our above-added provider is `example-provider.svg`.
 
@@ -157,6 +167,7 @@ export const exampleProviderConfig: IConfigCredentials[] = [
 1. Here the `key` is of type `CredentialsKeyEnum`.
 
 > If a new key is added, add this key at these 3 places:-
+>
 > - In `CredentialsKeyEnum` at file `libs/shared/src/consts/providers/provider.enum.ts`
 > - In `CredentialsDto` at file `apps/api/src/app/integrations/dtos/credentials.dto.ts`
 > - In `credentials` field of `integrationSchema` at file `libs/dal/src/repositories/integration/integration.schema.ts`
@@ -267,7 +278,13 @@ If everything is working fine without any error, commit your local branch change
 
 Hurray 🎉! You have successfully added a new provider in Novu!
 
-<Info>️ In this guide, we have used only one credential `apiKey` for our `example-provider`. This is for reference purposes only. A provider can have more than one credential as per its `SDK` requirements. At each step, you will need to add all credentials carefully. Check providers referenced below for more information. </Info>
+<Info>
+  ️ In this guide, we have used only one credential `apiKey` for
+  our `example-provider`. This is for reference purposes only. A provider can
+  have more than one credential as per its `SDK` requirements. At each step, you
+  will need to add all credentials carefully. Check providers referenced below
+  for more information.{" "}
+</Info>
 
 ### Reference for Adding New Providers
 

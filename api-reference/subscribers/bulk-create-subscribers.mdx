@@ -9,29 +9,30 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 <RequestExample>
 
 ```javascript Node.js
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.subscribers.bulkCreate([
-    {
-        subscriberId: 'test-subscriber-1',
-        email: 'test-user@sd.com',
-        firstName: 'subscriber-1',
-        lastName: 'test-1',
-    },
-    {
-        subscriberId: 'test-subscriber-2',
-        email: 'test-user-2@sd.com',
-        firstName: 'subscriber-2',
-        lastName: 'test-2',
-    },
-    {
-        subscriberId: 'test-subscriber-3',
-    },
+  {
+    subscriberId: "test-subscriber-1",
+    email: "test-user@sd.com",
+    firstName: "subscriber-1",
+    lastName: "test-1",
+  },
+  {
+    subscriberId: "test-subscriber-2",
+    email: "test-user-2@sd.com",
+    firstName: "subscriber-2",
+    lastName: "test-2",
+  },
+  {
+    subscriberId: "test-subscriber-3",
+  },
 ]);
 ```
-``` java Java
+
+```java Java
 import co.novu.common.base.Novu;
 import co.novu.api.common.SubscriberRequest;
 import co.novu.api.subscribers.responses.CreateBulkSubscriberResponse;
@@ -73,21 +74,21 @@ public class Main {
 
 ```json Response
 {
-    "data": {
-        "updated": [],
-        "created": [
-        {
-            "subscriberId": "test-subscriber-1"
-        },
-        {
-            "subscriberId": "test-subscriber-2"
-        },
-        {
-            "subscriberId": "test-subscriber-3"
-        }
-        ],
-        "failed": []
-    }
+  "data": {
+    "updated": [],
+    "created": [
+      {
+        "subscriberId": "test-subscriber-1"
+      },
+      {
+        "subscriberId": "test-subscriber-2"
+      },
+      {
+        "subscriberId": "test-subscriber-3"
+      }
+    ],
+    "failed": []
+  }
 }
 ```
 

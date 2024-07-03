@@ -1,0 +1,51 @@
+---
+title: "Workflows"
+description: "Workflows are at the core of responding to events in your system with notifications. Novu Framework enables you to declare type-safe, validated, and version-controlled Workflows with code."
+---
+
+A workflow holds the entire flow of steps (nodes) that are sent to the subscriber. This is where all the different channels are tied together under a single entity.
+
+## Structure
+
+A workflow acts as the blueprint for the notifications that will be sent. This is where all the different channels, filters, rules and actions are tied together under a single entity.
+
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/workflow-mental-model.png"
+/>
+
+## Workflow Components
+
+<Steps>
+    <Step title="Name and Identifier">
+        Every workflow will have a name and an identifier that are used to uniquely identify each workflow.
+    </Step>
+    <Step title="Trigger">
+        The "Trigger" refers to an event or action that initiates the workflow. It signifies a call to the Novu API with a specified workflow ID, along with the necessary payload data that the workflow content will utilize.
+    </Step>
+    <Step title="Steps">
+        Within the Novu framework, steps are categorized into various types, each of which is linked with at least one corresponding action:
+
+        #### Channel Steps
+        - **Email** (examples include Sendgrid, Postmark)
+        - **Inbox** (such as feeds, toasts, banners)
+        - **Push** (such as APNS, FCM)
+        - **SMS** (examples include Twilio, Telnyx)
+        - **Chat** (such as Slack, Microsoft Teams, and Discord)
+
+        #### Action Steps
+        - **Delay** (to pause the workflow for a specified duration)
+        - **Digest** (to group multiple notifications into a single message)
+        - **Custom** (to execute custom logic like calling an HTTP API, database query, etc.)
+    </Step>
+
+</Steps>
+
+## Execution of Workflow Steps
+
+Once a workflow is initiated by its trigger, the steps within the workflow are executed in a specific sequence. This sequential execution ensures that each step is completed before the next one begins, maintaining a controlled and orderly flow of the notification process. Here's what you need to know about this process:
+
+Each step in the workflow is activated one after the other, in the order they are listed within the workflow. This method ensures that each step is given the necessary attention and that dependencies or prerequisites of later steps are adequately met.
+Sequential execution provides a predictable and reliable workflow process, ensuring that messages are sent out in an orderly manner and that each step's output can appropriately influence subsequent steps.
+<br />
+Read more about building workflows [here](/workflow/introduction).
