@@ -19,11 +19,16 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```
 
 ```javascript Node.js
-import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+import {
+  Novu,
+  TemplateVariableTypeEnum,
+  FilterPartTypeEnum,
+  StepTypeEnum,
+} from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
-await novu.notificationTemplates.updateStatus("workflowId", false)
+await novu.notificationTemplates.updateStatus("workflowId", false);
 ```
 
 ```php PHP
@@ -90,7 +95,7 @@ func main() {
   body, _ := ioutil.ReadAll(resp.Body)
   fmt.Println(string(body))
 }
-    
+
 ```
 
 ```kotlin Kotlin
@@ -127,9 +132,7 @@ class Main {
       "push": true
     },
     "critical": true,
-    "tags": [
-      "string"
-    ],
+    "tags": ["string"],
     "steps": [
       {
         "_id": "string",

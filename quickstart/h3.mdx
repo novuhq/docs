@@ -1,0 +1,58 @@
+---
+title: "How to send notifications with H3 and Novu Framework"
+sidebarTitle: "H3"
+---
+
+import LocalStudio from "/snippets/quickstart/start-studio.mdx";
+import DeployApp from "/snippets/quickstart/deploy.mdx";
+import TestStep from "/snippets/quickstart/test.mdx";
+import PackagesStep from "/snippets/quickstart/packages.mdx";
+import SecretStep from "/snippets/quickstart/secret.mdx";
+import NextStepsStep from "/snippets/quickstart/next-steps.mdx";
+import WorkflowStep from "/snippets/quickstart/workflow.mdx";
+
+In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a H3 application and send our first test workflow.
+
+<Steps>
+    <LocalStudio />
+    <PackagesStep />
+    <Step title="Add a Novu API Endpoint">
+        <CodeGroup>
+            ```typescript app/server/api/novu.ts
+            import { createApp, eventHandler, toNodeListener } from "h3";
+            import { serve } from "@novu/framework/h3";
+            import { createServer } from "node:http";
+            import { testWorkflow } from "./novu/workflows";
+
+            const app = createApp();
+
+            app.use("/api/novu", eventHandler(serve({ workflows: [testWorkflow] }) ));
+
+            createServer(toNodeListener(app)).listen(4000);
+            ```
+        </CodeGroup>
+    </Step>
+    <SecretStep />
+
+    <Step title="Create your workflow definition">
+        Add a `novu` folder in your app folder as such ```novu/workflows.ts``` that will contain your workflow definitions.
+
+        <WorkflowStep />
+    </Step>
+    
+
+    <Step title="Start your application">
+        Start your H3 server with the Novu Endpoint configured.
+
+        If your Remix application is running on other than `4000` port, restart the `npx novu dev` command with the port:
+
+        ```tsx
+        npx novu@latest dev --port <YOUR_H3_PORT>
+        ```
+    </Step>
+    <TestStep framework="H3" />
+    <DeployApp />
+
+</Steps>
+
+<NextStepsStep />

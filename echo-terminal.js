@@ -1155,7 +1155,7 @@ function SeenCompletionPopoverContent(o) {
 function EventCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 5, pos: 50, pop: !0, noninteractable: !0, $$slots: { default: [Ut] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 3, pos: 50, pop: !0, noninteractable: !0, $$slots: { default: [Ut] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1239,7 +1239,7 @@ function Jt(o) {
 function PayloadCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 7, pos: 37, pop: !0, noninteractable: !0, $$slots: { default: [Gt] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 5, pos: 37, pop: !0, noninteractable: !0, $$slots: { default: [Gt] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1281,7 +1281,7 @@ function Gt(o) {
 function TriggerCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 22, pos: 16, pop: !0, noninteractable: !0, $$slots: { default: [Qt] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 20, pos: 16, pop: !0, noninteractable: !0, $$slots: { default: [Qt] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1462,8 +1462,8 @@ function Yt(o) {
 function initializeEchoNode(o, options, transitionToState) {
     let t,
         { animated: i = !0 } = options;
-    const echoCompletionPopoverContent = `(alias) <kw>new</kw> <id>Echo</id>({ apiKey, ...opts }?: ClientOptions): Echo
-<hr/>Echo, the Notifications as Code client.`,
+    const echoCompletionPopoverContent = `(method) workflow(workflowId, async (event) => { ... }): Workflow
+<hr/>The Notifications as Code workflow definition.`,
         stepCompletionPopoverContent = `<comment>(property) payload: { postId: string }</comment>
 <hr/>The payload for the event, provided during trigger.`,
         eventCompletionPopoverContent = `(parameter) <kw>event</kw>: {
@@ -1500,11 +1500,9 @@ function initializeEchoNode(o, options, transitionToState) {
             }
         }
     }
-    let finalStateSnippet = `<kw>import</kw> { Echo } <kw>from</kw> <str>'@novu/echo'</str>;
+    let finalStateSnippet = `<kw>import</kw> { workflow } <kw>from</kw> <str>'@novu/framework'</str>;
 
-<kw>const</kw> echo = <kw>new</kw> <span class="hover" id="nv-node-echo-client"><id>Echo</id></span>();
-
-<kw>const</kw> commentWorkflow = echo.<fn>workflow</fn>(<str>'comment-on-post'</str>, <kw>async</kw> (<span class="hover" id="nv-node-echo-event">event</span>) => {
+<kw>const</kw> commentWorkflow = <fn><span class="hover" id="nv-node-echo-client"><id>workflow</id></span></fn>(<str>'comment-on-post'</str>, <kw>async</kw> (<span class="hover" id="nv-node-echo-event">event</span>) => {
   <kw>const</kw> inAppResponse = <kw>await</kw> event.step.<fn>inApp</fn>(<str>'notify-user'</str>, <kw>async</kw> () => ({
     body: <fn>renderReactComponent</fn>(event.<span class="hover" id="nv-node-echo-payload">payload</span>.postId)
   }));
@@ -1608,52 +1606,70 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
     ];
 
     const transitions = [
-        addLine(5, 2, 100),
-        addText(5, "<kw>const</kw> inAppResponse = <kw>await</kw> event."),
-        openCompletions(5, {
+        addLine(3, 2, 100),
+        addText(3, "<kw>const</kw> inAppResponse = <kw>await</kw> event."),
+        openCompletions(3, {
             interval: 1500,
             completion: "step",
             completions: eventCompletions,
             text: "st",
         }),
-        addText(5, ".<fn>"),
-        openCompletions(5, {
+        addText(3, ".<fn>"),
+        openCompletions(3, {
             interval: 1000,
             completion: "inApp",
             completions: stepCompletions,
             text: "in",
         }),
         // TODO: Automatic completion of the function signature, including brackets and parameters
-        addText(5, `</fn>(<str>'notify-user'</str>, <kw>async</kw> () => ({`),
-        addText(6, ""),
-        addLine(6, 4, 500),
-        addText(6, 'b', 200),
-        openCompletions(6, {
+        addText(3, `</fn>(<str>'notify-user'</str>, <kw>async</kw> () => ({`),
+        addText(4, ""),
+        addLine(4, 4, 500),
+        addText(4, 'b', 200),
+        openCompletions(4, {
             interval: 500,
             completion: "body",
             completions: inAppInputCompletions,
             text: "bo",
             written: 1,
         }),
-        addText(6, ": <fn>renderReactComponent</fn>(event."),
-        openCompletions(6, {
+        addText(4, ": <fn>renderReactComponent</fn>(event."),
+        openCompletions(4, {
             interval: 1000,
             completion: "payload",
             completions: eventCompletions,
             text: "pay",
         }),
-        addText(6, "."),
-        openCompletions(6, {
+        addText(4, "."),
+        openCompletions(4, {
             interval: 1500,
             completion: "postId",
             completions: payloadCompletions,
         }),
-        addText(6, ")"),
+        addText(4, ")"),
+        addLine(5, 2, 500),
+        addText(5, "}));"),
+        addLine(6, 0),
         addLine(7, 2, 500),
-        addText(7, "}));"),
+        addText(7, "<kw>const</kw> { events } = <kw>await</kw> event."),
+        openCompletions(7, {
+            interval: 1500,
+            completion: "step",
+            completions: eventCompletions,
+            text: "st",
+        }),
+        addText(7, ".<fn>"),
+        openCompletions(7, {
+            interval: 1500,
+            completion: "digest",
+            completions: stepCompletions,
+            text: "di",
+        }),
+        addText(7, "</fn>(<str>'1 week'</str>);"),
+        { type: "wait", time: 2000 },
         addLine(8, 0),
         addLine(9, 2, 500),
-        addText(9, "<kw>const</kw> { events } = <kw>await</kw> event."),
+        addText(9, `<kw>await</kw> event.`),
         openCompletions(9, {
             interval: 1500,
             completion: "step",
@@ -1662,43 +1678,25 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
         }),
         addText(9, ".<fn>"),
         openCompletions(9, {
-            interval: 1500,
-            completion: "digest",
-            completions: stepCompletions,
-            text: "di",
-        }),
-        addText(9, "</fn>(<str>'1 week'</str>);"),
-        { type: "wait", time: 2000 },
-        addLine(10, 0),
-        addLine(11, 2, 500),
-        addText(11, `<kw>await</kw> event.`),
-        openCompletions(11, {
-            interval: 1500,
-            completion: "step",
-            completions: eventCompletions,
-            text: "st",
-        }),
-        addText(11, ".<fn>"),
-        openCompletions(11, {
             interval: 50,
             completion: "email",
             completions: stepCompletions,
             text: "email",
         }),
-        addText(11, `</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {`),
-        addLine(12, 4),
-        addText(12, "<kw>return</kw> {"),
-        addLine(13, 6),
-        addText(13, "s", 200),
-        openCompletions(13, {
+        addText(9, `</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {`),
+        addLine(10, 4),
+        addText(10, "<kw>return</kw> {"),
+        addLine(11, 6),
+        addText(11, "s", 200),
+        openCompletions(11, {
             interval: 1000,
             completion: "subject",
             completions: emailInputCompletions,
             text: "sub",
             written: 1,
         }),
-        addText(13, ": <str>`Weekly post comments (</str><kw>${</kw>events."),
-        openCompletions(13, {
+        addText(11, ": <str>`Weekly post comments (</str><kw>${</kw>events."),
+        openCompletions(11, {
             interval: 500,
             completion: "length",
             completions: [
@@ -1708,71 +1706,71 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
             ],
             text: "le",
         }),
-        addText(13, " + 1<kw>}</kw><str>)`</str>,"),
-        addLine(14, 6),
-        addText(14, "b", 150),
-        openCompletions(14, {
+        addText(11, " + 1<kw>}</kw><str>)`</str>,"),
+        addLine(12, 6),
+        addText(12, "b", 150),
+        openCompletions(12, {
             interval: 500,
             completion: "body",
             completions: emailInputCompletions,
             text: "bo",
             written: 1,
         }),
-        addText(14, ": <fn>renderReactEmail</fn>(inputs, events)"),
-        addLine(15, 4),
-        addText(15, "};"),
-        addLine(16, 2, 500),
-        addText(16, "}, { <fn>s", 150),
-        openCompletions(16, {
+        addText(12, ": <fn>renderReactEmail</fn>(inputs, events)"),
+        addLine(13, 4),
+        addText(13, "};"),
+        addLine(14, 2, 500),
+        addText(14, "}, { <fn>s", 150),
+        openCompletions(14, {
             interval: 500,
             completion: "skip",
             completions: stepOptionsCompletions,
             text: "s",
             written: 1,
         }),
-        addText(16, `</fn>: () => inAppResponse.`),
-        openCompletions(16, {
+        addText(14, `</fn>: () => inAppResponse.`),
+        openCompletions(14, {
             interval: 1000,
             completion: "seen",
             completions: channelResultCompletions,
             text: "se",
         }),
-        addText(16, " });"),
-        addLine(20, 0),
-        addText(20, `<comment>// Use the same familiar syntax to send a notification</comment>`, 20),
-        addLine(21, 0),
-        addText(21, `commentWorkflow.<fn>trigger</fn>({`),
-        addLine(22, 2),
-        openCompletions(22, {
+        addText(14, " });"),
+        addLine(18, 0),
+        addText(18, `<comment>// Use the same familiar syntax to send a notification</comment>`, 20),
+        addLine(19, 0),
+        addText(19, `commentWorkflow.<fn>trigger</fn>({`),
+        addLine(20, 2),
+        openCompletions(20, {
             interval: 500,
             completion: "to",
             completions: triggerCompletions,
             text: "to",
         }),
-        addText(22, ": { "),
-        openCompletions(22, {
+        addText(20, ": { "),
+        openCompletions(20, {
             interval: 200,
             completion: "subscriberId",
             completions: subscriberCompletions,
             text: "subs",
         }),
-        addText(22, ": <str>'joe@acme.com'</str> },"),
-        addLine(23, 2),
-        openCompletions(23, {
+        addText(20, ": <str>'joe@acme.com'</str> },"),
+        addLine(21, 2),
+        openCompletions(21, {
             interval: 100,
             completion: "payload",
             completions: triggerCompletions,
             text: "payload",
         }),
-        addText(23, ": { "),
-        openCompletions(23, {
+        addText(21, ": { "),
+        openCompletions(21, {
             interval: 500,
             completion: "postId",
             completions: payloadCompletions,
         }),
-        addText(23, ": <str>'12345'</str> }"),
-        addLine(24, 0),
-        addText(24, `});`),
+        addText(21, ": <str>'12345'</str> }"),
+        addLine(22, 0),
+        addText(22, `});`),
         {
             type: "callback",
             time: 100,
@@ -1782,11 +1780,9 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
             },
         },
     ].flat();
-    let initialText = `<kw>import</kw> { Echo } <kw>from</kw> <str>'@novu/echo'</str>;
+    let initialText = `<kw>import</kw> { workflow } <kw>from</kw> <str>'@novu/framework'</str>;
 
-<kw>const</kw> echo = <kw>new</kw> <id>Echo</id>();
-
-<kw>const</kw> commentWorkflow = echo.<fn>workflow</fn>(<str>'comment-on-post'</str>, <kw>async</kw> (event) => {
+<kw>const</kw> commentWorkflow = <fn>workflow</fn>(<str>'comment-on-post'</str>, <kw>async</kw> (event) => {
 }, { payloadSchema: z.<fn>object</fn>({ postId: z.<fn>string</fn>() }) },
 );
 `.split(`

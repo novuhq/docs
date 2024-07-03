@@ -33,8 +33,8 @@ curl --location 'https://api.novu.co/v1/integrations' \
 ```
 
 ```javascript Node.js
-import { Novu, ChannelTypeEnum, ProvidersIdEnum } from '@novu/node';  
-const novu = new Novu('<NOVU_API_KEY>');
+import { Novu, ChannelTypeEnum, ProvidersIdEnum } from "@novu/node";
+const novu = new Novu("<NOVU_API_KEY>");
 
 const createPaylod = {
   name: "SendGrid",
@@ -47,8 +47,8 @@ const createPaylod = {
     // ... other credentials as per provider
   },
   active: true,
-  check: false
-}
+  check: false,
+};
 
 await novu.integrations.create(ProvidersIdEnum.SendGrid, createPayload);
 ```
@@ -98,6 +98,7 @@ novu = IntegrationApi(url, api_key).create(
 
 )
 ```
+
 ```java Java
 import co.novu.sdk.Novu;
 
@@ -110,7 +111,6 @@ public class Main {
     }
 }
 ```
-
 
 </RequestExample>
 <ResponseExample>

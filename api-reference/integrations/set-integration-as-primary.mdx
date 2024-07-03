@@ -8,12 +8,13 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 
 <RequestExample>
 ```javascript Node.js
-import { Novu } from '@novu/node';  
+import { Novu } from '@novu/node';
 
 const novu = new Novu('<NOVU_API_KEY>');
 
 await novu.integrations.setIntegrationAsPrimary("integrationId")
-```
+
+````
 
 ```php PHP
 <?php
@@ -36,8 +37,8 @@ $result = file_get_contents($url, false, $context);
 if ($result === FALSE) { /* Handle error */ }
 
 echo $result;
-    
-```
+
+````
 
 ```ruby Ruby
 require 'net/http'
@@ -57,7 +58,7 @@ request.add_field('Authorization', 'ApiKey REPLACE_WITH_API_KEY')
 response = http.request(request)
 
 puts response.body
-    
+
 ```
 
 ```go Go
@@ -85,14 +86,13 @@ func main() {
 }
 ```
 
-
 ```python Python
 import requests
 
 response = requests.post('https://api.novu.co/v1/integrations/:integrationId/set-primary')
 
 print(response.json())
-    
+
 ```
 
 </RequestExample>
