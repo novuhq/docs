@@ -30,7 +30,11 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Exp
     </Step>
     <SecretStep />
 
-    <WorkflowStep path="novu/workflows.ts" />
+    <Step title="Create your workflow definition">
+        Add a `novu` folder in your app folder as such ```novu/workflows.ts``` that will contain your workflow definitions.
+
+        <WorkflowStep />
+    </Step>
 
     <Step title="Start your application">
         Start your Express server with the Novu Endpoint configured.
