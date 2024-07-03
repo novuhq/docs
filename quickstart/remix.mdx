@@ -17,12 +17,19 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Rem
     <PackagesStep />
 
     <Step title="Add a Novu API Endpoint">
-        <CodeGroup>
-            ```typescript  src/routes/api/novu/+server.ts
-            import { testWorkflow } from '$lib/novu/workflows';
-            import { serve } from '@novu/framework/sveltekit';
+        This guide is based on Remix Offical [Quick Start](https://remix.run/docs/en/main/start/quickstart).
 
-            export const { GET, POST, OPTIONS } = serve({ workflows: [testWorkflow] });
+        <CodeGroup>
+            ```typescript  app/routes/api.novu.ts 
+            import { serve } from "@novu/framework/remix";
+            import { client, testWorkflow } from "~/novu/workflows";
+            
+            const handler = serve({
+                client: client,
+                workflows: [testWorkflow]
+            });
+            
+            export { handler as action, handler as loader };
             ```
         </CodeGroup>
     </Step>
@@ -37,7 +44,7 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Rem
         cd my-novu-app && npm run dev
         ```
 
-        If your Remix application is running on other than `4000` port, restart the `npx novu dev` command with the port:
+        Remix application default port is running `5173` port if you used another port, use that instead, and restart the `npx novu dev` command with the port:
 
         ```bash
         npx novu@latest dev --port <YOUR_REMIX_PORT>
