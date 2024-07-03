@@ -9,7 +9,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 <RequestExample>
 
 ```javascript Node.js
-import { Novu } from '@novu/node';
+import { Novu } from "@novu/node";
 
 const novu = new Novu("<NOVU_API_KEY>");
 
@@ -17,16 +17,16 @@ await novu.events.broadcast("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   payload: {
     customKey: "customValue",
     customKey1: {
-      nestedkey1: "nestedValue1"
-    }
+      nestedkey1: "nestedValue1",
+    },
   },
   overrides: {
     email: {
-      from: "support@novu.co"
-    }
+      from: "support@novu.co",
+    },
   },
-  tenant: "tenantIdentifier"
-})
+  tenant: "tenantIdentifier",
+});
 ```
 
 ```php PHP
@@ -147,7 +147,7 @@ public class Main {
         subscriberRequest.setSubscriberId("<SUBSCRIBER_ID>");
 
         TriggerEventRequest triggerEventRequest = new TriggerEventRequest();
-        triggerEventRequest.setName("<NAME>"); 
+        triggerEventRequest.setName("<NAME>");
         triggerEventRequest.setTo(subscriberRequest);
         triggerEventRequest.setPayload(Collections.singletonMap("<CUSTOM_VARIABLE_NAME>", "<CUSTOM_VARIABLE_VALUE>"));
 
@@ -163,10 +163,10 @@ using Novu;
 
 var novuConfiguration = new NovuClientConfiguration
 {
-    /** 
-    * Defaults to https://api.novu.co/v1 
+    /**
+    * Defaults to https://api.novu.co/v1
     */
-    Url = "https://novu-api.my-domain.com/v1", 
+    Url = "https://novu-api.my-domain.com/v1",
     ApiKey = "12345",
 };
 
@@ -196,11 +196,11 @@ var trigger = await novu.Event.TriggerBroadcastAsync(dto);
 
 ```json Response
 {
-    "data": {
-        "acknowledged": true,
-        "status": "processed",
-        "transactionId": "string"
-    }
+  "data": {
+    "acknowledged": true,
+    "status": "processed",
+    "transactionId": "string"
+  }
 }
 ```
 

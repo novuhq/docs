@@ -1,0 +1,33 @@
+---
+title: "Delay Action Step"
+sidebarTitle: "Delay"
+---
+
+The delay action awaits a specified amount of time before moving on to trigger the following steps of the workflow.
+
+## Common usecases
+
+- Waiting for X amount of time before sending the message
+- Wait for a short period of time before sending a push message in case the user seen the notification in the Inbox Component
+- Allow the user some time to cancel an action that generated a notification
+
+## Adding a delay step
+
+Delay steps can be inserted at any stage of your workflow execution, they can happen after or before any action. The workflow execution will be halted for the given amount of time and then resumed to the next step in the flow.
+
+The action can also be skipped using the `skip` parameter conditionally to allow more complex usecases of when to wait and when to send an email immediately.
+
+```typescript
+await step.delay(
+  "delay",
+  async () => {
+    return {
+      unit: "day",
+      amount: 1,
+    };
+  },
+  {
+    skip: () => isCriticalMessage(),
+  }
+);
+```

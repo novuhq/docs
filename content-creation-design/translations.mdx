@@ -4,7 +4,10 @@ description: "Translate notification content to different languages using i18n."
 icon: "language"
 ---
 
-<Info>The feature is only available for **Novu Cloud** users with **Business** or **Enterprise** plans.</Info>
+<Info>
+  The feature is only available for **Novu Cloud** users with **Business** or
+  **Enterprise** plans.
+</Info>
 
 ## Introduction
 
@@ -23,21 +26,33 @@ Translation Group allows you to efficiently manage translations for diverse lang
 
 To create the Translation Group navigate to the `Translations` page from the main navigation and click on the “Add group” button.
 
-<img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_1.png" />
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/translations/translations_1.png"
+/>
 
 Before creating your first Translation Group you'll be prompted to specify the default locale for organization. This locale serves as a fallback option for localized messages in cases where the recipient hasn't defined a specific locale.
 
-<img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_2.png" />
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/translations/translations_2.png"
+/>
 
 After selecting the default language, you can provide the essential details: the group name, group identifier, and select your target languages.
 
 The group identifier is an important value that you will later use in the editor to localize your messages. This is a similar concept that we use across the app to identify the main parts.
 
-<img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_3.png" />
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/translations/translations_3.png"
+/>
 
 After the group is created, you will land on the group details page on which you can see the list with the empty translations for the languages you choose.
 
-<img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_4.png" />
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/translations/translations_4.png"
+/>
 
 ## Translations
 
@@ -67,15 +82,24 @@ Translations are JSON files that contain the content of your messages in a speci
 
 To upload your translations click on the “Upload files” button located at the top of the Translation Group details page.
 
-<img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_5.png" />
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/translations/translations_5.png"
+/>
 
 Select the translation files and click “Open” button.
 
-<img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_6.png" />
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/translations/translations_6.png"
+/>
 
 With each uploaded translation file, you must indicate the language it references. Additionally, you can verify the correctness of the uploaded file by previewing its contents.
 
-<img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_7.png" />
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/translations/translations_7.png"
+/>
 
 Click on “Upload files” button. Congratulations you just uploaded the translation files and created the translation group! 🎉
 
@@ -88,9 +112,15 @@ Let’s take a look at the example: `{{i18n "marketing.welcome_message"}}`.
 - `i18n` is the handlebar helper that tells Novu that you would like to use the Translations
 - `"marketing.welcome_message"` is the path that is composed of the Translation Group identifier `marketing` and translation JSON file key `welcome_message`
 
-<img style={{ borderRadius: "0.5rem" }} src="/images/translations/translations_8.png" />
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="/images/translations/translations_8.png"
+/>
 
-<Info>i18n variables can be used in `subject` and `preheader` fields of the email step.</Info>
+<Info>
+  i18n variables can be used in `subject` and `preheader` fields of the email
+  step.
+</Info>
 ## Subscribers Locale
 
 The subscribers locale defines in which language the message should be delivered to that recipient. When the locale is not specified it will fallback to the default locale set for the organization. The locale format includes ISO language plus the region, for example `de_DE` language German and region Germany.
@@ -123,9 +153,9 @@ For example:
 
 ```json
 {
-	"friend": "A friend",
-	"friend_male": "A boyfriend",
-	"friend_female": "A girlfriend"
+  "friend": "A friend",
+  "friend_male": "A boyfriend",
+  "friend_female": "A girlfriend"
 }
 ```
 
@@ -143,8 +173,8 @@ To distinguish between plural translation options.
 
 ```json
 {
-	"keyWithCount": "{{count}} item",
-	"keyWithCount_plural": "{{count}} items",
+  "keyWithCount": "{{count}} item",
+  "keyWithCount_plural": "{{count}} items"
 }
 ```
 

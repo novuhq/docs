@@ -12,10 +12,10 @@ import co.novu.api.subscribers.responses.SingleSubscriberResponse;
 import co.novu.api.subscribers.requests.UpdateSubscriberRequest;
 
 public class Main {
-    public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
-        Novu novu = new Novu(apiKey);
-        String subscriberId = "<SUBSCRIBER_ID>";
+public static void main(String[] args) {
+String apiKey = "<NOVU_API_KEY>";
+Novu novu = new Novu(apiKey);
+String subscriberId = "<SUBSCRIBER_ID>";
 
         UpdateSubscriberRequest updateSubscriberRequest = new UpdateSubscriberRequest();
         updateSubscriberRequest.setEmail("<EMAIL_ADDRESS>");
@@ -26,8 +26,10 @@ public class Main {
 
         SingleSubscriberResponse response = novu.updateSubscriber(updateSubscriberRequest, subscriberId);
     }
+
 }
-```
+
+````
 </RequestExample>
 <ResponseExample>
 ```json Response
@@ -65,5 +67,6 @@ public class Main {
     "updatedAt": "string"
   }
 }
-```
+````
+
 </ResponseExample>

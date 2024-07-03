@@ -1,0 +1,50 @@
+---
+title: "Client"
+---
+
+The Novu Framework is an optional Class you can pass to the `serve` function to override some global settings.
+By default, we will inject a new instance of the `Client` class in your `serve` method with the following defaults:
+
+## Client Interface
+
+<ParamField
+  body="secretKey"
+  type="string"
+  default="process.env.NOVU_SECRET_KEY"
+>
+  Your Novu Secret Key, used to sign the HMAC header to guarantee the
+  authenticity of our requests.
+</ParamField>
+
+<ParamField
+  body="strictAuthentication"
+  type="boolean"
+  default="process.env.NODE_ENV !== 'development'"
+>
+  This bypasses the HMAC signature verification, required for local development
+  and testing against [Local Studio](/workflow/studio).
+</ParamField>
+
+## Environment Variables
+
+Unless specified in the `Client` constructor the `Client` class will look for the following environment variables:
+
+- `NOVU_SECRET_KEY` - Your Novu Secret Key
+- `NOVU_API_URL` - Defaults to `https://api.novu.co`. For EU customers, this should be set to `https://eu.api.novu.co`.
+
+## Development Environment
+
+When your service is running in development mode `process.env.NODE_ENV=development`, the following rules will auto apply:
+
+- `strictAuthentication` will be set to `false`.
+
+## Code Example
+
+```typescript
+import { Client } from "@novu/framework";
+
+const client = new Client({
+  secretKey: "my-secret-key",
+  strictAuthentication: false,
+});
+```

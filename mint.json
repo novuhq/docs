@@ -24,33 +24,26 @@
   "topbarLinks": [
     {
       "name": "Get API Key",
-      "url": "https://web.novu.co/settings?utm_campaign=docs-menu-apikey"
+      "url": "https://dashboard.novu.co/api-keys/Development?utm_campaign=docs-menu-apikey"
     }
   ],
   "topbarCtaButton": {
     "type": "github",
     "url": "https://github.com/novuhq/novu"
   },
-  "anchors": [
-    {
-      "name": "API Reference",
-      "icon": "square-terminal",
-      "url": "api-reference"
-    },
-    {
-      "name": "Discord Support",
-      "icon": "discord",
-      "url": "https://discord.gg/novu?ref=docs-instant-help"
-    }
-  ],
+  "anchors": [],
   "tabs": [
     {
-      "name": "Framework (Code-First)",
-      "url": "framework"
-    },
-    {
       "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "Integrations",
+      "url": "integrations"
+    },
+    {
+      "name": "Inbox",
+      "url": "inbox"
     },
     {
       "name": "SDKs",
@@ -61,309 +54,102 @@
       "url": "guides"
     },
     {
-      "name": "Help Center",
-      "url": "help"
+      "name": "Recipes",
+      "url": "recipes"
+    },
+    {
+      "name": "Community",
+      "url": "community"
     }
   ],
   "navigation": [
     {
-      "group": "Introduction",
+      "group": "Getting Started",
       "pages": [
         "getting-started/introduction",
         "getting-started/how-novu-works",
-        "getting-started/concepts"
+        "getting-started/non-technical"
+      ]
+    },
+    {
+      "group": "Quickstart",
+      "pages": [
+        "quickstart/overview",
+        "quickstart/nextjs",
+        "quickstart/svelte",
+        "quickstart/remix",
+        "quickstart/express",
+        "quickstart/nuxt",
+        "quickstart/h3"
+      ]
+    },
+    {
+      "group": "Concepts",
+      "pages": [
+        "concepts/workflows",
+        "concepts/controls",
+        "concepts/trigger",
+        "concepts/subscribers",
+        "concepts/endpoint",
+        "concepts/environments",
+        "concepts/preferences",
+        "concepts/tenants",
+        "concepts/topics"
       ]
     },
     {
       "group": "Architecture",
+      "pages": ["architecture/introduction", "architecture/diagrams"]
+    },
+    {
+      "group": "Building Workflows",
       "pages": [
-        "architecture/introduction",
-        "architecture/diagrams"
+        "workflow/introduction",
+        "workflow/studio",
+        "workflow/content",
+        "workflow/digest",
+        "workflow/delay",
+        "workflow/custom"
       ]
     },
     {
-      "group": "Getting Started",
+      "group": "Inbox Component",
+      "pages": ["inbox/introduction"]
+    },
+    {
+      "group": "React",
+      "icon": "react",
       "pages": [
-        "getting-started/novu-sign-up",
-        "getting-started/send-your-first-notification",
-        {
-          "group": "Quickstarts",
-          "icon": "bolt",
-          "pages": [
-            "quickstarts/overview",
-            "quickstarts/general",
-            {
-              "group": "Client-Side",
-              "pages": [
-                "quickstarts/vue",
-                "quickstarts/react",
-                "quickstarts/angular",
-                "quickstarts/vanillajs",
-                "quickstarts/redwoodjs",
-                "quickstarts/iFrame",
-                "quickstarts/nextjs"
-              ]
-            },
-            {
-              "group": "Server-Side",
-              "pages": [
-                "quickstarts/nodejs",
-                "quickstarts/php",
-                "quickstarts/python",
-                "quickstarts/kotlin",
-                "quickstarts/ruby",
-                "quickstarts/.NET",
-                "quickstarts/nextjs",
-                "quickstarts/go",
-                "quickstarts/java"
-              ]
-            }
-          ]
-        }
+        "inbox/react/get-started",
+        "inbox/react/customization",
+        "inbox/react/preference",
+        "inbox/react/multiple-tabs",
+        "inbox/react/api-reference"
       ]
     },
     {
-      "group": "Subscribers",
+      "group": "Headless",
+      "icon": "code",
+      "pages": ["inbox/headless/get-started", "inbox/headless/api-reference"]
+    },
+
+    {
+      "group": "Other Frameworks",
       "pages": [
-        "subscribers/subscribers",
-        "subscribers/topics",
-        "subscribers/preferences"
+        "inbox/client/vue",
+        "inbox/client/angular",
+        "inbox/client/web-component"
       ]
     },
     {
-      "group": "Workflows",
-      "pages": [
-        "workflows/notification-workflows",
-        "workflows/variants",
-        "workflows/step-filters",
-        "workflows/digest",
-        "workflows/delay-action",
-        "workflows/template-store",
-        "workflows/messages"
-      ]
+      "group": "Deployment",
+      "pages": ["deployment/production", "deployment/cli", "deployment/actions"]
     },
-    {
-      "group": "Activity Feed",
-      "pages": [
-        "activity-feed/introduction",
-        "activity-feed/trigger-event-lifecycle"
-      ]
-    },
-    {
-      "group": "Tenants",
-      "pages": [
-        "tenants/introduction"
-      ]
-    },
-    {
-      "group": "Platform",
-      "pages": [
-        "platform/environments",
-        "platform/webhooks-for-providers",
-        "platform/inbound-parse-webhook"
-      ]
-    },
-    {
-      "group": "Notification Center",
-      "pages": [
-        "notification-center/introduction",
-        {
-          "group": "UI Library Components",
-          "icon": "object-group",
-          "pages": [
-            {
-              "group": "React",
-              "pages": [
-                "notification-center/client/react/get-started",
-                "notification-center/client/react/customization",
-                "notification-center/client/react/preference",
-                "notification-center/client/react/multiple-tabs",
-                "notification-center/client/react/api-reference"
-              ]
-            },
-            "notification-center/client/vue",
-            "notification-center/client/angular",
-            "notification-center/client/web-component",
-            "notification-center/client/iframe",
-            {
-              "group": "Headless",
-              "pages": [
-                "notification-center/client/headless/get-started",
-                "notification-center/client/headless/api-reference"
-              ]
-            }
-          ]
-        },
-        "notification-center/backend/methods"
-      ]
-    },
-    {
-      "group": "Content Creation & Design",
-      "pages": [
-        "content-creation-design/variables",
-        "content-creation-design/handlebars-helpers",
-        "content-creation-design/brand",
-        "content-creation-design/notification-content-creation",
-        "content-creation-design/layouts",
-        "content-creation-design/translations"
-      ]
-    },
-    {
-      "group": "Channels & Providers",
-      "pages": [
-        "channels-and-providers/introduction",
-        "channels-and-providers/integration-store",
-        "channels-and-providers/default-providers",
-        {
-          "group": "In-App",
-          "icon": "bell",
-          "pages": [
-            "channels-and-providers/in-app/introduction"
-          ]
-        },
-        {
-          "group": "Email",
-          "icon": "envelope",
-          "pages": [
-            "channels-and-providers/email/overview",
-            "channels-and-providers/email/infobip",
-            "channels-and-providers/email/amazon-ses",
-            "channels-and-providers/email/braze",
-            "channels-and-providers/email/mailersend",
-            "channels-and-providers/email/mailgun",
-            "channels-and-providers/email/mailjet",
-            "channels-and-providers/email/mailtrap",
-            "channels-and-providers/email/mandrill",
-            "channels-and-providers/email/netcore",
-            "channels-and-providers/email/outlook365",
-            "channels-and-providers/email/postmark",
-            "channels-and-providers/email/resend",
-            "channels-and-providers/email/sendgrid",
-            "channels-and-providers/email/sendinblue",
-            "channels-and-providers/email/sparkpost",
-            "channels-and-providers/email/plunk",
-            "channels-and-providers/email/custom-smtp"
-          ]
-        },
-        {
-          "group": "SMS",
-          "icon": "message-sms",
-          "pages": [
-            "channels-and-providers/sms/overview",
-            "channels-and-providers/sms/twilio",
-            "channels-and-providers/sms/sms77",
-            "channels-and-providers/sms/africas-talking",
-            "channels-and-providers/sms/azure",
-            "channels-and-providers/sms/bulk-sms",
-            "channels-and-providers/sms/messagebird",
-            "channels-and-providers/sms/simpletexting",
-            "channels-and-providers/sms/infobip",
-            "channels-and-providers/sms/sendchamp",
-            "channels-and-providers/sms/aws-sns",
-            "channels-and-providers/sms/nexmo",
-            "channels-and-providers/sms/plivo",
-            "channels-and-providers/sms/telnyx",
-            "channels-and-providers/sms/termii",
-            "channels-and-providers/sms/firetext",
-            "channels-and-providers/sms/gupshup",
-            "channels-and-providers/sms/clickatell"
-          ]
-        },
-        {
-          "group": "Push",
-          "icon": "mobile",
-          "pages": [
-            "channels-and-providers/push/overview",
-            "channels-and-providers/push/fcm",
-            "channels-and-providers/push/apns",
-            "channels-and-providers/push/expo-push",
-            "channels-and-providers/push/onesignal",
-            "channels-and-providers/push/pushpad",
-            "channels-and-providers/push/push-webhook",
-            "channels-and-providers/push/pusher-beams"
-          ]
-        },
-        {
-          "group": "Chat",
-          "icon": "comments",
-          "pages": [
-            "channels-and-providers/chat/overview",
-            "channels-and-providers/chat/discord",
-            "channels-and-providers/chat/slack",
-            "channels-and-providers/chat/ms-teams",
-            "channels-and-providers/chat/zulip",
-            "channels-and-providers/chat/whats-app"
-          ]
-        }
-      ]
-    },
-    {
-      "group": "Self-hosting Novu",
-      "pages": [
-        "self-hosting-novu/introduction",
-        "self-hosting-novu/deploy-with-docker",
-        "self-hosting-novu/object-storage",
-        "self-hosting-novu/kubernetes",
-        "self-hosting-novu/aws"
-      ]
-    },
-    {
-      "group": "Guides",
-      "pages": [
-        "guides/add-digest-to-inapp-notifications",
-        "guides/add-digest-to-email-notifications",
-        "guides/headless-notification-center-guide",
-        "guides/slack-guide",
-        "guides/discord-guide",
-        "guides/novu-fcm-web",
-        "guides/FCM-iOS-Novu/how-to-send-PUSH-notifications-to-iOS-devices-with-FCM-using-Novu",
-        "guides/fcm-flutter-novu/how-to-send-push-notifications-to-flutter-apps-with-fcm-using-Novu",
-        "guides/how-to-integrate-segment-with-novu",
-        "guides/novu-fcm-react-native-android",
-        "guides/framework-guides/framework-react-email",
-        "guides/framework-guides/framework-nuxt-vuemail",
-        "guides/framework-guides/framework-svelte",
-        "guides/framework-guides/framework-remix",
-        "guides/framework-guides/framework-mjml",
-        "guides/framework-guides/otp",
-        "guides/framework-guides/product",
-        "guides/framework-guides/digest"
-      ]
-    },
-    {
-      "group": "Recipes",
-      "pages": [
-        "guides/cookbook/introduction"
-      ]
-    },
-    {
-      "group": "Usecases",
-      "pages": [
-        "guides/usecases/introduction",
-        "guides/usecases/multiple-delivery-providers",
-        "guides/usecases/embedded-notification-center",
-        "guides/usecases/digest-multiple-events",
-        "guides/usecases/manage-notifications-in-multiple-languages",
-        "guides/usecases/send-notifications-at-any-scale",
-        "guides/usecases/debug-notifications",
-        "guides/usecases/centralized-multiple-legacy-implementations"
-      ]
-    },
-    {
-      "group": "Demos",
-      "pages": [
-        "guides/demos/introduction"
-      ]
-    },
-    {
-      "group": "Security & Compliance",
-      "pages": [
-        "security-and-compliance/security"
-      ]
-    },
+
     {
       "group": "Community",
       "pages": [
+        "community/deploy-with-docker",
         "community/code-of-conduct",
         "community/get-involved",
         "community/changelog",
@@ -382,51 +168,71 @@
       ]
     },
     {
-      "group": "SDKs & Client Libraries",
+      "group": "How To",
       "pages": [
-        "sdks/introduction",
+        "how-to/introduction",
         {
-          "group": "Client",
+          "group": "Workflow Examples",
           "pages": [
-            "sdks/vue",
-            "sdks/react",
-            "sdks/angular",
-            "sdks/web-component",
-            "sdks/iframe-embed",
-            "sdks/headless-javascript-service"
-          ]
-        },
-        {
-          "group": "Server",
-          "pages": [
-            "sdks/nodejs",
-            "sdks/php",
-            "sdks/laravel",
-            "sdks/python",
-            "sdks/kotlin",
-            "sdks/java",
-            "sdks/ruby",
-            "sdks/go",
-            "sdks/dotnet"
+            "how-to/otp",
+            "how-to/password-reset",
+            "how-to/recent-login",
+            "how-to/invoice-receipt",
+            "how-to/shipping-confirmation",
+            "how-to/feedback-reviews"
           ]
         }
       ]
     },
     {
+      "group": "SDKs & Client Libraries",
+      "group": "Framework Typescript SDK",
+      "pages": [
+        "sdks/framework/typescript/overview",
+        "sdks/framework/typescript/client",
+        "sdks/framework/typescript/workflow",
+        {
+          "group": "Steps",
+          "pages": [
+            "sdks/framework/typescript/steps/introduction",
+            "sdks/framework/typescript/steps/email",
+            "sdks/framework/typescript/steps/inbox",
+            "sdks/framework/typescript/steps/sms",
+            "sdks/framework/typescript/steps/push",
+            "sdks/framework/typescript/steps/chat",
+            "sdks/framework/typescript/steps/digest",
+            "sdks/framework/typescript/steps/delay",
+            "sdks/framework/typescript/steps/custom"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Rest API SDK",
+      "pages": [
+        "sdks/nodejs",
+        "sdks/php",
+        "sdks/laravel",
+        "sdks/python",
+        "sdks/kotlin",
+        "sdks/java",
+        "sdks/ruby",
+        "sdks/go",
+        "sdks/dotnet"
+      ]
+    },
+    {
       "group": "Additional Resources",
       "pages": [
+        "additional-resources/security",
         "additional-resources/idempotency",
         "additional-resources/data-migrations",
-        "additional-resources/glossary",
-        "additional-resources/posts-videos-and-articles"
+        "additional-resources/glossary"
       ]
     },
     {
       "group": "API Reference",
-      "pages": [
-        "api-reference/overview",
-        "api-reference/rate-limiting"
-      ]
+      "pages": ["api-reference/overview", "api-reference/rate-limiting"]
     },
     {
       "group": "Events",
@@ -566,9 +372,7 @@
     },
     {
       "group": "Execution Details",
-      "pages": [
-        "api-reference/execution-details/get-execution-details"
-      ]
+      "pages": ["api-reference/execution-details/get-execution-details"]
     },
     {
       "group": "Feeds",
@@ -616,101 +420,121 @@
         "api-reference/get-v1blueprints"
       ]
     },
+
     {
-      "group": "Help",
+      "group": "Content",
       "pages": [
-        "help/overview",
-        "help/account-management",
-        "help/user-management",
+        "integrations/content/react-email",
+        "integrations/content/vue-email",
+        "integrations/content/svelte-email",
+        "integrations/content/remix-react-email"
+      ]
+    },
+    {
+      "group": "Schema",
+      "pages": ["integrations/schema/zod"]
+    },
+    {
+      "group": "Providers",
+      "pages": [
+        "integrations/providers/introduction",
+        "integrations/providers/default-providers",
         {
-          "group": "Channels",
-          "icon": "bars",
+          "group": "Email",
+          "icon": "envelope",
           "pages": [
-            "help/channels/in-app",
-            "help/channels/email",
-            "help/channels/sms",
-            "help/channels/push",
-            "help/channels/chat"
+            "integrations/providers/email/overview",
+            "integrations/providers/email/infobip",
+            "integrations/providers/email/amazon-ses",
+            "integrations/providers/email/braze",
+            "integrations/providers/email/mailersend",
+            "integrations/providers/email/mailgun",
+            "integrations/providers/email/mailjet",
+            "integrations/providers/email/mailtrap",
+            "integrations/providers/email/mandrill",
+            "integrations/providers/email/netcore",
+            "integrations/providers/email/outlook365",
+            "integrations/providers/email/postmark",
+            "integrations/providers/email/resend",
+            "integrations/providers/email/sendgrid",
+            "integrations/providers/email/sendinblue",
+            "integrations/providers/email/sparkpost",
+            "integrations/providers/email/plunk",
+            "integrations/providers/email/custom-smtp"
           ]
         },
-        "help/orchestration",
-        "help/content-management",
-        "help/observability",
-        "help/others",
-        "help/faq"
-      ]
-    },
-    {
-      "group": "Getting Started",
-      "pages": [
-        "framework/quickstart",
-        "framework/concepts/studio",
-        "framework/roadmap"
-      ]
-    },
-    {
-      "group": "Concepts",
-      "pages": [
-        "framework/concepts/endpoint",
-        "framework/concepts/workflows",
-        "framework/concepts/inputs",
-        "framework/concepts/payload"
-      ]
-    },
-    {
-      "group": "Steps",
-      "pages": [
-        "framework/steps/introduction",
-        "framework/steps/email",
-        "framework/steps/in-app",
-        "framework/steps/sms",
-        "framework/steps/push",
-        "framework/steps/chat",
-        "framework/steps/digest",
-        "framework/steps/delay",
-        "framework/steps/custom"
-      ]
-    },
-    {
-      "group": "SDK",
-      "pages": [
-        "framework/sdk/client",
-        "framework/sdk/frameworks/nextjs",
-        "framework/sdk/frameworks/nuxt",
-        "framework/sdk/frameworks/express",
-        "framework/sdk/frameworks/remix",
-        "framework/sdk/frameworks/sveltekit",
-        "framework/sdk/frameworks/h3",
-        "framework/sdk/typescript"
-      ]
-    },
-    {
-      "group": "Deployment",
-      "pages": [
-        "framework/deployment/production",
-        "framework/deployment/cli",
-        "framework/deployment/actions"
-      ]
-    },
-    {
-      "group": "For Non-Developers",
-      "pages": [
-        "framework/non-developers/introduction"
-      ]
-    },
-    {
-      "group": "Integrations",
-      "pages": [
-        "framework/integrations/react-email",
-        "framework/integrations/vue-email",
-        "framework/integrations/svelte-email",
-        "framework/integrations/remix-react-email"
+        {
+          "group": "SMS",
+          "icon": "message-sms",
+          "pages": [
+            "integrations/providers/sms/overview",
+            "integrations/providers/sms/twilio",
+            "integrations/providers/sms/sms77",
+            "integrations/providers/sms/africas-talking",
+            "integrations/providers/sms/azure",
+            "integrations/providers/sms/bulk-sms",
+            "integrations/providers/sms/messagebird",
+            "integrations/providers/sms/simpletexting",
+            "integrations/providers/sms/infobip",
+            "integrations/providers/sms/sendchamp",
+            "integrations/providers/sms/aws-sns",
+            "integrations/providers/sms/nexmo",
+            "integrations/providers/sms/plivo",
+            "integrations/providers/sms/telnyx",
+            "integrations/providers/sms/termii",
+            "integrations/providers/sms/firetext",
+            "integrations/providers/sms/gupshup",
+            "integrations/providers/sms/clickatell"
+          ]
+        },
+        {
+          "group": "Push",
+          "icon": "mobile",
+          "pages": [
+            "integrations/providers/push/overview",
+            "integrations/providers/push/fcm",
+            "integrations/providers/push/apns",
+            "integrations/providers/push/expo-push",
+            "integrations/providers/push/onesignal",
+            "integrations/providers/push/pushpad",
+            "integrations/providers/push/push-webhook",
+            "integrations/providers/push/pusher-beams"
+          ]
+        },
+        {
+          "group": "Chat",
+          "icon": "comments",
+          "pages": [
+            "integrations/providers/chat/overview",
+            "integrations/providers/chat/discord",
+            "integrations/providers/chat/slack",
+            "integrations/providers/chat/ms-teams",
+            "integrations/providers/chat/zulip",
+            "integrations/providers/chat/whats-app"
+          ]
+        }
       ]
     },
     {
       "group": "Recipes",
+      "pages": ["recipes/json-schema"]
+    },
+    {
+      "group": "Workflow Examples",
       "pages": [
-        "framework/recipes/json-schema"
+        "guides/workflows/introduction",
+        "guides/workflows/otp",
+        "guides/workflows/password-reset",
+        "guides/workflows/recent-login",
+        "guides/workflows/invoice-receipt",
+        "guides/workflows/shipping-confirmation",
+        "guides/workflows/feedback-reviews"
+      ]
+    },
+    {
+      "group": "Integration Guides",
+      "pages": [
+        "guides/integrations/segment"
       ]
     }
   ],
@@ -723,6 +547,10 @@
     {
       "source": "/framework/introduction",
       "destination": "/framework/quickstart"
+    },
+    {
+      "source": "/echo/quickstart",
+      "destination": "/getting-started/introduction"
     },
     {
       "source": "/echo/:slug*",
@@ -751,6 +579,70 @@
     {
       "source": "/guides/echo-guides/echo-svelte",
       "destination": "/guides/framework-guides/framework-svelte"
+    },
+    {
+      "source": "/channels-and-providers/push/fcm",
+      "destination": "/integrations/providers/push/fcm"
+    },
+    {
+      "source": "/self-hosting-novu/deploy-with-docker",
+      "destination": "/community/deploy-with-docker"
+    },
+    {
+      "source": "/notification-center/client/react/api-reference",
+      "destination": "/inbox/react/api-reference"
+    },
+    {
+      "source": "/subscribers/subscribers",
+      "destination": "/concepts/subscribers"
+    },
+    {
+      "source": "/quickstarts/react",
+      "destination": "/inbox/react/get-started"
+    },
+    {
+      "source": "/notification-center/client/react/customization",
+      "destination": "/inbox/react/customization"
+    },
+    {
+      "source": "/channels-and-providers/push/overview",
+      "destination": "/integrations/providers/push/overview"
+    },
+    {
+      "source": "/workflows/notification-workflows",
+      "destination": "/concepts/workflows"
+    },
+    {
+      "source": "/channels-and-providers/sms/nexmo",
+      "destination": "/integrations/providers/sms/nexmo"
+    },
+    {
+      "source": "/channels-and-providers/:slug*",
+      "destination": "/integrations/providers/:slug*"
+    },
+    {
+      "source": "/notification-center/introduction",
+      "destination": "/inbox/introduction"
+    },
+    {
+      "source": "/sdks/introduction",
+      "destination": "/sdks/framework/typescript/overview"
+    },
+    {
+      "source": "/subscribers/topics",
+      "destination": "/concepts/topics"
+    },
+    {
+      "source": "/platform/environments",
+      "destination": "/concepts/environments"
+    },
+    {
+      "source": "/tenants/introduction",
+      "destination": "/concepts/tenants"
+    },
+    {
+      "source": "/guides/how-to-integrate-segment-with-novu",
+      "destination": "/guides/integrations/segment"
     }
   ],
   "footerSocials": {
@@ -759,10 +651,7 @@
     "linkedin": "https://www.linkedin.com/company/novuco"
   },
   "api": {
-    "baseUrl": [
-      "https://api.novu.co",
-      "https://eu.api.novu.co"
-    ],
+    "baseUrl": ["https://api.novu.co", "https://eu.api.novu.co"],
     "auth": {
       "method": "key",
       "name": "Authorization",
@@ -778,12 +667,11 @@
     }
   },
   "versions": [
-    "v0.23.0",
-    "v0.22.0",
-    "v0.21.0",
-    "v0.20.0",
-    "v0.19.0",
-    "v0.18.0"
+    "v2.x",
+    {
+      "name": "v0.x",
+      "url": "https://v0.x-docs.novu.co"
+    }
   ],
   "metadata": {
     "og:image": "https://novu.co/images/social-preview.jpg"

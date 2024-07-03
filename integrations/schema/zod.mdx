@@ -1,0 +1,54 @@
+---
+title: "Integrate Zod with your notification workflows"
+sidebarTitle: "Zod"
+---
+
+Novu Framework allows you to use [Zod](https://zod.dev/) to define the [Control](/concepts/controls) and [Payload](/concepts/payload) schemas for your workflows.
+
+## Add Zod to your project
+
+<Steps>
+    <Step title="Install Zod Packages">
+        ```bash
+        npm install zod zod-to-json-schema
+        ```
+
+        Novu requires the `zod-to-json-schema` package to generate JSON schemas from your Zod definitions.
+    </Step>
+    <Step title="Use Zod in your workflow">
+        After installation, the Zod schemas can be used interchangeably with the `controlSchema` and `payloadSchema` options in your workflow definitions.
+
+        ```tsx
+        import { workflow } from '@novu/framework';
+        import { z } from 'zod';
+
+        export const testWorkflow = workflow('test-workflow', async ({ step, payload }) => {
+            await step.email('send-email', async (controls) => {
+                return {
+                    subject: controls.subject,
+                    body: 'Hello, World!',
+                };
+            },
+            {
+                controlSchema: z.object({
+                    subject: z.string().default('A test subject'),
+                }),
+            });
+        }, {
+            payloadSchema: z.object({
+                userName: z.string(),
+            }),
+        });
+        ```
+    </Step>
+
+</Steps>
+
+## Controls and Payload UI
+
+When you define a `controlSchema` for a step, Novu will automatically generate a UI for the controls in the workflow editor.
+
+- **Form Input Title** - Will be derived from the key of the Zod schema. Unfortunately Zod does not support custom titles at this point.
+- **Form Input Type** - Will be derived from the Zod schema type, with support for `string`, `number`, `boolean`, and `enum` and `array` types.
+- **Default Value** - Will be derived from the Zod schema default value.
+- **Validation** - Will be derived from the Zod schema validation rules, including `min`, `max`, `email`, `url`, `regex` and etc...
