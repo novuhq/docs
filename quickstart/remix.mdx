@@ -22,7 +22,7 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Rem
         <CodeGroup>
             ```typescript  app/routes/api.novu.ts 
             import { serve } from "@novu/framework/remix";
-            import { testWorkflow } from "~/novu/workflows";
+            import { testWorkflow } from "../novu/workflows";
             
             const handler = serve({
                 workflows: [testWorkflow]
