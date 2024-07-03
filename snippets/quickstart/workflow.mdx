@@ -1,27 +1,22 @@
-<Step title="Create your workflow definition">
-    Add a `novu` folder that will contain your workflow definitions
-
-    ```tsx {{path}}
-    import { workflow } from '@novu/framework';
-    import { z } from 'zod';
-    {test}
-    export const testWorkflow = workflow('test-workflow', async ({ step, payload }) => {
-        await step.email('send-email', async (controls) => {
-            return {
-                subject: controls.subject,
-                body: 'This is your first Novu Email ' + payload.userName,
-            };
-        },
-        {
-            controlSchema: z.object({
-                subject: z.string().default('A Successful Test on Novu from {{userName}}'),
-            }),
-        });
-        }, {
-            payloadSchema: z.object({
-                userName: z.string().default('John Doe'),
-            }),
+```
+import { workflow } from '@novu/framework';
+import { z } from 'zod';
+{test}
+export const testWorkflow = workflow('test-workflow', async ({ step, payload }) => {
+    await step.email('send-email', async (controls) => {
+        return {
+            subject: controls.subject,
+            body: 'This is your first Novu Email ' + payload.userName,
+        };
+    },
+    {
+        controlSchema: z.object({
+            subject: z.string().default('A Successful Test on Novu from {{userName}}'),
+        }),
     });
-    ```
-
-</Step>
+    }, {
+        payloadSchema: z.object({
+            userName: z.string().default('John Doe'),
+        }),
+});
+```
