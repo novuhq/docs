@@ -9,7 +9,7 @@ import TestStep from "/snippets/quickstart/test.mdx";
 import PackagesStep from "/snippets/quickstart/packages.mdx";
 import SecretStep from "/snippets/quickstart/secret.mdx";
 import NextStepsStep from "/snippets/quickstart/next-steps.mdx";
-import WorkflowStep from "/snippets/quickstart/workflow.mdx";
+import WorkflowCode from "/snippets/quickstart/workflow.mdx";
 
 In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Svelte application and send our first test workflow.
 
@@ -28,7 +28,11 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Sve
         </CodeGroup>
     </Step>
     <SecretStep />
-    <WorkflowStep path="src/lib/novu/workflows.ts" />
+    <Step title="Create your workflow definition">
+        Add a `novu` folder in your lib folder as such ```src/lib/novu/workflows.ts``` that will contain your workflow definitions. 
+
+        <WorkflowCode />
+    </Step>
 
     <Step title="Start your application">
         To start your Svelte server with the Novu Endpoint configured, run the following command:
