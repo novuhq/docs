@@ -14,9 +14,14 @@ curl --request DELETE \
 ```
 
 ```javascript Node.js
-import { Novu, TemplateVariableTypeEnum, FilterPartTypeEnum, StepTypeEnum } from '@novu/node';
+import {
+  Novu,
+  TemplateVariableTypeEnum,
+  FilterPartTypeEnum,
+  StepTypeEnum,
+} from "@novu/node";
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu("<NOVU_API_KEY>");
 
 await novu.notificationGroups.delete("notificationGroupId");
 ```
@@ -42,7 +47,7 @@ $result = file_get_contents($url, false, $context);
 if ($result === FALSE) { /* Handle error */ }
 
 echo $result;
-    
+
 ```
 
 ```ruby Ruby
@@ -63,7 +68,7 @@ request.add_field('Authorization', 'ApiKey REPLACE_WITH_API_KEY')
 response = http.request(request)
 
 puts response.body
-    
+
 ```
 
 ```python Python
@@ -72,7 +77,7 @@ import requests
 response = requests.delete('https://api.novu.co/v1/notification-groups/:id')
 
 print(response.json())
-    
+
 ```
 
 ```go Go
@@ -98,7 +103,7 @@ func main() {
   body, _ := ioutil.ReadAll(resp.Body)
   fmt.Println(string(body))
 }
-    
+
 ```
 
 </RequestExample>

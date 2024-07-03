@@ -1,0 +1,202 @@
+---
+title: "How to batch product notifications via code"
+description: "Leverage Novu's Digest Engine to batch product notifications"
+---
+
+# Introduction
+
+Learn how to use Novu’s Digest engine to batch notifications. In this guide, you’ll learn how to aggregate multiple messages and send them off as one notification. Follow these steps:
+
+## Getting started
+
+Integrating Novu’s code-first workflow with React.Email for your Next.js application can be done in three steps
+
+1. Create a fully-featured Novu NextJS app with the command below:
+
+```bash
+npx create-novu-app
+```
+
+1. Once this installation is complete, simply `cd` into the directory and start your app using the `npm run dev` command.
+
+Now, we’re all set to send digested notifications but before we do, let’s look at what it is and how it works:
+
+## Digest engine and how it works
+
+Novu’s Digest Engine is designed to consolidate multiple trigger events into a single cohesive message before delivering it to the subscriber. This functionality is essential for managing notification overload and ensuring that users receive meaningful, aggregated updates rather than being bombarded with numerous individual notifications. Here’s how it works:
+
+1. **Event Accumulation**: The digest engine collects multiple trigger events based on a unique `subscriberId` to be delivered as one message.
+2. **Batching Events**: The engine batches these events within a specified time interval. This interval can be configured in units of seconds, minutes, hours, days, weeks, or months.
+3. **Delivery**: After the accumulation period, the batched events are sent out as a single notification. This consolidated message reduces the frequency of notifications and provides the user with a summary of all relevant events.
+
+## How to digest in a code-first workflow:
+
+1. Write a workflow and add a digest node to it:
+
+```tsx
+import { Client } from "@novu/framework";
+
+export const client = new Client({
+  apiKey: "<YOUR_NOVU_API_KEY>",
+  /**
+   * Enable this flag only during local development
+   */
+  strictAuthentication: process.env.NODE_ENV !== "development",
+});
+
+export const digestWorkflow = workflow(
+  "novu-digest",
+
+  async ({ step, payload }) => {
+    // Add Digest Node
+    const digestResult = await step.digest("email-digest", async () => ({
+      unit: "seconds",
+      amount: 30,
+    }));
+
+    // Send a welcome email
+    await step.email("send-email", () => {
+      const resObj = {
+        subject: `Welcome to Novu`,
+        body: digestResult.events.map((event) => event.payload.text).join("\n"),
+      };
+      return resObj;
+    });
+  },
+  {
+    payloadSchema: {
+      properties: {
+        email: { type: "string" },
+        text: { type: "string", default: "Sumit" },
+      },
+      required: ["text"],
+    },
+  }
+);
+```
+
+<Info>
+💡 In the digest node above, you can change the digest duration by setting a value to the key `amount` and changing the value of `unit` to seconds, minutes, hours, days, weeks, or months
+
+</Info>
+
+2. Here’s a simple client-side app with a handler function attached to the `submit` event:
+
+```tsx
+"use client";
+import React, { useState } from "react";
+
+export default function Home() {
+  const [email, setEmail] = useState("");
+  const [text, setText] = useState("");
+
+  const onClickHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    try {
+      e.preventDefault();
+      await fetch("/api/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          text: text,
+        }),
+      });
+
+      // console.log('working fine');
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  return (
+    <main
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <form onSubmit={(e) => onClickHandler(e)}>
+        <input
+          placeholder="Enter email id"
+          onChange={(e) => setEmail(e.target.value)}
+          style={{
+            // Add your CSS-in-JS styles here
+            padding: "0.5rem",
+            marginBottom: "1rem",
+            borderRadius: "0.25rem",
+            border: "1px solid #ccc",
+            width: "100%",
+            boxSizing: "border-box",
+          }}
+        />
+        <input
+          placeholder="Enter the notification text"
+          onChange={(e) => setText(e.target.value)}
+          style={{
+            // Add your CSS-in-JS styles here
+            padding: "0.5rem",
+            marginBottom: "1rem",
+            borderRadius: "0.25rem",
+            border: "1px solid #ccc",
+            width: "100%",
+            boxSizing: "border-box",
+          }}
+        />
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <button
+            style={{
+              // Add your CSS-in-JS styles here
+              padding: "0.5rem 1rem",
+              backgroundColor: "#4CAF50",
+              color: "white",
+              border: "none",
+              borderRadius: "0.25rem",
+              cursor: "pointer",
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </main>
+  );
+}
+```
+
+3. And the corresponding route that it hits once the event fires:
+
+```tsx
+import { Novu } from "@novu/node";
+
+const novu = new Novu("<YOUR_NOVU_API_KEY>");
+
+export async function POST(request: Request) {
+  const res = await request.json();
+
+  await novu.trigger("novu-digest", {
+    to: {
+      subscriberId: "novu-sub-digest",
+    },
+    payload: {
+      email: res.email,
+      text: res.text,
+    },
+  });
+
+  console.log("triggered");
+  return Response.json({ success: true });
+}
+```
+
+That’s it!
+
+That’s how simple it is to use Novu’s Digest Engine. Digesting notifications enhances the user experience by providing comprehensive summaries, making it easier for users to stay informed about important updates in a concise manner, without straining users with too many notifications. We have got a thorough guide on digesting notifications [in our docs](https://docs.novu.co/guides/add-digest-to-email-notifications) that you can check out as well.

@@ -1,0 +1,50 @@
+---
+title: "Invoice Receipt"
+description: "Send invoices or receipts immediately after a user purchases"
+---
+
+## Intro
+
+Invoices and receipts require custom fields such as the order number, billing details, and objects purchased which must be dynamically fetched from the database. The use of step controls and the payload schema simplifies the fetching of that unique data.
+
+[Explore the source code on GitHub](https://github.com/novuhq/examples/tree/main/novu-workflows/react/invoice-receipts)
+
+## Preview
+
+<img
+  style={{ borderRadius: '0.5rem' }}
+  src="/images/how-to/invoice-receipt.png"
+/>
+
+
+## Code Example
+
+```javascript
+import { workflow } from '@novu/framework';
+import { renderAppleReceiptEmail } from '../emails/apple-receipt';
+import { zodControlSchema, jsonSchema, zodPayloadSchema } from './schemas';
+
+/**
+ * Apple Receipt Workflow
+ */
+export const appleReceipt = workflow(
+  "Apple Receipt",
+  async ({ step, payload }) => {
+    await step.email(
+      "send-email",
+      async (controls) => {
+        return {
+          subject: controls.receiptSubject,
+          body: renderAppleReceiptEmail(controls, payload),
+        };
+      },
+      {
+        controlSchema: zodControlSchema
+      },
+    );
+  },
+  { 
+    payloadSchema: zodPayloadSchema
+  }
+);
+```

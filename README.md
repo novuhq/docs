@@ -55,7 +55,7 @@ First, install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) locall
 npm i -g mintlify
 ```
 
-__Note__: Please install Node.js (version 18 or higher) before proceeding.
+**Note**: Please install Node.js (version 18 or higher) before proceeding.
 
 Run the following command at the root of the documentation (where mint.json is) to preview the documentation changes
 

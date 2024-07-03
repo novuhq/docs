@@ -1,0 +1,24 @@
+---
+title: "Chat Channel Step"
+sidebarTitle: "Chat"
+---
+
+## Chat Output
+
+<RequestExample>
+    ```typescript Delay
+    await step.chat('chat', async () => {
+        return {
+            body: 'A new post has been created',
+        };
+    });
+    ```
+</RequestExample>
+
+<ParamField path="body" type="string" required>
+  The message to be sent to the chat channel.
+</ParamField>
+
+## Chat Result
+
+The `Chat` step does not return any result object.

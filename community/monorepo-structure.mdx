@@ -27,7 +27,6 @@ For additional information on running Novu locally, visit the [run locally](http
 
 The `apps` folder contains high-level applications and APIs. The app's outputs usually contain deployable units that a user can interact with either as an API or as a web/cli application.
 
-
 <Steps>
   <Step title="API">
     The API package is our main service for handling backend logic. It handles anything from authentication, authorization, workflow management, triggering events, etc... This is where the Novu business logic is handled.
@@ -39,9 +38,10 @@ The `apps` folder contains high-level applications and APIs. The app's outputs u
     This is the Novu admin panel which is used to visually communicate with the API. You can configure workflows, manage content, enable or disable notifications, visually track the notification activity feed, etc...
 
     The `WEB` project is a create-react-app built, well, with React. 😄
+
   </Step>
   <Step title="Widget">
-    This is the client of our embeddable notification center widget. It is consumed mainly with the embed script in an Iframe. We can access it on port 4500 to interact with it directly.
+    This is the client of our embeddable Inbox widget. It is consumed mainly with the embed script in an Iframe. We can access it on port 4500 to interact with it directly.
   </Step>
   <Step title="Worker">
     This is our service for managing and handling workers.
@@ -64,21 +64,27 @@ The `apps` folder contains high-level applications and APIs. The app's outputs u
     This is the connector between our client's web app and the widget project. It’s a small shim script that generates an iframe and attaches it to a client-specified div to host the notification widget.
 
     If you are familiar with the Google Analytics embedded snippet or intercom-like embeddings, it uses the same mechanics.
+
   </Step>
 </Steps>
-
 
 ## Packages (on npm)
 
 <Steps>
   <Step title="@novu/node">
-    A Standalone Node.js wrapper around the Novu API. Exists to provide type-safe and easier access to the different API endpoints Novu exposes (Triggers, subscribers, etc…).
+    A Standalone Node.js wrapper around the Novu API. Exists to provide
+    type-safe and easier access to the different API endpoints Novu exposes
+    (Triggers, subscribers, etc…).
   </Step>
   <Step title="@novu/nest">
-    A Nest.js wrapper around the `@novu/node` package was created by the community to easily interact with the core library from a nest project. Also released on NPM as a package.
+    A Nest.js wrapper around the `@novu/node` package was created by the
+    community to easily interact with the core library from a nest project. Also
+    released on NPM as a package.
   </Step>
   <Step title="@novu/notification-center">
-    React component library that contains widget bell with the notification center. Can get override of components like ‘bell icon’, and ‘notification center’.
+    React component library that contains widget bell with the notification
+    center. Can get override of components like ‘bell icon’, and ‘notification
+    center’.
   </Step>
 </Steps>
 
