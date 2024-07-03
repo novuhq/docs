@@ -27,7 +27,12 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Nux
         </CodeGroup>
     </Step>
     <SecretStep />
-    <WorkflowStep path="app/server/api/novu.ts" />
+
+    <Step title="Create your workflow definition">
+        Add a `novu` folder in your app folder as such ```app/server/api/novu.ts``` that will contain your workflow definitions.
+
+        <WorkflowStep />
+    </Step>
 
     <Step title="Start your application">
         To start your Remix server with the Novu Endpoint configured, run the following command:
