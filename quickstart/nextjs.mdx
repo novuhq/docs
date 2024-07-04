@@ -22,112 +22,114 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Nex
         The sample application will create an `.env` file containing the `NOVU_SECRET_KEY` environment variable required
         for securing your endpoint. And a sample workflow demonstrating the flexibility of Novu using Step Controls.
 
-        <Accordion title="Manually add to an existing application (5 minutes)">
-            **Install required packages**
+        <AccordionGroup>
+            <Accordion title="Manually add to an existing application (5 minutes)">
+                **Install required packages**
 
-            ```bash
-            npm install @novu/framework @react-email/components react-email zod zod-to-json-schema
-            ```
-
-            This will install
-
-            - **`@novu/framework`** SDK Package
-            - **React Email** (Recommended) - For writing your email templates with React
-            - **Zod** (Recommended) - For end-to-end type safety for your Payload and Step Controls
-
-            **Add a Novu API Endpoint**
-
-            <CodeGroup>
-
-                ```typescript App Router (app/api/novu/route.ts)
-                import { serve } from "@novu/framework/next";
-                import { myWorkflow } from "../../novu/workflows";
-
-                export const { GET, POST, PUT, OPTIONS } = serve({ workflows: [myWorkflow] });
+                ```bash
+                npm install @novu/framework @react-email/components react-email zod zod-to-json-schema
                 ```
 
-                ```typescript Pages Router (pages/api/novu.ts)
-                import { serve } from '@novu/framework/next';
-                import { testWorkflow } from '../../novu/workflows';
+                This will install
 
-                export default serve({ workflows: [testWorkflow] });
+                - **`@novu/framework`** SDK Package
+                - **React Email** (Recommended) - For writing your email templates with React
+                - **Zod** (Recommended) - For end-to-end type safety for your Payload and Step Controls
+
+                **Add a Novu API Endpoint**
+
+                <CodeGroup>
+
+                    ```typescript App Router (app/api/novu/route.ts)
+                    import { serve } from "@novu/framework/next";
+                    import { myWorkflow } from "../../novu/workflows";
+
+                    export const { GET, POST, PUT, OPTIONS } = serve({ workflows: [myWorkflow] });
+                    ```
+
+                    ```typescript Pages Router (pages/api/novu.ts)
+                    import { serve } from '@novu/framework/next';
+                    import { testWorkflow } from '../../novu/workflows';
+
+                    export default serve({ workflows: [testWorkflow] });
+                    ```
+                </CodeGroup>
+
+                **Add a Novu Secret Key Environment Variable**
+
+                Add `NOVU_SECRET_KEY` environment variable to your `.env`
+
+                ```env
+                NOVU_SECRET_KEY=<NOVU_SECRET_KEY>
                 ```
-            </CodeGroup>
 
-            **Add a Novu Secret Key Environment Variable**
+                **Create your workflow definition**
 
-            Add `NOVU_SECRET_KEY` environment variable to your `.env`
+                Add a `novu` folder that will contain your workflow definitions
 
-            ```env
-            NOVU_SECRET_KEY=<NOVU_SECRET_KEY>
-            ```
+                ```tsx app/novu/workflows.ts
+                import { workflow } from '@novu/framework';
+                import { renderEmail } from './emails/test-email';
+                import { z } from 'zod';
 
-            **Create your workflow definition**
-
-            Add a `novu` folder that will contain your workflow definitions
-
-            ```tsx app/novu/workflows.ts
-            import { workflow } from '@novu/framework';
-            import { renderEmail } from './emails/test-email';
-            import { z } from 'zod';
-
-            export const testWorkflow = workflow('test-workflow', async ({ step, payload }) => {
-                await step.email('send-email', async (controls) => {
-                    return {
-                        subject: controls.subject,
-                        body: renderEmail(payload.userName),
-                    };
-                },
-                {
-                    controlSchema: z.object({
-                        subject: z.string().default('A Successful Test on Novu from {{userName}}'),
+                export const testWorkflow = workflow('test-workflow', async ({ step, payload }) => {
+                    await step.email('send-email', async (controls) => {
+                        return {
+                            subject: controls.subject,
+                            body: renderEmail(payload.userName),
+                        };
+                    },
+                    {
+                        controlSchema: z.object({
+                            subject: z.string().default('A Successful Test on Novu from {{userName}}'),
+                        }),
+                    });
+                }, {
+                    payloadSchema: z.object({
+                        userName: z.string().default('John Doe'),
                     }),
                 });
-            }, {
-                payloadSchema: z.object({
-                    userName: z.string().default('John Doe'),
-                }),
-            });
-            ```
+                ```
 
-            **Create your React Email Template (Optional)**
+                **Create your React Email Template (Optional)**
 
-            Add a new email template
+                Add a new email template
 
-            ```typescript app/novu/emails/test-email.tsx
-            import {
-                Body,
-                Container,
-                Head,
-                Html,
-                render,
-            } from '@react-email/components';
-            import * as React from "react";
+                ```typescript app/novu/emails/test-email.tsx
+                import {
+                    Body,
+                    Container,
+                    Head,
+                    Html,
+                    render,
+                } from '@react-email/components';
+                import * as React from "react";
 
-            interface TestEmailProps {
-                name: string
-            }
+                interface TestEmailProps {
+                    name: string
+                }
 
-            export const TestEmailTemplate = ({ name }: TestEmailProps) => {
-                return (
-                    <Html>
-                        <Head />
-                        <Body>
-                            <Container>
-                                Hello {name} welcome to your first React E-mail template!
-                            </Container>
-                        </Body>
-                    </Html>
-                );
-            };
+                export const TestEmailTemplate = ({ name }: TestEmailProps) => {
+                    return (
+                        <Html>
+                            <Head />
+                            <Body>
+                                <Container>
+                                    Hello {name} welcome to your first React E-mail template!
+                                </Container>
+                            </Body>
+                        </Html>
+                    );
+                };
 
-            export default TestEmailTemplate;
+                export default TestEmailTemplate;
 
-            export function renderEmail(name: string) {
-                return render(<TestEmailTemplate name={name} />);
-            }
-            ```
-        </Accordion>
+                export function renderEmail(name: string) {
+                    return render(<TestEmailTemplate name={name} />);
+                }
+                ```
+            </Accordion>
+        </AccordionGroup>
     </Step>
     <Step title="Start your application">
         To start your boilerplate Next.js server with the Novu Endpoint configured, run the following command:
