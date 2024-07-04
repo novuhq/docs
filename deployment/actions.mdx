@@ -14,11 +14,10 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-		  - name: 🔄 Sync State to Novu
-		    uses: novuhq/actions-novu-sync@v2
-		    with:
-		      secret-key: ${{secrets.NOVU_API_KEY}} # Your Dev or Prod API Key to Novu
-		      bridge-url: "" # This will be your target environment bridge url
+      - name: 🔄 Sync State to Novu
+        uses: novuhq/actions-novu-sync@v2
+        with:
+          secret-key: ${{secrets.NOVU_API_KEY}} # Your Dev or Prod API Key to Novur
+          bridge-url: "https://your-deployed-servoce.com/api/novu" # This will be your target environment bridge url including that novu path
 ```
