@@ -8,15 +8,11 @@ on:
       - main
     paths:
       - "framework-terminal.js"
-      - "echo-terminal.js"
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - run: "curl -X GET https://purge.jsdelivr.net/gh/novuhq/docs/framework-terminal.min.js"
-      - run: "curl -X GET https://purge.jsdelivr.net/gh/novuhq/docs/framework-terminal.js"
-      # TODO: remove framework-terminal
       - run: "curl -X GET https://purge.jsdelivr.net/gh/novuhq/docs/framework-terminal.min.js"
       - run: "curl -X GET https://purge.jsdelivr.net/gh/novuhq/docs/framework-terminal.js"

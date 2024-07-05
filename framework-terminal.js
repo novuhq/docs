@@ -1,6 +1,6 @@
 /**
  * @type {HTMLElement}
- * @description Novu Framework Terminal Code Snippet
+ * @description Novu Echo Terminal Code Snippet
  * 
  * DO NOT RENAME THIS FILE, IT IS REFERENCED EXTERNALLY FROM THIS SITE
  */
@@ -1462,7 +1462,7 @@ function Yt(o) {
 function initializeEchoNode(o, options, transitionToState) {
     let t,
         { animated: i = !0 } = options;
-    frameworkCompletionPopoverContent = `(method) workflow(workflowId, async (event) => { ... }): Workflow
+    const frameworkCompletionPopoverContent = `(method) workflow(workflowId, async (event) => { ... }): Workflow
 <hr/>The Notifications as Code workflow definition.`,
         stepCompletionPopoverContent = `<comment>(property) payload: { postId: string }</comment>
 <hr/>The payload for the event, provided during trigger.`,
@@ -1862,7 +1862,7 @@ commentWorkflow.<span class="hover" id="nv-node-framework-trigger"><fn>trigger</
             }
             o.$$.dirty & 8 && transitionToState(8, (t = (A = animation.completionWindow) == null ? void 0 : A.completions.filter(({ text: V }) => V.startsWith(animation.completionWindow.completion.slice(0, animation.completionWindow.written)))));
         }),
-        frameworkCompletionPopoverContent, stepCompletionPopoverContent, eventCompletionPopoverContent, triggerCompletionPopoverContent, stepCompletions, setTimer, handleStateTransition, _t, gt, wt]
+        [i, g, currentState, animation, finalStateSnippet, initialText, ve, StepCompletionComponent, t, frameworkCompletionPopoverContent, stepCompletionPopoverContent, eventCompletionPopoverContent, triggerCompletionPopoverContent, stepCompletions, setTimer, handleStateTransition, _t, gt, wt]
     );
 }
 class NodeSnippet extends Component {
