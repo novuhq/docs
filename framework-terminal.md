@@ -1,6 +1,6 @@
-# Echo Terminal Snippet Web Component
+# Framework Terminal Snippet Web Component
 
-The Echo Terminal Snippet can be loaded as a web component via JSDelivr CDN.
+The Framework Terminal Snippet can be loaded as a web component via JSDelivr CDN.
 
 The JSDelivr URLs below point to the latest commit in the main branch, ensuring changes to the snippet are automatically deployed to consuming websites.
 
@@ -8,7 +8,7 @@ The JSDelivr URLs below point to the latest commit in the main branch, ensuring 
 
 ## Usage
 
-The Echo terminal can be loaded via both JS and HTML.
+The Framework terminal can be loaded via both JS and HTML.
 
 ### Loading with Javascript (preferred)
 
