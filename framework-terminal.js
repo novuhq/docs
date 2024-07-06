@@ -827,7 +827,7 @@ function Zt(o, e, n) {
         { completions: p } = e,
         { completionWindow: r } = e;
     const f = (c, u, _) => {
-        i && (n(0, (r.completion = c.text), r), t("echo-trigger", c.text), n(0, (r.index = u), r));
+        i && (n(0, (r.completion = c.text), r), t("framework-trigger", c.text), n(0, (r.index = u), r));
     };
     function a(c) {
         pt.call(this, o, c);
@@ -872,12 +872,12 @@ function CompletionPopover(o) {
         handleOutroTransition(a[d], 1, 1, () => {
             a[d] = null;
         });
-    let u = o[2] === "echo-payload" && PayloadCompletionPopover(o),
-        _ = o[2] === "echo-seen" && SeenCompletionPopover(o),
-        g = o[2] === "echo-event" && EventCompletionPopover(o),
-        m = o[2] === "echo-client" && EchoCompletionPopover(o),
-        L = o[2] === "echo-step" && StepCompletionPopover(o),
-        y = o[2] === "echo-trigger" && TriggerCompletionPopover(o);
+    let u = o[2] === "framework-payload" && PayloadCompletionPopover(o),
+        _ = o[2] === "framework-seen" && SeenCompletionPopover(o),
+        g = o[2] === "framework-event" && EventCompletionPopover(o),
+        m = o[2] === "framework-client" && EchoCompletionPopover(o),
+        L = o[2] === "framework-step" && StepCompletionPopover(o),
+        y = o[2] === "framework-trigger" && TriggerCompletionPopover(o);
     return {
         c() {
             for (let d = 0; d < a.length; d += 1) a[d].c();
@@ -898,7 +898,7 @@ function CompletionPopover(o) {
                 for (H(), C = f.length; C < a.length; C += 1) c(C);
                 S();
             }
-            d[2] === "echo-payload"
+            d[2] === "framework-payload"
                 ? u
                     ? (u.p(d, v), v & 4 && h(u, 1))
                     : ((u = PayloadCompletionPopover(d)), u.c(), h(u, 1), u.m(n.parentNode, n))
@@ -908,7 +908,7 @@ function CompletionPopover(o) {
                         u = null;
                     }),
                     S()),
-                d[2] === "echo-seen"
+                d[2] === "framework-seen"
                     ? _
                         ? v & 4 && h(_, 1)
                         : ((_ = SeenCompletionPopover(d)), _.c(), h(_, 1), _.m(t.parentNode, t))
@@ -918,7 +918,7 @@ function CompletionPopover(o) {
                             _ = null;
                         }),
                         S()),
-                d[2] === "echo-event"
+                d[2] === "framework-event"
                     ? g
                         ? (g.p(d, v), v & 4 && h(g, 1))
                         : ((g = EventCompletionPopover(d)), g.c(), h(g, 1), g.m(i.parentNode, i))
@@ -928,7 +928,7 @@ function CompletionPopover(o) {
                             g = null;
                         }),
                         S()),
-                d[2] === "echo-client"
+                d[2] === "framework-client"
                     ? m
                         ? (m.p(d, v), v & 4 && h(m, 1))
                         : ((m = EchoCompletionPopover(d)), m.c(), h(m, 1), m.m(l.parentNode, l))
@@ -938,7 +938,7 @@ function CompletionPopover(o) {
                             m = null;
                         }),
                         S()),
-                d[2] === "echo-step"
+                d[2] === "framework-step"
                     ? L
                         ? (L.p(d, v), v & 4 && h(L, 1))
                         : ((L = StepCompletionPopover(d)), L.c(), h(L, 1), L.m(s.parentNode, s))
@@ -948,7 +948,7 @@ function CompletionPopover(o) {
                             L = null;
                         }),
                         S()),
-                d[2] === "echo-trigger"
+                d[2] === "framework-trigger"
                     ? y
                         ? (y.p(d, v), v & 4 && h(y, 1))
                         : ((y = TriggerCompletionPopover(d)), y.c(), h(y, 1), y.m(p.parentNode, p))
@@ -1089,7 +1089,7 @@ function StepCompletionPopover(o) {
         (e = new mt({ props: { completions: o[13], completionWindow: o[7], selectable: !0, pop: !0 } })),
         e.$on("mousemove", o[16]),
         // Commented out to disable the completion popover from modifying the terminal.
-        // e.$on("echo-payload", o[17]),
+        // e.$on("framework-payload", o[17]),
         {
             c() {
                 P(e.$$.fragment);
@@ -1462,7 +1462,7 @@ function Yt(o) {
 function initializeEchoNode(o, options, transitionToState) {
     let t,
         { animated: i = !0 } = options;
-    const echoCompletionPopoverContent = `(method) workflow(workflowId, async (event) => { ... }): Workflow
+    const frameworkCompletionPopoverContent = `(method) workflow(workflowId, async (event) => { ... }): Workflow
 <hr/>The Notifications as Code workflow definition.`,
         stepCompletionPopoverContent = `<comment>(property) payload: { postId: string }</comment>
 <hr/>The payload for the event, provided during trigger.`,
@@ -1502,24 +1502,24 @@ function initializeEchoNode(o, options, transitionToState) {
     }
     let finalStateSnippet = `<kw>import</kw> { workflow } <kw>from</kw> <str>'@novu/framework'</str>;
 
-<kw>const</kw> commentWorkflow = <fn><span class="hover" id="nv-node-echo-client"><id>workflow</id></span></fn>(<str>'comment-on-post'</str>, <kw>async</kw> (<span class="hover" id="nv-node-echo-event">event</span>) => {
+<kw>const</kw> commentWorkflow = <fn><span class="hover" id="nv-node-framework-client"><id>workflow</id></span></fn>(<str>'comment-on-post'</str>, <kw>async</kw> (<span class="hover" id="nv-node-framework-event">event</span>) => {
   <kw>const</kw> inAppResponse = <kw>await</kw> event.step.<fn>inApp</fn>(<str>'notify-user'</str>, <kw>async</kw> () => ({
-    body: <fn>renderReactComponent</fn>(event.<span class="hover" id="nv-node-echo-payload">payload</span>.postId)
+    body: <fn>renderReactComponent</fn>(event.<span class="hover" id="nv-node-framework-payload">payload</span>.postId)
   }));
 
   <kw>const</kw> { events } = <kw>await</kw> event.step.<fn>digest</fn>(<str>'1 week'</str>);
 
-  <kw>await</kw> event.<span class="hover" id="nv-node-echo-step">step</span>.<fn>email</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {
+  <kw>await</kw> event.<span class="hover" id="nv-node-framework-step">step</span>.<fn>email</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {
     <kw>return</kw> {
       subject: <str>\`Weekly post comments (</str><kw>$\{</kw>events.length + 1<kw>}</kw><str>)\`</str>,
       body: <fn>renderReactEmail</fn>(inputs, events)
     };
-  }, { <fn>skip</fn>: () => inAppResponse.<span class="hover" id="nv-node-echo-seen">seen</span> });
+  }, { <fn>skip</fn>: () => inAppResponse.<span class="hover" id="nv-node-framework-seen">seen</span> });
 }, { payloadSchema: z.<fn>object</fn>({ postId: z.<fn>string</fn>() }) }
 );
 
 <comment>// Use the same familiar syntax to send a notification</comment>
-commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></span>({
+commentWorkflow.<span class="hover" id="nv-node-framework-trigger"><fn>trigger</fn></span>({
   to: { subscriberId: <str>'joe@acme.com'</str> },
   payload: { postId: <str>'12345'</str> }
 });`.trim().split(`
@@ -1775,8 +1775,8 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
             type: "callback",
             time: 100,
             callback: () => {
-                currentState = "echo-client";
-                transitionToState(0, (i = !1)), transitionToState(2, (m = "echo-client")), setTimer();
+                currentState = "framework-client";
+                transitionToState(0, (i = !1)), transitionToState(2, (m = "framework-client")), setTimer();
             },
         },
     ].flat();
@@ -1788,33 +1788,33 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
 `.split(`
 `),
         g,
-        currentState = "echo-client",
+        currentState = "framework-client",
         taskTimeout;
     function setTimer(taskDelay = 3e3) {
         clearTimeout(taskTimeout), (taskTimeout = setTimeout(executeStateTransition, taskDelay));
     }
     function executeStateTransition() {
-        currentState === "echo-client"
-            ? transitionToState(2, (currentState = "echo-event"))
-            : currentState === "echo-event"
-                ? transitionToState(2, (currentState = "echo-payload"))
-                : currentState === "echo-payload"
-                    ? transitionToState(2, (currentState = "echo-step"))
-                    : currentState === "echo-step"
-                        ? transitionToState(2, (currentState = "echo-seen"))
-                        : currentState === "echo-seen"
-                            ? transitionToState(2, (currentState = "echo-trigger"))
-                            : currentState === "echo-trigger" && transitionToState(2, (currentState = "echo-client")),
+        currentState === "framework-client"
+            ? transitionToState(2, (currentState = "framework-event"))
+            : currentState === "framework-event"
+                ? transitionToState(2, (currentState = "framework-payload"))
+                : currentState === "framework-payload"
+                    ? transitionToState(2, (currentState = "framework-step"))
+                    : currentState === "framework-step"
+                        ? transitionToState(2, (currentState = "framework-seen"))
+                        : currentState === "framework-seen"
+                            ? transitionToState(2, (currentState = "framework-trigger"))
+                            : currentState === "framework-trigger" && transitionToState(2, (currentState = "framework-client")),
             setTimer();
     }
     function handleStateTransition(event) {
         const targetElement = event.target.parentElement.tagName === "SPAN" ? event.target.parentElement : event.target;
-        if (targetElement.id === "nv-node-echo-client") transitionToState(2, (currentState = "echo-client"));
-        else if (targetElement.id === "nv-node-echo-event") transitionToState(2, (currentState = "echo-event"));
-        else if (targetElement.id === "nv-node-echo-payload") transitionToState(2, (currentState = "echo-payload"));
-        else if (targetElement.id === "nv-node-echo-step") transitionToState(2, (currentState = "echo-step"));
-        else if (targetElement.id === "nv-node-echo-trigger") transitionToState(2, (currentState = "echo-trigger"));
-        else if (targetElement.id === "nv-node-echo-seen") transitionToState(2, (currentState = "echo-seen"));
+        if (targetElement.id === "nv-node-framework-client") transitionToState(2, (currentState = "framework-client"));
+        else if (targetElement.id === "nv-node-framework-event") transitionToState(2, (currentState = "framework-event"));
+        else if (targetElement.id === "nv-node-framework-payload") transitionToState(2, (currentState = "framework-payload"));
+        else if (targetElement.id === "nv-node-framework-step") transitionToState(2, (currentState = "framework-step"));
+        else if (targetElement.id === "nv-node-framework-trigger") transitionToState(2, (currentState = "framework-trigger"));
+        else if (targetElement.id === "nv-node-framework-seen") transitionToState(2, (currentState = "framework-seen"));
         else {
             taskTimeout || setTimer(1e3);
             return;
@@ -1839,7 +1839,7 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
     let StepCompletionComponent = { line: 11, pos: 18, completion: "email", completions: stepCompletions, written: 0, index: 3 };
     const _t = () => setTimer(1500),
         gt = (A) => {
-            transitionToState(7, (StepCompletionComponent.completion = A.detail), StepCompletionComponent), transitionToState(4, (finalStateSnippet[6] = `    model: <span class="hover" id="nv-node-echo-step"><str>'${A.detail}'</str></span>,`), finalStateSnippet);
+            transitionToState(7, (StepCompletionComponent.completion = A.detail), StepCompletionComponent), transitionToState(4, (finalStateSnippet[6] = `    model: <span class="hover" id="nv-node-framework-step"><str>'${A.detail}'</str></span>,`), finalStateSnippet);
         };
     function wt(A) {
         we[A ? "unshift" : "push"](() => {
@@ -1862,7 +1862,7 @@ commentWorkflow.<span class="hover" id="nv-node-echo-trigger"><fn>trigger</fn></
             }
             o.$$.dirty & 8 && transitionToState(8, (t = (A = animation.completionWindow) == null ? void 0 : A.completions.filter(({ text: V }) => V.startsWith(animation.completionWindow.completion.slice(0, animation.completionWindow.written)))));
         }),
-        [i, g, currentState, animation, finalStateSnippet, initialText, ve, StepCompletionComponent, t, echoCompletionPopoverContent, stepCompletionPopoverContent, eventCompletionPopoverContent, triggerCompletionPopoverContent, stepCompletions, setTimer, handleStateTransition, _t, gt, wt]
+        [i, g, currentState, animation, finalStateSnippet, initialText, ve, StepCompletionComponent, t, frameworkCompletionPopoverContent, stepCompletionPopoverContent, eventCompletionPopoverContent, triggerCompletionPopoverContent, stepCompletions, setTimer, handleStateTransition, _t, gt, wt]
     );
 }
 class NodeSnippet extends Component {
@@ -2586,7 +2586,7 @@ const css = (strings, ...values) => strings[0];
 /**
  * Load the styles
  */
-const echoTerminalCss = css`
+const frameworkTerminalCss = css`
 /* Terminal Wrapper Styles */
 
 .nv-snippet-window-wrapper.terminal-cqc4oo {
@@ -2837,17 +2837,17 @@ button.nv-terminal-tab.terminal-1dfudv.terminal-1dfudv:hover {
     if (!document.getElementById(id)) {
         var link = document.createElement('style');
         link.type = 'text/css';
-        link.innerHTML = echoTerminalCss;
+        link.innerHTML = frameworkTerminalCss;
         link.id = id; // Set the ID for deduplication
         document.head.appendChild(link); // Append to the head for CSS
     }
-}("echo-terminal-css-loader");
+}("framework-terminal-css-loader");
 
 /*
- * Load the `nv-echo-terminal` web component
+ * Load the `nv-framework-terminal` web component
  */
 
-const CUSTOM_ELEMENTS_NAME = "nv-echo-terminal";
+const CUSTOM_ELEMENTS_NAME = "nv-framework-terminal";
 const TERMINAL_ID = "nv-terminal";
 const TERMINAL_CLASSES = ["nv-code", "nv-terminal"];
 
