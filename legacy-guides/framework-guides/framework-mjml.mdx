@@ -20,7 +20,7 @@ This guide will walk you through how to send notifications with MJML and Novu. Y
 1. To get started with Novu Framework, just run this command in your terminal, it’ll scaffold a new NextJS project with Novu Framework and we’ll be ready to roll!
 
 ```jsx
-npx create-novu-app --api-key=<YOUR_API_KEY>
+npx novu init --secret-key=<YOUR_API_KEY>
 
 ```
 
@@ -239,7 +239,7 @@ Once done with the workflow, now we need to sync it to the cloud. Fortunately, N
 
 To enable our cloud environment to talk to your local Bridge instance, you need to supply an [Bridge Endpoint](/concepts/endpoint) URL. This sets up a communication channel between our cloud environment and your local instance. To allow Novu to communicate with your local machine a tunnel will need to be generated.
 
-The `create-novu-app` command sets up `localtunnel` for you. Running the `npm run dev` script in the project launches both the Bridge application and the tunnel solution. The tunnel URL shows up in the console output.
+Running the `npm run dev` script in the project launches both the Bridge application and the tunnel solution. The tunnel URL shows up in the console output.
 
 You can also use a tool like `ngrok`:
 
