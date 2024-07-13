@@ -2,7 +2,7 @@
 title: "Controls"
 ---
 
-Controls are defined using [JSON Schema](/recipes/json-schema) or Zod, providing a strong run-time validation system for your workflows.
+Controls are defined using [JSON Schema](/recipes/json-schema) or [Zod](https://zod.dev), providing a strong run-time validation system for your workflows.
 
 This ensures that you as the developer and your non-technical peers are speaking the same language.
 Those responsible for styling and copy can edit with confidence, knowing their changes are tested in code.
@@ -49,7 +49,7 @@ The snippet below shows a configuration for the Step Control schema. If you donâ
       {
         controlSchema: z.object({
           hideBanner: z.boolean().default(false),
-          subject: z.string().defaul('This is the default title'),
+          subject: z.string().default('This is the default subject'),
           components: z.array(z.object({
             type: z.enum(['header', 'cta-row', 'footer']),
             content: z.string()
@@ -83,7 +83,7 @@ The snippet below shows a configuration for the Step Control schema. If you donâ
           // Specify the properties to validate. Supports deep nesting.
           properties: {
             hideBanner: { type: "boolean", default: false },
-            subject: { type: "string" },
+            subject: { type: "string", default: 'This is the default subject' },
             // Allowing no code control over the component in the Dashboard UI
             components: {
               type: "array",
@@ -97,7 +97,7 @@ The snippet below shows a configuration for the Step Control schema. If you donâ
             },
           },
           // Specify the array of which properties are required.
-          required: ["complianceFooter"],
+          required: ["hideBanner"],
           // Used to enforce full type strictness, with no rogue properties.
           additionalProperties: false,
           // The `as const` is important to let Typescript know that this
@@ -111,6 +111,6 @@ The snippet below shows a configuration for the Step Control schema. If you donâ
 </CodeGroup>
 
 ## Supported Schema Types
-- **ZodSchema** - A TypeScript-first schema declaration and validation library.
-- **[JSON Schema](/recipes/json-schema)** - The most popular schema language for defining JSON data structures.
+- [Zod Schema](https://zod.dev/) - A TypeScript-first schema declaration and validation library.
+- [JSON Schema](/recipes/json-schema) - The most popular schema language for defining JSON data structures.
 
