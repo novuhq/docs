@@ -1,12 +1,11 @@
-speakeasyVersion: 1.308.1
+speakeasyVersion: 1.330.0
 sources:
     openapi-with-code-samples:
         sourceNamespace: openapi-with-code-samples
-        sourceRevisionDigest: sha256:8e7b0030b71fdec4ccecd24cc1bc1969ef382cc2ac80a11c3c813ccedf287388
-        sourceBlobDigest: sha256:b1f491e8f7b893a82300669ad821fa6c249c74874cae1213c92719b423d5457f
+        sourceRevisionDigest: sha256:b4461ab2f021ee5a7ad560dcd46030c42e4710b74cfba8e06009a4176758739e
+        sourceBlobDigest: sha256:4e496ba0bf6e367c9f5a1285d09a3d16ce18430c24703268260304f4405bd104
         tags:
             - latest
-            - staging
 targets: {}
 workflow:
     workflowVersion: 1.0.0
@@ -14,10 +13,13 @@ workflow:
     sources:
         openapi-with-code-samples:
             inputs:
-                - location: registry.speakeasyapi.dev/novu/novu/json-development:main
+                - location: https://api.novu.co/openapi.json
             overlays:
                 - location: registry.speakeasyapi.dev/novu/novu/code-samples-typescript:main
-            output: ./openapi.json
+                - fallbackCodeSamplesLanguage: python
+                - fallbackCodeSamplesLanguage: java
+                - fallbackCodeSamplesLanguage: go
+            output: ./openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/novu/novu/openapi-with-code-samples
     targets: {}
