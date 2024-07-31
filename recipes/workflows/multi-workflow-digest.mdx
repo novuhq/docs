@@ -11,25 +11,28 @@ This example demonstrates how to send a digest notification email by batching di
 
 Source Code on GitHub: [Multi Workflow Digest](https://github.com/novuhq/examples/tree/main/novu-workflows/react/multi-workflow-digest)
 
+<Info>Sync the changes from local studio before triggering the workflows Read more about [sync](/deployment/syncing)</Info>
 ## Code Example
+
+```typescript Summary worklflow to digest all notifications from different workflows
 import { workflow } from "@novu/framework";
 import { renderLinearDigestEmail } from "../../emails/linear-digest";
 import {
   ticketAssignedPayloadSchema,
   commentOnTicketPayloadSchema,
+  summaryWorkflowPayloadSchema,
 } from "./schemas";
 
-```typescript Worklflow to digest all notifications from different workflows
-export const multiDigestWorkflow = workflow(
-  "multi-digest",
+export const summaryWorkflow = workflow(
+  "multi-workflow-digest",
   async ({ step }) => {
     // Digest all notifications from different workflows
     const digestedNotifications = await step.digest(
       "digest-all-notifications",
       async () => {
         return {
-          amount: 4,
-          unit: "hours",
+          amount: 2,
+          unit: "minutes",
         };
       }
     );
@@ -41,20 +44,14 @@ export const multiDigestWorkflow = workflow(
         body: renderLinearDigestEmail(digestedNotifications.events),
       };
     });
+  },
+  {
+    payloadSchema: summaryWorkflowPayloadSchema,
   }
 );
 ```
 
 ```typescript Workflow to send notification when someone comments on a ticket
-import { workflow } from "@novu/framework";
-import { renderLinearDigestEmail } from "../../emails/linear-digest";
-import {
-  ticketAssignedPayloadSchema,
-  commentOnTicketPayloadSchema,
-} from "./schemas";
-
-... 
-
 export const someoneCommentedOnTicket = workflow(
   "someone-commented-on-ticket",
   async ({ step, payload, subscriber }) => {
@@ -66,9 +63,9 @@ export const someoneCommentedOnTicket = workflow(
 
     await step.custom("digest-the-message", async () => {
       try {
-        await multiDigestWorkflow.trigger({
+        await summaryWorkflow.trigger({
           to: subscriber?.subscriberId as string,
-          payload: {},
+          payload: payload,
         });
         return {
           success: true,
@@ -89,15 +86,6 @@ export const someoneCommentedOnTicket = workflow(
 ```
 
 ```typescript Workflow to send notification when a ticket is assigned to the user
-import { workflow } from "@novu/framework";
-import { renderLinearDigestEmail } from "../../emails/linear-digest";
-import {
-  ticketAssignedPayloadSchema,
-  commentOnTicketPayloadSchema,
-} from "./schemas";
-
-...
-
 export const ticketAssigned = workflow(
   "ticket-assigned-to-user",
   async ({ step, payload, subscriber }) => {
@@ -109,7 +97,7 @@ export const ticketAssigned = workflow(
 
     await step.custom("digest-the-message", async () => {
       try {
-        await multiDigestWorkflow.trigger({
+        await summaryWorkflow.trigger({
           to: subscriber?.subscriberId as string,
           payload: payload,
         });
