@@ -64,6 +64,9 @@ workflow(
         <ParamField path="payloadSchema" type="JSON Schema | Zod">
             The schema to validate the event payload against, can be used to provide default values.
         </ParamField>
+        <ParamField path="tags" type="string[]">
+            The tags assigned to the workflow. Tags can be used to filter workflows in the dashboard, and can be used by channels such as Inbox to sort Notifications into different categories for a better user experience.
+        </ParamField>
     </Expandable>
 
 </ParamField>
