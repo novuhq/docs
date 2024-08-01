@@ -123,5 +123,18 @@ The digest step returns an object with `events` array. Each event in the array h
 
 <Info>Changing the step content after triggering the workflow with digest step will not affect the existing digested events.</Info>
 
+## Frequently Asked Questions
+
 <Note>All digest times are in UTC time</Note>
+
+<AccordionGroup>
+    <Accordion title="If scheduled digest is set for 9:00 AM daily then will the digest be sent at 9:00 AM every day without any event triggered?">
+        If scheduled digest is sent for 9:00 daily, then novu will collect all events triggered between 9:00 AM today till 9:00 AM tomorrow and send the digest at 9:00 AM tomorrow. This process is repeated daily. If there is no any event triggered between 9:00 AM today and 9:00 AM tomorrow, then no digest will be sent.
+    </Accordion>
+
+    <Accordion title="What is the difference between Regular and Schedules Digest set to 1 Hour?">
+        Both digests are same in this case.
+    </Accordion>
+
+</AccordionGroup>
 
