@@ -4,7 +4,7 @@ title: "Step Interface"
 
 <RequestExample>
     ```typescript Control Schema
-    await step.email('stepId', handler, {
+    await step.email('stepId', resolver, {
         controlSchema: z.object({
             subject: z.string(),
             components: z.array(z.object({
@@ -15,12 +15,12 @@ title: "Step Interface"
     });
     ```
     ```typescript Skip
-    await step.email('stepId', handler, {
+    await step.email('stepId', resolver, {
         skip: async (controls) => true,
     });
     ```
     ```typescript Provider Overrides
-    await step.email('stepId', handler, {
+    await step.email('stepId', resolver, {
       providers: {
         slack: ({ controls, outputs }) => {
           return {
@@ -32,6 +32,27 @@ title: "Step Interface"
                   text: 'A new post has been created',
               },
             }],
+          };
+        }
+      }
+    });
+    ```
+    ```typescript Provider Passthrough
+    await step.email('stepId', resolver, {
+      providers: {
+        sendgrid: ({ controls, outputs }) => {
+          return {
+            _passthrouh: {
+              body: {
+                ip_pool_name: 'my-ip-pool',
+              },
+              headers: {
+                'Authorization': 'Bearer my-api-key',
+              },
+              query: {
+                'queryParam': 'queryValue',
+              },
+            }
           };
         }
       }
@@ -92,14 +113,14 @@ type ProvidersOverride = {
 
 type ProviderCallback = (
   params: ProviderOverridesParams
-) => ProviderOverrideResponse | Promise<ProviderOverrideResponse>;
+) => ProviderOverrideOutput | Promise<ProviderOverrideOutput>;
 
 type ProviderOverridesParams = {
   controls: StepControls;
   output: StepOutput;
 };
 
-type ProviderOverrideResponse = {
+type ProviderOverrideOutput = {
   // A map of the properties used by the Provider.
   // These properties are strongly typed and validated
   // against the underlying provider SDK.
