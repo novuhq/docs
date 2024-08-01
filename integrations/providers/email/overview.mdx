@@ -29,22 +29,21 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-to: {
-subscriberId: '<SUBSCRIBER_ID>',
-},
-overrides: {
-email: {
-to: ['to@novu.co'],
-from: 'from@novu.co',
-senderName: 'Novu Team',
-text: 'text version of email using overrides',
-replyTo: 'no-reply@novu.co',
-cc: ['1@novu.co'],
-bcc: ['2@novu.co'],
-},
-},
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  overrides: {
+    email: {
+      to: ['to@novu.co'],
+      from: 'from@novu.co',
+      senderName: 'Novu Team',
+      text: 'text version of email using overrides',
+      replyTo: 'no-reply@novu.co',
+      cc: ['1@novu.co'],
+      bcc: ['2@novu.co'],
+    },
+  },
 });
-
 ````
  </Tab>
 </Tabs>
@@ -77,8 +76,7 @@ novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
     ],
   },
 });
-````
-
+```
   </Tab>
 </Tabs>
 
@@ -103,16 +101,15 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_API_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-to: {
-subscriberId: '<SUBSCRIBER_ID>',
-},
-overrides: {
-email: {
-integrationIdentifier: "brevo-abcdef"
-},
-},
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  overrides: {
+    email: {
+      integrationIdentifier: "brevo-abcdef"
+    },
+  },
 });
-
 ```
  </Tab>
 </Tabs>
@@ -122,4 +119,3 @@ integrationIdentifier: "brevo-abcdef"
 <Tip>
   <MissingProvider channelName="SMS"/>
 </Tip>
-```
