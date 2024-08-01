@@ -89,7 +89,7 @@ This context is passed by the workflow engine to provide contextual information 
   </Expandable>
 </ParamField>
 
-<ParamField path="payload" type="object">
+<ParamField path="payload" type="InferProperties<payloadSchema>">
   The payload of the event that triggered the workflow, will be validated
   against the `payloadSchema` if provided.
 </ParamField>

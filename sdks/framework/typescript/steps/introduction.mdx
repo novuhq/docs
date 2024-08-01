@@ -21,20 +21,20 @@ title: "Step Interface"
     ```
     ```typescript Provider Overrides
     await step.email('stepId', handler, {
-        providers: {
-            slack: ({ controls }) => {
-                return {
-                    text: 'A new post has been created',
-                    blocks: [{
-                        type: 'section',
-                        text: {
-                            type: 'mrkdwn',
-                            text: 'A new post has been created',
-                        },
-                    }],
-                };
-            }
+      providers: {
+        slack: ({ controls, outputs }) => {
+          return {
+            text: 'A new post has been created',
+            blocks: [{
+              type: 'section',
+              text: {
+                  type: 'mrkdwn',
+                  text: 'A new post has been created',
+              },
+            }],
+          };
         }
+      }
     });
     ```
 </RequestExample>
@@ -59,11 +59,11 @@ All channels follow the same shared interface:
 
 ## Options Object
 
-This is an optional configuration object that defines: [Controls Schema](/framework/concepts/inputs), [Provider Overrides](#provider-overrides), skip and other configurations...
+This is an optional configuration object that defines: [Controls Schema](/framework/concepts/inputs), [Provider Overrides](#provider-overrides), skip and other configurations.
 
 <ResponseField
   name="skip"
-  type="(controls: StepControlSchema) => boolean | Promise<boolean>"
+  type="(controls: InferProperties<controlSchema>) => boolean | Promise<boolean>"
 >
   A function that returns a boolean value to skip the step. This is helpful when
   you want to use previous step results or other custom logic to skip the step
@@ -75,11 +75,15 @@ This is an optional configuration object that defines: [Controls Schema](/framew
   be nested and of any JSON Schema supported structure.
 </ResponseField>
 
-<ResponseField name="providers" type="ProvidersOverride"></ResponseField>
+<ResponseField name="providers" type="ProvidersOverride">
+  This object used to access and override the underlying deliver providers SDKs. This is useful when you want to customize the content of the notification with properties that are unique to the provider.
+</ResponseField>
 
 ### Providers Overrides Object
 
-This object used to access and override the underlying deliver providers SDKs. This is useful when you want to customize the content of the notification with provider unique properties.
+This object used to access and override the underlying deliver providers SDKs. This is useful when you want to customize the content of the notification with properties that are unique to the provider.
+
+An example of this is the `slack` provider, which allows you to customize the content of the notification with Slack `blocks` to create a rich notification experience.
 
 ```typescript
 type ProvidersOverride = {
@@ -88,10 +92,27 @@ type ProvidersOverride = {
 
 type ProviderCallback = (
   params: ProviderOverridesParams
-) => Promise<ProviderOverrideResponse>;
+) => ProviderOverrideResponse | Promise<ProviderOverrideResponse>;
 
 type ProviderOverridesParams = {
   controls: StepControls;
   output: StepOutput;
 };
+
+type ProviderOverrideResponse = {
+  // A map of the properties used by the Provider.
+  // These properties are strongly typed and validated
+  // against the underlying provider SDK.
+  [key in KnownProviderKey]: KnownProviderValue;
+  // The passthrough object is used to pass through
+  // the original request to the provider.
+  // These properties are not validated.
+  _passthrough?: {
+    body: Record<string, unknown>;
+    headers: Record<string, unknown>;
+    query: Record<string, unknown>;
+  };
+};
 ```
+
+The `_passthrough` object and the known provider values are deeply merged prior to sending the request to the provider, with the `_passthrough` object taking precedence.
