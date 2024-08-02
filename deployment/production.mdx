@@ -12,18 +12,10 @@ Due to the autoscaling nature of Novu Cloud, we don't have a set of IP Addresses
 Novu Cloud workers are GDPR, SOC2 type II and ISO 27001 compliant. We take security very seriously and have implemented a number of security measures to ensure that your data is safe.
 Novu Framework has a builtin security mechanism that ensures that the requests are authentic from Novu Cloud using an HMAC signature.
 
-HMAC Verification is turned on by default
-
-```typescript
-export const client = new Client({
-  secretKey: process.env.NOVU_SECRET_KEY,
-  strictAuthentication: process.env.NODE_ENV !== "development", // set to true by default
-});
-```
+HMAC Verification is turned on by default for all "production" NODE_ENV environments
 
 <Info>
-  For local development with Studio `strictAuthentication` should be set to
-  `false`.
+  For `NODE_ENV=development` the HMAC validation is turned off, for the Studio to be able to reach your endpoint.
 </Info>
 
 The `X-Novu-Signature` header included in each signed event contains a timestamp and one or more signatures that we verify.
