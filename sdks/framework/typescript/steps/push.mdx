@@ -1,10 +1,7 @@
 ---
 title: "Push Channel Step"
 sidebarTitle: "Push"
-icon: "mobile"
 ---
-
-The `push` step allows you to send a message to a push channel. This is useful when you need to send a message to a push-enabled channel, such as a mobile app or web app.
 
 <RequestExample>
     ```typescript Push
@@ -20,13 +17,13 @@ The `push` step allows you to send a message to a push channel. This is useful w
 ## Push Output
 
 <ParamField path="subject" type="string" required>
-  The subject of the notification.
+  The title or subject of the provider
 </ParamField>
 
 <ParamField path="body" type="string" required>
-  The message to be sent.
+  The message to be sent to the push channel.
 </ParamField>
 
 ## Push Result
 
-The `push` step does not return any result object.
+The `Push` step does not return any result object.
