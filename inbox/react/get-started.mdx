@@ -4,73 +4,104 @@ sidebarTitle: "Get Started"
 description: "Learn how to add novu powered In-App notification center to your React app"
 ---
 
-Novu provides the `@novu/notification-center` a React library that helps to add a fully functioning notification center to your web application in minutes. Let's do a quick recap on how you can easily use it in your application.
+Novu provides the `@novu/react` a React library that helps to add a fully functioning notification center to your web application in minutes. Let's do a quick recap on how you can easily use it in your application.
 
-1. Install `@novu/notification-center` npm package in your react app
+1. Install `@novu/react` npm package in your react app
 
 ```jsx
-npm install @novu/notification-center
+npm install @novu/react
 ```
 
 2. Add the below code in the app.tsx file
 
 ```jsx
-import {
-  NovuProvider,
-  PopoverNotificationCenter,
-  NotificationBell,
-  IMessage,
-} from "@novu/notification-center";
+import { Inbox } from "@novu/react";
 
 function Novu() {
   return (
-    <NovuProvider
-      subscriberId={"SUBSCRIBER_ID"}
-      applicationIdentifier={"APPLICATION_IDENTIFIER"}
-    >
-      <PopoverNotificationCenter colorScheme="dark">
-        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-      </PopoverNotificationCenter>
-    </NovuProvider>
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+    />
   );
 }
 ```
 
-[![Edit kind-nova-xv6s9g](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark)
-
-Go to this react app browser tab, there will be a bell icon. On clicking that bell icon, you will see a notification component popover
-
-<Frame caption="subscriberId">
-  <img src="/images/notification-center/client/react/get-started/subscriberId.png" />
-</Frame>
-
-<Frame caption="applicationIdentifier">
-  <img src="/images/notification-center/client/react/get-started/application-identifier.png" />
-</Frame>
-
 ## Use your own backend and socket URL
 
-By default, Novu's hosted services of API and socket are used. If you want, you can override them and configure your own.
+By default, Novu's hosted services for API and socket are used. If you want, you can override them and configure your own.
 
 ```tsx
-import {
-  NovuProvider,
-  PopoverNotificationCenter,
-  NotificationBell,
-} from "@novu/notification-center";
+import { Inbox } from "@novu/react";
 
 function Novu() {
   return (
-    <NovuProvider
-      backendUrl={"YOUR_BACKEND_URL"}
-      socketUrl={"YOUR_SOCKET_URL"}
-      subscriberId={"SUBSCRIBER_ID"}
-      applicationIdentifier={"APPLICATION_IDENTIFIER"}
-    >
-      <PopoverNotificationCenter colorScheme="dark">
-        {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-      </PopoverNotificationCenter>
-    </NovuProvider>
+    <Inbox
+      options={{
+        backendUrl: "YOUR_BACKEND_URL",
+        socketUrl: "YOUR_SOCKET_URL",
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+    />
+  );
+}
+```
+
+## Controlled Inbox
+
+You can use the `open` prop to manage the Inbox popover open state.
+
+```jsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div>
+      <Inbox
+        options={{
+          subscriberId: "SUBSCRIBER_ID",
+          applicationIdentifier: "APPLICATION_IDENTIFIER",
+        }}
+        open={isOpen}
+      />
+      <button onClick={() => setOpen(true)}>Open Inbox</button>
+      <button onClick={() => setOpen(false)}>Close Inbox</button>
+    </div>
+  );
+}
+```
+
+## Localization
+
+You can pass the `localization` prop to the Inbox component to change the language of the notification center.
+
+```jsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+      localization={{
+        "inbox.status.archived": "Archived",
+        "inbox.status.unread": "Unread",
+        "inbox.status.options.archived": "Archived",
+        "inbox.status.options.unread": "Unread",
+        "inbox.status.options.unreadRead": "Unread/Read",
+        "inbox.status.unreadRead": "Unread/Read",
+        "inbox.title": "Inbox",
+        "notifications.emptyNotice": "No notifications",
+        locale: "en-US",
+      }}
+    />
   );
 }
 ```
@@ -80,7 +111,7 @@ function Novu() {
 If you don't want to show the bell icon, you can directly render the notification center component without passing the bell, use `<NotificationCenter>` component in place of `<PopoverNotificationCenter>`
 
 ```jsx
-import { NovuProvider, NotificationCenter } from "@novu/notification-center";
+import { NovuProvider, NotificationCenter } from "@novu/react";
 
 <NovuProvider
   subscriberId={"SUBSCRIBER_ID"}
@@ -146,7 +177,7 @@ import {
   PopoverNotificationCenter,
   NotificationBell,
   IMessage,
-} from "@novu/notification-center";
+} from "@novu/react";
 
 function Novu() {
   function handleOnNotificationClick(message: IMessage) {
@@ -185,7 +216,7 @@ import {
   useUpdateAction,
   ButtonTypeEnum,
   NotificationBell,
-} from "@novu/notification-center";
+} from "@novu/react";
 
 export default function Novu() {
   const CustomNotificationCenter = () => {
@@ -235,10 +266,10 @@ export default function Novu() {
 
 ## Realtime sockets
 
-Novu provides a real-time socket API for you to consume and get updates about new notifications added to the user's feed. To use the socket connection you can use the `useSocket` hook provided by the `@novu/notification-center` library. Let's see an example of that:
+Novu provides a real-time socket API for you to consume and get updates about new notifications added to the user's feed. To use the socket connection you can use the `useSocket` hook provided by the `@novu/react` library. Let's see an example of that:
 
 ```tsx
-import { NovuProvider, useSocket } from "@novu/notification-center";
+import { NovuProvider, useSocket } from "@novu/react";
 
 function Novu() {
   return (
