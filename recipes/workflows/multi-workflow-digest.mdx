@@ -1,5 +1,6 @@
 ---
-title: "Multi Workflow Digest"
+title: "Multi Workflow Digest Summary"
+sidebarTitle: "Multi Workflow Digest"
 description: "Send a digest notification email by batching different types of notifications from multiple workflows"
 ---
 
@@ -11,11 +12,15 @@ This example demonstrates how to send a digest notification email by batching di
 
 Source Code on GitHub: [Multi Workflow Digest](https://github.com/novuhq/examples/tree/main/novu-workflows/react/multi-workflow-digest)
 
-<Info>Sync the changes from local studio before triggering the workflows Read more about [sync](/deployment/syncing)</Info>
+<Info>Sync the changes from local studio before triggering the workflows using backend SDKs or API. Read more about [sync](/deployment/syncing).</Info>
+
+  <Frame caption="Multi workflows digest summary flow">
+    <img src="/images/recipes/multi-workflow-digest.png" />
+  </Frame>
 ## Code Example
 
 ```typescript Summary worklflow to digest all notifications from different workflows
-import { workflow } from "@novu/framework";
+import { CronExpression, workflow } from "@novu/framework";
 import { renderLinearDigestEmail } from "../../emails/linear-digest";
 import {
   ticketAssignedPayloadSchema,
@@ -31,8 +36,7 @@ export const summaryWorkflow = workflow(
       "digest-all-notifications",
       async () => {
         return {
-          amount: 2,
-          unit: "minutes",
+          cron: CronExpression.EVERY_DAY_AT_8AM,
         };
       }
     );
