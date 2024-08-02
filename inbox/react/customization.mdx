@@ -1,464 +1,205 @@
 ---
-title: "Customizing Notification Center"
+title: "Customizing Inbox"
 sidebarTitle: "Customization"
-description: "Learn how to customize the pre built notification center component partially or building your own notification center component from scratch using Novu provided hooks"
+description: "Learn how to customize the pre built Inbox component using the appearance props"
 ---
 
-## PopoverNotificationCenter Customization
+## Appearance Prop
 
-`<PopoverNotificationCenter>` is a pre built notification center component that can be used to show notifications in your application. It is a popover component that can be placed anywhere in your application. A bell will appear on the page. On click of that bell, a popover will appear. Checkout all customizations and available [props](/notification-center/client/react/api-reference#popovernotificationcenter). If you are looking for a component without popover use regular `<NotificationCenter>` component. Checkout [props](/notification-center/client/react/api-reference#notificationcenter) of this component. Few selected customization options are explained below:-
+`appearance` prop can be used to customise the Inbox. It has three main keys: `baseTheme`, `variables` and `elements`.
 
-### Implementing custom bell icon
-
-It is common that you might have a special set of icons you use within your application and you will want to replace the default: `NotificationBell` coming from our library.
-
-For this you can easily switch the `NotificationBell` with your own bell. Just make sure you pass the `unseenCount` param inside and use it accordingly.
-
-```jsx
-<PopoverNotificationCenter colorScheme="dark">
-  {({ unseenCount }) => (
-    <CustomBell
-      unseenCount={unseenCount}
-      colorScheme="dark"
-      unseenBadgeBackgroundColor="#FFFFFF"
-      unseenBadgeColor="#FF0000"
-    />
-  )}
-</PopoverNotificationCenter>
-```
-
-### Dark mode support
-
-To support dark mode in your application the notification center component can receive a `colorScheme` prop that can receive either `dark` or `light` mode.
-
-```tsx
-<PopoverNotificationCenter colorScheme={"dark" || "light"}>
-  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-</PopoverNotificationCenter>
-```
-
-### Popover positioning
-
-Use `position`  and `offset` prop to position the popover relative to the Bell icon
+- `variables`: The variables object allows you to set global styling variables that apply to multiple elements within the inbox. This can include colors, border radius, and other common styles. You can find the list of supported variables [below](#list-of-available-variables).
+- `elements`: The elements object allows you to define styles for specific elements within the inbox. Each key corresponds to an element, and the value is an object containing `style properties` for that element or you can also pass your `css classes`.
+  See list of available elements [below](#list-of-available-elements).
+- `baseTheme`: The baseTheme object allows you to define the base theme for the inbox. This can include variables and elements that apply to the entire inbox, as well as additional themes that can be switched between. It accepts an array of objects, each containing variables and elements. Each object will override the previous object's styles.
+  This enables to override the custom themes imported from the `@novu/react` package.
+  Currently, we only export the `dark` theme.
 
 ```jsx
-<PopoverNotificationCenter position="left-start" offset={20}>
-  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-</PopoverNotificationCenter>
-```
+import { Inbox } from '@novu/react';
+const appearance = {
+          variables: {
+            borderRadius: '0.5rem',
+            colorBackground: 'white',
+            colorForeground: 'black',
+            colorSecondary: 'gray',
+            colorSecondaryForeground: 'white',
+            colorNeutral: 'black',
+          },
+          baseTheme: [
+            {
+              elements: {
+                bellContainer: {
+                  colorBackground: 'white',
+                  colorForeground: 'black',
+                  borderRadius: '0.5rem',
+                },
+                bellIcon: {
+                  colorBackground: 'white',
+                  colorForeground: 'black',
+                  borderRadius: '0.5rem',
+                },
+                bellDot: {
+                  colorBackground: 'red',
+                  colorForeground: 'white',
+                  borderRadius: '0.5rem',
+                },
+              },
+              variables: {
+                borderRadius: '0.5rem',
+                colorBackground: 'white',
+                colorForeground: 'black',
+                colorSecondary: 'gray',
+                colorSecondaryForeground: 'white',
+                colorNeutral: 'black',
+                colorPrimary: 'blue',
+                colorPrimaryForeground: 'white',
+              },
+            },
+          ],
+          elements: {
+            back__button: {
+              colorBackground: 'white',
+              colorForeground: 'black',
+              borderRadius: '0.5rem',
+            },
+            bellContainer: {
+              colorBackground: 'white',
+              colorForeground: 'black',
+              borderRadius: '0.5rem',
+            },
+            // You can also pass your custom CSS classes
+            bellIcon: 'custom-bell-icon p-4 bg-white rounded-full',
+            bellDot: {
+              colorBackground: 'red',
+              colorForeground: 'white',
+              borderRadius: '0.5rem',
+            },
+          },
+        }
 
-### Header, Footer and Empty state
-
-Use `header`, `footer` and `emptyState` prop to customize the header, footer and empty state of notification center.
-
-```jsx
-const Header = () => {
-  return <span> My custom header </span>;
-};
-
-const Footer = () => {
-  return <span> My custom footer </span>;
-};
-
-const EmptyState = () => {
-  return <span> My custom empty state </span>;
-};
-
-<PopoverNotificationCenter
-  colorScheme="dark"
-  header={() => <Header />}
-  footer={() => <Footer />}
-  emptyState={<EmptyState />}
->
-  {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-</PopoverNotificationCenter>;
-```
-
-### Notification item
-
-Use the listItem prop to show custom notification items.
-
-```jsx
-<PopoverNotificationCenter
-  colorScheme={colorScheme}
-  onNotificationClick={handlerOnNotificationClick}
-  onActionClick={handlerOnActionClick}
-  listItem={(
-    notification,
-    handleActionButtonClick,
-    handleNotificationClick
-  ) => {
-    return (
-      <a
-        href="/"
-        onClick={(e) => {
-          e.preventDefault();
-          handleNotificationClick();
-        }}
-      >
-        {notification.content}
-      </a>
-    );
+<Inbox
+  appearance={appearance}
+  options={{
+    subscriberId: "SUBSCRIBER_ID",
+    applicationIdentifier: "APPLICATION_IDENTIFIER",
   }}
->
-  {({ unseenCount }) => {
-    return <NotificationBell unseenCount={unseenCount} />;
-  }}
-</PopoverNotificationCenter>
+/>;
 ```
 
-### Customize the UI language
+### List of available variables
 
-If you want to use a language other than english for the UI, the `NovuProvider` component can accept an optional `i18n` prop.
+- `borderRadius`: The border radius of the elements.
+- `colorBackground`: The background color of the elements.
+- `colorForeground`: The foreground color of the elements.
+- `colorSecondary`: The secondary color of the elements.
+- `colorSecondaryForeground`: The secondary foreground color of the elements.
+- `colorNeutral`: The neutral color of the elements.
+- `colorPrimary`: The primary color of the elements.
+- `colorPrimaryForeground`: The primary foreground color of the elements.
 
-```typescript
-<NovuProvider
-  subscriberId={"USER_ID"}
-  applicationIdentifier={"APPLICATION_IDENTIFIER"}
-  i18n="en"
->
-  <PopoverNotificationCenter colorScheme="dark">
-    {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
-  </PopoverNotificationCenter>
-</NovuProvider>
-```
+### List of available elements
 
-The `i18n` prop can accept 2 different types of values
+Elements are the individual UI components that make up the Inbox. You can style each element individually using the `elements` object in the `appearance` prop.
 
-- 2 letter language string
+#### Primitives
 
-```typescript
-i18n = "en";
-```
+- button
+- popoverContent
+- popoverTrigger
+- dropdownContent
+- dropdownTrigger
+- dropdownItem
+- dropdownItemLabel
+- dropdownItemLabelContainer
+- dropdownItemLeftIcon
+- dropdownItemRightIcon
+- back\_\_button
+- skeletonText
+- skeletonAvatar
 
-<Accordion title="Supported Language" >
+#### General
 
-- `af` (Afrikaans)
-- `am` (Amharic)
-- `ar` (Arabic)
-- `as` (Assamese)
-- `az` (Azerbaijani)
-- `ba` (Bashkir)
-- `be` (Belarusian)
-- `bg` (Bulgarian)
-- `bh` (Bihari)
-- `bn` (Bengali)
-- `bs` (Bosnian)
-- `ca` (Catalan)
-- `cs` (Czech)
-- `da` (Danish)
-- `de` (German)
-- `el` (Greek)
-- `en` (English)
-- `es` (Spanish)
-- `eu` (Basque)
-- `fa` (Farsi)
-- `fi` (Finnish)
-- `fr` (French)
-- `ga` (Irish)
-- `gl` (Galician)
-- `gu` (Gujarati)
-- `he` (Hebrew)
-- `hi` (Hindi)
-- `hr` (Croatian)
-- `hu` (Hungarian)
-- `hy` (Armenian)
-- `id` (Indonesian)
-- `ig` (Igbo)
-- `it` (Italian)
-- `ja` (Japanese)
-- `ka` (Kannada)
-- `kk` (Kazakh)
-- `km` (Khmer)
-- `ko` (Korean)
-- `ku` (Kurdish)
-- `lo` (Lao)
-- `lt` (Lithuanian)
-- `lv` (Latvian)
-- `ml` (Malayalam)
-- `mr` (Marathi)
-- `ms` (Malay)
-- `nb` (Norwegian)
-- `ne` (Nepali)
-- `nl` (Dutch)
-- `or` (Odia)
-- `pa` (Punjabi)
-- `pl` (Polish)
-- `pt` (Portuguese)
-- `ro` (Romanian)
-- `ru` (Russian)
-- `sa` (Sanskrit)
-- `sd` (Sindhi)
-- `si` (Sinhala)
-- `sm` (Samoan)
-- `sq` (Albanian)
-- `sv` (Swedish)
-- `sq` (Albanian)
-- `ta` (Tamil)
-- `te` (Telugu)
-- `th` (Thai)
-- `tl` (Tagalog)
-- `tr` (Turkish)
-- `uk` (Ukrainian)
-- `ur` (Urdu)
-- `uz` (Uzbek)
-- `vi` (Vietnamese)
-- `zh` (Chinese)
-- `zu` (Zulu)
+- root
+- bellIcon
+- bellContainer
+- bellDot
+- settings\_\_button
+- settingsContainer
+- inboxHeader
+- loading
 
-</Accordion>
-- Translation object
+#### Inbox
 
-```typescript
-i18n={{
-  // Make sure that the following is a proper language code,
-  // since this is used by Intl.RelativeTimeFormat in order to calculate the relative time for each notification
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat
-  lang: "de",
+- inbox\_\_popoverTrigger
+- inbox\_\_popoverContent
 
-  translations: {
-    poweredBy: "von",
-    markAllAsRead: "Alles als gelesen markieren",
-    notifications: "Benachrichtigungen",
-    settings: "Einstellungen",
-  },
-}}
+#### Notifications
 
-```
+- notificationList
+- notificationListEmptyNoticeContainer
+- notificationListEmptyNotice
+- notificationListEmptyNoticeIcon
+- notification
+- notificationDot
+- notificationSubject
+- notificationBody
+- notificationBodyContainer
+- notificationImage
+- notificationDate
+- notificationDefaultActions
+- notificationCustomActions
+- notificationPrimaryAction\_\_button
+- notificationSecondaryAction\_\_button
+- notificationRead\_\_button
+- notificationUnread\_\_button
+- notificationArchive\_\_button
+- notificationUnarchive\_\_button
 
-<Tip>Novu uses *`en`* as the default value for i18n</Tip>
+#### Inbox Status
 
-### Customization using `styles` prop
+- inboxStatus\_\_title
+- inboxStatus\_\_dropdownTrigger
+- inboxStatus\_\_dropdownContent
+- inboxStatus\_\_dropdownItem
+- inboxStatus\_\_dropdownItemLabel
+- inboxStatus\_\_dropdownItemLabelContainer
+- inboxStatus\_\_dropdownItemLeftIcon
+- inboxStatus\_\_dropdownItemRightIcon
 
-`styles` prop can be used to cutomise styling of each component of notification center. Read more about [styles prop](/notification-center/client/react/api-reference#styles)
+#### More Actions
 
-```javascript
-export const styles = {
-  bellButton: {
-    root: {
-      marginTop: "20px",
-      svg: {
-        color: "#AFE1AF",
-        fill: "white",
-        minWidth: "20px",
-        minHeight: "20px",
-      },
-    },
-    dot: {
-      rect: {
-        fill: "white",
-        strokeWidth: "0",
-        width: "3px",
-        height: "3px",
-        x: 10,
-        y: 2,
-      },
-    },
-  },
-};
-```
+- moreActionsContainer
+- moreActions\_\_dropdownTrigger
+- moreActions\_\_dropdownContent
+- moreActions\_\_dropdownItem
+- moreActions\_\_dropdownItemLabel
+- moreActions\_\_dropdownItemLabelContainer
+- moreActions\_\_dropdownItemLeftIcon
 
-<Accordion title="Customizing styles" >
-```javascript
-const primaryColor = "white";
-const secondaryColor = "#AFE1AF";
-const primaryTextColor = "#0C0404";
-const secondaryTextColor = "#494F55";
-const unreadBackGroundColor = "#869F9F";
-const primaryButtonBackGroundColor = unreadBackGroundColor;
-const secondaryButtonBackGroundColor = "#C6DFCD";
-const dropdownBorderStyle = "2px solid #AFE1AF";
-const tabLabelAfterStyle = "#AFE1AF !important";
-const ncWidth = "350px !important";
+#### Workflow
 
-export const styles = {
-  bellButton: {
-    root: {
-      marginTop: "20px",
-      svg: {
-        color: secondaryColor,
-        fill: primaryColor,
-        minWidth: "20px",
-        minHeight: "20px"
-      }
-    },
-    dot: {
-      rect: {
-        fill: primaryColor,
-        strokeWidth: "0",
-        width: "3px",
-        height: "3px",
-        x: 10,
-        y: 2
-      }
-    }
-  },
-  unseenBadge: {
-    root: { color: primaryTextColor, background: secondaryColor }
-  },
-  popover: {
-    root: { zIndex: -99 },
-    arrow: {
-      backgroundColor: primaryColor,
-      borderLeftColor: secondaryColor,
-      borderTopColor: secondaryColor
-    },
-    dropdown: {
-      border: dropdownBorderStyle,
-      borderRadius: "10px",
-      marginTop: "25px",
-      maxWidth: ncWidth
-    }
-  },
-  header: {
-    root: {
-      backgroundColor: primaryColor,
-      "&:hover": { backgroundColor: primaryColor },
-      cursor: "pointer",
-      color: primaryTextColor
-    },
-    cog: { opacity: 1 },
-    markAsRead: {
-      color: primaryTextColor,
-      fontSize: "14px"
-    },
-    title: { color: primaryTextColor },
-    backButton: {
-      color: primaryTextColor
-    }
-  },
-  layout: {
-    root: {
-      background: primaryColor,
-      maxWidth: ncWidth
-    }
-  },
-  loader: {
-    root: {
-      stroke: primaryTextColor
-    }
-  },
-  accordion: {
-    item: {
-      backgroundColor: secondaryColor,
-      ":hover": {
-        backgroundColor: secondaryColor
-      }
-    },
-    content: {
-      backgroundColor: secondaryColor,
-      borderBottomLeftRadius: "7px",
-      borderBottomRightRadius: "7px"
-    },
-    control: {
-      ":hover": {
-        backgroundColor: secondaryColor
-      },
-      color: primaryTextColor,
-      title: {
-        color: primaryTextColor
-      }
-    },
-    chevron: {
-      color: primaryTextColor
-    }
-  },
-  notifications: {
-    root: {
-      ".nc-notifications-list-item": {
-        backgroundColor: secondaryColor
-      }
-    },
-    listItem: {
-      layout: {
-        borderRadius: "7px",
-        color: primaryTextColor,
-        "div:has(> .mantine-Avatar-root)": {
-          border: "none",
-          width: "20px",
-          height: "20px",
-          minWidth: "20px"
-        },
-        ".mantine-Avatar-root": {
-          width: "20px",
-          height: "20px",
-          minWidth: "20px"
-        },
-        ".mantine-Avatar-image": {
-          width: "20px",
-          height: "20px",
-          minWidth: "20px"
-        }
-      },
-      timestamp: { color: secondaryTextColor, fontWeight: "bold" },
-      dotsButton: {
-        path: {
-          fill: primaryTextColor
-        }
-      },
-      unread: {
-        "::before": { background: unreadBackGroundColor }
-      },
-      buttons: {
-        primary: {
-          background: primaryButtonBackGroundColor,
-          color: primaryTextColor,
-          "&:hover": {
-            background: primaryButtonBackGroundColor,
-            color: secondaryTextColor
-          }
-        },
-        secondary: {
-          background: secondaryButtonBackGroundColor,
-          color: secondaryTextColor,
-          "&:hover": {
-            background: secondaryButtonBackGroundColor,
-            color: secondaryTextColor
-          }
-        }
-      }
-    }
-  },
-  actionsMenu: {
-    item: { "&:hover": { backgroundColor: secondaryColor } },
-    dropdown: {
-      backgroundColor: primaryColor
-    },
-    arrow: {
-      backgroundColor: primaryColor,
-      borderTop: "0",
-      borderLeft: "0"
-    }
-  },
-  preferences: {
-    item: {
-      title: { color: primaryTextColor },
-      divider: { borderTopColor: primaryColor },
-      channels: { color: secondaryTextColor },
-      content: {
-        icon: { color: primaryTextColor },
-        channelLabel: { color: primaryTextColor },
-        success: { color: primaryTextColor }
-      }
-    }
-  },
-  tabs: {
-    tabLabel: {
-      "::after": { background: tabLabelAfterStyle },
-      ":hover": { color: tabLabelAfterStyle },
-      "[data-active]": { color: tabLabelAfterStyle }
-    },
-    tabsList: { borderBottomColor: primaryColor }
-  }
-};
-```
-</Accordion >
+- workflowContainer
+- workflowLabel
+- workflowLabelContainer
 
-[![Edit custom-styles-novu-nc](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/custom-styles-novu-nc-2jd46m?fontsize=14&module=%2Fsrc%2Fstyles.js&moduleview=1&theme=dark)
+#### Channel
 
-## Customization Using Hooks
+- channelContainer
+- channelsContainer
+- channelLabel
+- channelLabelContainer
+- channelDescription
+- channelSwitchContainer
+- channelSwitch
+- channelSwitchThumb
 
-If you don't want to use our pre built component then, you can build your own notification center using hooks. `@novu/notification-center` react package provides many hooks like `useNotifications`, `useFetchNotifications`, `useUpdateUserPreferences`. Checkout all available [hooks](/notification-center/client/react/api-reference#hooks). All the hooks should be defined inside the [NovuProvider](/notification-center/client/react/api-reference#novuprovider) component. Most of the hooks are based on the `@tanstack/react-query` library.
+#### Settings Header
 
-Checkout below example on how to use `useNotifications` and `useFetchNotifications` hook
-[![Edit useNotifications-useFetchNotifications-hook](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/usenotifications-usefetchnotifications-hook-2t6sgz?fontsize=14&hidenavigation=1&theme=dark)
+- settingsHeader
+- settingsHeader_back_button
+- settingsHeader\_\_title
+
+#### Settings Loading
+
+- settingsLoadingContainer
