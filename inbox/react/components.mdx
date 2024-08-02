@@ -91,7 +91,7 @@ function Novu() {
         subscriberId: "SUBSCRIBER_ID",
         applicationIdentifier: "APPLICATION_IDENTIFIER",
       }}
-      renderBell={(unreadCount) => {
+      renderBell={({ unreadCount }) => {
         return (
           <div>
             <span>{unreadCount}</span>
