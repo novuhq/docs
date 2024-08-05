@@ -1,13 +1,26 @@
 ---
 title: "In-App Channel Step"
 sidebarTitle: "Inbox"
+icon: "inbox"
 ---
+
+The `inbox` step allows you to send a message to your Inbox component. This is useful when you need to send a message to a user's inbox, such as a mobile app or web app.
 
 <RequestExample>
     ```typescript Inbox
     await step.inApp('inbox', async () => {
         return {
-            body: 'A new notification has been created',
+          subject: 'Welcome to Acme!',
+          body: 'We are excited to have you on board.',
+          avatar: 'https://acme.com/avatar.png',
+          primaryAction: {
+            label: 'Get Started',
+            url: 'https://acme.com/get-started',
+          },
+          secondaryAction: {
+            label: 'Learn More',
+            url: 'https://acme.com/learn-more',
+          },
         };
     });
     ```
@@ -20,27 +33,55 @@ sidebarTitle: "Inbox"
         read,
         lastSeenDate,
         lastReadDate,
-    } = await step.inApp('inbox', handler);
+    } = await step.inApp('inbox', resolver);
     ```
 </ResponseExample>
 
 ## Inbox Step Output
 
 <ParamField path="body" type="string" required>
-  The body of the inbox notification
+  The body of the inbox notification. The main content of the notification.
+</ParamField>
+<ParamField path="subject" type="string">
+  The subject of the inbox notification. This property communicates the subject of the notification to the user.
+</ParamField>
+<ParamField path="avatar" type="string">
+  The avatar shown in the inbox notification. When specified, overrides the avatar of the actor initiating the notification.
+</ParamField>
+<ParamField path="primaryAction" type="object">
+  Define a primary action to be shown in the inbox notification. The primary action will appear with an accent color.
+  <Expandable title="properties" defaultOpen>
+    <ParamField path="label" type="string" required>
+        The label of the action.
+    </ParamField>
+    <ParamField path="url" type="string">
+        The URL to visit when interacting with the action. This property can be omitted in place of an `onClick` handler implemented in the Inbox component.
+    </ParamField>
+  </Expandable>
+</ParamField>
+<ParamField path="secondaryAction" type="object">
+  Define a secondary action to be shown in the inbox notification. The secondary action will appear with a muted color.
+  <Expandable title="properties" defaultOpen>
+    <ParamField path="label" type="string" required>
+        The label of the action.
+    </ParamField>
+    <ParamField path="url" type="string">
+        The URL to visit when interacting with the action. This property can be omitted in place of an `onClick` handler implemented in the Inbox component.
+    </ParamField>
+  </Expandable>
 </ParamField>
 
 ## Inbox Step Result
 
 <ParamField path="seen" type="boolean" required>
-  The body of the inbox notification
+  A flag indicating if the notification has been seen. This property is useful when conditionally delivering notifications in subsequent steps via the `skip` function. A notification is marked as seen when the user views the notification.
 </ParamField>
 <ParamField path="read" type="boolean" required>
-  The body of the inbox notification
+  A flag indicating if the notification has been read. A notification is marked as read when the user confirms the notification.
 </ParamField>
-<ParamField path="lastSeenDate" type="date" required>
-  The body of the inbox notification
+<ParamField path="lastSeenDate" type="date | null" required>
+  The date the notification was last seen. This corresponds to the date the `seen` property was set to `true`, or `null` if the notification has not been seen.
 </ParamField>
-<ParamField path="lastReadDate" type="date" required>
-  The body of the inbox notification
+<ParamField path="lastReadDate" type="date | null" required>
+  The date the notification was last read. This corresponds to the date the `read` property was set to `true`, or `null` if the notification has not been read.
 </ParamField>

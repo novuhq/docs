@@ -1,7 +1,10 @@
 ---
 title: "Email Channel Step"
 sidebarTitle: "Email"
+icon: "envelope"
 ---
+
+The `email` step allows you to send an email to a user. This is useful when you need to send an email to a user, such as a welcome email, password reset email, or any other email you need to send.
 
 <RequestExample>
     ```typescript Email
@@ -17,11 +20,13 @@ sidebarTitle: "Email"
 ## Email Step Output
 
 <ParamField path="subject" type="string" required>
-  The title or subject email
+  The subject of the email.
 </ParamField>
 
 <ParamField path="body" type="string" required>
-  The HTML body of the email
+  The HTML body of the email.
 </ParamField>
 
 ## Email Step Result
+
+The `email` step does not return any result object.
