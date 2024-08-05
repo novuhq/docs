@@ -66,7 +66,7 @@ function Novu() {
         subscriberId: "SUBSCRIBER_ID",
         applicationIdentifier: "APPLICATION_IDENTIFIER",
       }}
-      renderNotification={(notification) => {
+      renderNotification={({ notification }) => {
         return (
           <div>
             <h3>{notification.subject}</h3>
@@ -209,7 +209,7 @@ function Novu() {
       }}
     >
       <Notifications>
-        {(notification) => {
+        {({ notification }) => {
           return (
             <div>
               <h3>{notification.subject}</h3>
