@@ -1,0 +1,292 @@
+---
+title: "Inbox Components"
+sidebarTitle: "Components"
+description: "Learn how to use the different components of the Inbox"
+---
+
+## Components
+
+The Inbox is composed of the following components:
+
+- [Inbox](#inbox)
+- [Bell](#bell)
+- [Notifications](#notifications)
+- [Preferences](#preferences)
+
+### Inbox
+
+It renders an opinionated `<Inbox />` with a bell button, that triggers a popover on lock. The popover contains the notifications list and the user preferences.
+
+#### Default Inbox
+
+```jsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+    />
+  );
+}
+```
+
+#### Controlled Popover state
+
+```jsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <Inbox
+      open={open}
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+    />
+  );
+}
+```
+
+#### Custom Notification item
+
+```jsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+      renderNotification={({ notification }) => {
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Custom Bell
+
+```jsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+      renderBell={({ unreadCount }) => {
+        return (
+          <div>
+            <span>{unreadCount}</span>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Multiple Tabs
+
+```jsx
+import { Inbox } from "@novu/react";
+
+const tabs = [
+  {
+    title: "My foo",
+    value: "foo",
+  },
+  {
+    title: "My foo and bars",
+    value: ["foo", "bar"],
+  },
+];
+
+function Novu() {
+  return (
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+      tabs={tabs}
+    />
+  );
+}
+```
+
+### Bell
+
+The `Bell` component is used to display the notification bell icon. It can be used to show the number of unread notifications.
+
+```jsx
+import { Inbox, Bell } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox>
+      <Bell />
+    </Inbox>
+  );
+}
+```
+
+#### Custom Bell
+
+You can pass custom components as children to the `Bell` component to render the custom bell icon.
+
+```jsx
+import { Inbox, Bell } from "@novu/react";
+import { BellIcon } from "./icons";
+
+function Novu() {
+  return (
+    <Inbox>
+      <Bell>
+        {({ unreadCount }) => (
+          <div>
+            <span>{unreadCount}</span>
+            <BellIcon />
+          </div>
+        )}
+      </Bell>
+    </Inbox>
+  );
+}
+```
+
+### Notifications
+
+The `Notifications` component is used to display the list of notifications.
+
+#### Notifications as a list without the Bell and Popover
+
+```jsx
+import { Inbox, Notifications } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+    >
+      <Notifications />
+    </Inbox>
+  );
+}
+```
+
+### Notifications as a list with custom Notification item
+
+```jsx
+import { Inbox, Notifications } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+    >
+      <Notifications>
+        {({ notification }) => {
+          return (
+            <div>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }}
+      </Notifications>
+    </Inbox>
+  );
+}
+```
+
+### Preferences
+
+The `Preferences` component is used to display the preferences. It can be used to show the preferences.
+Use the `Preferences` component to show the preferences without the bell and popover.
+
+```jsx
+import { Inbox, Preferences } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      options={{
+        subscriberId: "SUBSCRIBER_ID",
+        applicationIdentifier: "APPLICATION_IDENTIFIER",
+      }}
+    >
+      <Preferences />
+    </Inbox>
+  );
+}
+```
+
+### Bring your own Popover
+
+component allows you to bring your own popover component along with custom components.
+Below is an example of how you can bring your own popover component with Radix UI.
+
+```jsx
+import React from "react";
+import * as Popover from "@radix-ui/react-popover";
+import { BellIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { Inbox, Bell, Notifications } from "@novu/react";
+import "./styles.css";
+
+const PopoverDemo = () => (
+  <Inbox
+    options={{
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+    }}
+  >
+    <Popover.Root>
+      <Popover.Trigger asChild>
+        <Bell>
+          {({ unreadCount }) => (
+            <div>
+              <span>{unreadCount}</span>
+              <BellIcon />
+            </div>
+          )}
+        </Bell>
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content className="PopoverContent" sideOffset={5}>
+          <Notifications />
+          <Popover.Close className="PopoverClose" aria-label="Close">
+            <Cross2Icon />
+          </Popover.Close>
+          <Popover.Arrow className="PopoverArrow" />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
+  </Inbox>
+);
+
+export default PopoverDemo;
+```
