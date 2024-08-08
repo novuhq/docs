@@ -1,6 +1,6 @@
 ---
-title: "Configuring Multiple Tabs"
-sidebarTitle: "Multiple Tabs"
+title: 'Configuring Multiple Tabs'
+sidebarTitle: 'Multiple Tabs'
 ---
 
 Novu allows to create a multi-tab experience for Inbox, in a way you can fetch the notifications feed using `tags`.
@@ -10,28 +10,30 @@ Novu allows to create a multi-tab experience for Inbox, in a way you can fetch t
 Define `tags` prop to show multiple tabs in the Inbox.
 Each tag needs to have a `title` and `value` property. The `value` property can be a string or an array of strings.
 
-```jsx
-import { Inbox } from "@novu/react";
+```tsx
+import { Inbox } from '@novu/react';
 
-const tags = [
+const tabs = [
   {
-    title: "My foo",
-    value: "foo",
+    title: 'All Notifications',
+    value: [],
   },
   {
-    title: "My foo and bars",
-    value: ["foo", "bar"],
+    title: 'Newsletter',
+    value: ['newsletter'],
+  },
+  {
+    title: 'React',
+    value: ['react'],
   },
 ];
 
 function Novu() {
   return (
     <Inbox
-      options={{
-        subscriberId: "SUBSCRIBER_ID",
-        applicationIdentifier: "APPLICATION_IDENTIFIER",
-      }}
-      tags={tags}
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      tabs={tabs}
     />
   );
 }
