@@ -1,54 +1,13 @@
 ---
-title: "Subscriber Preference"
-sidebarTitle: "Preference"
+title: 'Subscriber Preference'
+sidebarTitle: 'Preference'
 ---
 
-By default, Novu will show the subscriber preferences cog icon on the notification center component. If you want to hide it, you can use the prop `showUserPreferences` on the `PopoverNotificationCenter` component.
+By default, Novu will show the subscriber preferences cog icon on the Inbox component.
 
-Users can enable/disable any active channel in the workflow using subscriber preferences
+Users can enable/disable any active channel in the workflow using subscriber preferences or they can update the preference globally for all workflows under the `Global Preferences`.
 
 <img
-  style={{ borderRadius: "0.5rem" }}
-  src="/images/manage-subscribers/user-preference.png"
+  style={{ borderRadius: '0.5rem' }}
+  src="/images/notification-center/client/react/preferences/preferences.png"
 />
-
-## Get subscriber preferences
-
-<CodeGroup>
-
-```typescript Node.JS
-import { Novu } from "@novu/node";
-
-const novu = new Novu("<NOVU_API_KEY>");
-
-// 111 is subscriberId
-await novu.subscribers.getPreference("111");
-```
-
-</CodeGroup>
-
-## Update subscriber preference for a workflow
-
-<CodeGroup>
-
-```typescript Node.JS
-import { Novu, ChannelTypeEnum } from "@novu/node";
-
-const novu = new Novu("<NOVU_API_KEY>");
-
-// enable in_app channel
-await novu.subscribers.updatePreference("subscriberId", "workflowIdentifier", {
-  enabled: true,
-  channel: { type: ChannelTypeEnum.IN_APP, enabled: true },
-});
-
-// enable email channel
-await novu.subscribers.updatePreference("subscriberId", "workflowIdentifier", {
-  enabled: true,
-  channel: { type: ChannelTypeEnum.EMAIL, enabled: true },
-});
-```
-
-</CodeGroup>
-
-Read more about [subscriber preference](/subscribers/preferences).
