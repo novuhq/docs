@@ -1,205 +1,45 @@
 ---
-title: "Customizing Inbox"
-sidebarTitle: "Customization"
-description: "Learn how to customize the pre built Inbox component using the appearance props"
+title: 'Customizing Inbox'
+sidebarTitle: 'Customization'
+description: 'Learn how to customize the pre built Inbox component using the appearance props'
 ---
 
 ## Appearance Prop
 
-`appearance` prop can be used to customise the Inbox. It has three main keys: `baseTheme`, `variables` and `elements`.
+The `appearance` prop can be used to customise the Inbox. It has three main keys: `baseTheme`, `variables` and `elements`.
 
-- `variables`: The variables object allows you to set global styling variables that apply to multiple elements within the inbox. This can include colors, border radius, and other common styles. You can find the list of supported variables [below](#list-of-available-variables).
-- `elements`: The elements object allows you to define styles for specific elements within the inbox. Each key corresponds to an element, and the value is an object containing `style properties` for that element or you can also pass your `css classes`.
-  See list of available elements [below](#list-of-available-elements).
+- `variables`: The variables object allows you to set global styling variables that apply to multiple elements within the inbox. This can include colors, border radius, and other common styles. You can find the list of [supported variables](https://github.com/novuhq/novu/blob/01268c688d1c173736b4ad51147370844952335a/packages/js/src/ui/types.ts#L24).
+- `elements`: Elements are the individual UI components that make up the Inbox. The elements object allows you to define styles for these components. Each key corresponds to an component, and the value is an object containing `style properties` or you can also pass your `css classes`.
+  See list of available elements [here](https://github.com/novuhq/novu/blob/01268c688d1c173736b4ad51147370844952335a/packages/js/src/ui/config/appearanceKeys.ts#L6).
 - `baseTheme`: The baseTheme object allows you to define the base theme for the inbox. This can include variables and elements that apply to the entire inbox, as well as additional themes that can be switched between. It accepts an array of objects, each containing variables and elements. Each object will override the previous object's styles.
   This enables to override the custom themes imported from the `@novu/react` package.
-  Currently, we only export the `dark` theme.
+  Currently, we only export the `dark` [theme](https://github.com/novuhq/novu/blob/01268c688d1c173736b4ad51147370844952335a/packages/js/src/ui/config/defaultVariables.ts#L3).
 
-```jsx
+```tsx
 import { Inbox } from '@novu/react';
 const appearance = {
-          variables: {
-            borderRadius: '0.5rem',
-            colorBackground: 'white',
-            colorForeground: 'black',
-            colorSecondary: 'gray',
-            colorSecondaryForeground: 'white',
-            colorNeutral: 'black',
-          },
-          baseTheme: [
-            {
-              elements: {
-                bellContainer: {
-                  colorBackground: 'white',
-                  colorForeground: 'black',
-                  borderRadius: '0.5rem',
-                },
-                bellIcon: {
-                  colorBackground: 'white',
-                  colorForeground: 'black',
-                  borderRadius: '0.5rem',
-                },
-                bellDot: {
-                  colorBackground: 'red',
-                  colorForeground: 'white',
-                  borderRadius: '0.5rem',
-                },
-              },
-              variables: {
-                borderRadius: '0.5rem',
-                colorBackground: 'white',
-                colorForeground: 'black',
-                colorSecondary: 'gray',
-                colorSecondaryForeground: 'white',
-                colorNeutral: 'black',
-                colorPrimary: 'blue',
-                colorPrimaryForeground: 'white',
-              },
-            },
-          ],
-          elements: {
-            back__button: {
-              colorBackground: 'white',
-              colorForeground: 'black',
-              borderRadius: '0.5rem',
-            },
-            bellContainer: {
-              colorBackground: 'white',
-              colorForeground: 'black',
-              borderRadius: '0.5rem',
-            },
-            // You can also pass your custom CSS classes
-            bellIcon: 'custom-bell-icon p-4 bg-white rounded-full',
-            bellDot: {
-              colorBackground: 'red',
-              colorForeground: 'white',
-              borderRadius: '0.5rem',
-            },
-          },
-        }
+  variables: {
+    borderRadius: '0.5rem',
+  },
+  elements: {
+    bellContainer: {
+      colorBackground: 'white',
+      colorForeground: 'black',
+      borderRadius: '0.5rem',
+    },
+    // You can also pass your custom CSS classes
+    bellIcon: 'custom-bell-icon p-4 bg-white rounded-full',
+    bellDot: {
+      colorBackground: 'red',
+      colorForeground: 'white',
+      borderRadius: '0.5rem',
+    },
+  },
+}
 
 <Inbox
+  applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+  subscriberId="YOUR_SUBSCRIBER_ID"
   appearance={appearance}
-  options={{
-    subscriberId: "SUBSCRIBER_ID",
-    applicationIdentifier: "APPLICATION_IDENTIFIER",
-  }}
 />;
 ```
-
-### List of available variables
-
-- `borderRadius`: The border radius of the elements.
-- `colorBackground`: The background color of the elements.
-- `colorForeground`: The foreground color of the elements.
-- `colorSecondary`: The secondary color of the elements.
-- `colorSecondaryForeground`: The secondary foreground color of the elements.
-- `colorNeutral`: The neutral color of the elements.
-- `colorPrimary`: The primary color of the elements.
-- `colorPrimaryForeground`: The primary foreground color of the elements.
-
-### List of available elements
-
-Elements are the individual UI components that make up the Inbox. You can style each element individually using the `elements` object in the `appearance` prop.
-
-#### Primitives
-
-- button
-- popoverContent
-- popoverTrigger
-- dropdownContent
-- dropdownTrigger
-- dropdownItem
-- dropdownItemLabel
-- dropdownItemLabelContainer
-- dropdownItemLeftIcon
-- dropdownItemRightIcon
-- back\_\_button
-- skeletonText
-- skeletonAvatar
-
-#### General
-
-- root
-- bellIcon
-- bellContainer
-- bellDot
-- settings\_\_button
-- settingsContainer
-- inboxHeader
-- loading
-
-#### Inbox
-
-- inbox\_\_popoverTrigger
-- inbox\_\_popoverContent
-
-#### Notifications
-
-- notificationList
-- notificationListEmptyNoticeContainer
-- notificationListEmptyNotice
-- notificationListEmptyNoticeIcon
-- notification
-- notificationDot
-- notificationSubject
-- notificationBody
-- notificationBodyContainer
-- notificationImage
-- notificationDate
-- notificationDefaultActions
-- notificationCustomActions
-- notificationPrimaryAction\_\_button
-- notificationSecondaryAction\_\_button
-- notificationRead\_\_button
-- notificationUnread\_\_button
-- notificationArchive\_\_button
-- notificationUnarchive\_\_button
-
-#### Inbox Status
-
-- inboxStatus\_\_title
-- inboxStatus\_\_dropdownTrigger
-- inboxStatus\_\_dropdownContent
-- inboxStatus\_\_dropdownItem
-- inboxStatus\_\_dropdownItemLabel
-- inboxStatus\_\_dropdownItemLabelContainer
-- inboxStatus\_\_dropdownItemLeftIcon
-- inboxStatus\_\_dropdownItemRightIcon
-
-#### More Actions
-
-- moreActionsContainer
-- moreActions\_\_dropdownTrigger
-- moreActions\_\_dropdownContent
-- moreActions\_\_dropdownItem
-- moreActions\_\_dropdownItemLabel
-- moreActions\_\_dropdownItemLabelContainer
-- moreActions\_\_dropdownItemLeftIcon
-
-#### Workflow
-
-- workflowContainer
-- workflowLabel
-- workflowLabelContainer
-
-#### Channel
-
-- channelContainer
-- channelsContainer
-- channelLabel
-- channelLabelContainer
-- channelDescription
-- channelSwitchContainer
-- channelSwitch
-- channelSwitchThumb
-
-#### Settings Header
-
-- settingsHeader
-- settingsHeader_back_button
-- settingsHeader\_\_title
-
-#### Settings Loading
-
-- settingsLoadingContainer
