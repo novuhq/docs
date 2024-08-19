@@ -1,30 +1,37 @@
 ---
-title: "Configuring Multiple Tabs"
-sidebarTitle: "Multiple Tabs"
+title: 'Configuring Multiple Tabs'
+sidebarTitle: 'Multiple Tabs'
 ---
 
-Novu allows to create a multi-tab experience for Inbox, in a way you can fetch the notifications feed using `tabs`.
+Novu enables the creation of a multi-tab experience for the Inbox, allowing you to filter and display notification lists within distinct UI tabs.
 
 ### Defining tabs
 
-Define `tabs` prop to show multiple tabs in the Inbox.
-Each tab item needs to have a `title` and `value` property. The `value` property can be a string or an array of strings.
+Define the `tabs` prop to display multiple tabs in the Inbox component.
+
+Each tab object should include a `label` and `value` properties. The `label` property represents the text displayed on the specific tab. The `value` property is an array of strings that serves as the "filter criteria" for the notifications displayed in the list.
+
+The notifications are filtered and matched by comparing the notification `tags` field with the tab `value` field. The notifications that contain at least one tag from the tab `value` field are displayed in the list.
+
+The tags on the notification are copied from the [workflow definition options](/sdks/framework/typescript/workflow) during the workflow execution process. You can combine tags from different workflows to create a customized tab experience.
+
+The example below demonstrates how to define multiple tabs in the Inbox component.
 
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 const tabs = [
   {
-    title: "All Notifications",
+    label: 'All Notifications',
     value: [],
   },
   {
-    title: "Newsletter",
-    value: ["newsletter"],
+    label: 'Newsletter',
+    value: ['newsletter'],
   },
   {
-    title: "React",
-    value: ["react"],
+    label: 'React',
+    value: ['react'],
   },
 ];
 
