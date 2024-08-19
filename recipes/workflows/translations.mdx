@@ -1,0 +1,61 @@
+---
+title: 'Translations'
+sidebarTitle: 'Translations'
+description: 'Translate notification content to different languages using i18n'
+---
+
+Translation allows you to seamlessly adapt your workflows to different languages and automatically apply them based on your users locales. It enhances engagement, personalizes the user experience, and allows you to expand your market reach.
+
+**Use case:** Facebook is a social media with users from all over the world. It allows the user to use Facebook in their language and expect to get emails from Facebook in their selected language.
+
+In the example below uses [i18n](https://www.npmjs.com/package/i18n) in simple text email but if you use React to create your emails you can use for example [react-i18next](https://react.i18next.com/) and then just pass the variables needed for it. Before using i18n to translate, locale on the subscriber is used to set to the language that this email should be translated to.
+
+```typescript
+import { workflow } from '@novu/framework';
+import i18next from 'i18next';
+import en from './locales/en.json';
+import de from './locales/de.json';
+
+i18next.init({
+  fallbackLng: 'en',
+  resources: {
+    en: {
+      translation: en,
+    },
+    de: {
+      translation: de,
+    },
+  },
+});
+
+export const welcomeWorkflow = workflow(
+  'welcome-workflow',
+  async ({ step, subscriber }) => {
+    // Send welcome notifications via email
+    await step.email('welcome-email', async () => {
+      i18next.getFixedT(subscriber.locale);
+
+      return {
+        subject: i18next.t('welcomeEmailSubject', { name: subscriber.name }),
+        body: i18next.t('welcomeEmailBody', { username: subscriber.username }),
+      };
+    });
+  }
+);
+```
+
+```typescript locales/en.json
+{
+  "welcomeEmailSubject": "Welcome {{name}} to Facebook",
+  "welcomeEmailBody": "Welcome to Facebook, you can now edit your profile {{username}} and connect with your friends and family",
+}
+```
+
+```typescript locales/de.json
+{
+  "welcomeEmailSubject": "Willkommen {{name}} auf Facebook",
+  "welcomeEmailBody": "Willkommen bei Facebook. Sie können jetzt Ihr Profil {{username}} bearbeiten und mit Ihren Freunden und Ihrer Familie in Kontakt treten",
+}
+```
+
+More advanced example on GitHub: [translations](https://github.com/novuhq/examples/tree/main/novu-workflows/react/translation)
