@@ -11,9 +11,7 @@ Define the `tabs` prop to display multiple tabs in the Inbox component.
 
 Each tab object should include a `label` and `value` properties. The `label` property represents the text displayed on the specific tab. The `value` property is an array of strings that serves as the "filter criteria" for the notifications displayed in the list.
 
-The notifications are filtered and matched by comparing the notification `tags` field with the tab `value` field. The notifications that contain at least one tag from the tab `value` field are displayed in the list.
-
-The tags on the notification are copied from the [workflow definition options](/sdks/framework/typescript/workflow) during the workflow execution process. You can combine tags from different workflows to create a customized tab experience.
+The notifications are filtered and matched by comparing the [workflow tags](/workflow/introduction) field with the tab `value` field. Each notification is a part of a specific [workflow](/concepts/workflows). You can combine tags from different workflows to create a customized tab experience.
 
 The example below demonstrates how to define multiple tabs in the Inbox component.
 
