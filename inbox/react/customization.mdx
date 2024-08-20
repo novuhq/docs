@@ -43,3 +43,31 @@ const appearance = {
   appearance={appearance}
 />;
 ```
+
+## Localization Prop
+
+The `localization` prop can be used to to change the copywriting of the Inbox to a different language for your users or change the wording to suit your product. See the list of [available keys](https://github.com/novuhq/novu/blob/next/packages/js/src/ui/config/defaultLocalization.ts#L1).
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      localization={{
+        'inbox.status.archived': 'Archived',
+        'inbox.status.unread': 'Unread',
+        'inbox.status.options.archived': 'Archived',
+        'inbox.status.options.unread': 'Unread',
+        'inbox.status.options.unreadRead': 'Unread/Read',
+        'inbox.status.unreadRead': 'Unread/Read',
+        'inbox.title': 'Inbox',
+        'notifications.emptyNotice': 'No notifications',
+        locale: 'en-US',
+      }}
+    />
+  );
+}
+```
