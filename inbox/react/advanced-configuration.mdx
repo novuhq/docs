@@ -23,34 +23,6 @@ function Novu() {
 }
 ```
 
-## Localization
-
-You can pass the `localization` prop to the Inbox component to change the language of the Inbox.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-      localization={{
-        'inbox.status.archived': 'Archived',
-        'inbox.status.unread': 'Unread',
-        'inbox.status.options.archived': 'Archived',
-        'inbox.status.options.unread': 'Unread',
-        'inbox.status.options.unreadRead': 'Unread/Read',
-        'inbox.status.unreadRead': 'Unread/Read',
-        'inbox.title': 'Inbox',
-        'notifications.emptyNotice': 'No notifications',
-        locale: 'en-US',
-      }}
-    />
-  );
-}
-```
-
 ## HMAC Encryption
 
 When Novu's user adds the Inbox to their application they are required to pass a `subscriberId` which identifies the user's end-customer, and the application Identifier which is acted as a public key to communicate with the notification feed API.
