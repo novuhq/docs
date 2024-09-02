@@ -1,7 +1,7 @@
 ---
-title: "Inbox Components"
-sidebarTitle: "Components"
-description: "Learn how to use the different components of the Inbox"
+title: 'Inbox Components'
+sidebarTitle: 'Components'
+description: 'Learn how to use the different components of the Inbox'
 ---
 
 ## Components
@@ -20,7 +20,7 @@ It renders an opinionated `<Inbox />` with a bell button, that triggers a popove
 #### Default Inbox
 
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
@@ -35,7 +35,7 @@ function Novu() {
 #### Controlled Popover state
 
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 function Novu() {
   const [open, setOpen] = React.useState(false);
@@ -55,8 +55,13 @@ function Novu() {
 
 #### Custom Notification item
 
+Customize the notification item by passing a render function to the `renderNotification` prop.
+You can access the notification object and render the notification item as per your requirements.
+The `notification.data` property allows you acessing the custom information while rendering notification item.
+You can check how to pass it with the Novu Framework in-app step output [here](/sdks/framework/typescript/steps/inbox#inbox-step-output).
+
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
@@ -67,6 +72,7 @@ function Novu() {
         <div>
           <h3>{notification.subject}</h3>
           <p>{notification.body}</p>
+          <p>{notification.data.text}</p>
         </div>
       )}
     />
@@ -77,7 +83,7 @@ function Novu() {
 #### Custom Bell
 
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
@@ -97,7 +103,7 @@ function Novu() {
 #### Handle notification click
 
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
@@ -112,10 +118,15 @@ function Novu() {
 }
 ```
 
+#### Redirect on the notification click
+
+The `redirect` [object](/sdks/framework/typescript/steps/inbox#inbox-step-output) allows to define the URL to visit when clicking on the notification item.
+The value will be implicitly passed to the notification and used when click event happens.
+
 #### Handle notification button clicks
 
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
@@ -133,12 +144,17 @@ function Novu() {
 }
 ```
 
+#### Redirect on the notification action button click
+
+The `redirect` [object](/sdks/framework/typescript/steps/inbox#inbox-step-output) on the `primaryAction` or `secondaryAction` prop allows to define the URL to visit when clicking on the notification action button.
+The value will be implicitly passed to the action buttons and used when click event happens.
+
 ### Bell
 
 The `Bell` component is used to display the notification bell icon. It can be used to show the number of unread notifications.
 
 ```tsx
-import { Inbox, Bell } from "@novu/react";
+import { Inbox, Bell } from '@novu/react';
 
 function Novu() {
   return (
@@ -157,8 +173,8 @@ function Novu() {
 You can pass custom components as children to the `Bell` component to render the custom bell icon.
 
 ```tsx
-import { Inbox, Bell } from "@novu/react";
-import { BellIcon } from "./icons";
+import { Inbox, Bell } from '@novu/react';
+import { BellIcon } from './icons';
 
 function Novu() {
   return (
@@ -183,7 +199,7 @@ The `Notifications` component is used to display the list of notifications.
 #### Notifications as a list without the Bell and Popover
 
 ```tsx
-import { Inbox, Notifications } from "@novu/react";
+import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
@@ -200,7 +216,7 @@ function Novu() {
 ### Notifications as a list with custom Notification item
 
 ```tsx
-import { Inbox, Notifications } from "@novu/react";
+import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
@@ -213,6 +229,7 @@ function Novu() {
           <div>
             <h3>{notification.subject}</h3>
             <p>{notification.body}</p>
+            <p>{notification.data.text}</p>
           </div>
         )}
       />
@@ -227,7 +244,7 @@ The `Preferences` component is used to display the preferences. It can be used t
 Use the `Preferences` component to show the preferences without the bell and popover.
 
 ```tsx
-import { Inbox, Preferences } from "@novu/react";
+import { Inbox, Preferences } from '@novu/react';
 
 function Novu() {
   return (
@@ -247,11 +264,11 @@ component allows you to bring your own popover component along with custom compo
 Below is an example of how you can bring your own popover component with Radix UI.
 
 ```tsx
-import React from "react";
-import * as Popover from "@radix-ui/react-popover";
-import { BellIcon, Cross2Icon } from "@radix-ui/react-icons";
-import { Inbox, Bell, Notifications } from "@novu/react";
-import "./styles.css";
+import React from 'react';
+import * as Popover from '@radix-ui/react-popover';
+import { BellIcon, Cross2Icon } from '@radix-ui/react-icons';
+import { Inbox, Bell, Notifications } from '@novu/react';
+import './styles.css';
 
 const PopoverDemo = () => (
   <Inbox

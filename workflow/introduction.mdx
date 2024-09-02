@@ -225,6 +225,42 @@ workflow(
 );
 ```
 
+## Tags
+
+Tags are used to categorize the workflows. They also allow you to filter and group notifications for your [Inbox](/inbox/introduction) tabs.
+
+```tsx
+workflow(
+  "acme-login-alert",
+  async ({ step, payload }) => {
+    await step.inApp('inbox', async () => {
+        return {
+          subject: 'New Login Detected',
+          body: 'We noticed a login from a new device or location. If this wasn’t you, change your password immediately.',
+        };
+    });
+  },
+  {
+    tags: ['security'],
+  }
+);
+
+workflow(
+  "acme-password-change",
+  async ({ step, payload }) => {
+    await step.inApp('inbox', async () => {
+        return {
+          subject: 'Password Changed',
+          body: 'Your password was successfully updated. If you didn’t request this, contact support right away.',
+        };
+    });
+  },
+  {
+    tags: ['security'],
+  }
+);
+```
+
 ### Passing Payload
 
 Here is an example of the validated payload during trigger:
