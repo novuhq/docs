@@ -1,7 +1,10 @@
 ---
 openapi: post /v1/subscribers/{subscriberId}/messages/mark-as
+title: "Marks a message as read/unread, seen/unseen."
 ---
 
 import ApikeyWarning from "/snippets/apikey-warning.mdx";
 
 <ApikeyWarning />
+
+This API marks a single message of one subscriber as `read`, `unread`, `seen`, `unseen`. This API requires `messageId` to be passed.
