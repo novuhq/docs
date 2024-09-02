@@ -49,7 +49,7 @@ The snippet below shows a configuration for the Step Control schema. If you donâ
       {
         controlSchema: z.object({
           hideBanner: z.boolean().default(false),
-          subject: z.string().default('This is the default subject'),
+          subject: z.string().default('Hi {{subscriber.firstName | capitalize}}'),
           components: z.array(z.object({
             type: z.enum(['header', 'cta-row', 'footer']),
             content: z.string()
@@ -83,7 +83,7 @@ The snippet below shows a configuration for the Step Control schema. If you donâ
           // Specify the properties to validate. Supports deep nesting.
           properties: {
             hideBanner: { type: "boolean", default: false },
-            subject: { type: "string", default: 'This is the default subject' },
+            subject: { type: "string", default: 'Hi {{subscriber.firstName | capitalize}}' },
             // Allowing no code control over the component in the Dashboard UI
             components: {
               type: "array",
@@ -115,4 +115,19 @@ For the full list of parameters, check out the [full SDK reference](/sdks/framew
 ## Supported Schema Types
 - [Zod Schema](https://zod.dev/) - A TypeScript-first schema declaration and validation library.
 - [JSON Schema](/recipes/json-schema) - The most popular schema language for defining JSON data structures.
+
+## Using Variables
+
+To facilitate the use of variables in the control schema, enclose the variable name in double curly braces using the `{{variableName}}` syntax. For example, `{{subscriber.firstName | capitalize}}` will be dynamically replaced with the actual value of the subscriber's first name at runtime.
+You can use variables in any step control value, whether set by the developer or within the Novu Dashboard UI. To facilitate this, the Novu Dashboard UI offers auto-completion for variables. Simply start typing `{{` to view a list of all available variables.
+
+--TODO: insert gif of autocomplete in dashboard ---
+
+### Variable Options
+- **Subscriber Attributes**: Access all [subscriber attributes](https://docs.novu.co/concepts/subscribers#subscriber-attributes). Example: `{{subscriber.firstName}}`
+- **Payload Variables**: Use all payload variables defined in the `payloadSchema`. Example: `{{payload.userId}}`
+- **Liquid Filters**: Apply [liquid filters](https://liquidjs.com/filters/overview.html) to format or manipulate variable values. Examples: `{{subscriber.firstName | append: ': ' | append: payload.status | capitalize}}` or
+`{{payload.invoiceDate | date: '%a, %b %d, %y'}}` will format the date as `Thu, Jan 01, 24`
+
+
 
