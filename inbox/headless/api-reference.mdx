@@ -1,0 +1,331 @@
+---
+title: 'Headless Inbox API Reference'
+sidebarTitle: 'API Reference'
+---
+## Novu
+
+`Novu` is is the top level class that is used to interact with the Novu API client.
+
+### Prarams
+
+<ParamField path="applicationIdentifier" type="string" required>
+`applicationIdentifier` is a unique identifier for the application. This is is public credential that is used to authenticate the application with the Novu API. `applicationIdentifier` can be copied from [API Keys](https://dashboard.novu.co/api-keys) page.
+</ParamField>
+
+<ParamField path="subscriberId" type="string" required>
+  `subscriberId` is a unique identifier for the subscriber. Read more about [subscribers](/concepts/subscribers).
+</ParamField>
+
+<ParamField path="subscriberHash" type="string">
+  `subscriberHash` is a unique identifier for the subscriber. It is used for HMAC encryption. Read more about [HMAC Encryption](/react/advanced-configuration#hmac-encryption).
+</ParamField>
+
+<ParamField path="backendUrl" type="string" default="https://api.novu.co">
+Use `https://eu.api.novu.co` value for EU region.
+</ParamField>
+
+<ParamField path="socketUrl" type="string" default="https://ws.novu.co">
+  Use `https://eu.ws.novu.co` value for EU region.
+</ParamField>
+
+### Usage
+<Tabs>
+<Tab title="US" >
+```typescript
+import { Novu } from "@novu/js";
+
+const novu = new Novu({
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+});
+```
+</Tab>
+<Tab title="EU">
+```typescript
+import { Novu } from "@novu/js";
+
+const novu = new Novu({
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+  backendUrl: "https://eu.api.novu.co",
+  socketUrl: "https://eu.ws.novu.co",
+});
+```
+</Tab>
+<Tab title="HMAC Encryption">
+```typescript
+import { Novu } from "@novu/js";
+
+const novu = new Novu({
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+  subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTIon",
+});
+```
+</Tab>
+</Tabs>
+
+### Methods
+
+- [Notifications](#notifications)
+- [Preferences](#preferences)
+
+## Notifications
+
+### Methods
+- [list](#list)
+- [count](#count)
+- [read](#read)
+- [unread](#unread)
+- [archive](#archive)
+- [unarchive](#unarchive)
+- [readAll](#readAll)
+- [archiveAll](#archiveAll)
+- [archiveAllRead](#archiveAllRead)
+- [completePrimary](#completePrimary)
+- [completeSecondary](#completeSecondary)
+- [revertPrimary](#revertPrimary)
+- [revertSecondary](#revertSecondary)
+
+### list
+`list` method fetch the list of notifications for the subscriber based on the provided filters.
+#### Params
+<ParamField path="tags" type="string[]" />
+<ParamField path="read" type="boolean" />
+<ParamField path="archived" type="boolean" />
+<ParamField path="limit" type="number" />
+<ParamField path="after" type="string" >`after` can be used to fetch next set of notifications after specific notification. it can have `notificationId` as value</ParamField>
+<ParamField path="offset" type="offset" />
+#### Usage
+```typescript
+const notifications = await novu.notifications.list({
+  limit: 30,
+  read: false,
+  archived: false,
+  tags: ["tag1", "tag2"],
+  archived: false,
+});
+```
+
+### count
+`count` method fetch the count of notifications for the subscriber. It can be used to fetch the count of read, unread, archived and unarcived notifications grouped by tag(s).
+#### Params
+<ParamField path="tags" type="string[]" />
+<ParamField path="read" type="boolean" />
+<ParamField path="archived" type="boolean" />
+#### Usage
+```typescript
+const notificationsCount = await novu.notifications.count({
+  read: true,
+  archived: false,
+  tags: ["tag1", "tag2"],
+});
+```
+
+### read
+`read` method marks a notification as read.
+#### Params
+<ParamField path="notificationId" type="string" />
+#### Usage
+```typescript
+const readNotification = await novu.notifications.read({
+  notificationId: "inbox_notification_id",
+});
+```
+
+### unread
+`unread` method marks a notification as unread.
+#### Params
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+const unreadNotification = await novu.notifications.unread({
+  notificationId: "inbox_notification_id",
+});
+```
+
+### archive
+`archive` method marks a notification as archived.
+#### Params
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+const archivedNotification = await novu.notifications.archive({
+  notificationId: "inbox_notification_id",
+});
+```
+
+### unarchive
+`unarchive` method marks a notification as unarchived.
+#### Params
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+const unarchivedNotification = await novu.notifications.unarchive({
+  notificationId: "inbox_notification_id",
+});
+```
+
+### readAll
+`readAll` method marks all notifications as read. Notifications can be filtered by tags.
+#### Params
+<ParamField path="tags" type="string[]"/>
+#### Usage
+```typescript
+await novu.notifications.readAll({
+  tags: ["tag1", "tag2"],
+});
+```
+
+### archiveAll
+`archiveAll` method marks all notifications as archived. Notifications can be filtered by tags.
+#### Params
+<ParamField path="tags" type="string[]"/>
+#### Usage
+```typescript
+await novu.notifications.archiveAll({
+  tags: ["tag1", "tag2"],
+});
+```
+
+### archiveAllRead
+`archiveAllRead` method marks all read notifications as archived. Notifications can be filtered by tags.
+#### Params
+<ParamField path="tags" type="string[]"/>
+#### Usage
+```typescript
+await novu.notifications.archiveAllRead({
+  tags: ["tag1", "tag2"],
+});
+```
+
+### completePrimary
+`completePrimary` method marks primary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
+#### Params
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+await novu.notifications.completePrimary({
+  notificationId: "inbox_notification_id",
+});
+```
+
+### completeSecondary
+`completeSecondary` method marks secondary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
+#### Params
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+await novu.notifications.completeSecondary({
+  notificationId: "inbox_notification_id",
+});
+```
+
+### revertPrimary
+`revertPrimary` method marks primary action of a notification as pending. It changes the `isCompleted` field of `primaryAction` to **pending** from **done**.
+#### Params
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+await novu.notifications.revertPrimary({
+  notificationId: "inbox_notification_id",
+});
+```
+
+### revertSecondary
+`revertSecondary` method marks secondary action of a notification as pending. It changes the `isCompleted` field of `secondaryAction` to **pending** from **done**.
+#### Params
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+await novu.notifications.revertSecondary({
+  notificationId: "inbox_notification_id",
+});
+```
+
+## Preferences
+### Methods
+- [list](#list)
+- [update](#update)
+
+### list
+`list` method fetch the global and workflows channel preferences of the subscriber.
+#### Usage
+```typescript
+await novu.preferences.list()
+```
+
+### update
+`update` method updates the channel preferences of the subscriber. It updates the channel preferences of the subscriber for the specific workflow if `workflowId` is provided. If `workflowId` is not provided, it updates the global channel preferences of the subscriber. Multiple channels can be updated at once.
+#### Params
+<ParamField path="workflowId" type="string"/> 
+<ParamField path="channelPreferences" type="ChannelPreference"/> 
+
+```typescript ChannelPreference
+type ChannelPreference = {
+  email?: boolean;
+  sms?: boolean;
+  in_app?: boolean;
+  chat?: boolean;
+  push?: boolean;
+};
+```
+#### Usage
+```typescript
+await novu.preferences.update({
+  workflowId: "workflow_id",
+  channelPreferences: { email: false, sms: false },
+});
+```
+
+## Events
+
+### Usage
+```typescript
+novu.on("notifications.notification_received", (data) => {
+  console.log("new notification =>", data);
+});
+
+novu.on("notifications.unread_count_changed", (data) => {
+  console.log("new unread notifications count =>", data);
+});
+```
+### Available Events
+
+| **Events**                                  |
+|---------------------------------------------|
+| **notifications.notification_received**     |
+| **notifications.unread_count_changed**      |
+| **notification.read.pending**               |
+| **notification.read.resolved**              |
+| **notification.unread.pending**             |
+| **notification.unread.resolved**            |
+| **notification.archive.pending**            |
+| **notification.archive.resolved**           |
+| **notification.unarchive.pending**          |
+| **notification.unarchive.resolved**         |
+| **notification.complete_action.pending**    |
+| **notification.complete_action.resolved**   |
+| **notification.revert_action.pending**      |
+| **notification.revert_action.resolved**     |
+| **notifications.read_all.pending**          |
+| **notifications.read_all.resolved**         |
+| **notifications.archive_all.pending**       |
+| **notifications.archive_all.resolved**      |
+| **notifications.archive_all_read.pending**  |
+| **notifications.archive_all_read.resolved** |
+| **notifications.count.pending**             |
+| **notifications.count.resolved**            |
+| **preferences.list.pending**                |
+| **preferences.list.resolved**               |
+| **preferences.update.pending**              |
+| **preferences.update.resolved**             |
+| **socket.connect.pending**                  |
+| **socket.connect.resolved**                 |
+| **session.initialize.pending**              |
+| **session.initialize.resolved**             |
+| **notifications.list.pending**              |
+| **notifications.list.resolved**             |
+| **notifications.count.pending**             |
+| **notifications.count.resolved**            |
+| **notifications.list.updated**              |
