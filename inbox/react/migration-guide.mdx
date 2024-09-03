@@ -1,0 +1,435 @@
+---
+title: "Migration Guide"
+sidebarTitle: "Migration Guide"
+description: "This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest version."
+---
+
+## Getting Started
+
+To begin migrating to `@novu/react`, install the package via npm:
+
+```bash
+npm install @novu/react
+```
+
+## Notification Center without Bell Icon
+
+The @novu/react package introduces a flexible way to display notifications as a list without the default bell icon. Utilize the `Inbox` and `Notifications` components to achieve this functionality.
+
+```tsx
+import { Inbox, Notifications } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+    >
+      <Notifications />
+    </Inbox>
+  );
+}
+
+export default Novu;
+```
+
+## Notification Actions
+
+Handle user interactions with notifications effectively using the action handlers provided by `@novu/react`.
+
+### onNotificationClick
+
+Trigger a callback function when a user clicks on a notification item.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const handleNotificationClick = (notification) => {
+    // Your custom logic here
+    console.log("Notification clicked:", notification);
+  };
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onNotificationClick={handleNotificationClick}
+    />
+  );
+}
+
+export default Novu;
+```
+
+### onPrimaryActionClick and onSecondaryActionClick
+
+Handle primary and secondary actions within a notification explicitly.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const handlePrimaryActionClick = (notification) => {
+    // Handle primary action
+    console.log("Primary action clicked:", notification);
+  };
+
+  const handleSecondaryActionClick = (notification) => {
+    // Handle secondary action
+    console.log("Secondary action clicked:", notification);
+  };
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onPrimaryActionClick={handlePrimaryActionClick}
+      onSecondaryActionClick={handleSecondaryActionClick}
+    />
+  );
+}
+
+export default Novu;
+```
+
+## Avatar Icons
+
+Customize the avatar displayed alongside notifications by specifying an avatar `URL` at the workflow definition level using `@novu/framework`.
+
+```ts
+import { workflow } from "@novu/framework";
+
+workflow("welcome-notification", async (step) => {
+  await step.inApp("inbox", async () => ({
+    subject: "Welcome to Our Service!",
+    body: "We are thrilled to have you onboard.",
+    avatar: "https://example.com/path-to-your-avatar-image.png",
+  }));
+});
+```
+
+## Custom Bell Icon
+
+Customize the bell icon that triggers the notifications popover using the `renderBell` prop.
+
+```tsx
+import { Inbox } from "@novu/react";
+import CustomBellIcon from "./CustomBellIcon"; // Your custom bell icon component
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      renderBell={(unreadCount) => <CustomBellIcon unreadCount={unreadCount} />}
+    />
+  );
+}
+
+export default Novu;
+```
+
+## Popover Positioning
+
+For advanced positioning and styling of the notifications popover, integrate third-party popover libraries such as Radix UI.
+
+```tsx
+import React from "react";
+import * as RadixPopover from "@radix-ui/react-popover";
+import { Inbox, Bell, Notifications } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+    >
+      <RadixPopover.Root>
+        <RadixPopover.Trigger asChild>
+          <Bell />
+        </RadixPopover.Trigger>
+        <RadixPopover.Portal>
+          <RadixPopover.Content side="bottom" align="end" sideOffset={10}>
+            <Notifications />
+            <RadixPopover.Arrow />
+          </RadixPopover.Content>
+        </RadixPopover.Portal>
+      </RadixPopover.Root>
+    </Inbox>
+  );
+}
+
+export default Novu;
+```
+
+## Custom Notification Item
+
+Customize the appearance and structure of individual notification items using the `renderNotification` prop.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const renderCustomNotificationItem = (notification) => (
+    <div
+      className={`notification-item ${notification.isRead ? "read" : "unread"}`}
+      onClick={() => notification.read()}
+    >
+      <img
+        src={notification.avatar}
+        alt="Avatar"
+        className="notification-avatar"
+      />
+      <div className="notification-content">
+        <h4 className="notification-subject">{notification.subject}</h4>
+        <p className="notification-body">{notification.body}</p>
+      </div>
+    </div>
+  );
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      renderNotification={renderCustomNotificationItem}
+    />
+  );
+}
+
+export default Novu;
+```
+
+## Styling with appearance Prop
+
+Customize the overall look and feel of the notification components using the appearance prop, which supports both CSS objects and class names (including Tailwind CSS classes).
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      appearance={{
+        baseTheme: {
+          variables: {
+            colorBackground: "#1F2937",
+            colorForeground: "#F9FAFB",
+            colorPrimary: "#3B82F6",
+            colorSecondaryForeground: "#9CA3AF",
+            colorNeutral: "#374151",
+          },
+        },
+        elements: {
+          bellIcon: "text-white",
+          notificationItem:
+            "custom-class bg-gray-800 hover:bg-gray-700 p-4 rounded-md",
+          notificationSubject: {
+            color: "#E2E8F0",
+            fontSize: "18px",
+            fontWeight: "bold",
+          },
+          notificationBody: {
+            color: "#A0AEC0",
+            fontSize: "14px",
+          },
+        },
+      }}
+    />
+  );
+}
+
+export default Novu;
+```
+
+For more information on `appearance` customization visit [here](customization#appearance-prop).
+
+## Multiple Tabs Support
+
+Organize notifications into different categories using tabs by leveraging the tags property in workflow definitions and the tabs prop in the Inbox component.
+
+### Create Multiple Tabs
+
+1. Define multiple workflows with relevant tags.
+
+```ts
+import { workflow } from "@novu/framework";
+
+workflow(
+  "security-alerts",
+  async (step) => {
+    await step.inApp("inbox", async () => ({
+      subject: "Security Alert",
+      body: "A new login attempt was detected.",
+    }));
+  },
+  { tags: ["security"] }
+);
+
+workflow(
+  "promotional-offers",
+  async (step) => {
+    await step.inApp("inbox", async () => ({
+      subject: "Exclusive Offer!",
+      body: "Get 50% off on your next purchase.",
+    }));
+  },
+  { tags: ["promotions"] }
+);
+```
+
+2. Assign relevant tags to each workflow to categorize notifications appropriately.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+const tabs = [
+  { label: "All Notifications", value: [] },
+  { label: "Security", value: ["security"] },
+  { label: "Promotions", value: ["promotions"] },
+];
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      tabs={tabs}
+    />
+  );
+}
+
+export default Novu;
+```
+
+## Localization
+
+Customize the language and text content of the notification components using the localization prop.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      localization={{
+        "inbox.title": "Notificaciones",
+        "notifications.emptyNotice": "No tienes nuevas notificaciones",
+        "notifications.markAllAsRead": "Marcar todo como leído",
+        locale: "es-ES",
+      }}
+    />
+  );
+}
+
+export default Novu;
+```
+
+## HMAC Encryption
+
+The process remains the same as before. See the detailed guide [here](advanced-configuration#hmac-encryption).
+
+## Handling Notifications
+
+Handle notifications using the methods provided by the notification object.
+
+### Marking Notifications as Read
+
+Mark notifications as read using the `read` method provided by the notification object.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const handleNotificationClick = (notification) => {
+    notification.read();
+  };
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onNotificationClick={handleNotificationClick}
+    />
+  );
+}
+```
+
+### Marking Notifications as Unread
+
+Mark notifications as unread using the `unread` method provided by the notification object.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const handleNotificationClick = (notification) => {
+    notification.unread();
+  };
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onNotificationClick={handleNotificationClick}
+    />
+  );
+}
+```
+
+### Marking Notifications as Archive
+
+Mark notifications as archive using the `archive` method provided by the notification object.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const handleNotificationClick = (notification) => {
+    notification.archive();
+  };
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onNotificationClick={handleNotificationClick}
+    />
+  );
+}
+```
+
+### Marking Notifications as Unarchive
+
+Mark notifications as unarchive using the `unarchive` method provided by the notification object.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function Novu() {
+  const handleNotificationClick = (notification) => {
+    notification.unarchive();
+  };
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onNotificationClick={handleNotificationClick}
+    />
+  );
+}
+```
+
+## New hooks
+
+Learn more about the new hooks available in the `@novu/react` package [here](hooks).
+
+- useNotifications
+- useCounts
+- usePreferences
+- useNovu
