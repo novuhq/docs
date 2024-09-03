@@ -316,7 +316,7 @@ There are three sockets events available:
 
 ### Toast notification
 
-Novu does not have a native taost component. However, if your project is using any UI library like chakra, material-ui, mantine then toast component (snackbar in case of material-ui) of these libraries can be used with `useSocket` hook. Add the toast opening code in `socket.on` callback.
+Novu does not have a native toast component. However, if your project is using any UI library like chakra, material-ui, mantine then toast component (snackbar in case of material-ui) of these libraries can be used with `useSocket` hook. Add the toast opening code in `socket.on` callback.
 
 ```javascript toast.tsx
 socket.on("notification_received", (data) => {
