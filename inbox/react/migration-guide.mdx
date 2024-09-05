@@ -71,7 +71,7 @@ createdAt: string;
 };
 
 
-export type Subscriber = {
+type Subscriber = {
   id: string;
   firstName?: string;
   lastName?: string;
@@ -79,12 +79,12 @@ export type Subscriber = {
   subscriberId: string;
 };
 
-export type Redirect = {
+type Redirect = {
   url: string;
   target?: '_self' | '_blank' | '_parent' | '_top' | '_unfencedTop';
 };
 
-export type Action = {
+type Action = {
   label: string;
   isCompleted: boolean;
   redirect?: Redirect;
