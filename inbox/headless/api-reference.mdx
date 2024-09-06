@@ -59,7 +59,7 @@ import { Novu } from "@novu/js";
 const novu = new Novu({
   subscriberId: "SUBSCRIBER_ID",
   applicationIdentifier: "APPLICATION_IDENTIFIER",
-  subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTIon",
+  subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
 });
 ```
 </Tab>
@@ -90,12 +90,23 @@ const novu = new Novu({
 ### list
 `list` method fetch the list of notifications for the subscriber based on the provided filters.
 #### Params
-<ParamField path="tags" type="string[]" />
-<ParamField path="read" type="boolean" />
-<ParamField path="archived" type="boolean" />
-<ParamField path="limit" type="number" />
+<ParamField path="tags" type="string[]" >
+`tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
+</ParamField>
+<ParamField path="read" type="boolean" >
+`read` param is used to filter read notifications. It can be `true` or `false`. A notification is said to be read if `isRead` field is `true`.
+</ParamField>
+<ParamField path="archived" type="boolean" >
+`archived` param is used to filter archived notifications. It can be `true` or `false`. A notification is said to be archived if `isArchived` field is `true`.
+</ParamField>
+<ParamField path="limit" type="number" >
+`limit` param can be used to limit the number of notifications to be fetched. It can take any number between 1 and 100.
+</ParamField>
 <ParamField path="after" type="string" >`after` can be used to fetch the next set of notifications after a specific notification. It can take `notification.id` as value.</ParamField>
-<ParamField path="offset" type="offset" />
+<ParamField path="offset" type="offset" >
+`offset` can be used to skip the first `n` notifications. It can take any number between 0 and 100.
+</ParamField>
+
 #### Usage
 ```typescript
 const notifications = await novu.notifications.list({
@@ -110,9 +121,15 @@ const notifications = await novu.notifications.list({
 ### count
 `count` method fetch the count of notifications for the subscriber. It can be used to fetch the count of read, unread, archived and unarcived notifications grouped by tag(s).
 #### Params
-<ParamField path="tags" type="string[]" />
-<ParamField path="read" type="boolean" />
-<ParamField path="archived" type="boolean" />
+<ParamField path="tags" type="string[]" >
+`tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
+</ParamField>
+<ParamField path="read" type="boolean" >
+`read` param is used to filter read notifications. It can be `true` or `false`. A notification is said to be read if `isRead` field is `true`.
+</ParamField>
+<ParamField path="archived" type="boolean" >
+`archived` param is used to filter archived notifications. It can be `true` or `false`. A notification is said to be archived if `isArchived` field is `true`.
+</ParamField>
 #### Usage
 ```typescript
 const notificationsCount = await novu.notifications.count({
@@ -180,7 +197,9 @@ await novu.notifications.readAll({
 ### archiveAll
 `archiveAll` method marks all notifications as archived. Notifications can be filtered by tags.
 #### Params
-<ParamField path="tags" type="string[]"/>
+<ParamField path="tags" type="string[]" >
+`tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
+</ParamField>
 #### Usage
 ```typescript
 await novu.notifications.archiveAll({
@@ -191,7 +210,9 @@ await novu.notifications.archiveAll({
 ### archiveAllRead
 `archiveAllRead` method marks all read notifications as archived. Notifications can be filtered by tags.
 #### Params
-<ParamField path="tags" type="string[]"/>
+<ParamField path="tags" type="string[]" >
+`tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
+</ParamField>
 #### Usage
 ```typescript
 await novu.notifications.archiveAllRead({
