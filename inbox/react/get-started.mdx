@@ -14,10 +14,12 @@ npm install @novu/react
 
 2. Add the below code in the app.tsx file
 
+<Tabs>
+<Tab title="US">
 ```tsx
 import { Inbox } from '@novu/react';
 
-function Novu() {
+function InboxNovu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
@@ -26,6 +28,25 @@ function Novu() {
   );
 }
 ```
+</Tab>
+<Tab title="EU">
+```tsx
+import { Inbox } from '@novu/react';
+
+function InboxNovu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      socketUrl="https://eu.ws.novu.co"
+      backendUrl="https://eu.api.novu.co"
+    />
+  );
+}
+```
+</Tab>
+
+</Tabs>
 
 💡 You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard.novu.co/api-keys).
 The `subscriberId` is the unique identifier of the user in your application.

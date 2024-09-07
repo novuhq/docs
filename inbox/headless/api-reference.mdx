@@ -87,8 +87,56 @@ const novu = new Novu({
 - [revertPrimary](#revertPrimary)
 - [revertSecondary](#revertSecondary)
 
+### Notification Interface
+```typescript
+type Subscriber = {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  avatar?: string;
+  subscriberId: string;
+};
+
+enum ChannelType {
+  IN_APP = "in_app",
+  EMAIL = "email",
+  SMS = "sms",
+  CHAT = "chat",
+  PUSH = "push"
+}
+
+type Redirect = {
+  url: string;
+  target?: '_self' | '_blank' | '_parent' | '_top' | '_unfencedTop';
+};
+
+type Action = {
+  label: string;
+  isCompleted: boolean;
+  redirect?: Redirect;
+};
+
+interface Notification = {
+  id: string;
+  subject?: string;
+  body: string;
+  to: Subscriber;
+  isRead: boolean;
+  isArchived: boolean;
+  createdAt: string;
+  readAt?: string | null;
+  archivedAt?: string | null;
+  avatar?: string;
+  primaryAction?: Action;
+  secondaryAction?: Action;
+  channelType: ChannelType;
+  tags?: string[];
+  data?: Record<string, unknown>;
+  redirect?: Redirect;
+};
+```
 ### list
-`list` method fetch the list of notifications for the subscriber based on the provided filters.
+`list` method fetch the list of notifications for the subscriber based on the provided filters. The filter `read: false`, `archived: true` is not allowed by the API, the notification can't be in unread and archive state
 #### Params
 <ParamField path="tags" type="string[]" >
 `tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
@@ -107,6 +155,20 @@ const novu = new Novu({
 `offset` can be used to skip the first `n` notifications. It can take any number between 0 and 100.
 </ParamField>
 
+#### Response
+`list` method returns `ListNotificationsResponse` type object. Read more about [Notification Interface](#notification-interface). `hasMore` field can used to check if there are more notifications to be fetched.
+```typescript
+type NotificationFilter = {
+    tags?: string[];
+    read?: boolean;
+    archived?: boolean;
+};
+type ListNotificationsResponse = {
+    notifications: Notification[];
+    hasMore: boolean;
+    filter: NotificationFilter;
+};
+```
 #### Usage
 ```typescript
 const notifications = await novu.notifications.list({
@@ -114,7 +176,7 @@ const notifications = await novu.notifications.list({
   read: false,
   archived: false,
   tags: ["tag1", "tag2"],
-  archived: false,
+  offset: 0,
 });
 ```
 
@@ -130,6 +192,20 @@ const notifications = await novu.notifications.list({
 <ParamField path="archived" type="boolean" >
 `archived` param is used to filter archived notifications. It can be `true` or `false`. A notification is said to be archived if `isArchived` field is `true`.
 </ParamField>
+#### Response
+`count` method returns `FilterCountResponse` type object.
+```typescript
+type NotificationFilter = {
+    tags?: string[];
+    read?: boolean;
+    archived?: boolean;
+};
+
+type FilterCountResponse = {
+    count: number;
+    filter: NotificationFilter;
+};
+```
 #### Usage
 ```typescript
 const notificationsCount = await novu.notifications.count({
@@ -142,7 +218,9 @@ const notificationsCount = await novu.notifications.count({
 ### read
 `read` method marks a notification as read.
 #### Params
-<ParamField path="notificationId" type="string" />
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`read` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
 #### Usage
 ```typescript
 const readNotification = await novu.notifications.read({
@@ -153,7 +231,9 @@ const readNotification = await novu.notifications.read({
 ### unread
 `unread` method marks a notification as unread.
 #### Params
-<ParamField path="notificationId" type="string"/>
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`unread` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
 #### Usage
 ```typescript
 const unreadNotification = await novu.notifications.unread({
@@ -164,7 +244,9 @@ const unreadNotification = await novu.notifications.unread({
 ### archive
 `archive` method marks a notification as archived.
 #### Params
-<ParamField path="notificationId" type="string"/>
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`archive` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
 #### Usage
 ```typescript
 const archivedNotification = await novu.notifications.archive({
@@ -175,7 +257,9 @@ const archivedNotification = await novu.notifications.archive({
 ### unarchive
 `unarchive` method marks a notification as unarchived.
 #### Params
-<ParamField path="notificationId" type="string"/>
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`unarchive` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
 #### Usage
 ```typescript
 const unarchivedNotification = await novu.notifications.unarchive({
@@ -186,7 +270,9 @@ const unarchivedNotification = await novu.notifications.unarchive({
 ### readAll
 `readAll` method marks all notifications as read. Notifications can be filtered by tags.
 #### Params
-<ParamField path="tags" type="string[]"/>
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`readAll` method returns void.
 #### Usage
 ```typescript
 await novu.notifications.readAll({
@@ -200,7 +286,8 @@ await novu.notifications.readAll({
 <ParamField path="tags" type="string[]" >
 `tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
 </ParamField>
-#### Usage
+#### Returns
+`archiveAll` method returns void.
 ```typescript
 await novu.notifications.archiveAll({
   tags: ["tag1", "tag2"],
@@ -213,6 +300,8 @@ await novu.notifications.archiveAll({
 <ParamField path="tags" type="string[]" >
 `tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
 </ParamField>
+#### Returns
+`archiveAllRead` method returns void.
 #### Usage
 ```typescript
 await novu.notifications.archiveAllRead({
@@ -223,7 +312,9 @@ await novu.notifications.archiveAllRead({
 ### completePrimary
 `completePrimary` method marks primary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
 #### Params
-<ParamField path="notificationId" type="string"/>
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`completePrimary` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
 #### Usage
 ```typescript
 await novu.notifications.completePrimary({
@@ -234,7 +325,9 @@ await novu.notifications.completePrimary({
 ### completeSecondary
 `completeSecondary` method marks secondary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
 #### Params
-<ParamField path="notificationId" type="string"/>
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`completeSecondary` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
 #### Usage
 ```typescript
 await novu.notifications.completeSecondary({
@@ -245,7 +338,9 @@ await novu.notifications.completeSecondary({
 ### revertPrimary
 `revertPrimary` method marks primary action of a notification as pending. It changes the `isCompleted` field of `primaryAction` to **pending** from **done**.
 #### Params
-<ParamField path="notificationId" type="string"/>
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`revertPrimary` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
 #### Usage
 ```typescript
 await novu.notifications.revertPrimary({
@@ -256,7 +351,9 @@ await novu.notifications.revertPrimary({
 ### revertSecondary
 `revertSecondary` method marks secondary action of a notification as pending. It changes the `isCompleted` field of `secondaryAction` to **pending** from **done**.
 #### Params
-<ParamField path="notificationId" type="string"/>
+<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
+#### Returns
+`revertSecondary` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
 #### Usage
 ```typescript
 await novu.notifications.revertSecondary({
@@ -268,9 +365,41 @@ await novu.notifications.revertSecondary({
 ### Methods
 - [list](#list)
 - [update](#update)
+### Preference Interface
+```typescript
+type Workflow = {
+  id: string;
+  identifier: string;
+  name: string;
+  critical: boolean;
+  tags?: string[];
+};
+
+type ChannelPreference = {
+  email?: boolean;
+  sms?: boolean;
+  in_app?: boolean;
+  chat?: boolean;
+  push?: boolean;
+};
+
+enum PreferenceLevel {
+  GLOBAL = "global",
+  TEMPLATE = "template"
+}
+
+interface Preference {
+  enabled: boolean;
+  workflow?: Workflow;
+  channels: ChannelPreference;
+  level: PreferenceLevel;
+}
+```
 
 ### list
 `list` method fetch the global and workflows channel preferences of the subscriber.
+#### Returns
+`list` method returns `Preference[]` type object. Read more about [Preference Interface](#preference-interface).
 #### Usage
 ```typescript
 await novu.preferences.list()
@@ -281,6 +410,8 @@ await novu.preferences.list()
 #### Params
 <ParamField path="workflowId" type="string"/> 
 <ParamField path="channelPreferences" type="ChannelPreference"/> 
+#### Returns
+`update` method returns `Preference` type object. Read more about [Preference Interface](#preference-interface)
 
 ```typescript ChannelPreference
 type ChannelPreference = {
@@ -298,55 +429,3 @@ await novu.preferences.update({
   channelPreferences: { email: false, sms: false },
 });
 ```
-
-## Events
-
-### Usage
-```typescript
-novu.on("notifications.notification_received", (data) => {
-  console.log("new notification =>", data);
-});
-
-novu.on("notifications.unread_count_changed", (data) => {
-  console.log("new unread notifications count =>", data);
-});
-```
-### Available Events
-
-| **Events**                                  |
-|---------------------------------------------|
-| **notifications.notification_received**     |
-| **notifications.unread_count_changed**      |
-| **notification.read.pending**               |
-| **notification.read.resolved**              |
-| **notification.unread.pending**             |
-| **notification.unread.resolved**            |
-| **notification.archive.pending**            |
-| **notification.archive.resolved**           |
-| **notification.unarchive.pending**          |
-| **notification.unarchive.resolved**         |
-| **notification.complete_action.pending**    |
-| **notification.complete_action.resolved**   |
-| **notification.revert_action.pending**      |
-| **notification.revert_action.resolved**     |
-| **notifications.read_all.pending**          |
-| **notifications.read_all.resolved**         |
-| **notifications.archive_all.pending**       |
-| **notifications.archive_all.resolved**      |
-| **notifications.archive_all_read.pending**  |
-| **notifications.archive_all_read.resolved** |
-| **notifications.count.pending**             |
-| **notifications.count.resolved**            |
-| **preferences.list.pending**                |
-| **preferences.list.resolved**               |
-| **preferences.update.pending**              |
-| **preferences.update.resolved**             |
-| **socket.connect.pending**                  |
-| **socket.connect.resolved**                 |
-| **session.initialize.pending**              |
-| **session.initialize.resolved**             |
-| **notifications.list.pending**              |
-| **notifications.list.resolved**             |
-| **notifications.count.pending**             |
-| **notifications.count.resolved**            |
-| **notifications.list.updated**              |
