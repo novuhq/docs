@@ -59,11 +59,11 @@ const novu = new Novu({
 </Step>
 <Step title="Fetch Notifications">
 ```typescript
-const notifications = await novu.notifications.list({
+const response = await novu.notifications.list({
   limit: 30,
-  read: false,
-  archived: false,
 });
+
+const notifications = response.data.notifications
 ```
 </Step>
 <Step>
@@ -72,9 +72,7 @@ Display `notifications` in your UI.
 </Steps>
 
 ## Realtime Notifications
-
 Events are emitted when notifications are received, and when the unread notificatons count changes. `novu.on()` is used to listen to these events.
-
 ```typescript
 novu.on("notifications.notification_received", (data) => {
   console.log("new notification =>", data);
@@ -84,5 +82,3 @@ novu.on("notifications.unread_count_changed", (data) => {
   console.log("new unread notifications count =>", data);
 });
 ```
-
-Read all available [methods](/inbox/headless/api-reference#methods) and [events](/inbox/headless/api-reference#events) in the [API Reference](/inbox/headless/api-reference)
