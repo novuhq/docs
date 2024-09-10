@@ -1,42 +1,59 @@
 ---
 title: 'React Get Started'
-sidebarTitle: 'Get Started'
+sidebarTitle: 'Quickstart'
 description: 'Learn how to add novu powered In-App Inbox to your React app'
 ---
 
 Novu provides the `@novu/react` package that helps to add a fully functioning Inbox to your web application in minutes. Let's see how easily you can use it in your application.
 
-1. Install `@novu/react` npm package in your react app
 
-```tsx
-npm install @novu/react
-```
+<Steps>
+    <Step title="Install the Inbox package">
+      ```bash
+      npm install @novu/react
+      ```
+    </Step>
+    <Step title="Add the inbox code to your react file">
+      ```tsx
+      import { Inbox } from '@novu/react';
 
-2. Add the below code in the app.tsx file
+      function Novu() {
+        return (
+          <Inbox
+            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+            subscriberId="YOUR_SUBSCRIBER_ID"
+          />
+        );
+      }
+      ```
 
-```tsx
-import { Inbox } from '@novu/react';
+      💡 You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard.novu.co/api-keys).
+      The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/concepts/subscribers).
 
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    />
-  );
-}
-```
+    </Step>
+    <Step title="Trigger a notification">
+      Now that you have the inbox component added to your application, you can trigger an Inbox notification to see it in action.
+      To create your first workflow, follow our [quickstart guide](/quickstart/overview).
 
-💡 You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard.novu.co/api-keys).
-The `subscriberId` is the unique identifier of the user in your application.
+      <Frame caption="The Inbox Component">
+        <img src="/images/inbox/component.png" />
+      </Frame>
+    </Step>
+</Steps>
 
-3. Run the app
+## Next Steps
 
-You can now run the app and [trigger](/concepts/trigger) the events to see the Inbox in action.
-
-<Frame caption="The Inbox Component">
-  <img src="/images/inbox/component.png" />
-</Frame>
+<CardGroup cols={2}>
+  <Card title="Customize the inbox" href={"/inbox/react/customization"}>
+    Learn how to customize the inbox with your own branding and design.
+  </Card>
+  <Card
+    title="Learn the components"
+    href={"/inbox/react/components"}
+  >
+    Learn more about the composable components of the inbox.
+  </Card>
+</CardGroup>
 
 ## Frequently Asked Questions
 

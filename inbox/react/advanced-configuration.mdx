@@ -4,24 +4,6 @@ sidebarTitle: 'Advanced Configuration'
 description: 'Learn how to configure the Inbox component with advanced options'
 ---
 
-## Use your own backend and socket URL
-
-By default, Novu's hosted services for API and socket are used. If you want, you can override them and configure your own.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-      backendUrl="YOUR_BACKEND_URL"
-      socketUrl="YOUR_SOCKET_URL"
-    />
-  );
-}
-```
 
 ## HMAC Encryption
 
@@ -67,3 +49,22 @@ const hmacHash = createHmac('sha256', process.env.NOVU_API_KEY)
 ## Backend SDK Methods
 
 [Backend sdk methods](/sdks/framework/typescript/overview)
+
+## Use your own backend and socket URL
+
+By default, Novu's hosted services for API and socket are used. If you want, you can override them and configure your own.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      backendUrl="YOUR_BACKEND_URL"
+      socketUrl="YOUR_SOCKET_URL"
+    />
+  );
+}
+```

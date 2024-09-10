@@ -1,0 +1,90 @@
+---
+title: '<Bell />'
+---
+
+
+The `Bell` component is used to display the notification bell icon. It can be used to show the number of unread notifications.
+
+```tsx
+import { Inbox, Bell } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+    >
+      <Bell />
+    </Inbox>
+  );
+}
+```
+
+### Custom Bell
+
+You can pass custom components as children to the `Bell` component to render the custom bell icon.
+
+```tsx
+import { Inbox, Bell } from '@novu/react';
+import { BellIcon } from './icons';
+
+function Novu() {
+  return (
+    <Inbox>
+      <Bell
+        renderBell={(unreadCount) => (
+          <div>
+            <span>{unreadCount}</span>
+            <BellIcon />
+          </div>
+        )}
+      />
+    </Inbox>
+  );
+}
+```
+
+
+### Bring your own Popover
+
+component allows you to bring your own popover component along with custom components.
+Below is an example of how you can bring your own popover component with Radix UI.
+
+```tsx
+import React from 'react';
+import * as Popover from '@radix-ui/react-popover';
+import { BellIcon, Cross2Icon } from '@radix-ui/react-icons';
+import { Inbox, Bell, Notifications } from '@novu/react';
+import './styles.css';
+
+const PopoverDemo = () => (
+  <Inbox
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriberId="YOUR_SUBSCRIBER_ID"
+  >
+    <Popover.Root>
+      <Popover.Trigger asChild>
+        <Bell
+          renderBell={(unreadCount) => (
+            <div>
+              <span>{unreadCount}</span>
+              <BellIcon />
+            </div>
+          )}
+        />
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content className="PopoverContent" sideOffset={5}>
+          <Notifications />
+          <Popover.Close className="PopoverClose" aria-label="Close">
+            <Cross2Icon />
+          </Popover.Close>
+          <Popover.Arrow className="PopoverArrow" />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
+  </Inbox>
+);
+
+export default PopoverDemo;
+```

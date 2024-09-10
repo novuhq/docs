@@ -33,17 +33,18 @@
   },
   "anchors": [],
   "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
+ {
+      "name": "<Inbox />",
+      "url": "inbox"
     },
     {
       "name": "Integrations",
       "url": "integrations"
     },
+   
     {
-      "name": "Inbox",
-      "url": "inbox"
+      "name": "API Reference",
+      "url": "api-reference"
     },
     {
       "name": "SDKs",
@@ -121,9 +122,18 @@
       "icon": "react",
       "pages": [
         "inbox/react/get-started",
-        "inbox/react/customization",
-        "inbox/react/components",
-        "inbox/react/preference",
+        "inbox/react/styling",
+        "inbox/react/localization",
+        {
+          "group": "Components",
+          "pages": [
+            "inbox/react/components/overview",
+            "inbox/react/components/inbox",
+            "inbox/react/components/bell",
+            "inbox/react/components/notifications",
+            "inbox/react/components/preferences"
+          ]
+        },
         "inbox/react/multiple-tabs",
         "inbox/react/advanced-configuration",
         "inbox/react/migration-guide"
