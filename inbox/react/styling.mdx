@@ -95,8 +95,6 @@ const appearance = {
 <Inbox appearance={appearance} />
 ```
 
-
-
 ### Elements
 The `elements` object allows you to define styles for these components. Each key corresponds to an component, and the value is an object containing `style properties` or you can also pass your `css classes`.
 Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
@@ -115,6 +113,10 @@ const appearance = {
   },
 }
 ```
+
+<Frame caption="Finding Element Selectors">
+  <img src="/images/inbox/Elements.png" />
+</Frame>
 
 <Tip>
   Any selector that appears before the 🔔 emoji, can be targeted via the elements property in Appearance prop (stripping the `nv-` prefix).
