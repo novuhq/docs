@@ -13,7 +13,7 @@ Users can also assign a name to a topic. This name doesn't need to be unique and
 
 A topic would get assigned different subscribers that will receive a notification every time a notification is sent to the topic.
 
-## Create A Topic
+## Create a topic
 
 In order to be able to send a notification to a topic, first the user needs to create one. It can be done like this:
 
@@ -42,7 +42,7 @@ const key = "unique-topic-identifier";
 const result = await novu.topics.get(key);
 ```
 
-## Rename a Topic
+## Rename a topic
 
 Descriptive name given during creation of topic can be changed later. This can be done like this:
 
@@ -61,7 +61,7 @@ This will return the whole Topic information, including the subscribers if havin
 
 <Note>Topic Key can not be changed</Note>
 
-## Add subscribers to a Topic
+## Add subscribers to a topic
 
 Adding subscribers to the topic is the main usecase of topic. A topic is like a group of subscribers. A notification can be sent to all subscribers of a topic at once
 
@@ -98,6 +98,8 @@ This call will return a response in the shape of:
 
 The field `succeeded` will return the array of subscriber ids that have been correctly assigned to the topic. The field `failed` will show up only if there has been any subscriber that couldn't been assigned to the topic. This probably will happen if there is any typo in the given subscriberId or if the given subscriberId doesn't belong to the environment and the organization where the topic has been created.
 
+<Info>One topic can have maximum 500K subscribers</Info>
+
 ### Create topic on the fly
 
 To facilitate flows we allow to create a topic on the fly when adding subscribers.
@@ -130,7 +132,7 @@ const response = await novu.topics.getSubscriber(
   without making extra calls to Novu.
 </Note>
 
-## Remove a subscriber from a Topic
+## Remove a subscriber from a topic
 
 A single or group of subscribers can be removed from an existing topic.
 

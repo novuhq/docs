@@ -2,8 +2,8 @@
   "$schema": "https://mintlify.com/schema.json",
   "name": "Novu",
   "logo": {
-    "dark": "/logo/novu-logo-placeholder.svg",
-    "light": "/logo/novu-logo-placeholder.svg"
+    "dark": "/logo/logo-dark-bg.svg",
+    "light": "/logo/logo-light-bg.svg"
   },
   "openapi": "https://api.novu.co/openapi.json",
   "favicon": "/favicon.png",
@@ -23,35 +23,40 @@
   },
   "topbarLinks": [
     {
-      "name": "Get API Key",
-      "url": "https://dashboard.novu.co/api-keys/Development?utm_campaign=docs-menu-apikey"
+      "name": "Pricing",
+      "url": "https://novu.co/pricing/?utm_campaign=docs_top_nav"
+    },
+    {
+      "name": "Blog",
+      "url": "https://novu.co/blog/?utm_campaign=docs_top_nav"
+    },
+    {
+      "name": "Contact us",
+      "url": "https://novu.co/contact-us/?utm_campaign=docs_top_nav"
     }
   ],
   "topbarCtaButton": {
-    "type": "github",
-    "url": "https://github.com/novuhq/novu"
+    "name": "Get Started",
+    "url": "https://dashboard.novu.co/?utm_campaign=docs_top_bar_gs"
   },
   "anchors": [],
   "tabs": [
-    {
-      "name": "API Reference",
-      "url": "api-reference"
+  {
+      "name": "<Inbox />",
+      "url": "inbox"
     },
     {
       "name": "Integrations",
       "url": "integrations"
     },
+   
     {
-      "name": "Inbox",
-      "url": "inbox"
+      "name": "API Reference",
+      "url": "api-reference"
     },
     {
       "name": "SDKs",
       "url": "sdks"
-    },
-    {
-      "name": "Guides",
-      "url": "guides"
     },
     {
       "name": "Recipes",
@@ -126,11 +131,21 @@
       "icon": "react",
       "pages": [
         "inbox/react/get-started",
-        "inbox/react/customization",
-        "inbox/react/components",
-        "inbox/react/preference",
+        "inbox/react/styling",
+        {
+          "group": "Components",
+          "pages": [
+            "inbox/react/components/overview",
+            "inbox/react/components/inbox",
+            "inbox/react/components/bell",
+            "inbox/react/components/notifications",
+            "inbox/react/components/preferences"
+          ]
+        },
         "inbox/react/multiple-tabs",
-        "inbox/react/advanced-configuration"
+        "inbox/react/localization",
+        "inbox/react/advanced-configuration",
+        "inbox/react/migration-guide"
       ]
     },
     {
@@ -174,20 +189,15 @@
         "sdks/framework/typescript/overview",
         "sdks/framework/typescript/client",
         "sdks/framework/typescript/workflow",
-        {
-          "group": "Steps",
-          "pages": [
-            "sdks/framework/typescript/steps/introduction",
-            "sdks/framework/typescript/steps/email",
-            "sdks/framework/typescript/steps/inbox",
-            "sdks/framework/typescript/steps/sms",
-            "sdks/framework/typescript/steps/push",
-            "sdks/framework/typescript/steps/chat",
-            "sdks/framework/typescript/steps/digest",
-            "sdks/framework/typescript/steps/delay",
-            "sdks/framework/typescript/steps/custom"
-          ]
-        }
+        "sdks/framework/typescript/steps/introduction",
+        "sdks/framework/typescript/steps/email",
+        "sdks/framework/typescript/steps/inbox",
+        "sdks/framework/typescript/steps/sms",
+        "sdks/framework/typescript/steps/push",
+        "sdks/framework/typescript/steps/chat",
+        "sdks/framework/typescript/steps/digest",
+        "sdks/framework/typescript/steps/delay",
+        "sdks/framework/typescript/steps/custom"
       ]
     },
     {
@@ -519,10 +529,8 @@
       ]
     },
     {
-      "group": "Integration Guides",
-      "pages": [
-        "guides/integrations/segment"
-      ]
+      "group": "Trigger Integrations",
+      "pages": ["integrations/segment"]
     }
   ],
   "backgroundImage": "/background.png",
@@ -562,6 +570,10 @@
     {
       "source": "/guides/echo-guides/echo-remix",
       "destination": "/guides/framework-guides/framework-remix"
+    },
+    {
+      "source": "/guides/integrations/segment",
+      "destination": "/integrations/segment"
     },
     {
       "source": "/guides/echo-guides/echo-svelte",
