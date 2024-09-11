@@ -4,52 +4,6 @@ sidebarTitle: 'Advanced Configuration'
 description: 'Learn how to configure the Inbox component with advanced options'
 ---
 
-## Use your own backend and socket URL
-
-By default, Novu's hosted services for API and socket are used. If you want, you can override them and configure your own.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-      backendUrl="YOUR_BACKEND_URL"
-      socketUrl="YOUR_SOCKET_URL"
-    />
-  );
-}
-```
-
-## Localization
-
-You can pass the `localization` prop to the Inbox component to change the language of the Inbox.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-      localization={{
-        'inbox.status.archived': 'Archived',
-        'inbox.status.unread': 'Unread',
-        'inbox.status.options.archived': 'Archived',
-        'inbox.status.options.unread': 'Unread',
-        'inbox.status.options.unreadRead': 'Unread/Read',
-        'inbox.status.unreadRead': 'Unread/Read',
-        'inbox.title': 'Inbox',
-        'notifications.emptyNotice': 'No notifications',
-        locale: 'en-US',
-      }}
-    />
-  );
-}
-```
 
 ## HMAC Encryption
 
@@ -64,7 +18,7 @@ HMAC encryption will make sure that a `subscriberId` is encrypted using the se
 In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel In-App settings page and enable HMAC encryption for your environment.
 
 <Frame caption="How to enable HMAC encryption for In-App Inbox">
-  <img src="/images/notification-center/client/react/get-started/hmac-encryption-enable.png" />
+  <img src="/images/inbox/client/react/get-started/hmac-encryption-enable.png" />
 </Frame>
 
 1. Next step would be to generate an HMAC encrypted subscriberId on your backend:
@@ -95,3 +49,22 @@ const hmacHash = createHmac('sha256', process.env.NOVU_API_KEY)
 ## Backend SDK Methods
 
 [Backend sdk methods](/sdks/framework/typescript/overview)
+
+## Use your own backend and socket URL
+
+By default, Novu's hosted services for API and socket are used. If you want, you can override them and configure your own.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      backendUrl="YOUR_BACKEND_URL"
+      socketUrl="YOUR_SOCKET_URL"
+    />
+  );
+}
+```

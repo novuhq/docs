@@ -1,42 +1,133 @@
 ---
 title: 'React Get Started'
-sidebarTitle: 'Get Started'
+sidebarTitle: 'Quickstart'
 description: 'Learn how to add novu powered In-App Inbox to your React app'
 ---
 
 Novu provides the `@novu/react` package that helps to add a fully functioning Inbox to your web application in minutes. Let's see how easily you can use it in your application.
 
-1. Install `@novu/react` npm package in your react app
+<Steps>
+  <Step title="Install the Inbox package">
+    ```bash
+    npm install @novu/react
+    ```
+  </Step>
+  <Step title="Add the inbox code to your react file">
+    <CodeGroup>
+      ```tsx Next.js
+      import { Inbox } from '@novu/react';
+      import { useRouter } from 'next/navigation'
 
-```tsx
-npm install @novu/react
-```
+      function Novu() {
+        const router = useRouter();
 
-2. Add the below code in the app.tsx file
+        return (
+          <Inbox
+            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+            subscriberId="YOUR_SUBSCRIBER_ID"
+            routerPush={(path: string) =>  router.push(path)}
+          />
+        );
+      }
+      ```
 
-```tsx
-import { Inbox } from '@novu/react';
+      ```tsx Remix
+      import { Inbox } from '@novu/react';
+      import { useNavigate } from '@remix-run/react';
 
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    />
-  );
-}
-```
+      function Novu() {
+        const navigate = useNavigate();
 
-💡 You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard.novu.co/api-keys).
-The `subscriberId` is the unique identifier of the user in your application.
+        return (
+          <Inbox
+            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+            subscriberId="YOUR_SUBSCRIBER_ID"
+            routerPush={(path: string) => navigate(path)}
+          />
+        );
+      }
+      ```
 
-3. Run the app
+      ```tsx React Router
+      import { Inbox } from '@novu/react';
+      import { useNavigate } from 'react-router-dom';
 
-You can now run the app and [trigger](/concepts/trigger) the events to see the Inbox in action.
+      function Novu() {
+        const navigate = useNavigate();
 
-<Frame caption="The Inbox Component">
-  <img src="/images/inbox/component.png" />
-</Frame>
+        return (
+          <Inbox
+            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+            subscriberId="YOUR_SUBSCRIBER_ID"
+            routerPush={(path: string) => navigate(path)}
+          />
+        );
+      }
+      ```
+
+      ```tsx Gatsby
+      import { Inbox } from '@novu/react';
+      import { navigate } from 'gatsby';
+
+      function Novu() {
+        return (
+          <Inbox
+            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+            subscriberId="YOUR_SUBSCRIBER_ID"
+            routerPush={(path: string) => navigate(path)}
+          />
+        );
+      }
+      ```
+
+      ```tsx Create React App
+      import { Inbox } from '@novu/react';
+      import { useNavigate } from 'react-router-dom';
+
+      function Novu() {
+        const navigate = useNavigate();
+
+        return (
+          <Inbox
+            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+            subscriberId="YOUR_SUBSCRIBER_ID"
+            routerPush={(path: string) => navigate(path)}
+          />
+        );
+      }
+      ```
+    </CodeGroup>
+
+    <Tip>
+    You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard.novu.co/api-keys).
+    The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/concepts/subscribers).
+    </Tip>
+
+    Novu uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
+  </Step>
+  <Step title="Trigger a notification">
+    Now that you have the inbox component added to your application, you can trigger an Inbox notification to see it in action.
+    To create your first workflow, follow our [quickstart guide](/quickstart/overview).
+
+    <Frame caption="The Inbox Component">
+      <img src="/images/inbox/component.png" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Customize the inbox" href={"/inbox/react/customization"}>
+    Learn how to customize the inbox with your own branding and design.
+  </Card>
+  <Card
+    title="Learn the components"
+    href={"/inbox/react/components"}
+  >
+    Learn more about the composable components of the inbox.
+  </Card>
+</CardGroup>
 
 ## Frequently Asked Questions
 
@@ -50,24 +141,6 @@ Possible reasons for the Inbox not loading properly:
     - Invalid subscriberHash (in case of active HMAC encryption)
     - Invalid backendUrl (in case of self-hosted)
     - Invalid socketUrl (in case of self-hosted)
-
-  </Accordion>
-
-  <Accordion title="There is a render error due to the Inbox in React.">
-
-The Inbox should be wrapped in `<Inbox>`
-
-  </Accordion>
-
-  <Accordion title="What is the difference between a redirect URL and CTA?">
-
-The redirect URL is for the entire notification item, When the user clicks the notification, the user will be routed to that url. CTA are two call-to-action buttons. `onNotificationClick` function prop is used for redirecting url and the `onActionClick` function prop is used for CTA.
-
-  </Accordion>
-
-  <Accordion title="Can bell icon in Novu dashboard be used for in-app channel testing?">
-
-Bell icon and Inbox in Novu dashboard is only for receiving system related notifications like user you invited has joined, password reset request sent. It can not to used to test Inbox. Consider using our [codesandbox example](https://codesandbox.io/s/kind-nova-xv6s9g?fontsize=14&hidenavigation=1&theme=dark) instead.
 
   </Accordion>
 

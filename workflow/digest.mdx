@@ -20,6 +20,8 @@ In the image above, there are two nodes (`Email` and `SMS`) after the digest nod
 
 For this workflow, if we trigger 10 events within the digest interval, the `In-App` step will be executed 10 times, and `Email` and `SMS` will be executed only 1 time with digested events data.
 
+To read more about the full list of parameters, check out the [full SDK reference](/sdks/framework/typescript/steps/digest).
+
 ## Digest Configuration
 
 ### Digest Key
@@ -121,6 +123,8 @@ The digest step returns an object with `events` array. Each event in the array h
 - `time` - The time when the event was triggered
 - `payload` - The original payload passed to the event
 
+<Info>Changing the step content after triggering the workflow with digest step will not affect the existing digested events.</Info>
+
 ## Frequently Asked Questions
 
 <Note>All digest times are in UTC time</Note>
@@ -135,3 +139,4 @@ The digest step returns an object with `events` array. Each event in the array h
     </Accordion>
 
 </AccordionGroup>
+

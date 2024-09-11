@@ -23,7 +23,7 @@ import { workflow } from "@novu/framework";
 workflow("sample-workflow", async (step) => {
   await step.delay("delay", async () => {
     return {
-      unit: "day",
+      unit: "days",
       amount: 1,
     };
   });
@@ -48,6 +48,8 @@ Channel Steps are the delivery methods of the notification. In our example, we h
 Novu's durable workflow execution engine will select the relevant delivery provider configured for this channel and send the notification with the specified content.
 
 Novu supports a variety of common notification channels out-of-the-box, including **email**, **SMS**, **push**, **inbox**, and **chat**.
+
+To read more about the full list of parameters, check out the [full SDK reference](/sdks/framework/typescript/steps/introduction).
 
 ### Action Steps
 
@@ -132,14 +134,14 @@ const myWorkflow = workflow(
     // 1 week passed, let's follow up with an in-app notification.
     await step.inApp(
       "onboarding-follow-up",
-      async (inputs) => {
+      async (controls) => {
         const user = await db.getUser(payload.userId);
         // The `feedbackUrl` can be updated in Novu Web without changing code.
         // This helps you to create re-usable Workflow snippets.
         return {
           body: `Hey ${user.name}! How do you like the product?
 
-      Let us know <a href="${inputs.feedbackUrl}">here</a>
+      Let us know <a href="${controls.feedbackUrl}">here</a>
       if you have any questions.`,
         };
       },
@@ -219,6 +221,42 @@ workflow(
       // type won't change, enabling strong typing on `inputs` via type
       // inference of the provided JSON Schema.
     } as const,
+  }
+);
+```
+
+## Tags
+
+Tags are used to categorize the workflows. They also allow you to filter and group notifications for your [Inbox](/inbox/introduction) tabs.
+
+```tsx
+workflow(
+  "acme-login-alert",
+  async ({ step, payload }) => {
+    await step.inApp('inbox', async () => {
+        return {
+          subject: 'New Login Detected',
+          body: 'We noticed a login from a new device or location. If this wasn’t you, change your password immediately.',
+        };
+    });
+  },
+  {
+    tags: ['security'],
+  }
+);
+
+workflow(
+  "acme-password-change",
+  async ({ step, payload }) => {
+    await step.inApp('inbox', async () => {
+        return {
+          subject: 'Password Changed',
+          body: 'Your password was successfully updated. If you didn’t request this, contact support right away.',
+        };
+    });
+  },
+  {
+    tags: ['security'],
   }
 );
 ```
