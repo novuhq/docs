@@ -1,0 +1,251 @@
+---
+title: 'Styling the Inbox component'
+sidebarTitle: 'Styling'
+description: 'Learn how to style the pre built Inbox component'
+---
+
+## Customization Hierarchy
+
+The Inbox component is built to allow for multiple layers of styling, which allows the specificity required to style the Inbox to meet the requirements of your use case.
+
+Depending on the level of customization you need, you can choose to style the inbox using one of the following approaches:
+- [Appearance Prop](#appearance-prop)
+  - [Variables](#variables) - Global primitives such as buttons, popovers, dropdowns and etc...
+  - [Elements](#elements) - Style individual elements
+- [Custom notification rendering](#render-notification-component) - Render a custom notification item with complete control
+- [Custom Composition](/inbox/react/components/overview#composition) - Compose our components for custom layouts
+
+## Appearance Prop
+
+The `appearance` prop can be used to customise the Inbox. It has three main keys: `baseTheme`, `variables` and `elements`.
+
+- **Variables**: Global styling variables that apply to multiple elements within the inbox. 
+- **Elements**: Elements are the individual UI components that make up the Inbox. 
+- **Base Theme**: This is the default theme that comes with the inbox out of the box.
+
+### Variables
+
+Variables are used to define global styling properties that can be reused throughout the inbox.
+You might want to use variables to the styling of multiple components at once, for example, if you want to change the border radius of all the components at once, you can do so by updating the `colorPrimary` variable, which will modify the CTA buttons, unseen counter and etc...
+
+<ResponseField name="Available Variables" type="variables" >
+  <Expandable title="properties">
+    <ParamField body="colorBackground" type="string">
+      The background color of the inbox component.
+    </ParamField>
+
+    <ParamField body="colorForeground" type="string">
+      The primary text color used in the inbox.
+    </ParamField>
+
+    <ParamField body="colorPrimary" type="string">
+      The main accent color for interactive elements.
+    </ParamField>
+
+    <ParamField body="colorPrimaryForeground" type="string">
+      The text color used on primary-colored elements.
+    </ParamField>
+
+    <ParamField body="colorSecondary" type="string">
+      A secondary color for less prominent elements.
+    </ParamField>
+
+    <ParamField body="colorSecondaryForeground" type="string">
+      The text color used on secondary-colored elements.
+    </ParamField>
+
+    <ParamField body="colorCounter" type="string">
+      The background color of notification counters.
+    </ParamField>
+
+    <ParamField body="colorCounterForeground" type="string">
+      The text color used in notification counters.
+    </ParamField>
+
+    <ParamField body="colorNeutral" type="string">
+      A neutral color used for borders or backgrounds.
+    </ParamField>
+
+    <ParamField body="fontSize" type="string">
+      The base font size for text in the inbox.
+    </ParamField>
+
+    <ParamField body="borderRadius" type="string">
+      The border radius applied to various elements.
+    </ParamField>
+
+  </Expandable>
+</ResponseField>
+
+<Frame caption="Appearance Variables">
+  <img src="/images/inbox/Variables Inbox.png" />
+</Frame>
+
+#### Styling Variables
+
+You can override the default elements by passing your own styles or CSS classes to the `elements` object.
+
+```tsx
+const appearance = {
+  variables: {
+    colorBackground: 'yellow',
+  }
+};
+
+<Inbox appearance={appearance} />
+```
+
+### Elements
+The `elements` object allows you to define styles for these components. Each key corresponds to an component, and the value is an object containing `style properties` or you can also pass your `css classes`.
+Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
+
+#### Finding element selectors
+You can inspect the elements you want to customize using the browser's dev tools, each element has a unique selector that you can use to style starting with `nv-`.
+
+Strip the `nv-` prefix when and add it to the `elements` object. For example, to style the `nv-notificationPrimaryAction__button` element, you can add the following to the `elements` object:
+
+```tsx
+const appearance = {
+  elements: {
+    'notificationPrimaryAction__button': {
+      backgroundColor: 'red',
+    },
+  },
+}
+```
+
+<Frame caption="Finding Element Selectors">
+  <img src="/images/inbox/Elements.png" />
+</Frame>
+
+<Tip>
+  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in Appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the available elements.
+</Tip>
+
+### Bring your own CSS
+
+You can override the default elements by passing your own styles or CSS classes to the `elements` object.
+
+#### Using Tailwind CSS
+
+You can also use Tailwind CSS classes to style the Inbox components. You can pass the classes
+directly to the `elements` object.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+const appearance = {
+  elements: {
+    bellIcon: "p-4 bg-white rounded-full",
+    notification:
+      "bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-50",
+  },
+};
+
+export function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+
+#### Using CSS Modules
+
+You can also use `CSS Modules` to style the Inbox components. Here's how you can do it:
+
+- Create a CSS module file `(e.g. styles.module.css)` with the styles you want to apply to the Inbox components.
+
+```css
+.bellIcon {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.bellIcon:hover {
+  background-color: #f9fafb;
+}
+
+.notification {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.notification:hover {
+  background-color: #f9fafb;
+}
+```
+
+- Import the CSS module file and pass the classes to the elements object.
+
+```tsx
+import { Inbox } from "@novu/react";
+import styles from "./styles.module.css";
+
+const appearance = {
+  elements: {
+    bellIcon: styles.bellIcon,
+    notification: styles.notification,
+  },
+};
+
+export function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+
+#### Using Styles Object
+
+You can also use a styles object to style the Inbox components. You can pass the styles
+directly to the `elements` object.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+const appearance = {
+  elements: {
+    bellIcon: {
+      padding: "1rem",
+      backgroundColor: "white",
+      borderRadius: "50%",
+    },
+    notification: {
+      backgroundColor: "white",
+      borderRadius: "0.5rem",
+      boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+    },
+  },
+};
+
+export function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+
+## Render Notification Component
+
+You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component, this will allow you to style and render more complex notification items.
+
+```tsx
+<Inbox renderNotification={(notification) => {
+  return <CustomNotification notification={notification} />
+}} />
+```
+
