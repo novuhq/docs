@@ -35,7 +35,7 @@ await step.delay(
 );
 ```
 </Tab>
-<Tab title="Delay and in-app step with skip">
+<Tab title="Delay and Inbox step">
 Here, we are delaying the execution of the in-app step by 30 minutes and sending the in-app notification only if the subscriber has `goalReminderInAppAllowed` set to `true` for subscriber. If during 30 minutes delay window, subscriber sets `goalReminderInAppAllowed` to `false`, the in-app step will be skipped.
 ```typescript
 export const goalReminderInAppAfterDelay = workflow(

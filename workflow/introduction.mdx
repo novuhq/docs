@@ -134,14 +134,14 @@ const myWorkflow = workflow(
     // 1 week passed, let's follow up with an in-app notification.
     await step.inApp(
       "onboarding-follow-up",
-      async (inputs) => {
+      async (controls) => {
         const user = await db.getUser(payload.userId);
         // The `feedbackUrl` can be updated in Novu Web without changing code.
         // This helps you to create re-usable Workflow snippets.
         return {
           body: `Hey ${user.name}! How do you like the product?
 
-      Let us know <a href="${inputs.feedbackUrl}">here</a>
+      Let us know <a href="${controls.feedbackUrl}">here</a>
       if you have any questions.`,
         };
       },
