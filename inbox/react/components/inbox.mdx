@@ -8,12 +8,12 @@ By default, the `<Inbox />` renders a bell button, that opens a popover on click
 import { Inbox } from '@novu/react';
 
 function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    />
-  );
+    return (
+        <Inbox
+        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+        subscriberId="YOUR_SUBSCRIBER_ID"
+        />
+    );
 }
 ```
 
@@ -29,15 +29,15 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
     import { useRouter } from 'next/navigation'
 
     function Novu() {
-        const router = useRouter();
+      const router = useRouter();
 
-        return (
-            <Inbox
-                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-                subscriberId="YOUR_SUBSCRIBER_ID"
-                routerPush={(path: string) =>  router.push(path)}
-            />
-        );
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) =>  router.push(path)}
+        />
+      );
     }
     ```
 
@@ -46,15 +46,15 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
     import { useNavigate } from '@remix-run/react';
 
     function Novu() {
-        const navigate = useNavigate();
+      const navigate = useNavigate();
 
-        return (
-            <Inbox
-                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-                subscriberId="YOUR_SUBSCRIBER_ID"
-                routerPush={(path: string) => navigate(path)}
-            />
-        );
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) => navigate(path)}
+        />
+      );
     }
     ```
 
@@ -63,15 +63,15 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
     import { useNavigate } from 'react-router-dom';
 
     function Novu() {
-        const navigate = useNavigate();
+      const navigate = useNavigate();
 
-        return (
-            <Inbox
-                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-                subscriberId="YOUR_SUBSCRIBER_ID"
-                routerPush={(path: string) => navigate(path)}
-            />
-        );
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) => navigate(path)}
+        />
+      );
     }
     ```
 
@@ -80,13 +80,13 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
     import { navigate } from 'gatsby';
 
     function Novu() {
-        return (
-            <Inbox
-                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-                subscriberId="YOUR_SUBSCRIBER_ID"
-                routerPush={(path: string) => navigate(path)}
-            />
-        );
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) => navigate(path)}
+        />
+      );
     }
     ```
 
@@ -95,15 +95,15 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
     import { useNavigate } from 'react-router-dom';
 
     function Novu() {
-        const navigate = useNavigate();
+      const navigate = useNavigate();
 
-        return (
-            <Inbox
-                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-                subscriberId="YOUR_SUBSCRIBER_ID"
-                routerPush={(path: string) => navigate(path)}
-            />
-        );
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) => navigate(path)}
+        />
+      );
     }
     ```
 </CodeGroup>
