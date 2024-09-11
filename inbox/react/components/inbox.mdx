@@ -2,10 +2,7 @@
 title: '<Inbox />'
 ---
 
-
-Renders `<Inbox />` with a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
-
-### Default Inbox
+By default, the `<Inbox />` renders a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -20,7 +17,148 @@ function Novu() {
 }
 ```
 
-### Controlled Popover state
+## Navigation 
+
+The Inbox component uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
+
+To make the navigation work, you will need to specify the `routerPush` behaviour depending on your routing library.
+
+<CodeGroup>
+    ```tsx Next.js
+    import { Inbox } from '@novu/react';
+    import { useRouter } from 'next/navigation'
+
+    function Novu() {
+        const router = useRouter();
+
+        return (
+            <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) =>  router.push(path)}
+            />
+        );
+    }
+    ```
+
+    ```tsx Remix
+    import { Inbox } from '@novu/react';
+    import { useNavigate } from '@remix-run/react';
+
+    function Novu() {
+        const navigate = useNavigate();
+
+        return (
+            <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+            />
+        );
+    }
+    ```
+
+    ```tsx React Router
+    import { Inbox } from '@novu/react';
+    import { useNavigate } from 'react-router-dom';
+
+    function Novu() {
+        const navigate = useNavigate();
+
+        return (
+            <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+            />
+        );
+    }
+    ```
+
+    ```tsx Gatsby
+    import { Inbox } from '@novu/react';
+    import { navigate } from 'gatsby';
+
+    function Novu() {
+        return (
+            <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+            />
+        );
+    }
+    ```
+
+    ```tsx Create React App
+    import { Inbox } from '@novu/react';
+    import { useNavigate } from 'react-router-dom';
+
+    function Novu() {
+        const navigate = useNavigate();
+
+        return (
+            <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+            />
+        );
+    }
+    ```
+</CodeGroup>
+
+
+
+### Handle notification click
+
+In some cases, you might want to handle the notification click event without navigating. You can do so by passing a callback function to the `onNotificationClick` prop.
+
+This can be useful if you want to open a modal or a drawer instead of navigating to a page.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onNotificationClick={(notification) => {
+        // your logic to handle notification click
+      }}
+    />
+  );
+}
+```
+
+### Handler action clicks
+
+For scenarios where you want to handle the action button click event without navigating, you can pass a callback function to the `onPrimaryActionClick` and `onSecondaryActionClick` props.
+
+In the callback function, an http request can be made or any other logic can be implemented. For common usecases such as accepting a friend request, a project invitation, etc...
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onPrimaryActionClick={(notification) => {
+        // your logic to handle primary action click
+      }}
+      onSecondaryActionClick={(notification) => {
+        // your logic to handle secondary action click
+      }}
+    />
+  );
+}
+```
+
+
+## Controlled Popover state
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -41,7 +179,7 @@ function Novu() {
 }
 ```
 
-### Custom Notification item
+## Custom Notification item
 
 Customize the notification item by passing a render function to the `renderNotification` prop.
 You can access the notification object and render the notification item as per your requirements.
@@ -68,7 +206,7 @@ function Novu() {
 }
 ```
 
-### Custom Bell
+## Custom Bell
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -88,51 +226,3 @@ function Novu() {
 }
 ```
 
-### Handle notification click
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-      onNotificationClick={(notification) => {
-        // your logic to handle notification click
-      }}
-    />
-  );
-}
-```
-
-### Redirect on the notification click
-
-The `redirect` [object](/sdks/framework/typescript/steps/inbox#inbox-step-output) allows to define the URL to visit when clicking on the notification item.
-The value will be implicitly passed to the notification and used when click event happens.
-
-### Handle notification button clicks
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-      onPrimaryActionClick={(notification) => {
-        // your logic to handle primary action click
-      }}
-      onSecondaryActionClick={(notification) => {
-        // your logic to handle secondary action click
-      }}
-    />
-  );
-}
-```
-
-### Redirect on the notification action button click
-
-The `redirect` [object](/sdks/framework/typescript/steps/inbox#inbox-step-output) on the `primaryAction` or `secondaryAction` prop allows to define the URL to visit when clicking on the notification action button.
-The value will be implicitly passed to the action buttons and used when click event happens.
