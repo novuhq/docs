@@ -43,18 +43,16 @@ import FunctionParams from '/snippets/inbox/headless/api-reference/function-para
 </ParamField>
 
 ### Usage
-
 <Tabs>
 <Tab title="US" >
 ```typescript
 import { Novu } from "@novu/js";
 
 const novu = new Novu({
-subscriberId: "SUBSCRIBER_ID",
-applicationIdentifier: "APPLICATION_IDENTIFIER",
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
 });
-
-````
+```
 </Tab>
 <Tab title="EU">
 ```typescript
@@ -66,23 +64,20 @@ const novu = new Novu({
   backendUrl: "https://eu.api.novu.co",
   socketUrl: "https://eu.ws.novu.co",
 });
-````
-
+```
 </Tab>
 <Tab title="HMAC Encryption">
 ```typescript
 import { Novu } from "@novu/js";
 
 const novu = new Novu({
-subscriberId: "SUBSCRIBER_ID",
-applicationIdentifier: "APPLICATION_IDENTIFIER",
-subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+  subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
 });
-
-````
+```
 </Tab>
 </Tabs>
-
 ### Modules interface
 
 - [Notifications](#notifications)
@@ -191,7 +186,7 @@ The returned object contains the data and error fields.
     The data object contains the list of notifications and other metadata.
     <Expandable title="properties">
       <ParamField path="notifications" type="Notification[]">
-        List of notifications. Read more about [Notification class]().
+        List of notifications. Read more about [Notification Interface](/inbox/headless/api-reference#notification-interface).
       </ParamField>
       <ParamField path="hasMore" type="boolean">
         Indicates if there are more notifications available.
@@ -206,42 +201,6 @@ The returned object contains the data and error fields.
   </ParamField>
 </Expandable>
 
-#### Returns
-The returned object contains the data and error fields.
-<Expandable title="properties" defaultOpen>
-  <ParamField path="data" type="ListNotificationsResponse">
-    The data object contains the list of notifications and other metadata.
-    <Expandable title="properties">
-      <ParamField path="notifications" type="Notification[]">
-        List of notifications. Read more about [Notification class]().
-      </ParamField>
-      <ParamField path="hasMore" type="boolean">
-        Indicates if there are more notifications available.
-      </ParamField>
-      <ParamField path="filter" type="NotificationFilter">
-        Filters used to fetch the notifications.
-      </ParamField>
-    </Expandable>
-  </ParamField>
-  <ParamField path="error" type="NovuError">
-    Error object if the request fails.
-  </ParamField>
-</Expandable>
-
-#### Response
-`list` method returns `ListNotificationsResponse` type object. Read more about [Notification Interface](#notification-interface). `hasMore` field can used to check if there are more notifications to be fetched.
-```typescript
-type NotificationFilter = {
-    tags?: string[];
-    read?: boolean;
-    archived?: boolean;
-};
-type ListNotificationsResponse = {
-    notifications: Notification[];
-    hasMore: boolean;
-    filter: NotificationFilter;
-};
-```
 #### Usage
 ```typescript
 const notifications = await novu.notifications.list({
@@ -251,7 +210,7 @@ const notifications = await novu.notifications.list({
   tags: ["tag1", "tag2"],
   offset: 0,
 });
-````
+```
 
 ### count
 
@@ -283,6 +242,8 @@ You can also pass multiple filters to fetch the different notifications counts.
 
 The returned object contains the data and error fields.
 
+<Tabs>
+<Tab title="Single">
 <Expandable title="properties" defaultOpen>
   <ParamField path="data" type="FilterCountResponse">
     The data object contains the count of notifications and other metadata.
@@ -295,8 +256,15 @@ The returned object contains the data and error fields.
       </ParamField>
     </Expandable>
   </ParamField>
+  <ParamField path="error" type="NovuError">
+    Error object if the request fails.
+  </ParamField>
+</Expandable>
+</Tab>
+<Tab title="Multiple">
+<Expandable title="properties" defaultOpen>
   <ParamField path="data" type="FiltersCountResponse">
-    The data object contains the counts for notifications by specified filters.
+  The data object contains the counts for notifications by specified filters.
     <ParamField path="counts" type="FilterCountResponse[]">
       <Expandable title="properties">
         <ParamField path="count" type="number">
@@ -312,6 +280,8 @@ The returned object contains the data and error fields.
     Error object if the request fails.
   </ParamField>
 </Expandable>
+</Tab>
+</Tabs>
 
 #### Usage
 
@@ -614,43 +584,3 @@ novu.on('notifications.unread_count_changed', (data) => {
   console.log('new unread notifications count =>', data);
 });
 ```
-
-### Available Events
-
-| **Events**                                  |
-| ------------------------------------------- |
-| **notifications.notification_received**     |
-| **notifications.unread_count_changed**      |
-| **notification.read.pending**               |
-| **notification.read.resolved**              |
-| **notification.unread.pending**             |
-| **notification.unread.resolved**            |
-| **notification.archive.pending**            |
-| **notification.archive.resolved**           |
-| **notification.unarchive.pending**          |
-| **notification.unarchive.resolved**         |
-| **notification.complete_action.pending**    |
-| **notification.complete_action.resolved**   |
-| **notification.revert_action.pending**      |
-| **notification.revert_action.resolved**     |
-| **notifications.read_all.pending**          |
-| **notifications.read_all.resolved**         |
-| **notifications.archive_all.pending**       |
-| **notifications.archive_all.resolved**      |
-| **notifications.archive_all_read.pending**  |
-| **notifications.archive_all_read.resolved** |
-| **notifications.count.pending**             |
-| **notifications.count.resolved**            |
-| **preferences.list.pending**                |
-| **preferences.list.resolved**               |
-| **preferences.update.pending**              |
-| **preferences.update.resolved**             |
-| **socket.connect.pending**                  |
-| **socket.connect.resolved**                 |
-| **session.initialize.pending**              |
-| **session.initialize.resolved**             |
-| **notifications.list.pending**              |
-| **notifications.list.resolved**             |
-| **notifications.count.pending**             |
-| **notifications.count.resolved**            |
-| **notifications.list.updated**              |
