@@ -8,94 +8,90 @@ Novu provides the `@novu/react` package that helps to add a fully functioning In
 
 <Steps>
   <Step title="Install the Inbox package">
-    ```bash
-    npm install @novu/react
-    ```
+```bash
+npm install @novu/react
+```
   </Step>
   <Step title="Add the inbox code to your react file">
     <CodeGroup>
-      ```tsx Next.js
-      import { Inbox } from '@novu/react';
-      import { useRouter } from 'next/navigation'
+```tsx Next.js
+import { Inbox } from '@novu/react';
+import { useRouter } from 'next/navigation';
 
-      function Novu() {
-        const router = useRouter();
+function Novu() {
+  const router = useRouter();
 
-        return (
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            routerPush={(path: string) =>  router.push(path)}
-          />
-        );
-      }
-      ```
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      routerPush={(path: string) =>  router.push(path)}
+    />
+  );
+}
+```
+```tsx Remix
+import { Inbox } from '@novu/react';
+import { useNavigate } from '@remix-run/react';
 
-      ```tsx Remix
-      import { Inbox } from '@novu/react';
-      import { useNavigate } from '@remix-run/react';
+function Novu() {
+  const navigate = useNavigate();
 
-      function Novu() {
-        const navigate = useNavigate();
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      routerPush={(path: string) => navigate(path)}
+    />
+  );
+}
+```
+```tsx React Router
+import { Inbox } from '@novu/react';
+import { useNavigate } from 'react-router-dom';
 
-        return (
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            routerPush={(path: string) => navigate(path)}
-          />
-        );
-      }
-      ```
+function Novu() {
+  const navigate = useNavigate();
 
-      ```tsx React Router
-      import { Inbox } from '@novu/react';
-      import { useNavigate } from 'react-router-dom';
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      routerPush={(path: string) => navigate(path)}
+    />
+  );
+}
+```
+```tsx Gatsby
+import { Inbox } from '@novu/react';
+import { navigate } from 'gatsby';
 
-      function Novu() {
-        const navigate = useNavigate();
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      routerPush={(path: string) => navigate(path)}
+    />
+  );
+}
+```
+```tsx Create React App
+import { Inbox } from '@novu/react';
+import { useNavigate } from 'react-router-dom';
 
-        return (
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            routerPush={(path: string) => navigate(path)}
-          />
-        );
-      }
-      ```
+function Novu() {
+  const navigate = useNavigate();
 
-      ```tsx Gatsby
-      import { Inbox } from '@novu/react';
-      import { navigate } from 'gatsby';
-
-      function Novu() {
-        return (
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            routerPush={(path: string) => navigate(path)}
-          />
-        );
-      }
-      ```
-
-      ```tsx Create React App
-      import { Inbox } from '@novu/react';
-      import { useNavigate } from 'react-router-dom';
-
-      function Novu() {
-        const navigate = useNavigate();
-
-        return (
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            routerPush={(path: string) => navigate(path)}
-          />
-        );
-      }
-      ```
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      routerPush={(path: string) => navigate(path)}
+    />
+  );
+}
+```
     </CodeGroup>
 
     <Tip>
@@ -118,12 +114,12 @@ Novu provides the `@novu/react` package that helps to add a fully functioning In
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card title="Customize the inbox" href={"/inbox/react/customization"}>
+  <Card title="Customize the inbox" href="/inbox/react/styling">
     Learn how to customize the inbox with your own branding and design.
   </Card>
   <Card
     title="Learn the components"
-    href={"/inbox/react/components"}
+    href="/inbox/react/components/overview"
   >
     Learn more about the composable components of the inbox.
   </Card>

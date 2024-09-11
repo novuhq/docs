@@ -244,8 +244,10 @@ export function Novu() {
 You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component, this will allow you to style and render more complex notification items.
 
 ```tsx
-<Inbox renderNotification={(notification) => {
-  return <CustomNotification notification={notification} />
-}} />
+<Inbox
+  renderNotification={(notification) => {
+    return <CustomNotification notification={notification} />;
+  }}
+/>
 ```
 
