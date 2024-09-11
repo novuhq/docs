@@ -2,6 +2,9 @@
 title: 'Headless Inbox API Reference'
 sidebarTitle: 'API Reference'
 ---
+
+import FunctionParams from '/snippets/inbox/headless/api-reference/function-params.mdx';
+
 ## Novu
 
 `Novu` is the primary class used to interact with the Novu API client, enabling you to fetch and manage notifications and preferences within your custom Inbox implementation.
@@ -9,36 +12,49 @@ sidebarTitle: 'API Reference'
 ### Constructor options
 
 <ParamField path="applicationIdentifier" type="string" required>
-`applicationIdentifier` is a unique identifier for the application. This is is public credential that is used to authenticate the application with the Novu API. `applicationIdentifier` can be copied from [API Keys](https://dashboard.novu.co/api-keys) page.
+  `applicationIdentifier` is a unique identifier for the application. This is is
+  public credential that is used to authenticate the application with the Novu
+  API. `applicationIdentifier` can be copied from [API
+  Keys](https://dashboard.novu.co/api-keys) page.
 </ParamField>
 
 <ParamField path="subscriberId" type="string" required>
-  `subscriberId` is a unique identifier for the subscriber. Read more about [subscribers](/concepts/subscribers).
+  `subscriberId` is a unique identifier for the subscriber. Read more about
+  [subscribers](/concepts/subscribers).
 </ParamField>
 
 <ParamField path="subscriberHash" type="string">
-  `subscriberHash` is a unique identifier for the subscriber. It is used for HMAC encryption. Read more about [HMAC Encryption](/react/advanced-configuration#hmac-encryption).
+  `subscriberHash` is a unique identifier for the subscriber. It is used for
+  HMAC encryption. Read more about [HMAC
+  Encryption](/react/advanced-configuration#hmac-encryption).
 </ParamField>
 
 <ParamField path="backendUrl" type="string" default="https://api.novu.co">
-Use `https://eu.api.novu.co` value for EU region.
+  Use `https://eu.api.novu.co` value for EU region.
 </ParamField>
 
 <ParamField path="socketUrl" type="string" default="https://ws.novu.co">
   Use `https://eu.ws.novu.co` value for EU region.
 </ParamField>
 
+<ParamField path="useCache" type="boolean">
+  The field is used to enable/disable the cache for the notifications and
+  preferences. By default, the cache is enabled.
+</ParamField>
+
 ### Usage
+
 <Tabs>
 <Tab title="US" >
 ```typescript
 import { Novu } from "@novu/js";
 
 const novu = new Novu({
-  subscriberId: "SUBSCRIBER_ID",
-  applicationIdentifier: "APPLICATION_IDENTIFIER",
+subscriberId: "SUBSCRIBER_ID",
+applicationIdentifier: "APPLICATION_IDENTIFIER",
 });
-```
+
+````
 </Tab>
 <Tab title="EU">
 ```typescript
@@ -50,18 +66,20 @@ const novu = new Novu({
   backendUrl: "https://eu.api.novu.co",
   socketUrl: "https://eu.ws.novu.co",
 });
-```
+````
+
 </Tab>
 <Tab title="HMAC Encryption">
 ```typescript
 import { Novu } from "@novu/js";
 
 const novu = new Novu({
-  subscriberId: "SUBSCRIBER_ID",
-  applicationIdentifier: "APPLICATION_IDENTIFIER",
-  subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
+subscriberId: "SUBSCRIBER_ID",
+applicationIdentifier: "APPLICATION_IDENTIFIER",
+subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
 });
-```
+
+````
 </Tab>
 </Tabs>
 
@@ -136,24 +154,79 @@ interface Notification = {
 };
 ```
 ### list
-`list` method fetch the list of notifications for the subscriber based on the provided filters. The filter `read: false`, `archived: true` is not allowed by the API, the notification can't be in unread and archive state
+Method to fetch the list of notifications based on the provided filters.
+By default the response is cached internally and stored by provided filters as a key.
+The cache will be updated automatically with the subsequent response if the filters didn't change.
+All cached responses will be merged into a single list and returned as the result.
+You can disable this behaviour and the cache by setting the `useCache` parameter to `false` in the Novu constructor [options](/inbox/headless/api-reference#constructor-options).
+
 #### Params
-<ParamField path="tags" type="string[]" >
-`tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to filter notifications where at least one specified
+  tag matches. Read more about how can you define [workflow
+  tags](/workflow/introduction#tags).
 </ParamField>
-<ParamField path="read" type="boolean" >
-`read` param is used to filter read notifications. It can be `true` or `false`. A notification is said to be read if `isRead` field is `true`.
+<ParamField path="read" type="boolean">
+  Filter notifications based on their read status. If not provided, all read/unread notifications will be returned.
 </ParamField>
-<ParamField path="archived" type="boolean" >
-`archived` param is used to filter archived notifications. It can be `true` or `false`. A notification is said to be archived if `isArchived` field is `true`.
+<ParamField path="archived" type="boolean">
+  Filter notifications based on their archived status. Archived notifications
+  are also read at the same time. If not provided, all archived/unarchived
+  notifications will be returned.
 </ParamField>
-<ParamField path="limit" type="number" >
-`limit` param can be used to limit the number of notifications to be fetched. It can take any number between 1 and 100.
+<ParamField path="limit" type="number">
+  Limit the number of notifications to be fetched. It can take any number between 1 and 100. Default is 10.
 </ParamField>
 <ParamField path="after" type="string" >`after` can be used to fetch the next set of notifications after a specific notification. It can take `notification.id` as value.</ParamField>
-<ParamField path="offset" type="offset" >
-`offset` can be used to skip the first `n` notifications. It can take any number between 0 and 100.
+<ParamField path="offset" type="offset">
+  Field value can be used to skip the first `n` notifications. It can be used in
+  conjunction with `limit` to paginate the notifications.
 </ParamField>
+
+#### Returns
+The returned object contains the data and error fields.
+<Expandable title="properties" defaultOpen>
+  <ParamField path="data" type="ListNotificationsResponse">
+    The data object contains the list of notifications and other metadata.
+    <Expandable title="properties">
+      <ParamField path="notifications" type="Notification[]">
+        List of notifications. Read more about [Notification class]().
+      </ParamField>
+      <ParamField path="hasMore" type="boolean">
+        Indicates if there are more notifications available.
+      </ParamField>
+      <ParamField path="filter" type="NotificationFilter">
+        Filters used to fetch the notifications.
+      </ParamField>
+    </Expandable>
+  </ParamField>
+  <ParamField path="error" type="NovuError">
+    Error object if the request fails.
+  </ParamField>
+</Expandable>
+
+#### Returns
+The returned object contains the data and error fields.
+<Expandable title="properties" defaultOpen>
+  <ParamField path="data" type="ListNotificationsResponse">
+    The data object contains the list of notifications and other metadata.
+    <Expandable title="properties">
+      <ParamField path="notifications" type="Notification[]">
+        List of notifications. Read more about [Notification class]().
+      </ParamField>
+      <ParamField path="hasMore" type="boolean">
+        Indicates if there are more notifications available.
+      </ParamField>
+      <ParamField path="filter" type="NotificationFilter">
+        Filters used to fetch the notifications.
+      </ParamField>
+    </Expandable>
+  </ParamField>
+  <ParamField path="error" type="NovuError">
+    Error object if the request fails.
+  </ParamField>
+</Expandable>
 
 #### Response
 `list` method returns `ListNotificationsResponse` type object. Read more about [Notification Interface](#notification-interface). `hasMore` field can used to check if there are more notifications to be fetched.
@@ -178,194 +251,288 @@ const notifications = await novu.notifications.list({
   tags: ["tag1", "tag2"],
   offset: 0,
 });
-```
+````
 
 ### count
-`count` method fetch the count of notifications for the subscriber. It can be used to fetch the count of read, unread, archived and unarcived notifications grouped by tag(s).
-#### Params
-<ParamField path="tags" type="string[]" >
-`tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
-</ParamField>
-<ParamField path="read" type="boolean" >
-`read` param is used to filter read notifications. It can be `true` or `false`. A notification is said to be read if `isRead` field is `true`.
-</ParamField>
-<ParamField path="archived" type="boolean" >
-`archived` param is used to filter archived notifications. It can be `true` or `false`. A notification is said to be archived if `isArchived` field is `true`.
-</ParamField>
-#### Response
-`count` method returns `FilterCountResponse` type object.
-```typescript
-type NotificationFilter = {
-    tags?: string[];
-    read?: boolean;
-    archived?: boolean;
-};
 
-type FilterCountResponse = {
-    count: number;
-    filter: NotificationFilter;
-};
-```
+Method to fetch the count of read, unread, archived and unarchived notifications grouped by tags.
+You can also pass multiple filters to fetch the different notifications counts.
+
+#### Params
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to count notifications where at least one specified
+  tag matches. Read more about how can you define [workflow
+  tags](/workflow/introduction#tags).
+</ParamField>
+<ParamField path="read" type="boolean">
+  Count notifications based on their read status. If not provided, all
+  read/unread notifications will be counted.
+</ParamField>
+<ParamField path="archived" type="boolean">
+  Count notifications based on their archived status. Archived notifications are
+  also read at the same time. If not provided, all archived/unarchived
+  notifications will be counted.
+</ParamField>
+<ParamField path="filters" type="Filter[]">
+  Multiple filters can be used to count notifications. Each filter can have
+  different tags, read and archived status.
+</ParamField>
+
+#### Returns
+
+The returned object contains the data and error fields.
+
+<Expandable title="properties" defaultOpen>
+  <ParamField path="data" type="FilterCountResponse">
+    The data object contains the count of notifications and other metadata.
+    <Expandable title="properties">
+      <ParamField path="count" type="number">
+        List of notifications. Read more about [Notification class]().
+      </ParamField>
+      <ParamField path="filter" type="NotificationFilter">
+        Filters used to count the notifications.
+      </ParamField>
+    </Expandable>
+  </ParamField>
+  <ParamField path="data" type="FiltersCountResponse">
+    The data object contains the counts for notifications by specified filters.
+    <ParamField path="counts" type="FilterCountResponse[]">
+      <Expandable title="properties">
+        <ParamField path="count" type="number">
+          List of notifications. Read more about [Notification class]().
+        </ParamField>
+        <ParamField path="filter" type="NotificationFilter">
+          Filters used to count the notifications.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </ParamField>
+  <ParamField path="error" type="NovuError">
+    Error object if the request fails.
+  </ParamField>
+</Expandable>
+
 #### Usage
+
 ```typescript
-const notificationsCount = await novu.notifications.count({
+const count = await novu.notifications.count({
   read: true,
   archived: false,
-  tags: ["tag1", "tag2"],
+  tags: ['tag1', 'tag2'],
 });
+// OR
+const multipleCounts = await novu.notifications.count([
+  {
+    read: true,
+    archived: false,
+    tags: ['tag1', 'tag2'],
+  },
+  {
+    read: false,
+    archived: false,
+    tags: ['tag3', 'tag4'],
+  },
+]);
 ```
 
 ### read
-`read` method marks a notification as read.
-#### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`read` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
+
+Method marks a notification as read.
+
+<FunctionParams />
+
 #### Usage
+
 ```typescript
 const readNotification = await novu.notifications.read({
-  notificationId: "inbox_notification_id",
+  notificationId: 'notification.id',
+});
+// OR
+const readNotification = await novu.notifications.read({
+  notification,
 });
 ```
 
 ### unread
-`unread` method marks a notification as unread.
-#### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`unread` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
+
+Method marks a notification as unread.
+
+<FunctionParams />
+
 #### Usage
+
 ```typescript
 const unreadNotification = await novu.notifications.unread({
-  notificationId: "inbox_notification_id",
+  notificationId: 'notification.id',
+});
+// OR
+const unreadNotification = await novu.notifications.unread({
+  notification,
 });
 ```
 
 ### archive
-`archive` method marks a notification as archived.
-#### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`archive` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
+
+Method marks a notification as archived.
+
+<FunctionParams />
+
 #### Usage
+
 ```typescript
 const archivedNotification = await novu.notifications.archive({
-  notificationId: "inbox_notification_id",
+  notificationId: 'notification.id',
+});
+// OR
+const archivedNotification = await novu.notifications.archive({
+  notification,
 });
 ```
 
 ### unarchive
-`unarchive` method marks a notification as unarchived.
-#### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`unarchive` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
+
+Method marks a notification as unarchived.
+
+<FunctionParams />
+
 #### Usage
+
 ```typescript
 const unarchivedNotification = await novu.notifications.unarchive({
-  notificationId: "inbox_notification_id",
+  notificationId: 'notification.id',
+});
+// OR
+const unarchivedNotification = await novu.notifications.unarchive({
+  notification,
 });
 ```
 
 ### readAll
-`readAll` method marks all notifications as read. Notifications can be filtered by tags.
+
+Method marks all notifications as read. Notifications can be filtered by tags.
+
 #### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`readAll` method returns void.
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to filter notifications, and organize them into
+  different groups. Read more about how can you define [workflow
+  tags](/workflow/introduction#tags).
+</ParamField>
+
 #### Usage
+
 ```typescript
 await novu.notifications.readAll({
-  tags: ["tag1", "tag2"],
+  tags: ['tag1', 'tag2'],
 });
 ```
 
 ### archiveAll
-`archiveAll` method marks all notifications as archived. Notifications can be filtered by tags.
+
+Method marks all notifications as archived. Notifications can be filtered by tags.
+
 #### Params
-<ParamField path="tags" type="string[]" >
-`tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to filter notifications, and organize them into
+  different groups. Read more about how can you define [workflow
+  tags](/workflow/introduction#tags).
 </ParamField>
-#### Returns
-`archiveAll` method returns void.
+
+#### Usage
+
 ```typescript
 await novu.notifications.archiveAll({
-  tags: ["tag1", "tag2"],
+  tags: ['tag1', 'tag2'],
 });
 ```
 
 ### archiveAllRead
-`archiveAllRead` method marks all read notifications as archived. Notifications can be filtered by tags.
+
+Method marks all read notifications as archived. Notifications can be filtered by tags.
+
 #### Params
-<ParamField path="tags" type="string[]" >
-`tags` are used to filter notifications. tags values can be any value assigned to workflow `tags` field. Read more about [worklfow tags](/workflow/introduction#tags).
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to filter notifications, and organize them into
+  different groups. Read more about how can you define [workflow
+  tags](/workflow/introduction#tags).
 </ParamField>
-#### Returns
-`archiveAllRead` method returns void.
+
 #### Usage
+
 ```typescript
 await novu.notifications.archiveAllRead({
-  tags: ["tag1", "tag2"],
+  tags: ['tag1', 'tag2'],
 });
 ```
 
 ### completePrimary
-`completePrimary` method marks primary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
+
+Method marks primary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
+
 #### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`completePrimary` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
+
+<ParamField path="notificationId" type="string"/>
 #### Usage
 ```typescript
 await novu.notifications.completePrimary({
-  notificationId: "inbox_notification_id",
+  notificationId: "notification.id",
 });
 ```
 
 ### completeSecondary
-`completeSecondary` method marks secondary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
+
+Method marks secondary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
+
 #### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`completeSecondary` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
+
+<ParamField path="notificationId" type="string"/>
 #### Usage
 ```typescript
 await novu.notifications.completeSecondary({
-  notificationId: "inbox_notification_id",
+  notificationId: "notification.id",
 });
 ```
 
 ### revertPrimary
-`revertPrimary` method marks primary action of a notification as pending. It changes the `isCompleted` field of `primaryAction` to **pending** from **done**.
+
+Method marks primary action of a notification as pending. It changes the `isCompleted` field of `primaryAction` to **pending** from **done**.
+
 #### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`revertPrimary` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
+
+<ParamField path="notificationId" type="string"/>
 #### Usage
 ```typescript
 await novu.notifications.revertPrimary({
-  notificationId: "inbox_notification_id",
+  notificationId: "notification.id",
 });
 ```
 
 ### revertSecondary
-`revertSecondary` method marks secondary action of a notification as pending. It changes the `isCompleted` field of `secondaryAction` to **pending** from **done**.
+
+Method marks secondary action of a notification as pending. It changes the `isCompleted` field of `secondaryAction` to **pending** from **done**.
+
 #### Params
-<ParamField path="notificationId" type="string"> `notificationId` is `id` field of [Notification Interface](#notification-interface)</ParamField>
-#### Returns
-`revertSecondary` method returns `Notification` type object. Read more about [Notification Interface](#notification-interface).
+
+<ParamField path="notificationId" type="string"/>
 #### Usage
 ```typescript
 await novu.notifications.revertSecondary({
-  notificationId: "inbox_notification_id",
+  notificationId: "notification.id",
 });
 ```
 
 ## Preferences
+
 ### Methods
+
 - [list](#list)
 - [update](#update)
+
 ### Preference Interface
+
 ```typescript
 type Workflow = {
   id: string;
@@ -384,8 +551,8 @@ type ChannelPreference = {
 };
 
 enum PreferenceLevel {
-  GLOBAL = "global",
-  TEMPLATE = "template"
+  GLOBAL = 'global',
+  TEMPLATE = 'template',
 }
 
 interface Preference {
@@ -397,21 +564,23 @@ interface Preference {
 ```
 
 ### list
-`list` method fetch the global and workflows channel preferences of the subscriber.
-#### Returns
-`list` method returns `Preference[]` type object. Read more about [Preference Interface](#preference-interface).
+
+Method fetch the global and workflows channel preferences of the subscriber.
+
 #### Usage
+
 ```typescript
-await novu.preferences.list()
+await novu.preferences.list();
 ```
 
 ### update
-`update` method updates the channel preferences of the subscriber. It updates the channel preferences of the subscriber for the specific workflow if `workflowId` is provided. If `workflowId` is not provided, it updates the global channel preferences of the subscriber. Multiple channels can be updated at once.
+
+Method updates the channel preferences of the subscriber. It updates the channel preferences of the subscriber for the specific workflow if `workflowId` is provided. If `workflowId` is not provided, it updates the global channel preferences of the subscriber. Multiple channels can be updated at once.
+
 #### Params
-<ParamField path="workflowId" type="string"/> 
-<ParamField path="channelPreferences" type="ChannelPreference"/> 
-#### Returns
-`update` method returns `Preference` type object. Read more about [Preference Interface](#preference-interface)
+
+<ParamField path="workflowId" type="string" />
+<ParamField path="channelPreferences" type="ChannelPreference" />{' '}
 
 ```typescript ChannelPreference
 type ChannelPreference = {
@@ -422,10 +591,66 @@ type ChannelPreference = {
   push?: boolean;
 };
 ```
+
 #### Usage
+
 ```typescript
 await novu.preferences.update({
-  workflowId: "workflow_id",
+  workflowId: 'workflow_id',
   channelPreferences: { email: false, sms: false },
 });
 ```
+
+## Events
+
+### Usage
+
+```typescript
+novu.on('notifications.notification_received', (data) => {
+  console.log('new notification =>', data);
+});
+
+novu.on('notifications.unread_count_changed', (data) => {
+  console.log('new unread notifications count =>', data);
+});
+```
+
+### Available Events
+
+| **Events**                                  |
+| ------------------------------------------- |
+| **notifications.notification_received**     |
+| **notifications.unread_count_changed**      |
+| **notification.read.pending**               |
+| **notification.read.resolved**              |
+| **notification.unread.pending**             |
+| **notification.unread.resolved**            |
+| **notification.archive.pending**            |
+| **notification.archive.resolved**           |
+| **notification.unarchive.pending**          |
+| **notification.unarchive.resolved**         |
+| **notification.complete_action.pending**    |
+| **notification.complete_action.resolved**   |
+| **notification.revert_action.pending**      |
+| **notification.revert_action.resolved**     |
+| **notifications.read_all.pending**          |
+| **notifications.read_all.resolved**         |
+| **notifications.archive_all.pending**       |
+| **notifications.archive_all.resolved**      |
+| **notifications.archive_all_read.pending**  |
+| **notifications.archive_all_read.resolved** |
+| **notifications.count.pending**             |
+| **notifications.count.resolved**            |
+| **preferences.list.pending**                |
+| **preferences.list.resolved**               |
+| **preferences.update.pending**              |
+| **preferences.update.resolved**             |
+| **socket.connect.pending**                  |
+| **socket.connect.resolved**                 |
+| **session.initialize.pending**              |
+| **session.initialize.resolved**             |
+| **notifications.list.pending**              |
+| **notifications.list.resolved**             |
+| **notifications.count.pending**             |
+| **notifications.count.resolved**            |
+| **notifications.list.updated**              |
