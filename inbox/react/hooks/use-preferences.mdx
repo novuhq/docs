@@ -1,0 +1,62 @@
+---
+title: 'usePreferences'
+---
+
+The `usePreferences` hook is used to retrieve the subscriber preferences. The first item in the list will represent the subscriber global preferences,
+while the remaining items will correspond to the preferences for each workflow.
+
+The hook returns both critical and non-critical preferences. Critical preferences are those that are required for the subscriber to receive notifications,
+while non-critical preferences are those that are optional and could be controlled by the subscriber. You can learn more about the preferences [here](/concepts/preferences).
+
+By default the preferences are cached, but you can use the `refetch` function to fetch the latest preferences.
+
+### `usePreferences` props
+
+<ParamField path="onSuccess" type="Function">
+  Callback function that will be called when the subscriber preferences are
+  successfully fetched. In the callback argument, you will receive the fetched
+  preferences.
+</ParamField>
+<ParamField path="onError" type="Function">
+  Callback function that will be called when there is an error fetching the
+  subscriber preferences. In the callback argument, you will receive the error
+  object.
+</ParamField>
+
+### `usePreferences` returns
+
+<ParamField path="preferences" type="Preference[] | undefined">
+  An array of subscriber preferences fetched by the hook. If there are no
+  preferences fetched yet, it will be `undefined`.
+</ParamField>
+<ParamField path="isLoading" type="boolean">
+  A boolean value indicating whether the preferences are being fetched.
+</ParamField>
+<ParamField path="isFetching" type="boolean">
+  A boolean value indicating whether the hook is fetching more preferences.
+</ParamField>
+<ParamField path="error" type="NovuError | undefined">
+  An error object that will be populated if there is an error fetching the
+  preferences.
+</ParamField>
+<ParamField path="refetch" type="Function">
+  A function that can be called to refetch the preferences.
+</ParamField>
+
+## Example usage
+
+```tsx
+import { usePreferences } from '@novu/react/hooks';
+
+const PreferencesList = () => {
+  const { preferences, isLoading, error, refetch } = usePreferences();
+
+  return (
+    <Show when={!isLoading} fallback={<PreferencesListSkeleton />}>
+      {preferences?.map((preference) => {
+        return <PreferenceItem key={preference.id} preference={preference} />;
+      })}
+    </Show>
+  );
+};
+```

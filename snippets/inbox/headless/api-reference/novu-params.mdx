@@ -1,0 +1,30 @@
+<ParamField path="applicationIdentifier" type="string" required>
+  `applicationIdentifier` is a unique identifier for the application. This is is
+  public credential that is used to authenticate the application with the Novu
+  API. `applicationIdentifier` can be copied from [API
+  Keys](https://dashboard.novu.co/api-keys) page.
+</ParamField>
+
+<ParamField path="subscriberId" type="string" required>
+  `subscriberId` is a unique identifier for the subscriber. Read more about
+  [subscribers](/concepts/subscribers).
+</ParamField>
+
+<ParamField path="subscriberHash" type="string">
+  `subscriberHash` is a unique identifier for the subscriber. It is used for
+  HMAC encryption. Read more about [HMAC
+  Encryption](/react/advanced-configuration#hmac-encryption).
+</ParamField>
+
+<ParamField path="backendUrl" type="string" default="https://api.novu.co">
+  Use `https://eu.api.novu.co` value for EU region.
+</ParamField>
+
+<ParamField path="socketUrl" type="string" default="https://ws.novu.co">
+  Use `https://eu.ws.novu.co` value for EU region.
+</ParamField>
+
+<ParamField path="useCache" type="boolean">
+  The field is used to enable/disable the cache for the notifications and
+  preferences. By default, the cache is enabled.
+</ParamField>

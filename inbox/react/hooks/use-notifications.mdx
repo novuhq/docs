@@ -1,0 +1,87 @@
+---
+title: 'useNotifications'
+---
+
+import UseNotificationsExample from '/snippets/inbox/react/use-notifications-example.mdx';
+
+The `useNotifications` hook is a convenient way to fetch the list of notifications.
+By default, it fetches both unread and read notifications, but you can apply [filters](/inbox/react/hooks/use-notifications#usenotifications-props) to retrieve only the relevant notifications for your specific use case.
+
+The notifications fetched are paginated, and the hook provides a `fetchMore` function to load more notifications.
+The fetched notifications are stored in the notifications array and are appended to the existing notifications as more are loaded.
+
+Any action performed on a notification instance, like marking it as read, will optimistically update the notification, triggering a re-render in the hook and updating the notifications list accordingly, so you don't need to refetch and manually update your UI.
+
+### `useNotifications` props
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to filter notifications, and organize them into
+  different groups. Read more about how can you define [workflow
+  tags](/workflow/introduction#tags).
+</ParamField>
+<ParamField path="read" type="boolean">
+  Filter notifications based on their read status. If not provided, all
+  read/unread notifications will be returned.
+</ParamField>
+<ParamField path="archived" type="boolean">
+  Filter notifications based on their archived status. Archived notifications
+  are also read at the same time. If not provided, all archived/unarchived
+  notifications will be returned.
+</ParamField>
+<ParamField path="limit" type="number">
+  Limit the number of notifications to be fetched. It can take any number
+  between 1 and 100. Default is 10.
+</ParamField>
+<ParamField path="onSuccess" type="Function">
+  Callback function that will be called when the notifications are successfully
+  fetched. In the callback argument, you will receive the fetched notifications.
+</ParamField>
+<ParamField path="onError" type="Function">
+  Callback function that will be called when there is an error fetching the
+  notifications. In the callback argument, you will receive the error object.
+</ParamField>
+
+### `useNotifications` returns
+
+<ParamField path="notifications" type="Notification[] | undefined">
+  An array of notifications fetched by the hook. If there are no notifications
+  fetched yet, it will be `undefined`.
+</ParamField>
+<ParamField path="isLoading" type="boolean">
+  A boolean value indicating whether the notifications are being fetched.
+</ParamField>
+<ParamField path="isFetching" type="boolean">
+  A boolean value indicating whether the hook is fetching more notifications.
+</ParamField>
+<ParamField path="error" type="NovuError | undefined">
+  An error object that will be populated if there is an error fetching the
+  notifications.
+</ParamField>
+<ParamField path="hasMore" type="boolean">
+  A boolean value indicating whether there are more notifications available to
+  fetch.
+</ParamField>
+<ParamField path="fetchMore" type="Function">
+  A function that can be called to fetch more notifications. It will fetch the
+  next page of notifications and append them to the existing notifications.
+</ParamField>
+<ParamField path="refetch" type="Function">
+  A function that can be called to refetch the notifications. It will clear the
+  existing notifications and fetch the first page of notifications.
+</ParamField>
+<ParamField path="readAll" type="Function">
+  A function that can be called to mark all notifications as read, including
+  those that have not been fetched.
+</ParamField>
+<ParamField path="archiveAll" type="Function">
+  A function that can be called to archive all notifications, including those
+  that have not been fetched.
+</ParamField>
+<ParamField path="archiveAllRead" type="Function">
+  A function that can be called to archive all read notifications, including
+  those that have not been fetched.
+</ParamField>
+
+## Example usage
+
+<UseNotificationsExample />
