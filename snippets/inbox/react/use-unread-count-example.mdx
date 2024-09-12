@@ -1,0 +1,14 @@
+```tsx
+import { useCounts } from '@novu/react/hooks';
+
+const BellButton = () => {
+  const { counts } = useCounts({ filters: [{ read: false }] });
+
+  return (
+    <button>
+      <BellIcon>
+      {counts && counts[0].count > 0 && <span>{counts[0].count}</span>}
+    </button>
+  );
+};
+```
