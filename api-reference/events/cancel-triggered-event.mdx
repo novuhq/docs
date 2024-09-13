@@ -11,7 +11,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```javascript Node.js
 import { Novu } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.events.cancel("transactionId");
 ```
@@ -19,7 +19,7 @@ await novu.events.cancel("transactionId");
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 
 $transactionId = "transactionId";
 
@@ -29,7 +29,7 @@ $novu->cancelEvent($transactionId);
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 client.cancel_triggered_event('transactionId')
 ```
@@ -45,7 +45,7 @@ import (
 )
 
 func main() {
-	apiKey := "<NOVU_API_KEY>"
+	apiKey := "<NOVU_SECRET_KEY>"
 	ctx := context.Background()
 
 	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
@@ -65,7 +65,7 @@ func main() {
 
 curl --request DELETE \
   --url https://api.novu.co/v1/events/trigger/<transaction_id> \
-  --header 'Authorization: ApiKey <NOVU_API_KEY>'
+  --header 'Authorization: ApiKey <NOVU_SECRET_KEY>'
 
 ```
 
@@ -73,7 +73,7 @@ curl --request DELETE \
 from novu.api import EventApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 
 novu = EventApi(url, api_key).delete("transactionId");
 ```
@@ -84,7 +84,7 @@ import co.novu.api.events.responses.CancelEventResponse;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
 

@@ -25,7 +25,7 @@ const data = await response.json();
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 
 // Get execution details
 $novu->getExecutionDetails([
@@ -37,7 +37,7 @@ $novu->getExecutionDetails([
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 client.execution_details({
     'notificationId' => '8fxxx-xxx-ef9xxxxce66',
@@ -49,7 +49,7 @@ client.execution_details({
 from novu.api import ExecutionDetailApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = ExecutionDetailApi(url, api_key).list(
     notification_id = "<The notification ID in Novu>",
     subscriber_id = "<The subscriber ID in Novu>",
@@ -61,7 +61,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.executionDetails(query = {});

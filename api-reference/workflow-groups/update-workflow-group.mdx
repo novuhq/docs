@@ -10,7 +10,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```bash cURL
 curl --request PATCH \
 --url https://api.novu.co/v1/notification-groups/{id} \
---header 'Authorization: ApiKey <NOVU_API_KEY>' \
+--header 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
 --header 'Content-Type: application/json' \
 --data '{"name": "insert-new-name"}'
 ```
@@ -23,7 +23,7 @@ import {
   StepTypeEnum,
 } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.notificationGroups.update("notificationGroupId", {
   name: "Changelog Updates",
@@ -94,7 +94,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.updateWorkflowGroup(workflowId, body);

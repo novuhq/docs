@@ -11,14 +11,14 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```bash cURL
 curl --request GET \
 --url https://api.novu.co/v1/notifications/graph/stats \
---header 'Authorization: ApiKey <NOVU_API_KEY>'
+--header 'Authorization: ApiKey <NOVU_SECRET_KEY>'
 ```
 
 ```python Python
 from novu.api import NotificationApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 
 notificationApi = NotificationApi(url, api_key)
 
@@ -29,7 +29,7 @@ list(graphStats)
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu('<NOVU_API_KEY>');
+$novu = new Novu('<NOVU_SECRET_KEY>');
 
 $notificationGraphStats = $novu->getNotificationGraphStats()->toArray();
 ```

@@ -26,7 +26,7 @@ In order to enable Hash-Based Message Authentication Codes, you need to visit th
 ```tsx
 import { createHmac } from 'crypto';
 
-const hmacHash = createHmac('sha256', process.env.NOVU_API_KEY)
+const hmacHash = createHmac('sha256', process.env.NOVU_SECRET_KEY)
   .update(subscriberId)
   .digest('hex');
 ```

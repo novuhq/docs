@@ -12,7 +12,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 curl --location 'https://api.novu.co/v1/integrations' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
---header 'Authorization: ApiKey <NOVU_API_KEY>' \
+--header 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
 --data '{
     "name": "SES",
     "identifier": "ses-NkIQ5Koy3-123",
@@ -34,7 +34,7 @@ curl --location 'https://api.novu.co/v1/integrations' \
 
 ```javascript Node.js
 import { Novu, ChannelTypeEnum, ProvidersIdEnum } from "@novu/node";
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 const createPaylod = {
   name: "SendGrid",
@@ -56,7 +56,7 @@ await novu.integrations.create(ProvidersIdEnum.SendGrid, createPayload);
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 
 // Create integration
 $novu->createIntegration([
@@ -73,7 +73,7 @@ $novu->createIntegration([
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 body = {
     'providerId' => '<insert-provider-id>',
@@ -91,7 +91,7 @@ client.create_integration(body)
 from novu.api import IntegrationApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = IntegrationApi(url, api_key).create(
     integration="", # Integration instance that you want to create.
     check="", # If you want the Novu server to check his connection using given integration configuration. Defaults to True.
@@ -104,7 +104,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.createIntegration(body)

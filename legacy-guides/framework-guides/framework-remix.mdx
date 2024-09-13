@@ -224,7 +224,7 @@ import { Client, workflow } from "@novu/framework";
 import { renderEmail } from "~/emails/vercel-invite-user";
 
 export const client = new Client({
-  apiKey: process.env.NOVU_API_KEY,
+  apiKey: process.env.NOVU_SECRET_KEY,
   /**
    * Disable this flag only during local development
    * For production this should be true
