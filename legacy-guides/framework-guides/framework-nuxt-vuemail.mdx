@@ -400,7 +400,7 @@ const vueEmail = config('templates', {
 })
 
 export const client = new Client({
-  apiKey: process.env.NOVU_API_KEY, // <<-- Your Novu API KEY
+  apiKey: process.env.NOVU_SECRET_KEY, // <<-- Your Novu API KEY
   /**
    * Disable this flag only during local development
    * For production this should be true
@@ -468,7 +468,7 @@ export const myWorkflow = workflow('hello-world', async ({ step, payload }) => {
     ```jsx
 
     curl -X POST https://api.novu.co/v1/events/trigger \
-      -H "Authorization: ApiKey <NOVU_API_KEY>" \
+      -H "Authorization: ApiKey <NOVU_SECRET_KEY>" \
       -H "Content-Type: application/json" \
       -d '{
         "name": "hello-world",

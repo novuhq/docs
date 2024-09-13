@@ -11,7 +11,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```javascript Node.js
 import { Novu, ProvidersIdEnum } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 const updatePayload = {
   name: "SendGrid",
@@ -36,7 +36,7 @@ await novu.integrations.getWebhookProviderStatus(
 // Get integrations
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 $novu->updateIntegration($integrationId, [
     'active' => true,
     'credentials' => [
@@ -49,7 +49,7 @@ $novu->updateIntegration($integrationId, [
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 body = {
     'active' => true,
     'check' => true
@@ -64,7 +64,7 @@ client.update_integration('<insert-provider-id>', body)
 from novu.api import IntegrationApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = IntegrationApi(url, api_key).update(
     integration="<The instance of the integration to update>",
 )
@@ -75,7 +75,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.updateIntegration(integrationId, body);

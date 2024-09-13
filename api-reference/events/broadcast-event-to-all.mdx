@@ -11,7 +11,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```javascript Node.js
 import { Novu } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.events.broadcast("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   payload: {
@@ -32,7 +32,7 @@ await novu.events.broadcast("<WORKFLOW_TRIGGER_IDENTIFIER>", {
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 
 $novu->broadcastEvent([
     'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
@@ -44,7 +44,7 @@ $novu->broadcastEvent([
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 payload = {
     'name' => 'Trigger',
@@ -59,7 +59,7 @@ client.broadcast_event(payload)
 
 ```bash cURL
 curl -X POST https://api.novu.co/v1/events/trigger/broadcast \
-  -H "Authorization: ApiKey <NOVU_API_KEY>" \
+  -H "Authorization: ApiKey <NOVU_SECRET_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
@@ -89,7 +89,7 @@ import (
 )
 
 func main() {
-	apiKey := "<NOVU_API_KEY>"
+	apiKey := "<NOVU_SECRET_KEY>"
 	ctx := context.Background()
 
 	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
@@ -118,7 +118,7 @@ func main() {
 from novu.api import EventApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 
 novu = EventApi(url, api_key).broadcast(
     name="<WORKFLOW_TRIGGER_IDENTIFIER>",
@@ -134,7 +134,7 @@ import co.novu.api.events.responses.TriggerEventResponse;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
 

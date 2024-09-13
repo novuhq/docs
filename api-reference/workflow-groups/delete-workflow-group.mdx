@@ -10,7 +10,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```bash cURL
 curl --request DELETE \
 --url https://api.novu.co/v1/notification-groups/{id} \
---header 'Authorization: ApiKey <NOVU_API_KEY>'
+--header 'Authorization: ApiKey <NOVU_SECRET_KEY>'
 ```
 
 ```javascript Node.js
@@ -21,7 +21,7 @@ import {
   StepTypeEnum,
 } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.notificationGroups.delete("notificationGroupId");
 ```

@@ -10,7 +10,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```bash cURL
 curl --request GET \
 --url https://api.novu.co/v1/notification-groups \
---header 'Authorization: ApiKey <NOVU_API_KEY>' \
+--header 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
 ```
 
 ```javascript Node.js
@@ -21,7 +21,7 @@ import {
   StepTypeEnum,
 } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.notificationGroups.get();
 ```
@@ -29,7 +29,7 @@ await novu.notificationGroups.get();
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 
 $novu->getNotificationGroups()->toArray();
 ```
@@ -37,7 +37,7 @@ $novu->getNotificationGroups()->toArray();
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 client.notification_groups()
 ```
@@ -46,7 +46,7 @@ client.notification_groups()
 from novu.api import NotificationGroupApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = NotificationGroupApi(url, api_key).list(
 )
 ```
@@ -56,7 +56,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.notificationGroups();

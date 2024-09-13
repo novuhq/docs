@@ -28,7 +28,7 @@ The overrides field supports a `sms` property and `from`, `to`, `content` field 
 ```javascript
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
   to: {
@@ -62,7 +62,7 @@ Here, if `twilio-abcdef` is primary integration and you want to use `infobip-abc
 ```javascript
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
 to: {

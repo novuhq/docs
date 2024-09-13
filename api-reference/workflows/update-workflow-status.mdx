@@ -26,7 +26,7 @@ import {
   StepTypeEnum,
 } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.notificationTemplates.updateStatus("workflowId", false);
 ```
@@ -34,7 +34,7 @@ await novu.notificationTemplates.updateStatus("workflowId", false);
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 
 $novu->updateNotificationTemplateStatus($templateId, [
     'active' => true
@@ -44,7 +44,7 @@ $novu->updateNotificationTemplateStatus($templateId, [
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 client.update_notification_template_status('<insert-template-id>', { 'active' => true })
 ```
@@ -53,7 +53,7 @@ client.update_notification_template_status('<insert-template-id>', { 'active' =>
 from novu.api import NotificationTemplateApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = NotificationTemplateApi(url, api_key).update_status(
     notification_template_id = "< The notification workflow ID of the workflow>",
 )
@@ -64,7 +64,7 @@ import co.novu.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.updateWorkflowStatus(workflowId, body);
@@ -104,7 +104,7 @@ import co.novu.extensions.updateWorkflowStatus
 
 class Main {
     fun main(args: Array<String>) {
-        val apiKey = "<NOVU_API_KEY>"
+        val apiKey = "<NOVU_SECRET_KEY>"
 
         val novu = Novu(apiKey)
         novu.updateWorkflowStatus(workflowId, body)

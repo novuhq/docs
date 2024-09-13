@@ -10,7 +10,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```bash cURL
 curl --request POST \
 --url https://api.novu.co/v1/notification-groups \
---header 'Authorization: ApiKey <NOVU_API_KEY>' \
+--header 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
 --header 'Content-Type: application/json' \
 --data '{"name": "insert-name"}'
 ```
@@ -23,7 +23,7 @@ import {
   StepTypeEnum,
 } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.notificationGroups.create("Product Updates");
 ```
@@ -31,7 +31,7 @@ await novu.notificationGroups.create("Product Updates");
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 
 $novu->createNotificationGroup([
     'name' => '<insert-name>'
@@ -41,7 +41,7 @@ $novu->createNotificationGroup([
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 client.create_notification_group({
     'name' => '<insert-name>'
@@ -52,7 +52,7 @@ client.create_notification_group({
 from novu.api import NotificationGroupApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = NotificationGroupApi(url, api_key).create(
     name = "<The name of the notification group>",
 )
@@ -63,7 +63,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.createWorkflowGroup(body);
