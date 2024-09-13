@@ -10,7 +10,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```javascript Node.js
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
 const params = {
 page: 0, // optional
@@ -26,7 +26,7 @@ await novu.layouts.list(params);
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 client.layouts({
     'page' => 1, # optional
     'pageSize' => 10, # optional
@@ -39,7 +39,7 @@ client.layouts({
 from novu.api import LayoutApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = LayoutApi(url, api_key).list(
     page="<Page number for pagination>",
     limit="Size of each page",
@@ -51,7 +51,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.layouts(query = {});

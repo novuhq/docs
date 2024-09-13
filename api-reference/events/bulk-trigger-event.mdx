@@ -11,7 +11,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```javascript Node.js
 import { Novu } from '@novu/node';
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.events.bulkTrigger([
   {
@@ -56,7 +56,7 @@ await novu.events.bulkTrigger([
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 
 $novu->bulkTriggerEvent([
     [
@@ -75,7 +75,7 @@ $novu->bulkTriggerEvent([
 ```bash cURL
 
 curl -X POST https://api.novu.co/v1/events/trigger/bulk \
-  -H "Authorization: ApiKey <NOVU_API_KEY>" \
+  -H "Authorization: ApiKey <NOVU_SECRET_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
     "events": [
@@ -128,7 +128,7 @@ curl -X POST https://api.novu.co/v1/events/trigger/bulk \
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 payload = {
     'events' => [
@@ -168,7 +168,7 @@ import (
 )
 
 func main() {
-	apiKey := "<NOVU_API_KEY>"
+	apiKey := "<NOVU_SECRET_KEY>"
 	ctx := context.Background()
 
 	novuClient := novu.NewAPIClient(apiKey, &novu.Config{})
@@ -216,7 +216,7 @@ from novu.dto.event import InputEventDto
 from novu.api import EventApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 
 event_1 = InputEventDto(
     name="<WORKFLOW_TRIGGER_IDENTIFIER>",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
@@ -243,7 +243,7 @@ import co.novu.api.events.responses.BulkTriggerEventResponse;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
 

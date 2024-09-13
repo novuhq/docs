@@ -83,7 +83,7 @@ To remove a device token from subscriber credentials, you need to get the curren
 ```ts
 import { Novu, PushProviderIdEnum } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
 // fetch subscriber details
 const subscriber = await novu.subscribers.get('subscriberId');

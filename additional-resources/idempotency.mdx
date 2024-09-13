@@ -68,7 +68,7 @@ After this period, the reused key will be treated as a new request and response.
         ```javascript
         import { Novu } from '@novu/node';
 
-        const novu = new Novu("<NOVU_API_KEY>");
+        const novu = new Novu("<NOVU_SECRET_KEY>");
 
         await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
           to: {
@@ -92,7 +92,7 @@ After this period, the reused key will be treated as a new request and response.
         ```javascript
         import { Novu } from '@novu/node';
 
-        const novu = new Novu("<NOVU_API_KEY>", {
+        const novu = new Novu("<NOVU_SECRET_KEY>", {
             retryConfig: {
                 retryMax: 5
             }

@@ -122,7 +122,7 @@ To make it modular, we’ll keep the trigger code in a separate function in a se
 import { Novu, ChatProviderIdEnum } from "@novu/node";
 
 export const chat = async (chatMsg) => {
-  const novu = new Novu(process.env.YOUR_NOVU_API_KEY_HERE);
+  const novu = new Novu(process.env.YOUR_NOVU_SECRET_KEY_HERE);
   await novu.subscribers.identify(process.env.SUB_ID, {
     firstName: "newSubForSlackChat",
   });
@@ -186,7 +186,7 @@ import {
   ChatProviderIdEnum
 } from '@novu/node';
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
 webhookUrl: "<WEBHOOK_URL>",
@@ -199,7 +199,7 @@ webhookUrl: "<WEBHOOK_URL>",
 curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
--H 'Authorization: ApiKey <NOVU_API_KEY>' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
 -d '{
   "providerId": "slack",
   "credentials": {
@@ -218,7 +218,7 @@ In our case, we'll add it to the `Novu.js` file we created earlier so that the f
 import { Novu, ChatProviderIdEnum } from "@novu/node";
 
 export const chat = async (chatMsg) => {
-  const novu = new Novu(process.env.YOUR_NOVU_API_KEY_HERE);
+  const novu = new Novu(process.env.YOUR_NOVU_SECRET_KEY_HERE);
   await novu.subscribers.identify(process.env.SUB_ID, {
     firstName: "newSubForSlackChat",
   });

@@ -89,7 +89,7 @@ A non-existing subscriber can be added by sending subscriber data in `to` fiel
         ```jsx
         import { Novu } from '@novu/node';
 
-        const novu = new Novu('<NOVU_API_KEY>');
+        const novu = new Novu('<NOVU_SECRET_KEY>');
 
         await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
             to: {
@@ -112,7 +112,7 @@ A non-existing subscriber can be added by sending subscriber data in `to` fiel
         ```php
         use Novu\SDK\Novu;
 
-        $novu = new Novu('<NOVU_API_KEY>');
+        $novu = new Novu('<NOVU_SECRET_KEY>');
 
         $novu->triggerEvent([
         'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
@@ -146,7 +146,7 @@ Create the subscriber and then trigger the notification to this subscriber. Here
 ```jsx
 import { Novu } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
 await novu.subscribers.identify('111', {
   email: 'john.doe@domain.com',
@@ -165,7 +165,7 @@ await novu.subscribers.identify('111', {
 ```php
 use Novu\SDK\Novu;
 
-$novu = new Novu('<NOVU_API_KEY>');
+$novu = new Novu('<NOVU_SECRET_KEY>');
 
 $novu->createSubscriber([
     'subscriberId' => '111',
