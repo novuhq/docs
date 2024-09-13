@@ -11,7 +11,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```javascript Node.js
 import { Novu } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 const response = await novu.subscribers.get("subscriberId");
 console.log(response.data);
@@ -111,7 +111,7 @@ import co.novu.api.subscribers.responses.SingleSubscriberResponse;
 
 public class Main {
    public static void main(String[] args) {
-      String apiKey = "<NOVU_API_KEY>";
+      String apiKey = "<NOVU_SECRET_KEY>";
       Novu novu = new Novu(apiKey);
       String subscriberId = "<SUBSCRIBER_ID>";
 

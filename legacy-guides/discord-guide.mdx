@@ -114,7 +114,7 @@ file, `novu.js`, in our case, which is as follows: ```jsx import {
 
 export const chat = async (chatMsg) => {
     try {
-        const novu = new Novu(process.env.YOUR_NOVU_API_KEY_HERE);
+        const novu = new Novu(process.env.YOUR_NOVU_SECRET_KEY_HERE);
 
         await novu.subscribers.identify(process.env.SUB_ID, {
             firstName: 'newSubForDiscordChat',
@@ -154,7 +154,7 @@ import { Novu, ChatProviderIdEnum } from "@novu/node";
 
 export const chat = async (chatMsg) => {
   try {
-    const novu = new Novu(process.env.YOUR_NOVU_API_KEY_HERE);
+    const novu = new Novu(process.env.YOUR_NOVU_SECRET_KEY_HERE);
 
     await novu.subscribers.identify(process.env.SUB_ID, {
       firstName: "newSubForDiscordChat",

@@ -147,7 +147,7 @@ import {
   ChatProviderIdEnum
 } from '@novu/node';
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
   webhookUrl: "<WEBHOOK_URL>",
@@ -160,7 +160,7 @@ await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, 
 curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
--H 'Authorization: ApiKey <NOVU_API_KEY>' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
 -d '{
   "providerId": "slack",
   "credentials": {
@@ -198,7 +198,7 @@ To enable Hash-Based Message Authentication Codes, you need to do the following 
    ```jsx
    import { createHmac } from "crypto";
 
-   const hmacHash = createHmac("sha256", process.env.NOVU_API_KEY)
+   const hmacHash = createHmac("sha256", process.env.NOVU_SECRET_KEY)
      .update(subscriberId)
      .digest("hex");
    ```

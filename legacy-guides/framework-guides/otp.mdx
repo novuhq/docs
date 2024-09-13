@@ -238,7 +238,7 @@ import { Client, workflow } from "@novu/framework";
 import { renderOTPEmail } from "./otp";
 
 export const client = new Client({
-  apiKey: process.env.NOVU_API_KEY,
+  apiKey: process.env.NOVU_SECRET_KEY,
   /**
    * Disable this flag only during local development
    */
@@ -296,7 +296,7 @@ export const otpFlow = workflow(
 ```ts
 import { Novu } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 export async function POST(request: Request) {
   const res = await request.json();

@@ -37,7 +37,7 @@ Novu’s Digest Engine is designed to consolidate multiple trigger events into a
 import { Client } from "@novu/framework";
 
 export const client = new Client({
-  apiKey: "<YOUR_NOVU_API_KEY>",
+  apiKey: "<YOUR_NOVU_SECRET_KEY>",
   /**
    * Enable this flag only during local development
    */
@@ -177,7 +177,7 @@ export default function Home() {
 ```tsx
 import { Novu } from "@novu/node";
 
-const novu = new Novu("<YOUR_NOVU_API_KEY>");
+const novu = new Novu("<YOUR_NOVU_SECRET_KEY>");
 
 export async function POST(request: Request) {
   const res = await request.json();

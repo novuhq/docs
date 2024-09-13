@@ -13,7 +13,7 @@ import co.novu.Novu
 import co.novu.extensions.notificationsStats
 
 fun main() {
-    val novu = Novu(apiKey = "<NOVU_API_KEY>")
+    val novu = Novu(apiKey = "<NOVU_SECRET_KEY>")
     val notificationsStats = novu.notificationsStats()
     println(notificationsStats)
 }
@@ -22,14 +22,14 @@ fun main() {
 ```bash cURL
 curl --request GET \
 --url https://api.novu.co/v1/notifications/stats \
---header 'Authorization: ApiKey <NOVU_API_KEY>'
+--header 'Authorization: ApiKey <NOVU_SECRET_KEY>'
 ```
 
 ```python Python
 from novu.api import NotificationApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 
 notificationApi = NotificationApi(url, api_key)
 
@@ -39,7 +39,7 @@ notification_stats = notificationApi.stats()
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu('<NOVU_API_KEY>');
+$novu = new Novu('<NOVU_SECRET_KEY>');
 
 $notificationStats = $novu->getNotificationStats()->toArray();
 ```
