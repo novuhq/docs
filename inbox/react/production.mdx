@@ -1,7 +1,7 @@
 ---
-title: 'Advanced Configuration'
-sidebarTitle: 'Advanced Configuration'
-description: 'Learn how to configure the Inbox component with advanced options'
+title: 'Going to production'
+sidebarTitle: 'Going to production'
+description: 'Learn how to prepare your inbox before going to production'
 ---
 
 
@@ -26,7 +26,7 @@ In order to enable Hash-Based Message Authentication Codes, you need to visit th
 ```tsx
 import { createHmac } from 'crypto';
 
-const hmacHash = createHmac('sha256', process.env.NOVU_API_KEY)
+const hmacHash = createHmac('sha256', process.env.NOVU_SECRET_KEY)
   .update(subscriberId)
   .digest('hex');
 ```
@@ -45,26 +45,3 @@ const hmacHash = createHmac('sha256', process.env.NOVU_API_KEY)
   If HMAC encryption is active in In-App provider settings and `subscriberHash`
   along with `subscriberId` is not provided, then Inbox will not load
 </Info>
-
-## Backend SDK Methods
-
-[Backend sdk methods](/sdks/framework/typescript/overview)
-
-## Use your own backend and socket URL
-
-By default, Novu's hosted services for API and socket are used. If you want, you can override them and configure your own.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-      backendUrl="YOUR_BACKEND_URL"
-      socketUrl="YOUR_SOCKET_URL"
-    />
-  );
-}
-```

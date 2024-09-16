@@ -158,7 +158,7 @@ Back in our app, we can now add the trigger function:
 import { Novu } from "@novu/node";
 
 export const sendEmailDigest = async (notif, email) => {
-  const novu = new Novu(process.env.YOUR_NOVU_API_KEY);
+  const novu = new Novu(process.env.YOUR_NOVU_SECRET_KEY);
   await novu.subscribers.identify("digestEmailSub", {
     firstName: "digest email subscriber",
     email: email,

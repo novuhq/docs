@@ -245,7 +245,7 @@ Finally, we can add the trigger code:
 import { Novu, PushProviderIdEnum } from "@novu/node";
 
 export const inAppNotification = async (title, body) => {
-  const novu = new Novu(process.env.NOVU_API_KEY);
+  const novu = new Novu(process.env.NOVU_SECRET_KEY);
   await novu.subscribers.identify(process.env.NOVU_SUB_ID, {
     firstName: "pushSubscriber",
   });

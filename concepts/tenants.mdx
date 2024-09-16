@@ -27,7 +27,7 @@ When triggering a workflow, it is possible to pass the tenant information (id or
   ```javascript
     import { Novu } from '@novu/node';
 
-    const novu = new Novu("<NOVU_API_KEY>");
+    const novu = new Novu("<NOVU_SECRET_KEY>");
 
     await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
       {
@@ -48,7 +48,7 @@ When triggering a workflow, it is possible to pass the tenant information (id or
 ```php
   use Novu\SDK\Novu;
 
-  $novu = new Novu('<NOVU_API_KEY_HERE>');
+  $novu = new Novu('<NOVU_SECRET_KEY_HERE>');
 
   $novu->triggerEvent([
     'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',

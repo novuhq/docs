@@ -21,7 +21,7 @@ Once you have the webhook URL, you can store it in the subscriber entity in your
 ```jsx
 import { Novu, ChatProviderIdEnum } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials(
   "subscriberId",
@@ -49,7 +49,7 @@ Once you have stored the API token in the subscriber entity, you can send notifi
 ```jsx
 import { Novu, ChatProviderIdEnum } from "@novu/node";
 
-const novu = new Novu("<NOVU_API_KEY>");
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 // Get the Mattermost bot API token for the subscriber.
 await novu.subscribers.setCredentials(
