@@ -239,6 +239,28 @@ export function Novu() {
 }
 ```
 
+#### Render subject and body with bold text
+
+By default, the Inbox notification text for the subject and body is rendered in a normal font weight.
+To highlight important words or phrases within your notification messages, you can wrap the desired subject or body text in double asterisks (**).
+Here’s an example of how you can do this using the Novu Framework:
+
+```js
+await step.inApp('inbox', async () => {
+  return {
+    subject: '**A new member joined the team!**',
+    body: '**John Doe** joined the team! Say hello and help them feel at home',
+  };
+});
+```
+
+<Tip>
+  Please note, that when you are rendering the custom notification component you will need to parse the text and apply the bold styling accordingly.
+</Tip>
+
+Currently we only support bold text. We are working on adding more text formatting options in the future.
+You can learn more about the Novu Framework in-app step [here](/sdks/framework/typescript/steps/inbox).
+
 ## Render Notification Component
 
 You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component, this will allow you to style and render more complex notification items.
