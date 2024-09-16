@@ -181,7 +181,7 @@ import { Client, workflow } from "@novu/framework";
 import { mjmlTemplate } from "./mjml";
 
 export const client = new Client({
-  apiKey: process.env.NOVU_API_KEY,
+  apiKey: process.env.NOVU_SECRET_KEY,
   strictAuthentication: process.env.NODE_ENV !== "development",
 });
 

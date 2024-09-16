@@ -30,7 +30,7 @@ import {
   Novu
 } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
 await novu.subscribers.trigger("workflowIdentifier", {
 to: "subscriberId",
@@ -85,7 +85,7 @@ tenant: "tenantIdentifier"
 curl --location 'https://api.novu.co/v1/events/trigger' \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
---header 'Authorization: ApiKey <NOVU_API_KEY>' \
+--header 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
 --data '{
     "name": "workflowIdentifier",
     "to":  ["subscriberId"],

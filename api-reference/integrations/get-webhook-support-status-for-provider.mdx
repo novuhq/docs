@@ -10,7 +10,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```javascript Node.js
 import { Novu, ProvidersIdEnum } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
 await novu.integrations.getWebhookProviderStatus(ProvidersIdEnum.SendGrid);
 
@@ -19,14 +19,14 @@ await novu.integrations.getWebhookProviderStatus(ProvidersIdEnum.SendGrid);
 // Get integrations
 use Novu\SDK\Novu;
 
-$novu = new Novu(<NOVU_API_KEY>);
+$novu = new Novu(<NOVU_SECRET_KEY>);
 $novu->getWebhookSupportStatusForProvider($providerId)->toArray();
 ````
 
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 client.webhook_provider_status('<insert-provider-id>')
 ```
 
@@ -34,7 +34,7 @@ client.webhook_provider_status('<insert-provider-id>')
 from novu.api import IntegrationApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = IntegrationApi(url, api_key).status(
     provider_id="<The_Provider_ID>", # Get webhook support status for a given provider using its providerID.
 )
@@ -45,7 +45,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.webhookProviderStatus(providerId);

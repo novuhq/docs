@@ -11,7 +11,7 @@ import ApikeyWarning from "/snippets/apikey-warning.mdx";
 ```javascript Node.js
 import { Novu, ChannelTypeEnum } from '@novu/node';
 
-const novu = new Novu('<NOVU_API_KEY>');
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
 const params = {
   page: 0, // optional
@@ -27,7 +27,7 @@ await novu.messages.list(params);
 ```php PHP
 use Novu\SDK\Novu;
 
-$novu = new Novu("<NOVU_API_KEY>");
+$novu = new Novu("<NOVU_SECRET_KEY>");
 
 $novu->getMessages();
 ```
@@ -35,7 +35,7 @@ $novu->getMessages();
 ```ruby Ruby
 require 'novu'
 
-client = Novu::Client.new('<NOVU_API_KEY>')
+client = Novu::Client.new('<NOVU_SECRET_KEY>')
 
 payload = {
     'channel' => 'slack', # optional
@@ -51,7 +51,7 @@ client.messages(payload)
 from novu.api import MessageApi
 
 url = "https://api.novu.co"
-api_key = "<NOVU_API_KEY>"
+api_key = "<NOVU_SECRET_KEY>"
 novu = MessageApi(url, api_key).list(
     limit= "The number of messages to fetch, defaults to 10",
     page= "The page to fetch, defaults to 0",
@@ -65,7 +65,7 @@ import co.novu.sdk.Novu;
 
 public class Main {
     public static void main(String[] args) {
-        String apiKey = "<NOVU_API_KEY>";
+        String apiKey = "<NOVU_SECRET_KEY>";
 
         Novu novu = new Novu(apiKey);
         novu.messages(query = {});
