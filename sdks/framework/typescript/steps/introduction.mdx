@@ -15,7 +15,10 @@ title: "Step Interface"
     });
     ```
     ```typescript Skip
-    await step.email('stepId', resolver, {
+    await step.email('skipped-step',async () => ({
+        subject: 'Hello, world!',
+        body: 'My email message',
+    }), {
         skip: async (controls) => true,
     });
     ```
@@ -36,7 +39,7 @@ title: "Step Interface"
     );
     ```
     ```typescript Provider Overrides
-    await step.email('stepId', resolver, {
+    await step.email('provider-override', resolver, {
       providers: {
         slack: ({ controls, outputs }) => {
           return {
@@ -54,7 +57,7 @@ title: "Step Interface"
     });
     ```
     ```typescript Provider Passthrough
-    await step.email('stepId', resolver, {
+    await step.email('provider-passthrough', resolver, {
       providers: {
         sendgrid: ({ controls, outputs }) => {
           return {
