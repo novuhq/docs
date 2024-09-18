@@ -1,0 +1,56 @@
+---
+title: 'useCounts'
+---
+
+import UseUnreadCountExample from '/snippets/inbox/react/use-unread-count-example.mdx';
+
+The `useCounts` hook is used to fetch the notification counts based on the provided filters.
+You can use this hook to fetch the total count of unread, archived notifications or any other custom count based on the filters you provide.
+
+The hook listens for changes in notification counts and will automatically refetch the counts whenever they are updated, for example, when a new notification is received.
+
+### `useCounts` props
+
+<ParamField path="filters" type="NotificationFilter[]">
+  Filters to be applied to notifications when calculating counts, allowing you
+  to filter notifications based on workflow tags, read status, and archived
+  status.
+</ParamField>
+<ParamField path="onSuccess" type="Function">
+  Callback function that will be called when the notification counts are
+  successfully fetched. In the callback argument, you will receive the fetched
+  counts.
+</ParamField>
+<ParamField path="onError" type="Function">
+  Callback function that will be called when there is an error fetching the
+  notification counts. In the callback argument, you will receive the error
+  object.
+</ParamField>
+
+### `useCounts` returns
+
+<ParamField path="counts" type="Count[] | undefined">
+  An array of notification counts fetched by the hook. If there are no
+  notification counts fetched yet, it will be `undefined`.
+</ParamField>
+<ParamField path="isLoading" type="boolean">
+  A boolean value indicating the first fetch for notification counts is
+  in-flight.
+</ParamField>
+<ParamField path="isFetching" type="boolean">
+  A boolean value indicating whether the hook is fetching more notification
+  counts.
+</ParamField>
+<ParamField path="error" type="NovuError | undefined">
+  An error object that will be populated if there is an error fetching the
+  notification counts.
+</ParamField>
+<ParamField path="refetch" type="Function">
+  A function that can be called to refetch the notification counts.
+</ParamField>
+
+## Example usage
+
+The below example demonstrates how to use the `useCounts` hook to fetch the unread notifications count.
+
+<UseUnreadCountExample />
