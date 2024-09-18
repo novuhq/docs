@@ -19,6 +19,11 @@ title: "Step Interface"
         skip: async (controls) => true,
     });
     ```
+    ```typescript Disable Output Sanitization
+    await step.email('stepId', resolver, {
+        disableOutputSanitization: true,
+    });
+    ```
     ```typescript Provider Overrides
     await step.email('stepId', resolver, {
       providers: {
@@ -98,6 +103,10 @@ This is an optional configuration object that defines: [Controls Schema](/framew
 
 <ResponseField name="providers" type="ProvidersOverride">
   This object used to access and override the underlying deliver providers SDKs. This is useful when you want to customize the content of the notification with properties that are unique to the provider.
+</ResponseField>
+
+<ResponseField name="disableOutputSanitization" type="boolean" default="false">
+  A flag to disable output sanitization for the step. This is useful when you want to return unsescaped content to the provider, or frequently, the `<Inbox/>` component.
 </ResponseField>
 
 ### Providers Overrides Object
