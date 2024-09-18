@@ -65,14 +65,14 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-to: {
-subscriberId: '<SUBSCRIBER_ID>',
-},
-overrides: {
-sms: {
-integrationIdentifier: "infobip-abcdef"
-},
-},
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  overrides: {
+    sms: {
+      integrationIdentifier: 'infobip-abcdef',
+    },
+  },
 });
 
 ```
