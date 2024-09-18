@@ -20,9 +20,20 @@ title: "Step Interface"
     });
     ```
     ```typescript Disable Output Sanitization
-    await step.email('stepId', resolver, {
+    await step.inApp(
+      'without-sanitization',
+      async () => ({
+        body: 'My in-app message',
+        data: {
+          link: '/pipeline/123?active=true&env=prod',
+        },
+      }),
+      {
+        // Prevent the `&` character in `data.link` from
+        // being converted to `&amp;`
         disableOutputSanitization: true,
-    });
+      }
+    );
     ```
     ```typescript Provider Overrides
     await step.email('stepId', resolver, {
