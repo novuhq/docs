@@ -8,16 +8,16 @@ By default, the `<Inbox />` renders a bell button, that opens a popover on click
 import { Inbox } from '@novu/react';
 
 function Novu() {
-    return (
-        <Inbox
-        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-        subscriberId="YOUR_SUBSCRIBER_ID"
-        />
-    );
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+    />
+  );
 }
 ```
 
-## Navigation 
+## Navigation
 
 The Inbox component uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
 
@@ -106,9 +106,8 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
       );
     }
     ```
+
 </CodeGroup>
-
-
 
 ### Handle notification click
 
@@ -156,7 +155,6 @@ function Novu() {
   );
 }
 ```
-
 
 ## Controlled Popover state
 
@@ -226,3 +224,22 @@ function Novu() {
 }
 ```
 
+## Filter visible preferences
+
+You can customize the visible preferences by passing the `preferencesFilter` prop to the Inbox component, allowing you to display only relevant preferences to your users.
+The filtering works by matching the workflow [tags](/workflow/introduction#tags) field with the specified filter `tags` value, showing workflows that contain at least one associated tag.
+Additionally, you can combine tags from different workflows to create a tailored preferences view.
+
+```tsx
+import { Inbox, Preferences } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      preferencesFilter={{ tags: ['general', 'admin', 'security'] }}
+    />
+  );
+}
+```
