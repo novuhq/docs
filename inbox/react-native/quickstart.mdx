@@ -1,0 +1,87 @@
+---
+title: 'React Native Get Started'
+sidebarTitle: 'Quickstart'
+description: 'Learn how to add Novu powered Inbox to your React Native app'
+---
+
+You can build your own Inbox UI with Novu's React Native hooks SDK. Novu will take care of data fetching, real-time updates and will help you build a fully custom notification-center UI.
+
+<Steps>
+  <Step title="Install the React Native hooks SDK">
+```bash
+npm install @novu/react
+```
+  </Step>
+  <Step title="Add the Novu provider to your react file">
+    <CodeGroup>
+```tsx React Native
+import { NovuProvider } from '@novu/react';
+
+function Novu() {
+  return (
+     <NovuProvider
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    >
+      {/* Your app components where you want to use the hooks */}
+      <YourCustomInbox />
+    </NovuProvider>
+  );
+}
+```
+    </CodeGroup>
+
+    <Tip>
+    You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard.novu.co/api-keys).
+    The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/concepts/subscribers).
+    </Tip>
+  </Step>
+
+   <Step title="Build your own inbox UI">
+    <CodeGroup>
+```tsx React Native
+import { useNotifications } from '@novu/react';
+
+function YourCustomInbox() {
+  const { notifications, isLoading, fetchMore, hasMore } = useNotifications();
+
+  return (
+    <Show when={!isLoading} fallback={<NotificationListSkeleton />}>
+      <Show
+        when={notifications && notifications.length > 0}
+        fallback={<EmptyNotificationList />}
+      >
+        <InfiniteScroll
+          dataLength={notifications?.length ?? 0}
+          fetchMore={fetchMore}
+          hasMore={hasMore}
+          loader={<LoadMoreSkeleton />}
+        >
+          {notifications?.map((notification) => {
+            return (
+              <NotificationItem
+                key={notification.id}
+                notification={notification}
+              />
+            );
+          })}
+        </InfiniteScroll>
+      </Show>
+    </Show>
+  );
+}
+```
+    </CodeGroup>
+
+    <Tip>
+      Learn more about all the available hooks [here](/inbox/react/hooks/overview).
+    </Tip>
+  </Step>
+
+  <Step title="Trigger a notification">
+    Now that you have the inbox component added to your application, you can trigger an Inbox notification to see it in action.
+    To create your first workflow, follow our [quickstart guide](/quickstart/overview).
+  </Step>
+</Steps>
+
+
