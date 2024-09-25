@@ -1,7 +1,7 @@
 ---
-title: 'Styling the Inbox component'
-sidebarTitle: 'Styling'
-description: 'Learn how to style the pre built Inbox component'
+title: "Styling the Inbox component"
+sidebarTitle: "Styling"
+description: "Learn how to style the pre built Inbox component"
 ---
 
 ## Customization Hierarchy
@@ -9,6 +9,7 @@ description: 'Learn how to style the pre built Inbox component'
 The Inbox component is built to allow for multiple layers of styling, which allows the specificity required to style the Inbox to meet the requirements of your use case.
 
 Depending on the level of customization you need, you can choose to style the inbox using one of the following approaches:
+
 - [Appearance Prop](#appearance-prop)
   - [Variables](#variables) - Global primitives such as buttons, popovers, dropdowns and etc...
   - [Elements](#elements) - Style individual elements
@@ -19,9 +20,9 @@ Depending on the level of customization you need, you can choose to style the in
 
 The `appearance` prop can be used to customise the Inbox. It has three main keys: `baseTheme`, `variables` and `elements`.
 
-- **Variables**: Global styling variables that apply to multiple elements within the inbox. 
-- **Elements**: Elements are the individual UI components that make up the Inbox. 
-- **Base Theme**: This is the default theme that comes with the inbox out of the box.
+- **Variables**: Global styling variables that apply to multiple elements within the inbox.
+- **Elements**: Elements are the individual UI components that make up the Inbox.
+- **Base theme**: This is the base theme applied to the `<Inbox />`. It has the same keys as `appearance`. Used for applying base themes like `dark`.
 
 ### Variables
 
@@ -92,18 +93,20 @@ You can override the default elements by passing your own styles or CSS classes 
 ```tsx
 const appearance = {
   variables: {
-    colorBackground: 'yellow',
-  }
+    colorBackground: "yellow",
+  },
 };
 
-<Inbox appearance={appearance} />
+<Inbox appearance={appearance} />;
 ```
 
 ### Elements
+
 The `elements` object allows you to define styles for these components. Each key corresponds to an component, and the value is an object containing `style properties` or you can also pass your `css classes`.
 Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
 
 #### Finding element selectors
+
 You can inspect the elements you want to customize using the browser's dev tools, each element has a unique selector that you can use to style starting with `nv-`.
 
 Strip the `nv-` prefix when and add it to the `elements` object. For example, to style the `nv-notificationPrimaryAction__button` element, you can add the following to the `elements` object:
@@ -111,11 +114,11 @@ Strip the `nv-` prefix when and add it to the `elements` object. For example, to
 ```tsx
 const appearance = {
   elements: {
-    'notificationPrimaryAction__button': {
-      backgroundColor: 'red',
+    notificationPrimaryAction__button: {
+      backgroundColor: "red",
     },
   },
-}
+};
 ```
 
 <Frame caption="Finding Element Selectors">
@@ -123,8 +126,32 @@ const appearance = {
 </Frame>
 
 <Tip>
-  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in Appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the available elements.
+  Any selector that appears before the 🔔 emoji, can be targeted via the
+  elements property in Appearance prop (stripping the `nv-` prefix). You can
+  also use TS autocomplete to find the available elements.
 </Tip>
+
+### Dark theme
+
+No need to implement a custom dark theme. Just import our premade `dark` theme and use it via the `baseTheme` option in `appearance`.
+
+```tsx
+import { Inbox } from "@novu/react";
+import { dark } from "@novu/react/themes";
+import { useTheme } from "next-themes";
+
+export function Novu() {
+  const { resolvedTheme } = useTheme();
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      appearance={{ baseTheme: resolvedTheme === "dark" ? dark : undefined }}
+    />
+  );
+}
+```
 
 ### Bring your own CSS
 
@@ -246,20 +273,21 @@ export function Novu() {
 #### Render subject and body with bold text
 
 By default, the Inbox notification text for the subject and body is rendered in a normal font weight.
-To highlight important words or phrases within your notification messages, you can wrap the desired subject or body text in double asterisks (**).
+To highlight important words or phrases within your notification messages, you can wrap the desired subject or body text in double asterisks (\*\*).
 Here’s an example of how you can do this using the Novu Framework:
 
 ```js
-await step.inApp('inbox', async () => {
+await step.inApp("inbox", async () => {
   return {
-    subject: '**A new member joined the team!**',
-    body: '**John Doe** joined the team! Say hello and help them feel at home',
+    subject: "**A new member joined the team!**",
+    body: "**John Doe** joined the team! Say hello and help them feel at home",
   };
 });
 ```
 
 <Tip>
-  Please note, that when you are rendering the custom notification component you will need to parse the text and apply the bold styling accordingly.
+  Please note, that when you are rendering the custom notification component you
+  will need to parse the text and apply the bold styling accordingly.
 </Tip>
 
 Currently we only support bold text. We are working on adding more text formatting options in the future.
@@ -276,4 +304,3 @@ You can render your own custom notification item component by passing a `renderN
   }}
 />
 ```
-
