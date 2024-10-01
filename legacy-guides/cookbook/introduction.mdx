@@ -48,7 +48,7 @@ The code sample below fetches all the feeds that have been created and exist in 
 <CodeGroup>
 ```javascript Node.js
 const { data: feedsData } = await novu.feeds.get();
-````
+```
 
 </CodeGroup>
 
@@ -92,7 +92,7 @@ limit: 20,
 
 const { data: messagesData } = await novu.messages.list(listMessagesOptions);
 
-````
+```
 </CodeGroup>
 
 ## Mark an In-App Message as Read/Seen
@@ -110,7 +110,7 @@ const { data: markMessageAsSeen } = await novu.subscribers.markMessageSeen(
   'subscriberId',
   'messageId'
 );
-````
+```
 
 </CodeGroup>
 
@@ -151,7 +151,7 @@ feedIdentifier: ['Marketing', 'Product']
 markAs: MarkMessageAsEnum.Read
 );
 
-````
+```
 </CodeGroup>
 
 ## Send Slack Notifications
@@ -185,7 +185,7 @@ await novu.trigger('slack', {
     chatMsg: '<INSERT_MESSAGE_CONTENT>'
   }
 });
-````
+```
 
 where `chatMsg` is a payload variable in the workflow editor.
 
