@@ -8,11 +8,11 @@ The `delay` step allows you to pause the execution of a workflow for a specified
 
 <RequestExample>
     ```typescript Delay Output
-    await step.delay('delay', async () => {
-        return {
-            unit: 'day',
-            amount: 1,
-        };
+    await step.delay('delay', () => {
+      return {
+        unit: 'days',
+        amount: 1,
+      };
     });
     ```
 </RequestExample>
