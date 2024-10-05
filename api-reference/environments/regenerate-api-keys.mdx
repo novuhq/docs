@@ -13,14 +13,14 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_SECRET_KEY>');
 await novu.environmets.regenerateApiKeys();
 
-````
+```
 
 ```php PHP
 use Novu\SDK\Novu;
 
 $novu = new Novu(<NOVU_SECRET_KEY>);
 $key = $novu->regenerateEnvironmentsAPIKeys()->toArray();
-````
+```
 
 ```ruby Ruby
 require 'novu'
