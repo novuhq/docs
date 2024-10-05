@@ -44,7 +44,7 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Nex
                     import { serve } from "@novu/framework/next";
                     import { myWorkflow } from "../../novu/workflows";
 
-                    export const { GET, POST, PUT, OPTIONS } = serve({ workflows: [myWorkflow] });
+                    export const { GET, POST, OPTIONS } = serve({ workflows: [myWorkflow] });
                     ```
 
                     ```typescript Pages Router (pages/api/novu.ts)
