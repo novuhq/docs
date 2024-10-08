@@ -22,7 +22,7 @@ Here, we are delaying the execution of the next step by 1 day and skipping the d
 ```typescript
 await step.delay(
   "delay",
-  async () => {
+  () => {
     return {
       type: "regular"
       unit: "days",

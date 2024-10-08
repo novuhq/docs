@@ -10,6 +10,7 @@ The Inbox is composed of the following sub-components that you can use to build 
 - [\<Bell />](/inbox/react/components/bell) - Used to display the bell icon and trigger the popover component when clicked.
 - [\<Notifications />](/inbox/react/components/notifications) - Displays the notifications list.
 - [\<Preferences />](/inbox/react/components/preferences) - Used to display the preferences modal.
+- [\<InboxContent />](/inbox/react/components/inbox-content) - Usage with a custom popover.
 
 The internal UI and styles for those components can be modified using the [`appearance`](/inbox/react/components/styling#appearance) prop.
 
@@ -95,3 +96,27 @@ function Novu() {
 }
 ```
 
+### Inbox with a custom popover
+
+```tsx
+import { Bell, Inbox, InboxContent } from '@novu/react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
+export default function CustomPopoverPage() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+    >
+      <Popover>
+        <PopoverTrigger>
+          <Bell />
+        </PopoverTrigger>
+        <PopoverContent className="h-[500px] w-[400px] overflow-auto p-0">
+          <InboxContent />
+        </PopoverContent>
+      </Popover>
+    </Inbox>
+  );
+}
+```

@@ -2,172 +2,76 @@
 title: "Preferences"
 ---
 
-Novu provides a way to store user preferences in the subscribers data model.
-This allows subscribers to specify and manage their preferences, without your intervention. Customizing preferences has become the standard expected behavior for people and Novu can take the technical burden of managing preferences off of you.
+Novu provides a way to store subscriber preferences. This allows subscribers, your users, to specify and manage their preferences and customize their notifications experience.
 
-**Novu allows several levels of preferences:**
+**Levels of preferences:**
 
-- Workflow level channel preferences
-- Subscriber level channel preferences
-- Global level channel preferences
+- Workflow channel preferences
+- Subscriber channel preferences per workflow
+- Subscriber global preferences 
 
-## Workflow level channel preferences
+## Workflow channel preferences
 
-When creating a new workflow, you can specify default preferences for the subscribers in channel settings. They will be used unless the subscriber overrides them by his own custom preference.
+When creating a new workflow, you can specify default preferences for your subscribers via code or in the Dashboard. These preferences will be used during notification delivery unless the subscriber overrides via the preferences page in `<Inbox/>`.
 
-This will allow you to create sensible defaults but still provide the user with the ability to override them. All channels are `ON` unless specified otherwise.
+<Frame>
+  <img
+    style={{ borderRadius: "0.5rem" }}
+    src="/images/preferences/preferences.png"
+  />
+</Frame>
 
-## Subscriber level channel preferences
+## Subscriber channel preferences per workflow
 
-Our Inbox component will show a user the available preferences, user will be able to modify on the channel level. Critical workflows will be excluded from the list. Click on cog (setting) icon on notification center component to open subscriber channel preferences page.
+`<Inbox/>` displays the available preferences per workflow, allowing subscribers to modify them for each channel. Critical workflows will be excluded from the list.
 
-<img
-  style={{ borderRadius: "0.5rem" }}
-  src="/images/manage-subscribers/user-preference.png"
-/>
-
-<Note>
-  Only channels with a matched step will be returned from the API in
-  Ibox preference page. In case no channel content was found, the
-  API will return an empty array.
-</Note>
-
-## Global level channel preferences
-
-Subscribers can set global channel preferences, which override individual settings. For instance, if there are 10 workflows, and a subscriber wants to disable SMS notifications for all of them, they can do so with a single global preference.
+<Frame>
+  <img
+    style={{ borderRadius: "0.5rem", width: "400px" }}
+    src="/images/preferences/inbox-workflow-preferences.png"
+  />
+</Frame>
 
 <Note>
-  Global subscriber preference can be updated and accessed using API and SDK
-  only. Currently we have not added support of global subscriber preference in
-  UI.
+  Inbox displays only channels used by the current workflow.
 </Note>
 
-## Exclude workflows from preferences (critical workflow)
+## Subscriber global preferences 
 
-In some cases, you don't want the subscriber to be able to unsubscribe from mandatory notifications such as Account Verification, Password Reset, etc...
+Subscribers can set global channel preferences, which override individual settings. For instance, if there are 10 workflows, and a subscriber wants to disable SMS notifications for all of them, they can do so with via global preferences.
 
-In those cases you can mark a workflow as `critical` in workflow settings. By default, every workflow is `non-critical` and subscribers can manage channel preferences irrespective of workflow-level channel preferences. Critical workflow will not show on the subscriber preferences page.
+<Frame>
+  <img
+    style={{ borderRadius: "0.5rem", width: "400px" }}
+    src="/images/preferences/inbox-global-preferences.png"
+  />
+</Frame>
 
-## Order of priority of preferences
+## Critical workflows
 
-1. if `Users will be able to manage subscriptions` toggle is turned off i.e workflow is critical, this will override workflow level and subscriber level preferences and notification will always be sent.
-2. if workflow is non critical and subscriber has `false` value set for `enabled` field in preference then all other channels will become inactive even if they have `true` state.
-3. if workflow is non critical and subscriber has `true` value set for `enabled` field in preference then notification will be filtered based on subscriber channel preference.
-4. Workflow level channel preferences will be applied to all subscribers by default unless subscriber overrides them.
+In some cases, you don't want the subscriber to be able to unsubscribe from mandatory notifications such as Account Verification, Password Reset, etc... 
 
-`Example`
-
-1. For `First Workflow`, `critical` is false, `enabled` is true, in_app, email, push channels are true and sms, chat channels are false. As per above order of priority of preferences, notification will be filtered as per the subscriber preferences. The subscriber will receive in-app, email and push notifications, but not receive sms and chat notifications.
-
-2. For `Second Workflow`, `critical` is false, `enabled` is false, all channels are true. As per above order of priority of preferences, subscriber will not receive any type of notification because all channels become disabled due to false value of `enabled` field.
-
-3. For `Third Workflow`. `critical` is true, `enabled` is false, email, chat channels are false and the other three channels are true. As per above order of priority of preferences, subscriber will receive all type of notifications as this workflow is `critical`.
-
-<Tabs>
-  <Tab title="First Workflow">
-    ```json
-    {
-      "template": {
-        "_id": "firstWorkflowIdentifier",
-        "name": "First Workflow",
-        "critical": false
-      },
-      "preference": {
-        "enabled": true,
-        "channels": {
-          "in_app": true,
-          "email": true,
-          "sms": false,
-          "push": true,
-          "chat": false
-        }
-      }
-    }
-    ```
-  </Tab>
-  <Tab title="Second Workflow">
-    ```json
-    {
-      "template": {
-        "_id": "secondWorkflowIdentifier",
-        "name": "Second Workflow",
-        "critical": false
-      },
-      "preference": {
-        "enabled": false,
-        "channels": {
-          "in_app": true,
-          "email": true,
-          "sms": true,
-          "push": true,
-          "chat": true
-        }
-      }
-    }
-    ```
-  </Tab>
-  <Tab title="Third Workflow">
-    ```json
-    {
-      "template": {
-        "_id": "thirdWorkflowIdentifier",
-        "name": "Third Workflow",
-        "critical": true
-      },
-      "preference": {
-        "enabled": false,
-        "channels": {
-          "in_app": true,
-          "email": false,
-          "sms": true,
-          "push": true,
-          "chat": false
-        }
-      }
-    }
-    ```
-  </Tab>
-</Tabs>
+In those cases you can mark a workflow as `critical` in the Dashboard. Critical workflow are not displayed in the subscriber preferences page.
 
 ## API
 
 <CardGroup cols={3}>
   <Card
-    title="Get subscriber preferences API"
-    icon="plug"
+    title="Define workflow channel preferences"
+    icon="code"
+    color="#16a34a"
+    href="/sdks/framework/typescript/workflow#workflow-channel-preferences"
+  />
+  <Card
+    title="Get subscriber preferences via the API"
+    icon="user"
     color="#ea5a0c"
     href="/api-reference/subscribers/get-subscriber-preferences"
   />
   <Card
-    title="Update subscriber preference for a workflow API"
-    icon="plug"
+    title="Update subscriber preferencs via the API"
+    icon="bell"
     color="#0285c7"
     href="/api-reference/subscribers/update-subscriber-preference"
   />
-  <Card
-    title="Update workflow API"
-    icon="plug"
-    color="#16a34a"
-    href="/api-reference/workflows/update-workflow"
-  />
 </CardGroup>
-
-## Frequently Asked Questions
-
-<AccordionGroup>
-  <Accordion title="How to change enabled field from UI?">
-  This field can only be changed using API.
-  </Accordion>
-
-{" "}
-<Accordion title="What preferences are applied to a subscriber when we create a new workflow?">
-  In the case of a new workflow, the subscriber will inherit all preferences
-  from the workflow.However, after subsequent preference updates, the
-  subscriber's preferences will not inherit workflow-level preferences.
-</Accordion>
-
-    <Accordion title="How to disable a workflow for a single subscriber?">
-    You can turn off all workflow's channels for a subscriber using [subscriber preference](/subscribers/preferences#subscriber-level-channel-preferences). If all channels are off, then the subscriber will not receive any message from any channel step and hence workflow is disabled for that subscriber
-
-  </Accordion>
-</AccordionGroup>
