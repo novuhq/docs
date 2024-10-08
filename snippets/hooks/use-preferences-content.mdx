@@ -40,20 +40,3 @@ By default the preferences are cached, but you can use the `refetch` function to
   A function that can be called to refetch the preferences.
 </ParamField>
 
-## Example usage
-
-```tsx
-import { usePreferences } from '@novu/react/hooks';
-
-const PreferencesList = () => {
-  const { preferences, isLoading, error, refetch } = usePreferences();
-
-  return (
-    <Show when={!isLoading} fallback={<PreferencesListSkeleton />}>
-      {preferences?.map((preference) => {
-        return <PreferenceItem key={preference.id} preference={preference} />;
-      })}
-    </Show>
-  );
-};
-```
