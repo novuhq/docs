@@ -6,18 +6,23 @@ description: 'Learn how to add Novu powered Inbox to your React Native app'
 
 You can build your own Inbox UI with Novu's React Native hooks SDK. Novu will take care of data fetching, real-time updates and will help you build a fully custom notification-center UI.
 
+<Tip>
+View our [React Native Expo Template](https://github.com/novuhq/novu-expo) for a live example of the inbox in action.
+</Tip>
+
 <Steps>
   <Step title="Install the React Native hooks SDK">
-```bash
-npm install @novu/react
-```
+  ```bash
+  npm install @novu/react-native
+  ```
   </Step>
-  <Step title="Add the Novu provider to your react file">
+  <Step title="Add the Novu provider to your react-native file">
+    The `NovuProvider` component is used to provide the Novu context to the inbox hooks. Make sure that the provider is wrapping your Inbox hook usages at the component tree.
     <CodeGroup>
 ```tsx React Native
-import { NovuProvider } from '@novu/react';
+import { NovuProvider } from '@novu/react-native';
 
-function Novu() {
+function Layout() {
   return (
      <NovuProvider
       subscriberId="YOUR_SUBSCRIBER_ID"
@@ -40,42 +45,70 @@ function Novu() {
    <Step title="Build your own inbox UI">
     <CodeGroup>
 ```tsx React Native
-import { useNotifications } from '@novu/react';
+import {
+  FlatList,
+  View,
+  Text,
+  ActivityIndicator,
+  RefreshControl,
+} from "react-native";
+import { useNotifications, Notification } from "@novu/react-native";
 
 function YourCustomInbox() {
-  const { notifications, isLoading, fetchMore, hasMore } = useNotifications();
+   const { notifications, isLoading, fetchMore, hasMore, refetch } = useNotifications();
+
+  const renderItem = ({ item }) => (  
+    <View>
+      <Text>{item.body}</Text>
+    </View>
+  );
+
+  const renderFooter = () => {
+    if (!hasMore) return null;
+
+    return (
+      <View>
+        <ActivityIndicator size="small" color="#2196F3" />
+      </View>
+    );
+  };
+
+  const renderEmpty = () => (
+    <View>
+      <Text>No updates available</Text>
+    </View>
+  );
+
+  if (isLoading) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#2196F3" />
+      </View>
+    );
+  }
 
   return (
-    <Show when={!isLoading} fallback={<NotificationListSkeleton />}>
-      <Show
-        when={notifications && notifications.length > 0}
-        fallback={<EmptyNotificationList />}
-      >
-        <InfiniteScroll
-          dataLength={notifications?.length ?? 0}
-          fetchMore={fetchMore}
-          hasMore={hasMore}
-          loader={<LoadMoreSkeleton />}
-        >
-          {notifications?.map((notification) => {
-            return (
-              <NotificationItem
-                key={notification.id}
-                notification={notification}
-              />
-            );
-          })}
-        </InfiniteScroll>
-      </Show>
-    </Show>
+    <FlatList
+      data={notifications}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      contentContainerStyle={styles.listContainer}
+      onEndReached={fetchMore}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={renderFooter}
+      ListEmptyComponent={renderEmpty}
+      refreshControl={
+        <RefreshControl
+          refreshing={isLoading}
+          onRefresh={refetch}
+          colors={["#2196F3"]}
+        />
+      }
+    />
   );
 }
 ```
     </CodeGroup>
-
-    <Tip>
-      Learn more about all the available hooks [here](/inbox/react/hooks/overview).
-    </Tip>
   </Step>
 
   <Step title="Trigger a notification">
