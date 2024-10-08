@@ -5,11 +5,11 @@ description: "Learn how to use the Sendgrid provider to send email notifications
 
 You can use the [SendGrid](https://sendgrid.com/) provider to send transactional emails to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
-## Getting Started
+### Getting Started
 
 To use the Sendgrid provider in the email channel, you will need to create a Sendgrid account and add your API key to the SendGrid integration on the Novu platform.
 
-## Generating an API Key
+### Generating an API Key
 
 To generate a new API key in SendGrid, follow these steps:
 
@@ -28,7 +28,7 @@ The access level of the key will determine what actions the API Key can take, so
 - **Mail Send** - Full Access
 - (Optional) Template Engine - Read Only
 
-## Authenticating your [Sender Identity](https://docs.sendgrid.com/for-developers/sending-email/sender-identity)
+### Authenticating your [Sender Identity](https://docs.sendgrid.com/for-developers/sending-email/sender-identity)
 
 Before you can send emails on a large scale, you will need to authenticate your Sender Identity. This is due to the latest regulatory changes regarding SPAM rules and email fraud. Most of the providers including Sendgrid require you to authenticate your Sender Identity before you can send emails.
 
@@ -37,7 +37,7 @@ SendGrid allows you to authenticate your sender identity using one of the follow
 - [Single Sender Verification](https://docs.sendgrid.com/ui/sending-email/sender-verification) - This is the easiest way to authenticate your sender identity.
 - [Entire Domain Authentication](https://docs.sendgrid.com/ui/account-and-settings/how-to-set-up-domain-authentication) - This is recommended if you are sending emails from multiple accounts under your domain.
 
-## SendGrid integration with Novu
+### SendGrid integration with Novu
 
 - Visit the [Integrations store](https://dashboard.novu.co/integrations?utm_campaign=docs-sendgrid) on the Novu web dashboard.
 - Click on Add a Provider.
@@ -48,58 +48,60 @@ SendGrid allows you to authenticate your sender identity using one of the follow
 - Click on the **Update** button.
 - You should now be able to send notifications through SendGrid using Novu.
 
-## Using SendGrid template
+### Using SendGrid template
 
-Novu has its own email editor for writing email template. If you want to use pre made template from SendGrid, you can use `customData` filed of email overrides to send template details. Make sure your `Api Key` has enough permission to read and process the template.
+Novu has its own email editor for writing email template. To send pre-made template in SendGrid, `customData` filed of email overrides can be used to send template details. Make sure sendgrid `Api Key` has enough permission to read and process the template. This `customData` field can be used to send custom args and extra data in the form of key-value pairs.
 
 <Info>customData override is available from version 0.21.0</Info>
 
 <Tabs>
   <Tab title="Node.js">
-```jsx
-import { Novu } from '@novu/node';
+```typescript
+import { Novu } from "@novu/node";
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.trigger("workflowIdentifier", {
-to: "subscriberId",
-payload: {},
-overrides: {
-email: {
-customData: {
-// sendgrid template templateId
-templateId: 'sendgrid-template-id',
-// sendgrid template variables
-dynamicTemplateData: {
-total: '$ 239.85',
-items: [{
-text: 'New Line Sneakers',
-image: 'https://marketing-image-production.s3.amazonaws.com/uploads/8dda1131320a6d978b515cc04ed479df259a458d5d45d58b6b381cae0bf9588113e80ef912f69e8c4cc1ef1a0297e8eefdb7b270064cc046b79a44e21b811802.png',
-price: '$ 79.95',
-},
-{
-text: 'Old Line Sneakers rlfjrjrh4hr4rh4',
-image: 'https://marketing-image-production.s3.amazonaws.com/uploads/3629f54390ead663d4eb7c53702e492de63299d7c5f7239efdc693b09b9b28c82c924225dcd8dcb65732d5ca7b7b753c5f17e056405bbd4596e4e63a96ae5018.png',
-price: '$ 79.95',
-},
-],
-receipt: true,
-name: 'Sample Name',
-address01: '1234 Fake St.',
-address02: 'Apt. 123',
-city: 'Place',
-state: 'CO',
-zip: '80202',
-},
-},
-}
-},
-// actorId is subscriberId of actor
-actor: "actorId"
-tenant: "tenantIdentifier"
+  to: "subscriberId",
+  payload: {},
+  overrides: {
+    email: {
+      customData: {
+        // sendgrid template templateId
+        templateId: "sendgrid-template-id",
+        // sendgrid template variables
+        dynamicTemplateData: {
+          total: "$ 239.85",
+          items: [
+            {
+              text: "New Line Sneakers",
+              image:
+                "https://marketing-image-production.s3.amazonaws.com/uploads/8dda1131320a6d978b515cc04ed479df259a458d5d45d58b6b381cae0bf9588113e80ef912f69e8c4cc1ef1a0297e8eefdb7b270064cc046b79a44e21b811802.png",
+              price: "$ 79.95",
+            },
+            {
+              text: "Old Line Sneakers rlfjrjrh4hr4rh4",
+              image:
+                "https://marketing-image-production.s3.amazonaws.com/uploads/3629f54390ead663d4eb7c53702e492de63299d7c5f7239efdc693b09b9b28c82c924225dcd8dcb65732d5ca7b7b753c5f17e056405bbd4596e4e63a96ae5018.png",
+              price: "$ 79.95",
+            },
+          ],
+          receipt: true,
+          name: "Sample Name",
+          address01: "1234 Fake St.",
+          address02: "Apt. 123",
+          city: "Place",
+          state: "CO",
+          zip: "80202",
+        },
+      },
+    },
+  },
+  // actorId is subscriberId of actor
+  actor: "actorId",
+  tenant: "tenantIdentifier",
 });
-
-````
+```
   </Tab>
   <Tab title="cURL">
 ```bash
@@ -141,7 +143,6 @@ curl --location 'https://api.novu.co/v1/events/trigger' \
         }
     }
 }'
-````
-
+```
   </Tab>
 </Tabs>
