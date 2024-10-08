@@ -158,3 +158,29 @@ This would producte the following url: - API: company.com/novu-api
   These env variables should be present on all services novu provides due to tight
   coupling.
 </Note>
+
+## FAQs
+### Local Tunnel and Self-Hosted Deployments
+
+Novu uses a local tunnel to connect to Local Studio during development. Local tunnel support is not included as part of the Novu Docker images. This is typically unnecessary for many users, depending on how their environment is structured.
+
+#### When is Local Tunnel Not Required?
+If the customer’s application and the self-hosted Novu deployment are within the same network, there is no need for a local tunnel. In this case, the application can communicate directly with Novu through the internal network.
+
+#### When is Local Tunnel Required?
+If the application and Novu deployment reside on different networks, you can still interact with your self-hosted Novu instance using the Novu CLI. The CLI allows you to specify the Dashboard URL and Bridge Endpoint Origin to enable communication across networks via the Novu Cloud Local Tunnel.
+
+For example, you can use the following command:
+
+```bash
+npx novu@latest dev -d http://my-self-hosted-novu-domain.com:my-port -o http://my-app-running-novu-domain.com
+```
+
+- `-d`: The URL of your self-hosted Novu Dashboard.
+- `-o`: The origin of your application that will be communicating with Novu.
+
+For more details on the available options, refer to the CLI help by running:
+
+```bash
+npx novu@latest dev --help
+```
