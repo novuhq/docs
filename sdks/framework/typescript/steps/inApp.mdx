@@ -1,0 +1,163 @@
+---
+title: 'In-App Channel Step'
+sidebarTitle: 'In-App'
+icon: 'inbox'
+---
+
+The `inApp` step allows you to send a message to your user's `<Inbox />` for your web or a mobile app.
+
+<RequestExample>
+    ```typescript Inbox
+    await step.inApp('inbox', async () => {
+      return {
+        subject: 'Welcome to Acme!',
+        body: 'We are excited to have you on board.',
+        avatar: 'https://acme.com/avatar.png',
+        redirect: {
+          url: 'https://acme.com/welcome',
+          target: '_blank',
+        },
+        primaryAction: {
+          label: 'Get Started',
+          redirect: {
+            url: 'https://acme.com/get-started',
+            target: '_self',
+          }
+        },
+        secondaryAction: {
+          label: 'Learn More',
+            redirect: {
+            url: 'https://acme.com/learn-more',
+            target: '_self',
+          }
+        },
+        data: {
+          customData: 'customValue',
+          text: payload.text,
+        },
+      };
+    });
+    ```
+</RequestExample>
+
+<ResponseExample>
+    ```typescript Inbox
+    const {
+      seen,
+      read,
+      lastSeenDate,
+      lastReadDate,
+    } = await step.inApp('inbox', resolver);
+    ```
+</ResponseExample>
+
+## In-App Step Output
+
+<ParamField path="body" type="string" required>
+  The body of the inbox notification. The main content of the notification.
+</ParamField>
+<ParamField path="subject" type="string">
+  The subject of the inbox notification. This property communicates the subject
+  of the notification to the user.
+</ParamField>
+<ParamField path="avatar" type="string">
+  The avatar shown in the inbox notification. When specified, overrides the
+  avatar of the actor initiating the notification.
+</ParamField>
+<ParamField path="redirect" type="object">
+  The redirect object is used to define the URL to visit when interacting with
+  the notification. This property can be omitted in place of an
+  `onNotificationClick`
+  [handler](/inbox/react/components#handle-notification-click) implemented in
+  the `<Inbox />` component.
+  <Expandable title="properties" defaultOpen>
+    <ParamField path="url" type="string" required>
+      The URL to visit when clicking on the notification.
+    </ParamField>
+    <ParamField path="target" type="string">
+      The target attribute specifies where the new window or tab will be opened.
+      This property is optional and defaults to `_blank`. The supported values
+      are: `_self, _blank, _parent, _top, _unfencedTop`.
+    </ParamField>
+  </Expandable>
+</ParamField>
+<ParamField path="primaryAction" type="object">
+  Define a primary action to be shown in the inbox notification. The primary
+  action will appear with an accent color.
+  <Expandable title="properties" defaultOpen>
+    <ParamField path="label" type="string" required>
+      The label of the action.
+    </ParamField>
+    <ParamField path="redirect" type="object">
+      The redirect object is used to define the URL to visit when interacting
+      with the notification action buttons. This property can be omitted in
+      place of an `onPrimaryActionClick`
+      [handler](/inbox/react/components#handle-notification-button-clicks)
+      implemented in the `<Inbox />` component.
+      <Expandable title="properties">
+        <ParamField path="url" type="string" required>
+          The URL to visit when clicking on the notification action button.
+        </ParamField>
+        <ParamField path="target" type="string">
+          The target attribute specifies where the new window or tab will be
+          opened. This property is optional and defaults to `_blank`. The
+          supported values are: `_self, _blank, _parent, _top, _unfencedTop`.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+<ParamField path="secondaryAction" type="object">
+  Define a secondary action to be shown in the inbox notification. The secondary
+  action will appear with a muted color.
+  <Expandable title="properties" defaultOpen>
+    <ParamField path="label" type="string" required>
+      The label of the action.
+    </ParamField>
+    <ParamField path="redirect" type="object">
+      The redirect object is used to define the URL to visit when interacting
+      with the notification action buttons. This property can be omitted in
+      place of an `onSecondaryActionClick`
+      [handler](/inbox/react/components#handle-notification-button-clicks)
+      implemented in the `<Inbox />` component.
+      <Expandable title="properties">
+        <ParamField path="url" type="string" required>
+          The URL to visit when clicking on the notification action button.
+        </ParamField>
+        <ParamField path="target" type="string">
+          The target attribute specifies where the new window or tab will be
+          opened. This property is optional and defaults to `_blank`. The
+          supported values are: `_self, _blank, _parent, _top, _unfencedTop`.
+        </ParamField>
+      </Expandable>
+    </ParamField>
+  </Expandable>
+</ParamField>
+<ParamField path="data" type="object">
+  Custom data to be sent with the notification. This data can be used to
+  [customize the notification item
+  rendered](/inbox/react/components#custom-notification-item) in the `<Inbox />`.
+</ParamField>
+
+## In-App Step Result
+
+<ParamField path="seen" type="boolean" required>
+  A flag indicating if the notification has been seen. This property is useful
+  when conditionally delivering notifications in subsequent steps via the `skip`
+  function. A notification is marked as seen when the user views the
+  notification.
+</ParamField>
+<ParamField path="read" type="boolean" required>
+  A flag indicating if the notification has been read. A notification is marked
+  as read when the user confirms the notification.
+</ParamField>
+<ParamField path="lastSeenDate" type="date | null" required>
+  The date the notification was last seen. This corresponds to the date the
+  `seen` property was set to `true`, or `null` if the notification has not been
+  seen.
+</ParamField>
+<ParamField path="lastReadDate" type="date | null" required>
+  The date the notification was last read. This corresponds to the date the
+  `read` property was set to `true`, or `null` if the notification has not been
+  read.
+</ParamField>
