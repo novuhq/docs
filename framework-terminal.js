@@ -1116,7 +1116,7 @@ function StepCompletionPopover(o) {
 function SeenCompletionPopover(o) {
     let e, n;
     return (
-        (e = new G({ props: { line: 17, pos: 33, pop: !0, noninteractable: !0, $$slots: { default: [SeenCompletionPopoverContent] }, $$scope: { ctx: o } } })),
+        (e = new G({ props: { line: 15, pos: 33, pop: !0, noninteractable: !0, $$slots: { default: [SeenCompletionPopoverContent] }, $$scope: { ctx: o } } })),
         {
             c() {
                 P(e.$$.fragment);
@@ -1836,7 +1836,7 @@ commentWorkflow.<span class="hover" id="nv-node-framework-trigger"><fn>trigger</
     be.subscribe((A) => {
         transitionToState(6, (ve = A));
     });
-    let StepCompletionComponent = { line: 11, pos: 18, completion: "email", completions: stepCompletions, written: 0, index: 3 };
+    let StepCompletionComponent = { line: 9, pos: 18, completion: "email", completions: stepCompletions, written: 0, index: 3 };
     const _t = () => setTimer(1500),
         gt = (A) => {
             transitionToState(7, (StepCompletionComponent.completion = A.detail), StepCompletionComponent), transitionToState(4, (finalStateSnippet[6] = `    model: <span class="hover" id="nv-node-framework-step"><str>'${A.detail}'</str></span>,`), finalStateSnippet);
