@@ -11,7 +11,7 @@ export const testWorkflow = workflow('test-workflow', async ({ step, payload }) 
     },
     {
         controlSchema: z.object({
-            subject: z.string().default("A Successful Test on Novu from {{userName}}"),
+            subject: z.string().default('A Successful Test on Novu from {{userName}}'),
         }),
     });
 }, {
