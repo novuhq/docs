@@ -15,12 +15,31 @@ title: "Step Interface"
     });
     ```
     ```typescript Skip
-    await step.email('stepId', resolver, {
+    await step.email('skipped-step', async () => ({
+        subject: 'Hello, world!',
+        body: 'My email message',
+    }), {
         skip: async (controls) => true,
     });
     ```
+    ```typescript Disable Output Sanitization
+    await step.inApp(
+      'without-sanitization',
+      async () => ({
+        body: 'My in-app message',
+        data: {
+          link: '/pipeline/123?active=true&env=prod',
+        },
+      }),
+      {
+        // Prevent the `&` character in `data.link` from
+        // being converted to `&amp;`
+        disableOutputSanitization: true,
+      }
+    );
+    ```
     ```typescript Provider Overrides
-    await step.email('stepId', resolver, {
+    await step.email('provider-override', resolver, {
       providers: {
         slack: ({ controls, outputs }) => {
           return {
@@ -38,7 +57,7 @@ title: "Step Interface"
     });
     ```
     ```typescript Provider Passthrough
-    await step.email('stepId', resolver, {
+    await step.email('provider-passthrough', resolver, {
       providers: {
         sendgrid: ({ controls, outputs }) => {
           return {
@@ -98,6 +117,10 @@ This is an optional configuration object that defines: [Controls Schema](/framew
 
 <ResponseField name="providers" type="ProvidersOverride">
   This object used to access and override the underlying deliver providers SDKs. This is useful when you want to customize the content of the notification with properties that are unique to the provider.
+</ResponseField>
+
+<ResponseField name="disableOutputSanitization" type="boolean" default="false">
+  A flag to disable output sanitization for the step. This is useful when you want to return unescaped HTML content to the provider or the `<Inbox/>` component.
 </ResponseField>
 
 ### Providers Overrides Object
