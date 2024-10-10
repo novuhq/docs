@@ -14,9 +14,9 @@ export const testWorkflow = workflow('test-workflow', async ({ step, payload }) 
             subject: z.string().default('A Successful Test on Novu from {{userName}}'),
         }),
     });
-    }, {
-        payloadSchema: z.object({
-            userName: z.string().default('John Doe'),
-        }),
+}, {
+    payloadSchema: z.object({
+        userName: z.string().default('John Doe'),
+    }),
 });
 ```
