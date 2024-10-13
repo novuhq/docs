@@ -119,6 +119,9 @@ await step.email("send-email", async () => {
 });
 ```
 
+<Info>Step Controls: At the moment, it is not possible to use digest information in step controls. You can only use it from the code, by creating a custom component for handling digested data..</Info>
+
+
 The digest step returns an object with `events` array. Each event in the array has the following properties:
 
 - `id` - The `job id` of the digested event
