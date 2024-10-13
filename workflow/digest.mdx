@@ -94,7 +94,7 @@ const digestResult = await step.digest("digest", async () => {
 });
 ```
 
-## Writing digest templates
+## Writing digest content
 
 In many cases, you will need to access all the digested events payload in order to show the user all or parts of the events included in this digest. For example: **"John and 5 others liked your photo."**
 
@@ -102,7 +102,7 @@ The digest function returns an array of triggers that have been digested.
 You can use this array to perform any necessary actions on the digested triggers. Like Sending and email, or updating a database.
 
 ```tsx
-const digestResult = await step.digest("digest-3-days", async () => {
+const { events } = await step.digest("digest-3-days", async () => {
   return {
     unit: "days", // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
     amount: 3, // the number of units to digest events for
@@ -110,9 +110,11 @@ const digestResult = await step.digest("digest-3-days", async () => {
 });
 
 await step.email("send-email", async () => {
+  const eventCount = events.length;
+
   return {
     subject: "Digest Email",
-    body: `You have ${digestResult.events.length} new events`,
+    body: `You have ${eventCount} new events`,
   };
 });
 ```
