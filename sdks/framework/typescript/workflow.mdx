@@ -16,12 +16,15 @@ sidebarTitle: "Workflow"
     }, {
       payloadSchema: z.object({
         body: z.string(),
-      },
+      }),
+      name: "My Workflow",
+      description: "This is a workflow",
+      tags: ["business", "critical"],
       preferences: {
         channels: {
           inApp: { enabled: true }
         },
-      }
+      },
     });
     ```
 </RequestExample>
@@ -51,9 +54,15 @@ workflow(
 <ParamField path="options" type="WorkflowOptions">
     An optional options object for workflow level configurations
 
-    <Expandable title="properties">
-        <ParamField path="payloadSchema" type="JSON Schema | Zod">
+    <Expandable title="properties" defaultOpen>
+        <ParamField path="payloadSchema" type="JsonSchema | ZodSchema">
             The schema to validate the event payload against, can be used to provide default values.
+        </ParamField>
+        <ParamField path="name" type="string">
+            The name of the workflow. This is used to display a human-friendly name for the workflow in the Dashboard and `<Inbox />` component. If no value is specified, the `workflowId` will be used as the name.
+        </ParamField>
+        <ParamField path="description" type="string">
+            The description of the workflow. This is used to provide a brief overview of the workflow in the Dashboard.
         </ParamField>
         <ParamField path="tags" type="string[]">
             The tags assigned to the workflow. Tags can be used to filter workflows in the dashboard, and can be used by channels such as Inbox to sort Notifications into different categories for a better user experience.
