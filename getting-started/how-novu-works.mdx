@@ -4,7 +4,7 @@ title: "How Does Novu Work"
 
 Novu was built to provide the most flexible and customizable set of building blocks to deliver modern embedded notification experiences.
 
-We can break down the Novu architecture into four main components:
+We can break down the Novu platform into four main components:
 
 - [Novu API](#novu-api)
 - [Bridge Endpoint](#bridge-endpoint)
@@ -17,17 +17,17 @@ We can break down the Novu architecture into four main components:
 
 ## Novu API
 
-The Novu API is responsible for triggering notifications, managing subscribers, powering the Inbox Component, and more. 
-This is a restful service that you can access using our server-side SDKs or directly via HTTP requests using the generated API Secret Key associated with your account.
+The Novu API is responsible for triggering notifications, managing subscribers, powering the [Inbox Component](/inbox/introduction), and more. 
+This is a restful service that you can access using our [server-side SDKs](/sdks/nodejs) or directly via [HTTP](/api-reference/overview) using the generated API Secret Key associated with your [environment](/concepts/environments).
 
 ## Workflow Engine
 
-Once an event is triggered, it will be persisted on our database and pushed to the workflow queue, which will be picked by the workflow engine for processing.
-The workflow engine is responsible for fanning out the generated notifications to multiple subscribers and topics, scheduling delayed events, and retrying failed jobs, handling subscriber preferences and more.
+Once an event is [triggered](/concepts/trigger), it will be persisted on our database and pushed to the workflow queue, which will be picked by the workflow engine for processing.
+The workflow engine is responsible for fanning out the generated notifications to multiple [subscribers](/concepts/subscribers) and topics, scheduling [delayed events](/workflow/delay), and retrying failed jobs, handling [subscriber preferences](/concepts/preferences) and more.
 
 ## Bridge Endpoint
 
-The bridge endpoint is an HTTP endpoint that is powered by the Novu Framework SDK and should be deployed in your own infrastructure. 
+The bridge endpoint is an HTTP endpoint that is powered by the [Novu Framework SDK](/sdks/framework/typescript/overview) and should be [deployed](/deployment/syncing) in your own infrastructure. 
 Bridge endpoint is responsible for multiple aspects of the notification delivery process:
 
 - Defining workflows and their steps
@@ -42,7 +42,7 @@ Bridge endpoint is responsible for multiple aspects of the notification delivery
 
 #### Build phase
 
-When building new workflows, you will be using the Novu Framework SDK to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/workflow/studio) companion app.
+When [building new workflows](/workflow/introduction), you will be using the [Novu Framework SDK](/sdks/framework/typescript/overview) to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/workflow/studio) companion app.
 
 #### Sync phase
 
