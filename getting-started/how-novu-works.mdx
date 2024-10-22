@@ -2,11 +2,67 @@
 title: "How Does Novu Work"
 ---
 
-The [Novu Framework](/sdks/framework/typescript/overview) enables you to work in your application, use your own libraries, and connect to your production environment during workflow execution over HTTPS.
+Novu was built from the ground up to provide the most flexible and customizable set of building blocks to deliver modern embedded notification experiences.
 
-The framework exports the client you use to define and serve your workflows and their steps over HTTPS. 
-The workflows can be added to your preferred framework. During workflow execution Novu Cloud makes HTTPS requests to your [Bridge Endpoint](/concepts/endpoint) for _just-in-time_ content and [Subscribers](/concepts/subscribers) resolution.
+We can break down the Novu architecture into three main components:
+
+- Novu API
+- Bridge Endpoint
+- Workflow Engine
 
 <Frame>
-  <img src="/images/framework/diagram.png" />
+  <img src="/images/novu-works.png" />
 </Frame>
+
+## Novu API
+
+The Novu API is responsible for triggering notifications, managing subscribers, powering the Inbox Component, and more. 
+This is a restful service that you can access using our server-side SDKs or directly via HTTP requests using the generated API Secret Key associated with your account.
+
+## Workflow Engine
+
+Once a notification is triggered, it will be persisted on our database and pushed to the workflow queue, which will be picked by the workflow engine for processing.
+
+The engine is responsible for fanning out the notifications to multiple subscribers and topics, scheduling delayed events, and retrying failed jobs if needed.
+
+## Bridge Endpoint
+
+The bridge endpoint is an HTTP endpoint that is powered by the Novu Framework SDK and should be deployed in your own infrastructure. 
+Bridge endpoint is responsible for multiple aspects of the notification delivery process:
+
+- Defining workflows and their steps
+- Abstracting the content of the notification
+- Exposing No-Code controls to the Dashboard for no-code modifications to content and configuration
+- Executing complex logic such as:
+  - Fetching data from external APIs
+  - Hydrating just-in-time subscriber and topic information
+  - Decision making for delivery based on custom rules
+
+### Bridge Endpoint execution phases
+
+#### Build phase
+
+When building new workflows, you will be using the Novu Framework SDK to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/workflow/studio) companion app.
+
+#### Sync phase
+
+A sync is needed once a notification workflow code is created or updated. We offer multiple sync methods including CI/CD integrations and a custom CLI tool.
+
+During a sync, the workflows defined using the Novu Framework SDK will be pushed to our cloud service and will be persisted in our database. 
+Once synced, you will be able to view the workflows in the Workflows Page on the Dashboard. All the controls created using JSON Schema or Zod will be transformed into UI elements that can be modified without changing the source code. Read more about controls [here](/concepts/controls).
+
+#### Execution phase
+
+Once a workflow is synced, the workflow engine will make API requests to the bridge endpoint to execute individual workflow steps.
+After the fan-out is complete, the bridge endpoint will be triggered with the relevant execution context and will respond with the compiled content and metadata needed to deliver the notification.
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="What languages are supported by the Novu Framework?">
+    Currently we only support Typescript and Javascript based runtimes for creating workflows.
+  </Accordion>
+  <Accordion title="Can I create workflows using the Dashboard without code?">
+    Currently only code based workflows are supported. The team is currently working on a no-code solution for building workflows powered by an ejectable code engine.
+  </Accordion>
+</AccordionGroup>
