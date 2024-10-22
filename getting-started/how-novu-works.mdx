@@ -9,6 +9,7 @@ We can break down the Novu architecture into three main components:
 - [Novu API](#novu-api)
 - [Bridge Endpoint](#bridge-endpoint)
 - [Workflow Engine](#workflow-engine)
+- [Dashboard](#dashboard)
 
 <Frame>
   <img src="/images/novu-works.png" />
@@ -55,6 +56,11 @@ Once synced, you will be able to view the workflows in the Workflows Page on the
 
 Once a workflow is synced, the workflow engine will make API requests to the bridge endpoint to execute individual workflow steps.
 After the fan-out is complete, the bridge endpoint will be triggered with the relevant execution context and will respond with the compiled content and metadata needed to deliver the notification.
+
+## Dashboard
+
+The Dashboard is a managed user interface for managing the workflow controls, connecting integrations, debugging workflow execution, and more.
+Each control created in the code workflow definition will generate a corresponding UI element in the Dashboard editor, any changes to those controls will be overriding the default values defined in the code.
 
 ## FAQ
 
