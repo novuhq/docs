@@ -4,7 +4,7 @@ title: "How Does Novu Work"
 
 Novu was built to provide the most flexible and customizable set of building blocks to deliver modern embedded notification experiences.
 
-We can break down the Novu architecture into three main components:
+We can break down the Novu architecture into four main components:
 
 - [Novu API](#novu-api)
 - [Bridge Endpoint](#bridge-endpoint)
@@ -22,9 +22,8 @@ This is a restful service that you can access using our server-side SDKs or dire
 
 ## Workflow Engine
 
-Once a notification is triggered, it will be persisted on our database and pushed to the workflow queue, which will be picked by the workflow engine for processing.
-
-The engine is responsible for fanning out the notifications to multiple subscribers and topics, scheduling delayed events, and retrying failed jobs if needed.
+Once an event is triggered, it will be persisted on our database and pushed to the workflow queue, which will be picked by the workflow engine for processing.
+The workflow engine is responsible for fanning out the generated notifications to multiple subscribers and topics, scheduling delayed events, and retrying failed jobs, handling subscriber preferences and more.
 
 ## Bridge Endpoint
 
@@ -34,7 +33,7 @@ Bridge endpoint is responsible for multiple aspects of the notification delivery
 - Defining workflows and their steps
 - Abstracting the content of the notification
 - Exposing No-Code controls to the Dashboard for no-code modifications to content and configuration
-- Executing complex logic such as:
+- Executing advanced logic such as:
   - Fetching data from external APIs
   - Hydrating just-in-time subscriber and topic information
   - Decision making for delivery based on custom rules
