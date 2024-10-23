@@ -19,3 +19,22 @@ Bulk requests have a rate limit cost of 100 times the base limit and consume fro
 | Events        | 60 rps | 600 rps  | Trigger                                                              |
 | Configuration | 20 rps | 200 rps  | Subscribers, Topics, Tenants                                         |
 | Global        | 30 rps | 300 rps  | All other endpoints consume rate limiting tokens from this category. |
+
+### HTTP response headers
+
+When integrating with Novu API, it’s important to consider the rate limiting HTTP headers included in the response. These headers help you manage your API usage and avoid hitting rate limits. 
+
+- RateLimit-Remaining
+  Indicates how many requests you have left in the current window.
+
+- RateLimit-Limit
+  Shows the total number of requests allowed.
+
+- RateLimit-Reset
+  Indicates shows when the current window will reset.
+ 
+- RateLimit-Policy
+  Defines the details on the applied rate limiting policy.
+
+- Retry-After
+  Specify how long to wait before making another request.
