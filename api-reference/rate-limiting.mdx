@@ -24,17 +24,29 @@ Bulk requests have a rate limit cost of 100 times the base limit and consume fro
 
 When integrating with Novu API, it’s important to consider the rate limiting HTTP headers included in the response. These headers help you manage your API usage and avoid hitting rate limits. 
 
+```
+RateLimit-Remaining: 219
+RateLimit-Limit: 300
+RateLimit-Reset: 2
+RateLimit-Policy: 300;w=5;burst=330;comment="token bucket";category="trigger";cost="bulk";serviceLevel="free"
+```
+
 - RateLimit-Remaining
-  Indicates how many requests you have left in the current window.
+
+  Indicates the remaining number of request tokens in current window.
 
 - RateLimit-Limit
-  Shows the total number of requests allowed.
+
+  Indicates the total number of request tokens available in the current window.
 
 - RateLimit-Reset
-  Indicates shows when the current window will reset.
+
+  Indicates the seconds until current resets and the request token limit is fully replenished.
  
 - RateLimit-Policy
+
   Defines the details on the applied rate limiting policy.
 
 - Retry-After
+
   Specify how long to wait before making another request.
