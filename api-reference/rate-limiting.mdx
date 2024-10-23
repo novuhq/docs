@@ -11,14 +11,16 @@ A variable-cost token bucket rate limited algorithm has been added to provide th
 
 ## Limits
 
-The following limits apply to each category of the Novu system. Each category has an independent bucket of rate-limit tokens to consume.
-Bulk requests have a rate limit cost of 100 times the base limit and consume from the same token pool. For example, the free tier would allow a combined maximum of 10 standard trigger events and 2 bulk trigger events in the same 1-second window.
+The following limits apply to each category of the Novu system. Each category has an independent bucket of request tokens to consume from.
+Standard requests cost 1 request token and bulk requests cost 100 request tokens. Both standard and bulk requests consume from the same token pool.
+
+Each category has a different limit of requests per second (RPS), with the endpoints in each category shown below.
 
 | Category      | Free   | Business | Endpoints                                                            |
 | ------------- | ------ | -------- | -------------------------------------------------------------------- |
-| Events        | 60 rps | 600 rps  | Trigger                                                              |
-| Configuration | 20 rps | 200 rps  | Subscribers, Topics, Tenants                                         |
-| Global        | 30 rps | 300 rps  | All other endpoints consume rate limiting tokens from this category. |
+| Events        | 60 RPS | 600 RPS  | Trigger                                                              |
+| Configuration | 20 RPS | 200 RPS  | Subscribers, Topics, Tenants                                         |
+| Global        | 30 RPS | 300 RPS  | All other endpoints consume request tokens from this category. |
 
 ### HTTP response headers
 
@@ -31,22 +33,8 @@ RateLimit-Reset: 2
 RateLimit-Policy: 300;w=5;burst=330;comment="token bucket";category="trigger";cost="bulk";serviceLevel="free"
 ```
 
-- RateLimit-Remaining
-
-  Indicates the remaining number of request tokens in the current window.
-
-- RateLimit-Limit
-
-  Indicates the total number of request tokens available in the current window.
-
-- RateLimit-Reset
-
-  Indicates the number of seconds until the current window resets and the request token limit is fully replenished.
- 
-- RateLimit-Policy
-
-  Defines the details on the applied rate limiting policy.
-
-- Retry-After
-
-  Specifies the number of seconds to wait before making another request.
+- `RateLimit-Remaining` - Indicates the remaining number of request tokens in the current window.
+- `RateLimit-Limit` - Indicates the total number of request tokens available in the current window.
+- `RateLimit-Reset` - Indicates the number of seconds until the current window resets and the request token limit is fully replenished.
+- `RateLimit-Policy` - Defines the details of the applied rate limiting policy.
+- `Retry-After` - Specifies the number of seconds to wait before making another request.
