@@ -1,41 +1,41 @@
 ---
-title: "Sendinblue"
-description: "Learn how to use the Sendinblue provider to send email notifications using Novu"
+title: "Brevo"
+description: "Learn how to use the Brevo provider to send email notifications using Novu"
 ---
 
-You can use the [Sendinblue](https://www.sendinblue.com/) provider to send transactional emails to your customers using the Novu Platform with a single API.
+You can use the [Brevo](https://www.brevo.com/) provider to send transactional emails to your customers using the Novu Platform with a single API.
 
 # Getting Started
 
-To use the Sendinblue provider in the email channel, you will need to create a Sendinblue account and add your API key to the Sendinblue integration on the Novu platform.
+To use the Brevo provider in the email channel, you will need to create a Brevo account and add your API key to the Brevo integration on the Novu platform.
 
 # Finding the API Key
 
-- To find your Sendinblue API key, log into your Sendinblue account and navigate to the [API Keys](https://account.sendinblue.com/advanced/api) page.
+- To find your Brevo API key, log into your Brevo account and navigate to the [API Keys](https://account.brevo.com/advanced/api) page.
 
 # Authenticating your sender identity
 
-Before you can send emails on a large scale, you will need to authenticate your sender's identity. This is due to the latest regulatory changes regarding SPAM rules and email fraud. Most of the providers including Sendinblue require you to authenticate your sender identity before you can send emails.
+Before you can send emails on a large scale, you will need to authenticate your sender's identity. This is due to the latest regulatory changes regarding SPAM rules and email fraud. Most of the providers including Brevo require you to authenticate your sender identity before you can send emails.
 
-Sendinblue allows you to authenticate your sender identity using one of the following methods:
+Brevo allows you to authenticate your sender identity using one of the following methods:
 
-- [Single Sender Verification](https://account.sendinblue.com/senders) - This is the easiest way to authenticate your sender identity.
-- [Entire Domain Authentication](https://help.sendinblue.com/hc/en-us/articles/115000185270-What-is-a-verified-domain-on-Sendinblue-) - This is recommended if you are sending emails from multiple accounts under your domain.
+- [Single Sender Verification](https://account.brevo.com/senders) - This is the easiest way to authenticate your sender identity.
+- [Entire Domain Authentication](https://help.brevo.com/hc/en-us/articles/12163873383186-Authenticate-your-domain-with-Brevo-Brevo-code-DKIM-record-DMARC-record) - This is recommended if you are sending emails from multiple accounts under your domain.
 
-# Creating a Sendinblue integration with Novu
+# Creating a Brevo integration with Novu
 
-- Visit the [Integrations store](https://dashboard.novu.co/integrations?utm_campaign=docs-sendinblue) on the Novu web dashboard.
+- Visit the [Integrations store](https://dashboard.novu.co/integrations?utm_campaign=docs-brevo) on the Novu web dashboard.
 - Click on Add a Provider.
-- Select Sendinblue service.
-- Enter your Sendinblue API key.
+- Select Brevo service.
+- Enter your Brevo API key.
 - Fill in the `From email address` field using the authenticated email from the previous step.
 - Click on the `Disabled` button and mark it as `Active`.
 - Click on the **Update** button.
-- You should now be able to send notifications using Sendinblue in Novu.
+- You should now be able to send notifications using Brevo in Novu.
 
-## Using Sendinblue template
+## Using Brevo template
 
-Novu has its own email editor for writing email template. If you want to use pre made template from Sendinblue, you can use `customData` filed of email overrides to send template details. Make sure your `Api Key` has enough permission to read and process the template.
+Novu has its own email editor for writing email template. If you want to use pre made template from Brevo, you can use `customData` filed of email overrides to send template details. Make sure your `Api Key` has enough permission to read and process the template.
 
 <Info>customData override is available from version 0.21.0</Info>
 
