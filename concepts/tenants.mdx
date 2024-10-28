@@ -1,81 +1,37 @@
 ---
-title: "Tenants"
-description: "Learn all about Tenants"
+title: "Multi-tenancy"
+description: "Learn about how to implement multi-tenant notifications in Novu"
 ---
+
+<Info>
+This features is currently under development, and planned to be released in early Q1 2025.
+</Info>
 
 Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants.
 
-Currently, Novu supports the following customizations:
-
-- Workflow level customizations
-- Integration customizations
+Some of the common multi-tenancy use cases are:
+- Group subscribers by the tenant
+- Use a different delivery provider for each tenant
+- Adjust the content of the notification depending on the tenant
+- Specify different subscriber preference defaults
 
 ## Tenant Management
 
-Tenants can be created and modified via the [API](http://docs.novu.co/api-reference/tenants/get-tenants) or [Web](https://dashboard.novu.co/tenants?utm_campaign=docs-tenants). Each tenant can have multiple fields on it:
+Tenants can be created and modified via the API or Dashboard. Each tenant can have multiple fields representing the tenant's data:
 
 - Identifier - The identifier is a unique value, and can be used later when pointing to this tenant during trigger calls.
 - Name - A human-readable name of the tenant.
 - Data - A custom data object that can store information about the tenant. This data can be later accessed inside workflows.
 
-## Workflow Level Customizations
+## Multi-tenancy vs topics
 
-When triggering a workflow, it is possible to pass the tenant information (id or object, in case of an object, novu will upsert the tenant if it’s not existing) like so:
+While topics can be mapped to any nested entity in your application such as teams, projects, issues, and etc...
+Tenants are some times refered to as "organizations", "workspaces", "companies" or "accounts" and are usually directly tied to your customer entities.
 
-<Tabs>
-  <Tab title="Node.js">
-  ```javascript
-    import { Novu } from '@novu/node';
+## Using Tenant data
 
-    const novu = new Novu("<NOVU_SECRET_KEY>");
-
-    await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>',
-      {
-        to: {
-          subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
-        },
-        payload: {
-          name: "Hello World",
-        },
-        actor: "actorId"
-        tenant: "tenantIdentifier"
-      }
-    );
+When creating a tenant, you can specify a data object that will be available to you in your workflows. This can be useful to store information about the tenant such as the name, logo, etc...
 
 ```
-</Tab>
-<Tab title="PHP">
-```php
-  use Novu\SDK\Novu;
-
-  $novu = new Novu('<NOVU_SECRET_KEY_HERE>');
-
-  $novu->triggerEvent([
-    'name' => '<WORKFLOW_TRIGGER_IDENTIFIER>',
-    'payload' => [
-      'name' => 'Hello'
-    ],
-    'to' => [
-        'subscriberId' => '<UNIQUE_SUBSCRIBER_IDENTIFIER>'
-    ],
-    'actor': "actorId"
-    'tenant': "tenantIdentifier"
-  ]);
+Welcome to the {{ tenant.name }} workspace!
 ```
-
-  </Tab>
-</Tabs>
-
-## Integration Level Customizations
-
-When creating an integration, you can create a condition where you can specify a delivery provider for a channel when a particular tenant id is matched.
-
-The delivery provider specified will only be used if the trigger is executed with the tenant id.
-
-<Frame caption="Add provider instance">
-  <img src="https://github.com/novuhq/docs/assets/2946769/583824c7-766b-49fc-bb8e-7cf72dd74eee" />
-</Frame>
-
-<Frame caption="Set conditions">
-  <img src="https://github.com/novuhq/docs/assets/2946769/9c1c33f5-f5eb-4e4b-82b7-f4c05bdf00d7" />
-</Frame>
