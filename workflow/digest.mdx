@@ -4,8 +4,7 @@ sidebarTitle: "Digest Engine"
 ---
 
 The digest engine collects multiple trigger events, aggregates them into a single message and delivers it to the subscriber.
-
-This becomes useful when a user needs to be notified on a large amount of triggers and you want to avoid sending too many notifications. Novu will automatically batch the incoming trigger events based on the `subscriberId` and an **optional** `digestKey` that can be added to control the digestion of the events.
+This becomes useful when a user needs to be notified on a large amount of triggers and you want to avoid sending too many notifications. Novu will automatically batch the incoming trigger events based on the `subscriberId` and an **optional** `digestKey` that can be added to control the digest logic of the events.
 
 ## Digest Step
 
@@ -43,7 +42,7 @@ The strategy which Novu should use to handle the digest step. More details on av
 Novu allows you to define different digest strategies depending on the actual use-case you are trying to achieve. At this point we allow you to select from 2 strategies:
 
 - Regular Strategy
-- Back-off Strategy
+- Look-Back Strategy
 
 Let's explore them in detail:
 
@@ -51,19 +50,18 @@ Let's explore them in detail:
 
 In regular strategy, a digest will always be created for the specified window time. Which means that from the first event trigger, if no active digest exists for this subscriber, one will be created and the user will receive the message only when the digest window time is reached.
 
-### Back-off Strategy
+### Look-Back Strategy
 
-In the back-off strategy, before creating a digest, Novu will check if a message was sent to the user in the back-off period. If a message was sent, a digest will be created. Otherwise, a message will be sent directly to the user and the digest creation will be skipped.
+In the Look-Back strategy, before creating a digest, Novu will check if a message was sent to the user in the Look-back period. If a message was sent, a digest will be created. Otherwise, a message will be sent directly to the user and the digest creation will be skipped.
 
-Backoff digest has two intervals, `digest interval` and `backoff interval`. Here, in the image below, the `digest interval` is `20 minutes`, and the `backoff interval` is `15 minutes`. In the case of a backoff digest, first, it checks if any event is triggered within the past backoff interval, only then a digest is created for the digest interval. If not, the event is considered non-digest and workflow execution continues to the next step.
+Lookback digest has two intervals, `digest interval` and `lookback window`. First, it checks if any event is triggered within the past lookback window, only then a digest is created for the digest interval. If not, the event is considered non-digest and workflow execution continues to the next step.
 
 **Example:**
 
-Let's set the digest interval as 20 minutes and the backoff time as 15 minutes.
+Let's set the digest interval as 20 minutes and the lookback interval as 15 minutes.
 
-If we trigger the first event. Since it is the first event and there was no event triggered in the past 15 minutes (backoff interval), this event will be executed as it is (without digest).
-
-Now, if we trigger a second within 15 minutes, then a new digest will be created with this second event. From now onwards till 20 minutes (digest interval), all triggers will be digested in this digest, and after 20 minutes, the workflow will carry forward to the next step with digested events.
+If we trigger the first event. Since it is the first event and there was no event triggered in the past 15 minutes (lookback interval), this event will send a message immediately (without digest).
+Now, if we trigger a second event within 15 minutes range, then a new digest will be created with this second event. From now on, for the next 20 minutes (digest interval), all triggers will be digested, and after 20 minutes, the workflow will carry forward to the next step with digested events as a payload.
 
 ### Scheduled Digest
 
