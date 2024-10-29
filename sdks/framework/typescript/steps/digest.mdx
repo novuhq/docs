@@ -89,7 +89,8 @@ The result of the `digest` step is an array of events that have been digested to
 </ParamField>
 
 <ParamField path="lookbackWindow" type="LookBackWindow">
-    An example of a parameter field
+   If a `lookbackWindow` will be specified, the digest engine will check if any event was triggered within the past `lookbackWindow` period. 
+   If so, it will create a digest. Otherwise, it will send a message immediately and skip the digest creation. Learn more about the Look-Back strategy [here](/workflow/digest#look-back-strategy).
 
     <Expandable title="properties">
         <ParamField path="amount" type="number">
