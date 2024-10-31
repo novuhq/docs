@@ -18,7 +18,7 @@ HMAC Verification is turned on by default for all "production" NODE_ENV environm
   For `NODE_ENV=development` the HMAC validation is turned off, for the Studio to be able to reach your endpoint.
 </Info>
 
-The `X-Novu-Signature` header included in each signed event contains a timestamp and one or more signatures that we verify.
+The `Novu-Signature` header included in each signed event contains a timestamp and one or more signatures that we verify.
 The timestamp is prefixed by `t=`, and each signature is prefixed by a scheme.
 Schemes start with `v`, followed by an integer. Currently, the only valid live signature scheme is v1.
 
