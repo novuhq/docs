@@ -6,7 +6,7 @@ description: 'Bulk trigger your workflows with type-safe data'
 
 **Use case:** You have a list of `@novu/framework` defined `workflow`'s that you want to bulk trigger using the `POST /v1/events/trigger/bulk` endpoint with type-safe data.
 
-Start by declaring your workflows with a payload schema as you would normally do.
+Start by declaring your workflows with a `payloadSchema` as you would normally do.
 
 ```typescript workflows.ts
 import { workflow } from '@novu/framework';
@@ -45,8 +45,8 @@ const emailWorkflow = workflow(
 // for your chosen web framework
 export const workflowList = [smsWorkflow, emailWorkflow];
 
-// Construct a type to pass across module boundaries.
-// This is later used to type the bulk trigger method.
+// Construct a type for your list of workflows to pass across module
+// boundaries. This is later used to type the bulk trigger method.
 export type MyWorkflows = typeof workflowList;
 ```
 
@@ -87,7 +87,7 @@ export const typedBulkTrigger = <T_Workflows extends Workflow[]>(
 };
 ```
 
-Finally, use the `typedBulkTrigger` utility type in your main file alongside your `MyWorkflows` type.
+Finally, use the `typedBulkTrigger` utility type in your notifications business logic with your `MyWorkflows` type provided as a generic parameter to the `typedBulkTrigger` function.
 
 ```typescript main.ts
 import { MyWorkflows } from './workflows';
