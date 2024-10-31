@@ -1,0 +1,143 @@
+---
+title: 'Type-safe Bulk Trigger'
+sidebarTitle: 'Type-safe Bulk Trigger'
+description: 'Bulk trigger your workflows with type-safe data'
+---
+
+**Use case:** You have a list of `@novu/framework` defined `workflow`'s that you want to bulk trigger using the `POST /v1/events/trigger/bulk` endpoint with type-safe data.
+
+Start by declaring your workflows with a payload schema as you would normally do.
+
+```typescript workflows.ts
+import { workflow } from '@novu/framework';
+import { z } from 'zod';
+
+const smsWorkflow = workflow(
+  'sms-workflow',
+  async ({ step, payload }) => {
+    await step.sms('send-sms', async () => ({
+      body: payload.greeting,
+    }));
+  },
+  {
+    payloadSchema: z.object({
+      greeting: z.enum(['Hello', 'Hi']),
+    }),
+  }
+);
+
+const emailWorkflow = workflow(
+  'email-workflow',
+  async ({ step, payload }) => {
+    await step.email('send-email', async () => ({
+      body: 'Static body',
+      subject: payload.subject,
+    }));
+  },
+  {
+    payloadSchema: z.object({
+      subject: z.string(),
+    }),
+  }
+);
+
+// Declare your list of workflows to pass to the `serve` function
+// for your chosen web framework
+export const workflowList = [smsWorkflow, emailWorkflow];
+
+// Construct a type to pass across module boundaries.
+// This is later used to type the bulk trigger method.
+export type MyWorkflows = typeof workflowList;
+```
+
+Next, create a `typedBulkTrigger` utility type using the `InferWorkflowId` and `InferWorkflowPayload` types to strongly type the bulk trigger method.
+
+```typescript utils.ts
+import {
+  InferWorkflowId,
+  InferWorkflowPayload,
+  Workflow,
+} from '@novu/framework';
+import { Novu } from '@novu/node';
+
+// Initialize the Novu client
+const novu = new Novu('my-secret-key');
+
+// A single, default bulk trigger event for the bulk trigger method
+type BulkTriggerEvent = Parameters<Novu['bulkTrigger']>[0][number];
+
+// A generic type for a bulk trigger event with type-safe `name` and `payload`
+type BulkEventParams<T_Workflows extends Workflow[]> = {
+  [K in InferWorkflowId<T_Workflows[number]>]: Omit<
+    BulkTriggerEvent,
+    'name' | 'payload'
+  > & {
+    name: K;
+    payload: InferWorkflowPayload<T_Workflows, K>;
+  };
+}[InferWorkflowId<T_Workflows[number]>];
+
+// Using the `BulkEventParams` utility type to strongly type the
+// bulk trigger method. The function takes a generic parameter of
+// `T_Workflows` which is your list of workflows (e.g. `MyWorkflows`).
+export const typedBulkTrigger = <T_Workflows extends Workflow[]>(
+  params: BulkEventParams<T_Workflows>[]
+): ReturnType<Novu['bulkTrigger']> => {
+  return novu.bulkTrigger(params);
+};
+```
+
+Finally, use the `typedBulkTrigger` utility type in your main file alongside your `MyWorkflows` type.
+
+```typescript main.ts
+import { MyWorkflows } from './workflows';
+import { typedBulkTrigger } from './utils';
+
+const main = async () => {
+  // Example bulk trigger usage, with strongly typed `name` and `payload`
+  await typedBulkTrigger<MyWorkflows>([
+    {
+      name: 'sms-workflow',
+      payload: {
+        greeting: 'Hello',
+      },
+      to: '+1234567890',
+    },
+    {
+      name: 'email-workflow',
+      payload: {
+        subject: 'Hello there',
+      },
+      to: 'john.doe@example.com',
+    },
+  ]);
+
+  // Type safety on `name`!
+  await typedBulkTrigger<MyWorkflows>([
+    {
+      // @ts-expect-error - Type '"invalid-name"' is not assignable to type '"sms-workflow" | "email-workflow"'.ts(2322)
+      name: 'invalid-name',
+      payload: {
+        greeting: 'Hello',
+      },
+      to: '+1234567890',
+    },
+  ]);
+
+  // Type safety on `payload`!
+  await typedBulkTrigger<MyWorkflows>([
+    {
+      name: 'sms-workflow',
+      payload: {
+        // @ts-expect-error - Type '"Hey"' is not assignable to type '"Hello" | "Hi"'.
+        greeting: 'Hey',
+      },
+      to: '+1234567890',
+    },
+  ]);
+};
+```
+
+Now you can trigger your workflows in bulk with type-safe data! As you expand your list of workflows, you can use the `typedBulkTrigger` utility type to ensure type safety across your entire list of workflows.
+
+See the full example on [StackBlitz](https://stackblitz.com/edit/novu-type-safe-bulk-trigger?file=api%2Fnovu%2Froute.tsx&view=editor).
