@@ -101,8 +101,8 @@ function Novu() {
 
     Novu uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
 
-    <Tip>
-    If you are using the European region in novu, you need to set the `backendUrl` and `socketUrl` props.
+  <Accordion title="European Region Instructions">
+       If you are using the European region in novu, you need to set the `backendUrl` and `socketUrl` props.
     ```tsx
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
@@ -111,7 +111,7 @@ function Novu() {
       socketUrl="https://eu.ws.novu.co"
     />
     ```
-    </Tip>
+  </Accordion>
   </Step>
   <Step title="Trigger a notification">
     Now that you have the inbox component added to your application, you can trigger an Inbox notification to see it in action.
