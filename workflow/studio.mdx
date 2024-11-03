@@ -58,3 +58,20 @@ Example: If bridge application is running on port `3002` and Novu account is in 
 ```bash
 npx novu@latest dev --port 3002 --dashboard-url https://eu.dashboard.novu.co
 ```
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Running Studio without a tunnel">
+    It is possible to run the Studio without generating the default tunnel by passing the `--tunnel` flag with the URL of your application.
+
+    ```bash
+    npx novu@latest dev -t http://localhost:4000
+    ```
+
+    <Warning>
+    While the preview will work, you won't be able to test your notifications by the triggering them from the Studio UI.
+    </Warning>
+
+  </Accordion>
+</AccordionGroup>
