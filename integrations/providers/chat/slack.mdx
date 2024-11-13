@@ -18,72 +18,6 @@ This step is optional, if you already have a Slack application you can reuse it.
 
 ## Integrating Novu with Slack
 
-There are two ways to integrate Novu with Slack - Novu Managed (recommended) and manually managed. Let’s look at both of them in detail:
-
-### Novu Managed (Recommended)
-
-If you use this approach, then Novu will manage the OAuth flow and store the credentials
-
-1. Configure your Slack application as mentioned [below](#configuring-slack-application).
-2. You need to make a network request to the `Shareable URL` to perform authentication.
-3. You can find the `Shareable URL` in the [Integration Store](https://dashboard.novu.co/integrations?utm_campaign=docs-integrations-slack)
-   <Frame caption="Use the 'Shareable URL' from the Novu Integration Store">
-     <img src="/images/channels-and-providers/shreable-url.png" />{" "}
-   </Frame>
-4. You can either add the `Add to Slack` button or use the `Shareable URL` directly, in the application you'll be using Novu in.
-   <Info>
-     The network request to the 'Shareable URL' will happen when the user clicks
-     the 'Add to Slack' button.
-   </Info>
-5. This is to request permission for access (scope: incoming-webhook).
-6. You can use the generated `Shareable URL` that is found under the Slack integration in the [Integration Store](https://dashboard.novu.co/integrations?utm_campaign=docs-integrations-slack). The `Shareable URL` should have the following format:
-
-```bash
-https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials/slack/oauth?environmentId=<ENVIRONMENT_ID>&integrationIdentifier=<PROVIDER_ID>.
-
-```
-
-- `SUBSCRIBER_ID` is a custom identifier used when identifying your users within the Novu platform.
-- `ENVIRONMENT_ID` is a context of an environment you can locate your environment id in the setting in the [dashboard settings](https://dashboard.novu.co/settings?utm_campaign=docs-integrations-slack).
-- `PROVIDER_ID` (optional) is a unique identifier of the integration and is required when you have multiple slack integrations in Novu. You can locate your integration identifier in the [Integration Store](https://dashboard.novu.co/integrations?utm_campaign=docs-integratons-slack). When not provided, the last created integration will be used.
-  If you are using the `Add to Slack` button you have to provide the `Shareable URL` as the `redirect_uri` parameter like in this example. Make sure that the `Shareable URL` is URL encoded:
-
-```html
-<a
-  href="https://slack.com/oauth/v2/authorize?client_id=CLIENT_ID&scope=incoming-webhook&user_scope=&redirect_uri=https%3A%2F%2Fapi.novu.co%2Fv1%2Fsubscribers%2FSUBSCRIBER_ID%2Fcredentials%2Fslack%2Foauth%3FenvironmentId%3DENVIRONMENT_ID%26integrationIdentifier%3DINTEGRATION_IDENTIFIER"
-  ><img
-    alt="Add to Slack"
-    height="40"
-    width="139"
-    src="https://platform.slack-edge.com/img/add_to_slack.png"
-    srcset="
-      https://platform.slack-edge.com/img/add_to_slack.png    1x,
-      https://platform.slack-edge.com/img/add_to_slack@2x.png 2x
-    "
-/></a>
-```
-
-7. Either you use the 'add to Slack' button or use the `Shareable URL`, you should land here:
-   <Frame caption="Select the channel and grant this permission">
-     <img src="/images/channels-and-providers/permission-to-access.png" />{" "}
-   </Frame>
-8. Then you'll be redirected to the address you chose in the [Integration Store](https://dashboard.novu.co/integrations?utm_campaign=docs-integrations-slack):
-   <Frame caption="Select the channel and grant this permission">
-     <img src="/images/channels-and-providers/redirect-url.png" />{" "}
-   </Frame>
-   <Info>
-     You can use the URL of whichever page you want your users to land on, after
-     successful execution
-   </Info>
-9. That's it! Now you can trigger your workflow and send notifications:
-   <Frame caption="Now you can send notifications to the channel you chose earlier">
-     <img src="/images/channels-and-providers/notifications-to-channel.png" />{" "}
-   </Frame>
-   <Note>
-     Don't forget to check out our [dedicated guide](/guides/slack-guide) on
-     integrating Novu in a Slack app for more.
-   </Note>
-
 ### Manually managed
 
 To use the manually managed option, you need to generate a `webhookUrl` and plug it into your backend.
@@ -184,7 +118,6 @@ Checkout the [API reference](/api-reference/subscribers/update-subscriber-creden
 
 1. Go to OAuth & Permissions on Slack's Developer Dashboard and add your REDIRECT_URL in Redirect URLs.
    - If you use a manual Management solution, add the API endpoint you created in Step 1.
-   - If you use the Novu Managed solution add `https://api.novu.co/v1/subscribers`.
 2. Go to Incoming Webhooks from the left menu and Activate Incoming Webhooks.
 3. Go to Manage Distribution and at the bottom of the page, tick Remove Hard Coded Information and Activate Public Distribution.
 
