@@ -6,7 +6,7 @@ icon: "comments"
 
 The `chat` step allows you to send a message to a chat channel. This is useful when you need to send a message to a chat channel, such as Slack, Discord, or Microsoft Teams.
 
-### Push Credentials
+### Chat Credentials
 
 In order to send a chat message, you need to set the specific chat provider credentials for the subscriber. 
 You can learn more about how to achieve this for each provider in the [Provider Documentation](/integrations/providers/chat/overview).
@@ -14,7 +14,7 @@ You can learn more about how to achieve this for each provider in the [Provider 
 ## Chat Output
 
 <RequestExample>
-    ```typescript Delay
+    ```typescript Chat
     await step.chat('chat', async () => {
         return {
             body: 'A new post has been created',
