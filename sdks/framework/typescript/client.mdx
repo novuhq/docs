@@ -41,10 +41,18 @@ When your service is running in development mode `process.env.NODE_ENV=developme
 ## Code Example
 
 ```typescript
-import { Client } from "@novu/framework";
+import { Client as NovuFrameworkClient } from "@novu/framework";
+import { serve } from "@novu/framework/next";
+import { passwordResetWorkflow } from "./workflows";
 
-const client = new Client({
-  secretKey: "my-secret-key",
-  strictAuthentication: false,
+export const { GET, POST, OPTIONS } = serve({
+  client: new NovuFrameworkClient({
+    secretKey: process.env.NOVU_API_KEY || "ACTUAL_NOVU_SECRET_KEY_VALUE",
+    strictAuthentication: false,
+  }),
+  workflows: [
+    /* all workflows */
+    passwordResetWorkflow
+  ],
 });
 ```
