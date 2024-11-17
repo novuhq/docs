@@ -1,5 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
+  "theme": "venus",
   "name": "Novu",
   "logo": {
     "dark": "/logo/logo-dark-bg.svg",
@@ -33,13 +34,26 @@
   ],
   "topbarCtaButton": {
     "name": "Get Started",
-    "url": "https://dashboard.novu.co/?utm_campaign=docs_top_bar_gs"
+    "url": "https://dashboard.novu.co/?utm_campaign=docs_top_bar_gs",
+    "style": "pill",
+    "arrow": true
   },
-  "anchors": [],
+  "anchors": [
+    {
+      "name": "Inbox Playground",
+      "icon": "circle-play",
+      "url": "https://inbox.novu.co/?utm_campaign=docs_top_bar_gs"
+    },
+    {
+      "name": "Join our community",
+      "icon": "discord",
+      "url": "https://discord.novu.co"
+    }
+  ],
   "tabs": [
     {
-      "name": "<Inbox />",
-      "url": "inbox"
+      "name": "Framework",
+      "url": "framework"
     },
     {
       "name": "Integrations",
@@ -49,14 +63,6 @@
     {
       "name": "API Reference",
       "url": "api-reference"
-    },
-    {
-      "name": "SDKs",
-      "url": "sdks"
-    },
-    {
-      "name": "Recipes",
-      "url": "recipes"
     },
     {
       "name": "Community",
@@ -69,21 +75,21 @@
       "pages": [
         "getting-started/introduction",
         "getting-started/how-novu-works",
-        "getting-started/non-technical"
+        "getting-started/quickstart"
       ]
     },
     {
       "group": "Quickstart",
       "pages": [
-        "quickstart/overview",
-        "quickstart/nextjs",
-        "quickstart/express",
-        "quickstart/remix",
-        "quickstart/nestjs",
-        "quickstart/svelte",
-        "quickstart/nuxt",
-        "quickstart/h3",
-        "quickstart/lambda"
+        "framework/quickstart/overview",
+        "framework/quickstart/nextjs",
+        "framework/quickstart/express",
+        "framework/quickstart/remix",
+        "framework/quickstart/nestjs",
+        "framework/quickstart/svelte",
+        "framework/quickstart/nuxt",
+        "framework/quickstart/h3",
+        "framework/quickstart/lambda"
       ]
     },
     {
@@ -117,61 +123,63 @@
       ]
     },
     {
-      "group": "",
-      "pages": ["inbox/introduction"]
-    },
-    {
-      "group": "React",
-      "icon": "react",
+      "group": "<Inbox />",
       "pages": [
-        "inbox/react/get-started",
-        "inbox/react/styling",
-        "inbox/react/multiple-tabs",
-        {
-          "group": "Components",
+        "inbox/introduction",
+         {
+          "group": "React",
+          "icon": "react",
           "pages": [
-            "inbox/react/components/overview",
-            "inbox/react/components/inbox",
-            "inbox/react/components/bell",
-            "inbox/react/components/notifications",
-            "inbox/react/components/preferences",
-            "inbox/react/components/inbox-content"
+            "inbox/react/get-started",
+            "inbox/react/styling",
+            "inbox/react/multiple-tabs",
+            {
+              "group": "Components",
+              "pages": [
+                "inbox/react/components/overview",
+                "inbox/react/components/inbox",
+                "inbox/react/components/bell",
+                "inbox/react/components/notifications",
+                "inbox/react/components/preferences",
+                "inbox/react/components/inbox-content"
+              ]
+            },
+            {
+              "group": "Hooks",
+              "pages": [
+                "inbox/react/hooks/overview",
+                "inbox/react/hooks/novu-provider",
+                "inbox/react/hooks/use-notifications",
+                "inbox/react/hooks/use-preferences",
+                "inbox/react/hooks/use-counts",
+                "inbox/react/hooks/use-novu"
+              ]
+            },
+            "inbox/react/localization",
+            "inbox/react/production",
+            "inbox/react/migration-guide"   
           ]
         },
         {
-          "group": "Hooks",
-          "pages": [
-            "inbox/react/hooks/overview",
-            "inbox/react/hooks/novu-provider",
-            "inbox/react/hooks/use-notifications",
-            "inbox/react/hooks/use-preferences",
-            "inbox/react/hooks/use-counts",
-            "inbox/react/hooks/use-novu"
-          ]
+          "group": "Headless",
+          "icon": "js",
+          "pages": ["inbox/headless/get-started", "inbox/headless/api-reference"]
         },
-        "inbox/react/localization",
-        "inbox/react/production",
-        "inbox/react/migration-guide"
-      ]
-    },
-    {
-      "group": "Headless",
-      "icon": "headless",
-      "pages": ["inbox/headless/get-started", "inbox/headless/api-reference"]
-    },
-    {
-      "group": "React Native",
-      "icon": "react",
-      "pages": [
-        "inbox/react-native/quickstart",
         {
-          "group": "Hooks",
+          "group": "React Native",
+          "icon": "mobile",
           "pages": [
-            "inbox/react-native/hooks/novu-provider",
-            "inbox/react-native/hooks/use-notifications",
-            "inbox/react-native/hooks/use-preferences",
-            "inbox/react-native/hooks/use-counts",
-            "inbox/react-native/hooks/use-novu"
+            "inbox/react-native/quickstart",
+            {
+              "group": "Hooks",
+              "pages": [
+                "inbox/react-native/hooks/novu-provider",
+                "inbox/react-native/hooks/use-notifications",
+                "inbox/react-native/hooks/use-preferences",
+                "inbox/react-native/hooks/use-counts",
+                "inbox/react-native/hooks/use-novu"
+              ]
+            }
           ]
         }
       ]
@@ -179,11 +187,11 @@
     {
       "group": "Deploy",
       "pages": [
-        "deployment/syncing",
-        "deployment/production",
+        "framework/deployment/syncing",
+        "framework/deployment/production",
         {
           "group": "Platforms",
-          "pages": ["deployment/cli", "deployment/actions"]
+          "pages": ["framework/deployment/cli", "framework/deployment/actions"]
         }
       ]
     },
@@ -222,39 +230,32 @@
         "community/add-a-new-provider"
       ]
     },
+  
     {
-      "group": "",
-      "pages": ["sdks/overview"]
-    },
-    {
-      "group": "Framework Typescript SDK",
+      "group": "SDK Reference",
       "pages": [
-        "sdks/framework/typescript/overview",
-        "sdks/framework/typescript/client",
-        "sdks/framework/typescript/workflow",
-        "sdks/framework/typescript/steps/introduction",
-        "sdks/framework/typescript/steps/email",
-        "sdks/framework/typescript/steps/inApp",
-        "sdks/framework/typescript/steps/sms",
-        "sdks/framework/typescript/steps/push",
-        "sdks/framework/typescript/steps/chat",
-        "sdks/framework/typescript/steps/digest",
-        "sdks/framework/typescript/steps/delay",
-        "sdks/framework/typescript/steps/custom"
+        "framework/typescript/overview",
+        "framework/typescript/client",
+        "framework/typescript/workflow",
+        "framework/typescript/steps/introduction",
+        "framework/typescript/steps/email",
+        "framework/typescript/steps/inApp",
+        "framework/typescript/steps/sms",
+        "framework/typescript/steps/push",
+        "framework/typescript/steps/chat",
+        "framework/typescript/steps/digest",
+        "framework/typescript/steps/delay",
+        "framework/typescript/steps/custom"
       ]
     },
     {
-      "group": "Rest API SDK",
+      "group": "SDKs",
       "pages": [
-        "sdks/nodejs",
-        "sdks/php",
-        "sdks/laravel",
-        "sdks/python",
-        "sdks/kotlin",
-        "sdks/java",
-        "sdks/ruby",
-        "sdks/go",
-        "sdks/dotnet"
+        "sdks/overview",
+        {
+          "group": "Server-Side",
+          "pages": ["sdks/nodejs", "sdks/php", "sdks/laravel", "sdks/python", "sdks/kotlin", "sdks/java", "sdks/ruby", "sdks/go", "sdks/dotnet"]
+        }
       ]
     },
     {
@@ -264,6 +265,21 @@
     {
       "group": "Additional Resources",
       "pages": [
+        {
+          "group": "Recipes",
+          "icon": "notebook",
+          "pages": [
+            "recipes/workflows/introduction",
+            "recipes/workflows/otp",
+            "recipes/workflows/password-reset",
+            "recipes/workflows/recent-login",
+            "recipes/workflows/invoice-receipt",
+            "recipes/workflows/shipping-confirmation",
+            "recipes/workflows/feedback-reviews",
+            "recipes/workflows/multi-workflow-digest",
+            "recipes/workflows/translations"
+          ]
+        },
         "additional-resources/security",
         "additional-resources/idempotency",
         "additional-resources/data-migrations",
@@ -550,20 +566,6 @@
       "pages": ["integrations/schema/zod", "integrations/schema/json-schema"]
     },
     {
-      "group": "Workflows",
-      "pages": [
-        "recipes/workflows/introduction",
-        "recipes/workflows/otp",
-        "recipes/workflows/password-reset",
-        "recipes/workflows/recent-login",
-        "recipes/workflows/invoice-receipt",
-        "recipes/workflows/shipping-confirmation",
-        "recipes/workflows/feedback-reviews",
-        "recipes/workflows/multi-workflow-digest",
-        "recipes/workflows/translations"
-      ]
-    },
-    {
       "group": "Trigger Integrations",
       "pages": ["integrations/segment"]
     }
@@ -711,10 +713,22 @@
       "destination": "/guides/workflows/introduction"
     }
   ],
-  "footerSocials": {
-    "twitter": "https://twitter.com/novuhq",
-    "github": "https://github.com/novuhq",
-    "linkedin": "https://www.linkedin.com/company/novuco"
+  "footer": {
+    "socials": {
+      "twitter": "https://twitter.com/novuhq",
+      "github": "https://github.com/novuhq",
+      "linkedin": "https://www.linkedin.com/company/novuco"
+    },
+    "links": [
+      {
+        "title": "Learn",
+        "links": [
+          { "label": "Blog", "url": "https://novu.co/blog" }, 
+          { "label": "Changelog", "url": "https://roadmap.novu.co/changelog" },
+          { "label": "Roadmap", "url": "https://roadmap.novu.co" }
+        ]
+      }
+    ]
   },
   "api": {
     "baseUrl": ["https://api.novu.co", "https://eu.api.novu.co"],
