@@ -39,16 +39,11 @@
     "arrow": true
   },
   "anchors": [
+  
     {
-      "name": "Inbox Playground",
-      "icon": "circle-play",
-      "url": "https://inbox.novu.co/?utm_campaign=docs_top_bar_gs",
-      "iconType": "duotone"
-    },
-    {
-      "name": "Join our community",
-      "icon": "discord",
-      "url": "https://discord.novu.co",
+      "name": "Documentation",
+      "icon": "book",
+      "url": "/",
       "iconType": "duotone"
     },
     {
@@ -56,16 +51,22 @@
       "icon": "rectangle-terminal",
       "url": "api-reference",
       "iconType": "duotone"
+    },
+    {
+      "name": "SDKs & Libraries",
+      "icon": "code",
+      "url": "sdks",
+      "iconType": "duotone"
     }
   ],
   "tabs": [
     {
-      "name": "Framework",
-      "url": "framework"
+      "name": "UI Components",
+      "url": "inbox"
     },
     {
-      "name": "Integrations",
-      "url": "integrations"
+      "name": "Framework",
+      "url": "framework"
     },
     {
       "name": "Community",
@@ -125,64 +126,170 @@
         "workflow/custom"
       ]
     },
+         
     {
-      "group": "<Inbox />",
+      "group": "Channels",
       "pages": [
-        "inbox/introduction",
-         {
-          "group": "React",
-          "icon": "react",
+        {
+          "group": "In-App",
+          "icon": "bell",
+          "pages": ["integrations/providers/in-app/overview"]
+        },
+        {
+          "group": "Email",
+          "icon": "envelope",
           "pages": [
-            "inbox/react/get-started",
-            "inbox/react/styling",
-            "inbox/react/multiple-tabs",
+            "integrations/providers/email/overview",
             {
-              "group": "Components",
+              "group": "Providers",
               "pages": [
-                "inbox/react/components/overview",
-                "inbox/react/components/inbox",
-                "inbox/react/components/bell",
-                "inbox/react/components/notifications",
-                "inbox/react/components/preferences",
-                "inbox/react/components/inbox-content"
+                "integrations/providers/email/sendgrid",
+                "integrations/providers/email/amazon-ses",
+                "integrations/providers/email/postmark",
+                "integrations/providers/email/resend",
+                "integrations/providers/email/sendinblue",
+                "integrations/providers/email/mailersend",
+                "integrations/providers/email/mailgun",
+                "integrations/providers/email/mailjet",
+                "integrations/providers/email/infobip",
+                "integrations/providers/email/mailtrap",
+                "integrations/providers/email/mandrill",
+                "integrations/providers/email/netcore",
+                "integrations/providers/email/outlook365",
+                "integrations/providers/email/braze",
+                "integrations/providers/email/sparkpost",
+                "integrations/providers/email/plunk",
+                "integrations/providers/email/custom-smtp"
               ]
-            },
-            {
-              "group": "Hooks",
-              "pages": [
-                "inbox/react/hooks/overview",
-                "inbox/react/hooks/novu-provider",
-                "inbox/react/hooks/use-notifications",
-                "inbox/react/hooks/use-preferences",
-                "inbox/react/hooks/use-counts",
-                "inbox/react/hooks/use-novu"
-              ]
-            },
-            "inbox/react/localization",
-            "inbox/react/production",
-            "inbox/react/migration-guide"   
+            }
           ]
         },
         {
-          "group": "Headless",
-          "icon": "js",
-          "pages": ["inbox/headless/get-started", "inbox/headless/api-reference"]
-        },
-        {
-          "group": "React Native",
-          "icon": "mobile",
+          "group": "SMS",
+          "icon": "message-sms",
           "pages": [
-            "inbox/react-native/quickstart",
-            {
-              "group": "Hooks",
+            "integrations/providers/sms/overview",
+            { 
+              "group": "Providers",
               "pages": [
-                "inbox/react-native/hooks/novu-provider",
-                "inbox/react-native/hooks/use-notifications",
-                "inbox/react-native/hooks/use-preferences",
-                "inbox/react-native/hooks/use-counts",
-                "inbox/react-native/hooks/use-novu"
+                "integrations/providers/sms/twilio",
+                "integrations/providers/sms/sms77",
+                "integrations/providers/sms/africas-talking",
+                "integrations/providers/sms/azure",
+                "integrations/providers/sms/bulk-sms",
+                "integrations/providers/sms/messagebird",
+                "integrations/providers/sms/simpletexting",
+                "integrations/providers/sms/infobip",
+                "integrations/providers/sms/sendchamp",
+                "integrations/providers/sms/aws-sns",
+                "integrations/providers/sms/nexmo",
+                "integrations/providers/sms/plivo",
+                "integrations/providers/sms/telnyx",
+                "integrations/providers/sms/termii",
+                "integrations/providers/sms/firetext",
+                "integrations/providers/sms/gupshup",
+                "integrations/providers/sms/clickatell"
               ]
             }
+          ]
+        },
+        {
+          "group": "Push",
+          "icon": "mobile",
+          "pages": [
+            "integrations/providers/push/overview",
+            {
+              "group": "Providers",
+              "pages": [
+                "integrations/providers/push/fcm",
+                "integrations/providers/push/apns",
+                "integrations/providers/push/expo-push",
+                "integrations/providers/push/onesignal",
+                "integrations/providers/push/pushpad",
+                "integrations/providers/push/push-webhook",
+                "integrations/providers/push/pusher-beams"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Chat",
+          "icon": "comments",
+          "pages": [
+            "integrations/providers/chat/overview",
+            {
+              "group": "Providers",
+              "pages": [
+                "integrations/providers/chat/discord",
+                "integrations/providers/chat/slack",
+                "integrations/providers/chat/ms-teams",
+                "integrations/providers/chat/zulip",
+                "integrations/providers/chat/whats-app"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Inbox",
+      "pages": [
+        "inbox/introduction"
+       
+      ]
+    },
+    {
+      "group": "React",
+      "icon": "react",
+      "pages": [
+        "inbox/react/get-started",
+        "inbox/react/styling",
+        "inbox/react/multiple-tabs",
+        {
+          "group": "Components",
+          "pages": [
+            "inbox/react/components/overview",
+            "inbox/react/components/inbox",
+            "inbox/react/components/bell",
+            "inbox/react/components/notifications",
+            "inbox/react/components/preferences",
+            "inbox/react/components/inbox-content"
+          ]
+        },
+        {
+          "group": "Hooks",
+          "pages": [
+            "inbox/react/hooks/overview",
+            "inbox/react/hooks/novu-provider",
+            "inbox/react/hooks/use-notifications",
+            "inbox/react/hooks/use-preferences",
+            "inbox/react/hooks/use-counts",
+            "inbox/react/hooks/use-novu"
+          ]
+        },
+        "inbox/react/localization",
+        "inbox/react/production",
+        "inbox/react/migration-guide"   
+      ]
+    },
+    {
+      "group": "Headless",
+      "icon": "js",
+      "pages": ["inbox/headless/get-started", "inbox/headless/api-reference"]
+    },
+    {
+      "group": "React Native",
+      "icon": "mobile",
+      "pages": [
+        "inbox/react-native/quickstart",
+        {
+          "group": "Hooks",
+          "pages": [
+            "inbox/react-native/hooks/novu-provider",
+            "inbox/react-native/hooks/use-notifications",
+            "inbox/react-native/hooks/use-preferences",
+            "inbox/react-native/hooks/use-counts",
+            "inbox/react-native/hooks/use-novu"
           ]
         }
       ]
@@ -240,15 +347,20 @@
         "framework/typescript/overview",
         "framework/typescript/client",
         "framework/typescript/workflow",
-        "framework/typescript/steps/introduction",
-        "framework/typescript/steps/email",
-        "framework/typescript/steps/inApp",
-        "framework/typescript/steps/sms",
-        "framework/typescript/steps/push",
-        "framework/typescript/steps/chat",
-        "framework/typescript/steps/digest",
-        "framework/typescript/steps/delay",
-        "framework/typescript/steps/custom"
+        {
+          "group": "Steps",
+          "pages": [
+            "framework/typescript/steps/introduction",
+            "framework/typescript/steps/email",
+            "framework/typescript/steps/inApp",
+            "framework/typescript/steps/sms",
+            "framework/typescript/steps/push",
+            "framework/typescript/steps/chat",
+            "framework/typescript/steps/digest",
+            "framework/typescript/steps/delay",
+            "framework/typescript/steps/custom"
+          ]
+        }
       ]
     },
     {
@@ -474,103 +586,18 @@
       ]
     },
     {
-      "group": "",
-      "pages": ["integrations/overview"]
-    },
-     
-    {
-      "group": "Providers",
-      "pages": [
-        "integrations/providers/default-providers",
-        {
-          "group": "Email",
-          "icon": "envelope",
-          "pages": [
-            "integrations/providers/email/overview",
-            "integrations/providers/email/sendgrid",
-            "integrations/providers/email/amazon-ses",
-            "integrations/providers/email/postmark",
-            "integrations/providers/email/resend",
-            "integrations/providers/email/sendinblue",
-            "integrations/providers/email/mailersend",
-            "integrations/providers/email/mailgun",
-            "integrations/providers/email/mailjet",
-            "integrations/providers/email/infobip",
-            "integrations/providers/email/mailtrap",
-            "integrations/providers/email/mandrill",
-            "integrations/providers/email/netcore",
-            "integrations/providers/email/outlook365",
-            "integrations/providers/email/braze",
-            "integrations/providers/email/sparkpost",
-            "integrations/providers/email/plunk",
-            "integrations/providers/email/custom-smtp"
-          ]
-        },
-        {
-          "group": "SMS",
-          "icon": "message-sms",
-          "pages": [
-            "integrations/providers/sms/overview",
-            "integrations/providers/sms/twilio",
-            "integrations/providers/sms/sms77",
-            "integrations/providers/sms/africas-talking",
-            "integrations/providers/sms/azure",
-            "integrations/providers/sms/bulk-sms",
-            "integrations/providers/sms/messagebird",
-            "integrations/providers/sms/simpletexting",
-            "integrations/providers/sms/infobip",
-            "integrations/providers/sms/sendchamp",
-            "integrations/providers/sms/aws-sns",
-            "integrations/providers/sms/nexmo",
-            "integrations/providers/sms/plivo",
-            "integrations/providers/sms/telnyx",
-            "integrations/providers/sms/termii",
-            "integrations/providers/sms/firetext",
-            "integrations/providers/sms/gupshup",
-            "integrations/providers/sms/clickatell"
-          ]
-        },
-        {
-          "group": "Push",
-          "icon": "mobile",
-          "pages": [
-            "integrations/providers/push/overview",
-            "integrations/providers/push/fcm",
-            "integrations/providers/push/apns",
-            "integrations/providers/push/expo-push",
-            "integrations/providers/push/onesignal",
-            "integrations/providers/push/pushpad",
-            "integrations/providers/push/push-webhook",
-            "integrations/providers/push/pusher-beams"
-          ]
-        },
-        {
-          "group": "Chat",
-          "icon": "comments",
-          "pages": [
-            "integrations/providers/chat/overview",
-            "integrations/providers/chat/discord",
-            "integrations/providers/chat/slack",
-            "integrations/providers/chat/ms-teams",
-            "integrations/providers/chat/zulip",
-            "integrations/providers/chat/whats-app"
-          ]
-        }
-      ]
-    },
-    {
       "group": "Content",
       "pages": [
-        "integrations/content/react-email",
-        "integrations/content/vue-email",
-        "integrations/content/svelte-email",
-        "integrations/content/remix-react-email"
+        "framework/content/react-email",
+        "framework/content/vue-email",
+        "framework/content/svelte-email",
+        "framework/content/remix-react-email"
       ]
     },
 
     {
       "group": "Schema",
-      "pages": ["integrations/schema/zod", "integrations/schema/json-schema"]
+      "pages": ["framework/schema/zod", "framework/schema/json-schema"]
     },
     {
       "group": "Trigger Integrations",
