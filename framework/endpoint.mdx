@@ -1,0 +1,87 @@
+---
+title: "Bridge Endpoint"
+---
+
+Novu Framework requires a **single** `HTTP` endpoint (`/api/novu` or similar) to be exposed by your application. This endpoint is used to receive events from our **Worker Engine**.
+
+You can view the Bridge Endpoint as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
+
+Using the `npx novu init` command creates a Bridge application for you with a Bridge Endpoint ready to go.
+
+## Bridge Endpoint execution phases
+
+### Build phase
+
+When [building new workflows](/workflow/introduction), you will be using the [Novu Framework SDK](/sdks/framework/typescript/overview) to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/workflow/studio) companion app.
+
+### Sync phase
+
+A sync is needed once a notification workflow code is created or updated. We offer multiple sync methods including CI/CD integrations and a custom CLI tool.
+
+During a sync, the workflows defined using the Novu Framework SDK will be pushed to our cloud service and will be persisted in our database. 
+Once synced, you will be able to view the workflows in the Workflows Page on the Dashboard. All the controls created using JSON Schema or Zod will be transformed into UI elements that can be modified without changing the source code. Read more about controls [here](/concepts/controls).
+
+### Execution phase
+
+Once a workflow is synced, the workflow engine will make API requests to the bridge endpoint to execute individual workflow steps.
+After the fan-out is complete, the bridge endpoint will be triggered with the relevant execution context and will respond with the compiled content and metadata needed to deliver the notification.
+
+
+## The `serve` function
+
+We offer framework specific wrappers in form of an exported `serve` function that abstracts away:
+
+- Parsing the incoming request for `GET`, `POST`, `PUT` and `OPTIONS` requests
+- HMAC header authentication
+- Framework specific response and error handling
+
+Currently, we offer `serve` functions for the following frameworks:
+
+- [Next.js](/quickstart/nextjs)
+- [Express.js](/quickstart/express)
+- [Nuxt](/quickstart/nuxt)
+- [h3](/quickstart/h3)
+- [Remix](/quickstart/remix)
+- [Sveltekit](/quickstart/svelte)
+
+## Writing a custom `serve` function
+
+If we currently don't support your framework, you can write a custom `serve` function like the following example:
+
+```ts
+import { type Request, type Response } from "express";
+import { NovuRequestHandler, ServeHandlerOptions } from "@novu/framework";
+
+export const serve = (options: ServeHandlerOptions): any => {
+  const requestHandler = new NovuRequestHandler({
+    frameworkName: "express",
+    ...options,
+    handler: (incomingRequest: Request, response: Response) => ({
+      method: () => incomingRequest.method,
+      headers: (key) => {
+        const header = incomingRequest.headers[key];
+        return Array.isArray(header) ? header[0] : header;
+      },
+      queryString: (key) => {
+        const qs = incomingRequest.query[key];
+        return Array.isArray(qs) ? qs[0] : qs;
+      },
+      body: () => incomingRequest.body,
+      url: () =>
+        new URL(
+          incomingRequest.url,
+          `https://${incomingRequest.headers.get("host") || ""}`
+        ),
+      transformResponse: ({ body, headers, status }) => {
+        Object.entries(headers).forEach(([headerName, headerValue]) => {
+          response.setHeader(headerName, headerValue);
+        });
+
+        return response.status(status).send(body);
+      },
+    }),
+  });
+
+  return requestHandler.createHandler();
+};
+```

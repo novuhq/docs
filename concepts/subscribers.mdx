@@ -225,29 +225,3 @@ Novu will create a subscriber if one does not exist and will update the existing
 ## Bulk Subscriber Creation
 
 You can create subscribers in bulk _(up to 500 at once)_ via the SDKs or [API](/api-reference/subscribers/bulk-create-subscribers).
-
-## Export Subscribers
-
-Currently, Novu does not support exporting subscribers. However, [Get Subscribers API](/api-reference/subscribers/get-subscribers) can be used to fetch subscribers
-
-<Tabs>
-<Tab title="Node.js">
-### Steps:
-- `mkdir export_novu_subscribers`
-- `cd export_novu_subscribers`
-- create `fetch_subscribers.js` file and copy [export_novu_subscribers.js](https://gist.github.com/jainpawan21/8604b4b2c1582b419e837bdc72290696#file-export_novu_subscribers-js) gist code into this file.
-- `npm init -y`
-- `npm install axios fast-csv fs`
-- Run `node fetch_subscribers.js`
-- Subscribers are exported in `subscribers.csv` file
-
-</Tab>
-
-<Tab title="Shell Script">
-### Steps:
-- Create file with name fetch_subscribers.sh and copy [export_novu_subscribers.sh](https://gist.github.com/jainpawan21/8604b4b2c1582b419e837bdc72290696#file-export_novu_subscribers-sh) gist code into this file.
-- Run `chmod +x fetch_subscribers.sh`
-- Run `./fetch_subscribers.sh`
-- Subscribers are exported in `subscribers.csv` file
-</Tab>
-</Tabs>
