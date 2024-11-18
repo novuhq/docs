@@ -13,10 +13,10 @@ import { NextjsIcon } from "/snippets/icons/nextjs.mdx";
 import { RemixIcon } from "/snippets/icons/remix.mdx";
 import { H3Icon } from "/snippets/icons/h3.mdx";
 
- Novu is a developer-first product built for engineers looking to deliver a notifications platform for products. Novu simplifies the complexities of notification management for developers who can then empower the product and marketing teams that need to edit and maintain notification content and copy. Novu supports a variety of common notification channels out-of-the-box, including **Email**, **SMS**, **Push**, **Inbox**, and **Chat**.
+Novu simplifies the complexities of notification management for developers who can then empower the product and marketing teams that need to edit and maintain notification content and copy. 
+Novu supports a variety of common notification channels out-of-the-box, including **Email**, **SMS**, **Push**, **Inbox**, and **Chat**.
 
-The [Novu Cloud Platform](https://dashboard.novu.co) provides an intuitive internal user interface, embeddable UI end-user components, and a code-first workflow capability.
-
+The [Novu Cloud Platform](https://dashboard.novu.co) provides a UI Dashboard interface, embeddable UI components, monitoring tools, and an optional Framework SDK for extending the platform capabilities.
 
 ## Notification types
 
@@ -43,25 +43,8 @@ Novu supports different notification types, including user-generated and machine
 
 ## Who is Novu for?
 
-How you use and get started with Novu depends on your role. While it’s initially implemented by engineering and development teams, Novu unifies everyone in an organization that authors, creates, sends, manages, and measures results from notifications being sent to end users. Novu empowers engineers to deliver notification platforms for product teams.
-
-### Novu for engineers
-
-Novu empowers developers and engineering teams to quickly deliver a fully extensible notifications platform for product teams to create captivating notification experiences.
-
-We provide the following proven stack for developers to simply integrate notifications into their products:
-
-- **[Code-first Notification Framework](/sdks/framework/typescript/overview)** Opinionated, yet flexible, Framework for building and managing notification workflows.
-- **[JSON Schema Based](/api-reference/overview)** Controls to craft a no-code visual editor to enable non-technical team members to modify content and behaviour.
-- **[Prebuilt, customisable UI components](/inbox/introduction)** for in-app user notification feeds and preference experiences.
-- **[Integration with multiple delivery providers](/integrations/providers/introduction)**, allowing you to continue using your preferred vendors with Novu.
-- **[Scalable, reliable Novu Cloud SaaS infrastructure](https://dashboard.novu.co)** developed from scratch to meet the demands of high-volume notification delivery and storage (think hundreds of millions of notifications).
-- **Observability** for delving into the lifecycle of a notification's success or failure. Eliminate guesswork of how, when, and why a user receives a notification.
-- **Comprehensive documentation**, implementation guides, recipes and illustrative examples.
-- **Compliance and security** for safely managing your data.
-- **Open source** provides transparency you can trust, cultivates community contributions for fast improvement, and enables you to deploy and self-host a Novu instance into any environment of your choosing.
-
-Notification content can be written in a variety of common content tooling, including [React](/integrations/react-email), [Vue-email](/integrations/vue-email), MJML, and more. Content can also be customized and hydrated using any datasource.
+How you use and get started with Novu depends on your role. While it’s initially implemented by engineering and development teams, Novu unifies everyone in an organization that authors, creates, sends, manages, and measures results from notifications being sent to end users.
+Novu empowers engineers to deliver notification platforms for their product teams.
 
 ### Novu for product teams
 
@@ -69,19 +52,34 @@ We are well aware of the friction that often exists between engineering and prod
 
 Product teams can craft beautiful notification content and campaigns in any content framework of their choice.
 
-{/* Since we're speaking to both engineering and product in this section of the documentation, we should address product teams directly instead of using third-person "them" */}
-- Modify and manage notification UIs that engineers have built via the Novu Framework.
+- Modify and manage notification via the Novu UI Dashboard.
 - Gain valuable insights into user engagement with notifications via logs and analytics.
-- Use your preferred notification content editors.
 - Craft impactful notification messaging, verbiage, and cadences. 
 - Run experiments to improve user experience without requiring engineering effort.
+
+### Novu for engineers
+
+Novu empowers developers and engineering teams to quickly deliver a fully extensible notifications platform for product teams to create captivating notification experiences.
+We provide the following proven stack for developers to simply integrate notifications into their products:
+
+- **[Prebuilt, customisable UI components](/inbox/introduction)** for in-app user notification feeds and preference experiences.
+- **[Integration with multiple delivery providers](/integrations/providers/introduction)**, allowing you to continue using your preferred vendors with Novu.
+- **[Scalable, reliable Novu Cloud SaaS infrastructure](https://dashboard.novu.co)** developed from scratch to meet the demands of high-volume notification delivery and storage.
+- **Observability** for delving into the lifecycle of a notification's success or failure. Eliminate guesswork of how, when, and why a user receives a notification.
+- **[Code-first Framework SDK](/sdks/framework/typescript/overview)** Opinionated, yet flexible, Framework for extending the platform capabilities.
+- **[JSON Schema Based](/api-reference/overview)** validation baked in to ensure your notifications are not broken.
+- **Comprehensive documentation**, implementation guides, recipes and illustrative examples.
+- **Compliance and security** for safely managing your data.
+- **Open source** provides transparency you can trust, cultivates community contributions for fast improvement.
+
+By default, Novu provides a rich No-Code editing experience for product teams to manage notification content and behaviour, which can be extended and customized fully using the [Framework SDK](/sdks/framework/typescript/overview). 
+And integrated with a variety of common content frameworks, including [React](/integrations/react-email), [Vue-email](/integrations/vue-email), MJML, and more.
 
 ### Novu for end users
 
 Once implemented, most end users will not be aware that it’s Novu behind the scenes, other than that they now receive notifications where and when they expect them.
 
 The [Inbox Component](/inbox/introduction) is an embeddable component that, when included in your app, enables users to view and set their own notification preferences--such as channel, language, timezone, and more.
-
 Novu ensures fast delivery and beautiful notification experiences for end users regardless of the channels involved.
 
 With Novu, your app users receive instant notifications via **email**, **Inbox alerts**, **SMS**, **push notifications**, and **chat**.
