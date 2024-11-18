@@ -1,7 +1,7 @@
 ---
-title: "Quickstart"
-sidebarTitle: "Overview"
-description: "Start building with Novu by following our Quick Start guides. These guides provide step-by-step instructions for integrating Novu into your application."
+title: "Introduction"
+sidebarTitle: "Introduction"
+description: "Start extending Novu by building using the Framework SDK."
 ---
 
 import { SvelteIcon } from "/snippets/icons/svelte.mdx";
@@ -14,21 +14,15 @@ import { RemixIcon } from "/snippets/icons/remix.mdx";
 import { H3Icon } from "/snippets/icons/h3.mdx";
 import { FrameworkTerminal } from "/snippets/framework-terminal.mdx";
 
+Novu Framework requires a single HTTP endpoint (/api/novu or similar) to be exposed by your application. This endpoint is used to receive events from our Worker Engine.
 
-Getting started with Novu is easy. 
+You can view the Bridge Endpoint as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
 
-### What to expect
-Following the Quickstart directions will create a sample Novu application in your framework of choice, including two pre-built workflows: 
-- InApp (for use with [Inbox](/inbox/introduction))
-- Email
-
-Each sample application includes instructions for triggering your sample workflow, so you'll be able to send a sample notification in minutes.
-
-To start, navigate to a new working directory that you'll likely end up syncing to Git, then pick your framework of choice. Have fun!
+Using the npx novu init command creates a Bridge application for you with a Bridge Endpoint ready to go.
 
 <FrameworkTerminal />
 
-{/* Todo: add a picture of the sample app webpage */}
+## Quickstart
 
 <CardGroup cols={3}>
     <Card title="Next.js" color="#00D7FE" href="/quickstart/nextjs" horizontal icon={<NextjsIcon />} />
