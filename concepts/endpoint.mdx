@@ -3,6 +3,16 @@ title: "Framework Endpoint"
 description: "Learn how to customize and extend any aspect of the Novu platform using the Framework SDK powered bridge endpoint."
 ---
 
+import { SvelteIcon } from "/snippets/icons/svelte.mdx";
+import { NestjsIcon } from "/snippets/icons/nestjs.mdx";
+import { ExpressjsIcon } from "/snippets/icons/expressjs.mdx";
+import { LambdaIcon } from "/snippets/icons/lambda.mdx";
+import { NuxtIcon } from "/snippets/icons/nuxt.mdx";
+import { NextjsIcon } from "/snippets/icons/nextjs.mdx";
+import { RemixIcon } from "/snippets/icons/remix.mdx";
+import { H3Icon } from "/snippets/icons/h3.mdx";
+import { FrameworkTerminal } from "/snippets/framework-terminal.mdx";
+
 Novu was built for endless extensibility. Although not required for majority of your notification usecases, you can customize and extend any aspect of the Novu platform using the Framework SDK powered bridge endpoint.
 
 ## Overview
@@ -21,3 +31,38 @@ The framework endpoint is a Restful API path that runs on your server and enviro
 <Frame>
   <img src="/images/novu-works.png" />
 </Frame>
+
+### Build phase
+
+When [building new workflows](/workflow/introduction), you will be using the [Novu Framework SDK](/sdks/framework/typescript/overview) to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/workflow/studio) companion app.
+
+### Sync phase
+
+A sync is needed once a notification workflow code is created or updated. We offer multiple sync methods including CI/CD integrations and a custom CLI tool.
+
+During a sync, the workflows defined using the Novu Framework SDK will be pushed to our cloud service and will be persisted in our database. 
+Once synced, you will be able to view the workflows in the Workflows Page on the Dashboard. All the controls created using JSON Schema or Zod will be transformed into UI elements that can be modified without changing the source code. Read more about controls [here](/concepts/controls).
+
+### Execution phase
+
+Once a workflow is synced, the workflow engine will make API requests to the bridge endpoint to execute individual workflow steps.
+After the fan-out is complete, the bridge endpoint will be triggered with the relevant execution context and will respond with the compiled content and metadata needed to deliver the notification.
+
+## Get Started
+
+To get started with the framework endpoint, visit the Getting Started page relevant to your tech-stack:
+
+<CardGroup cols={3}>
+    <Card title="Next.js" color="#00D7FE" href="/quickstart/nextjs" horizontal icon={<NextjsIcon />} />
+    <Card title="Express.js" color="#47BA87" href="/quickstart/express" horizontal icon={<ExpressjsIcon />} />
+    <Card title="Remix"  color="#BC002C" href="/quickstart/remix" horizontal icon={<RemixIcon />} />
+    <Card title="NestJS"  color="#BC002C" href="/quickstart/nestjs" horizontal icon={<NestjsIcon />} />
+    <Card title="Svelte" color="#16a34a" href="/quickstart/svelte" horizontal icon={<SvelteIcon />} />
+    <Card title="Nuxt" color="#16a34a" href="/quickstart/nuxt" horizontal icon={<NuxtIcon />} />
+    <Card title="H3" color="#16a34a" href="/quickstart/h3" horizontal icon={<H3Icon />} />
+    <Card title="Lambda" color="#16a34a" href="/quickstart/lambda" horizontal icon={<LambdaIcon />} />
+</CardGroup>
+
+<Warning>
+  The Framework SDK is currently only supported in Typescript for JS based run-times.
+</Warning>
