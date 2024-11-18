@@ -1,5 +1,77 @@
 ---
 title: "Quickstart"
 description: "Learn how to quickly get started with Novu Framework."
+mode: "full"
 ---
 
+Before you can start integrating Novu into your application, you need to create a Novu account and set up a new application in the Novu Dashboard. This guide will walk you through those steps.
+
+
+<Steps>
+  <Step title="Sign up for Novu">
+    [Create a new account](https://dashboard.novu.co/signup) on Novu Cloud or [sign in](https://dashboard.novu.co/login) if you already have an account.
+  </Step>
+  <Step title="Create a new Workflow">
+    Create a new workflow by clicking on the **Create Workflow** button in the Workflows page, add your desired steps and save the workflow.
+  </Step>
+  <Step title="Trigger a workflow">
+    Each workflow is created with a unique identifier that can be used to trigger the workflow, visit the Trigger page to view the trigger instructions.
+
+    Each trigger consistents of 3 main parts:
+    - **Workflow Identifier**: The unique identifier of the workflow to trigger.
+    - **Subscriber ID**: The unique identifier of the subscriber to trigger the workflow for, this can be a user id, email or any unique identifier.
+    - **Payload**: The payload to pass to the workflow, this is optional and can be used to pass additional information to the workflow.
+
+    <CodeGroup>
+        ```typescript Node.js
+        import { Novu } from '@novu/node';
+
+        const novu = new Novu(process.env.NOVU_API_KEY);
+
+        await novu.trigger('your-workflow-identifier', {
+          to: {
+            subscriberId: '123456',
+            email: 'EMAIL_ADDRESS',
+          },
+          payload: {
+            name: 'John Doe',
+          },
+        });
+        ```
+
+        ```bash Curl
+        curl -X POST 'https://api.novu.co/v1/events/trigger' \
+        -H 'Authorization: ApiKey NOVU_API_KEY' \
+        -H 'Content-Type: application/json' \
+        -d '{
+          "name": "your-workflow-identifier",
+          "to": {
+            "subscriberId": "123456",
+            "email": "EMAIL_ADDRESS"
+          },
+          "payload": {
+            "name": "John Doe"
+          }
+        }'
+        ```
+    </CodeGroup>
+  </Step>
+  <Step title="Explore more">
+    Now that you triggered your first workflow, learn more about how to use Novu to send notifications to your users.
+
+    <CardGroup cols={2}>
+      <Card title="Concepts" href={"/concepts/overview"}>
+        Learn more about the core concepts of Novu.
+      </Card>
+      <Card title="Workflows" href={"/workflow/introduction"}>
+        Learn how to design workflows with Novu.
+      </Card>
+      <Card title="Inbox" href={"/inbox/introduction"}>
+        Add the Inbox component to your application with our front-end SDK.
+      </Card>
+      <Card title="Framework SDK" href={"/sdks/framework/typescript/overview"}>
+       Learn about how to customize the entire platform experience with the Framework SDK.
+      </Card>
+    </CardGroup>
+  </Step>
+</Steps>

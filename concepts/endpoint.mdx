@@ -8,6 +8,25 @@ You can view the Bridge Endpoint as a webhook endpoint that Novu will call when 
 
 Using the `npx novu init` command creates a Bridge application for you with a Bridge Endpoint ready to go.
 
+## Bridge Endpoint execution phases
+
+### Build phase
+
+When [building new workflows](/workflow/introduction), you will be using the [Novu Framework SDK](/sdks/framework/typescript/overview) to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/workflow/studio) companion app.
+
+### Sync phase
+
+A sync is needed once a notification workflow code is created or updated. We offer multiple sync methods including CI/CD integrations and a custom CLI tool.
+
+During a sync, the workflows defined using the Novu Framework SDK will be pushed to our cloud service and will be persisted in our database. 
+Once synced, you will be able to view the workflows in the Workflows Page on the Dashboard. All the controls created using JSON Schema or Zod will be transformed into UI elements that can be modified without changing the source code. Read more about controls [here](/concepts/controls).
+
+### Execution phase
+
+Once a workflow is synced, the workflow engine will make API requests to the bridge endpoint to execute individual workflow steps.
+After the fan-out is complete, the bridge endpoint will be triggered with the relevant execution context and will respond with the compiled content and metadata needed to deliver the notification.
+
+
 ## The `serve` function
 
 We offer framework specific wrappers in form of an exported `serve` function that abstracts away:
