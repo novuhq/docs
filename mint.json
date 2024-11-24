@@ -110,7 +110,6 @@
         }
       ]
     },
-    
     {
       "group": "Concepts",
       "pages": [
@@ -127,118 +126,139 @@
     },
     {
       "group": "Architecture",
-      "pages": ["architecture/introduction", "architecture/diagrams"]
+      "pages": [
+        "architecture/overview",
+        "architecture/diagrams"
+      ]
     },
     {
       "group": "Build Workflows",
       "pages": [
-        "workflow/introduction",
-        "workflow/content",
+        "workflow/overview",
+        {
+          "group": "How-To",
+          "pages": [
+            "workflow/how-to/build-a-workflow"
+          ]
+        },
         "workflow/digest",
-        "workflow/delay"
-      ]
-    },
-         
-    {
-      "group": "Channels",
-      "pages": [
+        "workflow/delay",
+        "workflow/custom",
+        "workflow/step-conditions",
         {
-          "group": "In-App",
-          "icon": "bell",
-          "pages": ["integrations/providers/in-app/overview"]
-        },
-        {
-          "group": "Email",
-          "icon": "envelope",
+          "group": "Channel Steps",
           "pages": [
-            "integrations/providers/email/overview",
+            "workflow/channels/channels-basics",
             {
-              "group": "Providers",
+              "group": "In-App",
+              "icon": "bell",
               "pages": [
-                "integrations/providers/email/sendgrid",
-                "integrations/providers/email/amazon-ses",
-                "integrations/providers/email/postmark",
-                "integrations/providers/email/resend",
-                "integrations/providers/email/sendinblue",
-                "integrations/providers/email/mailersend",
-                "integrations/providers/email/mailgun",
-                "integrations/providers/email/mailjet",
-                "integrations/providers/email/infobip",
-                "integrations/providers/email/mailtrap",
-                "integrations/providers/email/mandrill",
-                "integrations/providers/email/netcore",
-                "integrations/providers/email/outlook365",
-                "integrations/providers/email/braze",
-                "integrations/providers/email/sparkpost",
-                "integrations/providers/email/plunk",
-                "integrations/providers/email/custom-smtp"
+                "workflow/channels/in-app"
+              ]
+            },
+            {
+              "group": "Email",
+              "icon": "envelope",
+              "pages": [
+                "workflow/channels/email",
+                {
+                  "group": "Providers",
+                  "pages": [
+                    "workflow/channels/email/sendgrid",
+                    "workflow/channels/email/amazon-ses",
+                    "workflow/channels/email/postmark",
+                    "workflow/channels/email/resend",
+                    "workflow/channels/email/sendinblue",
+                    "workflow/channels/email/mailersend",
+                    "workflow/channels/email/mailgun",
+                    "workflow/channels/email/mailjet",
+                    "workflow/channels/email/infobip",
+                    "workflow/channels/email/mailtrap",
+                    "workflow/channels/email/mandrill",
+                    "workflow/channels/email/netcore",
+                    "workflow/channels/email/outlook365",
+                    "workflow/channels/email/braze",
+                    "workflow/channels/email/sparkpost",
+                    "workflow/channels/email/plunk",
+                    "workflow/channels/email/custom-smtp"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "Push",
+              "icon": "mobile",
+              "pages": [
+                "workflow/channels/push",
+                {
+                  "group": "Providers",
+                  "pages": [
+                    "workflow/channels/push/fcm",
+                    "workflow/channels/push/apns",
+                    "workflow/channels/push/expo-push",
+                    "workflow/channels/push/onesignal",
+                    "workflow/channels/push/pushpad",
+                    "workflow/channels/push/push-webhook",
+                    "workflow/channels/push/pusher-beams"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "SMS",
+              "icon": "message-sms",
+              "pages": [
+                "workflow/channels/sms",
+                {
+                  "group": "Providers",
+                  "pages": [
+                    "workflow/channels/sms/twilio",
+                    "workflow/channels/sms/sms77",
+                    "workflow/channels/sms/africas-talking",
+                    "workflow/channels/sms/azure",
+                    "workflow/channels/sms/bulk-sms",
+                    "workflow/channels/sms/messagebird",
+                    "workflow/channels/sms/simpletexting",
+                    "workflow/channels/sms/infobip",
+                    "workflow/channels/sms/sendchamp",
+                    "workflow/channels/sms/aws-sns",
+                    "workflow/channels/sms/nexmo",
+                    "workflow/channels/sms/plivo",
+                    "workflow/channels/sms/telnyx",
+                    "workflow/channels/sms/termii",
+                    "workflow/channels/sms/firetext",
+                    "workflow/channels/sms/gupshup",
+                    "workflow/channels/sms/clickatell"
+                  ]
+                }
+              ]
+            },
+            {
+              "group": "Chat",
+              "icon": "comments",
+              "pages": [
+                "workflow/channels/chat",
+                {
+                  "group": "Providers",
+                  "pages": [
+                    "workflow/channels/chat/discord",
+                    "workflow/channels/chat/slack",
+                    "workflow/channels/chat/ms-teams",
+                    "workflow/channels/chat/zulip",
+                    "workflow/channels/chat/whats-app"
+                  ]
+                }
               ]
             }
           ]
         },
         {
-          "group": "SMS",
-          "icon": "message-sms",
+          "group": "Content",
           "pages": [
-            "integrations/providers/sms/overview",
-            { 
-              "group": "Providers",
-              "pages": [
-                "integrations/providers/sms/twilio",
-                "integrations/providers/sms/sms77",
-                "integrations/providers/sms/africas-talking",
-                "integrations/providers/sms/azure",
-                "integrations/providers/sms/bulk-sms",
-                "integrations/providers/sms/messagebird",
-                "integrations/providers/sms/simpletexting",
-                "integrations/providers/sms/infobip",
-                "integrations/providers/sms/sendchamp",
-                "integrations/providers/sms/aws-sns",
-                "integrations/providers/sms/nexmo",
-                "integrations/providers/sms/plivo",
-                "integrations/providers/sms/telnyx",
-                "integrations/providers/sms/termii",
-                "integrations/providers/sms/firetext",
-                "integrations/providers/sms/gupshup",
-                "integrations/providers/sms/clickatell"
-              ]
-            }
-          ]
-        },
-        {
-          "group": "Push",
-          "icon": "mobile",
-          "pages": [
-            "integrations/providers/push/overview",
-            {
-              "group": "Providers",
-              "pages": [
-                "integrations/providers/push/fcm",
-                "integrations/providers/push/apns",
-                "integrations/providers/push/expo-push",
-                "integrations/providers/push/onesignal",
-                "integrations/providers/push/pushpad",
-                "integrations/providers/push/push-webhook",
-                "integrations/providers/push/pusher-beams"
-              ]
-            }
-          ]
-        },
-        {
-          "group": "Chat",
-          "icon": "comments",
-          "pages": [
-            "integrations/providers/chat/overview",
-            {
-              "group": "Providers",
-              "pages": [
-                "integrations/providers/chat/discord",
-                "integrations/providers/chat/slack",
-                "integrations/providers/chat/ms-teams",
-                "integrations/providers/chat/zulip",
-                "integrations/providers/chat/whats-app"
-              ]
-            }
+            "workflow/content/content-basics",
+            "workflow/content/editor",
+            "workflow/content/variables",
+            "workflow/content/handlebars-and-helpers"
           ]
         }
       ]
@@ -247,7 +267,6 @@
       "group": "",
       "pages": [
         "inbox/introduction"
-       
       ]
     },
     {
@@ -281,13 +300,16 @@
         },
         "inbox/react/localization",
         "inbox/react/production",
-        "inbox/react/migration-guide"   
+        "inbox/react/migration-guide"
       ]
     },
     {
       "group": "Headless",
       "icon": "js",
-      "pages": ["inbox/headless/get-started", "inbox/headless/api-reference"]
+      "pages": [
+        "inbox/headless/get-started",
+        "inbox/headless/api-reference"
+      ]
     },
     {
       "group": "React Native",
@@ -321,7 +343,10 @@
         "framework/deployment/production",
         {
           "group": "Platforms",
-          "pages": ["framework/deployment/cli", "framework/deployment/actions"]
+          "pages": [
+            "framework/deployment/cli",
+            "framework/deployment/actions"
+          ]
         }
       ]
     },
@@ -360,7 +385,6 @@
         "community/add-a-new-provider"
       ]
     },
-  
     {
       "group": "SDK Reference",
       "pages": [
@@ -391,15 +415,33 @@
     },
     {
       "group": "Server-Side",
-      "pages": ["sdks/nodejs", "sdks/php", "sdks/laravel", "sdks/python", "sdks/kotlin", "sdks/java", "sdks/ruby", "sdks/go", "sdks/dotnet"]
+      "pages": [
+        "sdks/nodejs",
+        "sdks/php",
+        "sdks/laravel",
+        "sdks/python",
+        "sdks/kotlin",
+        "sdks/java",
+        "sdks/ruby",
+        "sdks/go",
+        "sdks/dotnet"
+      ]
     },
     {
       "group": "Client-Side",
-      "pages": ["sdks/client/react/api-reference", "sdks/client/react-native/api-reference", "sdks/client/headless/api-reference"]
+      "pages": [
+        "sdks/client/react/api-reference",
+        "sdks/client/react-native/api-reference",
+        "sdks/client/headless/api-reference"
+      ]
     },
     {
       "group": "Account",
-      "pages": ["account/authentication", "account/sso", "account/billing"]
+      "pages": [
+        "account/authentication",
+        "account/sso",
+        "account/billing"
+      ]
     },
     {
       "group": "Additional Resources",
@@ -563,7 +605,9 @@
         },
         {
           "group": "Execution Details",
-          "pages": ["api-reference/execution-details/get-execution-details"]
+          "pages": [
+            "api-reference/execution-details/get-execution-details"
+          ]
         },
         {
           "group": "Feeds",
@@ -620,7 +664,10 @@
         },
         {
           "group": "Schema",
-          "pages": ["framework/schema/zod", "framework/schema/json-schema"]
+          "pages": [
+            "framework/schema/zod",
+            "framework/schema/json-schema"
+          ]
         }
       ]
     }
@@ -777,15 +824,27 @@
       {
         "title": "Learn",
         "links": [
-          { "label": "Blog", "url": "https://novu.co/blog" }, 
-          { "label": "Changelog", "url": "https://roadmap.novu.co/changelog" },
-          { "label": "Roadmap", "url": "https://roadmap.novu.co" }
+          {
+            "label": "Blog",
+            "url": "https://novu.co/blog"
+          },
+          {
+            "label": "Changelog",
+            "url": "https://roadmap.novu.co/changelog"
+          },
+          {
+            "label": "Roadmap",
+            "url": "https://roadmap.novu.co"
+          }
         ]
       }
     ]
   },
   "api": {
-    "baseUrl": ["https://api.novu.co", "https://eu.api.novu.co"],
+    "baseUrl": [
+      "https://api.novu.co",
+      "https://eu.api.novu.co"
+    ],
     "auth": {
       "method": "key",
       "name": "Authorization",

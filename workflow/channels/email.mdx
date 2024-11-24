@@ -1,53 +1,121 @@
 ---
-title: "Email Channel"
-sidebarTitle: "Email"
-icon: "envelope"
-description: "Learn how to manage your notification workflow and allow no-code users to modify it."
+title: "E-mail Provider Integrations"
+sidebarTitle: "Overview"
+description: "Learn the process of configuring email providers with Novu"
 ---
 
-Our philosophy is to allow developers to build and manage advanced components and customized views with modern technologies, and expose No-Code controls for non-technical users to modify and maintain.
+import { MissingProvider } from "/snippets/missing-provider.mdx";
 
-## Notification content management is hard
+Novu can be used to deliver email messages to your customers using a unified delivery API. You can easily integrate your favorite email provider using the built-in integration store.
 
-One of the main challenges with transactional notifications and existing off-the-shelve solutions is that in a lot of cases they are built with either: A very technical developer oriented user in mind, or a complete no-code WYSIWYG solution.
+## Configuring email providers
 
-Both paths lead to frustration.
+When creating an email provider integration you will be asked to provide additional fields alongside the provider-specific credentials:
 
-### Code Based Editors
+- **Sender name** - Will be displayed as the sender of the message
+- **From email address** - Emails sent using Novu will be sent using this address
 
-This path allow developers to craft tailored experiences that are consistent with the company brand, but often this leads to require engineers time for any modification needed.
+For some email providers including SendGrid you will have to authenticate the **From email address** to make sure you will send email messages using an authorized address.
 
-With a lot of UI based notification platforms, you will be bound and limited by their choice of templating language (Liquid, handlebars, etc...) which will force engineers to do some really complex manipulations to build the usecase they need.
+## Sending Email Overrides
 
-Which leads to un-maintainable notification content that will require engineer for every change.
+The overrides field supports an email property. The email overrides field have properties like `to`, `from`, `senderName` etc
 
-### No-Code Editors
+<Tabs>
+  <Tab title="Node.js">
+```javascript
+import { Novu } from '@novu/node';
 
-Those platforms give a lot of control and flexibility to a non-technical user with a great looking WYSIWIG interface, but most often this can lead to:
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
-- The loss of confidence in the end result, as a critical notification workflow can be easily broken.
-- A lot of limits on the implementation, that usually requires engineer intervention and using HTML directly. Which again, losses the whole point of a no-code editor.
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  overrides: {
+    email: {
+      to: ['to@novu.co'],
+      from: 'from@novu.co',
+      senderName: 'Novu Team',
+      text: 'text version of email using overrides',
+      replyTo: 'no-reply@novu.co',
+      cc: ['1@novu.co'],
+      bcc: ['2@novu.co'],
+    },
+  },
+});
+```
+ </Tab>
+</Tabs>
 
-## The Novu Way
+<Note>It's very important to know that Novu merges the `to` field in the email overrides with the subscriber email. It DOES NOT REPLACE IT.</Note>
 
-History have shown us that catering to an individual persona can lead to a lot of frustration, which in the end generated a non-consistent end-user experience.
+## Sending Email attachments
 
-We strongly believe that for a truly amazing notificaton experience, both functions need to work in harmony.
+You can easily send attachments with the Novu API by passing the attachments array when triggering an Email based workflow. Attachment file can either be in the `buffer` or `base64` format.
 
-### Your notification design-system
+<Tabs>
+  <Tab title="Node.js">
 
-Instead of building isolated emails, messages and workflows, we recommend thinking about your notification strategy as carefully crafted Design System Components.
+```javascript
+import { Novu } from '@novu/node';
 
-This will allow you to build a consistent and maintainable notification experience that can be easily consumed by your internal teams.
+const novu = new Novu('<NOVU_SECRET_KEY>');
 
-### Abstract complex logic
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  payload: {
+    attachments: [
+      {
+        file: fs.readFileSync(__dirname + '/data/novu.jpeg'),
+        name: 'novu.jpeg',
+        mime: 'image/jpeg',
+      },
+    ],
+  },
+});
+```
+  </Tab>
+</Tabs>
 
-Step Controls are the `props` in your design system components. They are the knobs and dials that allow you to modify the content and behavior of notification template.
+## Using different email integration
 
-There might a lot of complex logic that goes into a notification template, and for mission-critical notifications like your `Password reset` email,
-you might want to expose controls for the static content before and after the password reset link, but to not accidentally to delete the dynamic `{{resetLinkUrl}}` button.
+In Novu integration store, multiple email channel type provider integrations can be active at the same time. But only one provider integration can be primary at a time. This primary integration will be used as a provider to deliver the email by default. If you want to use a different active provider integration then you can use the `integrationIdentifier` email overrides field.
 
-### Use modern frameworks
+If there are 4 active email integrations with these identifiers:-
 
-With Novu we recommend using a modern content framework SDK such as: MJML, React Email, Vue Email, Maizzle and etc...
-Using a technical stack that is close to your front-end stack will allow reusing a lot of existing application logic and design tokens as part of your workflows.
+1. sendgrid-abcdef
+2. sendgrid-ghijkl
+3. brevo-abcdef
+4. mailersend-abcdef
+
+Here, if `sendgrid-abcdef` is primary integration and you want to use `brevo-abcdef` with this trigger then you can use `integrationIdentifier` email overrides field as below:-
+
+<Tabs>
+  <Tab title="Node.js">
+```javascript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_SECRET_KEY>');
+
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  overrides: {
+    email: {
+      integrationIdentifier: "brevo-abcdef"
+    },
+  },
+});
+```
+ </Tab>
+</Tabs>
+
+<Info> Integration identifier is similar to Provider identifier but it is different than Provider Id. It is unique for each integration.You can find the `integrationIdentifier` in the integration store page.  </Info>
+
+<Tip>
+  <MissingProvider channelName="SMS"/>
+</Tip>

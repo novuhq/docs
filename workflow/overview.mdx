@@ -1,0 +1,176 @@
+---
+title: "Workflow Builder Overview"
+sidebarTitle: "Overview"
+---
+
+Our browser-based **Workflow Builder (Editor)** makes it simple to create personalized, automated messaging workflows—no coding required.
+
+## Workflow Elements / Building Blocks
+
+All Novu workflows consist of four basic elements:
+
+- **Workflow Identifier** which is used as the trigger id 
+- A **trigger** that starts the workflow
+- **Channel Step** that send notifications to your configured channels
+- **Action Steps** that control the flow of the workflow and produce state for use in templates 
+
+### Workflow Identifier (Settings)
+
+Give your Workflow a clear, descriptive name that your team can easily identify. The workflow identifier "new-signup" is used as the trigger id. Workflow identifiers should be unique to your application and descriptive of the workflow's purpose.
+
+For example:
+
+- Abandoned Cart Recovery
+- Password Reset Flow
+- New User Welcome Series
+- Re-engagement Campaign
+
+### Trigger
+
+Every workflow starts with a **trigger**. This is the event that starts a workflow. It represents an action or event that initiates the workflow by making a call to the Novu API, along with a specified workflow trigger identifier (`workflow_id`). The identifier helps match the trigger to the corresponding workflow. 
+
+When a trigger occurs, it sends the necessary payload data that the workflow will use to deliver notifications to subscribers. **Learn more about subscribers**.
+
+Triggers are the primary and only method for sending notifications. The trigger identifier ensures that the correct workflow is executed.
+
+**Example of a Trigger**
+Here's an example of an API call to trigger an event:
+
+```bash
+curl -X POST https://api.novu.co/v2/events/trigger \
+  -H "Authorization: ApiKey <NOVU_SECRET_KEY>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
+    "to": {
+      "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    },
+    "payload": {}
+    }
+  }'
+```
+
+### Channel Step
+
+A **Channel Step** in Novu represents a configured provider to send notifications to your recipients.
+
+The Workflow Editor is designed for **Omni-Channel Communication**, delivering a unified experience across diverse messaging channels:
+
+- **In-App Notifications**
+- **Email**
+- **SMS**
+- **Push**
+  - **Mobile Push**
+  - **Web Push**
+- **Chat**
+  - **Enterprise Messaging Platforms** (e.g., Slack, Microsoft Teams)
+  - **Consumer Messaging Apps** (e.g., WhatsApp, Telegram, Discord)
+
+Most providers within Novu use credentials that you supply to deliver notifications on your behalf. These credentials and other settings are what make a configured channel. 
+
+### Action Step
+
+**Action Steps** are purpose built functions that help manage the workflow flow. **Action Steps** can be executed before and after **Channel Steps**. 
+For example, you can use a **Delay** to pause a workflow for a certain duration before sending a notification.
+
+There are three types of Action Steps supported by Novu:
+
+- Delay
+- Digest
+- Custom
+
+## Key Features
+
+- **Failure Resilience**
+  - Ensures workflows resume from point of failure during platform outages
+  - Guarantees processing of critical notifications in unstable environments
+
+- **Handling Long-Running Tasks**
+  - Manages time-sensitive processes like batched notifications and digest emails
+  - Optimized for platforms with strict execution time limits
+  - Ideal for serverless environments
+
+- **Event-Driven Workflow Management**
+  - Supports workflow pausing until external events occur
+  - Perfect for scenarios like:
+    - Waiting for user actions (e.g., confirmation link clicks)
+    - Responding to asynchronous notifications from integrated services
+
+- **Scheduled Notifications**
+  - Automates recurring communication
+  - Supports cron-based scheduling
+  - Easily manage reminders, routine updates
+
+- **Parallel Notification Delivery**
+  - Sends multiple notifications simultaneously
+  - Ensures successful completion of all notifications
+  - Minimizes delays in multi-channel communication
+
+- **Delays and Throttling**
+  - Schedules notifications or retries with flexible timing
+  - Supports delays ranging from minutes to months
+  - No platform-imposed timing limitations
+
+- **Reliable Delivery**
+  - Guarantees at-least-once delivery for every notification
+  - Ensures no important events are lost
+
+- **Cost-Efficient Processing**
+  - Offloads heavy notification-related tasks to Novu
+  - Handles template rendering and retries
+  - Optimizes resource usage in serverless/time-billed environments
+
+- **Rate Limiting**
+  - Protects integrated services from overwhelming traffic
+  - Sets maximum delivery rates
+  - Handles burst traffic seamlessly
+
+- **Observability & Insights**
+  - Monitors every workflow lifecycle stage
+  - Provides robust tracking
+  - Offers insights into:
+    - Successful deliveries
+    - Retries
+    - Delays
+    - Failures
+
+## Example Use Cases
+
+<CardGroup cols={2}>
+  <Card title="Order or Transaction Updates">
+    Notifications for orders, shipping, or subscription statuses
+  </Card>
+  <Card title="User Onboarding">
+    Welcome emails, follow-up emails, and more
+  </Card>
+  <Card title="User Engagement">
+    Re-engagement campaigns, follow-up emails, and more
+  </Card>
+  <Card title="Product Updates">
+    Notifications for product updates, new features, and more
+  </Card>
+  <Card title="Abandoned Cart Recovery">
+    Notifications for abandoned carts and follow-up emails
+  </Card>
+  <Card title="Password Reset">
+    Notifications for password resets and follow-up emails
+  </Card>
+  <Card title="Administrative Actions">
+    Notifications for administrative actions like account deletions and more
+  </Card>
+  <Card title="System Errors & Alerts">
+    Notifications for system errors and alerts
+  </Card>
+</CardGroup>
+
+## How it work
+
+Workflow Builder builds on the principle of steps. Instead of defining a single, complex piece of business logic, workflows contain multiple individual steps.
+
+In case of an error, a failed step is retried individually without needing to re-run any previous steps. Instead of the entire business logic, each step can take up your serverless function execution duration, and many more benefits.
+
+![Workflow Editor](/workflow/media-assets/how-it-works.png)
+
+Here is how a workflow looks like in the Workflow Builder (Editor):
+
+![Workflow Editor](/workflow/media-assets/workflow-editor.png)
