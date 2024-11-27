@@ -1,0 +1,71 @@
+---
+title: "Notification Template Designer"
+sidebarTitle: "Notification Template Designer"
+description: "Learn how to use the Novu notification template editor to design notifications for your application"
+---
+
+Each channel step in a Novu workflow comes with its own notification template. This template defines how notifications appear for a specific channel.
+
+In this page, we’ll explore the features of the Novu template editor and how you can leverage them to create personalized, visually appealing, and effective notifications.
+
+We'll cover:
+
+- **Injecting variables from your trigger data into your notification template.**
+- **Using Liquid syntax for logic and control flow within templates.**
+- **Previewing and testing your notification templates.**
+
+---
+
+## Personalizing Notifications with Template Variables
+
+To insert a variable into your Novu notification template, use double curly braces: `{{ variable_name }}`.
+
+Novu templates allow you to reference several types of variables:
+
+### Data Payload Variables
+These variables originate from the data payload in your workflow trigger. 
+For example, if you include `{ "order_id": "12345" }` in your payload, you can reference it in your template as `{{ payload.data.order_id }}`.
+
+### User Properties
+You can access user properties (like `firstName` or `data.plan`) using `{{ subscriber.property }}`. For instance:
+
+```liquid
+Hi {{ subscriber.firstName }},
+
+You’ve been upgraded to the {{ subscriber.data.plan }} plan.
+
+Thanks,  
+The Novu Team
+```
+
+## Adding Logic with Liquid filters
+
+Novu supports Liquid syntax for dynamic and conditional content in templates. Commonly used filters include:
+
+### Conditional Statements
+Display different content based on trigger data or user properties. 
+
+For example:
+
+```liquid
+{% if total_items > 1 %}
+  {{ actor.name }} added {{ total_items }} items to your list.
+{% else %}
+  {{ actor.name }} added an item to your list.
+{% endif %}
+```
+
+You can also use filters like `split` and `first` for advanced variable manipulation. For example:
+
+```liquid
+You've been invited by {{ actor.name | split: " " | first }} to join {{ data.workspace_name }} on Novu.
+```
+
+Learn more about Liquid syntax in the [Liquid documentation](https://liquidjs.com/index.html).
+
+## Previewing and Testing Notification Templates
+
+When your notification template is ready, use the **Preview** mode to visualize how your notification will look. You can:
+
+- **Test dynamic payload data:**.
+- **Send test notifications:** Save your template, return to the workflow canvas, and run a test with real trigger data.

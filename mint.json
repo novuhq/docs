@@ -134,131 +134,126 @@
     {
       "group": "Build Workflows",
       "pages": [
-        "workflow/overview",
-        {
-          "group": "How-To",
-          "pages": [
-            "workflow/how-to/build-a-workflow"
-          ]
-        },
+        "workflow/workflow-editor",
+        "workflow/how-to/build-a-workflow",
+        "workflow/notification-template-designer",
         "workflow/digest",
         "workflow/delay",
         "workflow/custom",
         "workflow/step-conditions",
+        "workflow/channel-steps"
+      ]
+    },
+    {
+      "group": "In-App",
+      "icon": "bell",
+      "pages": [
+        "integrations/providers/in-app/in-app-channel",
+        "integrations/providers/in-app/adding-in-app"
+      ]
+    },
+    {
+      "group": "Email",
+      "icon": "envelope",
+      "pages": [
+        "integrations/providers/email/email-channel",
+        "integrations/providers/email/adding-email",
+        "integrations/providers/email/choose-email-provider",
         {
-          "group": "Channel Steps",
+          "group": "Providers",
           "pages": [
-            "workflow/channels/channels-basics",
-            {
-              "group": "In-App",
-              "icon": "bell",
-              "pages": [
-                "workflow/channels/in-app"
-              ]
-            },
-            {
-              "group": "Email",
-              "icon": "envelope",
-              "pages": [
-                "workflow/channels/email",
-                {
-                  "group": "Providers",
-                  "pages": [
-                    "workflow/channels/email/sendgrid",
-                    "workflow/channels/email/amazon-ses",
-                    "workflow/channels/email/postmark",
-                    "workflow/channels/email/resend",
-                    "workflow/channels/email/sendinblue",
-                    "workflow/channels/email/mailersend",
-                    "workflow/channels/email/mailgun",
-                    "workflow/channels/email/mailjet",
-                    "workflow/channels/email/infobip",
-                    "workflow/channels/email/mailtrap",
-                    "workflow/channels/email/mandrill",
-                    "workflow/channels/email/netcore",
-                    "workflow/channels/email/outlook365",
-                    "workflow/channels/email/braze",
-                    "workflow/channels/email/sparkpost",
-                    "workflow/channels/email/plunk",
-                    "workflow/channels/email/custom-smtp"
-                  ]
-                }
-              ]
-            },
-            {
-              "group": "Push",
-              "icon": "mobile",
-              "pages": [
-                "workflow/channels/push",
-                {
-                  "group": "Providers",
-                  "pages": [
-                    "workflow/channels/push/fcm",
-                    "workflow/channels/push/apns",
-                    "workflow/channels/push/expo-push",
-                    "workflow/channels/push/onesignal",
-                    "workflow/channels/push/pushpad",
-                    "workflow/channels/push/push-webhook",
-                    "workflow/channels/push/pusher-beams"
-                  ]
-                }
-              ]
-            },
-            {
-              "group": "SMS",
-              "icon": "message-sms",
-              "pages": [
-                "workflow/channels/sms",
-                {
-                  "group": "Providers",
-                  "pages": [
-                    "workflow/channels/sms/twilio",
-                    "workflow/channels/sms/sms77",
-                    "workflow/channels/sms/africas-talking",
-                    "workflow/channels/sms/azure",
-                    "workflow/channels/sms/bulk-sms",
-                    "workflow/channels/sms/messagebird",
-                    "workflow/channels/sms/simpletexting",
-                    "workflow/channels/sms/infobip",
-                    "workflow/channels/sms/sendchamp",
-                    "workflow/channels/sms/aws-sns",
-                    "workflow/channels/sms/nexmo",
-                    "workflow/channels/sms/plivo",
-                    "workflow/channels/sms/telnyx",
-                    "workflow/channels/sms/termii",
-                    "workflow/channels/sms/firetext",
-                    "workflow/channels/sms/gupshup",
-                    "workflow/channels/sms/clickatell"
-                  ]
-                }
-              ]
-            },
-            {
-              "group": "Chat",
-              "icon": "comments",
-              "pages": [
-                "workflow/channels/chat",
-                {
-                  "group": "Providers",
-                  "pages": [
-                    "workflow/channels/chat/discord",
-                    "workflow/channels/chat/slack",
-                    "workflow/channels/chat/ms-teams",
-                    "workflow/channels/chat/zulip",
-                    "workflow/channels/chat/whats-app"
-                  ]
-                }
-              ]
-            }
+            "integrations/providers/email/sendgrid",
+            "integrations/providers/email/amazon-ses",
+            "integrations/providers/email/postmark",
+            "integrations/providers/email/resend",
+            "integrations/providers/email/sendinblue",
+            "integrations/providers/email/mailersend",
+            "integrations/providers/email/mailgun",
+            "integrations/providers/email/mailjet",
+            "integrations/providers/email/infobip",
+            "workflow/channels/email/mailtrap",
+            "integrations/providers/email/mandrill",
+            "integrations/providers/email/netcore",
+            "integrations/providers/email/outlook365",
+            "integrations/providers/email/braze",
+            "integrations/providers/email/sparkpost",
+            "integrations/providers/email/plunk",
+            "integrations/providers/email/custom-smtp"
           ]
-        },
+        }
+      ]
+    },
+    {
+      "group": "Push",
+      "icon": "mobile",
+      "pages": [
+        "integrations/providers/push/push-channel",
+        "integrations/providers/push/mobile-push",
+        "integrations/providers/push/web-push",
+        "integrations/providers/push/adding-push",
+        "integrations/providers/push/choose-push-provider",
         {
-          "group": "Content",
+          "group": "Providers",
           "pages": [
-            "workflow/content/content-basics",
-            "workflow/content/editor",
-            "workflow/content/variables",
-            "workflow/content/handlebars-and-helpers"
+            "integrations/providers/push/fcm",
+            "integrations/providers/push/apns",
+            "integrations/providers/push/expo-push",
+            "integrations/providers/push/onesignal",
+            "integrations/providers/push/pushpad",
+            "integrations/providers/push/push-webhook",
+            "integrations/providers/push/pusher-beams"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "SMS",
+      "icon": "message-sms",
+      "pages": [
+        "integrations/providers/sms/sms-channel",
+        "integrations/providers/sms/adding-sms",
+        "integrations/providers/sms/choose-sms-provider",
+        {
+          "group": "Providers",
+          "pages": [
+            "integrations/providers/sms/twilio",
+            "integrations/providers/sms/sms77",
+            "integrations/providers/sms/africas-talking",
+            "integrations/providers/sms/azure",
+            "integrations/providers/sms/bulk-sms",
+            "integrations/providers/sms/messagebird",
+            "integrations/providers/sms/simpletexting",
+            "integrations/providers/sms/infobip",
+            "integrations/providers/sms/sendchamp",
+            "integrations/providers/sms/aws-sns",
+            "integrations/providers/sms/nexmo",
+            "integrations/providers/sms/plivo",
+            "integrations/providers/sms/telnyx",
+            "integrations/providers/sms/termii",
+            "integrations/providers/sms/firetext",
+            "integrations/providers/sms/gupshup",
+            "integrations/providers/sms/clickatell"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Chat",
+      "icon": "comments",
+      "pages": [
+        "integrations/providers/chat/chat-channel",
+        "integrations/providers/chat/chat-platforms",
+        "integrations/providers/chat/chat-apps",
+        "integrations/providers/chat/adding-chat",
+        "integrations/providers/chat/choose-chat-provider",
+        {
+          "group": "Providers",
+          "pages": [
+            "integrations/providers/chat/discord",
+            "integrations/providers/chat/slack",
+            "integrations/providers/chat/ms-teams",
+            "integrations/providers/chat/zulip",
+            "integrations/providers/chat/whats-app"
           ]
         }
       ]
