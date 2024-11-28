@@ -1,0 +1,82 @@
+---
+title: "Build a Workflow"
+sidebarTitle: "Build a Workflow"
+description: "Learn how to build a workflow"
+---
+
+<Steps>
+  <Step title="Navigate to the Workflows tab in the Novu Dashboard">
+    This is where you can find and manage your existing workflows.
+  </Step>
+  <Step title="Click on the Create Workflow button">
+    This will open the initial workflow creation screen.
+    Here you define:
+    - Name of the workflow
+        - You could also see this referred to as the `Identifier`
+    - Tags (optional)
+    - Description of the workflow (optional)
+
+    Once you've filled in the required fields, click on the `Create Workflow` button.
+  </Step>
+  <Step title="Add your first step">
+    This is where you can start adding steps to your workflow. **The first step will always be the `Workflow trigger`.**
+
+    You can add the following steps by clicking on the `Add Step` (+) button:
+
+    **Channels**
+        - Email
+        - In-App
+        - Push 
+            - Web Push
+            - Mobile Push
+        - Chat
+            - Enterprise Messaging Platforms (e.g. Slack, Teams, etc.)
+            - Consumer Messaging Aoos (e.g. WhatsApp, Telegram, Discord, etc.)
+        - SMS
+
+    <Note>If a channel step you've added is not configured in your Novu account, you'll see an Error indication</Note>
+
+
+    **Actions**
+        - Digest
+        - Delay
+        - Custom (Will be available soon from the UI)
+  </Step>
+    <Step title="Configure Template">
+    Each step in the workflow requires a template that defines the content of the notification or message. The editor enables you to preview the expected output of your content.
+    
+    **Content Creation and Templates**
+
+    - Each channel step has its own template configuration options, tailored to the limitations and requirements of the specific channel.
+    - The editor provides a live preview to show how the final message will appear.
+    - You can use system variables for personalization, including:
+        - Subscriber variables: firstName, lastName, email, phone, avatar.
+        - Actor variables: for details about the event initiator.
+        - Step variables: for data specific to the workflow execution.
+        - Brand variables: for aligning with your organization's visual identity.
+        - Tenant variables: for organization-specific data.
+
+**Dynamic Content**
+
+    - Inject dynamic data into your templates using payload variables.
+    - These variables can be utilized in message content, subjects, and sender names for enhanced personalization.
+
+**Important:** When using dynamic content with payload variables, ensure that the required payload is passed when triggering the workflow.
+    
+    <Warning>Once you’ve finished configuring your template, don’t forget to click the `Save step` button to apply your changes.</Warning>
+
+  </Step>
+  
+<Step title="Trigger the Workflow">
+  There are three main ways to trigger a workflow:
+
+  - **Via the Novu Dashboard**  
+    This method is ideal for conducting quick tests directly from the Dashboard. It’s a simple and convenient way to verify basic functionality.
+
+  - **Using the Trigger Code Snippet**  
+    Copy the code snippet and execute it in your local environment or an online sandbox. This approach allows for more thorough testing, enabling you to integrate the trigger with your application logic and live data for a realistic evaluation.
+
+  - **Integrating the Trigger in Your Application**  
+    Once all tests are complete, you can implement the trigger method directly in your application. This allows you to test the workflow in a real-world scenario, ensuring it functions seamlessly with your app's actual environment and users.
+</Step>
+</Steps>

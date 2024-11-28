@@ -94,7 +94,6 @@
       "group": "Get Started",
       "pages": [
         "framework/quickstart/overview",
-        "framework/studio",
         {
           "group": "Quickstart",
           "pages": [
@@ -110,7 +109,14 @@
         }
       ]
     },
-    
+    {
+      "group": "Concepts",
+      "pages": [
+        "framework/studio",
+        "framework/endpoint",
+        "framework/controls"
+      ]
+    },
     {
       "group": "Concepts",
       "pages": [
@@ -126,19 +132,18 @@
       ]
     },
     {
-      "group": "Architecture",
-      "pages": ["architecture/introduction", "architecture/diagrams"]
-    },
-    {
       "group": "Build Workflows",
       "pages": [
         "workflow/introduction",
-        "workflow/content",
+        "workflow/how-to/build-a-workflow",
+        "workflow/template-editor",
         "workflow/digest",
-        "workflow/delay"
+        "workflow/delay",
+        "workflow/custom",
+        "workflow/step-conditions",
+        "workflow/channel-steps"
       ]
     },
-         
     {
       "group": "Channels",
       "pages": [
@@ -247,7 +252,6 @@
       "group": "",
       "pages": [
         "inbox/introduction"
-       
       ]
     },
     {
@@ -281,13 +285,16 @@
         },
         "inbox/react/localization",
         "inbox/react/production",
-        "inbox/react/migration-guide"   
+        "inbox/react/migration-guide"
       ]
     },
     {
       "group": "Headless",
       "icon": "js",
-      "pages": ["inbox/headless/get-started", "inbox/headless/api-reference"]
+      "pages": [
+        "inbox/headless/get-started",
+        "inbox/headless/api-reference"
+      ]
     },
     {
       "group": "React Native",
@@ -309,9 +316,15 @@
     {
       "group": "Build Workflows",
       "pages": [
-        "framework/controls",
+        "framework/introduction",
+        "framework/digest",
+        "framework/delay",
         "framework/custom",
-        "framework/endpoint"
+        "framework/in-app-channel",
+        "framework/email-channel",
+        "framework/push-channel",
+        "framework/sms-channel",
+        "framework/chat-channel"
       ]
     },
     {
@@ -321,7 +334,10 @@
         "framework/deployment/production",
         {
           "group": "Platforms",
-          "pages": ["framework/deployment/cli", "framework/deployment/actions"]
+          "pages": [
+            "framework/deployment/cli",
+            "framework/deployment/actions"
+          ]
         }
       ]
     },
@@ -360,7 +376,6 @@
         "community/add-a-new-provider"
       ]
     },
-  
     {
       "group": "SDK Reference",
       "pages": [
@@ -391,15 +406,33 @@
     },
     {
       "group": "Server-Side",
-      "pages": ["sdks/nodejs", "sdks/php", "sdks/laravel", "sdks/python", "sdks/kotlin", "sdks/java", "sdks/ruby", "sdks/go", "sdks/dotnet"]
+      "pages": [
+        "sdks/nodejs",
+        "sdks/php",
+        "sdks/laravel",
+        "sdks/python",
+        "sdks/kotlin",
+        "sdks/java",
+        "sdks/ruby",
+        "sdks/go",
+        "sdks/dotnet"
+      ]
     },
     {
       "group": "Client-Side",
-      "pages": ["sdks/client/react/api-reference", "sdks/client/react-native/api-reference", "sdks/client/headless/api-reference"]
+      "pages": [
+        "sdks/client/react/api-reference",
+        "sdks/client/react-native/api-reference",
+        "sdks/client/headless/api-reference"
+      ]
     },
     {
       "group": "Account",
-      "pages": ["account/authentication", "account/sso", "account/billing"]
+      "pages": [
+        "account/authentication",
+        "account/sso",
+        "account/billing"
+      ]
     },
     {
       "group": "Additional Resources",
@@ -563,7 +596,9 @@
         },
         {
           "group": "Execution Details",
-          "pages": ["api-reference/execution-details/get-execution-details"]
+          "pages": [
+            "api-reference/execution-details/get-execution-details"
+          ]
         },
         {
           "group": "Feeds",
@@ -620,7 +655,10 @@
         },
         {
           "group": "Schema",
-          "pages": ["framework/schema/zod", "framework/schema/json-schema"]
+          "pages": [
+            "framework/schema/zod",
+            "framework/schema/json-schema"
+          ]
         }
       ]
     }
@@ -777,15 +815,27 @@
       {
         "title": "Learn",
         "links": [
-          { "label": "Blog", "url": "https://novu.co/blog" }, 
-          { "label": "Changelog", "url": "https://roadmap.novu.co/changelog" },
-          { "label": "Roadmap", "url": "https://roadmap.novu.co" }
+          {
+            "label": "Blog",
+            "url": "https://novu.co/blog"
+          },
+          {
+            "label": "Changelog",
+            "url": "https://roadmap.novu.co/changelog"
+          },
+          {
+            "label": "Roadmap",
+            "url": "https://roadmap.novu.co"
+          }
         ]
       }
     ]
   },
   "api": {
-    "baseUrl": ["https://api.novu.co", "https://eu.api.novu.co"],
+    "baseUrl": [
+      "https://api.novu.co",
+      "https://eu.api.novu.co"
+    ],
     "auth": {
       "method": "key",
       "name": "Authorization",

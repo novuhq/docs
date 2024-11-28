@@ -1,92 +1,36 @@
 ---
-title: "Chat Channel Overview"
-sidebarTitle: "Overview"
+title: "Chat Channel"
+sidebarTitle: "Chat Channel"
 description: "Learn the process of configuring and using chat providers with Novu"
 ---
 
-import { MissingProvider } from "/snippets/missing-provider.mdx";
+Novu brings chat notifications into your development workflow, giving you a unified way to manage messaging across platforms and apps. Whether you're working with tools like Slack or Microsoft Teams or apps like WhatsApp, Telegram, and Discord, Novu lets you integrate, manage, and scale chat notifications without unnecessary complexity.
 
-Novu can be used to deliver chat messages to your customers using a unified delivery API. You can easily integrate your favorite chat provider using the built-in integration store.
+The Chat channel provides:
 
-## Configuring chat providers
+- **Cross-Platform Integration**: A single system to handle messaging platforms (e.g., Slack, Teams) and apps (e.g., WhatsApp, Telegram, Discord)
+- **Scalability at Its Core**: Designed to handle high-frequency messaging without breaking a sweat
+- **Effortless Configuration**: Minimal setup, maximum control over your chat notification workflows
 
-To configure a chat provider, you need to add a new integration to your Novu account. You can do this by navigating to the integration store and clicking on the **Add a provider** button and then select the chat provider you want to configure. You can find the [integration store](https://dashboard.novu.co/integrations?utm_campaign=docs-chat-overview) in the left sidebar of the Novu dashboard.
+## Key Features
 
-Each chat provider requires defferent type of credentials. There are few providers which does not require any credentials example: `Discord`
+- **Platform and App Agnostic**: Supports workplace messaging platforms (Slack, Teams) and consumer apps (Discord, WhatsApp, Telegram) without additional overhead
+- **Dynamic Content Handling**: Inject real-time, user-specific data into messages with simple APIs
+- **Provider Independence**: Easily switch between chat providers or use multiple simultaneously
+- **Delivery Monitoring**: Full visibility into delivery status, failures, and message engagement
+- **Fallback Logic**: Automate retries and backup providers to ensure messages are delivered
+- **Reusable Message Templates**: Standardize message structure across your channels
+- **Developer-Centric APIs**: Clean, intuitive endpoints to plug notifications directly into your backend
 
-## Sending chat message
+## Messaging Platforms vs. Messaging Apps
 
-Steps to send a chat message using Novu:-
+- **Messaging Platforms** (e.g., Slack, Teams): Ideal for structured, workplace communication. Use these to notify teams or users in collaborative environments
+- **Messaging Apps** (e.g., WhatsApp, Telegram, Discord): Best for consumer-facing messaging. Engage users directly through personal or group chats
 
-1. Add a chat provider integration to your Novu account from the integration store. Enter credentials if required and save the integration. Follow corresponding provider documentation to get the required credentials.
-2. Create a new subscriber
+## Common Use Cases
 
-> Step 2 can be skipped if you already have a subscriber. You can use the `subscriberId` of an existing subscriber.
-
-3. [Update](/channels-and-providers/chat/overview#update-credential-webhookurl) the subscriber credential `webhookUrl` for this provider and integration.
-
-4. Create a new [worklow](/workflows/notification-workflows) or use an existing workflow. Add chat channel and [write content](/content-creation-design/notification-content-creation#chat) for the message.
-
-5. Trigger this workflow to above `subscriberId` using trigger identifier
-
-6. Check the chat provider if message is received. If not, check the logs in [activity feed](/activity-feed/introduction) for for any errors.
-
-## Update credential webhookUrl
-
-<Tabs>
-  <Tab title="Node.js">
-```javaScript
-import {
-  Novu,
-  ChatProviderIdEnum
-} from '@novu/node';
-
-const novu = new Novu("<NOVU_SECRET_KEY>");
-
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
-webhookUrl: "<WEBHOOK_URL>",
-});
-
-```
-  </Tab>
-  <Tab title="cURL">
-```bash
-curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
--H 'Content-Type: application/json' \
--H 'Accept: application/json' \
--H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
--d '{
-  "providerId": "slack",
-  "credentials": {
-      "webhookUrl": "<WEBHOOK_URL>"
-  },
-  "integrationIdentifier": "slack-MnGLxp8uy"
-}'
-```
-
-  </Tab>
-</Tabs>
-
-Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
-
-<Info>
-  {" "}
-  Integration identifier is similar to Provider identifier but it is different than
-  Provider Id. It is unique for each integration. You can find the `integrationIdentifier`
-  in the integration store page.{" "}
-</Info>
-
-## Common errors
-
-Common erros and reason of those errors while sending chat messages using Novu.
-
-1. Subscriber does not have a configured channel.
-   - if the subscriber does not have credentials set up for any of the chat provider.
-2. Webhook URL for the chat channel is missing.
-   - `webhookUrl` field is null, undefined or not set. Check using [get subscriber api](/api-reference/subscribers/get-subscriber).
-3. Subscriber does not have an active integration.
-   - if subscriber have credentials set but integration is either not active or deleted for this credential.
-
-<Tip>
-  <MissingProvider channelName="SMS" />
-</Tip>
+- **Team Notifications**: Deliver updates to Slack channels or Teams users without needing complex integrations
+- **Customer Engagement**: Notify users on apps like Telegram or WhatsApp with real-time updates or alerts
+- **System Alerts**: Push critical system or workflow notifications to technical teams via chat platforms
+- **Event Reminders**: Send timely reminders for meetings, webinars, or deadlines
+- **Community Notifications**: Manage announcements, updates, or discussions in platforms like Discord

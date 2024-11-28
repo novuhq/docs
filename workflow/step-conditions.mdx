@@ -1,0 +1,45 @@
+---
+title: "Step Conditions (Coming Soon)"
+sidebarTitle: "Step Conditions"
+---
+
+**Step Conditions** allow you to customize a **Subscriber's** workflow journey using their **Data**, **Topics**, or prior behavior.
+
+For instance, if a **Subscriber** doesn’t **See** or **Read** an **In-App Notification Step** within a specific time (e.g., X minutes), you can automatically trigger a **Mobile Push Notification Step** to engage them through another channel. These features enable more sophisticated, personalized notification workflows, boosting engagement and communication.
+
+### Levels of Conditions
+
+You can apply conditions at three levels:
+
+1. **Step-Level Conditions**
+    
+    Define whether an individual step within a workflow should execute during a workflow run.
+    
+    <Tip> Example: Send an email only if the preceding in-app notification hasn’t been seen or read.</Tip>
+    
+2. **Channel-Level Conditions**
+    
+    Control execution of steps using a specific channel across all workflow runs.
+
+    <Tip> Example: Trigger SendGrid email channel steps only in the production environment.</Tip>
+
+    
+3. **Preference-Level Conditions**
+    
+    Manage notification preferences available during a workflow run.
+
+    <Tip> Example: Allow recipients to mute notifications for specific product resources.</Tip>  
+
+---
+
+### Condition Types
+
+Novu's shared conditions model supports the following types:
+
+- **Data** — Evaluates workflow trigger data payload properties.
+- **Subscriber** — Evaluates properties of the workflow Subscriber.
+- **Actor** — Evaluates properties of the workflow Actor.
+- **Environment Variable** — Evaluates custom environment variables.
+- **Workflow** — Evaluates properties of the current workflow.
+- **Workflow Run State** — Evaluates runtime properties of the workflow.
+- **Tenant** — Evaluates properties of the associated tenant.
