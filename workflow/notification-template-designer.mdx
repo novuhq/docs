@@ -1,6 +1,6 @@
 ---
 title: "Notification Template Designer"
-sidebarTitle: "Notification Template Designer"
+sidebarTitle: "Template Designer"
 description: "Learn how to use the Novu notification template editor to design notifications for your application"
 ---
 
@@ -20,10 +20,10 @@ Novu templates allow you to reference several types of variables:
 
 ### Data Payload Variables
 These variables originate from the data payload in your workflow trigger. 
-For example, if you include `{ "order_id": "12345" }` in your payload, you can reference it in your template as `{{ payload.data.order_id }}`.
+For example, if you include `{ "order_id": "12345" }` in your payload, you can reference it in your template as `{{ payload.order_id }}`.
 
 ### User Properties
-You can access user properties (like `firstName` or `data.plan`) using `{{ subscriber.property }}`. For instance:
+You can access user properties (like `firstName` or custom subscriber properties) using `{{ subscriber.* }}`. For instance:
 
 ```liquid
 Hi {{ subscriber.firstName }},
@@ -36,29 +36,15 @@ The Novu Team
 
 ## Adding Logic with Liquid filters
 
-Novu supports Liquid syntax for dynamic and conditional content in templates. Commonly used filters include:
+Novu supports Liquid syntax for dynamic and conditional content in templates.
 
-### Conditional Statements
-
-Display different content based on trigger data or user properties. 
-
-For example:
+You can use filters like `capitalize` and `first` for advanced variable manipulation. For example:
 
 ```liquid
-{% if total_items > 1 %}
-  {{ actor.name }} added {{ total_items }} items to your list.
-{% else %}
-  {{ actor.name }} added an item to your list.
-{% endif %}
+You've been invited by {{ subscriber.firstName | capitalize }} to join {{ payload.workspace_name }} on Novu.
 ```
 
-You can also use filters like `split` and `first` for advanced variable manipulation. For example:
-
-```liquid
-You've been invited by {{ actor.name | split: " " | first }} to join {{ data.workspace_name }} on Novu.
-```
-
-Learn more about Liquid syntax in the [Liquid documentation](https://liquidjs.com/index.html).
+Learn more about all Liquid syntax in the [Liquid documentation](https://liquidjs.com/index.html).
 
 ## Previewing and Testing Notification Templates
 
