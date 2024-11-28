@@ -125,13 +125,6 @@
       ]
     },
     {
-      "group": "Architecture",
-      "pages": [
-        "architecture/overview",
-        "architecture/diagrams"
-      ]
-    },
-    {
       "group": "Build Workflows",
       "pages": [
         "workflow/workflow-editor",
@@ -145,107 +138,105 @@
       ]
     },
     {
-      "group": "In-App",
-      "icon": "bell",
+      "group": "Channels",
       "pages": [
-        "integrations/providers/in-app/in-app-channel",
-        "integrations/providers/in-app/adding-in-app"
-      ]
-    },
-    {
-      "group": "Email",
-      "icon": "envelope",
-      "pages": [
-        "integrations/providers/email/email-channel",
-        "integrations/providers/email/adding-email",
         {
-          "group": "Providers",
+          "group": "In-App",
+          "icon": "bell",
+          "pages": ["integrations/providers/in-app/overview"]
+        },
+        {
+          "group": "Email",
+          "icon": "envelope",
           "pages": [
-            "integrations/providers/email/sendgrid",
-            "integrations/providers/email/amazon-ses",
-            "integrations/providers/email/postmark",
-            "integrations/providers/email/resend",
-            "integrations/providers/email/sendinblue",
-            "integrations/providers/email/mailersend",
-            "integrations/providers/email/mailgun",
-            "integrations/providers/email/mailjet",
-            "integrations/providers/email/infobip",
-            "workflow/channels/email/mailtrap",
-            "integrations/providers/email/mandrill",
-            "integrations/providers/email/netcore",
-            "integrations/providers/email/outlook365",
-            "integrations/providers/email/braze",
-            "integrations/providers/email/sparkpost",
-            "integrations/providers/email/plunk",
-            "integrations/providers/email/custom-smtp"
+            "integrations/providers/email/overview",
+            {
+              "group": "Providers",
+              "pages": [
+                "integrations/providers/email/sendgrid",
+                "integrations/providers/email/amazon-ses",
+                "integrations/providers/email/postmark",
+                "integrations/providers/email/resend",
+                "integrations/providers/email/sendinblue",
+                "integrations/providers/email/mailersend",
+                "integrations/providers/email/mailgun",
+                "integrations/providers/email/mailjet",
+                "integrations/providers/email/infobip",
+                "integrations/providers/email/mailtrap",
+                "integrations/providers/email/mandrill",
+                "integrations/providers/email/netcore",
+                "integrations/providers/email/outlook365",
+                "integrations/providers/email/braze",
+                "integrations/providers/email/sparkpost",
+                "integrations/providers/email/plunk",
+                "integrations/providers/email/custom-smtp"
+              ]
+            }
           ]
-        }
-      ]
-    },
-    {
-      "group": "Push",
-      "icon": "mobile",
-      "pages": [
-        "integrations/providers/push/push-channel",
-        "integrations/providers/push/adding-push",
+        },
         {
-          "group": "Providers",
+          "group": "SMS",
+          "icon": "message-sms",
           "pages": [
-            "integrations/providers/push/fcm",
-            "integrations/providers/push/apns",
-            "integrations/providers/push/expo-push",
-            "integrations/providers/push/onesignal",
-            "integrations/providers/push/pushpad",
-            "integrations/providers/push/push-webhook",
-            "integrations/providers/push/pusher-beams"
+            "integrations/providers/sms/overview",
+            { 
+              "group": "Providers",
+              "pages": [
+                "integrations/providers/sms/twilio",
+                "integrations/providers/sms/sms77",
+                "integrations/providers/sms/africas-talking",
+                "integrations/providers/sms/azure",
+                "integrations/providers/sms/bulk-sms",
+                "integrations/providers/sms/messagebird",
+                "integrations/providers/sms/simpletexting",
+                "integrations/providers/sms/infobip",
+                "integrations/providers/sms/sendchamp",
+                "integrations/providers/sms/aws-sns",
+                "integrations/providers/sms/nexmo",
+                "integrations/providers/sms/plivo",
+                "integrations/providers/sms/telnyx",
+                "integrations/providers/sms/termii",
+                "integrations/providers/sms/firetext",
+                "integrations/providers/sms/gupshup",
+                "integrations/providers/sms/clickatell"
+              ]
+            }
           ]
-        }
-      ]
-    },
-    {
-      "group": "SMS",
-      "icon": "message-sms",
-      "pages": [
-        "integrations/providers/sms/sms-channel",
-        "integrations/providers/sms/adding-sms",
+        },
         {
-          "group": "Providers",
+          "group": "Push",
+          "icon": "mobile",
           "pages": [
-            "integrations/providers/sms/twilio",
-            "integrations/providers/sms/sms77",
-            "integrations/providers/sms/africas-talking",
-            "integrations/providers/sms/azure",
-            "integrations/providers/sms/bulk-sms",
-            "integrations/providers/sms/messagebird",
-            "integrations/providers/sms/simpletexting",
-            "integrations/providers/sms/infobip",
-            "integrations/providers/sms/sendchamp",
-            "integrations/providers/sms/aws-sns",
-            "integrations/providers/sms/nexmo",
-            "integrations/providers/sms/plivo",
-            "integrations/providers/sms/telnyx",
-            "integrations/providers/sms/termii",
-            "integrations/providers/sms/firetext",
-            "integrations/providers/sms/gupshup",
-            "integrations/providers/sms/clickatell"
+            "integrations/providers/push/overview",
+            {
+              "group": "Providers",
+              "pages": [
+                "integrations/providers/push/fcm",
+                "integrations/providers/push/apns",
+                "integrations/providers/push/expo-push",
+                "integrations/providers/push/onesignal",
+                "integrations/providers/push/pushpad",
+                "integrations/providers/push/push-webhook",
+                "integrations/providers/push/pusher-beams"
+              ]
+            }
           ]
-        }
-      ]
-    },
-    {
-      "group": "Chat",
-      "icon": "comments",
-      "pages": [
-        "integrations/providers/chat/chat-channel",
-        "integrations/providers/chat/adding-chat",
+        },
         {
-          "group": "Providers",
+          "group": "Chat",
+          "icon": "comments",
           "pages": [
-            "integrations/providers/chat/discord",
-            "integrations/providers/chat/slack",
-            "integrations/providers/chat/ms-teams",
-            "integrations/providers/chat/zulip",
-            "integrations/providers/chat/whats-app"
+            "integrations/providers/chat/overview",
+            {
+              "group": "Providers",
+              "pages": [
+                "integrations/providers/chat/discord",
+                "integrations/providers/chat/slack",
+                "integrations/providers/chat/ms-teams",
+                "integrations/providers/chat/zulip",
+                "integrations/providers/chat/whats-app"
+              ]
+            }
           ]
         }
       ]
