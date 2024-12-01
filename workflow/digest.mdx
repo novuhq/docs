@@ -11,15 +11,7 @@ This becomes useful when a user needs to be notified on a large amount of trigge
 After adding a digest step to a workflow, each node that will be below the digest node will be only triggered once in the specified digest interval.
 You can decide to send messages before adding a digest node and they will be triggered in real-time.
 
-<Frame caption="Digest Nodes">
-  <img src="https://github.com/novuhq/docs/assets/2946769/3fa668ea-0f94-49f9-9784-211db64a7a36" />
-</Frame>
-
-In the image above, there are two nodes (`Email` and `SMS`) after the digest node and one node (`In-App`) before the digest node in the workflow.
-
-For this workflow, if we trigger 10 events within the digest interval, the `In-App` step will be executed 10 times, and `Email` and `SMS` will be executed only 1 time with digested events data.
-
-To read more about the full list of parameters, check out the [full SDK reference](/sdks/framework/typescript/steps/digest).
+![Digest Engine](/workflow/media-assets/digest-engine.png)
 
 ## Digest Configuration
 
