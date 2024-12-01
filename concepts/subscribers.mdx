@@ -28,54 +28,6 @@ Each subscriber has the following data points:
 | avatar       | string | false    | https://example.com/images/avatar.jpg |
 | data         | object | false    | `{"key": "value"}`                    |
 
-## Subscriber response schema
-
-**Novu subscriber object**
-
-```json
-{
-  "_id": "NOVU_GENERATED_SUBSCRIBER_ID",
-  "_organizationId": "NOVU_GENERATED_ORG_ID",
-  "_environmentId": "NOVU_GENERATED_ENV_ID",
-  "firstName": "John",
-  "lastName": "Doe",
-  "subscriberId": "subscriberId",
-  "email": "[john.doe@org.com](mailto:john.doe@org.com)",
-  "phone": "+98712345670"
-  "data": {
-    "custome_key_1" : "custom_value_1",
-    "custome_key_2" : "custom_value_2"
-  }
-  "channels": [
-  {
-    "credentials": {
-      "deviceTokens": [
-        "token1",
-        "token2"
-      ]
-    },
-    "_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
-    "providerId": "fcm"
-  },
-  {
-    "credentials": {
-      "webhookUrl": "URL"
-    },
-    "_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
-    "providerId": "discord"
-  }
-  ],
-  "deleted": false,
-  "createdAt": "2022-10-13T17:40:53.231Z",
-  "updatedAt": "2022-10-13T17:41:53.238Z",
-  "__v": 0,
-  "isOnline": false,
-  "lastOnlineAt": "2022-10-13T17:41:53.238Z",
-  "avatar": "AVATAR_URL",
-  "id": "NOVU_GENERATED_SUBSCRIBER_ID"
-}
-```
-
 ## Creating a subscriber
 
 We support creating new subscriber using two ways, `Ahead of Trigger` means adding subscribers before triggering notification or `Just-in-time` means sending complete subscriber data in `to` field while triggering.
