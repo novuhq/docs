@@ -97,7 +97,7 @@ Checkout the [API reference](/api-reference/subscribers/update-subscriber-creden
 
 ## SDK Trigger Example
 
-```jsx
+```typescript
 import { Novu } from "@novu/node";
 
 const novu = new Novu("<NOVU_SECRET_KEY>");
@@ -132,7 +132,7 @@ novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
 });
 ```
 
-Device/notification identifiers can be set by using [setCredentials](#set-device-token) or by using the `deviceIdentifiers` field in overrides.
+Device/notification identifiers can be set by using [setCredentials](#set-device-token) 
 
 <Info> Novu uses FCM version V1</Info>
 
