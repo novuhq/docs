@@ -33,17 +33,163 @@ Thanks,
 The Novu Team
 ```
 
-## Adding Logic with Liquid filters
+## Adding Logic with Liquid Filters
 
-Novu supports Liquid syntax for dynamic and conditional content in templates.
+Novu supports Liquid filters to add dynamic and conditional content to your notifications. Below are examples of how to use the top 10 Liquid filters in real-world notification templates.
 
-You can use filters like `capitalize` and `first` for advanced variable manipulation. For example:
+
+
+### `capitalize`
+
+Use `capitalize` to ensure proper formatting for user names.
 
 ```liquid
-You've been invited by {{ subscriber.firstName | capitalize }} to join {{ payload.workspace_name }} on Novu.
+Hello {{ subscriber.firstName | capitalize }},  
+Welcome to Novu! We're excited to have you on board.
 ```
 
-Learn more about all Liquid syntax in the [Liquid documentation](https://liquidjs.com/index.html).
+**Output**:  
+`Hello John,  
+Welcome to Novu! We're excited to have you on board.`
+
+---
+
+### `upcase`
+
+Use `upcase` for emphasizing specific information like workspace names.
+
+```liquid
+Your workspace {{ payload.workspaceName | upcase }} has been successfully created.
+```
+
+**Output**:  
+`Your workspace TEAM ALPHA has been successfully created.`
+
+---
+
+### `downcase`
+
+Use `downcase` for consistent email formatting or usernames.
+
+```liquid
+Hi {{ subscriber.email | downcase }},  
+We’ve sent a confirmation to your inbox.
+```
+
+**Output**:  
+`Hi john.doe@example.com,  
+We’ve sent a confirmation to your inbox.`
+
+---
+
+### `date`
+
+Use `date` to format subscription or event dates.
+
+```liquid
+Your subscription will renew on {{ payload.renewalDate | date: "%B %d, %Y" }}.
+```
+
+**Output**:  
+`Your subscription will renew on December 31, 2024.`
+
+---
+
+### `truncate`
+
+Use `truncate` to shorten long content like notification messages.
+
+```liquid
+New comment on your post: {{ payload.commentText | truncate: 20 }}  
+Click here to read more.
+```
+
+**Output**:  
+`New comment on your post: Great work on your...  
+Click here to read more.`
+
+---
+
+### `truncatewords`
+
+Use `truncatewords` to limit the number of words in a preview.
+
+```liquid
+{{ subscriber.firstName }}, here's a preview of the article:  
+{{ payload.articleExcerpt | truncatewords: 5 }}
+```
+
+**Output**:  
+`John, here's a preview of the article:  
+Novu is a flexible and...`
+
+---
+
+### `replace`
+
+Use `replace` to dynamically update template content.
+
+```liquid
+Hi {{ subscriber.firstName }},  
+Your {{ payload.subscriptionType | replace: "basic", "premium" }} subscription is active.
+```
+
+**Output**:  
+`Hi John,  
+Your premium subscription is active.`
+
+---
+
+### `split`
+
+Use `split` to parse tags or interests.
+
+```liquid
+You have new updates in {{ payload.tags | split: "," | join: ", " }}.
+```
+
+**Input**:  
+`"announcements,updates,offers"`
+
+**Output**:  
+`You have new updates in announcements, updates, offers.`
+
+---
+
+### `join`
+
+Use `join` to list multiple items in a human-readable way.
+
+```liquid
+Hello {{ subscriber.firstName }},  
+You have the following items pending: {{ payload.tasks | join: ", " }}.
+```
+
+**Input**:  
+`["Upload documents", "Confirm email", "Schedule meeting"]`
+
+**Output**:  
+`Hello John,  
+You have the following items pending: Upload documents, Confirm email, Schedule meeting.`
+
+---
+
+### `default`
+
+Use `default` to provide fallback values.
+
+```liquid
+Hi {{ subscriber.nickname | default: subscriber.firstName }},  
+Your account settings are updated.
+```
+
+**Output (when nickname is null)**:  
+`Hi John,  
+Your account settings are updated.`
+
+<Card title="Liquid Filters" icon="filter" href="https://liquidjs.com/filters/overview.html?utm_source=Novu">
+  Learn more about 40+ filters supported by LiquidJS
+</Card>
 
 ## Previewing and Testing Notification Templates
 
