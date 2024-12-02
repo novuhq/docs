@@ -69,14 +69,53 @@ novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
   payload: {
     attachments: [
       {
+        // buffer format
         file: fs.readFileSync(__dirname + '/data/novu.jpeg'),
         name: 'novu.jpeg',
         mime: 'image/jpeg',
       },
+      {
+        // base64 format
+        file: 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPhfz0AEYBxVSF+FAP5FDvcfRYWgAAAAAElFTkSuQmCC',
+        name: 'blue.png',
+        mime: 'image/png',
+      }
     ],
   },
 });
 ```
+  </Tab>
+  <Tab title="cURL">
+  Use https://eu.api.novu.co/v1/events/trigger api endpoint for the EU region.
+```bash
+curl -L -X POST 'https://api.novu.co/v1/events/trigger' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <SECRET_KEY>' \
+--data-raw '{
+    "name": "workflow_trigger_identifier",
+    "to": [
+        {
+            "subscriberId": "subscriber_id",
+            "email": "email_address"
+        }
+    ],
+    "payload": {
+        "attachments": [
+            {
+                "file": "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII",
+                "name": "transparent.png",
+                "mime": "image/png"
+            },
+            {
+                "file": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPhfz0AEYBxVSF+FAP5FDvcfRYWgAAAAAElFTkSuQmCC",
+                "name": "blue.png",
+                "mime": "image/png"
+            }
+        ]
+    }
+}'
+``` 
   </Tab>
 </Tabs>
 
