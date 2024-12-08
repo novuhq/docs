@@ -12,16 +12,43 @@ Before you can start integrating Novu into your application, you need to create 
     [Create a new account](https://dashboard.novu.co/signup) on Novu Cloud or [sign in](https://dashboard.novu.co/login) if you already have an account.
   </Step>
   <Step title="Create a new Workflow">
-    Create a new workflow by clicking on the **Create Workflow** button in the Workflows page, add your desired steps and save the workflow.
+    Create a new workflow by clicking on the **Create Workflow** button in the Workflows page.
+    - Give your workflow a name (e.g. "User Onboarding")
+    - **Workflow identifier** will be generated automatically (e.g. `user-onboarding`)
+    - Add **Tags** (optional) : Tags are a great way to classify and filter workflows for you, and your users
+    - Add a **Description** (optional) : Add a description to help you and your team understand the purpose of the workflow
   </Step>
-  <Step title="Add Inbox Component (Optional)">
-    The most common use case is to add the Inbox component (For In-App notifications and messaging) to your application, this will allow you to display the notifications in your application.
-
-    <Card title="Add In-App Capabilities to Your App" icon="Bell" href="/inbox/introduction">
-      Quickstart for how to implement the pre-built, ready-to-use, and customizable Inbox UI component
-    </Card>
-
+    <Step title="Add Steps to your Workflow">
+    Each workflow can consist of multiple steps, each step is responsible for sending a notification to the user.
+    <CardGroup cols={2}>
+      <Card title="Email" icon="Envelope" href={"/workflow/steps/email"}>
+        **Email** is the most common notification channel, and is great for sending promotional and transactional emails.
+      </Card>
+      <Card title="SMS" icon="message-sms" href={"/workflow/steps/sms"}>
+        **SMS** is a great channel for sending OTPs, alerts, and two-factor authentication codes.
+      </Card>
+      <Card title="Push" icon="Mobile" href={"/workflow/steps/push"}>
+        **Web Push** and **Mobile Push** notifications are great for sending time-sensitive notifications to your users.
+      </Card>
+      <Card title="In-App" icon="Bell" href={"/workflow/steps/in-app"}>
+        **In-app** notifications are delivered inside your application, and are a great way to engage your users.
+      </Card>
+      <Card title="Chat" icon="Message" href={"/workflow/steps/chat"}>
+        **Chat** steps are used to send notifications to chat platforms like **Slack** and **Microsoft Teams**, 
+        and chat apps like **WhatsApp**, **Telegram** and **Discord**.
+      </Card>
+      <Card title="Delay" icon="Clock" href={"/workflow/steps/delay"}>
+        **Delay** steps are used to wait for a certain amount of time before executing the next step.
+      </Card>
+      <Card title="Digest" icon="sitemap" href={"/workflow/steps/digest"}>
+        **Digest** steps are used to batch (Group) notifications together and send them at a later time following a specific logic.
+      </Card>
+      <Card title="Custom" icon="code" href={"/workflow/steps/conditional"}>
+        **Custom** steps are used to add custom logic to your workflow, and are written in using the **Novu Framework**.
+      </Card>
+    </CardGroup>  
   </Step>
+
   <Step title="Trigger a workflow">
     Each workflow is created with a unique identifier that can be used to trigger the workflow, visit the Trigger page to view the trigger instructions.
 
@@ -64,7 +91,19 @@ Before you can start integrating Novu into your application, you need to create 
         ```
     </CodeGroup>
   </Step>
-  <Step title="Explore more">
+
+    <Step title="Optional Step">
+    <Tip>
+      ### Add Inbox Component
+      The most common use case is to add the Inbox component (For In-App notifications and messaging) to your application, this will allow you to display the notifications in your application.
+
+    <Card title="Add In-App Capabilities to Your App" icon="Bell" href="/inbox/introduction">
+      Quickstart for how to implement the pre-built, ready-to-use, and customizable Inbox UI component
+      </Card>
+    </Tip>
+  </Step>
+</Steps>
+
     Now that you triggered your first workflow, learn more about how to use Novu to send notifications to your users.
 
     <CardGroup cols={2}>
@@ -81,5 +120,3 @@ Before you can start integrating Novu into your application, you need to create 
        Learn about how to customize the entire platform experience with the Framework SDK.
       </Card>
     </CardGroup>
-  </Step>
-</Steps>
