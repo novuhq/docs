@@ -42,7 +42,13 @@ Every request you make is automatically routed to the correct [environment](/con
 
 ## Workflows
 
-Workflows are a foundational concept in Novu. They allow you to easily model complex messaging flows across channels using a variety of logical function steps while respecting a user’s individual preferences. All Novu notifications are sent by triggering a workflow.
+Workflows are the core building blocks of Novu's notification system. They enable you to design sophisticated messaging sequences that can span multiple communication channels like email, SMS, and push notifications. 
+
+Using intuitive logical operators and action steps, you can create dynamic notification paths that automatically adapt based on user preferences and behavior.
+
+Every notification in Novu originates from a workflow trigger, making workflows the central orchestration layer for your entire messaging infrastructure. 
+
+Whether you need to send a simple welcome email or implement a complex multi-step notification sequence with fallbacks and conditional logic, workflows provide the foundation for managing these communications effectively.
 
 ![novu-workflows](/getting-started/media-assets/novu-workflow.png)
 
@@ -254,116 +260,202 @@ var trigger = await novu.Event.Trigger(payload);
 
 </CodeGroup>
 
+
+
 Novu processes each workflow run using a combination of the following concepts:
 
 ## Subscribers
 
-Subscribers are in most cases users in your application. As you trigger workflows for subscribers, Novu creates a cache of the data needed to notify them on different platforms, like an email address, phone number, avatar URL, or push token. Novu also stores custom properties you pass from your application to customize their notifications, like a plan type, user role, or timezone.
+Subscribers are in most cases users in your application who receive notifications through various channels.
 
-```json An object used to create a User
+<Info>
+**When you trigger workflows for subscribers, Novu maintains a cache of their notification-related data, including:**
+
+- Contact information (email, phone number)
+- Profile details (avatar URL)
+- Platform-specific tokens (push notifications, webhooks)
+- Custom properties (plan type, user role, timezone)
+</Info>
+
+Below is a detailed breakdown of the subscriber object:
+
+```json
 {
+  // Core Identifiers
   "_id": "NOVU_GENERATED_SUBSCRIBER_ID",
+  "subscriberId": "subscriberId",
+  "id": "NOVU_GENERATED_SUBSCRIBER_ID",
   "_organizationId": "NOVU_GENERATED_ORG_ID",
   "_environmentId": "NOVU_GENERATED_ENV_ID",
+
+  // Basic Information
   "firstName": "John",
   "lastName": "Doe",
-  "subscriberId": "subscriberId",
-  "email": "[john.doe@org.com](mailto:john.doe@org.com)",
-  "phone": "+98712345670"
+  "email": "john.doe@org.com",
+  "phone": "+98712345670",
+  "avatar": "AVATAR_URL",
+
+  // Custom Data
   "data": {
-    "custome_key_1" : "custom_value_1",
-    "custome_key_2" : "custom_value_2"
-  }
-  "channels": [
-  {
-    "credentials": {
-      "deviceTokens": [
-        "token1",
-        "token2"
-      ]
-    },
-    "_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
-    "providerId": "fcm"
+    "custom_key_1": "custom_value_1",
+    "custom_key_2": "custom_value_2"
   },
-  {
-    "credentials": {
-      "webhookUrl": "URL"
+
+  // Communication Channels
+  "channels": [
+    {
+      // Firebase Cloud Messaging configuration
+      "credentials": {
+        "deviceTokens": ["token1", "token2"]
+      },
+      "_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
+      "providerId": "fcm"
     },
-    "_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
-    "providerId": "discord"
-  }
+    {
+      // Discord configuration
+      "credentials": {
+        "webhookUrl": "URL"
+      },
+      "_integrationId": "NOVU_GENERATED_INTEGRATION_ID",
+      "providerId": "discord"
+    }
   ],
+
+  // System Fields
   "deleted": false,
   "createdAt": "2022-10-13T17:40:53.231Z",
   "updatedAt": "2022-10-13T17:41:53.238Z",
   "__v": 0,
   "isOnline": false,
-  "lastOnlineAt": "2022-10-13T17:41:53.238Z",
-  "avatar": "AVATAR_URL",
-  "id": "NOVU_GENERATED_SUBSCRIBER_ID"
+  "lastOnlineAt": "2022-10-13T17:41:53.238Z"
 }
-
 ```
 
 ## Channels
 
-Channels in Novu represent a specific provider you have configured to send notifications. You can include channel steps in your workflows to send notifications with the providers you already use in production. Novu supports the following channel types and providers:
+Novu enables you to configure multiple notification [providers](/concepts/providers) and integrate them into your notification workflows. 
+Each [channel](/concepts/channels) represents a configured provider that you can use to deliver notifications in production. 
+
+Here's an overview of our supported channels and providers:
 
 <AccordionGroup>
-  <Accordion title="Email">
-    Novu supports sending email with AWS SES, Mailersend, Mailgun, Mailjet, Mailtrap, Mandrill, Postmark, Resend, Sendgrid, SMTP, and Sparkpost.
-  </Accordion>
+ <Accordion title="Email" icon="envelope">
+   Send emails through leading providers including [Amazon SES](https://aws.amazon.com/ses/), [Mailersend](https://www.mailersend.com/), [Mailgun](https://www.mailgun.com/), [Mailjet](https://www.mailjet.com/), [Mailtrap](https://mailtrap.io/), [Mandrill](https://mandrillapp.com/), [Postmark](https://postmarkapp.com/), [Resend](https://resend.com/), [Sendgrid](https://sendgrid.com/), [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol), and [Sparkpost](https://www.sparkpost.com/).
+   
+   [Learn more about email channel →](https://docs.novu.co/channels/email)
+ </Accordion>
 
-  <Accordion title="SMS">
-    Novu supports sending SMS with Africa's Talking, AWS SNS, Mailersend, MessageBird, Plivo, Sinch, Telnyx, Twilio, and Vonage.
-  </Accordion>
+ <Accordion title="SMS" icon="message-sms">
+   Deliver SMS messages through trusted providers including [Africa's Talking](https://africastalking.com/), [Amazon SNS](https://aws.amazon.com/sns/), [Mailersend](https://www.mailersend.com/), [MessageBird](https://messagebird.com/), [Plivo](https://www.plivo.com/), [Sinch](https://www.sinch.com/), [Telnyx](https://telnyx.com/), [Twilio](https://www.twilio.com/), and [Vonage](https://www.vonage.com/). 
+   
+   [Learn more about SMS channel →](https://docs.novu.co/channels/sms)
+ </Accordion>
 
-  <Accordion title="Push">
-    Novu supports sending push messages with Apple Push Notification Service (iOS), Expo (React Native), and Firebase Cloud Messaging (Android).
-  </Accordion>
+ <Accordion title="Push Notifications" icon="mobile">
+   Send push notifications across major platforms including [Apple Push Notification Service](https://developer.apple.com/notifications/) for iOS, [Expo](https://expo.dev/) for React Native, and [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging) for Android. 
+   
+   [Learn more about Push channel →](https://docs.novu.co/channels/push)
+ </Accordion>
 
-    <Accordion title="Chat">
-    Novu supports sending chat messages with Slack, Discord, Microsoft Teams, WhatsApp, Telegram.
-  </Accordion>
+ <Accordion title="Chat Platforms" icon="message">
+   Integrate with popular messaging platforms including [Discord](https://discord.com/), [Microsoft Teams](https://www.microsoft.com/teams), [Slack](https://slack.com/), [Telegram](https://telegram.org/), and [WhatsApp](https://www.whatsapp.com/). 
+   
+   [Learn more about Chat channel →](https://docs.novu.co/channels/chat)
+ </Accordion>
 
-    <Accordion title="In-app">
-    Novu provides a real-time in-app feed API for receiving notifications, along with drop-in components to display them to your users.
-  </Accordion>
+ <Accordion title="In-app Notifications" icon="bell">
+   Build native notification experiences with our real-time notification feed API, ready-to-use UI components, and custom integration options for seamless implementation in your application. 
+   
+   [Learn more about In-app channel →](https://docs.novu.co/channels/in-app)
+ </Accordion>
 </AccordionGroup>
 
-A notification that is generated as a part of a workflow is called a Message, and Novu allows you to define dynamic message templates using a combination of a drag-and-drop editor and the Liquid templating language.
+In Novu's platform, a message is refered to as a [notification](/concepts/notifications) created during a [workflow](/concepts/workflows) run. 
 
-This helps product and marketing teams standardize on one templating system instead of using different templating languages for different providers. It also has the added benefit of lifting these messages out of your codebase so you can iterate quickly on customer communications without a developer.
+You can design these messages using an intuitive combination of template editor and the Liquid templating language to create dynamic, customizable notification templates.
+
+This unified approach solves two common challenges. 
+
+<Steps>
+  <Step title="The need for multiple templating languages">
+    Consolidate templating languages into a single system, removing the complexity of managing different syntaxes for different providers. 
+    
+    This ensures consistency across your communication channels without the need for constant adjustments.
+    
+    Novu’s built-in engine works seamlessly across email, SMS, push, chat, and in-app notifications. 
+    
+    Define variables like `{{subscriber.firstName}}` or `{{payload.orderTotal}}` once, and let Novu automatically handle the rest.
+    
+    **A consistent, efficient workflow across all channels without the need for constant adjustments.**
+  </Step>
+  <Step title="Notification templates separate from application code">
+    Manage notification templates in a dedicated control center, where teams can:
+    
+    - Edit templates using an intuitive notification template editor
+    - Test notifications with real subscriber data to ensure accuracy
+    - Switch between channels (email, SMS, push) while keeping content consistent
+    - Set up translation variations for different languages
+    
+    **This separation from your codebase lets non-developers update and manage communications without needing developer intervention.**
+  </Step>
+</Steps>
 
 ## Actions
 Each workflow can combine multiple action steps to model complex logic that creates better notification experiences. You can combine the following action steps with any number of channel steps to create personalized notifications for your users:
 
 <AccordionGroup>
   <Accordion title="Digest">
-    A digest step condenses multiple activities into one notification, e.g. batch all of the comments on this document for one hour and then send one email with all of the activities.
+    Digest actions combine multiple notifications into a single, consolidated message. This helps prevent notification fatigue and provides better context for your users.
+    
+    - Group related notifications within a specified time window
+    - Customize aggregation logic and formatting
+
+    [Learn more about Digest action →](https://docs.novu.co/workflows/actions/digest)
   </Accordion>
 
     <Accordion title="Delay">
-    A delay step waits for a specified duration before proceeding to the next step in a workflow, e.g. send the new user a follow-up email ten days after they sign up.
+    Delay actions introduce controlled waiting periods between steps in your workflow. This enables better timing and sequencing of notifications.
+
+    - Set precise delay durations (seconds to months)
+    - Support for cron-style scheduling
+
+    [Learn more about Delay action →](https://docs.novu.co/workflows/actions/delay)
   </Accordion>
 
     <Accordion title="Custom">
-    The Custom action step lets you to execute custom logic and maintain its state within the durable execution context of a workflow. This step’s output can seamlessly feed into subsequent steps of the Workflow, enabling powerful and dynamic workflows tailored to your needs.
+    Custom actions allow you to integrate specialized business logic directly into your notification workflows while maintaining workflow durability and state management.
+
+    - Execute arbitrary code within the workflow context
+    - Can serve as a trigger for other workflows
+    - Pass data from your application's database into the workflow
+
+    [Learn more about Custom action →](https://docs.novu.co/workflows/actions/custom)
   </Accordion>
 </AccordionGroup>
 
-In addition to combining channel steps and function steps to create complex workflows, you can augment these steps with additional logic based on the user recipient, inputs from your application, or the status of previous workflow steps. These are called step conditions.
+In addition to combining channel steps and action steps to create complex workflows, you can augment these steps with additional logic based on the subscriber, inputs from your application, or the status of previous workflow steps.
+These are called step conditions.
 
-## Step Conditions (Coming Soon)
-Step conditions exist across both channel and function steps, and they allow you to conditionally execute steps based on trigger payload data, user properties, or the status of previous steps
+## Step Conditions
+<Info> 
+**Coming Soon**
+</Info>
 
-Examples:
+Step conditions are powerful rules that determine when channel and action steps execute in your workflow. 
 
-    - Only send an email message if an in-app message has not been seen
-    - Only send an in-app notification if recipient.plan === "pro"
-    - Only execute a delay step if delay === true in the trigger payload
+They evaluate trigger data, subscriber properties, and previous step outcomes to create personalized user experiences.
 
-In addition to giving your technical and non-technical users the ability to construct these workflows via a drag-and-drop editor, Novu also enables your users to exercise control over their own notification experience using a flexible preferences model.
+**You can use step conditions to:**
+
+- Skip sending an email if a subscriber has already viewed an in-app message
+- Display in-app notifications only to users on specific plans (e.g., `subscriber.data.plan === "pro"`)
+- Control timing by executing delay steps based on trigger payload values (e.g., `if delay === true`)
+
+Step conditions automatically respect subscriber communication preferences, including:
+
+- Preferred notification channels (email, SMS, in-app, etc.)
+- Preferred times to receive communications
+- Frequency and volume settings
 
 ## Preferences
 
