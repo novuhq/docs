@@ -7,7 +7,7 @@ description: "Learn how to use the Pusher Beams provider to send push notificati
 
 To enable Pusher Beams integration, you need to create a Pusher Beams Instance and use both `Instance ID` and `Secret Key` from the Instance [dashboard](https://dashboard.pusher.com/beams/).
 
-# Setting the Device Token
+## Setting the Device Token
 
 Once Pusher Beams instance has been created, and the Pusher Beams SDK has been [set up and configured](https://pusher.com/docs/beams/reference/all-libraries/) for your application, you can associate users with their devices using [Authenticated Users](https://pusher.com/docs/beams/guides/publish-to-specific-user/web/).
 
@@ -28,10 +28,9 @@ import {
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.PusherBeams, {
-// Your user's unique 'userId' from Pusher Beams
-deviceTokens: ['userId-from-pusher-beams'],
+  // Your user's unique 'userId' from Pusher Beams
+  deviceTokens: ['userId-from-pusher-beams'],
 });
-
 ```
   </Tab>
   <Tab title="cURL">
@@ -52,9 +51,9 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
 
-# SDK Trigger Example
+## SDK Trigger Example
 
-```jsx
+```typescript
 import { Novu } from "@novu/node";
 
 const novu = new Novu("<NOVU_SECRET_KEY>");
