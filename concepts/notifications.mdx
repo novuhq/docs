@@ -1,0 +1,77 @@
+---
+title: "Notifications"
+description: "Learn about what Novu Notifications are, their structure, and functionality"
+---
+
+Notifications in Novu are the primary data entities that facilitate communication between your application and its users. These entities encapsulate critical details about the subscriber, the message, and the delivery process, enabling streamlined and reliable interactions across various channels.
+
+## Anatomy of a Notification
+
+A notification in Novu is designed to provide complete visibility and control over its lifecycle. 
+
+```json Sample Notification Object
+{
+  "data": {
+    "_id": "<string>",
+    "_environmentId": "<string>",
+    "_organizationId": "<string>",
+    "transactionId": "<string>",
+    "createdAt": "<string>",
+    "channels": "in_app",
+    "subscriber": {
+      "firstName": "<string>",
+      "_id": "<string>",
+      "lastName": "<string>",
+      "email": "<string>",
+      "phone": "<string>"
+    },
+    "template": {
+      "_id": "<string>",
+      "name": "<string>",
+      "triggers": [
+        "<string>"
+      ]
+    },
+    "jobs": [
+      "<string>"
+    ]
+  }
+}
+```
+
+### Key Components
+
+1. **Identification**
+   - `_id`: Unique identifier for the notification.  
+   - `_environmentId`: Links the notification to a specific environment (e.g., staging, production).  
+   - `_organizationId`: Identifies the organization that owns the notification.
+
+2. **Transaction and Timing**  
+   - `transactionId`: Tracks individual notification transactions for auditing and debugging.  
+   - `createdAt`: Timestamp indicating when the notification was created.
+
+3. **Channel and Delivery**
+   - `channels`: Specifies the delivery channel, such as in-app notifications, email, SMS, or push notifications.
+
+4. **Subscriber Details**
+   - `subscriber`: Contains user-specific data:  
+     - `firstName`, `lastName`, `email`, `phone`: Information about the recipient.  
+     - `_id`: A unique identifier for the subscriber.
+
+5. **Notification Workflow**
+   - `template`: Links the notification to a predefined message format:  
+     - `_id`: Identifier for the workflow.
+     - `name`: Workflow name.
+     - `triggers`: Events or actions that initiate the notification (e.g., user sign-up, order confirmation).
+
+6. **Jobs**  
+   - `jobs`: Tracks tasks associated with processing and delivering the notification.
+
+---
+
+### Notification APIs
+
+  <Card title="Notifications" href="/api-reference/notification/">
+    Query notifications and update messages individually or in batches via the Novu API.
+  </Card>
+
