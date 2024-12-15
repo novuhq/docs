@@ -1,32 +1,77 @@
 ---
 title: "Notifications"
-description: "Learn about what Novu Notifications are"
+description: "Learn about what Novu Notifications are, their structure, and functionality"
 ---
 
-Notifications are versatile messages that keep users informed and engaged, regardless of their activity or location. 
-These messages can take various forms—such as pop-ups, banners, badges, or sound alerts—designed to deliver timely updates without being intrusive. 
+Notifications in Novu are the primary data entities that facilitate communication between your application and its users. These entities encapsulate critical details about the subscriber, the message, and the delivery process, enabling streamlined and reliable interactions across various channels.
 
-Notifications meet users where they are, leveraging channels like in-app messages for real-time updates, email alerts for detailed information, push notifications for quick reminders, and SMS for urgent alerts. 
+## Anatomy of a Notification
 
-Each channel plays a unique role in enhancing communication, ensuring users never miss important events or actions across mobile devices, desktops, or web platforms. 
+A notification in Novu is designed to provide complete visibility and control over its lifecycle. 
 
-By seamlessly blending form and function, notifications adapt to different needs, providing an efficient and impactful way to stay connected.
+```json Sample Notification Object
+{
+  "data": {
+    "_id": "<string>",
+    "_environmentId": "<string>",
+    "_organizationId": "<string>",
+    "transactionId": "<string>",
+    "createdAt": "<string>",
+    "channels": "in_app",
+    "subscriber": {
+      "firstName": "<string>",
+      "_id": "<string>",
+      "lastName": "<string>",
+      "email": "<string>",
+      "phone": "<string>"
+    },
+    "template": {
+      "_id": "<string>",
+      "name": "<string>",
+      "triggers": [
+        "<string>"
+      ]
+    },
+    "jobs": [
+      "<string>"
+    ]
+  }
+}
+```
 
-Notifications can be broadly categorized into **promotional** and **transactional**, each serving a unique role in communication.
+### Key Components
 
-## Promotional Notifications
+1. **Identification**
+   - `_id`: Unique identifier for the notification.  
+   - `_environmentId`: Links the notification to a specific environment (e.g., staging, production).  
+   - `_organizationId`: Identifies the organization that owns the notification.
 
-Promotional notifications are crafted to capture user attention and inspire action by highlighting offers, updates, or personalized recommendations. 
-These notifications often include alerts about flash sales, product launches, or exclusive deals, making them powerful tools for boosting engagement and driving conversions. 
-Their primary goal is to excite and entice users while aligning with broader marketing objectives.
+2. **Transaction and Timing**  
+   - `transactionId`: Tracks individual notification transactions for auditing and debugging.  
+   - `createdAt`: Timestamp indicating when the notification was created.
 
-## Transactional Notifications
+3. **Channel and Delivery**
+   - `channels`: Specifies the delivery channel, such as in-app notifications, email, SMS, or push notifications.
 
-Transactional notifications, by contrast, are essential for delivering critical, user-specific information tied to actions or events. 
-Examples include order confirmations, shipping updates, account activity alerts, or password resets. 
-These notifications are built on trust and reliability, often adhering to strict timing and content standards to ensure users feel informed and secure.
+4. **Subscriber Details**
+   - `subscriber`: Contains user-specific data:  
+     - `firstName`, `lastName`, `email`, `phone`: Information about the recipient.  
+     - `_id`: A unique identifier for the subscriber.
 
---- 
+5. **Notification Workflow**
+   - `template`: Links the notification to a predefined message format:  
+     - `_id`: Identifier for the workflow.
+     - `name`: Workflow name.
+     - `triggers`: Events or actions that initiate the notification (e.g., user sign-up, order confirmation).
 
-While **promotional** notifications aim to spark interest, **transactional** notifications focus on maintaining transparency and fostering trust. 
-Together, they create a dynamic communication strategy that balances engagement with dependability, ensuring users stay connected, informed, and inspired to act.
+6. **Jobs**  
+   - `jobs`: Tracks tasks associated with processing and delivering the notification.
+
+---
+
+### Notification APIs
+
+  <Card title="Notifications" href="/api-reference/notification/">
+    Query notifications and update messages individually or in batches via the Novu API.
+  </Card>
+
