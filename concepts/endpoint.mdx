@@ -34,14 +34,14 @@ The framework endpoint is a Restful API path that runs on your server and enviro
 
 ### Build phase
 
-When [building new workflows](/workflow/introduction), you will be using the [Novu Framework SDK](/sdks/framework/typescript/overview) to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/workflow/studio) companion app.
+When [building new workflows](/workflow/introduction), you will be using the [Novu Framework SDK](/framework/typescript/overview) to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/framework/studio) companion app.
 
 ### Sync phase
 
 A sync is needed once a notification workflow code is created or updated. We offer multiple sync methods including CI/CD integrations and a custom CLI tool.
 
 During a sync, the workflows defined using the Novu Framework SDK will be pushed to our cloud service and will be persisted in our database. 
-Once synced, you will be able to view the workflows in the Workflows Page on the Dashboard. All the controls created using JSON Schema or Zod will be transformed into UI elements that can be modified without changing the source code. Read more about controls [here](/concepts/controls).
+Once synced, you will be able to view the workflows in the Workflows Page on the Dashboard. All the controls created using JSON Schema or Zod will be transformed into UI elements that can be modified without changing the source code. Read more about controls [here](/framework/controls).
 
 ### Execution phase
 
@@ -53,14 +53,14 @@ After the fan-out is complete, the bridge endpoint will be triggered with the re
 To get started with the framework endpoint, visit the Getting Started page relevant to your tech-stack:
 
 <CardGroup cols={3}>
-    <Card title="Next.js" color="#00D7FE" href="/quickstart/nextjs" horizontal icon={<NextjsIcon />} />
-    <Card title="Express.js" color="#47BA87" href="/quickstart/express" horizontal icon={<ExpressjsIcon />} />
-    <Card title="Remix"  color="#BC002C" href="/quickstart/remix" horizontal icon={<RemixIcon />} />
-    <Card title="NestJS"  color="#BC002C" href="/quickstart/nestjs" horizontal icon={<NestjsIcon />} />
-    <Card title="Svelte" color="#16a34a" href="/quickstart/svelte" horizontal icon={<SvelteIcon />} />
-    <Card title="Nuxt" color="#16a34a" href="/quickstart/nuxt" horizontal icon={<NuxtIcon />} />
-    <Card title="H3" color="#16a34a" href="/quickstart/h3" horizontal icon={<H3Icon />} />
-    <Card title="Lambda" color="#16a34a" href="/quickstart/lambda" horizontal icon={<LambdaIcon />} />
+    <Card title="Next.js" color="#00D7FE" href="/framework/quickstart/nextjs" horizontal icon={<NextjsIcon />} />
+    <Card title="Express.js" color="#47BA87" href="/framework/quickstart/express" horizontal icon={<ExpressjsIcon />} />
+    <Card title="Remix"  color="#BC002C" href="/framework/quickstart/remix" horizontal icon={<RemixIcon />} />
+    <Card title="NestJS"  color="#BC002C" href="/framework/quickstart/nestjs" horizontal icon={<NestjsIcon />} />
+    <Card title="Svelte" color="#16a34a" href="/framework/quickstart/svelte" horizontal icon={<SvelteIcon />} />
+    <Card title="Nuxt" color="#16a34a" href="/framework/quickstart/nuxt" horizontal icon={<NuxtIcon />} />
+    <Card title="H3" color="#16a34a" href="/framework/quickstart/h3" horizontal icon={<H3Icon />} />
+    <Card title="Lambda" color="#16a34a" href="/framework/quickstart/lambda" horizontal icon={<LambdaIcon />} />
 </CardGroup>
 
 <Warning>

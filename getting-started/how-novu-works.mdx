@@ -12,9 +12,9 @@ You also can reffer to it as a **Communication Infrastructure Layer (CIL)**, whi
 
 ---
 
-**How does it work?**
+<Icon icon="sparkles" size="34" iconType="solid" /> **How does it work?**
 
-Managing notifications across multiple channels is painful. Each [provider](/concepts/providers) has their own SDK, authentication methods, and API quirks. 
+Managing notifications across multiple channels is painful. Each notification delivery provider has their own SDK, authentication methods, and API quirks. 
 
 <Warning>
 **You'd normally need to:**
@@ -373,13 +373,13 @@ Each channel connects to a specific provider that handles the actual notificatio
 
 <Steps> 
   <Step title="Configure one or more channels by selecting and setting up providers"> 
-    Novu allows you to set up multiple notification [providers](/concepts/providers) and integrate them into your notification workflows. 
+    Novu allows you to set up multiple notification delivery providers and integrate them into your notification workflows. 
     
-    Each [channel](/concepts/channels) corresponds to a configured provider that you can use to deliver notifications in production. 
+    Each [channel](/workflow/channel-steps) corresponds to a configured provider that you can use to deliver notifications in production. 
   </Step> 
   <Step title="Add these channels to your notification workflows"> 
     Use these channels individually or combine them in workflows for multi-channel notification delivery. 
-  </Step> 
+  </Step>
 </Steps>
 
 <Info>
@@ -494,10 +494,10 @@ Each workflow can combine multiple action steps to model complex logic that crea
 
 In addition to combining channel steps and action steps to create complex workflows, you can augment these steps with additional logic based on the subscriber, inputs from your application, or the status of previous workflow steps. These are called step conditions.
 
-## Step Conditions
-<Info> 
-**Coming Soon**
-</Info>
+## Step Conditions 
+
+ <Icon icon="hourglass-clock" size="25" iconType="solid" /> **Coming Soon...**
+
 
 Step conditions are powerful rules that determine when channel and action steps execute in your workflow. 
 
@@ -555,13 +555,13 @@ While the workflow engine is at the heart of Novu, our goal is to build a comple
   <Card title="Framework SDK" icon="code" href="/sdks/overview">
     Use our SDK to integrate Novu with your backend codebase.
   </Card>
-  <Card title="Multi-tenancy" icon="people-roof" href="/concepts/multi-tenancy">
+  <Card title="Multi-tenancy" icon="people-roof" href="/concepts/tenants">
     Manage multiple tenants whithin an organization.
   </Card>
-  <Card title="Localization" icon="language" href="/concepts/localization">
+  <Card title="Localization" icon="language" href="/inbox/react/localization">
     Manage localized versions of your notification templates.
   </Card>
-  <Card title="Local Studio" icon="laptop-code" href="/local-studio/overview">
+  <Card title="Local Studio" icon="laptop-code" href="/framework/studio">
     Use our local studio to design and test your notification templates.
   </Card>
   <Card title="Environments" icon="layer-group" href="/concepts/environments">
