@@ -31,7 +31,7 @@ function Novu() {
         "notification.actions.unread.tooltip": "Mark as unread",
         "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
           `${notificationCount > 99 ? "99+" : notificationCount} new ${
-            notificationCount === ? "notification" : "notifications"
+            notificationCount === 1 ? "notification" : "notifications"
           }`,
         "notification.actions.archive.tooltip": "Archive",
         "notification.actions.unarchive.tooltip": "Unarchive",
