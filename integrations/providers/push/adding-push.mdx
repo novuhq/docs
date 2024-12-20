@@ -1,15 +1,13 @@
 ---
 title: "Adding Push Channel"
-sidebarTitle: "Adding Push Channel"
-description: "Learn how to add the Push channel to your application"
+sidebarTitle: "Adding push channel"
+description: "Learn how to add the push channel to your application"
 ---
-
-
 
 import { MissingProvider } from "/snippets/missing-provider.mdx";
 
 <Steps>
-  <Step title="Add a Push Channel Provider">
+  <Step title="Add a push channel provider">
     To send push notifications using Novu, you need to set up a provider in the integration store.
 
     1. Go to the Novu Dashboard and click **"Integrations"** on the left sidebar
@@ -18,7 +16,7 @@ import { MissingProvider } from "/snippets/missing-provider.mdx";
 
   </Step>
 
-  <Step title="Set Up Push Channel in a Workflow">
+  <Step title="Set up push channel in a workflow">
     Add push notifications to a new or existing workflow.
 
     1. Navigate to the **"Workflows"** section in the Novu Dashboard
@@ -28,7 +26,7 @@ import { MissingProvider } from "/snippets/missing-provider.mdx";
 
   </Step>
 
-  <Step title="Store Device Tokens in Subscriber Profiles">
+  <Step title="Store device tokens in subscriber profiles">
     For push notifications to reach the right subscribers, store provider-specific device tokens or identifiers.
 
     - Follow your provider’s documentation to obtain device tokens
@@ -36,7 +34,7 @@ import { MissingProvider } from "/snippets/missing-provider.mdx";
 
   </Step>
 
-  <Step title="Verify Provider Configuration">
+  <Step title="Verify provider configuration">
     Before triggering workflows, ensure your provider configuration is complete.
 
     - Refer to your push provider's documentation to confirm all required steps are correctly set up
@@ -44,7 +42,7 @@ import { MissingProvider } from "/snippets/missing-provider.mdx";
 
   </Step>
 
-  <Step title="Trigger and Test Push Workflow">
+  <Step title="Trigger and test push workflow">
     Test the push workflow to ensure everything is working as expected
 
     1. Go to the **"Workflows"** section in the Novu Dashboard and select your configured workflow
@@ -58,11 +56,11 @@ import { MissingProvider } from "/snippets/missing-provider.mdx";
 ## Supported providers
 
 - [Firebase Cloud Messaging (FCM)](/integrations/providers/push/fcm)
-- [Expo Push](/integrations/providers/push/expo-push)
-- [Apple Push Notification Service](/integrations/providers/push/apns)
+- [Expo push](/integrations/providers/push/expo-push)
+- [Apple push notification Service](/integrations/providers/push/apns)
 - [OneSignal](/integrations/providers/push/onesignal)
 - [Pushpad](/integrations/providers/push/pushpad)
-- [Push Webhook](/integrations/providers/push/push-webhook)
+- [Push webhook](/integrations/providers/push/push-webhook)
 
 <Note>Novu supports multiple active providers for push channel.</Note>
 
@@ -77,7 +75,7 @@ To send push notifications to subscribers, you need to store device tokens or id
 Novu offers to ways of keeping your device tokens in sync with subscriber profiles:
 
 - Just-in-time: Pass device tokens in the payload when triggering a workflow. Novu will automatically update subscriber profiles with the new device tokens.
-- Manual: Update subscriber profiles with device tokens using the Novu Set Credentials API.
+- Manual: Update subscriber profiles with device tokens using the Novu set credentials API.
 
 ### Just-in-time
 
@@ -108,7 +106,7 @@ Use the Novu Set Credentials API to update subscriber profiles with device token
 
 ### How to remove one device token from subscriber credentials?
 
-To remove a device token from subscriber credentials, you need to get the current device tokens from subscriber credentials, remove all deviceTokens, remove the token you want to remove and then update the subscriber credentials with new device tokens.
+To remove a device token from subscriber credentials, you need to get the current device tokens from subscriber credentials, remove all `deviceTokens`, remove the token you want to remove and then update the subscriber credentials with new device tokens.
 
 <Tabs>
   <Tab title="Node.js">

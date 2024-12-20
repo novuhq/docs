@@ -19,7 +19,7 @@ Before you can start integrating Novu into your application, you need to create 
     ```
 </Step>
 
-  <Step title="Configure Environment Variables">
+  <Step title="Configure environment variables">
 
   To start, set the `NOVU_API_KEY` environment variable in your application.  
   You can find your public and secret API keys in the **Developer** section of the Novu dashboard. Since this step is for backend integration, be sure to use the **secret key**.
@@ -30,24 +30,24 @@ Before you can start integrating Novu into your application, you need to create 
   ```
 </Step>
 
-  <Step title="Build a Workflow">
+  <Step title="Build a workflow">
     Navigate through the toggles to create your first custom workflow.
 <AccordionGroup>
 
-  <Accordion title="Create a new Workflow">
-    Create a new workflow by clicking on the **Create Workflow** button in the Workflows page.
-    - Give your workflow a name (e.g. "User Onboarding")
-    - **Workflow identifier** will be generated automatically (e.g. `user-onboarding`)
-    - Add **Tags** (optional) : Tags are a great way to classify and filter workflows for you, and your users
-    - Add a **Description** (optional) : Add a description to help you and your team understand the purpose of the workflow
+  <Accordion title="Create a new workflow">
+    Create a new workflow by clicking on the **Create Workflow** button in the workflows page.
+    - Give your workflow a name (e.g. "User Onboarding").
+    - **Workflow identifier** will be generated automatically (e.g. `user-onboarding`).
+    - Add **tags** (optional) : Tags are a great way to classify and filter workflows for you, and your users.
+    - Add a **description** (optional) : Add a description to help you and your team understand the purpose of the workflow.
   </Accordion>
 
-  <Accordion title="Add Steps to your Workflow">
+  <Accordion title="Add steps to your workflow">
 
-  Every notification workflow starts with at least one [**channel step**](/workflow/channel-steps). To add a step, click the **Plus** button (**+**) in the workflow editor.
+  Every notification workflow starts with at least one [**channel step**](/workflow/channel-steps). To add a step, click the **Plus** button (**+**) in the Workflow Editor.
 
   <Frame>
-    <img src="/getting-started/media-assets/add-steps.png" alt="Add Steps to Your Workflow" />
+    <img src="/getting-started/media-assets/add-steps.png" alt="Add steps to your workflow" />
   </Frame>
 
   In the editor, you can customize your workflow with various steps, including **Action steps** (e.g., [Digest](/workflow/digest) and [Delay](/workflow/delay)) and **[delivery channels](/workflow/channel-steps)**. Select a delivery channel to begin crafting your workflow.
@@ -55,7 +55,7 @@ Before you can start integrating Novu into your application, you need to create 
   Workflows can include multiple steps, with each step sending a notification to the user. Steps execute in the order they are added.
 
   <AccordionGroup>
-  <Accordion title="In-App" icon="Bell">
+  <Accordion title="In-app" icon="Bell">
       **In-app** notifications are delivered directly inside your application via an Inbox or custom integration.
 
       [Learn more about the In-App channel step](integrations/providers/in-app/overview)
@@ -145,7 +145,7 @@ Before you can start integrating Novu into your application, you need to create 
   </Frame>
 </Accordion>
 
-<Accordion title="Test your Workflow in the editor">
+<Accordion title="Test your workflow in the editor">
   You can test your workflow in the editor by clicking the **Test Workflow** button in the workflow editor.
 
   <Frame>
@@ -164,7 +164,7 @@ Before you can start integrating Novu into your application, you need to create 
   If you have the **In-app** channel step in your workflow, you can test your workflow in the editor with the default subscriber_id, you will see the notification in the **Inbox** section of the Novu dashboard.
 
   <Frame>
-    <img src="/getting-started/media-assets/test-workflow-inbox.png" alt="Test Workflow Inbox" />
+    <img src="/getting-started/media-assets/test-workflow-inbox.png" alt="Test workflow inbox" />
   </Frame>
 </Accordion>
 
@@ -196,7 +196,7 @@ Before you can start integrating Novu into your application, you need to create 
   At the bottom of the page, you can grab the workflow trigger snippet and add it to your backend.
 
 <Frame>
-  <img src="/getting-started/media-assets/trigger-snippet.png" alt="Workflow Trigger snippet" />
+  <img src="/getting-started/media-assets/trigger-snippet.png" alt="Workflow trigger snippet" />
 </Frame>
 
   Now we're ready to trigger our workflow via the Novu API. 
@@ -214,14 +214,14 @@ Before you can start integrating Novu into your application, you need to create 
 
 <Note>
     **Each trigger consists of 3 main parts:**
-    - **Workflow Identifier**: The unique identifier of the workflow to trigger.
+    - **Workflow identifier**: The unique identifier of the workflow to trigger.
     - **Subscriber ID**: The unique identifier of the subscriber to trigger the workflow for, this can be a user id, email or any unique identifier.
     - **Payload**: The payload to pass to the workflow, this is optional and can be used to pass additional information to the workflow.
 </Note>
 
   In this example, we're using the [**Node.js SDK**](/sdks/nodejs) to trigger the workflow. But the same can be done with any of the [SDKs](/sdks/overview).
 
-  Add the trigger snippet to your backend and call the trigger function with the **Workflow Identifier**, **Subscriber ID** and **Payload**.
+  Add the trigger snippet to your backend and call the trigger function with the **Workflow identifier**, **Subscriber ID** and **Payload**.
 
 <CodeGroup>
   ```javascript Node.js
@@ -278,18 +278,18 @@ Before you can start integrating Novu into your application, you need to create 
     <Accordion title="Sync your workflows">
       1. Navigate to the **Workflows** page, click on the 3 dots button on the right side of the workflow you want to promote and click the **Sync to Production** button.
       <Frame>
-        <img src="/getting-started/media-assets/sync-workflow.png" alt="Sync Workflow" />
+        <img src="/getting-started/media-assets/sync-workflow.png" alt="Sync workflow" />
       </Frame>
       You should see a success message and the workflow will be synced to production.
       <Frame>
-        <img src="/getting-started/media-assets/sync-workflow-success.png" alt="Sync Workflow Success" />
+        <img src="/getting-started/media-assets/sync-workflow-success.png" alt="Sync workflow success" />
       </Frame>
     </Accordion>
 
   <Accordion title="Switch to the production environment">
-      At the top of the page, you should see a dropdown to switch from the Development to the Production environment.
+      At the top of the page, you should see a dropdown to switch from the Development to the production environment.
       <Frame>
-        <img src="/getting-started/media-assets/switch-to-production.png" alt="Switch to Production" />
+        <img src="/getting-started/media-assets/switch-to-production.png" alt="Switch to production" />
       </Frame>
 
       Once you have switched to the Production environment, you should see the workflows you have synced to production.
@@ -300,7 +300,7 @@ Before you can start integrating Novu into your application, you need to create 
   </Accordion>
 
   <Accordion title="Update your API keys">
-      Be sure to update your application’s environment variables to point to your Novu Production environment API **Secret keys**.
+      Be sure to update your application’s environment variables to point to your Novu Production environment API **Secret Keys**.
 
     <Info>
         You can find your **Secret Keys** in the **Developer** section of the Novu dashboard.
@@ -309,7 +309,7 @@ Before you can start integrating Novu into your application, you need to create 
   </Accordion>
 
   <Accordion title="Update your Application Identifier">  
-      If you are using the **In-App** channel, you need to update your **Application Identifier** to point to your Novu Production environment **Application Identifier**.
+      If you are using the **in-app** channel, you need to update your **Application Identifier** to point to your Novu Production environment **Application Identifier**.
 
       <Info>
         You can find your **Application Identifier** in the **Developers** section of the Novu dashboard.
@@ -334,7 +334,7 @@ Before you can start integrating Novu into your application, you need to create 
 **Now that you triggered your first workflow, learn more about the advanced features and concepts of Novu.**
 
 <CardGroup cols={2}>
-  <Card title="Inbox and Preferences UI Components" icon="books" href="/inbox/introduction">
+  <Card title="Inbox and preferences UI components" icon="books" href="/inbox/introduction">
     Explore our full-stack UI components libraries for building in-app notifications.
   </Card>
   <Card title="Novu Framework " icon="code" href="/framework/overview">
@@ -349,7 +349,7 @@ Before you can start integrating Novu into your application, you need to create 
   <Card title="Localization" icon="language" href="/inbox/react/localization">
     Manage localized versions of your notification templates.
   </Card>
-  <Card title="Local Studio" icon="laptop-code" href="/framework/studio">
+  <Card title="Local studio" icon="laptop-code" href="/framework/studio">
     Use our local studio with Novu Framework to design and test your notification templates.
   </Card>
   <Card title="Environments" icon="layer-group" href="/concepts/environments">

@@ -11,7 +11,7 @@ A workflow acts as the blueprint for the notifications that will be sent. This i
 
 The **Workflow Editor** simplifies building automated, personalized workflows without coding while also allowing developers to refine code-based workflows. 
 
-## How it work
+## How it works
 
 Workflow Editor builds on the principle of steps. Instead of defining a single, complex piece of business logic, workflows contain multiple individual steps.
 
@@ -23,26 +23,26 @@ Here is how a workflow looks like in the UI Workflow Editor:
 
 ![Workflow Editor](/workflow/media-assets/workflow-editor.png)
 
-## Workflow Building Blocks
+## Workflow building blocks
 
 Every Novu workflow is built using these four key elements:
 
-- **Workflow Identifier**: A unique ID used to link triggers to the correct workflow
+- **Workflow identifier**: A unique ID used to link triggers to the correct workflow
 - **Trigger**: The event or action that starts the workflow
-- **Channel Steps**: These send notifications through your configured channels
-- **Action Steps**: Functions that manage the workflow’s logic and control its flow
+- **Channel steps**: These send notifications through your configured channels
+- **Action steps**: Functions that manage the workflow’s logic and control its flow
 
-### Workflow Identifier
+### Workflow identifier
 
 Give your Workflow a clear, descriptive name that your team can easily identify. 
 Workflow identifiers should be unique to your application and descriptive of the workflow's purpose.
 
 For example:
 
-- Abandoned Cart Recovery
-- Password Reset Flow
-- New User Welcome Series
-- Re-engagement Campaign
+- Abandoned cart recovery
+- Password reset flow
+- New user welcome series
+- Re-engagement campaign
 
 ### Trigger
 
@@ -52,7 +52,7 @@ When the trigger happens, it sends the data the workflow needs to notify subscri
 
 Triggers are the only way to start workflows and send notifications, making sure everything runs as expected.
 
-**Example of a Trigger**
+**Example of a trigger**
 Here's an example of an API call to trigger an event:
 
 ```bash
@@ -68,77 +68,77 @@ curl -X POST https://api.novu.co/v1/events/trigger \
   }'
 ```
 
-### Channel Step
+### Channel step
 
-A **Channel Step** in Novu represents a configured provider to send notifications to your recipients.
+A **Channel step** in Novu represents a configured provider to send notifications to your recipients.
 
 The Workflow Editor is designed for **Omni-Channel Communication**, delivering a unified experience across diverse messaging channels:
 
-- **In-App Notifications**
+- **In-app notifications**
 - **Email**
 - **SMS**
 - **Push**
-  - **Mobile Push**
-  - **Web Push**
+  - **Mobile push**
+  - **Web push**
 - **Chat**
-  - **Enterprise Messaging Platforms** (e.g., Slack, Microsoft Teams)
-  - **Consumer Messaging Apps** (e.g., WhatsApp, Telegram, Discord)
+  - **Enterprise messaging platforms** (e.g., Slack, Microsoft Teams)
+  - **Consumer messaging apps** (e.g., WhatsApp, Telegram, Discord)
 
 Most providers within Novu use credentials that you supply to deliver notifications on your behalf. These credentials and other settings are what make a configured channel. 
 
-### Action Step
+### Action steps
 
-**Action Steps** are purpose built functions that help manage the workflow flow. **Action Steps** can be executed before and after **Channel Steps**. 
+**Action steps** are purpose built functions that help manage the workflow flow. **Action Steps** can be executed before and after **Channel steps**. 
 For example, you can use a **Delay** to pause a workflow for a certain duration before sending a notification.
 
-There are three types of Action Steps supported by Novu:
+There are three types of action steps supported by Novu:
 
 - **[Delay](/workflow/delay)**
 - **[Digest](/workflow/digest)**
 - **[Custom](/workflow/custom)**
 
-## Example Use Cases
+## Example use cases
 
 <CardGroup cols={2}>
-  <Card title="Order or Transaction Updates">
+  <Card title="Order or transaction updates">
     Notifications for orders, shipping, or subscription statuses
   </Card>
-  <Card title="User Onboarding">
+  <Card title="User onboarding">
     Welcome emails, follow-up emails, and more
   </Card>
-  <Card title="User Engagement">
+  <Card title="User engagement">
     Re-engagement campaigns, follow-up emails, and more
   </Card>
-  <Card title="Product Updates">
+  <Card title="Product updates">
     Notifications for product updates, new features, and more
   </Card>
-  <Card title="Abandoned Cart Recovery">
+  <Card title="Abandoned cart recovery">
     Notifications for abandoned carts and follow-up emails
   </Card>
-  <Card title="Password Reset">
+  <Card title="Password reset">
     Notifications for password resets and follow-up emails
   </Card>
-  <Card title="Administrative Actions">
+  <Card title="Administrative actions">
     Notifications for administrative actions like account deletions and more
   </Card>
-  <Card title="System Errors & Alerts">
+  <Card title="System errors and alerts">
     Notifications for system errors and alerts
   </Card>
 </CardGroup>
 
-## Execution of Workflow Steps
+## Execution of workflow steps
 
 When a workflow is triggered, its steps are executed in a predetermined sequence. This ensures a controlled, orderly flow and helps maintain the integrity of the notification process. 
 Here's how it works:
 
 <Steps>
-  <Step title="Step-by-Step Activation">
+  <Step title="Step-by-step activation">
     Each step is executed one at a time, in the exact order they are defined. This guarantees that dependencies and prerequisites for later steps are met before moving forward. 
   </Step>
-  <Step title="Predictable Flow">
+  <Step title="Predictable flow">
     Sequential execution creates a reliable process, ensuring that outputs from earlier steps seamlessly influence subsequent steps.
   </Step>
-  <Step title="Orderly Messaging">
+  <Step title="Orderly messaging">
     Messages are sent in a structured manner, preventing overlap or confusion and ensuring each step receives the attention it requires.
   </Step>
 </Steps>

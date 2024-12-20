@@ -1,6 +1,7 @@
 ---
 title: "Building notification workflows with the Novu Framework"
 sidebarTitle: "Introduction"
+description: "Discover how the Novu Framework empowers you to build, customize, and manage advanced notification workflows with a mix of code and no-code capabilities."
 ---
 
 The Novu framework allows you to build and manage advanced notification workflows with code, and expose no-code controls for non-technical users to modify.
@@ -11,9 +12,9 @@ Workflows are the building blocks of your customer notification experience, they
 
 Each Novu workflow is composed of 3 main components:
 
-- **Trigger** - The event that will start the workflow
-- **Channel Steps** - The delivery method of the notification with the content
-- **Action Steps** - Actions that will happen before and after a given channel step is executed.
+- **Trigger** - The event that will start the workflow.
+- **Channel steps** - The delivery method of the notification with the content.
+- **Action steps** - Actions that will happen before and after a given channel step is executed.
 
 Let's take a look at a simple example of a workflow that sends an email after one day:
 
@@ -42,7 +43,7 @@ workflow("sample-workflow", async (step) => {
 The trigger is the event that will start the workflow. In our current example the `sample-workflow` identifier will be used as our trigger id.
 Workflow identifiers should be unique to your application and should be descriptive of the workflow's purpose.
 
-### Channel Steps
+### Channel steps
 
 Channel Steps are the delivery methods of the notification. In our example, we have an email Channel Step that will send an email with the subject `Welcome to Novu` and the body `Hello, welcome to Novu!`.
 Novu's durable workflow execution engine will select the relevant delivery provider configured for this channel and send the notification with the specified content.
@@ -51,7 +52,7 @@ Novu supports a variety of common notification channels out-of-the-box, includin
 
 To read more about the full list of parameters, check out the [full SDK reference](/framework/typescript/steps/introduction).
 
-### Action Steps
+### Action steps
 
 Action Steps are purpose built functions that help you manage the flow of your workflow. In our example, we have a delay Acction Step that will pause the workflow for one day before sending the email.
 
@@ -60,9 +61,9 @@ You can also use Action Steps to perform other tasks such as fetching data from 
 Novu supported the following Action Steps: **delay**, **custom** and **digest**.
 
 
-## Create a Workflow
+## Create a workflow
 
-Here's a bare-bones example of a Workflow to send a notification in response to a trigger:
+Here's a bare-bones example of a workflow to send a notification in response to a trigger:
 
 ```tsx
 import { workflow } from "@novu/framework";
@@ -86,7 +87,7 @@ We'll build on top of this basic code block in the following examples below.
 
 ## Just-in-time data fetching
 
-You can add any custom logic needed into your steps. For example, you might want to fetch more information about your new user from a database during the Workflow execution. You can achieve this with the following changes:
+You can add any custom logic needed into your steps. For example, you might want to fetch more information about your new user from a database during the workflow execution. You can achieve this with the following changes:
 
 ```tsx
 const myWorkflow = workflow(
@@ -106,11 +107,11 @@ const myWorkflow = workflow(
 );
 ```
 
-We call this **just-in-time** notification data fetching. It allows you pull in data from the relevant sources during the Workflow execution, removing the need to store all of your subscriber data in Novu.
+We call this **just-in-time** notification data fetching. It allows you pull in data from the relevant sources during the workflow execution, removing the need to store all of your subscriber data in Novu.
 
 ## Multi-step workflow
 
-What if you want to send another update to the same user in one week? But you don't want to send the follow-up if the user opted out. We can add more steps to the Workflow to achieve this.
+What if you want to send another update to the same user in one week? But you don't want to send the follow-up if the user opted out. We can add more steps to the workflow to achieve this.
 
 ```tsx
 const myWorkflow = workflow(
@@ -125,7 +126,7 @@ const myWorkflow = workflow(
     });
 
     // Wait for 1 week before continuing. After 1 week, Novu will continue
-    // executing the Workflow from here.
+    // executing the workflow from here.
     await step.delay("onboarding-follow-up", async () => ({
       amount: 1,
       unit: "weeks",
@@ -137,7 +138,7 @@ const myWorkflow = workflow(
       async (controls) => {
         const user = await db.getUser(payload.userId);
         // The `feedbackUrl` can be updated in Novu Web without changing code.
-        // This helps you to create re-usable Workflow snippets.
+        // This helps you to create re-usable workflow snippets.
         return {
           body: `Hey ${user.name}! How do you like the product?
 
@@ -178,7 +179,7 @@ const myWorkflow = workflow(
 );
 ```
 
-With this simple Workflow, we:
+With this simple workflow, we:
 
 - Sent a new signup email
 - Waited 1 week
@@ -188,7 +189,7 @@ That's the flexibility that Novu Framework offers.
 
 Read the section on [Controls](/framework/controls) next to learn how to expose Novu's no-code editing capabilities to your peers.
 
-## Payload Schema
+## Payload schema
 
 Payload schema defines the payload passed during the `novu.trigger` method. This is useful for ensuring that the payload is correctly formatted and that the data is valid.
 
@@ -261,7 +262,7 @@ workflow(
 );
 ```
 
-### Passing Payload
+### Passing a payload
 
 Here is an example of the validated payload during trigger:
 

@@ -1,11 +1,11 @@
 ---
 title: "Digest Action for Framework Based Workflows"
-sidebarTitle: "Digest Action"
+sidebarTitle: "Digest action"
 ---
 
 You can use the Digest Engine to collect multiple events to a single message. Learn more about the [Digest Engine](/workflow/digest).
 
-## Defining a Digest step
+## Defining a digest step
 
 ```typescript
 const digestResult = await step.digest("digest", async () => {
@@ -20,7 +20,7 @@ const digestResult = await step.digest("digest", async () => {
 
 In many cases, you will need to access all the digested events payload in order to show the user all or parts of the events included in this digest. 
 
-**For example: “John and 5 others liked your photo.”**
+**For example:** “John and 5 others liked your photo.”
 
 The digest function returns an array of triggers that have been digested. 
 You can use this array to perform any necessary actions on the digested triggers. 
@@ -44,7 +44,7 @@ await step.email("send-email", async () => {
 });
 ```
 
-<Note> Step Controls: At the moment, it is not possible to use digest information in step controls. You can only use it from the code, by creating a custom component for handling digested data. </Note>
+<Note> Step controls: At the moment, it is not possible to use digest information in step controls. You can only use it from the code, by creating a custom component for handling digested data. </Note>
 
 The digest step returns an object with events array. Each event in the array has the following properties:
 

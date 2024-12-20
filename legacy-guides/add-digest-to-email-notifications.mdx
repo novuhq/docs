@@ -1,20 +1,19 @@
 ---
 title: "How to Add Digest to Email Notifications"
-description: "Leverage the digest functionality to send email notifications"
+description: "Use the digest functionality to send email notifications"
 ---
 
 # Introduction
 
 In this guide, you’ll learn how to add digest functionality to email notifications. But before exploring the actual code, let’s understand what a digest notification is and how it works.
 
-You can find the entire code(frontend as well as backend) for this app [here](https://github.com/novuhq/digest-email-app).
+You can find the entire code(frontend as well as backend) for this app [here](https://github.com/novuhq/digest-email-app).
 
 <Note>
-  If, instead, you want to add digest to in-app notifications, we have a guide
-  for that as well. Take a
-  look [here](/legacy-guides/add-digest-to-inapp-notifications).
+  If, instead, you want to add digest to in-app notifications, we have a guide for that as well. Take a look [here](/legacy-guides/add-digest-to-inapp-notifications).
 </Note>
-### What is a Digest Notification?
+
+### What is a digest notification?
 
 Often when you associate notifications with user activity, the end user can be bombarded with messages because of the nature of the activity. Take for example the case of commenting in the context of a social media app. If you were to send a notification to a user for every comment they receive, and they happen to receive 100 comments, it could lead to user fatigue since you would have to send 100 messages.
 
@@ -22,17 +21,17 @@ This is where digest notifications come into the picture!
 
 A digest notification is a notification that consolidates information from several notifications into one and delivers that notification to the end user instead of several separate messages.
 
-### How does Digest Notification Work?
+### How does digest notification work?
 
-Novu has a built-in digest engine that collects multiple trigger events, aggregates them into a single message, and delivers it to the subscriber. You can use the digest engine by adding a ‘digest node’ to your workflow in the workflow editor in the [Novu dashboard](https://dashboard.novu.co/workflows?utm_campaign=docs-digests). If you want to learn more about it, [this](/workflow/digest) is a great place to start.
+Novu has a built-in digest engine that collects multiple trigger events, aggregates them into a single message, and delivers it to the subscriber. You can use the digest engine by adding a ‘digest node’ to your workflow in the workflow editor in the [Novu dashboard](https://dashboard.novu.co/workflows?utm_campaign=docs-digests). If you want to learn more about it, [this](/workflow/digest) is a great place to start.
 
 Let’s see it in action now!
 
-# Add Digest Notification To An App
+# Add digest notification to an application
 
 To get started with this, you need the following:
 
-- A Novu account. [Sign up for free](http://dashboard.novu.co/?utm_campaign=docs-gs-digests) if you don’t have one yet.
+- A Novu account. [Sign up for free](http://dashboard.novu.co/?utm_campaign=docs-gs-digests) if you don’t have one yet.
 - A working React development environment.
 
 # Workflow setup in Novu
@@ -40,8 +39,8 @@ To get started with this, you need the following:
 Once, you have these, follow the steps below:
 
 1. Head over to the Novu Dashboard.
-2. Click `Workflows` on the left sidebar of your Novu dashboard.
-3. Click the `Create Workflow` button on the top right:
+2. Click **"Workflows"** on the left sidebar of your Novu dashboard.
+3. Click the **"Create Workflow"** button on the top right:
    <Frame caption="Creating workflows is simple">
      <img src="/images/create-workflow.png" />{" "}
    </Frame>

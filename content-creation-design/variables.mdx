@@ -1,6 +1,6 @@
 ---
 title: "Workflow Editor"
-description: ""
+description: "Learn how Novu's Workflow Editor empowers developers to create dynamic, personalized notification workflows using versatile system and data payload variables."
 icon: "code"
 ---
 
@@ -18,9 +18,9 @@ For instance, in the code example the variables username and resetLink are data 
 
 **The utilization of these variables allows Novu to deliver personalized notifications to the receiver, thus improving user experience and accomplishing better communication outcomes.**
 
-## System Variables
+## System variables
 
-### Subscriber Variables
+### Subscriber variables
 
 | Variable       | Type     | Description                                                                   |
 | -------------- | -------- | ----------------------------------------------------------------------------- |
@@ -34,7 +34,7 @@ For instance, in the code example the variables username and resetLink are data 
 | `subscriberId` | `String` | Unique identifier for the subscriber.                                         |
 | `data`         | `Object` | An additional object that can hold custom subscriber data as key-value pairs. |
 
-### Actor Variables
+### Actor variables
 
 | Variable       | Type     | Description                                                              |
 | -------------- | -------- | ------------------------------------------------------------------------ |
@@ -48,7 +48,7 @@ For instance, in the code example the variables username and resetLink are data 
 | `subscriberId` | `String` | Unique identifier for the actor.                                         |
 | `data`         | `Object` | An additional object that can hold custom actor data as key-value pairs. |
 
-### Step Variables
+### Step variables
 
 | Variable      | Type      | Description                                                                 |
 | ------------- | --------- | --------------------------------------------------------------------------- |
@@ -57,7 +57,7 @@ For instance, in the code example the variables username and resetLink are data 
 | `events`      | `Array`   | An aggregated collection of events (that are stored when digest is active). |
 | `total_count` | `Number`  | Represents the total number of events in the digest.                        |
 
-### Brand Variables
+### Brand variables
 
 | Variable   | Type     | Description                                                                 |
 | ---------- | -------- | --------------------------------------------------------------------------- |
@@ -65,7 +65,7 @@ For instance, in the code example the variables username and resetLink are data 
 | `logo`     | `String` | Insert the brand logo.                                                      |
 | `color`    | `String` | Set the primary color of the notification based on the brand configuration. |
 
-### Tenant Variables
+### Tenant variables
 
 | Variable | Type     | Description                                                               |
 | -------- | -------- | ------------------------------------------------------------------------- |
@@ -73,7 +73,7 @@ For instance, in the code example the variables username and resetLink are data 
 | `name`   | `String` | Insert the brand logo.                                                    |
 | `data`   | `Object` | An additional object that can hold custom tenant data as key-value pairs. |
 
-## Data Payload Variables
+## Data payload variables
 
 Data payload variables encompass the dynamic data intended to be injected into the content of a workflow. These variables are integral components of the payload object, forming part of the parameters for the trigger function.
 
@@ -101,4 +101,4 @@ Within this code snippet, the variables `username` and `resetLink` are represent
 
 Importantly, it's worth noting that the payload itself can encompass any serializable JSON object.
 
-<Info>Avoid use of system reserved variables as normal variables. For example don't use `email` as variable name because `{{subscriber.email}}` is a system reserved variable</Info>
+<Info>Avoid use of system reserved variables as normal variables. For example don't use `email` as variable name because `{{subscriber.email}}` is a system reserved variable.</Info>

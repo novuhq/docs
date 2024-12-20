@@ -5,7 +5,7 @@ description: "Learn about what Novu Notifications are, their structure, and func
 
 Notifications in Novu are the primary data entities that facilitate communication between your application and its users. These entities encapsulate critical details about the subscriber, the message, and the delivery process, enabling streamlined and reliable interactions across various channels.
 
-## Anatomy of a Notification
+## Anatomy of a notification
 
 A notification in Novu is designed to provide complete visibility and control over its lifecycle. 
 
@@ -46,19 +46,19 @@ A notification in Novu is designed to provide complete visibility and control ov
    - `_environmentId`: Links the notification to a specific environment (e.g., staging, production).  
    - `_organizationId`: Identifies the organization that owns the notification.
 
-2. **Transaction and Timing**  
+2. **Transaction and timing**  
    - `transactionId`: Tracks individual notification transactions for auditing and debugging.  
    - `createdAt`: Timestamp indicating when the notification was created.
 
-3. **Channel and Delivery**
+3. **Channel and delivery**
    - `channels`: Specifies the delivery channel, such as in-app notifications, email, SMS, or push notifications.
 
-4. **Subscriber Details**
+4. **Subscriber details**
    - `subscriber`: Contains user-specific data:  
      - `firstName`, `lastName`, `email`, `phone`: Information about the recipient.  
      - `_id`: A unique identifier for the subscriber.
 
-5. **Notification Workflow**
+5. **Notification workflow**
    - `template`: Links the notification to a predefined message format:  
      - `_id`: Identifier for the workflow.
      - `name`: Workflow name.

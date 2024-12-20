@@ -1,13 +1,14 @@
 ---
 title: "Step Conditions (Coming Soon)"
 sidebarTitle: "Step Conditions"
+description: "Step Conditions in Novu enable personalized and dynamic workflows by customizing steps based on subscriber data, topics, or behavior, with flexibility across step, channel, and preference levels."
 ---
 
 **Step Conditions** allow you to customize a **Subscriber's** workflow journey using their **Data**, **Topics**, or prior behavior.
 
 For instance, if a **Subscriber** doesn’t **See** or **Read** an **In-App Notification Step** within a specific time (e.g., X minutes), you can automatically trigger a **Mobile Push Notification Step** to engage them through another channel. These features enable more sophisticated, personalized notification workflows, boosting engagement and communication.
 
-### Levels of Conditions
+### Levels of conditions
 
 You can apply conditions at three levels:
 
@@ -17,14 +18,14 @@ You can apply conditions at three levels:
     
     <Tip> Example: Send an email only if the preceding in-app notification hasn’t been seen or read.</Tip>
     
-2. **Channel-Level Conditions**
+2. **Channel-level conditions**
     
     Control execution of steps using a specific channel across all workflow runs.
 
     <Tip> Example: Trigger SendGrid email channel steps only in the production environment.</Tip>
 
     
-3. **Preference-Level Conditions**
+3. **Preference-level conditions**
     
     Manage notification preferences available during a workflow run.
 
@@ -32,14 +33,14 @@ You can apply conditions at three levels:
 
 ---
 
-### Condition Types
+### Condition types
 
 Novu's shared conditions model supports the following types:
 
 - **Data** — Evaluates workflow trigger data payload properties.
-- **Subscriber** — Evaluates properties of the workflow Subscriber.
+- **Subscriber** — Evaluates properties of the workflow subscriber.
 - **Actor** — Evaluates properties of the workflow Actor.
 - **Environment Variable** — Evaluates custom environment variables.
 - **Workflow** — Evaluates properties of the current workflow.
-- **Workflow Run State** — Evaluates runtime properties of the workflow.
+- **Workflow run state** — Evaluates runtime properties of the workflow.
 - **Tenant** — Evaluates properties of the associated tenant.
