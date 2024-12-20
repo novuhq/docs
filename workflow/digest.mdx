@@ -1,81 +1,74 @@
 ---
-title: "Collect multiple events to a single message with the Digest Engine"
-sidebarTitle: "Digest Action"
+title: "Collect Multiple Events to a Single Message with the Digest Engine"
+sidebarTitle: "Digest action"
 ---
 
-The digest engine collects multiple trigger events, aggregates them into a single message and delivers it to the subscriber.
-This becomes useful when a user needs to be notified on a large amount of triggers and you want to avoid sending too many notifications. Novu will automatically batch the incoming trigger events based on the `subscriberId` and an **optional** `digestKey` that can be added to control the digest logic of the events.
+The digest engine collects multiple trigger events, aggregates them into a single message, and delivers that new payload to the next workflow step.
+This becomes useful when a user would otherwise receive a large number of notifications, and you want to avoid over-notifying. When you use a Digest action step, Novu automatically batches the incoming trigger events based on the `subscriberId` and an **optional** `digestKey` that can be added to control the digest logic of the events.
 
-## Digest Action Step
+## Digest action step
 
 After adding a digest step to a workflow, each node that will be below the digest node will be only triggered once in the specified digest interval.
 You can decide to send messages before adding a digest node and they will be triggered in real-time.
 
 ![Digest Engine](/workflow/media-assets/digest-engine.png)
 
-## Digest Configuration
+## Digest configuration
 
-### Digest Key
+### Digest key
 
-If specified, the digest engine will group the events based on the `digestKey` and `subscriberId`, otherwise the digest engine will group the events based only on the subscriberId.
+If specified, the digest engine will group the events based on the `digestKey` and `subscriberId`, otherwise the digest engine will group the events based only on the subscriberId.
 
-The digest key might come useful when you want a particular subscriber to get events grouped on a custom field. For example when an actor likes the user's post, you might want to digest based on the `post_id` key.
+The digest key might come useful when you want a particular subscriber to get events grouped on a custom field. For example when an actor likes the user's post, you might want to digest based on the `post_id` key.
 
-### Time Interval
+### Time interval
 
 The time interval determines how long the digest engine will wait before sending the message once created. You can specify the amount and the unit that best suits your needs.
 
 Here, in the image below, `5` is the interval amount, and `mins` is the interval unit. Interval units can be `sec(s)`, `min(s)`, `hour(s)`, or `day(s)`.
 
-## Digest Strategy Types
+## Digest strategy types
 
 The strategy which Novu should use to handle the digest step. More details on available strategies below.
 
 Novu allows you to define different digest strategies depending on the actual use-case you are trying to achieve. At this point we allow you to select from 2 strategies:
 
-- Regular Strategy
-- Look-Back Strategy
+- Regular
+- Look-back
+- Scheduled
 
 Let's explore them in detail:
 
-### Regular Strategy
+### Regular strategy
 
 In regular strategy, a digest will always be created for the specified window time. Which means that from the first event trigger, if no active digest exists for this subscriber, one will be created and the user will receive the message only when the digest window time is reached.
 
-### Look-Back Strategy
+### Look-back strategy
 
 In the Look-Back strategy, before creating a digest, Novu will check if a message was sent to the user in the Look-back period. If a message was sent, a digest will be created. Otherwise, a message will be sent directly to the user and the digest creation will be skipped.
 
-Lookback digest has two intervals, `digest interval` and `lookback window`. First, it checks if any event is triggered within the past lookback window, only then a digest is created for the digest interval. If not, the event is considered non-digest and workflow execution continues to the next step.
+Look-back digest has two intervals, `digest interval` and `look-back window`. First, it checks if any event is triggered within the past look-back window, only then a digest is created for the digest interval. If not, the event is considered non-digest and workflow execution continues to the next step.
 
-**Example:**
+#### Example
 
-Let's set the digest interval as 20 minutes and the lookback interval as 15 minutes.
+Let's set the digest interval as 20 minutes and the look-back interval as 15 minutes.
 
-If we trigger the first event. Since it is the first event and there was no event triggered in the past 15 minutes (lookback interval), this event will send a message immediately (without digest).
+If we trigger the first event. Since it is the first event and there was no event triggered in the past 15 minutes (look-back interval), this event will send a message immediately (without digest).
 Now, if we trigger a second event within 15 minutes range, then a new digest will be created with this second event. From now on, for the next 20 minutes (digest interval), all triggers will be digested, and after 20 minutes, the workflow will carry forward to the next step with digested events as a payload.
 
-### Scheduled Digest
-
-**Minutes**
-
-It digests events for every specified minutes. For example, as per the image below, events will be digested for 20 minutes and after 20 minutes, workflow will carry forward to the next step. It will be repeated after every 20 minutes.
-
-**Hour**
-
-It digests events for given hours. After given hours, a new digest is created.
-
-**Daily**
-
-It digests events for specified days till given time. After those days and time, a new digest is created and events are digested in this new digest.
-
-**Weekly**
-
-It digests events for specified weekdays. Only at the specified time, the workflow continues to the next step after the digest step. A new digest is created and events are digested in this new digest till these weeks and time.
-
-## Frequently Asked Questions
+### Scheduled digest
 
 <Note>All digest times are in UTC time</Note>
+
+Digest incoming events for the specified time. Once that time threshold since the first event has passed, proceed to the next workflow step.
+
+Available timeframes:
+- Minutes
+- Hours
+- Daily
+- Weekly
+
+## Frequently Asked Questions
 
 <AccordionGroup>
     <Accordion title="If scheduled digest is set for 9:00 AM daily then will the digest be sent at 9:00 AM every day without any event triggered?">
