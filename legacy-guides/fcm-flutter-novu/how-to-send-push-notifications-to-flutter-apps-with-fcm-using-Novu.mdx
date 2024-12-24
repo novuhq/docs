@@ -10,7 +10,7 @@ To complete this guide, you will need the following:
 - [Apple Developer](https://developer.apple.com/) membership (to obtain the required permissions to send push notifications).
 - A machine running MacOS to work on building the Flutter app for iOS devices.
 - [Firebase](https://firebase.google.com/) account
-- [Novu](https://dashboard.novu.co/?utm_campaign=docs-gs-guides-fcm-flutter) account.
+- [Novu](https://dashboard.novu.co/?utm_campaign=docs-gs-legacy-guides-fcm-flutter) account.
 - [Android Studio](https://developer.android.com/studio/install) configured with Dart and Flutter plugins.
 - [Xcode](https://developer.apple.com/xcode/) installed on your machine.
 
@@ -276,37 +276,37 @@ Now, run the Flutter app. Your device should be connected to your machine to ena
 In your Firebase project, navigate to `Engage` section and click on `Messaging`.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/56.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/56.png" />{" "}
 </Frame>
 
 Click on `Create your first campaign` and select `Firebase Notification messages`.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/57.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/57.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/58.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/58.png" />{" "}
 </Frame>
 
 Enter the `Notification title` and the `Nabigateotification text`, and click on `Send test message`.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/59.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/59.png" />{" "}
 </Frame>
 
 We must copy and paste this FCM registration token to confirm our device. You can find it logged as shown earlier in our editor.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/60.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/60.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/62.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/62.png" />{" "}
 </Frame>
 
 Click on 'Test'.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/63.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/63.png" />{" "}
 </Frame>
 
 You should see the notification on your device!
@@ -317,16 +317,16 @@ You should see the notification on your device!
 
 ## Sign Up on Novu
 
-Let's use Novu to fire push notifications via FCM. First, sign up on [Novu Cloud](https://dashboard.novu.co)?utm_campaign=docs-gs-guides-fc-flutter.
+Let's use Novu to fire push notifications via FCM. First, sign up on [Novu Cloud](https://dashboard.novu.co)?utm_campaign=docs-gs-legacy-guides-fc-flutter.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/65.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/65.png" />{" "}
 </Frame>
 
 Next, immediately configure FCM as a Push channel provider.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/66.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/66.png" />{" "}
 </Frame>
 
 You can also do this by heading straight to the `Integrations Store`. Click on `Add a provider`.
@@ -334,10 +334,10 @@ You can also do this by heading straight to the `Integrations Store`. Click on `
 ## Connect FCM as a Push Channel provider
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/67.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/67.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/68.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/68.png" />{" "}
 </Frame>
 
 You only need to configure FCM with Novu with the Firebase Service Accounts private key.
@@ -371,19 +371,19 @@ Make sure your service account key JSON content contains these fields:
 ```
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/69.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/69.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/70.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/70.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/71.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/71.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/72.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/72.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/73.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/73.png" />{" "}
 </Frame>
 
 ## Create a Notification Workflow
@@ -397,20 +397,20 @@ This ensures consistent platform notifications and allows dynamic adjustments fo
 <Steps>
   <Step title="Navigate to 'Workflows' tab and click on 'Blank Workflow'">
     <Frame>
-      <img src="/guides/FCM-iOS-Novu/Assets/74.png" />{" "}
+      <img src="/legacy-guides/FCM-iOS-Novu/Assets/74.png" />{" "}
     </Frame>
     <Frame>
-      <img src="/guides/FCM-iOS-Novu/Assets/75.png" />{" "}
+      <img src="/legacy-guides/FCM-iOS-Novu/Assets/75.png" />{" "}
     </Frame>
   </Step>
   <Step title="Add (Drag & Drop) the Push channel node to the workflow">
     <Frame>
-      <img src="/guides/FCM-iOS-Novu/Assets/76.png" />{" "}
+      <img src="/legacy-guides/FCM-iOS-Novu/Assets/76.png" />{" "}
     </Frame>
   </Step>
   <Step title="Click on the node, and start to modify the content. Add a title and content. Once you are done, click on 'Update'">
     <Frame>
-      <img src="/guides/FCM-iOS-Novu/Assets/77.png" />{" "}
+      <img src="/legacy-guides/FCM-iOS-Novu/Assets/77.png" />{" "}
     </Frame>
   </Step>
 </Steps>
@@ -424,7 +424,7 @@ A subscriber is essentially the recipient of the notifications sent through Novu
 You can see the list of subscribers in the `Subscribers` section of the Novu dashboard.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/78.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/78.png" />{" "}
 </Frame>
 
 <Steps>
@@ -460,7 +460,7 @@ You can see the list of subscribers in the `Subscribers` section of the Novu das
 
   Here, you can locate the Provider_Identifier.
 
-  <Frame><img src="/guides/FCM-iOS-Novu/Assets/81.png"/> </Frame>
+  <Frame><img src="/legacy-guides/FCM-iOS-Novu/Assets/81.png"/> </Frame>
 
   ```JSON
 

@@ -47,7 +47,7 @@ We'll need a workflow to trigger notifications to our user's devices. Follow the
      If you're doing this for the first time, you'll need to get your service
      account key from the [Firebase
      Console](https://console.firebase.google.com/). Read more about it in our
-     [FCM provider docs.](https://docs.novu.co/channels-and-providers/push/fcm)
+     [FCM provider docs.](https://docs.novu.co/integrations/providers/push/fcm)
    </Info>
 2. Now, we need to create a workflow that we'll trigger from our app to send notifications. Head over to [workflows in the Novu Web Dashboard](https://dashboard.novu.co/workflows?utm_campaign=docs-guides-fcm-web) and click on the 'Add a workflow' button.
    <Frame caption="Click on the 'Add a workflow' button to create workflows">
@@ -220,9 +220,9 @@ await novu.subscribers.identify(process.env.NOVU_SUB_ID, {
 });
 ```
 
-Here, we're creating a subscriber with the `subscriberID` of whatever value the `env` file contains for the identifier `NOVU_SUB_ID`. You can read more about subscribers [in our docs.](/subscribers/subscribers).
+Here, we're creating a subscriber with the `subscriberID` of whatever value the `env` file contains for the identifier `NOVU_SUB_ID`. You can read more about subscribers [in our docs.](concepts/subscribers).
 
-Back in our app, before we can now add the trigger function, we need to set device identifiers using the [setCredential method](https://docs.novu.co/channels-and-providers/push/fcm#set-device-token):
+Back in our app, before we can now add the trigger function, we need to set device identifiers using the [setCredential method](https://docs.novu.co/integrations/providers/push/fcm#set-device-token):
 
 ```jsx
 await novu.subscribers.setCredentials(
