@@ -10,7 +10,7 @@ To complete this tutorial, you will need the following:
 - [Apple Developer](https://developer.apple.com/) membership (to obtain the required permissions to send push notifications)
 - A machine running MacOS to work on an iOS project
 - [Firebase](https://firebase.google.com/) account
-- [Novu](https://dashboard.novu.co/?utm_campaign=docs-gs-guides-fcm-ios) account
+- [Novu](https://dashboard.novu.co/?utm_campaign=docs-gs-legacy-guides-fcm-ios) account
 - [Xcode](https://developer.apple.com/xcode/) installed on your machine
 
 ## Create an iOS app
@@ -24,25 +24,25 @@ Your bundle identifier will be generated here — you will use this later when c
 Select **SwiftUI** as your interface and **Swift** as your language.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/1.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/1.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/2.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/2.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/3.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/3.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/4.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/4.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/5.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/5.png" />{" "}
 </Frame>
 
 Let's build and run our iOS application to see if everything works correctly.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/6.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/6.png" />{" "}
 </Frame>
 
 Go to the Firebase documentation website, go to docs here, and select Cloud Messaging.
@@ -51,29 +51,29 @@ We will follow this guide to set up cloud messaging inside the app.
 You can read more about how Firebase Cloud Messaging works by reading their [official documentation](https://firebase.google.com/docs/cloud-messaging/ios/client).
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/7.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/7.png" />{" "}
 </Frame>
 
 Go to iOS+ and click on the `Set up an Apple platforms client` section.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/8.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/8.png" />{" "}
 </Frame>
 
 The first thing that we need to do is add Firebase to our iOS app.
 Let's create a new Firebase project inside of the console.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/9.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/9.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/10.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/10.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/11.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/11.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/12.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/12.png" />{" "}
 </Frame>
 
 ## Create a Firebase project
@@ -81,52 +81,52 @@ Let's create a new Firebase project inside of the console.
 Select a name for your project.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/13.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/13.png" />{" "}
 </Frame>
 
 Then, add Google Analytics to the Firebase project.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/14.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/14.png" />{" "}
 </Frame>
 
 Here, you can select your Google account.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/15.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/15.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/16.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/16.png" />{" "}
 </Frame>
 
 We will click on Add Firebase to your iOS app.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/17.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/17.png" />{" "}
 </Frame>
 
 We first need to add the bundle name, so go to your iOS Xcode project and copy and paste the bundle name.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/18.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/18.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/19.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/19.png" />{" "}
 </Frame>
 
 Download the `.plist` file and put it in the root of your project.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/20.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/20.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/21.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/21.png" />{" "}
 </Frame>
 
 You can put it right under `info.plist` file.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/22.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/22.png" />{" "}
 </Frame>
 
 We need to add the Firebase SDK using the Swift package manager.
@@ -134,22 +134,22 @@ Copy this https://github.com/firebase/firebase-ios-sdk URL and then go to 'File`
 Paste that URL in the top right.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/23.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/23.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/24.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/24.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/25.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/25.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/26.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/26.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/27.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/27.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/28.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/28.png" />{" "}
 </Frame>
 
 We must add the initialization code to the `AppDelegates.swift` file.
@@ -159,7 +159,7 @@ Let's import the "FirebaseCore" dependency by adding `import FirebaseCore` to th
 Then, we will copy `firebaseapp.configure()` and place it in `didFinishLaunchingWithOptions` method.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/29.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/29.png" />{" "}
 </Frame>
 
 ```Swift
@@ -208,19 +208,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 Click 'Next' and continue to the console.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/30.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/30.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/31.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/31.png" />{" "}
 </Frame>
 
 Let's build and run our project and see if we get Firebase log messages in the console.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/32.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/32.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/33.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/33.png" />{" "}
 </Frame>
 
 ## Create and upload our APNs authentication key
@@ -228,7 +228,7 @@ Let's build and run our project and see if we get Firebase log messages in the c
 We will create and upload our APNs authentication key to the Firebase project settings.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/34.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/34.png" />{" "}
 </Frame>
 
 Navigate to [Apple Developer Member Center](https://developer.apple.com/account).
@@ -236,64 +236,64 @@ Navigate to [Apple Developer Member Center](https://developer.apple.com/account)
 Head to the "Keys" section under "Certificates, IDs & Profiles".
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/35.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/35.png" />{" "}
 </Frame>
 
 Create a new key.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/36.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/36.png" />{" "}
 </Frame>
 
 Select "Apple Push Notification Service".
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/37.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/37.png" />{" "}
 </Frame>
 
 Click "Register".
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/38.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/38.png" />{" "}
 </Frame>
 
 We have to download this key and upload it into Firebase.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/39.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/39.png" />{" "}
 </Frame>
 
 Head to "Project Settings".
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/40.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/40.png" />{" "}
 </Frame>
 
 Click on Cloud Messaging, then click "Upload APNs Authentication Key".
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/41.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/41.png" />{" "}
 </Frame>
 
 Now we can upload the dots p8 file.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/42.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/42.png" />{" "}
 </Frame>
 
 You must enter your `Key ID` and `Team ID`, which you can find in the top right corner.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/43.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/43.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/44.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/44.png" />{" "}
 </Frame>
 
 ## Register for Remote Notifications
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/45.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/45.png" />{" "}
 </Frame>
 
 1. Copy this code block and place it inside the `AppDelegate.swift` file using the `didFinishLaunchingWithOptions` method.
@@ -369,16 +369,16 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 To do this, we must first set the `Messaging.messaging().delegate = self` inside the `didFinishLaunchingWithOptions` method.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/46.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/46.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/47.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/47.png" />{" "}
 </Frame>
 
 We will now add a 'Messaging' delegate extension to `AppDelegate.swift` file.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/48.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/48.png" />{" "}
 </Frame>
 
 ```Swift
@@ -505,7 +505,7 @@ extension AppDelegate: MessagingDelegate {
 3. We must declare a `gcmMessageIDKey` inside of `AppDelegate`. We can define this as a `string` variable.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/49.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/49.png" />{" "}
 </Frame>
 
 ```Swift
@@ -651,13 +651,13 @@ extension AppDelegate: MessagingDelegate {
 ## Adding app capabilities
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/50.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/50.png" />{" "}
 </Frame>
 
 Click on the plus sign (+) and select `Background Modes`.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/51.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/51.png" />{" "}
 </Frame>
 
 **Select the following options:**
@@ -667,25 +667,25 @@ Click on the plus sign (+) and select `Background Modes`.
 - Background Processing
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/52.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/52.png" />{" "}
 </Frame>
 
 Add `Push Notifications` capabilities.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/53.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/53.png" />{" "}
 </Frame>
 
 ## App Build
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/54.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/54.png" />{" "}
 </Frame>
 
 It will ask if you want to receive notifications, and we will allow it.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/55.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/55.png" />{" "}
 </Frame>
 
 ## Cloud Message Test
@@ -693,67 +693,67 @@ It will ask if you want to receive notifications, and we will allow it.
 In your Firebase project, navigate to 'engage' section and click on 'messaging'.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/56.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/56.png" />{" "}
 </Frame>
 
 Click on "Send your first message".
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/57.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/57.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/58.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/58.png" />{" "}
 </Frame>
 
 We're going to enter the `notification title` and the `notification text`, then we're going to send the test message.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/59.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/59.png" />{" "}
 </Frame>
 
 We must copy and paste this FCM registration token to confirm our device (A physical or a simulator). You can find it in your Xcode console.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/60.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/60.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/61.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/61.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/62.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/62.png" />{" "}
 </Frame>
 
 Click on 'Test'.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/63.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/63.png" />{" "}
 </Frame>
 
 You should see the notification on your device!
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/64.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/64.png" />{" "}
 </Frame>
 
 ## Novu account creation
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/65.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/65.png" />{" "}
 </Frame>
 
 You can immediately configure FCM as a Push channel provider or navigate to the Integration Store.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/66.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/66.png" />{" "}
 </Frame>
 
 ## Connecting FCM as a provider
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/67.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/67.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/68.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/68.png" />{" "}
 </Frame>
 
 You only need to configure FCM with Novu with the Firebase Service Accounts private key.
@@ -787,19 +787,19 @@ Make sure your service account key JSON content contains these fields:
 ```
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/69.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/69.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/70.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/70.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/71.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/71.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/72.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/72.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/73.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/73.png" />{" "}
 </Frame>
 
 ## Creating a workflow
@@ -815,20 +815,20 @@ Workflow creation is for streamlining automated notifications, enabling teams to
 <Steps>
   <Step title="Nabigate to 'Workflows' tab and click on 'Blank Workflow'">
     <Frame>
-      <img src="/guides/FCM-iOS-Novu/Assets/74.png" />{" "}
+      <img src="/legacy-guides/FCM-iOS-Novu/Assets/74.png" />{" "}
     </Frame>
     <Frame>
-      <img src="/guides/FCM-iOS-Novu/Assets/75.png" />{" "}
+      <img src="/legacy-guides/FCM-iOS-Novu/Assets/75.png" />{" "}
     </Frame>
   </Step>
   <Step title="Add (Drag & Drop) the Push channel node to the workflow">
     <Frame>
-      <img src="/guides/FCM-iOS-Novu/Assets/76.png" />{" "}
+      <img src="/legacy-guides/FCM-iOS-Novu/Assets/76.png" />{" "}
     </Frame>
   </Step>
   <Step title="Click on the node, and start to modify the content. Once you are done, click on 'Update'">
     <Frame>
-      <img src="/guides/FCM-iOS-Novu/Assets/77.png" />{" "}
+      <img src="/legacy-guides/FCM-iOS-Novu/Assets/77.png" />{" "}
     </Frame>
   </Step>
 </Steps>
@@ -838,7 +838,7 @@ Workflow creation is for streamlining automated notifications, enabling teams to
 Creating a subscriber in Novu refers to the process of establishing a subscriber entity within the Novu platform. A subscriber is essentially the recipient of the notifications sent through Novu's system. When you create a subscriber, you're setting up the necessary information for Novu to send targeted notifications to that individual.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/78.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/78.png" />{" "}
 </Frame>
 
 <Steps>
@@ -868,12 +868,12 @@ Creating a subscriber in Novu refers to the process of establishing a subscriber
 
 ```
 
-    <Frame><img src="/guides/FCM-iOS-Novu/Assets/79.png"/> </Frame>
+    <Frame><img src="/legacy-guides/FCM-iOS-Novu/Assets/79.png"/> </Frame>
 
   </Step>
 
   <Step title="Locating subscriber's FCM registration token">
-    <Frame><img src="/guides/FCM-iOS-Novu/Assets/80.png"/> </Frame>
+    <Frame><img src="/legacy-guides/FCM-iOS-Novu/Assets/80.png"/> </Frame>
   </Step>
 
   <Step title="Adding the registration token to the subscriber">
@@ -881,7 +881,7 @@ Creating a subscriber in Novu refers to the process of establishing a subscriber
 
   Here, you can locate the Provider_Identifier.
 
-  <Frame><img src="/guides/FCM-iOS-Novu/Assets/81.png"/> </Frame>
+  <Frame><img src="/legacy-guides/FCM-iOS-Novu/Assets/81.png"/> </Frame>
 
 ```JSON
 
@@ -926,7 +926,7 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
 ```
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/82.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/82.png" />{" "}
 </Frame>
 
 ## Dynamic Content
@@ -939,7 +939,7 @@ Now, we will determine the content when calling the API.
    That way, we could insert values through the payload of the API call.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/83.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/83.png" />{" "}
 </Frame>
 
 2. Add a 'payload' object to the API call.
@@ -963,7 +963,7 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
 ```
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/84.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/84.png" />{" "}
 </Frame>
 
 ## Sound of a notification
@@ -1054,19 +1054,19 @@ You’ll then use a content extension to download the image and add it to the no
 In Xcode, go to File ▸ New ▸ Target…. Search for Notification Service Extension and select Next. Set a name and configure it to add to your main project.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/85.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/85.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/86.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/86.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/87.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/87.png" />{" "}
 </Frame>
 
 Select **Finish**, and when prompted, select **Activate**.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/88.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/88.png" />{" "}
 </Frame>
 
 When you added the Firebase package to your project, it was only added to the your "main" (In my case it's "PushNotificationDemo") target, so now you need to add the necessary dependency to your new extension.
@@ -1075,16 +1075,16 @@ Open your app’s project settings and select the name you picked for the extent
 Under Frameworks and Libraries, select the + button, and search for FirebaseMessaging. Then, select Add. Your project should reflect the image below:
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/89.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/89.png" />{" "}
 </Frame>
 
 Select the + button, and search for FirebaseMessaging. Then, select Add.
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/90.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/90.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/91.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/91.png" />{" "}
 </Frame>
 
 Now, open `NotificationService.swift`. This file is where you can customize notifications before the user sees them.
@@ -1168,7 +1168,7 @@ class NotificationService: UNNotificationServiceExtension {
 Let's **rebuild** our app again!
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/92.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/92.png" />{" "}
 </Frame>
 
 When making the API call, we should include:
@@ -1211,10 +1211,10 @@ curl --location --request POST 'https://api.novu.co/v1/events/trigger' \
 ```
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/93.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/93.png" />{" "}
 </Frame>
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/94.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/94.png" />{" "}
 </Frame>
 
 ## Sending actionable notifications
@@ -1517,7 +1517,7 @@ curl --location --request POST "https://api.novu.co/v1/events/trigger" \
 ```
 
 <Frame>
-  <img src="/guides/FCM-iOS-Novu/Assets/95.png" />{" "}
+  <img src="/legacy-guides/FCM-iOS-Novu/Assets/95.png" />{" "}
 </Frame>
 
 ## Additional resources

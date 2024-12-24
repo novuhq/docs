@@ -1511,7 +1511,7 @@ function initializeEchoNode(o, options, transitionToState) {
 
   <kw>await</kw> event.<span class="hover" id="nv-node-framework-step">step</span>.<fn>email</fn>(<str>'weekly-comments'</str>, <kw>async</kw> (inputs) => {
     <kw>return</kw> {
-      subject: <str>\`Weekly post comments (</str><kw>$\{</kw>events.length + 1<kw>}</kw><str>)\`</str>,
+      subject: <str>\`Weekly post comments (</str><kw>$\{</kw>events.length<kw>}</kw><str>)\`</str>,
       body: <fn>renderReactEmail</fn>(inputs, events)
     };
   }, { <fn>skip</fn>: () => inAppResponse.<span class="hover" id="nv-node-framework-seen">seen</span> });
