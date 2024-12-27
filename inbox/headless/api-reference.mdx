@@ -471,7 +471,6 @@ await novu.notifications.revertSecondary({
 ### Methods
 
 - [list](#list)
-- [update](#update)
 
 ### Preference Interface
 
@@ -515,9 +514,17 @@ Method fetch the global and workflows channel preferences of the subscriber.
 await novu.preferences.list();
 ```
 
+## Preference
+
+### Methods
+
+- [update](#update)
+
 ### update
 
-Method updates the channel preferences of the subscriber. It updates the channel preferences of the subscriber for the specific workflow if `workflowId` is provided. If `workflowId` is not provided, it updates the global channel preferences of the subscriber. Multiple channels can be updated at once.
+Update the global or per workflow channel preferences of the subscriber. 
+
+If `workflowId` is provided, it updates the channel preferences of the specific workflow. Otherwise, it updates the global channel preferences.
 
 #### Params
 
@@ -537,7 +544,7 @@ type ChannelPreference = {
 #### Usage
 
 ```typescript
-await novu.preferences.update({
+await preference.update({
   workflowId: 'workflow_id',
   channelPreferences: { email: false, sms: false },
 });
