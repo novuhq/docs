@@ -1,68 +1,68 @@
 ---
-title: "Bridge Endpoint"
+title: "Framework Endpoint"
+description: "Learn how to customize and extend any aspect of the Novu platform using the Framework SDK powered bridge endpoint."
 ---
 
-Novu Framework requires a **single** `HTTP` endpoint (`/api/novu` or similar) to be exposed by your application. This endpoint is used to receive events from our **Worker Engine**.
+import { SvelteIcon } from "/snippets/icons/svelte.mdx";
+import { NestjsIcon } from "/snippets/icons/nestjs.mdx";
+import { ExpressjsIcon } from "/snippets/icons/expressjs.mdx";
+import { LambdaIcon } from "/snippets/icons/lambda.mdx";
+import { NuxtIcon } from "/snippets/icons/nuxt.mdx";
+import { NextjsIcon } from "/snippets/icons/nextjs.mdx";
+import { RemixIcon } from "/snippets/icons/remix.mdx";
+import { H3Icon } from "/snippets/icons/h3.mdx";
+import { FrameworkTerminal } from "/snippets/framework-terminal.mdx";
 
-You can view the Bridge Endpoint as a webhook endpoint that Novu will call when it needs to retrieve contextual information for a given subscriber and notification.
+Novu was built for endless extensibility. Although not required for majority of your notification usecases, you can customize and extend any aspect of the Novu platform using the Framework SDK powered bridge endpoint.
 
-Using the `npx novu init` command creates a Bridge application for you with a Bridge Endpoint ready to go.
+## Overview
 
-## The `serve` function
+The framework endpoint is a Restful API path that runs on your server and environment and can be used for multiple usecases including:
 
-We offer framework specific wrappers in form of an exported `serve` function that abstracts away:
+- Automating workflow creation using GitOps
+- Adding custom components to your emails and other channels
+- Hydrating resources including subscribers, topics and tenants directly from your database
+- Executing custom logic before, during and after a workflow is executed
+- Connect to 3rd-party services such as OpenAI, Stripe, Salesforce and more.
+- Implement custom delivery providers with internal systems
 
-- Parsing the incoming request for `GET`, `POST`, `PUT` and `OPTIONS` requests
-- HMAC header authentication
-- Framework specific response and error handling
+## How it works
 
-Currently, we offer `serve` functions for the following frameworks:
+<Frame>
+  <img src="/images/novu-works.png" />
+</Frame>
 
-- [Next.js](/quickstart/nextjs)
-- [Express.js](/quickstart/express)
-- [Nuxt](/quickstart/nuxt)
-- [h3](/quickstart/h3)
-- [Remix](/quickstart/remix)
-- [Sveltekit](/quickstart/svelte)
+### Build phase
 
-## Writing a custom `serve` function
+When [building new workflows](/workflow/overview), you will be using the [Novu Framework SDK](/framework/typescript/overview) to define the workflows and their steps directly in your IDE. The local workflows can be previewed and tested using our [Local Studio](/framework/studio) companion app.
 
-If we currently don't support your framework, you can write a custom `serve` function like the following example:
+### Sync phase
 
-```ts
-import { type Request, type Response } from "express";
-import { NovuRequestHandler, ServeHandlerOptions } from "@novu/framework";
+A sync is needed once a notification workflow code is created or updated. We offer multiple sync methods including CI/CD integrations and a custom CLI tool.
 
-export const serve = (options: ServeHandlerOptions): any => {
-  const requestHandler = new NovuRequestHandler({
-    frameworkName: "express",
-    ...options,
-    handler: (incomingRequest: Request, response: Response) => ({
-      method: () => incomingRequest.method,
-      headers: (key) => {
-        const header = incomingRequest.headers[key];
-        return Array.isArray(header) ? header[0] : header;
-      },
-      queryString: (key) => {
-        const qs = incomingRequest.query[key];
-        return Array.isArray(qs) ? qs[0] : qs;
-      },
-      body: () => incomingRequest.body,
-      url: () =>
-        new URL(
-          incomingRequest.url,
-          `https://${incomingRequest.headers.get("host") || ""}`
-        ),
-      transformResponse: ({ body, headers, status }) => {
-        Object.entries(headers).forEach(([headerName, headerValue]) => {
-          response.setHeader(headerName, headerValue);
-        });
+During a sync, the workflows defined using the Novu Framework SDK will be pushed to our cloud service and will be persisted in our database. 
+Once synced, you will be able to view the workflows in the workflows Page on the Dashboard. All the controls created using JSON Schema or Zod will be transformed into UI elements that can be modified without changing the source code. Read more about controls [here](/framework/controls).
 
-        return response.status(status).send(body);
-      },
-    }),
-  });
+### Execution phase
 
-  return requestHandler.createHandler();
-};
-```
+Once a workflow is synced, the workflow engine will make API requests to the bridge endpoint to execute individual workflow steps.
+After the fan-out is complete, the bridge endpoint will be triggered with the relevant execution context and will respond with the compiled content and metadata needed to deliver the notification.
+
+## Get Started
+
+To get started with the framework endpoint, visit the Getting Started page relevant to your tech-stack:
+
+<CardGroup cols={3}>
+    <Card title="Next.js" color="#00D7FE" href="/framework/quickstart/nextjs" horizontal icon={<NextjsIcon />} />
+    <Card title="Express.js" color="#47BA87" href="/framework/quickstart/express" horizontal icon={<ExpressjsIcon />} />
+    <Card title="Remix"  color="#BC002C" href="/framework/quickstart/remix" horizontal icon={<RemixIcon />} />
+    <Card title="NestJS"  color="#BC002C" href="/framework/quickstart/nestjs" horizontal icon={<NestjsIcon />} />
+    <Card title="Svelte" color="#16a34a" href="/framework/quickstart/svelte" horizontal icon={<SvelteIcon />} />
+    <Card title="Nuxt" color="#16a34a" href="/framework/quickstart/nuxt" horizontal icon={<NuxtIcon />} />
+    <Card title="H3" color="#16a34a" href="/framework/quickstart/h3" horizontal icon={<H3Icon />} />
+    <Card title="Lambda" color="#16a34a" href="/framework/quickstart/lambda" horizontal icon={<LambdaIcon />} />
+</CardGroup>
+
+<Warning>
+  The Framework SDK is currently only supported in Typescript for JS based run-times.
+</Warning>

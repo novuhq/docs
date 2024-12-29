@@ -56,7 +56,7 @@ Adding subscribers to the topic is the main usecase of topic. A topic is like a 
 <Warning>
   Before adding subscribers to a topic, it's crucial to ensure that they are
   correctly identified in the Novu system. This identification is done using the
-  [identify method](/subscribers/subscribers#create-a-subscriber) or API. When a
+  [identify method](/concepts/subscribers#creating-a-subscriber) or API. When a
   subscriber is added to a topic, Novu uses the identification information to
   pick up the email or phone number associated with the subscriber.
 </Warning>
@@ -97,7 +97,9 @@ After that, that topic created on the fly can be managed in the same ways as the
 
 ## Trigger workflow to a topic
 
-A workflow can be triggered to a single subscriber and an array of subscribers. While doing so, one need to send subscriberIds in `to` field. In case of trigger, we have already stored subscriberIds in a topic, so a topic key can be used to trigger a workflow. Workflow will be triggered to all subscribers in the topic.
+A workflow can be triggered to a single subscriber and an array of subscribers. While doing so, one need to send subscriberIds in `to` field. In case of trigger, we have already stored subscriberIds in a topic, so a topic key can be used to trigger a workflow. The workflow will be triggered to all subscribers in the topic.
+
+<Warning>For billing purposes, when a workflow is triggered to a topic, it will create one workflow event per topic member.</Warning>
 
 ```typescript
 const topicKey = "posts:comment:12345";
@@ -171,7 +173,7 @@ await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
     title="Rename a topic"
     icon="plug"
     color="#16a34a"
-    href=" /api-reference/topics/rename-a-topic"
+    href="/api-reference/topics/rename-a-topic"
   ></Card>
 </CardGroup>
 
@@ -180,7 +182,7 @@ await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
 <AccordionGroup>
   <Accordion title="Does it mean that all subscribers of one topic have same preference">
     No, adding subscribers into topic does not change subscriber's individual
-    [subscriber preference](/subscribers/preferences). Topic is mainly used to
+    [subscriber preference](/concepts/preferences). Topic is mainly used to
     group subscribers and fan out workflow triggered notifications to all
     subscribers at once.
   </Accordion>

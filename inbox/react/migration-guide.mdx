@@ -4,7 +4,7 @@ sidebarTitle: "Migration Guide"
 description: "This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest version."
 ---
 
-<Info> [@novu/react](/inbox/react/get-started) Inbox react component and [@novu/js](/inbox/headless/get-started) headless package is compatible with [@novu/framework](/workflow/introduction) based workflows only. With old UI based workflows, our old [@novu/notification-center](https://v0.x-docs.novu.co/notification-center/client/react/get-started) component should be used.</Info>
+<Info> [@novu/react](/inbox/react/get-started) Inbox react component and [@novu/js](/inbox/headless/get-started) headless package is compatible with [@novu/framework](/workflow/overview) based workflows only. With old UI based workflows, our old [@novu/notification-center](https://v0.x-docs.novu.co/notification-center/client/react/get-started) component should be used.</Info>
 
 
 The `@novu/react` package introduces a more flexible and customizable way to display notifications in your application. This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest Inbox version.
@@ -29,7 +29,7 @@ The `@novu/react` package introduces several breaking changes compared to the `@
 
 ### Styling
 
-- The `styles` props is replaced by an enchanced and easy to use `appearance` prop to customize the appearance of the notification components. For more information on `appearance` customization visit [here](customization#appearance-prop).
+- The `styles` props is replaced by an enchanced and easy to use `appearance` prop to customize the appearance of the notification components. For more information on `appearance` customization visit [here](/inbox/react/styling).
 
 ### Notification
 
@@ -636,7 +636,7 @@ function Novu() {
 export default Novu;
 ```
 
-For more information on `appearance` customization visit [here](customization#appearance-prop).
+For more information on `appearance` customization visit [here](/inbox/react/styling).
 
 ## Multiple Tabs Support
 
@@ -646,7 +646,7 @@ Organize notifications into different categories using tabs by leveraging the ta
 
 - Old Implementation
 
-After defining the feeds on the Workflow UI, you were able to filter notifications based on the feedIdentifier.
+After defining the feeds on the workflow UI, you were able to filter notifications based on the feedIdentifier.
 
 ```tsx
 import {
@@ -778,7 +778,7 @@ export default Novu;
 
 ## HMAC Encryption
 
-The process remains the same as before. See the detailed guide [here](advanced-configuration#hmac-encryption).
+The process remains the same as before. See the detailed guide [here](/inbox/react/production#hmac-encryption).
 
 ## Handling Notifications
 
