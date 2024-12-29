@@ -17,14 +17,29 @@ function Novu() {
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriberId="YOUR_SUBSCRIBER_ID"
       localization={{
-        'inbox.status.archived': 'Archived',
-        'inbox.status.unread': 'Unread',
-        'inbox.status.options.archived': 'Archived',
-        'inbox.status.options.unread': 'Unread',
-        'inbox.status.options.unreadRead': 'Unread/Read',
-        'inbox.status.unreadRead': 'Unread/Read',
-        'inbox.title': 'Inbox',
-        'notifications.emptyNotice': 'No notifications',
+        "inbox.filters.dropdownOptions.unread": "Unread only",
+        "inbox.filters.dropdownOptions.default": "Unread & read",
+        "inbox.filters.dropdownOptions.archived": "Archived",
+        "inbox.filters.labels.unread": "Unread",
+        "inbox.filters.labels.default": "Inbox",
+        "inbox.filters.labels.archived": "Archived",
+        "notifications.emptyNotice": "No notifications",
+        "notifications.actions.readAll": "Mark all as read",
+        "notifications.actions.archiveAll": "Archive all",
+        "notifications.actions.archiveRead": "Archive read",
+        "notification.actions.read.tooltip": "Mark as read",
+        "notification.actions.unread.tooltip": "Mark as unread",
+        "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
+          `${notificationCount > 99 ? "99+" : notificationCount} new ${
+            notificationCount === 1 ? "notification" : "notifications"
+          }`,
+        "notification.actions.archive.tooltip": "Archive",
+        "notification.actions.unarchive.tooltip": "Unarchive",
+        "preferences.title": "Notification Preferences",
+        "preferences.global": "Global Preferences",
+        "preferences.workflow.disabled.notice":
+          "Contact admin to enable subscription management for this critical notification.",
+        "preferences.workflow.disabled.tooltip": "Contact admin to edit",
         dynamic: {
           // use the workflowId as a key to localize the workflow name
           'comment-on-post': 'Post comments',
