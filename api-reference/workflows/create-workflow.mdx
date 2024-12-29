@@ -31,7 +31,7 @@ import {
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.notificationTemplates.create({
-  name: "Onboarding Workflow",
+  name: "Onboarding workflow",
   // taking first workflow group id
   notificationGroupId: workflowGroupsData.data[0]._id,
   steps: [

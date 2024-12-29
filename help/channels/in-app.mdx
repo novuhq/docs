@@ -10,20 +10,20 @@ import ContactSupportSnippet from "/snippets/contact-support.mdx";
 
 To configure your In-App notifications, you must use the In-App integration from our integration store.
 
-To display in-app notifications to users, any SDKs in our [client library](/notification-center/introduction) can be used. Every library requires `applicationIdentifier` and `subscriberId` to fetch notifications. Currently, only one `applicationIdentifier` is supported per environment per organization.
+To display in-app notifications to users, any SDKs in our [client library](/inbox/overview) can be used. Every library requires `applicationIdentifier` and `subscriberId` to fetch notifications. Currently, only one `applicationIdentifier` is supported per environment per organization.
 
 Feel free to reach out to us at support@novu.co if you have speicific requirements of multiple `applicationIdentifier` per organization.
 
 ### Issues with a redirect URL
 
-To redirect to specified redirect url on clicking the in-app notification, notification click event should be handled in client side code. Here is an example in [React](/notification-center/client/react/get-started#onnotificationclick).
+To redirect to specified redirect url on clicking the in-app notification, notification click event should be handled in client side code. Here is an example in [React](/inbox/react/get-started).
 
 ### Changing the default colors of the Notification Center
 
-Styling of your Inbox can be customized using the [styles](/notification-center/client/react/customization#customization-using-styles-prop) prop. If you want to customize only a single component, you can use [available](/notification-center/client/react/customization#popovernotificationcenter-customization) props.
+Styling of your Inbox can be customized using the [styles](/inbox/react/styling#customization-hierarchy) prop. If you want to customize only a single component, you can use [available](/inbox/react/styling#appearance-prop) props.
 
 ### Additional Security for In-App Notifications
 
-To add an extra layer of security, we recommend using our HMAC encryption feature to eliminate subscriber impersonation Checkout [HMAC](/notification-center/client/react/get-started#hmac-encryption) section for more details.
+To add an extra layer of security, we recommend using our HMAC encryption feature to eliminate subscriber impersonation Checkout [HMAC](/inbox/react/production#hmac-encryption) section for more details.
 
 <ContactSupportSnippet />

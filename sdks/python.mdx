@@ -4,8 +4,6 @@ description: "Connect a Python application to Novu"
 icon: "python"
 ---
 
-
-
 <Warning>
   This SDK is built and maintained by our community and might not be up to date with the latest Novu features. We are currently working on a new official SDK for Python.
 </Warning>
@@ -24,11 +22,6 @@ pip install novu
 poetry add novu
 ```
 
-<Tip>
-   If you're ready to start integrating in your Python app, jump straight to
-  our [Python quickstart.](/quickstarts/python)
-</Tip>
-
 ## Usage
 
 ```python
@@ -37,10 +30,10 @@ from novu.api import EventApi
 url = "https://api.novu.co"
 api_key = "<NOVU_SECRET_KEY>"
 
-# You can sign up on https://dashboard.novu.co to get your API key from https://dashboard.novu.co/settings
+# You can sign up on https://dashboard-v2.novu.co to get your API key from https://dashboard-v2.novu.co/settings
 
 novu = EventApi(url, api_key).trigger(
-    name="digest-workflow-example",  # This is the Workflow ID. It can be found on the workflow page.
+    name="digest-workflow-example",  # This is the workflow ID. It can be found on the workflow page.
     recipients="<SUBSCRIBER_IDENTIFIER>", # The subscriber ID can be gotten from the dashboard.
     payload={},  # Your custom Novu payload goes here
 )
