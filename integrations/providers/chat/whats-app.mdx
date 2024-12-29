@@ -8,22 +8,22 @@ description: "Learn about how to use WhatsApp for chat notifications"
 
 To integrate WhatsApp Business with Novu, You will have to create a facebook developer app and obtain the necessary credentials.
 
-### Step 1: Create a Facebook Developer App
+### Step 1: Create a Facebook developer app
 
 Visit the [Facebook Developer Portal](https://developers.facebook.com/apps/) and create a new app.
 
 Select "Other" for "What do you want your app to do?" and select "Business" for "Select an app type".
 
-### Step 2: Setup WhatsApp Product
+### Step 2: Setup WhatsApp product
 
 On the App Setup page, click on "Set Up" under the "WhatsApp" product. You will need to create or add a Facebook Business Account to your app.
 
-### Step 3: Send a Sandbox Message
+### Step 3: Send a sandbox message
 
 Copy the following pieces and paste them in the Novu WhatsApp Business integration settings:
 
-- Temporary Access Token - Access API token Field
-- Phone Number ID - Phone Number Identification Field
+- Temporary access token - Access API token field
+- Phone Number ID - Phone number identification field
 
 <Warning>
   It's important to note that the test credentials for whatsapp cannot be used
@@ -31,14 +31,14 @@ Copy the following pieces and paste them in the Novu WhatsApp Business integrati
   for review to obtain production credentials.
 </Warning>
 
-### Step 4: Add a Test Phone Number
+### Step 4: Add a test phone number
 
-You can add a test phone number to the sandbox by clicking on the "Add Phone Number" button.
+You can add a test phone number to the sandbox by clicking on the **"Add Phone Number"** button.
 This number can be used to test your integration with Novu before submitting for a review.
 
 ### Step 5: Send a test notification from Novu
 
-You can now create a new Workflow with a "Chat" node, and add your content. Save your workflow, and click on "Trigger Notification" Button.
+You can now create a new workflow with a "chat" node, and add your content. Save your workflow, and click on **"Trigger Notification"** button.
 
 In the to field, specify the phone number you added in the sandbox, and click on "Send Notification".
 
@@ -68,9 +68,9 @@ and in the `overrides` field, add the following:
   For test credentials you can only used the built in Whats App Template.
 </Info>
 
-## Going to Production
+## Going to production
 
-### Register a Business Phone Number
+### Register a business phone number
 
 To go live you will need to add a real business phone number and submit your app for review.
 Follow the [Facebook Instructions](https://developers.facebook.com/docs/whatsapp/cloud-api/get-started/add-a-phone-number) on how to proceed.
@@ -80,7 +80,7 @@ Follow the [Facebook Instructions](https://developers.facebook.com/docs/whatsapp
 Follow the [Facebook Instructions](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started/) on how to generate a permanent access token.
 Depending on your use case.
 
-### Create a WhatsApp Template
+### Create a WhatsApp template
 
 You will need to create a WhatsApp Template to send notifications to your customers. Create a template in the [Business Manager](https://business.facebook.com/wa/manage/message-templates) and submit it for review.
 After your template is approved, you can use the `template_name` to send notifications to your customers.
