@@ -1,19 +1,29 @@
 ---
-title: "Push Channel Introduction"
+title: "Overview"
 sidebarTitle: "Overview"
-description: "Learn how to send push notifications with Novu using external providers like FCM, Expo etc."
+description: "Learn how to configure the Push channel"
 ---
-
 import { MissingProvider } from "/snippets/missing-provider.mdx";
 
-Push notifications are short, targeted messages delivered to a user's device or browser, often through mobile apps or websites. They serve as a powerful communication tool, offering real-time updates, reminders, and personalized content. Push notifications can range from news alerts and social media updates to promotional offers and important app notifications.
+Push notifications are a powerful way to deliver real-time updates, reminders, and personalized messages to your users across mobile and web platforms. 
+Whether it's a promotional alert, a system notification, or a critical update, push notifications are key to enhancing engagement and retention.
 
-These messages are designed to engage users and keep them informed about relevant events or activities, even when they are not actively using an app or browsing a website. They play a crucial role in user engagement and retention for businesses and organizations, as they can re-engage users and prompt them to take specific actions.
+Novu simplifies the process by offering a unified API that supports multiple push notification providers, enabling reliable and efficient message delivery.
 
-Novu can be used to deliver push notifications to your customers devices using a unified delivery API. Both Mobile and Web push notifications are supported.
+## Key Features
 
-## Using push channel with Novu
+- **Multi-Provider Support**: Integrate with providers like Firebase Cloud Messaging (FCM), OneSignal, or Apple Push Notification Service (APNS)
+- **Unified Delivery**: Streamline your push notifications with a single API for mobile and web platforms
+- **Dynamic Content**: Customize notifications with variables for personalized user experiences
+- **Device Management**: Keep subscriber device tokens in sync using just-in-time or manual updates
 
+## Common Use Cases
+- **Transactional Notifications**: Payment updates, delivery alerts, appointment reminders
+- **Engagement Notifications**: Promotions, re-engagement campaigns, social media interactions
+- **System Alerts**: Security warnings, downtime alerts, account activity updates
+
+
+## How to send push notifications
 To send a push notification to subscribers (users) using Novu:
 
 - Add a push channel provider in integration store
@@ -33,10 +43,6 @@ To send a push notification to subscribers (users) using Novu:
 - [Push Webhook](/channels-and-providers/push/push-webhook)
 
 <Note>Novu supports multiple active providers for push channel.</Note>
-
-<Tip>
-  <MissingProvider channelName="PUSH" />
-</Tip>
 
 ## Managing push device tokens
 
@@ -70,7 +76,7 @@ novu.trigger("workflow-id", {
 
 ### Manual
 
-Use the Novu Set Credentials API to update subscriber profiles with device tokens. You can read more about the API in the [API Reference](/api-reference/subscribers/update-subscriber-credentials) or the [FCM Example](/channels-and-providers/push/fcm#setting-device-token)
+Use the Novu Set Credentials API to update subscriber profiles with device tokens. You can read more about the API in the [API Reference](/api-reference/subscribers/update-subscriber-credentials) or the [FCM Example](/integrations/providers/push/fcm#setting-device-token)
 
 ## Frequently Asked Questions
 
@@ -120,3 +126,7 @@ await this.novu.subscribers.setCredentials(
 ```
   </Tab>
 </Tabs>
+
+<Tip>
+  <MissingProvider channelName="PUSH" />
+</Tip>

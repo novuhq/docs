@@ -39,7 +39,7 @@ Adding Novu to the Backend.
 
 We'll need a workflow to trigger notifications to our user's devices. Follow the steps below to create one to ensure we are on the path to make FCM work as expected:
 
-1. Head over to the [Integrations Store](https://dashboard.novu.co/integrations?utm_campaign=docs-guides-fcm-web) on the Novu Web Dashboard and make sure that you've turned on the 'Firebase Cloud Messaging' integration.
+1. Head over to the [Integrations Store](https://dashboard-v2.novu.co/integrations?utm_campaign=docs-guides-fcm-web) on the Novu Web Dashboard and make sure that you've turned on the 'Firebase Cloud Messaging' integration.
    <Frame caption="Turn on Firebase Cloud Messaging integration from the Novu Dashboard">
      <img src="/images/fcm-web-push/novu-dashboard.png" />{" "}
    </Frame>
@@ -47,9 +47,9 @@ We'll need a workflow to trigger notifications to our user's devices. Follow the
      If you're doing this for the first time, you'll need to get your service
      account key from the [Firebase
      Console](https://console.firebase.google.com/). Read more about it in our
-     [FCM provider docs.](https://docs.novu.co/channels-and-providers/push/fcm)
+     [FCM provider docs.](https://docs.novu.co/integrations/providers/push/fcm)
    </Info>
-2. Now, we need to create a workflow that we'll trigger from our app to send notifications. Head over to [workflows in the Novu Web Dashboard](https://dashboard.novu.co/workflows?utm_campaign=docs-guides-fcm-web) and click on the 'Add a workflow' button.
+2. Now, we need to create a workflow that we'll trigger from our app to send notifications. Head over to [workflows in the Novu Web Dashboard](https://dashboard-v2.novu.co/workflows?utm_campaign=docs-guides-fcm-web) and click on the 'Add a workflow' button.
    <Frame caption="Click on the 'Add a workflow' button to create workflows">
      <img src="/images/fcm-web-push/workflows.png" />{" "}
    </Frame>
@@ -210,7 +210,7 @@ To make it modular, we’ll keep the trigger code in a separate function in a se
 
 If you’re following the guide, you should already have the trigger function. But before we can add it to our app, we need one key thing - **Subscribers.**
 
-[Subscribers](https://docs.novu.co/subscribers/subscribers) are entities to which the notifications are sent. You can see a list of subscribers in the [Novu dashboard](https://dashboard.novu.co/subscribers?utm_campaign=docs-guides-fcm-web) as well.
+[Subscribers](https://docs.novu.co/subscribers/subscribers) are entities to which the notifications are sent. You can see a list of subscribers in the [Novu dashboard](https://dashboard-v2.novu.co/subscribers?utm_campaign=docs-guides-fcm-web) as well.
 
 We'll create a subscriber in our app. Our backend will be written in Node.js, but we also have backend [SDKs in PHP, .NET, Go, Ruby, Python, and Kotlin](/sdks/introduction). The recommended way to create a subscriber in NodeJS is as follows:
 
@@ -220,9 +220,9 @@ await novu.subscribers.identify(process.env.NOVU_SUB_ID, {
 });
 ```
 
-Here, we're creating a subscriber with the `subscriberID` of whatever value the `env` file contains for the identifier `NOVU_SUB_ID`. You can read more about subscribers [in our docs.](/subscribers/subscribers).
+Here, we're creating a subscriber with the `subscriberID` of whatever value the `env` file contains for the identifier `NOVU_SUB_ID`. You can read more about subscribers [in our docs.](concepts/subscribers).
 
-Back in our app, before we can now add the trigger function, we need to set device identifiers using the [setCredential method](https://docs.novu.co/channels-and-providers/push/fcm#set-device-token):
+Back in our app, before we can now add the trigger function, we need to set device identifiers using the [setCredential method](https://docs.novu.co/integrations/providers/push/fcm#set-device-token):
 
 ```jsx
 await novu.subscribers.setCredentials(

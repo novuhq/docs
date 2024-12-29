@@ -134,7 +134,7 @@ url = "https://api.novu.co"
 api_key = "<NOVU_SECRET_KEY>"
 
 novu = EventApi(url, api_key).trigger(
-    name="<WORKFLOW_TRIGGER_IDENTIFIER>",  # This is the Workflow ID. It can be found on the workflow page.
+    name="<WORKFLOW_TRIGGER_IDENTIFIER>",  # This is the workflow ID. It can be found on the workflow page.
     recipients="<UNIQUE_SUBSCRIBER_IDENTIFIER>", # The subscriber ID can be gotten from the dashboard.
     payload={},  # Your custom Novu payload goes here
 )
