@@ -41,10 +41,10 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Nux
         cd my-novu-app && npm run dev
         ```
 
-       Nuxt application default port is 3000. For that to work, restart Novu Studio and point it to the right port:
+        If your Nuxt application is running on other than `4000` port, restart the `npx novu dev` command with the port:
 
         ```bash
-        npx novu@latest dev --port <YOUR_NUXT_PORT>
+        npx novu@latest dev --port <YOUR_NUXT_APPLICATION_PORT>
         ```
     </Step>
     <TestStep framework="Nuxt" />
