@@ -126,7 +126,7 @@ You can use variables in any step control value, whether set by the developer or
 </Frame>
 
 ### Variable Options
-- **Subscriber Attributes**: Access all [subscriber attributes](https://docs.novu.co/concepts/subscribers#subscriber-attributes). Example: `{{subscriber.firstName}}`
+- **Subscriber Attributes**: Access all [subscriber attributes](/concepts/subscribers#subscriber-attributes). Example: `{{subscriber.firstName}}`
 - **Payload Variables**: Use all payload variables defined in the `payloadSchema`. Example: `{{payload.userId}}`
 - **Liquid Filters**: Apply [liquid filters](https://liquidjs.com/filters/overview.html) to format or manipulate variable values. Examples: `{{subscriber.firstName | append: ': ' | append: payload.status | capitalize}}` or
 `{{payload.invoiceDate | date: '%a, %b %d, %y'}}` will format the date as `Thu, Jan 01, 24`
