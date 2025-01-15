@@ -42,37 +42,3 @@ Global subscriber preferences are shown by default, it can hidden by using below
   display: none;
 }
 ```
-
-### Hide specific channel preferences
-To hide any specific channel preferences from all workflows preferences and globaal preferences, below css code can be used in global css file
-```css
-/* Hide channel description */
-.nv-channelDescription {
-  display: none;
-}
-
-/* Hide email channel */
-.nv-workflowContainer:first-child .nv-channelContainer:nth-child(1) {
-  display: none;
-}
-
-/* Hide sms channel */
-.nv-workflowContainer:first-child .nv-channelContainer:nth-child(2) {
-  display: none;
-}
-
-/* Hide in-app channel */
-.nv-workflowContainer:first-child .nv-channelContainer:nth-child(3) {
-  display: none;
-}
-
-/* Hide chat channel */
-.nv-workflowContainer:first-child .nv-channelContainer:nth-child(4) {
-  display: none;
-}
-
-/* Hide push channel */
-.nv-workflowContainer:first-child .nv-channelContainer:nth-child(5) {
-  display: none;
-}
-```
