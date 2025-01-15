@@ -7,7 +7,7 @@ description: "Learn how to use the Onesignal provider to send push notifications
 
 To configure the OneSignal integration, you will need an active account which has credentials for APNs, FCM or both, and have access to the `OneSignal App ID` and `Rest API Key` available via your [application's settings page](https://documentation.onesignal.com/docs/keys-and-ids).
 
-# Setting the Device Token
+## Setting the Device Token
 
 Once OneSignal has been configured with your credentials for APNs/FCM, and the OneSignal SDK has been [set up and configured](https://documentation.onesignal.com/docs/onboarding-with-onesignal#step-1-setup-onesignal-sdk) for your application, your users will begin to be automatically assigned a unique OneSignal [player_id](https://documentation.onesignal.com/docs/users#player-id) identifier by the SDK.
 
@@ -31,7 +31,6 @@ await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.OneSign
 // Your user's unique 'player_id' from OneSignal
 deviceTokens: ['ad0452ca-3ca7-43b5-bf9b-fa93fd322035'],
 });
-
 ```
   </Tab>
   <Tab title="cURL">
@@ -52,13 +51,9 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
 
-# SDK Trigger Example
+## SDK Trigger Example
 
-```jsx
-import { Novu } from "@novu/node";
-
-const novu = new Novu("<NOVU_SECRET_KEY>");
-
+```typescript
 novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   to: {
     subscriberId: "<SUBSCRIBER_ID>",
@@ -66,7 +61,19 @@ novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   payload: {
     abc: "def", // If the notification is a data notification, the payload will be sent as the data
   },
+  overrides: {
+    subtitle: "This is subtitle value",
+    mutableContent: "Mutable content value",
+    // for android notification categories
+    channelId: "category_id",
+    // for ios notification categories
+    categoryId: "Category id",
+    // same value is used for all sizes and browsers
+    icon: "https://image.com/icon.png",
+    // used for both android and ios
+    sound: "sound file url"
+  }
 });
 ```
-
+    
 Device/notification identifiers can be set by using [setCredentials](/integrations/providers/push/fcm#setting-device-token) or by using the `deviceIdentifiers` field in overrides.
