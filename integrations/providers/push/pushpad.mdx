@@ -7,7 +7,7 @@ description: "Learn how to use the Pushpad provider to send web push notificatio
 
 To configure the Pushpad integration, you will need an active account and you need to have a `Pushpad Auth Token` (from the [account settings](https://pushpad.xyz/access_tokens)) and the `Pushpad Project ID` (from the project settings).
 
-# Setting the Device Token
+## Setting the Device Token
 
 Once Pushpad has been configured with your credentials and the Pushpad SDK has been [set up and installed](https://pushpad.xyz/docs/pushpad_pro_getting_started) on your website, you can [assign a user ID (uid)](https://pushpad.xyz/docs/identifying_users) to the push subscriptions.
 
@@ -28,10 +28,9 @@ import {
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.Pushpad, {
-// the user ID (uid) that you used for Pushpad
-deviceTokens: ['user123'],
+  // the user ID (uid) that you used for Pushpad
+  deviceTokens: ['user123'],
 });
-
 ```
   </Tab>
   <Tab title="cURL">
@@ -54,7 +53,7 @@ Checkout the [API reference](/api-reference/subscribers/update-subscriber-creden
 
 # SDK Trigger Example
 
-```jsx
+```typescript
 import { Novu } from "@novu/node";
 
 const novu = new Novu("<NOVU_SECRET_KEY>");
@@ -66,5 +65,3 @@ novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
   payload: {},
 });
 ```
-
-The devices of the subscriber that should receive the notifications can be set by using `setCredentials` or by using the `deviceIdentifiers` field in overrides.
