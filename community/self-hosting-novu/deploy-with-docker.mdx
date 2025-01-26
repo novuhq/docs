@@ -10,7 +10,7 @@ Docker compose is the easiest way to get started with self-hosted Novu.
 
 You need the following installed in your system:
 
-- [Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/)
+- [Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/)
 - [Git](https://git-scm.com/downloads)
 
 <iframe
@@ -30,7 +30,7 @@ You need the following installed in your system:
 
 ### Get the code
 
-Clone the Novu repo and enter the docker directory locally:
+Clone the Novu repo and enter the docker directory:
 
 ```bash
 # Get the code
@@ -41,26 +41,48 @@ cd novu/docker/community
 
 # Copy the example env file
 cp .env.example .env
+```
 
-# Start Novu
+### Configure Environment
+
+#### Local Development
+For local development, you can use the default configuration. Start Novu with:
+
+```bash
 docker-compose -f docker-compose.yml up
 ```
 
-Now visit [http://localhost:4200](http://localhost:4200/) to start using Novu.
+Now visit [http://localhost:4200](http://localhost:4200/) to start using Novu.
+
+#### VPS Deployment
+When deploying to a VPS, update your `.env` file with your server's information:
+
+```bash
+# Replace <vps-ip-address> with your VPS IP address
+HOST_NAME=http://<vps-ip-address>
+```
+
+Start Novu on your VPS:
+
+```bash
+docker-compose -f docker-compose.yml up
+```
+
+Access your dashboard at `http://<vps-ip-address>:4200`
 
 ## Securing your setup
 
-While we provide you with some example secrets for getting started, you should NEVER deploy your Novu setup using the defaults provided.
+While we provide example secrets for getting started, you should NEVER deploy your Novu setup using the defaults provided.
 
-Update the `.env` file with your own secrets.
+Update the `.env` file with your own secrets.
 
 ### Required Variables:
 
-- `JWT_SECRET`: Used by the API to generate JWT keys.
-- `STORE_ENCRYPTION_KEY`: Used to encrypt/decrypt the provider credentials. It must be 32 characters long.
-- `HOST_NAME`: Host name of your installation. This will be the base URL of your installation. For example, if you are deploying to server with ip `35.154.137.80`, then you should set this to `http://35.154.137.80`.
-
-`REDIS_CACHE_SERVICE_HOST` and `REDIS_HOST` can have same value for small deployments. For larger deployments, it is recommended to use separate Redis instances for caching and queue management.
+- `JWT_SECRET`: Used by the API to generate JWT keys
+- `STORE_ENCRYPTION_KEY`: Used to encrypt/decrypt the provider credentials. Must be 32 characters long
+- `HOST_NAME`: Host name of your installation
+  - For local development: `http://localhost`
+  - For VPS deployment: Your server's IP address (e.g., `http://<vps-ip-address>`) or domain name
 
 ## Configuration
 
@@ -71,9 +93,58 @@ To keep the setup simple, we made some choices that may not be optimal for produ
 
 We strongly recommend that you decouple your database before deploying.
 
+### Setting Up Novu Studio and Bridge
+
+#### Setting Up Novu Studio
+Novu Studio is a development environment that allows you to test and manage your notifications. The setup varies based on your deployment:
+
+##### For Local Development
+```bash
+npx novu@latest dev
+```
+
+##### For VPS Deployment
+```bash
+# Start Novu Studio with your VPS dashboard URL and bridge application URL
+npx novu@latest dev -d http://<vps-ip-address>:4200 -o http://<novu-bridge-ip>:4000  # where your bridge application runs
+```
+
+#### Setting Up the Novu Bridge
+The Novu Bridge is used to connect your application with Novu. Here's how to set it up:
+
+```bash
+# Initialize the bridge
+npx novu@latest init \
+  --secret-key=<secret> \
+  --api-url=http://<vps-ip-address>:3000
+
+# Start the bridge
+npm run dev
+```
+
+### Synchronizing Workflows
+
+For VPS deployment:
+```bash
+npx novu@latest sync \
+  --bridge-url http://<novu-bridge-ip>:3000/api/novu \
+  --api-url http://<vps-ip-address>:3000 \
+  --secret-key <secret>
+```
+
+### VPS Security Considerations
+
+When deploying to a VPS, consider these additional security measures:
+
+1. Use a firewall to restrict access to only necessary ports
+2. Set up SSL/TLS certificates for HTTPS access
+3. Regularly update your Docker images and host system
+4. Use strong, unique secrets in your `.env` file
+5. Consider using a reverse proxy like Nginx for additional security layers
+
 ### Triggering events with custom installation
 
-When self-hosting Novu, in order to trigger an event you must first create a new `Novu` object and configure it with the proper `backendUrl`.
+When self-hosting Novu, in order to trigger an event you must first create a new `Novu` object and configure it with the proper `backendUrl`.
 
 ```tsx
 import { Novu } from "@novu/node";
@@ -94,7 +165,7 @@ await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
 
 ### Pointing IFrame embed to custom installation
 
-When using the IFrame embed to attach the notification center rather than the React component, you need to specify the `backendUrl` and the `socketUrl` when initializing the iframe.
+When using the IFrame embed to attach the notification center rather than the React component, you need to specify the `backendUrl` and the `socketUrl` when initializing the iframe.
 
 ```html
 <script>
@@ -113,7 +184,7 @@ When using the IFrame embed to attach the notification center rather than the Re
 
 ### Using React Component with custom installation
 
-See [Use your own backend and socket URL](https://v0.x-docs.novu.co/notification-center/client/react/get-started#use-your-own-backend-and-socket-url).
+See [Use your own backend and socket URL](https://v0.x-docs.novu.co/notification-center/client/react/get-started#use-your-own-backend-and-socket-url).
 
 ### Caching
 
@@ -160,12 +231,13 @@ This would producte the following url: - API: company.com/novu-api
 </Note>
 
 ## FAQs
+
 ### Local Tunnel and Self-Hosted Deployments
 
 Novu uses a local tunnel to connect to Local Studio during development. Local tunnel support is not included as part of the Novu Docker images. This is typically unnecessary for many users, depending on how their environment is structured.
 
 #### When is Local Tunnel Not Required?
-If the customer’s application and the self-hosted Novu deployment are within the same network, there is no need for a local tunnel. In this case, the application can communicate directly with Novu through the internal network.
+If the customer's application and the self-hosted Novu deployment are within the same network, there is no need for a local tunnel. In this case, the application can communicate directly with Novu through the internal network.
 
 #### When is Local Tunnel Required?
 If the application and Novu deployment reside on different networks, you can still interact with your self-hosted Novu instance using the Novu CLI. The CLI allows you to specify the Dashboard URL and Bridge Endpoint Origin to enable communication across networks via the Novu Cloud Local Tunnel.
