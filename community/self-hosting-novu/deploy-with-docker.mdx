@@ -68,7 +68,7 @@ Start Novu on your VPS:
 docker-compose -f docker-compose.yml up
 ```
 
-Access your dashboard at `http://<vps-ip-address>:4200`
+Access your dashboard at [http://localhost:4200](http://localhost:4200/) or [http://vps-ip-address:4200](http://vps-ip-address:4200/).
 
 ## Securing your setup
 
@@ -78,11 +78,12 @@ Update the `.env` file with your own secrets.
 
 ### Required Variables:
 
-- `JWT_SECRET`: Used by the API to generate JWT keys
-- `STORE_ENCRYPTION_KEY`: Used to encrypt/decrypt the provider credentials. Must be 32 characters long
-- `HOST_NAME`: Host name of your installation
+- `JWT_SECRET`: Used by the API to generate JWT keys.
+- `STORE_ENCRYPTION_KEY`: Used to encrypt/decrypt the provider credentials. It must be 32 characters long.
+- `HOST_NAME`: Host name of your installation:
   - For local development: `http://localhost`
   - For VPS deployment: Your server's IP address (e.g., `http://<vps-ip-address>`) or domain name
+- `REDIS_CACHE_SERVICE_HOST` and `REDIS_HOST` can have same value for small deployments. For larger deployments, it is recommended to use separate Redis instances for caching and queue management.
 
 ## Configuration
 
@@ -106,7 +107,7 @@ npx novu@latest dev
 ##### For VPS Deployment
 ```bash
 # Start Novu Studio with your VPS dashboard URL and bridge application URL
-npx novu@latest dev -d http://<vps-ip-address>:4200 -o http://<novu-bridge-ip>:4000  # where your bridge application runs
+npx novu@latest dev -d http://<vps-ip-address>:4200 -o http://<novu-bridge-ip>:4000
 ```
 
 #### Setting Up the Novu Bridge
