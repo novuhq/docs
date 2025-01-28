@@ -1,0 +1,104 @@
+---
+title: 'JavaScript Quickstart'
+sidebarTitle: 'Quickstart'
+description: 'Learn how to add a Novu-Powered In-App Inbox to your JavaScript app'
+icon: 'square-js'
+---
+
+Novu provides the `@novu/js` package that helps to add a fully functioning Inbox to your web application in minutes. Let's see how easily you can use it in your application.
+
+<Steps>
+  <Step title="Install the Inbox package">
+```bash
+npm install @novu/js
+```
+  </Step>
+  <Step title="Add the inbox code to your JavaScript file">
+
+```javascript
+import { NovuUI } from '@novu/js/ui';
+
+async function Novu() {
+    try {
+        const novu = new NovuUI({
+            options: {
+                applicationIdentifier: '<Application Identifier>',
+                subscriberId: '<Subscriber ID>',
+            },
+        });
+
+        novu.mountComponent({
+            name: 'Inbox',
+            props: {},
+            element: document.getElementById('notification-inbox')
+        });
+
+    } catch (error) {
+        console.error('Error initializing Novu:', error);
+    }
+}
+```
+    <Tip>
+    You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard-v2.novu.co/api-keys).
+    The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/concepts/subscribers).
+    </Tip>
+
+
+  <Accordion title="European Region Instructions">
+       If you are using the European region in novu, you need to set the `backendUrl` and `socketUrl` props.
+    ```javascript
+    const novu = new NovuUI({
+        options: {
+            applicationIdentifier: '<Application Identifier>',
+            subscriberId: '<Subscriber ID>',
+            backendUrl: 'https://eu.api.novu.co',
+            socketUrl: 'https://eu.ws.novu.co',
+        },
+    });
+    ```
+  </Accordion>
+  </Step>
+  <Step title="Trigger a notification">
+    Now that you have the inbox component added to your application, you can trigger an Inbox notification to see it in action.
+    To create your first workflow, follow our [quickstart guide](/getting-started/quickstart).
+
+    <Frame caption="The Inbox Component">
+      <img src="/images/inbox/component.png" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Customize the inbox" href="/inbox/styling">
+    Learn how to customize the inbox with your own branding and design.
+  </Card>
+  <Card
+    title="Learn the components"
+    href="/inbox/react/components/overview"
+  >
+    Learn more about the composable components of the inbox.
+  </Card>
+</CardGroup>
+
+## Frequently Asked Questions
+
+<AccordionGroup>
+  <Accordion title="The Inbox is not loading properly.">
+
+Possible reasons for the Inbox not loading properly:
+
+    - Invalid subscriberId
+    - Invalid applicationIdentifier
+    - Invalid subscriberHash (in case of active HMAC encryption)
+    - Invalid backendUrl (in case of self-hosted)
+    - Invalid socketUrl (in case of self-hosted)
+
+  </Accordion>
+
+  <Accordion title="How to fix CORS error with Inbox?">
+  Our Inbox is configures for all hosts. Please disable root level `withCredentials` config in axios or fetch http requests.
+
+  </Accordion>
+</AccordionGroup>
