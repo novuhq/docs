@@ -11,7 +11,6 @@
   },
   "openapi": "https://api.novu.co/openapi.json",
   "favicon": "/favicon.png",
-
   "colors": {
     "primary": "#03a9ca",
     "light": "#03a9ca",
@@ -52,7 +51,6 @@
     "name": "Platform"
   },
   "tabs": [
-
     {
       "name": "<Inbox />",
       "url": "inbox"
@@ -150,7 +148,7 @@
           "pages": [
             "integrations/providers/in-app/overview",
             "integrations/providers/in-app/adding-in-app"
-        ]
+          ]
         },
         {
           "group": "Email",
@@ -188,7 +186,7 @@
           "pages": [
             "integrations/providers/sms/overview",
             "integrations/providers/sms/adding-sms",
-            { 
+            {
               "group": "Providers",
               "pages": [
                 "integrations/providers/sms/twilio",
@@ -253,60 +251,66 @@
       ]
     },
     {
-      "group": "Get Started",
+      "group": "Get started",
       "pages": [
-        "inbox/overview"
+        "inbox/overview",
+        {
+          "group": "Quickstart",
+          "pages": [
+            "inbox/react/get-started",
+            "inbox/javascript/get-started",
+            "inbox/headless/get-started",
+            "inbox/react-native/quickstart"
+          ]
+        }
       ]
     },
     {
-      "group": "React",
-      "icon": "react",
+      "group": "Components",
       "pages": [
-        "inbox/react/get-started",
-        "inbox/react/styling",
-        "inbox/react/multiple-tabs",
+        "inbox/react/components/overview",
+        "inbox/react/components/inbox",
+        "inbox/react/components/bell",
+        "inbox/react/components/notifications",
+        "inbox/react/components/preferences",
+        "inbox/react/components/inbox-content"
+      ]
+    },
+    {
+      "group": "Customization",
+      "pages": [
+        "inbox/styling",
+        "inbox/multiple-tabs",
+        "inbox/localization"
+      ]
+    },
+    {
+      "group": "Configuration",
+      "pages": [
+        "inbox/production",
+        "inbox/migration-guide"
+      ]
+    },
+    {
+      "group": "SDKs",
+      "pages": [
         {
-          "group": "Components",
+          "group": "React",
+          "icon": "react",
           "pages": [
-            "inbox/react/components/overview",
-            "inbox/react/components/inbox",
-            "inbox/react/components/bell",
-            "inbox/react/components/notifications",
-            "inbox/react/components/preferences",
-            "inbox/react/components/inbox-content"
+              "inbox/react/hooks/overview",
+              "inbox/react/hooks/novu-provider",
+              "inbox/react/hooks/use-notifications",
+              "inbox/react/hooks/use-preferences",
+              "inbox/react/hooks/use-counts",
+              "inbox/react/hooks/use-novu"
           ]
         },
+        "inbox/javascript/get-started",
+        "inbox/headless/api-reference",
         {
-          "group": "Hooks",
-          "pages": [
-            "inbox/react/hooks/overview",
-            "inbox/react/hooks/novu-provider",
-            "inbox/react/hooks/use-notifications",
-            "inbox/react/hooks/use-preferences",
-            "inbox/react/hooks/use-counts",
-            "inbox/react/hooks/use-novu"
-          ]
-        },
-        "inbox/react/localization",
-        "inbox/react/production",
-        "inbox/react/migration-guide"
-      ]
-    },
-    {
-      "group": "Headless",
-      "icon": "js",
-      "pages": [
-        "inbox/headless/get-started",
-        "inbox/headless/api-reference"
-      ]
-    },
-    {
-      "group": "React Native",
-      "icon": "mobile",
-      "pages": [
-        "inbox/react-native/quickstart",
-        {
-          "group": "Hooks",
+          "group": "React Native",
+          "icon": "mobile",
           "pages": [
             "inbox/react-native/hooks/novu-provider",
             "inbox/react-native/hooks/use-notifications",
@@ -319,7 +323,6 @@
     },
     {
       "group": "Build workflows",
-
       "pages": [
         "framework/overview",
         "framework/tags",
@@ -348,7 +351,7 @@
       ]
     },
     {
-      "group": "Get Started",
+      "group": "Get started",
       "pages": [
         "community/overview",
         "community/project-differences"
