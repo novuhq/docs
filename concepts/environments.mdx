@@ -1,38 +1,61 @@
 ---
 title: "Environments"
-description: "Learn about environments in Novu"
+description: "Understanding and managing environments in Novu"
 ---
 
-Novu runs all your requests in the context of an environment. By default, Novu creates two environments when your account was just created, `development` and `production`.
+Novu uses environments to separate your development and production workflows. When you create an account, you'll get two default environments: `Development` and `Production`.
 
-## Development environment
+## Development Environment
 
-The development environment is used for testing purposes and validating notification changes prior to committing them to the production environment.
+Use the development environment to test new notification workflows, validate changes before deploying to production, and experiment with different configurations.
 
-## Production environment
+## Production Environment
 
-It will be your live/production environment, you cannot make changes to this environment directly. You will first have to make the changes in the `development` environment and then promote it to `production`. This is a read-only environment.
+The production environment is your live environment where notifications are sent to real users. 
 
-## Data associated with environments
+## Custom Environments
 
-Novu will separate most of the data associated with your account based on the current accessed environment. This will include:
+<Note>Custom environments are available in Business and Enterprise plans</Note>
 
-- Subscribers
-- Workflows
-- Messages
-- Execution logs
-- Connected integrations
+Create custom environments to match your development workflow:
+
+1. Go to the Environments page in your dashboard
+2. Create environments like `Staging` or `QA`
+3. Assign unique colors to easily distinguish between environments
+4. Sync changes between environments just like with development and production
+
+The sync process works the same way as between development and production environments.
+
+## What's Unique to Each Environment?
+
+Each environment maintains its own separate:
+- Subscriber list
+- Notification workflows
+- Message history
+- Activity feed
+- Integration settings
 - Notification feeds
-- Brand related assets and settings
+- Brand assets and settings
 
-Each environment will be accessed using a separate credential set:
+## Environment Credentials
 
-- **Application Identifier** - This is a public identifier used in client-side applications to identify your application. It is unique to an environment in an organization and is different from `Provider Identifier`.
-- **Provider Identifier** - This is an identifier for a provider in a channel. For example, say you're using email notifications. Here, two different providers will have two different `Provider Identifier`. Even if you're using two different integration of the same provider, you'll have two different `Provider Identifier`, each unique to one integration. For example, if you've two slack integrations, they will have two different `Provider Identifier`.
-- **API Secret Key** - A secret key used when communicating with the `Novu API` from your backend services.
+Each environment has two unique identifiers:
 
-We suggest configuring these key sets based on your active environment, the same as you would use to manage different service credentials and serve them based on the current environment in which your code is deployed.
+1. **Application Identifier**
+   - Public ID for client-side apps
+   - Unique per environment
+   - Safe to expose in frontend code
 
-## Syncing changes to production
+2. **API Secret Key**
+   - Used for backend API authentication
+   - Keep this secure and never expose publicly
+   - Different for each environment
 
-When moving changes from the `development` environment to the `production` environment, you can "Sync" those changes from the Dashboard interface or using the Sync API for your framework based workflow using CI/CD.
+**Best Practice**: Configure these credentials in your application based on the active environment, similar to how you manage other service credentials.
+
+## Promoting Changes to Production
+
+You can move changes from development to production in two ways:
+1. Using the Dashboard's sync interface
+2. Using the Sync API in your CI/CD pipeline
+
