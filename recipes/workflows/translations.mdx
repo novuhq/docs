@@ -35,11 +35,11 @@ export const welcomeWorkflow = workflow(
   async ({ step, subscriber }) => {
     // Send welcome notifications via email
     await step.email('welcome-email', async () => {
-      i18next.getFixedT(subscriber.locale);
+      const t = i18next.getFixedT(subscriber?.locale as string);
 
       return {
-        subject: i18next.t('welcomeEmailSubject', { name: subscriber.name }),
-        body: i18next.t('welcomeEmailBody', { username: subscriber.username }),
+        subject: t('welcomeEmailSubject', { name: subscriber.name }),
+        body: t('welcomeEmailBody', { username: subscriber.username }),
       };
     });
   }
