@@ -60,6 +60,52 @@ The snippet below shows a configuration for the Step Control schema. If you donâ
   });
   ```
 
+  ```tsx Class-Validator Schema
+  class NewSignUpComponent {
+      @IsString()
+      subject: string;
+
+      @IsString()
+      content: string;
+  }
+  class NewSignUpControlSchema {
+      @IsBoolean()
+      hideBanner: Boolean;
+
+      @IsString()
+      @IsNotEmpty()
+      @IsOptional()
+      subject?: string;
+
+      // Allowing no code control over the component in the Dashboard UI
+      @Type(() => NewSignUpComponent)
+      @NestedValidation({ each: true })
+      @IsOptional()
+      components?: NewSignUpComponent[];
+  }
+
+  workflow("new-signup", async ({ step, payload }) => {
+    await step.email(
+      "send-email",
+      async (controls) => {
+        return {
+          subject: controls.subject,
+          body: render(
+            <ReactEmailContent
+              hideBanner={controls.hideBanner}
+              components={controls.components}
+            />
+          ),
+        };
+      },
+      {
+        // Learn about Class-Validator Schema here: https://github.com/typestack/class-validator
+        controlSchema: NewSignUpControlSchema,
+      }
+    );
+  });
+  ```
+
   ```tsx JSON Schema
   workflow("new-signup", async ({ step, payload }) => {
     await step.email(
@@ -112,9 +158,19 @@ The snippet below shows a configuration for the Step Control schema. If you donâ
 
 For the full list of parameters, check out the [full SDK reference](/framework/typescript/steps/email).
 
-## Supported Schema Types
-- [Zod Schema](https://zod.dev/) - A TypeScript-first schema declaration and validation library.
-- [JSON Schema](/framework/schema/json-schema) - The most popular schema language for defining JSON data structures.
+## Schema Validation & IDE IntelliSense
+
+You can use **Zod, Class-Validator or JSON Schema** based on your needs.
+
+- **[Zod](https://zod.dev/)** - A TypeScript-first schema declaration and validation library.
+- **[Class-Validator](https://github.com/typestack/class-validator)** - A TypeScript-first validation library using decorators for OOP-style applications.
+- **[JSON Schema](/framework/schema/json-schema)** - The most popular schema language for defining JSON data structures.
+
+If you only want local IDE IntelliSense, you are able to pass plain JS Classes, which will not provide any Schema Definition useable by Novu Platform.
+
+All provided **Zod** and **Class-Transformer** Schemas are compiled into **JSON Schema** which is passed to Novu. This ensures a consistent validation approach and UX by managing Payload and Control Data directly from the Platform.
+
+**Important:** There may be inconsistencies when using Class-Transformer exspecialy with nested schema objects. Please check out the guidelines on converting Class-Transformer classes to JSON Schema before using it here: [class-validator-jsonschema](https://www.npmjs.com/package/class-validator-jsonschema).
 
 ## Using Variables
 
