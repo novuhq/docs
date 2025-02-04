@@ -65,6 +65,9 @@ with Novu(
         workflow_id="workflow_identifier",
         to={
             "subscriber_id": "subscriber_unique_identifier",
+            "first_name": "Albert",
+            "last_name": "Einstein",
+            "email": "albert@einstein.com",
         },
         payload={
             "comment_id": "string",
@@ -97,6 +100,9 @@ async def main():
             workflow_id="workflow_identifier",
             to={
                 "subscriber_id": "subscriber_unique_identifier",
+                "first_name": "Albert",
+                "last_name": "Einstein",
+                "email": "albert@einstein.com",
             },
             payload={
                 "comment_id": "string",
@@ -106,7 +112,7 @@ async def main():
             },
             overrides={
               "email": {
-                "bcc": "no-reply@novu.co"
+                "bcc": "no-reply@novu.co",
               }
             },
         ))

@@ -45,12 +45,15 @@ func main() {
 		},
 		Overrides: map[string]map[string]any{
 			"email": map[string]any{
-				"bcc": "no-reply@novu.co"
+				"bcc": "no-reply@novu.co",
 			},
 		},
 		To: components.CreateToSubscriberPayloadDto(
 			components.SubscriberPayloadDto{
 				SubscriberID: "subscriber_uniuqe_identifier",
+				FirstName: "Albert",
+				LastName: "Einstein",
+				Email: "albert@einstein.com",
 			},
 		),
 	}, nil)
@@ -93,12 +96,15 @@ func main() {
 		},
 		Overrides: map[string]map[string]any{
 			"email": map[string]any{
-				"bcc": "no-reply@novu.co"
+				"bcc": "no-reply@novu.co",
 			},
 		},
 		To: components.CreateToSubscriberPayloadDto(
 			components.SubscriberPayloadDto{
 				SubscriberID: "subscriber_uniuqe_identifier",
+				FirstName: "Albert",
+				LastName: "Einstein",
+				Email: "albert@einstein.com",
 			},
 		),
 	}, nil)
