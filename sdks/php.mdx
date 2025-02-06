@@ -4,35 +4,115 @@ description: "Connect a PHP application to Novu"
 icon: "php"
 ---
 
-<Warning>
-  This SDK is built and maintained by our community and might not be up to date with the latest Novu features. We are currently working on a new official SDK for PHP.
-</Warning>
-
 Novu's PHP SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your PHP application.
 
-[Explore the source code on GitHub](https://github.com/novuhq/novu-php)
+[Explore the source code on GitHub](https://github.com/novuhq/php-novu)
 
 ## Installation
+The SDK relies on [Composer](https://getcomposer.org/) to manage its dependencies.
 
-```php
-composer require unicodeveloper/novu
+To install the SDK and add it as a dependency to an existing composer.json file:
+
+```bash
+composer require "novuhq/novu"
 ```
 
 ## Usage
 
+<Tabs>
+  <Tab title="US Region">
 ```php
-use Novu\SDK\Novu;
+declare(strict_types=1);
 
-$novu = new Novu(<INSERT_API_KEY_HERE>);
+require 'vendor/autoload.php';
 
-// Sign up on https://dashboard-v2.novu.co and grab your API key from https://dashboard-v2.novu.co/settings
+use novu;
+use novu\Models\Components;
 
-$response = $novu->triggerEvent([
-    'name' => '<REPLACE_WITH_TEMPLATE_NAME_FROM_ADMIN_PANEL>',
-    'payload' => ['customVariables' => 'Hello'],
-    'to' => [
-        'subscriberId' => '<SUBSCRIBER_IDENTIFIER_FROM_ADMIN_PANEL>',
-        'phone' => '07983882186'
-    ]
-])->toArray();
+$sdk = novu\Novu::builder()
+    ->setSecurity(
+        '<YOUR_SECRET_KEY_HERE>'
+    )
+    ->build();
+
+$triggerEventRequestDto = new Components\TriggerEventRequestDto(
+    workflowId: 'workflow_identifier',
+    to: new Components\SubscriberPayloadDto(
+        subscriberId: 'subscriber_unique_identifier',
+        firstName: 'Albert',
+        lastName: 'Einstein',
+        email: 'albert@einstein.com',
+    ),
+    payload: [
+        'comment_id' => 'string',
+        'post' => [
+            'text' => 'string',
+        ],
+    ],
+    overrides: [
+        'email' => [
+            'bcc' => 'no-reply@novu.co',
+        ],
+    ],
+);
+
+$response = $sdk->trigger(
+    triggerEventRequestDto: $triggerEventRequestDto,
+    idempotencyKey: '<value>'
+
+);
+
+if ($response->triggerEventResponseDto !== null) {
+    // handle response
+}
 ```
+  </Tab>
+  <Tab title="EU Region">
+```php
+declare(strict_types=1);
+
+require 'vendor/autoload.php';
+
+use novu;
+use novu\Models\Components;
+
+$sdk = novu\Novu::builder()
+    ->setServerURL('https://eu.api.novu.co')
+    ->setSecurity(
+        '<YOUR_SECRET_KEY_HERE>'
+    )
+    ->build();
+
+$triggerEventRequestDto = new Components\TriggerEventRequestDto(
+    workflowId: 'workflow_identifier',
+    to: new Components\SubscriberPayloadDto(
+        subscriberId: 'subscriber_unique_identifier',
+        firstName: 'Albert',
+        lastName: 'Einstein',
+        email: 'albert@einstein.com',
+    ),
+    payload: [
+        'comment_id' => 'string',
+        'post' => [
+            'text' => 'string',
+        ],
+    ],
+    overrides: [
+        'email' => [
+            'bcc' => 'no-reply@novu.co',
+        ],
+    ],
+);
+
+$response = $sdk->trigger(
+    triggerEventRequestDto: $triggerEventRequestDto,
+    idempotencyKey: '<value>'
+
+);
+
+if ($response->triggerEventResponseDto !== null) {
+    // handle response
+}
+```
+  </Tab>
+</Tabs>
