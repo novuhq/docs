@@ -1,6 +1,7 @@
 ---
-title: "Delay Action Step"
+title: "Framework Delay Implementation"
 sidebarTitle: "Delay Action"
+description: "Implementation guide for delay steps in Novu Framework with code examples and best practices."
 ---
 
 The delay action awaits a specified amount of time before moving on to trigger the following steps of the workflow.
@@ -58,7 +59,7 @@ export const goalReminderInAppAfterDelay = workflow(
       "in-app-step",
       async () => {
         return {
-          subject: `Don’t Forget Your Fitness Goals Today!`,
+          subject: `Don't Forget Your Fitness Goals Today!`,
           body: `Hey ${subscriber.firstName}, it's been a while since you logged your
                 last activity. Keep up the momentum and complete your workout to stay on 
                 track with your goals!`,
