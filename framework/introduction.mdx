@@ -1,5 +1,5 @@
 ---
-title: "Building notification workflows with the Novu Framework"
+title: "Introduction to Novu Framework"
 sidebarTitle: "Overview"
 description: "Discover how the Novu Framework empowers you to build, customize, and manage advanced notification workflows with a mix of code and no-code capabilities."
 ---
@@ -237,7 +237,7 @@ workflow(
     await step.inApp('inbox', async () => {
         return {
           subject: 'New Login Detected',
-          body: 'We noticed a login from a new device or location. If this wasn’t you, change your password immediately.',
+          body: 'We noticed a login from a new device or location. If this wasn't you, change your password immediately.',
         };
     });
   },
@@ -252,7 +252,7 @@ workflow(
     await step.inApp('inbox', async () => {
         return {
           subject: 'Password Changed',
-          body: 'Your password was successfully updated. If you didn’t request this, contact support right away.',
+          body: 'Your password was successfully updated. If you didn't request this, contact support right away.',
         };
     });
   },
