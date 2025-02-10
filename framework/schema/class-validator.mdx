@@ -73,7 +73,7 @@ Novu Framework allows you to use [Class Validator](https://www.npmjs.com/package
 
 When you define a `controlSchema` for a step, Novu will automatically generate a UI for the controls in the workflow editor.
 
-- **Form Input Title** - Will be derived from the key of the Zod schema. Unfortunately Zod does not support custom titles at this point.
-- **Form Input Type** - Will be derived from the Zod schema type, with support for `string`, `number`, `boolean`, and `enum` and `array` types.
-- **Default Value** - Will be derived from the Zod schema default value.
-- **Validation** - Will be derived from the Zod schema validation rules, including `min`, `max`, `email`, `url`, `regex` and etc...
+- **Form Input Title** - Will be derived from the key of the Class Validator schema. Unfortunately Class Validator does not support custom titles at this point.
+- **Form Input Type** - Will be derived from the Class Validator schema type, with support for `string`, `number`, `boolean`, and `enum` and `array` types.
+- **Default Value** - Unfortunately Class Validator does not support default values at this point.
+- **Validation** - Will be derived from the Class Validator schema validation decorators, including `@Min`, `@Max`, `@IsEmail`, `@IsUrl` and etc...
