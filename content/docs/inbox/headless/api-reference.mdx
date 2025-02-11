@@ -5,6 +5,15 @@ description: 'Complete API reference for the Novu Headless Inbox package'
 ---
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+export function FunctionParams({ children }) {
+  return (
+    <div className="mt-4 mb-8">
+      {children}
+    </div>
+  );
+}
 
 ## Novu
 
@@ -148,29 +157,65 @@ Method to fetch the list of notifications based on the provided filters.
   You can disable this behaviour by setting the `useCache` parameter to `false` in the Novu constructor options.
 </Callout>
 
-#### Parameters
+### Filter Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| tags | string[] | Filter notifications by workflow tags |
-| read | boolean | Filter by read status |
-| archived | boolean | Filter by archived status |
-| limit | number | Number of notifications to fetch (1-100, default: 10) |
-| after | string | Fetch notifications after a specific notification ID |
-| offset | number | Skip first N notifications |
+<TypeTable
+  type={{
+    tags: {
+      type: "string[]",
+      description: "Filter notifications by workflow tags"
+    },
+    read: {
+      type: "boolean",
+      description: "Filter by read status"
+    },
+    archived: {
+      type: "boolean", 
+      description: "Filter by archived status"
+    },
+    limit: {
+      type: "number",
+      description: "Number of notifications to fetch (1-100, default: 10)"
+    },
+    after: {
+      type: "string",
+      description: "Fetch notifications after a specific notification ID"
+    },
+    offset: {
+      type: "number",
+      description: "Skip first N notifications"
+    }
+  }}
+/>
 
-#### Returns
+### Response Type
 
-```typescript
-interface ListNotificationsResponse {
-  data: {
-    notifications: Notification[];
-    hasMore: boolean;
-    filter: NotificationFilter;
-  };
-  error?: NovuError;
-}
-```
+<TypeTable
+  type={{
+    data: {
+      type: "object",
+      description: "Response data object",
+      properties: {
+        notifications: {
+          type: "Notification[]",
+          description: "Array of notification objects"
+        },
+        hasMore: {
+          type: "boolean",
+          description: "Whether there are more notifications to fetch"
+        },
+        filter: {
+          type: "NotificationFilter",
+          description: "Applied filter criteria"
+        }
+      }
+    },
+    error: {
+      type: "NovuError",
+      description: "Error object if request fails"
+    }
+  }}
+/>
 
 #### Example
 
@@ -249,85 +294,70 @@ const counts = await novu.notifications.count({
 
 Method marks a notification as read.
 
-<FunctionParams />
-
-#### Usage
-
-```typescript
-const readNotification = await novu.notifications.read({
-  notificationId: 'notification.id',
-});
-// OR
-const readNotification = await novu.notifications.read({
-  notification,
-});
-```
+<TypeTable
+  type={{
+    notificationId: {
+      type: "string",
+      description: "The ID of the notification to mark as read",
+      required: true
+    }
+  }}
+/>
 
 ### unread
 
 Method marks a notification as unread.
 
-<FunctionParams />
-
-#### Usage
-
-```typescript
-const unreadNotification = await novu.notifications.unread({
-  notificationId: 'notification.id',
-});
-// OR
-const unreadNotification = await novu.notifications.unread({
-  notification,
-});
-```
+<TypeTable
+  type={{
+    notificationId: {
+      type: "string",
+      description: "The ID of the notification to mark as unread",
+      required: true
+    }
+  }}
+/>
 
 ### archive
 
 Method marks a notification as archived.
 
-<FunctionParams />
-
-#### Usage
-
-```typescript
-const archivedNotification = await novu.notifications.archive({
-  notificationId: 'notification.id',
-});
-// OR
-const archivedNotification = await novu.notifications.archive({
-  notification,
-});
-```
+<TypeTable
+  type={{
+    notificationId: {
+      type: "string",
+      description: "The ID of the notification to archive",
+      required: true
+    }
+  }}
+/>
 
 ### unarchive
 
 Method marks a notification as unarchived.
 
-<FunctionParams />
-
-#### Usage
-
-```typescript
-const unarchivedNotification = await novu.notifications.unarchive({
-  notificationId: 'notification.id',
-});
-// OR
-const unarchivedNotification = await novu.notifications.unarchive({
-  notification,
-});
-```
+<TypeTable
+  type={{
+    notificationId: {
+      type: "string",
+      description: "The ID of the notification to unarchive",
+      required: true
+    }
+  }}
+/>
 
 ### readAll
 
 Method marks all notifications as read. Notifications can be filtered by tags.
 
-#### Params
-
-<ParamField path="tags" type="string[]">
-  Workflow tags can be used to filter notifications, and organize them into
-  different groups. Read more about how can you define [workflow
-  tags](/workflow/overview#tags).
-</ParamField>
+<TypeTable
+  type={{
+    tags: {
+      type: "string[]",
+      description: "Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags."
+    }
+  }}
+/>
 
 #### Usage
 
@@ -341,13 +371,14 @@ await novu.notifications.readAll({
 
 Method marks all notifications as archived. Notifications can be filtered by tags.
 
-#### Params
-
-<ParamField path="tags" type="string[]">
-  Workflow tags can be used to filter notifications, and organize them into
-  different groups. Read more about how can you define [workflow
-  tags](/workflow/overview#tags).
-</ParamField>
+<TypeTable
+  type={{
+    tags: {
+      type: "string[]",
+      description: "Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags."
+    }
+  }}
+/>
 
 #### Usage
 
@@ -361,13 +392,14 @@ await novu.notifications.archiveAll({
 
 Method marks all read notifications as archived. Notifications can be filtered by tags.
 
-#### Params
-
-<ParamField path="tags" type="string[]">
-  Workflow tags can be used to filter notifications, and organize them into
-  different groups. Read more about how can you define [workflow
-  tags](/workflow/overview#tags).
-</ParamField>
+<TypeTable
+  type={{
+    tags: {
+      type: "string[]",
+      description: "Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags."
+    }
+  }}
+/>
 
 #### Usage
 
@@ -381,9 +413,16 @@ await novu.notifications.archiveAllRead({
 
 Method marks primary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
 
-#### Params
+<TypeTable
+  type={{
+    notificationId: {
+      type: "string",
+      description: "The ID of the notification to mark as completed",
+      required: true
+    }
+  }}
+/>
 
-<ParamField path="notificationId" type="string"/>
 #### Usage
 ```typescript
 await novu.notifications.completePrimary({
@@ -395,9 +434,16 @@ await novu.notifications.completePrimary({
 
 Method marks secondary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
 
-#### Params
+<TypeTable
+  type={{
+    notificationId: {
+      type: "string",
+      description: "The ID of the notification to mark as completed",
+      required: true
+    }
+  }}
+/>
 
-<ParamField path="notificationId" type="string"/>
 #### Usage
 ```typescript
 await novu.notifications.completeSecondary({
@@ -409,9 +455,16 @@ await novu.notifications.completeSecondary({
 
 Method marks primary action of a notification as pending. It changes the `isCompleted` field of `primaryAction` to **pending** from **done**.
 
-#### Params
+<TypeTable
+  type={{
+    notificationId: {
+      type: "string",
+      description: "The ID of the notification to revert to pending",
+      required: true
+    }
+  }}
+/>
 
-<ParamField path="notificationId" type="string"/>
 #### Usage
 ```typescript
 await novu.notifications.revertPrimary({
@@ -423,9 +476,16 @@ await novu.notifications.revertPrimary({
 
 Method marks secondary action of a notification as pending. It changes the `isCompleted` field of `secondaryAction` to **pending** from **done**.
 
-#### Params
+<TypeTable
+  type={{
+    notificationId: {
+      type: "string",
+      description: "The ID of the notification to revert to pending",
+      required: true
+    }
+  }}
+/>
 
-<ParamField path="notificationId" type="string"/>
 #### Usage
 ```typescript
 await novu.notifications.revertSecondary({
@@ -493,22 +553,20 @@ Update the global or per workflow channel preferences of the subscriber.
 
 If `workflowId` is provided, it updates the channel preferences of the specific workflow. Otherwise, it updates the global channel preferences.
 
-#### Params
+### Parameters
 
-<ParamField path="workflowId" type="string" />
-<ParamField path="channelPreferences" type="ChannelPreference" />{' '}
-
-```typescript ChannelPreference
-type ChannelPreference = {
-  email?: boolean;
-  sms?: boolean;
-  in_app?: boolean;
-  chat?: boolean;
-  push?: boolean;
-};
-```
-
-#### Usage
+<TypeTable
+  type={{
+    workflowId: {
+      type: "string",
+      description: "The ID of the workflow to update preferences for"
+    },
+    channelPreferences: {
+      type: "ChannelPreference",
+      description: "The channel preferences to update"
+    }
+  }}
+/>
 
 ```typescript
 await preference.update({

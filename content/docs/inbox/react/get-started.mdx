@@ -3,7 +3,7 @@ title: 'React Get Started'
 sidebarTitle: 'Quickstart'
 description: 'Learn how to add a Novu-Powered In-App Inbox to your React app'
 ---
-import { Accordion } from 'fumadocs-ui/components/accordion';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Card, Cards } from 'fumadocs-ui/components/card';
 import { Step, Steps } from 'fumadocs-ui/components/steps';
@@ -13,99 +13,114 @@ Novu provides the `@novu/react` package that helps to add a fully functioning In
 
 <Steps>
   <Step title="Install the Inbox package">
-    ```bash
-    npm install @novu/react
+    ```bash 
+    npm install @novu/react 
     ```
   </Step>
 
   <Step title="Add the inbox code to your react file">
     <Tabs items={['Next.js', 'Remix', 'React Router', 'Gatsby', 'Create React App']}>
       <Tab>
-        ```tsx
+        ```tsx showLineNumbers
         'use client';
-
+        
         import { Inbox } from '@novu/react';
         import { useRouter } from 'next/navigation';
-
+        
         function Novu() {
           const router = useRouter();
-
+          
           return (
-            <Inbox
-              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-              subscriberId="YOUR_SUBSCRIBER_ID"
-              routerPush={(path: string) =>  router.push(path)}
-            />
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => router.push(path)}
+              />
+            </div>
           );
         }
         ```
       </Tab>
       <Tab>
-        ```tsx
+        ```tsx showLineNumbers
         import { Inbox } from '@novu/react';
         import { useNavigate } from '@remix-run/react';
-
+        
         function Novu() {
           const navigate = useNavigate();
-
+          
           return (
-            <Inbox
-              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-              subscriberId="YOUR_SUBSCRIBER_ID"
-              routerPush={(path: string) => navigate(path)}
-            />
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+              />
+            </div>
           );
         }
         ```
       </Tab>
       <Tab>
-        ```tsx
+        ```tsx showLineNumbers
         import { Inbox } from '@novu/react';
         import { useNavigate } from 'react-router-dom';
-
+        
         function Novu() {
           const navigate = useNavigate();
-
+          
           return (
-            <Inbox
-              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-              subscriberId="YOUR_SUBSCRIBER_ID"
-              routerPush={(path: string) => navigate(path)}
-            />
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+              />
+            </div>
           );
         }
         ```
       </Tab>
       <Tab>
-        ```tsx
+        ```tsx showLineNumbers
         import { Inbox } from '@novu/react';
         import { navigate } from 'gatsby';
-
+        
         function Novu() {
           return (
-            <Inbox
-              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-              subscriberId="YOUR_SUBSCRIBER_ID"
-              routerPush={(path: string) => navigate(path)}
-            />
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+              />
+            </div>
           );
         }
         ```
       </Tab>
       <Tab>
-        ```tsx
+        ```tsx showLineNumbers
         import { Inbox } from '@novu/react';
         import { useNavigate } from 'react-router-dom';
-
+        
         function Novu() {
           const navigate = useNavigate();
-
+          
           return (
-            <Inbox
-              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-              subscriberId="YOUR_SUBSCRIBER_ID"
-              routerPush={(path: string) => navigate(path)}
-            />
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+              />
+            </div>
           );
         }
         ```
@@ -119,24 +134,28 @@ Novu provides the `@novu/react` package that helps to add a fully functioning In
 
     Novu uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
 
-    <Accordion items={[
-      {
-        title: 'European Region Instructions',
-        content: <>
-          If you are using the European region in novu, you need to set the `backendUrl` and `socketUrl` props.
-          ```tsx
-          import { Inbox } from '@novu/react';
-          
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            backendUrl="https://eu.api.novu.co"
-            socketUrl="https://eu.ws.novu.co"
-          />
-          ```
-        </>
-      }
-    ]} />
+    <Accordions>
+      <Accordion title="European Region Instructions">
+        If you are using the European region in novu, you need to set the `backendUrl` and `socketUrl` props.
+        ```tsx showLineNumbers
+        import { Inbox } from '@novu/react';
+
+        function Novu() {
+          return (
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                backendUrl="https://eu.api.novu.co"
+                socketUrl="https://eu.ws.novu.co"
+              />
+            </div>
+          );
+        }
+        ```
+      </Accordion>
+    </Accordions>
   </Step>
 
   <Step title="Trigger a notification">
@@ -167,21 +186,17 @@ Novu provides the `@novu/react` package that helps to add a fully functioning In
 
 ## Frequently Asked Questions
 
-<Accordion items={[
-  {
-    title: 'The Inbox is not loading properly.',
-    content: <>
-      Possible reasons for the Inbox not loading properly:
+<Accordions>
+  <Accordion title="The Inbox is not loading properly.">
+    Possible reasons for the Inbox not loading properly:
 
-      - Invalid subscriberId
-      - Invalid applicationIdentifier
-      - Invalid subscriberHash (in case of active HMAC encryption)
-      - Invalid backendUrl (in case of self-hosted)
-      - Invalid socketUrl (in case of self-hosted)
-    </>
-  },
-  {
-    title: 'How to fix CORS error with Inbox?',
-    content: 'Our Inbox is configures for all hosts. Please disable root level `withCredentials` config in axios or fetch http requests.'
-  }
-]} />
+    - Invalid subscriberId
+    - Invalid applicationIdentifier
+    - Invalid subscriberHash (in case of active HMAC encryption)
+    - Invalid backendUrl (in case of self-hosted)
+    - Invalid socketUrl (in case of self-hosted)
+  </Accordion>
+  <Accordion title="How to fix CORS error with Inbox?">
+    Our Inbox is configures for all hosts. Please disable root level `withCredentials` config in axios or fetch http requests.
+  </Accordion>
+</Accordions>
