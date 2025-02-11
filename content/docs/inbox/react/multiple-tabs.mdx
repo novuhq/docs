@@ -2,6 +2,7 @@
 title: 'Configuring Multiple Tabs'
 sidebarTitle: 'Tabs'
 ---
+import { Callout } from 'fumadocs-ui/components/callout';
 
 Novu enables the creation of a multi-tab experience for the Inbox, allowing you to filter and display notification lists within distinct UI tabs.
 
@@ -44,11 +45,12 @@ function InboxNovu() {
 }
 ```
 
-<Frame caption="Multiple Tabs in Inbox">
-  <img src="/images/inbox/component.png" />
-</Frame>
+<img 
+  src="/images/inbox/multiple-tabs.png" 
+  alt="Multiple Tabs in Inbox"
+/>
 
-<Info>
+<Callout type="info">
   Here tab `filter.tags` are taken from workflow tags. Tags can be configured in
   options field of [workflow](/framework/typescript/workflow).
-</Info>
+</Callout>
