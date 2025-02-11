@@ -36,21 +36,22 @@ export const baseOptions: BaseLayoutProps = {
   },
   links: [
     {
-      url: "/quickstart",
-      type: "main",
+      url: "/platform",
+      type: "button",
       text: "Documentation",
+      active: "nested-url",
     },
     {
-      url: "/guides",
+      url: "/framework",
       type: "button",
-      icon: "Book",
-      text: "Guides",
+      text: "Framework",
+      active: "nested-url",
     },
     {
       url: "/api-reference",
       type: "button",
-      icon: "Book",
       text: "API Reference",
+      active: "nested-url",
     },
     {
       type: "custom",
