@@ -1,5 +1,5 @@
 ---
-description: Used for mintlify
+description: Used for mintlifysideBimage
 globs: *.mdx
 ---
 
@@ -51,24 +51,33 @@ code here
 ```
 
 ```fuma
-<Accordion>
-  <AccordionItem title="Title">
+<Accordions>
+  <Accordion title="Title">
     Content
-  </AccordionItem>
-</Accordion>
+  </Accordion>
+</Accordions>
 ```
 
 ### Callouts
 ```mintlify
-<Callout type="info">
+<Alert>
   Content
-</Callout>
+</Alert>
+<Info>
+  Content
+</Info>
+<Tip>
+  Content
+</Tip>
+<Warning>
+  Content
+</Warning>
 ```
 
 ```fuma
-<Alert variant="info">
+<Callout type="info">
   Content
-</Alert>
+</Callout>
 ```
 
 ### Tabs
@@ -84,17 +93,9 @@ code here
 ```
 
 ```fuma
-<Tabs defaultValue="tab-1">
-  <TabsList>
-    <TabsTrigger value="tab-1">Tab 1</TabsTrigger>
-    <TabsTrigger value="tab-2">Tab 2</TabsTrigger>
-  </TabsList>
-  <TabsContent value="tab-1">
-    Content 1
-  </TabsContent>
-  <TabsContent value="tab-2">
-    Content 2
-  </TabsContent>
+<Tabs items={['Javascript', 'Rust']}>
+  <Tab value="Javascript">Javascript is weird</Tab>
+  <Tab value="Rust">Rust is fast</Tab>
 </Tabs>
 ```
 
@@ -129,7 +130,8 @@ code here
 ### Mintlify
 ```yaml
 ---
-title: Page Title
+title: Long Page Title
+sideBarTitle: Shorter title
 description: Page description
 ---
 ```
@@ -137,7 +139,8 @@ description: Page description
 ### Fuma
 ```yaml
 ---
-title: Page Title
+pageTitle: Long Page Title
+title: Short title
 description: Page description
 ---
 ```
@@ -168,13 +171,13 @@ description: Page description
     Import from appropriate fuma import paths:
     import { Cards, Card } from 'fumadocs-ui/components/card';
     import { CodeBlock } from 'fumadocs-ui/components/code-block';
-    import { Accordion, AccordionItem } from 'fumadocs-ui/components/accordion';
+    import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
     import { Alert } from 'fumadocs-ui/components/alert';
-    import { Tabs, TabsList, TabsTrigger, TabsContent } from 'fumadocs-ui/components/tabs';
+    import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
     import { Steps, Step, StepTitle, StepContent } from 'fumadocs-ui/components/steps';
-    import { Image } from 'fumadocs-ui/components/image';
     import { Icon } from 'fumadocs-ui/components/icon';
 
+7. Put imports below the frontmatter header in mdx dfiles
 ---
 ## Migration Steps
 

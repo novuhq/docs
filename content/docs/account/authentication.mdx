@@ -1,11 +1,17 @@
 ---
+pageTitle: "Authentication"
 title: "Authentication"
 description: "Novu supports advanced user authentication capabilities like OAuth, SSO, MFA and more, providing enterprise customers with a robust, secure, and user-friendly authentication solution."
 ---
 
-<Alert variant="info">
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion'
+import { Callout } from 'fumadocs-ui/components/callout'
+import { Card, Cards } from 'fumadocs-ui/components/card'
+import { Step, Steps } from 'fumadocs-ui/components/steps'
+
+<Callout type="info">
 This feature is only available to Enterprise customers on our [Cloud platform](https://dashboard-v2.novu.co/?utm_campaign=docs_account_authentication). For more information, please see our [Enterprise plan](https://novu.co/pricing) in the pricing page.
-</Alert>
+</Callout>
 
 ## Key capabilities
 
@@ -26,14 +32,14 @@ Novu adheres to industry-standard security protocols to ensure secure and reliab
 
 ### Advanced security features
 
-<Accordion>
-  <AccordionItem title="Multi-Factor Authentication (MFA)">
+<Accordions>
+  <Accordion title="Multi-Factor Authentication (MFA)">
     Robust MFA options including SMS passcodes, authenticator apps, hardware keys, and recovery codes, enhancing security and reducing the risk of unauthorized access.
-  </AccordionItem>
-  <AccordionItem title="Session Management">
+  </Accordion>
+  <Accordion title="Session Management">
     Comprehensive session management features including active device monitoring, session revocation, and adaptive session durations to balance security and user convenience.
-  </AccordionItem>
-</Accordion>
+  </Accordion>
+</Accordions>
 
 ### User management and customization
 
@@ -52,20 +58,16 @@ Novu adheres to industry-standard security protocols to ensure secure and reliab
 ### Enterprise benefits
 
 <Steps>
-  <Step>
-    <StepTitle>Scalability and flexibility</StepTitle>
-    <StepContent>Solutions that grow with your enterprise, offering flexibility to adapt to evolving needs.</StepContent>
+  <Step title="Scalability and flexibility">
+    Solutions that grow with your enterprise, offering flexibility to adapt to evolving needs.
   </Step>
-  <Step>
-    <StepTitle>Streamlined user management</StepTitle>
-    <StepContent>Centralized user access control reduces administrative effort and complexity.</StepContent>
+  <Step title="Streamlined user management">
+    Centralized user access control reduces administrative effort and complexity.
   </Step>
-  <Step>
-    <StepTitle>Compliance and security</StepTitle>
-    <StepContent>Meets stringent security standards, protecting sensitive data and ensuring regulatory compliance.</StepContent>
+  <Step title="Compliance and security">
+    Meets stringent security standards, protecting sensitive data and ensuring regulatory compliance.
   </Step>
-  <Step>
-    <StepTitle>Enhanced User experience</StepTitle>
-    <StepContent>Simplified and secure authentication processes improve productivity and user satisfaction.</StepContent>
+  <Step title="Enhanced User experience">
+    Simplified and secure authentication processes improve productivity and user satisfaction.
   </Step>
 </Steps>
