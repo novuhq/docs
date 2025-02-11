@@ -3,7 +3,7 @@ title: "Slack"
 description: "Learn about how to use Slack provider for chat notifications"
 ---
 
-import { Step, StepContent, Steps, StepTitle } from 'fumadocs-ui/components/steps'
+import { Step, Steps } from 'fumadocs-ui/components/steps'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 
 When using Slack you will have to save the integration credentials in the subscriber entity.
@@ -17,12 +17,9 @@ We will provide the basic flow that the user needs to perform, to successfully s
 This step is optional, if you already have a Slack application you can reuse it.
 
 <Steps>
-<Step>
-<StepTitle>Create a new Slack app</StepTitle>
-<StepContent>
-Go to Slack's developer dashboard https://api.slack.com/apps and create a new application.
-</StepContent>
-</Step>
+  <Step title="Create a new Slack app">
+    Go to Slack's developer dashboard https://api.slack.com/apps and create a new application.
+  </Step>
 </Steps>
 
 ## Integrating Novu with Slack
@@ -32,48 +29,33 @@ Go to Slack's developer dashboard https://api.slack.com/apps and create a new ap
 To use the manually managed option, you need to generate a `webhookUrl` and plug it into your backend.
 
 <Steps>
-<Step>
-<StepTitle>Enable Incoming Webhooks</StepTitle>
-<StepContent>
-Goto 'Incoming Webhooks' in your Slack app settings and turn it on.
+  <Step title="Enable Incoming Webhooks">
+    Goto 'Incoming Webhooks' in your Slack app settings and turn it on.
 
-![Turn on Incoming Webhooks](/images/guides/slack-guide/on.png)
-</StepContent>
-</Step>
+    ![Turn on Incoming Webhooks](/images/guides/slack-guide/on.png)
+  </Step>
 
-<Step>
-<StepTitle>Add New Webhook</StepTitle>
-<StepContent>
-Click on the 'Add New Webhook to Workspace':
+  <Step title="Add New Webhook">
+    Click on the 'Add New Webhook to Workspace':
 
-![Add New Webhook to Workspace](/images/guides/slack-guide/add.png)
-</StepContent>
-</Step>
+    ![Add New Webhook to Workspace](/images/guides/slack-guide/add.png)
+  </Step>
 
-<Step>
-<StepTitle>Select Channel</StepTitle>
-<StepContent>
-Now, go ahead and select the channel in which you want to send notifications and click 'allow'.
+  <Step title="Select Channel">
+    Now, go ahead and select the channel in which you want to send notifications and click 'allow'.
 
-![Select channel](/images/guides/slack-guide/install.png)
-</StepContent>
-</Step>
+    ![Select channel](/images/guides/slack-guide/install.png)
+  </Step>
 
-<Step>
-<StepTitle>Copy Webhook URL</StepTitle>
-<StepContent>
-Copy the 'webhookUrl' from Slack.
+  <Step title="Copy Webhook URL">
+    Copy the 'webhookUrl' from Slack.
 
-![Copy webhookUrl](/images/guides/slack-guide/hook.png)
-</StepContent>
-</Step>
+    ![Copy webhookUrl](/images/guides/slack-guide/hook.png)
+  </Step>
 
-<Step>
-<StepTitle>Save Webhook URL</StepTitle>
-<StepContent>
-Now, you need to save the `webhookUrl` on the relevant subscriber entity in Novu. Here's an example to do the same using our Node SDK:
-</StepContent>
-</Step>
+  <Step title="Save Webhook URL">
+    Now, you need to save the `webhookUrl` on the relevant subscriber entity in Novu. Here's an example to do the same using our Node SDK:
+  </Step>
 </Steps>
 
 ## Writing Slack content (Blocks API)
@@ -151,27 +133,18 @@ Checkout the [API reference](/api-reference/subscribers/update-subscriber-creden
 ## Configuring Slack application
 
 <Steps>
-<Step>
-<StepTitle>Configure OAuth & Permissions</StepTitle>
-<StepContent>
-Go to OAuth & Permissions on Slack's Developer Dashboard and add your REDIRECT_URL in Redirect URLs.
-- If you use a manual Management solution, add the API endpoint you created in Step 1.
-</StepContent>
-</Step>
+  <Step title="Configure OAuth & Permissions">
+    Go to OAuth & Permissions on Slack's Developer Dashboard and add your REDIRECT_URL in Redirect URLs.
+    - If you use a manual Management solution, add the API endpoint you created in Step 1.
+  </Step>
 
-<Step>
-<StepTitle>Enable Incoming Webhooks</StepTitle>
-<StepContent>
-Go to Incoming Webhooks from the left menu and Activate Incoming Webhooks.
-</StepContent>
-</Step>
+  <Step title="Enable Incoming Webhooks">
+    Go to Incoming Webhooks from the left menu and Activate Incoming Webhooks.
+  </Step>
 
-<Step>
-<StepTitle>Configure Distribution Settings</StepTitle>
-<StepContent>
-Go to Manage Distribution and at the bottom of the page, tick Remove Hard Coded Information and Activate Public Distribution.
-</StepContent>
-</Step>
+  <Step title="Configure Distribution Settings">
+    Go to Manage Distribution and at the bottom of the page, tick Remove Hard Coded Information and Activate Public Distribution.
+  </Step>
 </Steps>
 
 ### Enabling HMAC Encryption
@@ -179,17 +152,12 @@ Go to Manage Distribution and at the bottom of the page, tick Remove Hard Coded 
 To enable Hash-Based Message Authentication Codes, you need to do the following steps:
 
 <Steps>
-<Step>
-<StepTitle>Enable HMAC encryption</StepTitle>
-<StepContent>
-Visit the integration store page and enable HMAC encryption under your chat provider.
-</StepContent>
-</Step>
+  <Step title="Enable HMAC encryption">
+    Visit the integration store page and enable HMAC encryption under your chat provider.
+  </Step>
 
-<Step>
-<StepTitle>Generate HMAC hash</StepTitle>
-<StepContent>
-The next step would be to generate an HMAC encrypted subscriberId on your backend:
+  <Step title="Generate HMAC hash">
+    The next step would be to generate an HMAC encrypted subscriberId on your backend:
 
 ```jsx
 import { createHmac } from "crypto";
@@ -198,14 +166,10 @@ const hmacHash = createHmac("sha256", process.env.NOVU_SECRET_KEY)
   .update(subscriberId)
   .digest("hex");
 ```
-</StepContent>
 </Step>
 
-<Step>
-<StepTitle>Add HMAC to URL</StepTitle>
-<StepContent>
-Add the newly created hash HMAC to the Sharable URL as a query.
-</StepContent>
+<Step title="Add HMAC to URL">
+  Add the newly created hash HMAC to the Sharable URL as a query.
 </Step>
 </Steps>
 
