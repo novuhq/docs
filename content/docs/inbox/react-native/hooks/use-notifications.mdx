@@ -1,0 +1,141 @@
+---
+title: 'useNotifications'
+description: 'Learn how to use the useNotifications hook to fetch and manage notifications in your React Native application'
+---
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+The `useNotifications` hook provides a way to fetch and manage notifications in your React Native application. It includes support for pagination, filtering, and real-time updates.
+
+## Hook Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| storeId | string | No | Filter notifications by a specific store ID |
+| query | object | No | Additional query parameters for filtering |
+
+## Return Value
+
+```typescript
+{
+  notifications: Array<{
+    id: string;
+    content: string;
+    createdAt: Date;
+    read: boolean;
+    seen: boolean;
+    // ... other notification fields
+  }>;
+  hasMore: boolean;
+  isLoading: boolean;
+  error: Error | null;
+  loadMore: () => void;
+  refetch: () => void;
+}
+```
+
+## Example Usage
+
+Here's how to use the `useNotifications` hook to fetch and display notifications:
+
+```tsx
+import { useNotifications } from '@novu/react-native';
+import { View, Text, ActivityIndicator, FlatList } from 'react-native';
+
+function NotificationsList() {
+  const { 
+    notifications, 
+    hasMore, 
+    isLoading, 
+    error,
+    loadMore 
+  } = useNotifications();
+  
+  if (isLoading) return <ActivityIndicator />;
+  if (error) return <Text>Error: {error.message}</Text>;
+  
+  return (
+    <FlatList
+      data={notifications}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item: notification }) => (
+        <View>
+          <Text>{notification.content}</Text>
+          <Text>{new Date(notification.createdAt).toLocaleString()}</Text>
+          <Text>{notification.read ? 'Read' : 'Unread'}</Text>
+        </View>
+      )}
+      onEndReached={hasMore ? loadMore : undefined}
+      onEndReachedThreshold={0.5}
+      ListFooterComponent={
+        hasMore ? <ActivityIndicator /> : null
+      }
+    />
+  );
+}
+```
+
+### With Pull to Refresh
+
+You can implement pull-to-refresh using the `refetch` function:
+
+```tsx
+import { useNotifications } from '@novu/react-native';
+import { RefreshControl } from 'react-native';
+
+function RefreshableNotificationsList() {
+  const { notifications, isLoading, refetch } = useNotifications();
+
+  return (
+    <FlatList
+      data={notifications}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item: notification }) => (
+        <View>
+          <Text>{notification.content}</Text>
+          <Text>{new Date(notification.createdAt).toLocaleString()}</Text>
+        </View>
+      )}
+      refreshControl={
+        <RefreshControl
+          refreshing={isLoading}
+          onRefresh={refetch}
+        />
+      }
+    />
+  );
+}
+```
+
+### With Filters
+
+You can apply filters using the query parameter:
+
+```tsx
+function FilteredNotifications() {
+  const { notifications, isLoading } = useNotifications({
+    query: {
+      templates: ['welcome-template', 'order-update'],
+      emails: ['user@example.com']
+    }
+  });
+  
+  if (isLoading) return <ActivityIndicator />;
+  
+  return (
+    <FlatList
+      data={notifications}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item: notification }) => (
+        <View>
+          <Text>{notification.content}</Text>
+        </View>
+      )}
+    />
+  );
+}
+```
+
+<Callout type="info">
+  The notifications list is automatically updated in real-time when new notifications arrive or when notifications are marked as read/unread.
+</Callout>

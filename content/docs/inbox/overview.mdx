@@ -1,82 +1,77 @@
 ---
-title: Inbox Overview
-description: Learn about Novu's in-app notification center
+title: 'Inbox Notification Center'
+sidebarTitle: 'Inbox Overview'
+description: "Learn how to integrate Novu's pre-built notification center component to add real-time in-app notifications to your application."
 ---
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { MessageSquare, Palette, Zap } from 'lucide-react';
 
-# Notification Center Overview
+The Inbox component enables a rich context-aware in-app notifications center directly in your application, and with minimal effort.
 
-The Novu Notification Center is a ready-to-use component that provides a complete in-app notification experience for your users.
+Novu provides a pre-built, ready-to-use, and customizable Inbox UI component. It's in React today, and soon will be available in other popular frameworks including Vue, React Native, and full headless.
 
-## Features
+<img 
+  src="/images/inbox.png" 
+  alt="Fully functional and customizable React Inbox component"
+/>
 
-- 🎯 **Real-time Updates**: Instant notification delivery
-- 🎨 **Customizable UI**: Match your app's design
-- 📱 **Responsive**: Works on all devices
-- 🌐 **Multi-channel**: Integrates with all notification channels
-- 🔔 **Rich Content**: Support for images, actions, and more
+## Why use the Novu Inbox?
 
-## Available SDKs
+<Cards>
+  <Card title="In-App Notifications" icon={<MessageSquare />}>
+    Notify users directly within your application with pre-built UI components that are easy to include
+  </Card>
+  <Card title="Highly Customizable" icon={<Palette />}>
+    Match your existing branding and design with powerful customization options and subscriber preferences management
+  </Card>
+  <Card title="Real-time Sync" icon={<Zap />}>
+    Multi-tab notification experience with real-time synchronization across devices, powered by web sockets and secured with HMAC encryption
+  </Card>
+</Cards>
 
-Novu provides notification center SDKs for various frameworks:
+## Core Concepts
 
-- React
-- Vue
-- Angular
-- Web Components
-- React Native
+<Cards>
+  <Card title="Subscriber" href="#subscriber">
+    Your product user who will receive the notifications through the In-App channel
+  </Card>
+  <Card title="Notification" href="#notification">
+    A message sent to the subscriber using an In-App channel (step) in the workflow
+  </Card>
+  <Card title="Notifications List" href="#notifications-list">
+    The list of all notifications sent to a particular subscriber
+  </Card>
+  <Card title="Tabs" href="#tabs">
+    Switch between notifications lists where notifications can be grouped by particular workflow tags
+  </Card>
+  <Card title="Notification Actions" href="#notification-actions">
+    Buttons below notification content that can be clicked to perform any action or external API call
+  </Card>
+  <Card title="Redirect URL" href="#redirect-url">
+    Configure notification items to perform an action or redirect to any URL when clicked
+  </Card>
+</Cards>
 
-## Quick Integration
+## Getting Started
 
-Here's a quick example using the React SDK:
+<Cards>
+  <Card 
+    title="React" 
+    href="/inbox/react/get-started"
+    description="Get started with our pre-built UI component in React"
+  />
+  <Card 
+    title="Headless" 
+    href="/inbox/headless/get-started"
+    description="Build custom UI for other frameworks like Vue, Angular etc. using our headless library"
+  />
+  <Card 
+    title="React Native" 
+    href="/inbox/react-native/quickstart"
+    description="Add a notification feed to your React Native app"
+  />
+</Cards>
 
-```tsx
-import { 
-  NovuProvider,
-  PopoverNotificationCenter,
-  NotificationBell
-} from '@novu/notification-center';
+## Design Files
 
-function App() {
-  return (
-    <NovuProvider subscriberId="user-123" applicationIdentifier="YOUR_APP_ID">
-      <PopoverNotificationCenter>
-        {({ unseenCount }) => (
-          <NotificationBell unseenCount={unseenCount} />
-        )}
-      </PopoverNotificationCenter>
-    </NovuProvider>
-  );
-}
-```
-
-## Customization Options
-
-The notification center can be customized in many ways:
-
-### Themes
-```tsx
-<PopoverNotificationCenter
-  colorScheme={{
-    primary: '#4CAF50',
-    secondary: '#2196F3'
-  }}
->
-  {/* ... */}
-</PopoverNotificationCenter>
-```
-
-### Layouts
-```tsx
-<PopoverNotificationCenter
-  position="left"
-  offset={20}
->
-  {/* ... */}
-</PopoverNotificationCenter>
-```
-
-## Next Steps
-
-- [Get started with React](/inbox/react/get-started)
-- [Learn about styling](/inbox/react/styling)
-- [Implement multiple tabs](/inbox/react/multiple-tabs) 
+To aide your design process, we provide a free [Figma file](https://www.figma.com/community/file/1425407348374863860) that contains all of the design assets. Make a copy of the file into your own account to get started with customizing your graphical Inbox elements.

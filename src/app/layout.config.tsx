@@ -34,7 +34,7 @@ export const baseOptions: BaseLayoutProps = {
   },
   links: [
     {
-      url: "/getting-started/how-novu-works",
+      url: "/quickstart",
       type: "main",
       text: "Documentation",
     },
@@ -43,6 +43,12 @@ export const baseOptions: BaseLayoutProps = {
       type: "button",
       icon: "Book",
       text: "Guides",
+    },
+    {
+      url: "/api-reference",
+      type: "button",
+      icon: "Book",
+      text: "API Reference",
     },
   ],
 };

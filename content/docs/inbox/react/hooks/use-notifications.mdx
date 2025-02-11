@@ -1,0 +1,145 @@
+---
+title: 'useNotifications'
+description: 'Learn how to use the useNotifications hook to fetch and manage notifications in your React application'
+---
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+The `useNotifications` hook provides a way to fetch and manage notifications in your application. It includes support for pagination, filtering, and real-time updates.
+
+## Hook Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| storeId | string | No | Filter notifications by a specific store ID |
+| query | object | No | Additional query parameters for filtering |
+
+## Return Value
+
+```typescript
+{
+  notifications: Array<{
+    id: string;
+    content: string;
+    createdAt: Date;
+    read: boolean;
+    seen: boolean;
+    // ... other notification fields
+  }>;
+  hasMore: boolean;
+  isLoading: boolean;
+  error: Error | null;
+  loadMore: () => void;
+  refetch: () => void;
+}
+```
+
+## Example Usage
+
+Here's how to use the `useNotifications` hook to fetch and display notifications:
+
+```tsx
+import { useNotifications } from '@novu/react';
+
+function NotificationsList() {
+  const { 
+    notifications, 
+    hasMore, 
+    isLoading, 
+    error,
+    loadMore 
+  } = useNotifications();
+  
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+  
+  return (
+    <div>
+      {notifications.map((notification) => (
+        <div key={notification.id}>
+          <h3>{notification.content}</h3>
+          <span>{new Date(notification.createdAt).toLocaleString()}</span>
+          <span>{notification.read ? 'Read' : 'Unread'}</span>
+        </div>
+      ))}
+      {hasMore && (
+        <button onClick={loadMore}>Load More</button>
+      )}
+    </div>
+  );
+}
+```
+
+### With Infinite Scroll
+
+You can implement infinite scroll using the `loadMore` function:
+
+```tsx
+import { useEffect, useRef } from 'react';
+import { useNotifications } from '@novu/react';
+
+function InfiniteNotificationsList() {
+  const { notifications, hasMore, isLoading, loadMore } = useNotifications();
+  const observerTarget = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !isLoading) {
+          loadMore();
+        }
+      },
+      { threshold: 1.0 }
+    );
+
+    if (observerTarget.current) {
+      observer.observe(observerTarget.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasMore, isLoading, loadMore]);
+
+  return (
+    <div>
+      {notifications.map((notification) => (
+        <div key={notification.id}>
+          <h3>{notification.content}</h3>
+          <span>{new Date(notification.createdAt).toLocaleString()}</span>
+        </div>
+      ))}
+      <div ref={observerTarget} />
+    </div>
+  );
+}
+```
+
+### With Filters
+
+You can apply filters using the query parameter:
+
+```tsx
+function FilteredNotifications() {
+  const { notifications, isLoading } = useNotifications({
+    query: {
+      templates: ['welcome-template', 'order-update'],
+      emails: ['user@example.com']
+    }
+  });
+  
+  if (isLoading) return <div>Loading...</div>;
+  
+  return (
+    <div>
+      {notifications.map((notification) => (
+        <div key={notification.id}>
+          <h3>{notification.content}</h3>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+<Callout type="info">
+  The notifications list is automatically updated in real-time when new notifications arrive or when notifications are marked as read/unread.
+</Callout>

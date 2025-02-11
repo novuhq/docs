@@ -1,0 +1,75 @@
+---
+title: 'Localizing the Inbox component'
+sidebarTitle: 'Localization'
+description: 'Learn how to localize the pre built Inbox component'
+---
+
+## Localization Prop
+
+The `localization` prop can be used to change the copywriting of the Inbox to a different language for your users or change the wording to suit your product. See the list of [available keys](https://github.com/novuhq/novu/blob/next/packages/js/src/ui/config/defaultLocalization.ts#L1), or use the fully typed TS auto complete to find the key you need.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      localization={{
+        "inbox.filters.dropdownOptions.unread": "Unread only",
+        "inbox.filters.dropdownOptions.default": "Unread & read",
+        "inbox.filters.dropdownOptions.archived": "Archived",
+        "inbox.filters.labels.unread": "Unread",
+        "inbox.filters.labels.default": "Inbox",
+        "inbox.filters.labels.archived": "Archived",
+        "notifications.emptyNotice": "No notifications",
+        "notifications.actions.readAll": "Mark all as read",
+        "notifications.actions.archiveAll": "Archive all",
+        "notifications.actions.archiveRead": "Archive read",
+        "notification.actions.read.tooltip": "Mark as read",
+        "notification.actions.unread.tooltip": "Mark as unread",
+        "notifications.newNotifications": ({ notificationCount }: { notificationCount: number }) =>
+          `${notificationCount > 99 ? "99+" : notificationCount} new ${
+            notificationCount === 1 ? "notification" : "notifications"
+          }`,
+        "notification.actions.archive.tooltip": "Archive",
+        "notification.actions.unarchive.tooltip": "Unarchive",
+        "preferences.title": "Notification Preferences",
+        "preferences.global": "Global Preferences",
+        "preferences.workflow.disabled.notice":
+          "Contact admin to enable subscription management for this critical notification.",
+        "preferences.workflow.disabled.tooltip": "Contact admin to edit",
+        dynamic: {
+          // use the workflowId as a key to localize the workflow name
+          'comment-on-post': 'Post comments',
+        },
+        locale: 'en-US',
+      }}
+    />
+  );
+}
+```
+
+### Specifying the workflow name using Framework
+
+In addition to specifying a workflow name in the `<Inbox />` component, you can also specify the workflow name in your Framework definition. The `name` property is optional, so if you don't specify it, the `workflowId` will be used as the name.
+
+```typescript
+import { workflow } from '@novu/framework';
+
+const weeklyCommentsWorkflow = workflow(
+  'comment-on-post',
+  async ({ step }) => {
+    ...
+  });
+}, {
+  name: 'Post comments', // 👈 name is optional
+});
+```
+
+Now, your specified workflow name will be displayed in the `<Inbox />` component:
+
+<Frame caption="Localized workflow name">
+  <img src="/images/inbox/framework-preferences-name.png" />
+</Frame>

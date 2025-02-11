@@ -1,0 +1,261 @@
+---
+title: '<Inbox />'
+description: 'Learn how to use and customize the Inbox component in your React application'
+---
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+By default, the `<Inbox />` renders a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
+
+## Basic Usage
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+    />
+  );
+}
+```
+
+## Navigation
+
+The Inbox component uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
+
+<Callout type="info">
+  To make the navigation work, you will need to specify the `routerPush` behaviour depending on your routing library.
+</Callout>
+
+<Tabs items={['Next.js', 'Remix', 'React Router', 'Gatsby', 'Create React App']}>
+  <Tab>
+    ```tsx
+    import { Inbox } from '@novu/react';
+    import { useRouter } from 'next/navigation'
+
+    function Novu() {
+      const router = useRouter();
+
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) =>  router.push(path)}
+        />
+      );
+    }
+    ```
+  </Tab>
+  <Tab>
+    ```tsx
+    import { Inbox } from '@novu/react';
+    import { useNavigate } from '@remix-run/react';
+
+    function Novu() {
+      const navigate = useNavigate();
+
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) => navigate(path)}
+        />
+      );
+    }
+    ```
+  </Tab>
+  <Tab>
+    ```tsx
+    import { Inbox } from '@novu/react';
+    import { useNavigate } from 'react-router-dom';
+
+    function Novu() {
+      const navigate = useNavigate();
+
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) => navigate(path)}
+        />
+      );
+    }
+    ```
+  </Tab>
+  <Tab>
+    ```tsx
+    import { Inbox } from '@novu/react';
+    import { navigate } from 'gatsby';
+
+    function Novu() {
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) => navigate(path)}
+        />
+      );
+    }
+    ```
+  </Tab>
+  <Tab>
+    ```tsx
+    import { Inbox } from '@novu/react';
+    import { useNavigate } from 'react-router-dom';
+
+    function Novu() {
+      const navigate = useNavigate();
+
+      return (
+        <Inbox
+          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+          subscriberId="YOUR_SUBSCRIBER_ID"
+          routerPush={(path: string) => navigate(path)}
+        />
+      );
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Event Handling
+
+### Notification Click
+
+<Callout type="info">
+  You can handle notification clicks without navigation by using the `onNotificationClick` prop. This is useful for opening modals or drawers instead of navigating to a page.
+</Callout>
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onNotificationClick={(notification) => {
+        // your logic to handle notification click
+      }}
+    />
+  );
+}
+```
+
+### Action Clicks
+
+Handle action button clicks without navigation using the `onPrimaryActionClick` and `onSecondaryActionClick` props:
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      onPrimaryActionClick={(notification) => {
+        // your logic to handle primary action click
+      }}
+      onSecondaryActionClick={(notification) => {
+        // your logic to handle secondary action click
+      }}
+    />
+  );
+}
+```
+
+## Customization
+
+### Controlled Popover State
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Inbox
+        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+        subscriberId="YOUR_SUBSCRIBER_ID"
+        open={open}
+      />
+      <button onClick={() => setOpen(!open)}>Toggle Inbox</button>
+    </>
+  );
+}
+```
+
+### Custom Notification Item
+
+<Callout type="info">
+  Customize the notification item using the `renderNotification` prop. The `notification.data` property allows accessing custom information while rendering the notification item.
+  You can learn how to pass it with the Novu Framework in-app step output [here](/framework/typescript/steps/inApp).
+</Callout>
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      renderNotification={(notification) => (
+        <div>
+          <h3>{notification.subject}</h3>
+          <p>{notification.body}</p>
+          <p>{notification.data.text}</p>
+        </div>
+      )}
+    />
+  );
+}
+```
+
+### Custom Bell
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      renderBell={(unreadCount) => (
+        <div>
+          <span>{unreadCount}</span>
+        </div>
+      )}
+    />
+  );
+}
+```
+
+### Filtering Preferences
+
+<Callout type="info">
+  Customize visible preferences using the `preferencesFilter` prop to display only relevant preferences to your users.
+  The filtering works by matching workflow [tags](/workflow/overview#tags) with the specified filter `tags` value.
+</Callout>
+
+```tsx
+import { Inbox, Preferences } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      preferencesFilter={{ tags: ['general', 'admin', 'security'] }}
+    />
+  );
+}
+```

@@ -1,0 +1,129 @@
+---
+title: 'useNovu'
+description: 'Learn how to use the useNovu hook to access the Novu client instance in your React application'
+---
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+The `useNovu` hook provides access to the [Novu client instance](/inbox/headless/api-reference#novu) from anywhere in your application. This hook must be used within a component that is wrapped by the `NovuProvider`.
+
+## Return Value
+
+```typescript
+{
+  novu: Novu;
+  isLoading: boolean;
+  error: Error | null;
+}
+```
+
+## Example Usage
+
+Here's how to use the `useNovu` hook to interact with the Novu client:
+
+```tsx
+import { useNovu } from '@novu/react';
+
+function NotificationActions() {
+  const { novu, isLoading } = useNovu();
+  
+  if (isLoading) return <div>Loading...</div>;
+  
+  const markAllAsRead = async () => {
+    await novu.notifications.readAll();
+  };
+  
+  const archiveAllRead = async () => {
+    await novu.notifications.archiveAllRead();
+  };
+  
+  return (
+    <div>
+      <button onClick={markAllAsRead}>
+        Mark All as Read
+      </button>
+      <button onClick={archiveAllRead}>
+        Archive All Read
+      </button>
+    </div>
+  );
+}
+```
+
+### Accessing Notification Methods
+
+The Novu client provides methods for managing notifications:
+
+```tsx
+function NotificationItem({ notification }) {
+  const { novu } = useNovu();
+  
+  const markAsRead = async () => {
+    await novu.notifications.read(notification.id);
+  };
+  
+  const archive = async () => {
+    await novu.notifications.archive(notification.id);
+  };
+  
+  return (
+    <div>
+      <h3>{notification.content}</h3>
+      <button onClick={markAsRead}>Mark as Read</button>
+      <button onClick={archive}>Archive</button>
+    </div>
+  );
+}
+```
+
+### Managing Preferences
+
+You can also manage notification preferences:
+
+```tsx
+function PreferencesManager() {
+  const { novu } = useNovu();
+  
+  const updatePreferences = async () => {
+    await novu.preferences.update({
+      workflowId: 'workflow_id',
+      channelPreferences: { 
+        email: false,
+        sms: true 
+      }
+    });
+  };
+  
+  return (
+    <button onClick={updatePreferences}>
+      Update Preferences
+    </button>
+  );
+}
+```
+
+<Callout type="info">
+  The Novu client instance provides access to all the functionality available in the [Headless API](/inbox/headless/api-reference).
+</Callout>
+
+```tsx
+import { useNovu } from '@novu/react/hooks';
+
+const NotificationToast = () => {
+  const novu = useNovu();
+
+  useEffect(() => {
+    const listener = ({ result: notification }) => {
+      // Show a toast notification
+    };
+
+    novu.on('notifications.notification_received', listener);
+
+    return () => {
+      novu.off('notifications.notification_received', listener);
+    };
+  }, [novu]);
+
+  return null;
+};
+```

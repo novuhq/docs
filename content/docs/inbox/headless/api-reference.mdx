@@ -1,0 +1,532 @@
+---
+title: 'Headless Inbox API Reference'
+sidebarTitle: 'API Reference'
+description: 'Complete API reference for the Novu Headless Inbox package'
+---
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+## Novu
+
+`Novu` is the primary class used to interact with the Novu API client, enabling you to fetch and manage notifications and preferences within your custom Inbox implementation.
+
+### Constructor Options
+
+The Novu constructor accepts the following options:
+
+| Option | Type | Required | Description |
+|--------|------|----------|-------------|
+| subscriberId | string | Yes | The unique identifier of the subscriber |
+| applicationIdentifier | string | Yes | Your application identifier from Novu |
+| subscriberHash | string | No | HMAC encryption hash for the subscriber |
+| backendUrl | string | No | Custom backend URL for self-hosted instances |
+| socketUrl | string | No | Custom socket URL for self-hosted instances |
+| useCache | boolean | No | Enable/disable response caching (default: true) |
+
+### Usage
+
+<Tabs items={['US', 'EU', 'HMAC Encryption']}>
+  <Tab>
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+    });
+    ```
+  </Tab>
+  <Tab>
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+      backendUrl: "https://eu.api.novu.co",
+      socketUrl: "https://eu.ws.novu.co",
+    });
+    ```
+  </Tab>
+  <Tab>
+    <Callout type="info">
+      Read more about [HMAC Encryption](/inbox/react/production#hmac-encryption).
+    </Callout>
+
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+      subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
+    });
+    ```
+  </Tab>
+</Tabs>
+
+### Modules Interface
+
+- [Notifications](#notifications)
+- [Preferences](#preferences)
+
+## Notifications
+
+### Methods
+- [list](#list)
+- [count](#count)
+- [read](#read)
+- [unread](#unread)
+- [archive](#archive)
+- [unarchive](#unarchive)
+- [readAll](#readall)
+- [archiveAll](#archiveall)
+- [archiveAllRead](#archiveallread)
+- [completePrimary](#completeprimary)
+- [completeSecondary](#completesecondary)
+- [revertPrimary](#revertprimary)
+- [revertSecondary](#revertsecondary)
+
+### Notification Interface
+
+```typescript
+type Subscriber = {
+  id: string;
+  firstName?: string;
+  lastName?: string;
+  avatar?: string;
+  subscriberId: string;
+};
+
+enum ChannelType {
+  IN_APP = "in_app",
+  EMAIL = "email",
+  SMS = "sms",
+  CHAT = "chat",
+  PUSH = "push"
+}
+
+type Redirect = {
+  url: string;
+  target?: '_self' | '_blank' | '_parent' | '_top' | '_unfencedTop';
+};
+
+type Action = {
+  label: string;
+  isCompleted: boolean;
+  redirect?: Redirect;
+};
+
+interface Notification = {
+  id: string;
+  subject?: string;
+  body: string;
+  to: Subscriber;
+  isRead: boolean;
+  isArchived: boolean;
+  createdAt: string;
+  readAt?: string | null;
+  archivedAt?: string | null;
+  avatar?: string;
+  primaryAction?: Action;
+  secondaryAction?: Action;
+  channelType: ChannelType;
+  tags?: string[];
+  data?: Record<string, unknown>;
+  redirect?: Redirect;
+};
+```
+
+### list
+
+Method to fetch the list of notifications based on the provided filters.
+
+<Callout type="info">
+  By default, the response is cached internally and stored by provided filters as a key.
+  The cache will be updated automatically with the subsequent response if the filters didn't change.
+  All cached responses will be merged into a single list and returned as the result.
+  You can disable this behaviour by setting the `useCache` parameter to `false` in the Novu constructor options.
+</Callout>
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| tags | string[] | Filter notifications by workflow tags |
+| read | boolean | Filter by read status |
+| archived | boolean | Filter by archived status |
+| limit | number | Number of notifications to fetch (1-100, default: 10) |
+| after | string | Fetch notifications after a specific notification ID |
+| offset | number | Skip first N notifications |
+
+#### Returns
+
+```typescript
+interface ListNotificationsResponse {
+  data: {
+    notifications: Notification[];
+    hasMore: boolean;
+    filter: NotificationFilter;
+  };
+  error?: NovuError;
+}
+```
+
+#### Example
+
+```typescript
+const notifications = await novu.notifications.list({
+  limit: 30,
+  read: false,
+  archived: false,
+  tags: ["tag1", "tag2"],
+  offset: 0,
+});
+```
+
+### count
+
+Method to fetch the count of read, unread, archived and unarchived notifications grouped by tags.
+
+#### Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| tags | string[] | Count notifications by workflow tags |
+| read | boolean | Count by read status |
+| archived | boolean | Count by archived status |
+| filters | Filter[] | Multiple filters for different counts |
+
+#### Returns
+
+<Tabs items={['Single Filter', 'Multiple Filters']}>
+  <Tab>
+    ```typescript
+    interface FilterCountResponse {
+      data: {
+        count: number;
+        filter: NotificationFilter;
+      };
+      error?: NovuError;
+    }
+    ```
+  </Tab>
+  <Tab>
+    ```typescript
+    interface FiltersCountResponse {
+      data: {
+        counts: {
+          count: number;
+          filter: NotificationFilter;
+        }[];
+      };
+      error?: NovuError;
+    }
+    ```
+  </Tab>
+</Tabs>
+
+#### Example
+
+```typescript
+// Single filter
+const count = await novu.notifications.count({
+  read: false,
+  archived: false,
+});
+
+// Multiple filters
+const counts = await novu.notifications.count({
+  filters: [
+    { read: false },
+    { archived: true },
+    { tags: ['tag1'] }
+  ]
+});
+```
+
+### read
+
+Method marks a notification as read.
+
+<FunctionParams />
+
+#### Usage
+
+```typescript
+const readNotification = await novu.notifications.read({
+  notificationId: 'notification.id',
+});
+// OR
+const readNotification = await novu.notifications.read({
+  notification,
+});
+```
+
+### unread
+
+Method marks a notification as unread.
+
+<FunctionParams />
+
+#### Usage
+
+```typescript
+const unreadNotification = await novu.notifications.unread({
+  notificationId: 'notification.id',
+});
+// OR
+const unreadNotification = await novu.notifications.unread({
+  notification,
+});
+```
+
+### archive
+
+Method marks a notification as archived.
+
+<FunctionParams />
+
+#### Usage
+
+```typescript
+const archivedNotification = await novu.notifications.archive({
+  notificationId: 'notification.id',
+});
+// OR
+const archivedNotification = await novu.notifications.archive({
+  notification,
+});
+```
+
+### unarchive
+
+Method marks a notification as unarchived.
+
+<FunctionParams />
+
+#### Usage
+
+```typescript
+const unarchivedNotification = await novu.notifications.unarchive({
+  notificationId: 'notification.id',
+});
+// OR
+const unarchivedNotification = await novu.notifications.unarchive({
+  notification,
+});
+```
+
+### readAll
+
+Method marks all notifications as read. Notifications can be filtered by tags.
+
+#### Params
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to filter notifications, and organize them into
+  different groups. Read more about how can you define [workflow
+  tags](/workflow/overview#tags).
+</ParamField>
+
+#### Usage
+
+```typescript
+await novu.notifications.readAll({
+  tags: ['tag1', 'tag2'],
+});
+```
+
+### archiveAll
+
+Method marks all notifications as archived. Notifications can be filtered by tags.
+
+#### Params
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to filter notifications, and organize them into
+  different groups. Read more about how can you define [workflow
+  tags](/workflow/overview#tags).
+</ParamField>
+
+#### Usage
+
+```typescript
+await novu.notifications.archiveAll({
+  tags: ['tag1', 'tag2'],
+});
+```
+
+### archiveAllRead
+
+Method marks all read notifications as archived. Notifications can be filtered by tags.
+
+#### Params
+
+<ParamField path="tags" type="string[]">
+  Workflow tags can be used to filter notifications, and organize them into
+  different groups. Read more about how can you define [workflow
+  tags](/workflow/overview#tags).
+</ParamField>
+
+#### Usage
+
+```typescript
+await novu.notifications.archiveAllRead({
+  tags: ['tag1', 'tag2'],
+});
+```
+
+### completePrimary
+
+Method marks primary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
+
+#### Params
+
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+await novu.notifications.completePrimary({
+  notificationId: "notification.id",
+});
+```
+
+### completeSecondary
+
+Method marks secondary action of a notification as completed. It changes the `isCompleted` field of `primaryAction` to **done** from **pending**.
+
+#### Params
+
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+await novu.notifications.completeSecondary({
+  notificationId: "notification.id",
+});
+```
+
+### revertPrimary
+
+Method marks primary action of a notification as pending. It changes the `isCompleted` field of `primaryAction` to **pending** from **done**.
+
+#### Params
+
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+await novu.notifications.revertPrimary({
+  notificationId: "notification.id",
+});
+```
+
+### revertSecondary
+
+Method marks secondary action of a notification as pending. It changes the `isCompleted` field of `secondaryAction` to **pending** from **done**.
+
+#### Params
+
+<ParamField path="notificationId" type="string"/>
+#### Usage
+```typescript
+await novu.notifications.revertSecondary({
+  notificationId: "notification.id",
+});
+```
+
+## Preferences
+
+### Methods
+
+- [list](#list)
+
+### Preference Interface
+
+```typescript
+type Workflow = {
+  id: string;
+  identifier: string;
+  name: string;
+  critical: boolean;
+  tags?: string[];
+};
+
+type ChannelPreference = {
+  email?: boolean;
+  sms?: boolean;
+  in_app?: boolean;
+  chat?: boolean;
+  push?: boolean;
+};
+
+enum PreferenceLevel {
+  GLOBAL = 'global',
+  TEMPLATE = 'template',
+}
+
+interface Preference {
+  enabled: boolean;
+  workflow?: Workflow;
+  channels: ChannelPreference;
+  level: PreferenceLevel;
+}
+```
+
+### list
+
+Method fetch the global and workflows channel preferences of the subscriber.
+
+#### Usage
+
+```typescript
+await novu.preferences.list();
+```
+
+## Preference
+
+### Methods
+
+- [update](#update)
+
+### update
+
+Update the global or per workflow channel preferences of the subscriber. 
+
+If `workflowId` is provided, it updates the channel preferences of the specific workflow. Otherwise, it updates the global channel preferences.
+
+#### Params
+
+<ParamField path="workflowId" type="string" />
+<ParamField path="channelPreferences" type="ChannelPreference" />{' '}
+
+```typescript ChannelPreference
+type ChannelPreference = {
+  email?: boolean;
+  sms?: boolean;
+  in_app?: boolean;
+  chat?: boolean;
+  push?: boolean;
+};
+```
+
+#### Usage
+
+```typescript
+await preference.update({
+  workflowId: 'workflow_id',
+  channelPreferences: { email: false, sms: false },
+});
+```
+
+## Events
+
+### Usage
+
+```typescript
+novu.on('notifications.notification_received', (data) => {
+  console.log('new notification =>', data);
+});
+
+novu.on('notifications.unread_count_changed', (data) => {
+  console.log('new unread notifications count =>', data);
+});
+```

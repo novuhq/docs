@@ -1,115 +1,185 @@
 ---
-title: Get Started with React
-description: Learn how to integrate Novu's notification center in your React application
+title: 'React Get Started'
+sidebarTitle: 'Quickstart'
+description: 'Learn how to add a Novu-Powered In-App Inbox to your React app'
 ---
+import { Accordion } from 'fumadocs-ui/components/accordion';
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-# Getting Started with React
+Novu provides the `@novu/react` package that helps to add a fully functioning Inbox to your web application in minutes. Let's see how easily you can use it in your application.
 
-Learn how to add Novu's notification center to your React application.
+<Steps>
+  <Step title="Install the Inbox package">
+    ```bash
+    npm install @novu/react
+    ```
+  </Step>
 
-## Installation
+  <Step title="Add the inbox code to your react file">
+    <Tabs items={['Next.js', 'Remix', 'React Router', 'Gatsby', 'Create React App']}>
+      <Tab>
+        ```tsx
+        'use client';
 
-Install the notification center package:
+        import { Inbox } from '@novu/react';
+        import { useRouter } from 'next/navigation';
 
-```bash
-# npm
-npm install @novu/notification-center
+        function Novu() {
+          const router = useRouter();
 
-# yarn
-yarn add @novu/notification-center
+          return (
+            <Inbox
+              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+              subscriberId="YOUR_SUBSCRIBER_ID"
+              routerPush={(path: string) =>  router.push(path)}
+            />
+          );
+        }
+        ```
+      </Tab>
+      <Tab>
+        ```tsx
+        import { Inbox } from '@novu/react';
+        import { useNavigate } from '@remix-run/react';
 
-# pnpm
-pnpm add @novu/notification-center
-```
+        function Novu() {
+          const navigate = useNavigate();
 
-## Basic Setup
+          return (
+            <Inbox
+              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+              subscriberId="YOUR_SUBSCRIBER_ID"
+              routerPush={(path: string) => navigate(path)}
+            />
+          );
+        }
+        ```
+      </Tab>
+      <Tab>
+        ```tsx
+        import { Inbox } from '@novu/react';
+        import { useNavigate } from 'react-router-dom';
 
-Wrap your application with the `NovuProvider`:
+        function Novu() {
+          const navigate = useNavigate();
 
-```tsx
-import { NovuProvider } from '@novu/notification-center';
+          return (
+            <Inbox
+              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+              subscriberId="YOUR_SUBSCRIBER_ID"
+              routerPush={(path: string) => navigate(path)}
+            />
+          );
+        }
+        ```
+      </Tab>
+      <Tab>
+        ```tsx
+        import { Inbox } from '@novu/react';
+        import { navigate } from 'gatsby';
 
-function App() {
-  return (
-    <NovuProvider
-      subscriberId="YOUR_SUBSCRIBER_ID" 
-      applicationIdentifier="YOUR_APP_ID"
-    >
-      {/* Your app content */}
-    </NovuProvider>
-  );
-}
-```
+        function Novu() {
+          return (
+            <Inbox
+              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+              subscriberId="YOUR_SUBSCRIBER_ID"
+              routerPush={(path: string) => navigate(path)}
+            />
+          );
+        }
+        ```
+      </Tab>
+      <Tab>
+        ```tsx
+        import { Inbox } from '@novu/react';
+        import { useNavigate } from 'react-router-dom';
 
-## Add the Notification Center
+        function Novu() {
+          const navigate = useNavigate();
 
-Add the notification center component to your app:
+          return (
+            <Inbox
+              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+              subscriberId="YOUR_SUBSCRIBER_ID"
+              routerPush={(path: string) => navigate(path)}
+            />
+          );
+        }
+        ```
+      </Tab>
+    </Tabs>
 
-```tsx
-import { 
-  PopoverNotificationCenter,
-  NotificationBell 
-} from '@novu/notification-center';
+    <Callout type="info">
+      You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard-v2.novu.co/api-keys).
+      The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/concepts/subscribers).
+    </Callout>
 
-function Header() {
-  return (
-    <div className="header">
-      <PopoverNotificationCenter>
-        {({ unseenCount }) => (
-          <NotificationBell unseenCount={unseenCount} />
-        )}
-      </PopoverNotificationCenter>
-    </div>
-  );
-}
-```
+    Novu uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
 
-## Configuration Options
+    <Accordion items={[
+      {
+        title: 'European Region Instructions',
+        content: <>
+          If you are using the European region in novu, you need to set the `backendUrl` and `socketUrl` props.
+          ```tsx
+          <Inbox
+            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+            subscriberId="YOUR_SUBSCRIBER_ID"
+            backendUrl="https://eu.api.novu.co"
+            socketUrl="https://eu.ws.novu.co"
+          />
+          ```
+        </>
+      }
+    ]} />
+  </Step>
 
-### Custom Subscriber
+  <Step title="Trigger a notification">
+    Now that you have the inbox component added to your application, you can trigger an Inbox notification to see it in action.
+    To create your first workflow, follow our [quickstart guide](/getting-started/quickstart).
 
-```tsx
-<NovuProvider
-  subscriberId="user-123"
-  subscriberHash="HMAC_HASH" // Optional for security
-  backendUrl="https://api.novu.co"
->
-  {/* ... */}
-</NovuProvider>
-```
-
-### Custom Styles
-
-```tsx
-<PopoverNotificationCenter
-  colorScheme="dark"
-  position="bottom-right"
-  offset={10}
->
-  {/* ... */}
-</PopoverNotificationCenter>
-```
-
-## Handling Events
-
-```tsx
-function Header() {
-  const onNotificationClick = (message) => {
-    console.log('Notification clicked:', message);
-  };
-
-  return (
-    <PopoverNotificationCenter
-      onNotificationClick={onNotificationClick}
-    >
-      {/* ... */}
-    </PopoverNotificationCenter>
-  );
-}
-```
+    <img 
+      src="/images/inbox/component.png" 
+      alt="The Inbox Component"
+    />
+  </Step>
+</Steps>
 
 ## Next Steps
 
-- Learn about [styling options](/inbox/react/styling)
-- Implement [multiple tabs](/inbox/react/multiple-tabs)
-- Explore [hooks and components](/inbox/react/hooks/overview) 
+<Cards>
+  <Card 
+    title="Customize the inbox" 
+    href="/inbox/react/styling"
+    description="Learn how to customize the inbox with your own branding and design."
+  />
+  <Card
+    title="Learn the components"
+    href="/inbox/react/components/overview"
+    description="Learn more about the composable components of the inbox."
+  />
+</Cards>
+
+## Frequently Asked Questions
+
+<Accordion items={[
+  {
+    title: 'The Inbox is not loading properly.',
+    content: <>
+      Possible reasons for the Inbox not loading properly:
+
+      - Invalid subscriberId
+      - Invalid applicationIdentifier
+      - Invalid subscriberHash (in case of active HMAC encryption)
+      - Invalid backendUrl (in case of self-hosted)
+      - Invalid socketUrl (in case of self-hosted)
+    </>
+  },
+  {
+    title: 'How to fix CORS error with Inbox?',
+    content: 'Our Inbox is configures for all hosts. Please disable root level `withCredentials` config in axios or fetch http requests.'
+  }
+]} />

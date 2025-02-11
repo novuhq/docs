@@ -1,155 +1,54 @@
 ---
-title: Multiple Tabs
-description: Learn how to implement multiple tabs in your notification center
+title: 'Configuring Multiple Tabs'
+sidebarTitle: 'Tabs'
 ---
 
-# Multiple Tabs
+Novu enables the creation of a multi-tab experience for the Inbox, allowing you to filter and display notification lists within distinct UI tabs.
 
-The notification center supports multiple tabs to help organize different types of notifications.
+## Defining tabs
 
-## Basic Setup
+Define the `tabs` prop to display multiple tabs in the Inbox component.
 
-```tsx
-import { 
-  PopoverNotificationCenter,
-  NotificationBell,
-  NotificationTab
-} from '@novu/notification-center';
+Each tab object should include a `label` and `filter` properties. The `label` property represents the text displayed on the specific tab. The `filter` property is an object that serves as the "filter criteria" for the notifications displayed in the list. The filter should include the `tags` which is an array of strings.
 
-function Header() {
-  const tabs = [
-    {
-      key: 'all',
-      title: 'All Notifications',
-    },
-    {
-      key: 'unread',
-      title: 'Unread',
-    },
-    {
-      key: 'archived',
-      title: 'Archived',
-    }
-  ];
+The notifications are filtered and matched by comparing the [workflow](/workflow/overview#tags) `tags` field with the tab `filter.tags` array. Each notification is a part of a specific [workflow](/concepts/workflows). You can combine tags from different workflows to create a customized tab experience.
 
-  return (
-    <PopoverNotificationCenter tabs={tabs}>
-      {({ unseenCount }) => (
-        <NotificationBell unseenCount={unseenCount} />
-      )}
-    </PopoverNotificationCenter>
-  );
-}
-```
-
-## Custom Tab Content
+The example below demonstrates how to define multiple tabs in the Inbox component.
 
 ```tsx
-function CustomTab({ notifications, tab }) {
+import { Inbox } from '@novu/react';
+
+const tabs = [
+  {
+    label: 'All Notifications',
+    filter: { tags: [] },
+  },
+  {
+    label: 'Newsletter',
+    filter: { tags: ['newsletter'] },
+  },
+  {
+    label: 'React',
+    filter: { tags: ['react'] },
+  },
+];
+
+function InboxNovu() {
   return (
-    <div className="custom-tab">
-      <h3>{tab.title}</h3>
-      {notifications.map((notification) => (
-        <div key={notification.id} className="notification-item">
-          {notification.content}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function Header() {
-  const tabs = [
-    {
-      key: 'all',
-      title: 'All Notifications',
-      render: (props) => <CustomTab {...props} />
-    }
-  ];
-
-  return (
-    <PopoverNotificationCenter tabs={tabs}>
-      {/* ... */}
-    </PopoverNotificationCenter>
-  );
-}
-```
-
-## Tab Styling
-
-```tsx
-<PopoverNotificationCenter
-  tabs={tabs}
-  styles={{
-    tabs: {
-      backgroundColor: '#f5f5f5',
-      borderBottom: '1px solid #eee'
-    },
-    tab: {
-      padding: '12px 16px',
-      color: '#666',
-      '&.active': {
-        color: '#000',
-        borderBottom: '2px solid #000'
-      }
-    }
-  }}
->
-  {/* ... */}
-</PopoverNotificationCenter>
-```
-
-## Tab Events
-
-```tsx
-function Header() {
-  const onTabChange = (tab) => {
-    console.log('Selected tab:', tab);
-  };
-
-  return (
-    <PopoverNotificationCenter
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
       tabs={tabs}
-      onTabChange={onTabChange}
-    >
-      {/* ... */}
-    </PopoverNotificationCenter>
+    />
   );
 }
 ```
 
-## Dynamic Tabs
+<Frame caption="Multiple Tabs in Inbox">
+  <img src="/images/inbox/component.png" />
+</Frame>
 
-```tsx
-function Header() {
-  const [tabs, setTabs] = useState([
-    {
-      key: 'all',
-      title: 'All',
-    }
-  ]);
-
-  useEffect(() => {
-    // Fetch tab configuration from your backend
-    async function fetchTabs() {
-      const response = await api.getTabs();
-      setTabs(response.data);
-    }
-    fetchTabs();
-  }, []);
-
-  return (
-    <PopoverNotificationCenter tabs={tabs}>
-      {/* ... */}
-    </PopoverNotificationCenter>
-  );
-}
-```
-
-## Best Practices
-
-1. **Keep it Simple**: Don't overwhelm users with too many tabs
-2. **Clear Labels**: Use descriptive tab names
-3. **Loading States**: Handle loading states for dynamic tabs
-4. **Persistence**: Remember the last selected tab
-5. **Mobile Friendly**: Ensure tabs work well on small screens 
+<Info>
+  Here tab `filter.tags` are taken from workflow tags. Tags can be configured in
+  options field of [workflow](/framework/typescript/workflow).
+</Info>
