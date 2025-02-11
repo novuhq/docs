@@ -47,6 +47,9 @@ export default function Layout({ children }: { children: ReactNode }) {
             <DocsLayout
               tree={source.pageTree}
               {...baseOptions}
+              containerProps={{
+                className: "[&_article]:max-w-[800px]",
+              }}
               githubUrl="https://github.com/novuhq/novu"
             >
               {children}

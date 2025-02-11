@@ -6,7 +6,7 @@ const out = './content/docs/api-reference';
 // clean generated files
 rimrafSync(out, {
   filter(v) {
-    return !v.endsWith('index.mdx') && !v.endsWith('meta.json');
+    return !v.endsWith('index.mdx') && !v.endsWith('meta.json') && !v.endsWith('overview.mdx');
   },
 });
 
