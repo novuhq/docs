@@ -1,0 +1,66 @@
+---
+title: "Recent Login"
+description: "Notify users of recent login activity"
+---
+
+## Intro
+
+Sending recent logins is a great way to inform users of possible unusal activity and verify their usage. This workflow example leverages the payload schema to display the login IP, and notifies users through both email and a push notification.
+
+[Explore the source code on GitHub](https://github.com/novuhq/examples/tree/main/novu-workflows/react/recent-login)
+
+## Preview
+
+<img
+  style={{ borderRadius: '0.5rem' }}
+  src="/images/how-to/recent-login.png"
+/>
+
+
+## Code Example
+
+```javascript
+import { workflow } from '@novu/framework';
+import { renderLoginEmail } from '../emails/yelp-recent-login';
+import { zodControlSchema, zodPayloadSchema, zodPushControlSchema } from './schemas';
+
+export const YelpRecentLogin = workflow(
+  "Yelp Recent Login",
+  async ({ step, payload }) => {
+    /**
+     *  Email Flow
+     */
+    await step.email(
+      "send-email",
+      async (controls) => {
+        return {
+          subject: "Recent login to your Account",
+          body: renderLoginEmail(controls, payload),
+        };
+      },
+      {
+        controlSchema: zodControlSchema
+      },
+    );
+
+    /** 
+     *  Push Flow
+     */
+    await step.push(
+      "send-push",
+      async (controls) => {
+        return {
+          subject: controls.pushNotificationSubject,
+          body: `Hi ${payload.userFirstName}, we noticed a recent login to your Yelp account. If this was you, there's nothing else you need to do. If this wasn't you or please see our support page.`,
+        };
+      },
+      {
+        controlSchema: zodPushControlSchema
+      }
+    );
+  },
+  { 
+    payloadSchema: zodPayloadSchema
+  },
+);
+```

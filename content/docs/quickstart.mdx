@@ -1,0 +1,329 @@
+---
+title: "Quickstart"
+description: "Learn how to quickly get started with Novu."
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Bell, BellRing, Clock, Code, Layers, Mail, MessageSquare, Phone } from 'lucide-react';
+
+Before you can start integrating Novu into your application, you need to create a Novu account and set up a new workflow in the Novu Dashboard. This guide walks you through those steps.
+
+<Steps>
+  <Step title="Create a Novu account">
+    [Create a new account](https://dashboard-v2.novu.co/signup) on Novu Cloud or [sign in](https://dashboard-v2.novu.co/login) if you already have an account.
+  </Step>
+
+  <Step title="Add the Novu SDK into your backend">
+    Our SDKs support [most major programming languages](/sdks/overview), making it easy to get started. Is your preferred language missing? [Reach out to us!](https://novu.co/contact)
+  </Step>
+
+  <Step title="Configure environment variables">
+    To start, set the `NOVU_API_KEY` environment variable in your application. You can find your public and secret API keys in the **Developer** section of the Novu dashboard. Since this step is for backend integration, be sure to use the **secret key**.
+
+    For security, always define your API key as an environment variable and avoid committing it to source control.
+
+    ```bash
+    NOVU_API_KEY= "example_key_abcdefg1234567890"
+    ```
+  </Step>
+
+  <Step title="Build a workflow">
+    Navigate through the sections below to create your first custom workflow.
+
+    <Accordions type="single">
+      <Accordion title="Create a new workflow" value="create-workflow">
+          Create a new workflow by clicking on the **Create Workflow** button in the workflows page.
+
+          - Give your workflow a name (e.g. "User Onboarding").
+          - **Workflow identifier** will be generated automatically (e.g. `user-onboarding`).
+          - **Tags** (optional): Tags are a great way to classify and filter workflows for you, and your users.
+          - **Description** (optional): Add a description to help you and your team understand the purpose of the workflow.
+      </Accordion>
+
+      <Accordion title="Add steps to your workflow" value="add-steps">
+          Every notification workflow starts with at least one [channel step](/workflow/channel-steps). To add a step, click the **Plus** button (**+**) in the Workflow Editor.
+
+          ![Add steps to your workflow](/getting-started/media-assets/add-steps.png)
+
+          In the editor, you can customize your workflow with various steps, including **Action steps** (e.g., [Digest](/workflow/digest) and [Delay](/workflow/delay)) and **[delivery channels](/workflow/channel-steps)**. Select a delivery channel to begin crafting your workflow.
+
+          Workflows can include multiple steps, with each step sending a notification to the user. Steps execute in the order they are added.
+
+          <Cards>
+            <Card
+              title="In-app"
+              icon={<Bell className="h-4 w-4" />}
+              description="In-app notifications are delivered directly inside your application via an Inbox or custom integration."
+              href="/integrations/providers/in-app/overview"
+            />
+            <Card
+              title="Email"
+              icon={<Mail className="h-4 w-4" />}
+              description="Email is ideal for sending promotional or transactional messages."
+              href="/integrations/providers/email/overview"
+            />
+            <Card
+              title="SMS"
+              icon={<Phone className="h-4 w-4" />}
+              description="SMS excels at delivering OTPs, alerts, and two-factor authentication codes."
+              href="/integrations/providers/sms/overview"
+            />
+            <Card
+              title="Push"
+              icon={<BellRing className="h-4 w-4" />}
+              description="Web Push and Mobile Push notifications are perfect for time-sensitive updates."
+              href="/integrations/providers/push/overview"
+            />
+            <Card
+              title="Chat"
+              icon={<MessageSquare className="h-4 w-4" />}
+              description="Chat notifications integrate with platforms like Slack, Microsoft Teams, WhatsApp, Telegram, and Discord."
+              href="/integrations/providers/chat/overview"
+            />
+            <Card
+              title="Delay"
+              icon={<Clock className="h-4 w-4" />}
+              description="Delay steps allow you to pause for a specified time before proceeding to the next step."
+              href="/workflow/delay"
+            />
+            <Card
+              title="Digest"
+              icon={<Layers className="h-4 w-4" />}
+              description="Digest steps group notifications and send them later based on defined logic."
+              href="/workflow/digest"
+            />
+            <Card
+              title="Custom"
+              icon={<Code className="h-4 w-4" />}
+              description="Custom steps enable you to add tailored logic to your workflow using the Novu Framework."
+              href="/workflow/custom"
+            />
+          </Cards>
+      </Accordion>
+
+      <Accordion title="Design the notification templates" value="design-templates">
+          Once you've added a channel step, you can customize the notification content.
+          Click **"Configure Channel Step Template"** in the channel's edit view to open the [Notification Template Editor](/workflow/template-editor) and start editing.
+
+          ![Configure channel step template](/getting-started/media-assets/notification-template.png)
+
+          Each channel has its own template editor, allowing you to customize the notification content for each channel based on the channel's capabilities.
+
+          In this example, we're using the **In-App** channel step, so we're using the **In-App** template editor.
+
+          <Callout type="info">
+            **Here is an example of an In-App notification template:**
+
+            **Title**
+            ```
+            You've Got a New Task Assigned!
+            ```
+
+            **Body**
+            ```
+            Hey {{subscriber.firstName}}, you've been assigned to a new task: {{payload.task_id.title}}
+            The deadline is {{payload.task_id.dueDate}}. Click below to view the details and get started.
+            ```
+
+            **Button Text**
+            ```
+            View Task
+            ```
+
+            **Redirect URL**
+            ```
+            {{payload.task_id.url}}
+            ```
+          </Callout>
+      </Accordion>
+
+      <Accordion title="Preview your notification" value="preview-notification">
+          Preview your notification by clicking the **Preview** button in the **Configure Template** section of the workflow editor.
+
+          ![Preview notification](/getting-started/media-assets/preview-notification.png)
+      </Accordion>
+
+      <Accordion title="Test your workflow in the editor" value="test-workflow">
+          You can test your workflow in the editor by clicking the **Test Workflow** button in the workflow editor.
+
+          ![Test workflow](/getting-started/media-assets/test-workflow.png)
+
+          <div className="mt-4 rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950">
+            <div className="text-sm text-blue-700 dark:text-blue-400">
+              <p><a href="/integrations/providers/in-app/overview" className="underline">In-app</a> channel is the only channel that doesn't require any credentials to be configured in the <a href="/concepts/subscribers" className="underline">Subscriber</a> object.</p>
+              <p className="mt-2">If you have <a href="/integrations/providers/email/overview" className="underline">Email</a>, <a href="/integrations/providers/sms/overview" className="underline">SMS</a>, <a href="/integrations/providers/push/overview" className="underline">Push</a> or <a href="/integrations/providers/chat/overview" className="underline">Chat</a> channels steps in your workflow, you need to ensure that you have the necessary credentials configured in the <strong>Subscriber</strong> object.</p>
+              <ul className="mt-2 list-disc pl-6">
+                <li><a href="/concepts/subscribers" className="underline">Learn more about the Subscriber object</a></li>
+                <li><a href="/api-reference/subscribers/update-subscriber-credentials" className="underline">Learn more about how to add credentials to the Subscriber object</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <p className="mt-4">If you have the <strong>In-app</strong> channel step in your workflow, you can test your workflow in the editor with the default <code>subscriberId</code>, you will see the notification in the <strong>Inbox</strong> section of the Novu dashboard.</p>
+
+          ![Test workflow inbox](/getting-started/media-assets/test-workflow-inbox.png)
+      </Accordion>
+
+      <Accordion title="Copy the sample payload" value="copy-sample-payload">
+          Before leaving the Workflow Editor and heading back to your backend, navigate to the **Trigger** tab.
+          Here, you can grab a sample payload to use when calling Novu's API.
+
+          ![Trigger Tab](/getting-started/media-assets/trigger-tab.png)
+
+          Based on the workflow we created, the sample payload will look like this:
+
+          ```
+          {"{\n  "task_id": {\n    "title": "{{payload.task_id.title}}",\n    "dueDate": "{{payload.task_id.dueDate}}",\n    "url": "{{payload.task_id.url}}"
+          }
+          }
+          ```
+
+          <div className="mt-4 rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950">
+            <p className="text-sm text-blue-700 dark:text-blue-400">
+              <strong>Note:</strong> The payload is optional, and can be used to pass additional information to the workflow.
+            </p>
+          </div>
+
+          <p className="mt-4">At the bottom of the page, you can grab the workflow trigger snippet and add it to your backend.</p>
+
+          ![Workflow trigger snippet](/getting-started/media-assets/trigger-snippet.png)
+
+          <p className="mt-4">Now we're ready to trigger our workflow via the Novu API.</p>
+          <p className="mt-2"><a href="/workflow/how-to/build-a-workflow" className="text-primary hover:underline">Learn more about how to build workflows</a></p>
+      </Accordion>
+    </Accordions>
+  </Step>
+
+  <Step title="Trigger the workflow">
+    Each workflow is created with a unique identifier that can be used to trigger the workflow, visit the Trigger page to view the trigger instructions.
+
+    <Callout type="info">
+      **Each trigger consists of 3 main parts:**
+      - **Workflow identifier**: The unique identifier of the workflow to trigger.
+      - **Subscriber ID**: The unique identifier of the subscriber to trigger the workflow for, this can be a user id, email or any unique identifier.
+      - **Payload**: The payload to pass to the workflow, this is optional and can be used to pass additional information to the workflow.
+    </Callout>
+
+    In this example, we're using the [Node.js SDK](/sdks/nodejs) to trigger the workflow. But the same can be done with any of the [SDKs](/sdks/overview).
+
+    Add the trigger snippet to your backend and call the trigger function with the **Workflow identifier**, **Subscriber ID** and **Payload**.
+
+    <Accordions type="single">
+      <Accordion title="Node.js" value="nodejs">
+          ```javascript
+          import { Novu } from '@novu/node';
+
+          const novu = new Novu('<NOVU_API_KEY>');
+
+          await novu.trigger('workflow-identifier', {
+            to: {
+              subscriberId: '123',
+            },
+            payload: {
+              task_id: {
+                title: 'Task Title',
+                dueDate: '2024-01-01',
+                url: 'https://example.com/task/123'
+              }
+            }
+          });
+          ```
+      </Accordion>
+    </Accordions>
+  </Step>
+
+  <Step title="Promote to production">
+    Novu users logically separated environments to control the roll-out of your notifications. When you're happy with the way your workflows work and look, you just need to promote them to production to start sending notifications to your real users.
+
+    <Accordions type="single">
+      <Accordion title="Sync your workflows" value="sync-workflow">
+          1. Navigate to the **Workflows** page, click on the 3 dots button on the right side of the workflow you want to promote and click the **Sync to Production** button.
+          
+          ![Sync workflow](/getting-started/media-assets/sync-workflow.png)
+          
+          You should see a success message and the workflow will be synced to production.
+          
+          ![Sync workflow success](/getting-started/media-assets/sync-workflow-success.png)
+      </Accordion>
+
+      <Accordion title="Switch to the production environment" value="switch-production">
+          At the top of the page, you should see a dropdown to switch from the Development to the production environment.
+          
+          ![Switch to production](/getting-started/media-assets/switch-to-production.png)
+          
+          Once you have switched to the Production environment, you should see the workflows you have synced to production.
+          
+          <Callout>
+            You are also able to test your workflows in the Production environment by clicking the **Test Workflow** button in the workflow editor.
+          </Callout>
+      </Accordion>
+
+      <Accordion title="Update your API keys" value="update-api-keys">
+          Be sure to update your application's environment variables to point to your Novu Production environment API **Secret Keys**.
+          
+          <Callout>
+            You can find your **Secret Keys** in the **Developer** section of the Novu dashboard.
+          </Callout>
+      </Accordion>
+
+      <Accordion title="Update your Application Identifier" value="update-app-identifier">
+          If you are using the **in-app** channel, you need to update your **Application Identifier** to point to your Novu Production environment **Application Identifier**.
+          
+          <Callout>
+            You can find your **Application Identifier** in the **Developers** section of the Novu dashboard.
+          </Callout>
+          
+          ![Update Application Identifier](/getting-started/media-assets/application-identifier.png)
+      </Accordion>
+    </Accordions>
+  </Step>
+
+  <Step title="Join the community">
+    If you have any questions or run into issues as you build with our product, we hope you'll let us know! Email us at support@novu.co, or join our [Discord community](https://discord.gg/novu) and we'll be more than happy to assist you.
+  </Step>
+
+  <Step title="Next Steps">
+    Now that you triggered your first workflow, learn more about the advanced features and concepts of Novu.
+
+    <Cards>
+      <Card
+        title="Inbox and preferences UI components"
+        description="Explore our full-stack UI components libraries for building in-app notifications."
+        href="/inbox/overview"
+      />
+      <Card
+        title="Novu Framework"
+        description="Extend Novu Workflows with code, and accomplish literally any advanced use case imaginable."
+        href="/framework/overview"
+      />
+      <Card
+        title="Framework SDK"
+        description="For more advanced use cases, use our SDK to integrate Novu with your backend codebase."
+        href="/sdks/overview"
+      />
+      <Card
+        title="Multi-tenancy"
+        description="Manage multiple tenants within an organization."
+        href="/concepts/tenants"
+      />
+      <Card
+        title="Localization"
+        description="Manage localized versions of your notification templates."
+        href="/inbox/react/localization"
+      />
+      <Card
+        title="Local studio"
+        description="Use our local studio with Novu Framework to design and test your notification templates."
+        href="/framework/studio"
+      />
+      <Card
+        title="Environments"
+        description="Manage multiple environments based on your application's deployment stages."
+        href="/concepts/environments"
+      />
+    </Cards>
+  </Step>
+</Steps>

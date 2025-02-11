@@ -1,0 +1,161 @@
+---
+title: Styling Guide
+description: Learn how to customize the appearance of your notification center
+---
+
+# Styling Guide
+
+The notification center can be fully customized to match your application's design system.
+
+## Theme Customization
+
+### Color Scheme
+
+```tsx
+<PopoverNotificationCenter
+  colorScheme={{
+    primary: '#4CAF50',
+    secondary: '#2196F3',
+    success: '#4CAF50',
+    error: '#f44336',
+    warning: '#ff9800'
+  }}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+### Dark Mode
+
+```tsx
+<PopoverNotificationCenter
+  colorScheme="dark" // or "light"
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+## Layout Options
+
+### Position
+
+```tsx
+<PopoverNotificationCenter
+  position="right-start" // or "left-start", "top", "bottom", etc.
+  offset={20}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+### Custom Sizes
+
+```tsx
+<PopoverNotificationCenter
+  styles={{
+    bell: {
+      size: 32
+    },
+    popover: {
+      width: 400,
+      maxHeight: 600
+    }
+  }}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+## Custom Components
+
+### Bell Icon
+
+```tsx
+<PopoverNotificationCenter>
+  {({ unseenCount }) => (
+    <CustomBellIcon count={unseenCount} />
+  )}
+</PopoverNotificationCenter>
+```
+
+### Notification Item
+
+```tsx
+<PopoverNotificationCenter
+  CustomNotificationItem={({ notification }) => (
+    <div className="custom-notification">
+      <h3>{notification.title}</h3>
+      <p>{notification.content}</p>
+    </div>
+  )}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+## CSS Customization
+
+### Using CSS-in-JS
+
+```tsx
+<PopoverNotificationCenter
+  styles={{
+    wrapper: {
+      backgroundColor: '#fff',
+      border: '1px solid #eee',
+      borderRadius: '8px',
+      boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+    },
+    header: {
+      padding: '16px',
+      borderBottom: '1px solid #eee'
+    },
+    notifications: {
+      maxHeight: '400px',
+      overflowY: 'auto'
+    }
+  }}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+### Using CSS Classes
+
+```tsx
+<PopoverNotificationCenter
+  classNames={{
+    wrapper: 'custom-notification-wrapper',
+    header: 'custom-notification-header',
+    notifications: 'custom-notifications-list'
+  }}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+```css
+.custom-notification-wrapper {
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.custom-notification-header {
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.custom-notifications-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+```
+
+## Best Practices
+
+1. **Consistent Branding**: Match your app's color scheme and typography
+2. **Responsive Design**: Test on different screen sizes
+3. **Accessibility**: Maintain good contrast ratios and keyboard navigation
+4. **Performance**: Avoid heavy CSS animations and complex selectors 

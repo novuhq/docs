@@ -1,0 +1,27 @@
+---
+title: "SMS Channel Step"
+sidebarTitle: "SMS"
+icon: "message-sms"
+---
+
+The `sms` step allows you to send a message to a SMS channel. This is useful when you need to send an SMS message directly to a users device over a mobile network.
+
+## SMS Output
+
+<RequestExample>
+    ```typescript SMS
+    await step.sms('sms', async () => {
+        return {
+            body: 'A new post has been created',
+        };
+    });
+    ```
+</RequestExample>
+
+<ParamField path="body" type="string" required>
+  The message to be sent.
+</ParamField>
+
+## SMS Result
+
+The `sms` step does not return any result object.

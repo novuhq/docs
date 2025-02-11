@@ -1,0 +1,104 @@
+---
+title: "Workflow Editor"
+description: "Learn how Novu's Workflow Editor empowers developers to create dynamic, personalized notification workflows using versatile system and data payload variables."
+icon: "code"
+---
+
+Novu's content creation tools allow developers to utilize a wealth of variables when designing notification workflows.
+
+As developers construct workflows using Novu, certain status facets—results of batch functions and other steps in the workflow—are auto-generated and can be utilized to control the content displayed in notification templates.
+
+These variables offer dynamic and automated properties that hold subscriber information, such as first and last name, email, phone, and avatar.
+
+For example, developers can insert a subscriber's first name into a workflow by using `{{ subscriber.firstName }}`.
+
+In addition to the subscriber's details, developers can use data payload variables that encapsulate dynamic data meant to be injected into the content of a workflow.
+
+For instance, in the code example the variables username and resetLink are data payload variables that would be adjusted based on the workflow's purpose.
+
+**The utilization of these variables allows Novu to deliver personalized notifications to the receiver, thus improving user experience and accomplishing better communication outcomes.**
+
+## System variables
+
+### Subscriber variables
+
+| Variable       | Type     | Description                                                                   |
+| -------------- | -------- | ----------------------------------------------------------------------------- |
+| `subscriber`   | `Object` | Represents someone who is intended to receive a notification.                 |
+| `firstName`    | `String` | The first name of the subscriber.                                             |
+| `lastName`     | `String` | The last name of the subscriber.                                              |
+| `email`        | `String` | The subscriber's email address.                                               |
+| `phone`        | `String` | The phone number associated with the subscriber.                              |
+| `avatar`       | `String` | A URL or reference to the subscriber’s avatar or profile picture.             |
+| `locale`       | `String` | The preferred locale or language of the subscriber.                           |
+| `subscriberId` | `String` | Unique identifier for the subscriber.                                         |
+| `data`         | `Object` | An additional object that can hold custom subscriber data as key-value pairs. |
+
+### Actor variables
+
+| Variable       | Type     | Description                                                              |
+| -------------- | -------- | ------------------------------------------------------------------------ |
+| `actor`        | `Object` | A subscriber who initiates actions triggering events.                    |
+| `firstName`    | `String` | The first name of the actor.                                             |
+| `lastName`     | `String` | The last name of the actor.                                              |
+| `email`        | `String` | The actor's email address.                                               |
+| `phone`        | `String` | The phone number associated with the actor.                              |
+| `avatar`       | `String` | A URL or reference to the actor’s avatar or profile picture.             |
+| `locale`       | `String` | The preferred locale or language of the actor.                           |
+| `subscriberId` | `String` | Unique identifier for the actor.                                         |
+| `data`         | `Object` | An additional object that can hold custom actor data as key-value pairs. |
+
+### Step variables
+
+| Variable      | Type      | Description                                                                 |
+| ------------- | --------- | --------------------------------------------------------------------------- |
+| `step`        | `Object`  | A component in the execution of a workflow.                                 |
+| `digest`      | `Boolean` | Indicates whether digest mode is active or not.                             |
+| `events`      | `Array`   | An aggregated collection of events (that are stored when digest is active). |
+| `total_count` | `Number`  | Represents the total number of events in the digest.                        |
+
+### Brand variables
+
+| Variable   | Type     | Description                                                                 |
+| ---------- | -------- | --------------------------------------------------------------------------- |
+| `branding` | `Object` | Enables customization of the notification's visual identity.                |
+| `logo`     | `String` | Insert the brand logo.                                                      |
+| `color`    | `String` | Set the primary color of the notification based on the brand configuration. |
+
+### Tenant variables
+
+| Variable | Type     | Description                                                               |
+| -------- | -------- | ------------------------------------------------------------------------- |
+| `tenant` | `Object` | Group of users or an organization.                                        |
+| `name`   | `String` | Insert the brand logo.                                                    |
+| `data`   | `Object` | An additional object that can hold custom tenant data as key-value pairs. |
+
+## Data payload variables
+
+Data payload variables encompass the dynamic data intended to be injected into the content of a workflow. These variables are integral components of the payload object, forming part of the parameters for the trigger function.
+
+Here's a more illustrative example of how data payload variables can be employed:
+
+```jsx
+curl -L -X POST 'https://api.novu.co/v1/events/trigger' \
+-H 'Authorization: ApiKey <REPLACE_WITH_API_KEY>' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+    "name": "password-reset",
+    "to": {
+        "subscriberId": "6427e97d0136cef86a315c46",
+        "email": "john.doe@acme.com"
+    },
+    "payload": {
+        "username": "Jhontheman1969",
+        "resetLink": "http://sample.info/password.reset",
+        "securityEmail": "john.doe.backup@acme.com",
+    }
+}'
+```
+
+Within this code snippet, the variables `username` and `resetLink` are representative of data payload variables.
+
+Importantly, it's worth noting that the payload itself can encompass any serializable JSON object.
+
+<Info>Avoid use of system reserved variables as normal variables. For example don't use `email` as variable name because `{{subscriber.email}}` is a system reserved variable.</Info>

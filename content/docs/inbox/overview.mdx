@@ -1,0 +1,82 @@
+---
+title: Inbox Overview
+description: Learn about Novu's in-app notification center
+---
+
+# Notification Center Overview
+
+The Novu Notification Center is a ready-to-use component that provides a complete in-app notification experience for your users.
+
+## Features
+
+- 🎯 **Real-time Updates**: Instant notification delivery
+- 🎨 **Customizable UI**: Match your app's design
+- 📱 **Responsive**: Works on all devices
+- 🌐 **Multi-channel**: Integrates with all notification channels
+- 🔔 **Rich Content**: Support for images, actions, and more
+
+## Available SDKs
+
+Novu provides notification center SDKs for various frameworks:
+
+- React
+- Vue
+- Angular
+- Web Components
+- React Native
+
+## Quick Integration
+
+Here's a quick example using the React SDK:
+
+```tsx
+import { 
+  NovuProvider,
+  PopoverNotificationCenter,
+  NotificationBell
+} from '@novu/notification-center';
+
+function App() {
+  return (
+    <NovuProvider subscriberId="user-123" applicationIdentifier="YOUR_APP_ID">
+      <PopoverNotificationCenter>
+        {({ unseenCount }) => (
+          <NotificationBell unseenCount={unseenCount} />
+        )}
+      </PopoverNotificationCenter>
+    </NovuProvider>
+  );
+}
+```
+
+## Customization Options
+
+The notification center can be customized in many ways:
+
+### Themes
+```tsx
+<PopoverNotificationCenter
+  colorScheme={{
+    primary: '#4CAF50',
+    secondary: '#2196F3'
+  }}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+### Layouts
+```tsx
+<PopoverNotificationCenter
+  position="left"
+  offset={20}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+## Next Steps
+
+- [Get started with React](/inbox/react/get-started)
+- [Learn about styling](/inbox/react/styling)
+- [Implement multiple tabs](/inbox/react/multiple-tabs) 

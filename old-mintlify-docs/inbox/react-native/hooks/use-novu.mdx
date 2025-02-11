@@ -1,0 +1,30 @@
+---
+title: 'useNovu Hook for React Native'
+sidebarTitle: 'useNovu'
+---
+
+import UseNovuContent from '/snippets/hooks/use-novu-content.mdx';
+
+<UseNovuContent />
+
+```tsx
+import { useNovu } from '@novu/react-native';
+
+const NotificationToast = () => {
+  const novu = useNovu();
+
+  useEffect(() => {
+    const listener = ({ result: notification }) => {
+      // Show a toast notification
+    };
+
+    novu.on('notifications.notification_received', listener);
+
+    return () => {
+      novu.off('notifications.notification_received', listener);
+    };
+  }, [novu]);
+
+  return null;
+};
+```

@@ -1,0 +1,80 @@
+---
+title: 'Create Custom Inbox UI with React Hooks'
+sidebarTitle: 'Overview'
+---
+
+import UseNotificationsExample from '/snippets/inbox/react/use-notifications-example.mdx';
+import UseUnreadCountExample from '/snippets/inbox/react/use-unread-count-example.mdx';
+import NovuProviderExample from '/snippets/inbox/react/novu-provider-example.mdx';
+
+The `@novu/react` package offers an interface that enables you to build a custom notifications UI using React hooks that are powered by real-time data from the Novu services.
+
+These hooks are designed for use in both mobile and web applications, offering a flexible approach to building a custom notifications UI tailored to your application's requirements.
+
+### Getting Started
+
+Follow these steps to get started with building your custom inbox UI:
+
+<Steps>
+  <Step title="Install the @novu/react package">
+    ```bash 
+    npm install @novu/react 
+    ```
+  </Step>
+  <Step title="Implement the NovuProvider">
+    To implement the [NovuProvider](/inbox/react/hooks/novu-provider) component, you need to place it in your application's code at the tree level where you want the hooks to be accessible. Here's how you can do it:
+    <NovuProviderExample />
+    <Tip>
+      You can find the `applicationIdentifier` in the Novu Dashboard under the [API
+      keys page](https://dashboard-v2.novu.co/api-keys). The `subscriberId` is the
+      unique identifier of the user in your application, learn more about
+      subscribers [here](/concepts/subscribers).
+    </Tip>
+
+  </Step>
+  <Step title="Create the custom Inbox UI">
+    For example, you can create a custom popover UI with a bell icon that shows the unread notifications count and a list of notifications.
+    ```tsx 
+    const YourCustomInbox = () => {
+      return (
+        <Popover.Root open={...} onOpenChange={...}>
+          <Popover.Trigger>
+            <BellButton />
+          </Popover.Trigger>
+          <Popover.Content>
+            <NotificationsList />
+          </Popover.Content>
+        </Popover.Root>
+      );
+    };
+    ```
+
+    The `BellButton` component fetches the unread notifications count and renders the count value in the indicator.
+
+    <UseUnreadCountExample />
+
+    The `NotificationsList` component retrieves and displays the notifications list with infinite scrolling functionality.
+
+    <UseNotificationsExample />
+
+    The `NotificationItem` component renders each notification item.
+
+    When any action is performed on the `notification` instance for example "read" button is clicked,
+    the SDK will optimistically update notification that will result in the `useNotifications` hook rerender, so yo don't need to refetch and manually update your UI.
+
+    ```tsx
+    const NotificationItem = ({ notification }) => {
+      return (
+        <div>
+          {notification.isRead && <span className="dot-indicator">}
+          <h3>{notification.subject}</h3>
+          <p>{notification.body}</p>
+          <button onClick={() => notification.read()}>Read</button>
+          <button onClick={() => notification.archive()}>Archive</button>
+        </div>
+      );
+    };
+    ```
+
+  </Step>
+</Steps>

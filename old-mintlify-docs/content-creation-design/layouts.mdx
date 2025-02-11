@@ -1,0 +1,178 @@
+---
+title: "Layouts"
+description: "Explore how to create and manage layouts in Novu"
+icon: "table-layout"
+---
+
+### Email Layouts
+
+Novu allows the creation of layouts - a specific HTML design or structure to wrap content of email notifications. Layouts can be manipulated and assigned to new or existing workflows within the Novu platform, allowing users to create, manage, and assign these layouts to workflows, so they can be reused to structure the appearance of notifications sent through the platform.
+
+By default, Novu will create a default layout and assign it as the organization's default layout. At any time, you can choose any of your layouts as the default for your organization. All new email templates will be assigned the default layout unless assigned a different one through the email editor.
+
+#### Manage Layouts
+
+You can find and manage your organization's layouts in `Brand -> Layouts`
+
+<img style={{ borderRadius: "0.5rem" }} src="/images/manage-layouts.png" />
+
+#### Create and Edit Layouts
+
+You can create new or edit existing layouts through the layout editor.
+
+- You can create any html code to structure your layout.
+- Set a layout as default for your organization. Notice there could only be one default layout at a time.
+- Manage layout variables - set default values or required variables.
+
+<img style={{ borderRadius: "0.5rem" }} src="/images/create&edit-layouts.png" />
+
+<Info> Layout content must include `{{{body}}}`, to indicate where the email editor content will be injected inside the layout. </Info>
+
+#### Assign layout to workflow
+
+To assign, choose a layout through the email editor. You can preview your layout combined with your email content through the `Preview` tab.
+
+<img style={{ borderRadius: "0.5rem" }} src="/images/assign-layout.png" />
+
+#### Override layout on trigger
+
+To override your assigned layout during a trigger event, use the `layoutIdentifier` property.
+
+The layout specified will be used for all emails in the context of that trigger event.
+
+```ts
+import { Novu } from "@novu/node";
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+novu.trigger("workflow-identifier", {
+  to: {
+    subscriberId: "<SUBSCRIBER_ID>",
+  },
+  payload: {
+    attachments: [
+      {
+        file: fs.readFileSync(__dirname + "/data/test.jpeg"),
+        name: "test.jpeg",
+        mime: "image/jpg",
+      },
+    ],
+  },
+  overrides: {
+    layoutIdentifier: "your-layout-identifier",
+  },
+});
+```
+
+<Note>
+  {" "}
+  The override layout on trigger functionality is only available on v0.19.0.
+</Note>
+
+#### Using SDK
+
+Novu SDK supports all layout functionalities:
+
+#### Create a new layout
+
+A new layout can be created with name, description, content, variables and an `isDefault` flag. Here, content param is html content with custom variables.
+
+```tsx
+const name: string = "layout-name";
+const description: string =
+  "The description of the layout that will help other users to understand the goal it was created"; // Optional.
+const content: string = "<EMAIL_LAYOUT>";
+const variables: ITemplateVariable[] = []; // Optional. Will handle the placeholder variables inserted in the email layout (content).
+const isDefault: boolean = true; // Optional. All layouts are created as non default if not stated otherwise.
+
+const { _id: layoutId } = await novu.layouts.create({
+  name,
+  description,
+  content,
+  variables,
+  isDefault,
+});
+```
+
+```tsx
+interface ITemplateVariable {
+  type: TemplateVariableTypeEnum;
+  name: string;
+  required?: boolean;
+  defaultValue?: string | boolean;
+}
+
+enum TemplateVariableTypeEnum {
+  STRING = "String",
+  ARRAY = "Array",
+  BOOLEAN = "Boolean",
+}
+```
+
+#### Update existing layout
+
+When updating a layout, all properties are optional and the SDK will only update the ones passed.
+
+```tsx
+const layoutId: LayoutId = "<LAYOUT_ID>"; // The unique identifier of the layout.
+
+const updatedLayout = await novu.layouts.update(layoutId, {
+  name,
+  description,
+  content,
+  variables,
+  isDefault,
+});
+```
+
+#### Set default layout
+
+When executing this, the existing default layout in the environment will be automatically set as non default and the chosen layout will be set as default. This action is non reversible.
+
+```tsx
+const layoutId: LayoutId = "<LAYOUT_ID>"; // The unique identifier of the layout to be set as default.
+
+await novu.layouts.setDefault(layoutId);
+```
+
+#### Delete an existing layout
+
+Layouts can also be deleted. The condition to be able to delete a layout is that it is not a default layout and is not assigned in any existing workflow.
+
+```tsx
+const layoutId: LayoutId = "<LAYOUT_ID>"; // The unique identifier of the layout to be deleted.
+
+await novu.layouts.delete(layoutId);
+```
+
+#### Get a layout
+
+Find a layout by layoutId
+
+```tsx
+const layoutId: LayoutId = "<LAYOUT_ID>"; // The unique identifier of the layout to be found.
+
+const layout = await novu.layouts.get(layoutId);
+```
+
+#### List all layouts
+
+List paginated layouts
+
+```tsx
+const page: number = 0; // Pagination value of the page for the results. First page will be page = 0.
+const pageSize: number = 100; // Optional. Pagination value of the amount of layouts per page to return.
+const sortBy: string = "createdAt"; // Optional. Property to order the list of the layouts. So far only `createdAt` is supported.
+const orderBy: OrderDirectionEnum = -1; // Optional. Direction of the sorting by the property chosen in `sortBy`. Ascendent order is represented by 1 and descendent order is represented by -1.
+
+const layouts = await novu.layouts.list({
+  page,
+  pageSize,
+  sortBy,
+  orderBy,
+});
+```
+
+## API Reference Links
+
+- [Layout Methods](/api-reference/layouts/layout-creation/)

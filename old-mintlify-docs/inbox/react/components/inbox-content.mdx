@@ -1,0 +1,72 @@
+---
+title: "<InboxContent />"
+---
+
+By default, `<InboxContent />` renders the content of the `<Inbox />` popover. This component is meant to be used with a custom popover.
+
+```tsx
+import { Bell, Inbox, InboxContent } from '@novu/react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
+export default function CustomPopoverPage() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+    >
+      <Popover>
+        <PopoverTrigger>
+          <Bell />
+        </PopoverTrigger>
+        <PopoverContent className="h-[500px] w-[400px] overflow-auto p-0">
+          <InboxContent />
+        </PopoverContent>
+      </Popover>
+    </Inbox>
+  );
+}
+```
+
+## Behaviour
+
+The `<InboxContent />` component can receive all the props that `<Inbox />` does, besides the configuration and bell specific ones.
+
+```tsx
+import { Bell, Inbox, InboxContent } from '@novu/react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+
+export default function CustomPopoverPage() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+    >
+      <Popover>
+        <PopoverTrigger>
+          <Bell />
+        </PopoverTrigger>
+        <PopoverContent className="h-[500px] w-[400px] overflow-auto p-0">
+          <InboxContent 
+            onNotificationClick={(notification) => {
+              // your logic to handle notification click
+            }}
+            onPrimaryActionClick={(notification) => {
+              // your logic to handle primary action click
+            }}
+            onSecondaryActionClick={(notification) => {
+              // your logic to handle secondary action click
+            }}
+            renderNotification={(notification) => (
+              <div>
+                <h3>{notification.subject}</h3>
+                <p>{notification.body}</p>
+                <p>{notification.data.text}</p>
+              </div>
+            )}
+          />
+        </PopoverContent>
+      </Popover>
+    </Inbox>
+  );
+}
+```

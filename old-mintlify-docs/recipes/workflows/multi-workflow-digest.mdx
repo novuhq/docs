@@ -1,0 +1,124 @@
+---
+title: "Multi Workflow Digest Summary"
+sidebarTitle: "Multi-workflow digest"
+description: "Send a digest notification email by batching different types of notifications from multiple workflows"
+---
+
+## Introduction
+
+This example demonstrates how to send a digest notification email by batching different types of notifications from multiple workflows using the Novu Framework. The digest notification email is sent to the user with a summary of all the notifications that have been triggered by different workflows.
+
+**Use case**: Linear is a project management tool that allows users to create and manage projects and tickets. When someone comments on the ticket, someone assigns the ticket to the user or there can be more events for which the user has turned on the Notification, the user receives a notification. The user can receive multiple notifications in a short period. To avoid spamming the user with multiple emails, Linear sends a digest notification email that contains a summary of all the notifications.
+
+Source Code on GitHub: [Multi-workflow digest](https://github.com/novuhq/examples/tree/main/novu-workflows/react/multi-workflow-digest)
+
+<Info>Sync the changes from local studio before triggering the workflows using backend SDKs or API. Read more about [sync](framework/deployment/syncing).</Info>
+
+  <Frame caption="Multi workflows digest summary flow">
+    <img src="/images/recipes/multi-workflow-digest.png" />
+  </Frame>
+## Code Example
+
+```typescript Summary worklflow to digest all notifications from different workflows
+import { CronExpression, workflow } from "@novu/framework";
+import { renderLinearDigestEmail } from "../../emails/linear-digest";
+import {
+  ticketAssignedPayloadSchema,
+  commentOnTicketPayloadSchema,
+  summaryWorkflowPayloadSchema,
+} from "./schemas";
+
+export const summaryWorkflow = workflow(
+  "multi-workflow-digest",
+  async ({ step }) => {
+    // Digest all notifications from different workflows
+    const digestedNotifications = await step.digest(
+      "digest-all-notifications",
+      async () => {
+        return {
+          cron: CronExpression.EVERY_DAY_AT_8AM,
+        };
+      }
+    );
+
+    // Send digested notifications via email
+    await step.email("send-email", async () => {
+      return {
+        subject: `${digestedNotifications.events.length} unread notifications on Novu - Linear`,
+        body: renderLinearDigestEmail(digestedNotifications.events),
+      };
+    });
+  },
+  {
+    payloadSchema: summaryWorkflowPayloadSchema,
+  }
+);
+```
+
+```typescript Workflow to send notification when someone comments on a ticket
+export const someoneCommentedOnTicket = workflow(
+  "someone-commented-on-ticket",
+  async ({ step, payload, subscriber }) => {
+    await step.inApp("send-inbox-notification", async () => {
+      return {
+        body: `${payload.comment.author.userName} commented ${payload.comment.text} on ticket ${payload.ticket.id}`,
+      };
+    });
+
+    await step.custom("digest-the-message", async () => {
+      try {
+        await summaryWorkflow.trigger({
+          to: subscriber?.subscriberId as string,
+          payload: payload,
+        });
+        return {
+          success: true,
+          error: null,
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: error,
+        };
+      }
+    });
+  },
+  {
+    payloadSchema: commentOnTicketPayloadSchema,
+  }
+);
+```
+
+```typescript Workflow to send notification when a ticket is assigned to the user
+export const ticketAssigned = workflow(
+  "ticket-assigned-to-user",
+  async ({ step, payload, subscriber }) => {
+    await step.inApp("send-inbox-notification", async () => {
+      return {
+        body: `${payload.assign.author.userName} assigned ticket ${payload.ticket.id} ${payload.ticket.title} to you.`,
+      };
+    });
+
+    await step.custom("digest-the-message", async () => {
+      try {
+        await summaryWorkflow.trigger({
+          to: subscriber?.subscriberId as string,
+          payload: payload,
+        });
+        return {
+          success: true,
+          error: null,
+        };
+      } catch (error) {
+        return {
+          success: false,
+          error: error,
+        };
+      }
+    });
+  },
+  {
+    payloadSchema: ticketAssignedPayloadSchema,
+  }
+);
+```

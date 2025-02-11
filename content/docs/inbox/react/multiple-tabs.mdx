@@ -1,0 +1,155 @@
+---
+title: Multiple Tabs
+description: Learn how to implement multiple tabs in your notification center
+---
+
+# Multiple Tabs
+
+The notification center supports multiple tabs to help organize different types of notifications.
+
+## Basic Setup
+
+```tsx
+import { 
+  PopoverNotificationCenter,
+  NotificationBell,
+  NotificationTab
+} from '@novu/notification-center';
+
+function Header() {
+  const tabs = [
+    {
+      key: 'all',
+      title: 'All Notifications',
+    },
+    {
+      key: 'unread',
+      title: 'Unread',
+    },
+    {
+      key: 'archived',
+      title: 'Archived',
+    }
+  ];
+
+  return (
+    <PopoverNotificationCenter tabs={tabs}>
+      {({ unseenCount }) => (
+        <NotificationBell unseenCount={unseenCount} />
+      )}
+    </PopoverNotificationCenter>
+  );
+}
+```
+
+## Custom Tab Content
+
+```tsx
+function CustomTab({ notifications, tab }) {
+  return (
+    <div className="custom-tab">
+      <h3>{tab.title}</h3>
+      {notifications.map((notification) => (
+        <div key={notification.id} className="notification-item">
+          {notification.content}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Header() {
+  const tabs = [
+    {
+      key: 'all',
+      title: 'All Notifications',
+      render: (props) => <CustomTab {...props} />
+    }
+  ];
+
+  return (
+    <PopoverNotificationCenter tabs={tabs}>
+      {/* ... */}
+    </PopoverNotificationCenter>
+  );
+}
+```
+
+## Tab Styling
+
+```tsx
+<PopoverNotificationCenter
+  tabs={tabs}
+  styles={{
+    tabs: {
+      backgroundColor: '#f5f5f5',
+      borderBottom: '1px solid #eee'
+    },
+    tab: {
+      padding: '12px 16px',
+      color: '#666',
+      '&.active': {
+        color: '#000',
+        borderBottom: '2px solid #000'
+      }
+    }
+  }}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+## Tab Events
+
+```tsx
+function Header() {
+  const onTabChange = (tab) => {
+    console.log('Selected tab:', tab);
+  };
+
+  return (
+    <PopoverNotificationCenter
+      tabs={tabs}
+      onTabChange={onTabChange}
+    >
+      {/* ... */}
+    </PopoverNotificationCenter>
+  );
+}
+```
+
+## Dynamic Tabs
+
+```tsx
+function Header() {
+  const [tabs, setTabs] = useState([
+    {
+      key: 'all',
+      title: 'All',
+    }
+  ]);
+
+  useEffect(() => {
+    // Fetch tab configuration from your backend
+    async function fetchTabs() {
+      const response = await api.getTabs();
+      setTabs(response.data);
+    }
+    fetchTabs();
+  }, []);
+
+  return (
+    <PopoverNotificationCenter tabs={tabs}>
+      {/* ... */}
+    </PopoverNotificationCenter>
+  );
+}
+```
+
+## Best Practices
+
+1. **Keep it Simple**: Don't overwhelm users with too many tabs
+2. **Clear Labels**: Use descriptive tab names
+3. **Loading States**: Handle loading states for dynamic tabs
+4. **Persistence**: Remember the last selected tab
+5. **Mobile Friendly**: Ensure tabs work well on small screens 

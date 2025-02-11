@@ -1,0 +1,15 @@
+```tsx
+import { NovuProvider } from '@novu/react/hooks';
+
+function App() {
+  return (
+    <NovuProvider
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    >
+      {/* Your app components where you want to use the hooks */}
+      <YourCustomInbox />
+    </NovuProvider>
+  );
+}
+```

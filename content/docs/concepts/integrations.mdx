@@ -1,0 +1,49 @@
+---
+title: "Integrations"
+description: "Learn about what Novu Integrations are"
+---
+
+## Integrations
+
+Integrations are what allow Novu to handle message delivery over multiple channels. Of the five notification channels that Novu currently supports, each channel except the 'in-app' channel has multiple providers.
+
+### Integraton Store
+
+You can configure your own integrations by visiting the [Integration Store](https://dashboard-v2.novu.co/integrations). 
+When connecting the integration you will be asked to provide the `credentials` and other optional configurations for the integration. All secret keys are encrypted before persisted to the database.
+
+### Available Integrations
+
+You can find the list of available integrations for each channel:
+
+<Cards>
+  <Card 
+    title="Email" 
+    description="Configure email providers and settings"
+    href="/integrations/providers/email/overview" 
+  />
+  <Card 
+    title="SMS" 
+    description="Set up SMS messaging capabilities"
+    href="/integrations/providers/sms/overview" 
+  />
+  <Card 
+    title="Push" 
+    description="Enable push notification delivery"
+    href="/integrations/providers/push/overview" 
+  />
+  <Card 
+    title="Chat" 
+    description="Integrate with chat platforms"
+    href="/integrations/providers/chat/overview" 
+  />
+  <Card 
+    title="In-App" 
+    description="Manage in-app notification center"
+    href="/inbox/overview" 
+  />
+</Cards>
+
+### Missing an integration?
+
+If you don't see the integration you need, you can create a custom integration using the [Custom Step](/workflow/custom). Or contribute to the [Novu Integrations Repository](/community/add-a-new-provider).

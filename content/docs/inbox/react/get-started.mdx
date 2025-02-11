@@ -1,0 +1,115 @@
+---
+title: Get Started with React
+description: Learn how to integrate Novu's notification center in your React application
+---
+
+# Getting Started with React
+
+Learn how to add Novu's notification center to your React application.
+
+## Installation
+
+Install the notification center package:
+
+```bash
+# npm
+npm install @novu/notification-center
+
+# yarn
+yarn add @novu/notification-center
+
+# pnpm
+pnpm add @novu/notification-center
+```
+
+## Basic Setup
+
+Wrap your application with the `NovuProvider`:
+
+```tsx
+import { NovuProvider } from '@novu/notification-center';
+
+function App() {
+  return (
+    <NovuProvider
+      subscriberId="YOUR_SUBSCRIBER_ID" 
+      applicationIdentifier="YOUR_APP_ID"
+    >
+      {/* Your app content */}
+    </NovuProvider>
+  );
+}
+```
+
+## Add the Notification Center
+
+Add the notification center component to your app:
+
+```tsx
+import { 
+  PopoverNotificationCenter,
+  NotificationBell 
+} from '@novu/notification-center';
+
+function Header() {
+  return (
+    <div className="header">
+      <PopoverNotificationCenter>
+        {({ unseenCount }) => (
+          <NotificationBell unseenCount={unseenCount} />
+        )}
+      </PopoverNotificationCenter>
+    </div>
+  );
+}
+```
+
+## Configuration Options
+
+### Custom Subscriber
+
+```tsx
+<NovuProvider
+  subscriberId="user-123"
+  subscriberHash="HMAC_HASH" // Optional for security
+  backendUrl="https://api.novu.co"
+>
+  {/* ... */}
+</NovuProvider>
+```
+
+### Custom Styles
+
+```tsx
+<PopoverNotificationCenter
+  colorScheme="dark"
+  position="bottom-right"
+  offset={10}
+>
+  {/* ... */}
+</PopoverNotificationCenter>
+```
+
+## Handling Events
+
+```tsx
+function Header() {
+  const onNotificationClick = (message) => {
+    console.log('Notification clicked:', message);
+  };
+
+  return (
+    <PopoverNotificationCenter
+      onNotificationClick={onNotificationClick}
+    >
+      {/* ... */}
+    </PopoverNotificationCenter>
+  );
+}
+```
+
+## Next Steps
+
+- Learn about [styling options](/inbox/react/styling)
+- Implement [multiple tabs](/inbox/react/multiple-tabs)
+- Explore [hooks and components](/inbox/react/hooks/overview) 

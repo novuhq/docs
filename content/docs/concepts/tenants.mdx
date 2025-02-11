@@ -1,0 +1,39 @@
+---
+title: "Multi-tenancy"
+description: "Learn about how to implement multi-tenant notifications in Novu"
+---
+
+<div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950">
+  <p className="text-sm text-blue-700 dark:text-blue-400">
+    This features is currently under development, and planned to be released in early Q1 2025.
+  </p>
+</div>
+
+Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants.
+
+Some of the common multi-tenancy use cases are:
+- Group subscribers by the tenant
+- Use a different delivery provider for each tenant
+- Adjust the content of the notification depending on the tenant
+- Specify different subscriber preference defaults
+
+## Tenant Management
+
+Tenants can be created and modified via the API or Dashboard. Each tenant can have multiple fields representing the tenant's data:
+
+- Identifier - The identifier is a unique value, and can be used later when pointing to this tenant during trigger calls.
+- Name - A human-readable name of the tenant.
+- Data - A custom data object that can store information about the tenant. This data can be later accessed inside workflows.
+
+## Multi-tenancy vs topics
+
+While topics can be mapped to any nested entity in your application such as teams, projects, issues, and etc... 
+and used for broadcasing messages to different subsets of your audience, tenants are some times refered to as "organizations", "workspaces", "companies" or "accounts" and are usually directly tied to your customer entities which used to customize the notification behavior and defaults for each customer.
+
+## Using Tenant data
+
+When creating a tenant, you can specify a data object that will be available to you in your workflows. This can be useful to store information about the tenant such as the name, logo, etc...
+
+```
+Welcome to the {{ tenant.name }} workspace!
+```

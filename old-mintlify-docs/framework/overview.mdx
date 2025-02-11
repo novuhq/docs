@@ -1,0 +1,46 @@
+---
+title: "Novu Framework Overview"
+sidebarTitle: "Introduction"
+description: "Learn how to extend Novu's capabilities by building custom notification workflows with code using the Novu Framework."
+---
+
+import { FrameworkTerminal } from "/snippets/framework-terminal.mdx";
+import { ExpressjsIcon } from "/snippets/icons/expressjs.mdx";
+import { H3Icon } from "/snippets/icons/h3.mdx";
+import { LambdaIcon } from "/snippets/icons/lambda.mdx";
+import { NestjsIcon } from "/snippets/icons/nestjs.mdx";
+import { NextjsIcon } from "/snippets/icons/nextjs.mdx";
+import { NuxtIcon } from "/snippets/icons/nuxt.mdx";
+import { RemixIcon } from "/snippets/icons/remix.mdx";
+import { SvelteIcon } from "/snippets/icons/svelte.mdx";
+
+Novu Framework enables you to run a part of the core Novu workflow engine from within your network boundary. This also opens up a powerful new capability: **you can create Novu workflows entirely in code**. This is important because:
+- You can inject custom code that does nearly anything you can imagine as part of a Novu workflow
+- Your code-based workflow lives alongside your application code in source control
+- You can hydrate notification content using local data-sources, reducing what you need to sync outside of your IT boundary
+
+### What it is and how it works
+
+Novu Framework is an application and SDK that you run locally, and communicates natively with the Novu Cloud Worker Engine via the Novu API.
+
+Novu Framework requires a single HTTP webhook-like endpoint (/api/novu or similar) to be exposed by your application. This endpoint is called a **Bridge Endpoint** and is used to receive events from our Worker Engine through an encrypted client-initiated tunnel.
+
+When enabled, Novu Cloud will call the Bridge Endpoint when it needs to retrieve contextual information for a given subscriber and notification.
+
+Use the `npx novu init` command to create a sample Bridge application with a built-in Bridge Endpoint.
+
+<FrameworkTerminal />
+
+## Quickstart
+To get started with Novu Framework, pick your preferred technology from the list below:
+
+<CardGroup cols={3}>
+    <Card title="Next.js" color="#00D7FE" href="/framework/quickstart/nextjs" horizontal icon={<NextjsIcon />} />
+    <Card title="Express.js" color="#47BA87" href="/framework/quickstart/express" horizontal icon={<ExpressjsIcon />} />
+    <Card title="Remix"  color="#BC002C" href="/framework/quickstart/remix" horizontal icon={<RemixIcon />} />
+    <Card title="NestJS"  color="#BC002C" href="/framework/quickstart/nestjs" horizontal icon={<NestjsIcon />} />
+    <Card title="Svelte" color="#16a34a" href="/framework/quickstart/svelte" horizontal icon={<SvelteIcon />} />
+    <Card title="Nuxt" color="#16a34a" href="/framework/quickstart/nuxt" horizontal icon={<NuxtIcon />} />
+    <Card title="H3" color="#16a34a" href="/framework/quickstart/h3" horizontal icon={<H3Icon />} />
+    <Card title="Lambda" color="#16a34a" href="/framework/quickstart/lambda" horizontal icon={<LambdaIcon />} />
+</CardGroup>
