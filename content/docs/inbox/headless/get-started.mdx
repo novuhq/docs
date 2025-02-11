@@ -12,73 +12,73 @@ The headless version of Novu's notification library package provides users with 
 ## Get Started
 
 <Steps>
-  <Step title="Installation">
-    ```bash
-    npm install @novu/js
-    ```
-  </Step>
+<Step title="Installation">
+```bash
+npm install @novu/js
+```
+</Step>
 
-  <Step title="Import Package">
-    ```typescript
-    import { Novu } from "@novu/js";
-    ```
-  </Step>
+<Step title="Import Package">
+```typescript
+import { Novu } from "@novu/js";
+```
+</Step>
 
-  <Step title="Initialize Session">
+<Step title="Initialize Session">
     <Tabs items={['US', 'EU', 'HMAC Encryption']}>
       <Tab>
-        ```typescript
-        import { Novu } from "@novu/js";
+```typescript
+import { Novu } from "@novu/js";
 
-        const novu = new Novu({
-          subscriberId: "SUBSCRIBER_ID",
-          applicationIdentifier: "APPLICATION_IDENTIFIER",
-        });
-        ```
-      </Tab>
+const novu = new Novu({
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+});
+```
+</Tab>
       <Tab>
-        ```typescript
-        import { Novu } from "@novu/js";
+```typescript
+import { Novu } from "@novu/js";
 
-        const novu = new Novu({
-          subscriberId: "SUBSCRIBER_ID",
-          applicationIdentifier: "APPLICATION_IDENTIFIER",
-          backendUrl: "https://eu.api.novu.co",
-          socketUrl: "https://eu.ws.novu.co",
-        });
-        ```
-      </Tab>
+const novu = new Novu({
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+  backendUrl: "https://eu.api.novu.co",
+  socketUrl: "https://eu.ws.novu.co",
+});
+```
+</Tab>
       <Tab>
         <Callout type="info">
-          Read more about [HMAC Encryption](/inbox/react/production#hmac-encryption).
+Read more about [HMAC Encryption](/inbox/react/production#hmac-encryption).
         </Callout>
 
-        ```typescript
-        import { Novu } from "@novu/js";
+```typescript
+import { Novu } from "@novu/js";
 
-        const novu = new Novu({
-          subscriberId: "SUBSCRIBER_ID",
-          applicationIdentifier: "APPLICATION_IDENTIFIER",
-          subscriberHash: "SUBSCRIBER_HASH_HMAC_SUBSCRIBER_HASH_HMAC_ENCRYPTION",
-        });
-        ```
-      </Tab>
-    </Tabs>
-  </Step>
+const novu = new Novu({
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
+  subscriberHash: "SUBSCRIBER_HASH_HMAC_SUBSCRIBER_HASH_HMAC_ENCRYPTION",
+});
+```
+</Tab>
+</Tabs>
+</Step>
 
-  <Step title="Fetch Notifications">
-    ```typescript
-    const response = await novu.notifications.list({
-      limit: 30,
-    });
+<Step title="Fetch Notifications">
+```typescript
+const response = await novu.notifications.list({
+  limit: 30,
+});
 
-    const notifications = response.data.notifications
-    ```
-  </Step>
+const notifications = response.data.notifications
+```
+</Step>
 
   <Step title="Display Notifications">
-    Display `notifications` in your UI.
-  </Step>
+Display `notifications` in your UI.
+</Step>
 </Steps>
 
 ## Realtime Notifications

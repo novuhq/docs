@@ -1,25 +1,12 @@
-import type { NextRequest } from "next/server";
-import { NextResponse } from "next/server";
-
-const redirects = {
-  "/inbox": "/inbox/overview",
-  "/concepts": "/concepts/workflows",
-  "/api-reference": "/api-reference/topics/topics-controller_list-topics",
-  "/platform": "/platform/getting-started/quickstart",
-} as const;
-
-export function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname;
-
-  if (pathname in redirects) {
-    return NextResponse.redirect(
-      new URL(redirects[pathname as keyof typeof redirects], request.url)
-    );
-  }
-
-  return NextResponse.next();
-}
+import { clerkMiddleware } from "@clerk/nextjs/server";
 
 export const config = {
-  matcher: ["/inbox", "/concepts", "/api-reference"],
+  matcher: [
+    // Skip Next.js internals and all static files, unless found in search params
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    // Always run for API routes
+    "/(api|trpc)(.*)",
+  ],
 };
+
+export default clerkMiddleware();

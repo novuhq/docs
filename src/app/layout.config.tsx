@@ -1,5 +1,7 @@
+import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import Image from "next/image";
+import { Button } from "../components/ui/button";
 
 export const logo = (
   <>
@@ -49,6 +51,21 @@ export const baseOptions: BaseLayoutProps = {
       type: "button",
       icon: "Book",
       text: "API Reference",
+    },
+    {
+      type: "custom",
+      children: (
+        <div className="flex items-center gap-2 justify-end ml-auto">
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <Button variant="outline" size="sm">
+              Visit Dashboard
+            </Button>
+          </SignedIn>
+        </div>
+      ),
     },
   ],
 };
