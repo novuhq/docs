@@ -17,6 +17,7 @@ export default async function Page(props: {
 
   if (!page) notFound();
 
+  console.log({ page });
   const MDX = page.data.body;
 
   return (
@@ -27,11 +28,8 @@ export default async function Page(props: {
         style: "clerk",
         single: false,
       }}
-      article={{
-        className: "max-sm:pb-16",
-      }}
     >
-      <DocsTitle>{page.data.title}</DocsTitle>
+      <DocsTitle>{page.data.pageTitle ?? page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX

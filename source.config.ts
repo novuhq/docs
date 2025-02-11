@@ -7,7 +7,7 @@ export const docs = defineDocs({
     schema: frontmatterSchema.extend({
       preview: z.string().optional(),
       index: z.boolean().default(false),
-      sidebarTitle: z.string().optional(),
+      pageTitle: z.string().optional(),
       /**
        * API routes only
        */
@@ -17,6 +17,7 @@ export const docs = defineDocs({
   meta: {
     schema: metaSchema.extend({
       description: z.string().optional(),
+      pageTitle: z.string().optional(),
     }),
   },
 });
