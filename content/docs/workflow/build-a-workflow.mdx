@@ -2,6 +2,8 @@
 title: "Build a Workflow"
 description: "Learn how to build a Novu Workflow"
 ---
+import { Callout } from 'fumadocs-ui/components/callout';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 <Steps>
   <Step title="Navigate to the workflows tab in the Novu Dashboard">
@@ -33,15 +35,16 @@ description: "Learn how to build a Novu Workflow"
             - Consumer messaging tools (e.g. WhatsApp, Telegram, Discord, etc.)
         - SMS
 
-    <Note>If a channel step you've added is not configured in your Novu account, you'll see an Error.</Note>
-
+    <Callout type="info">
+      If a channel step you've added is not configured in your Novu account, you'll see an Error.
+    </Callout>
 
     **Actions**
         - Digest
         - Delay
         - Custom (Coming soon, currently only available in the [Novu Framework](/framework/custom))
   </Step>
-    <Step title="Configure a template">
+  <Step title="Configure a template">
     Each step in the workflow requires a template that defines the notification or message content and payload. The editor enables you to preview the rendered output of your content.
     
     **Content creation and templates**
@@ -55,38 +58,39 @@ description: "Learn how to build a Novu Workflow"
         - Brand variables: for aligning with your organization's visual identity.
         - Tenant variables: for organization-specific data.
 
-**Dynamic content**
+    **Dynamic content**
 
     - Inject dynamic data into your templates using payload variables.
     - These variables can be utilized in message content, subjects, and sender names for enhanced personalization.
 
-**Important:** When using dynamic content with payload variables, ensure that the required payload is passed when triggering the workflow.
+    **Important:** When using dynamic content with payload variables, ensure that the required payload is passed when triggering the workflow.
     
-    <Warning>Once you’ve finished configuring your template, don’t forget to click the `Save step` button to apply your changes.</Warning>
-
+    <Callout type="warning">
+      Once you've finished configuring your template, don't forget to click the `Save step` button to apply your changes.
+    </Callout>
   </Step>
   
-<Step title="Trigger the workflow">
-  There are three main ways to trigger a workflow:
+  <Step title="Trigger the workflow">
+    There are three main ways to trigger a workflow:
 
-  - **Via the Novu Dashboard**  
-    This method is ideal for conducting quick tests directly from the Dashboard. It’s a simple and convenient way to verify basic functionality.
+    - **Via the Novu Dashboard**  
+      This method is ideal for conducting quick tests directly from the Dashboard. It's a simple and convenient way to verify basic functionality.
 
-  - **Using the trigger code snippet**  
-    Copy the code snippet and execute it in your local environment or an online sandbox. This approach allows for more thorough testing, enabling you to integrate the trigger with your application logic and live data for a realistic evaluation.
+    - **Using the trigger code snippet**  
+      Copy the code snippet and execute it in your local environment or an online sandbox. This approach allows for more thorough testing, enabling you to integrate the trigger with your application logic and live data for a realistic evaluation.
 
-  - **Integrating the trigger in your application**  
-    Once all tests are complete, you can implement the trigger method directly in your application. This allows you to test the workflow in a real-world scenario, ensuring it functions seamlessly with your app's actual environment and users.
-</Step>
-<Step title="Promote a workflow to the production environment">
-Novu operates in a multi environment setup, with the currently available environments:
+    - **Integrating the trigger in your application**  
+      Once all tests are complete, you can implement the trigger method directly in your application. This allows you to test the workflow in a real-world scenario, ensuring it functions seamlessly with your app's actual environment and users.
+  </Step>
 
-- **Development**: Acts as a staging and test environment, where your non-technical peers can view and modify controls.
-- **Production**: For triggering workflows to your customers.
+  <Step title="Promote a workflow to the production environment">
+    Novu operates in a multi environment setup, with the currently available environments:
 
-After you've tested your workflow in the **Development** environment, you can promote it to **Production**.
+    - **Development**: Acts as a staging and test environment, where your non-technical peers can view and modify controls.
+    - **Production**: For triggering workflows to your customers.
 
-[Learn more about promoting workflows to production](/framework/deployment/production)
-    
-</Step>
+    After you've tested your workflow in the **Development** environment, you can promote it to **Production**.
+
+    [Learn more about promoting workflows to production](/framework/deployment/production)
+  </Step>
 </Steps>
