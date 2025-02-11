@@ -39,9 +39,6 @@ export default function Layout({ children }: { children: ReactNode }) {
             tree={source.pageTree}
             {...baseOptions}
             githubUrl="https://github.com/novuhq/novu"
-            sidebar={{
-              defaultOpenLevel: 1,
-            }}
           >
             {children}
           </DocsLayout>
