@@ -2,6 +2,7 @@ import "./global.css";
 
 import { source } from "@/lib/source";
 import { ClerkProvider } from "@clerk/nextjs";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { DocsLayout } from "fumadocs-ui/layouts/notebook";
 import { RootProvider } from "fumadocs-ui/provider";
 import { GeistMono } from "geist/font/mono";
@@ -35,6 +36,12 @@ export default function Layout({ children }: { children: ReactNode }) {
         className={`${GeistSans.variable} ${GeistMono.variable}`}
         suppressHydrationWarning
       >
+        {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
+          <GoogleTagManager
+            gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID}
+          />
+        )}
+
         <body className="flex flex-col min-h-screen">
           <RootProvider>
             <DocsLayout
