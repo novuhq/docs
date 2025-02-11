@@ -32,22 +32,15 @@ The ultimate service for managing multi-channel notifications with a single API.
   </p>
   
   <p align="center">
-  Available in: <a href="https://github.com/novuhq/novu/tree/next/packages/node">Node.js</a>
+  Available in: <a href="https://github.com/novuhq/novu-ts">Node.js</a>
+  · <a href="https://github.com/novuhq/novu-py">Python</a>
+  · <a href="https://github.com/novuhq/novu-go">Go</a>
   · <a href="https://github.com/novuhq/novu-php">PHP</a>
-  · <a href="https://github.com/novuhq/novu-laravel">Laravel</a>
-  · <a href="https://github.com/novuhq/go-novu">Go</a>
-  · <a href="https://github.com/novuhq/novu-ruby">Ruby</a>
-  · <a href="https://github.com/novuhq/novu-kotlin">Kotlin</a>
-  · <a href="https://github.com/novuhq/novu-python">Python</a>
-  · <a href="https://github.com/novuhq/novu-java">Java</a>
-  · <a href="https://github.com/novuhq/novu-dotnet">.NET</a>
-  · <a href="https://github.com/novuhq/elixir">Elixir</a>
-  · <a href="https://github.com/novuhq/rust">Rust</a>
+
+
   </p>
 
 ### 👩‍💻 Docs Contribution
-
-[Checkout this video on how to contribute in Novu's documentation](https://www.loom.com/share/1667ee280c2448c7a40838b72b1399af)
 
 First, install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) locally. To install, use the following command
 
@@ -65,11 +58,25 @@ mintlify dev
 
 ### 😎 Publishing Changes
 
-All changes to the docs should be submitted against the `staging` branch. [Preview the documentation changes](https://novu-preview.mintlify.app/introduction).
+All changes to the docs should be submitted against the `main` branch. Once reviewed and merged, the changes will be deployed to production automatically.
 
-PRs from `staging` to `main` will be deployed to production automatically after merge.
-
-#### Troubleshooting
+### Troubleshooting
 
 - Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
-- Page loads as a 404 - Make sure you are running in a folder with `mint.json`
+- Page loads as a 404 - Make sure you are running in a folder with `docs.json`
+
+### Community SDKs
+
+These SDKs are maintained by the community.
+
+- <a href="https://github.com/novuhq/novu-ruby">Ruby</a>
+-  <a href="https://github.com/novuhq/novu-laravel">Laravel</a>
+- <a href="https://github.com/novuhq/novu-java">Java</a>
+- <a href="https://github.com/novuhq/novu-dotnet">.NET</a>
+- <a href="https://github.com/novuhq/elixir">Elixir</a>
+- <a href="https://github.com/novuhq/rust">Rust</a>
+- <a href="https://github.com/novuhq/novu-kotlin">Kotlin</a>
+
+### Report an issue
+
+If you have found a bug, please report it by opening an issue on this [GitHub repository](https://github.com/novuhq/docs/issues) or by contacting us via email at support@novu.co.
