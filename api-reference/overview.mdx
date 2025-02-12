@@ -21,8 +21,11 @@ Authentication for the Novu API involves the use of an API Key, which is a secur
 For example, when using Novu in a Node.js application, the Novu package should be imported and initialized with the API key, as shown in this snippet:
 
 ```javascript
-import { Novu } from "@novu/node";
-const novu = new Novu("<NOVU_SECRET_KEY>");
+import { Novu } from "@novu/api";
+
+const novu = new Novu({
+  secretKey: "YOUR_SECRET_KEY_HERE",
+});
 ```
 
 Replace `<NOVU_SECRET_KEY>` with your actual API Key, available in the API Key section of the Novu Dashboard.
