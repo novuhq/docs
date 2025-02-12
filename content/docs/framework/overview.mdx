@@ -1,143 +1,44 @@
 ---
-title: Introduction
-pageTitle: Framework Overview
-description: Learn about Novu's Framework for building notification systems
+pageTitle: "Novu Framework Overview"
+title: "Introduction"
+description: "Learn how to extend Novu's capabilities by building custom notification workflows with code using the Novu Framework."
 ---
 
-# Framework Overview
+import { ExpressjsIcon } from "@/components/icons/expressjs";
+import { H3Icon } from "@/components/icons/h3";
+import { LambdaIcon } from "@/components/icons/lambda";
+import { NestjsIcon } from "@/components/icons/nestjs";
+import { NextjsIcon } from "@/components/icons/nextjs";
+import { NuxtIcon } from "@/components/icons/nuxt";
+import { RemixIcon } from "@/components/icons/remix";
+import { SvelteIcon } from "@/components/icons/svelte";
+import { Card, Cards } from 'fumadocs-ui/components/card';
 
-Novu's Framework provides a type-safe, declarative way to build notification workflows in your application.
+Novu Framework enables you to run a part of the core Novu workflow engine from within your network boundary. This also opens up a powerful new capability: **you can create Novu workflows entirely in code**. This is important because:
+- You can inject custom code that does nearly anything you can imagine as part of a Novu workflow
+- Your code-based workflow lives alongside your application code in source control
+- You can hydrate notification content using local data-sources, reducing what you need to sync outside of your IT boundary
 
-## Key Features
+### What it is and how it works
 
-- 🔒 **Type Safety**: Full TypeScript support
-- 🏗️ **Declarative**: Define workflows as code
-- 🔄 **Versioning**: Track changes and rollback
-- 📦 **Reusable**: Share components across workflows
-- 🚀 **Framework Agnostic**: Works with any Node.js framework
+Novu Framework is an application and SDK that you run locally, and communicates natively with the Novu Cloud Worker Engine via the Novu API.
 
-## Basic Example
+Novu Framework requires a single HTTP webhook-like endpoint (/api/novu or similar) to be exposed by your application. This endpoint is called a **Bridge Endpoint** and is used to receive events from our Worker Engine through an encrypted client-initiated tunnel.
 
-```typescript
-import { Workflow } from '@novu/node';
+When enabled, Novu Cloud will call the Bridge Endpoint when it needs to retrieve contextual information for a given subscriber and notification.
 
-const welcomeWorkflow = new Workflow({
-  name: 'Welcome Flow',
-  description: 'Send welcome messages to new users',
-  steps: [
-    {
-      type: 'email',
-      template: {
-        subject: 'Welcome to {{appName}}!',
-        content: 'Hi {{name}}, welcome aboard!'
-      }
-    },
-    {
-      type: 'in-app',
-      template: {
-        content: 'Welcome! Check out our getting started guide.'
-      }
-    }
-  ]
-});
-```
+Use the `npx novu init` command to create a sample Bridge application with a built-in Bridge Endpoint.
 
-## Framework Components
+## Quickstart
+To get started with Novu Framework, pick your preferred technology from the list below:
 
-### Workflows
-
-Workflows define the notification flow:
-
-```typescript
-const workflow = new Workflow({
-  name: 'Order Status',
-  trigger: 'order.status.changed',
-  steps: [/* ... */]
-});
-```
-
-### Steps
-
-Steps are individual actions in a workflow:
-
-```typescript
-const steps = [
-  {
-    type: 'email',
-    template: {/* ... */}
-  },
-  {
-    type: 'delay',
-    duration: '1h'
-  },
-  {
-    type: 'push',
-    template: {/* ... */}
-  }
-];
-```
-
-### Templates
-
-Templates define the content structure:
-
-```typescript
-const template = {
-  subject: 'Order #{{orderId}} Update',
-  content: `
-    Your order status: {{status}}
-    {{#if estimated_delivery}}
-    Estimated delivery: {{estimated_delivery}}
-    {{/if}}
-  `
-};
-```
-
-## Integration Examples
-
-### Next.js
-
-```typescript
-// app/api/notifications/route.ts
-import { Novu } from '@novu/node';
-
-const novu = new Novu(process.env.NOVU_API_KEY);
-
-export async function POST(req: Request) {
-  const { userId, orderId } = await req.json();
-  
-  await novu.trigger('order-update', {
-    to: userId,
-    payload: { orderId }
-  });
-}
-```
-
-### Express
-
-```typescript
-import express from 'express';
-import { Novu } from '@novu/node';
-
-const app = express();
-const novu = new Novu(process.env.NOVU_API_KEY);
-
-app.post('/notifications', async (req, res) => {
-  const { userId, orderId } = req.body;
-  
-  await novu.trigger('order-update', {
-    to: userId,
-    payload: { orderId }
-  });
-  
-  res.sendStatus(200);
-});
-```
-
-## Best Practices
-
-1. **Version Control**: Keep workflows in version control
-2. **Environment Variables**: Use environment variables for sensitive data
-3. **Error Handling**: Implement proper error handling and retries
-4. **Testing**: Write tests for your workflows
-5. **Monitoring**: Set up monitoring and alerts 
+<Cards>
+  <Card title="Next.js" icon={<NextjsIcon />} href="/framework/quickstart/nextjs" />
+  <Card title="Express.js" icon={<ExpressjsIcon />} href="/framework/quickstart/express" />
+  <Card title="Remix" icon={<RemixIcon />} href="/framework/quickstart/remix" />
+  <Card title="NestJS" icon={<NestjsIcon />} href="/framework/quickstart/nestjs" />
+  <Card title="Svelte" icon={<SvelteIcon />} href="/framework/quickstart/svelte" />
+  <Card title="Nuxt" icon={<NuxtIcon />} href="/framework/quickstart/nuxt" />
+  <Card title="H3" icon={<H3Icon />} href="/framework/quickstart/h3" />
+  <Card title="Lambda" icon={<LambdaIcon />} href="/framework/quickstart/lambda" />
+</Cards>

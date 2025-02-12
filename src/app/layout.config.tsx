@@ -48,6 +48,12 @@ export const baseOptions: BaseLayoutProps = {
       active: "nested-url",
     },
     {
+      url: "/community",
+      type: "button",
+      text: "Community",
+      active: "nested-url",
+    },
+    {
       url: "/api-reference",
       type: "button",
       text: "API Reference",
@@ -61,9 +67,7 @@ export const baseOptions: BaseLayoutProps = {
             <SignInButton />
           </SignedOut>
           <SignedIn>
-            <Button variant="outline" size="sm">
-              Visit Dashboard
-            </Button>
+            <Button color="secondary">Visit Dashboard</Button>
           </SignedIn>
         </div>
       ),

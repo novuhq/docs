@@ -1,0 +1,16 @@
+### Test Your Workflow
+
+Test your workflow by triggering it from the Local Studio or using the Novu API:
+
+```bash
+curl -X POST https://api.novu.co/v1/events/trigger \
+  -H 'Authorization: ApiKey YOUR_API_KEY' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "name": "my-workflow",
+    "to": "subscriber-id",
+    "payload": {}
+  }'
+```
+
+You should see the notification being processed in your Local Studio. 

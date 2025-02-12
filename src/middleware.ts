@@ -24,6 +24,10 @@ export default async function middleware(
     return NextResponse.redirect(new URL("/platform/quickstart", request.url));
   }
 
+  if (request.nextUrl.pathname === "/community") {
+    return NextResponse.redirect(new URL("/community/overview", request.url));
+  }
+
   if (request.nextUrl.pathname === "/api-reference") {
     return NextResponse.redirect(
       new URL("/api-reference/overview", request.url)
