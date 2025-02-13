@@ -26,10 +26,10 @@ Before you can start integrating Novu into your application, you need to create 
     Import the `Inbox` component and pass the `applicationIdentifier` and `subscriberId` to the component.
 
       
-    ```tsx title="components/inbox.tsx" tab="Next.js"
+    ```tsx title="components/inbox.tsx"
     'use client';
     import React from 'react';
-    import { Inbox } from '@novu/react';
+    import { Inbox } from '@novu/nextjs';
     import { useRouter } from 'next/navigation';
     
     export function NotificationInbox() {
@@ -41,76 +41,6 @@ Before you can start integrating Novu into your application, you need to create 
           subscriberId="YOUR_SUBSCRIBER_ID" // [!code highlight]
           routerPush={(path: string) => router.push(path)} // [!code highlight]
         /> // [!code highlight]
-      );
-    }
-    ```
-    ```tsx title="app.tsx" tab="Remix"
-    import { Inbox } from '@novu/react';
-    import { useNavigate } from '@remix-run/react';
-    
-    function Novu() {
-      const navigate = useNavigate();
-      
-      return (
-        <Inbox
-          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
-          routerPush={(path: string) => navigate(path)}
-        />
-      );
-    }
-    ```
-    ```tsx title="app.tsx" tab="React Router"
-    import { Inbox } from '@novu/react';
-    import { useNavigate } from 'react-router-dom';
-    
-    function Novu() {
-      const navigate = useNavigate();
-      
-      return (
-        <div>
-          {/* Example usage of Inbox component */}
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            routerPush={(path: string) => navigate(path)}
-          />
-        </div>
-      );
-    }
-    ```
-    ```tsx title="app.tsx" tab="Gatsby"
-    import { Inbox } from '@novu/react';
-    import { navigate } from 'gatsby';
-    
-    function Novu() {
-      return (
-        <div>
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            routerPush={(path: string) => navigate(path)}
-          />
-        </div>
-      );
-    }
-    ```
-    ```tsx title="components/inbox.tsx" tab="Create React App"
-    import { Inbox } from '@novu/react';
-    import { useNavigate } from 'react-router-dom';
-    
-    function NotificationInbox() {
-      const navigate = useNavigate();
-      
-      return (
-        <div>
-          {/* Example usage of Inbox component */}
-          <Inbox
-            applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-            subscriberId="YOUR_SUBSCRIBER_ID"
-            routerPush={(path: string) => navigate(path)}
-          />
-        </div>
       );
     }
     ```

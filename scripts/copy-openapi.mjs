@@ -7,7 +7,7 @@ const __dirname = fileURLToPath(new URL('.', import.meta.url));
 async function copyOpenApiFile() {
   try {
     const sourceFile = join(__dirname, '..', 'openapi.json');
-    const targetDir = join(__dirname, '..', '.next');
+    const targetDir = join(__dirname, '..', '.next/server');
     const targetFile = join(targetDir, 'openapi.json');
 
     // Ensure .next directory exists
