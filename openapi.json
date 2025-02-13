@@ -493,7 +493,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.trigger({\n    workflowId: \"workflow_identifier\",\n    payload: {\n      \"comment_id\": \"string\",\n      \"post\": {\n        \"text\": \"string\",\n      },\n    },\n    overrides: {\n      \"fcm\": {\n        \"data\": {\n          \"key\": \"value\",\n        },\n      },\n    },\n    to: {\n      subscriberId: \"\u003cid\u003e\",\n    },\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.trigger({\n    workflowId: \"workflow_identifier\",\n    payload: {\n      \"comment_id\": \"string\",\n      \"post\": {\n        \"text\": \"string\",\n      },\n    },\n    overrides: {\n      \"fcm\": {\n        \"data\": {\n          \"key\": \"value\",\n        },\n      },\n    },\n    to: {\n      subscriberId: \"<id>\",\n    },\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$triggerEventRequestDto = new Components\\TriggerEventRequestDto(\n    workflowId: 'workflow_identifier',\n    payload: [\n        'comment_id' => 'string',\n        'post' => [\n            'text' => 'string',\n        ],\n    ],\n    overrides: [\n        'fcm' => [\n            'data' => [\n                'key' => 'value',\n            ],\n        ],\n    ],\n    to: new Components\\SubscriberPayloadDto(\n        subscriberId: '<id>',\n    ),\n);\n\n$response = $sdk->trigger(\n    triggerEventRequestDto: $triggerEventRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->triggerEventResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Trigger(ctx, components.TriggerEventRequestDto{\n        WorkflowID: \"workflow_identifier\",\n        Payload: map[string]any{\n            \"comment_id\": \"string\",\n            \"post\": map[string]any{\n                \"text\": \"string\",\n            },\n        },\n        Overrides: map[string]map[string]any{\n            \"fcm\": map[string]any{\n                \"data\": map[string]any{\n                    \"key\": \"value\",\n                },\n            },\n        },\n        To: components.CreateToSubscriberPayloadDto(\n            components.SubscriberPayloadDto{\n                SubscriberID: \"<id>\",\n            },\n        ),\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.TriggerEventResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import novu_py\nfrom novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.trigger(trigger_event_request_dto=novu_py.TriggerEventRequestDto(\n        workflow_id=\"workflow_identifier\",\n        payload={\n            \"comment_id\": \"string\",\n            \"post\": {\n                \"text\": \"string\",\n            },\n        },\n        overrides={\n            \"fcm\": {\n                \"data\": {\n                    \"key\": \"value\",\n                },\n            },\n        },\n        to={\n            \"subscriber_id\": \"<id>\",\n        },\n    ))\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -993,7 +1008,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.triggerBulk({\n    events: [\n      {\n        workflowId: \"workflow_identifier\",\n        payload: {\n          \"comment_id\": \"string\",\n          \"post\": {\n            \"text\": \"string\",\n          },\n        },\n        overrides: {\n          \"fcm\": {\n            \"data\": {\n              \"key\": \"value\",\n            },\n          },\n        },\n        to: {\n          subscriberId: \"\u003cid\u003e\",\n        },\n      },\n      {\n        workflowId: \"workflow_identifier\",\n        payload: {\n          \"comment_id\": \"string\",\n          \"post\": {\n            \"text\": \"string\",\n          },\n        },\n        overrides: {\n          \"fcm\": {\n            \"data\": {\n              \"key\": \"value\",\n            },\n          },\n        },\n        to: [\n          {\n            topicKey: \"\u003cvalue\u003e\",\n            type: \"Subscriber\",\n          },\n        ],\n      },\n      {\n        workflowId: \"workflow_identifier\",\n        payload: {\n          \"comment_id\": \"string\",\n          \"post\": {\n            \"text\": \"string\",\n          },\n        },\n        overrides: {\n          \"fcm\": {\n            \"data\": {\n              \"key\": \"value\",\n            },\n          },\n        },\n        to: [\n          \"SUBSCRIBER_ID\",\n          \"SUBSCRIBER_ID\",\n        ],\n      },\n    ],\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.triggerBulk({\n    events: [\n      {\n        workflowId: \"workflow_identifier\",\n        payload: {\n          \"comment_id\": \"string\",\n          \"post\": {\n            \"text\": \"string\",\n          },\n        },\n        overrides: {\n          \"fcm\": {\n            \"data\": {\n              \"key\": \"value\",\n            },\n          },\n        },\n        to: {\n          subscriberId: \"<id>\",\n        },\n      },\n      {\n        workflowId: \"workflow_identifier\",\n        payload: {\n          \"comment_id\": \"string\",\n          \"post\": {\n            \"text\": \"string\",\n          },\n        },\n        overrides: {\n          \"fcm\": {\n            \"data\": {\n              \"key\": \"value\",\n            },\n          },\n        },\n        to: [\n          {\n            topicKey: \"<value>\",\n            type: \"Subscriber\",\n          },\n        ],\n      },\n      {\n        workflowId: \"workflow_identifier\",\n        payload: {\n          \"comment_id\": \"string\",\n          \"post\": {\n            \"text\": \"string\",\n          },\n        },\n        overrides: {\n          \"fcm\": {\n            \"data\": {\n              \"key\": \"value\",\n            },\n          },\n        },\n        to: [\n          \"SUBSCRIBER_ID\",\n          \"SUBSCRIBER_ID\",\n        ],\n      },\n    ],\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$bulkTriggerEventDto = new Components\\BulkTriggerEventDto(\n    events: [\n        new Components\\TriggerEventRequestDto(\n            workflowId: 'workflow_identifier',\n            payload: [\n                'comment_id' => 'string',\n                'post' => [\n                    'text' => 'string',\n                ],\n            ],\n            overrides: [\n                'fcm' => [\n                    'data' => [\n                        'key' => 'value',\n                    ],\n                ],\n            ],\n            to: new Components\\TopicPayloadDto(\n                topicKey: '<value>',\n                type: Components\\TriggerRecipientsTypeEnum::Topic,\n            ),\n        ),\n    ],\n);\n\n$response = $sdk->triggerBulk(\n    bulkTriggerEventDto: $bulkTriggerEventDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->triggerEventResponseDtos !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.TriggerBulk(ctx, components.BulkTriggerEventDto{\n        Events: []components.TriggerEventRequestDto{\n            components.TriggerEventRequestDto{\n                WorkflowID: \"workflow_identifier\",\n                Payload: map[string]any{\n                    \"comment_id\": \"string\",\n                    \"post\": map[string]any{\n                        \"text\": \"string\",\n                    },\n                },\n                Overrides: map[string]map[string]any{\n                    \"fcm\": map[string]any{\n                        \"data\": map[string]any{\n                            \"key\": \"value\",\n                        },\n                    },\n                },\n                To: components.CreateToSubscriberPayloadDto(\n                    components.SubscriberPayloadDto{\n                        SubscriberID: \"<id>\",\n                    },\n                ),\n            },\n            components.TriggerEventRequestDto{\n                WorkflowID: \"workflow_identifier\",\n                Payload: map[string]any{\n                    \"comment_id\": \"string\",\n                    \"post\": map[string]any{\n                        \"text\": \"string\",\n                    },\n                },\n                Overrides: map[string]map[string]any{\n                    \"fcm\": map[string]any{\n                        \"data\": map[string]any{\n                            \"key\": \"value\",\n                        },\n                    },\n                },\n                To: components.CreateToArrayOf1(\n                    []components.One{\n                        components.CreateOneTopicPayloadDto(\n                            components.TopicPayloadDto{\n                                TopicKey: \"<value>\",\n                                Type: components.TriggerRecipientsTypeEnumSubscriber,\n                            },\n                        ),\n                    },\n                ),\n            },\n            components.TriggerEventRequestDto{\n                WorkflowID: \"workflow_identifier\",\n                Payload: map[string]any{\n                    \"comment_id\": \"string\",\n                    \"post\": map[string]any{\n                        \"text\": \"string\",\n                    },\n                },\n                Overrides: map[string]map[string]any{\n                    \"fcm\": map[string]any{\n                        \"data\": map[string]any{\n                            \"key\": \"value\",\n                        },\n                    },\n                },\n                To: components.CreateToArrayOf1(\n                    []components.One{\n                        components.CreateOneStr(\n                            \"SUBSCRIBER_ID\",\n                        ),\n                        components.CreateOneStr(\n                            \"SUBSCRIBER_ID\",\n                        ),\n                    },\n                ),\n            },\n        },\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.TriggerEventResponseDtos != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import novu_py\nfrom novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.trigger_bulk(bulk_trigger_event_dto={\n        \"events\": [\n            novu_py.TriggerEventRequestDto(\n                workflow_id=\"workflow_identifier\",\n                payload={\n                    \"comment_id\": \"string\",\n                    \"post\": {\n                        \"text\": \"string\",\n                    },\n                },\n                overrides={\n                    \"fcm\": {\n                        \"data\": {\n                            \"key\": \"value\",\n                        },\n                    },\n                },\n                to={\n                    \"subscriber_id\": \"<id>\",\n                },\n            ),\n            novu_py.TriggerEventRequestDto(\n                workflow_id=\"workflow_identifier\",\n                payload={\n                    \"comment_id\": \"string\",\n                    \"post\": {\n                        \"text\": \"string\",\n                    },\n                },\n                overrides={\n                    \"fcm\": {\n                        \"data\": {\n                            \"key\": \"value\",\n                        },\n                    },\n                },\n                to=[\n                    {\n                        \"topic_key\": \"<value>\",\n                        \"type\": novu_py.TriggerRecipientsTypeEnum.SUBSCRIBER,\n                    },\n                ],\n            ),\n            novu_py.TriggerEventRequestDto(\n                workflow_id=\"workflow_identifier\",\n                payload={\n                    \"comment_id\": \"string\",\n                    \"post\": {\n                        \"text\": \"string\",\n                    },\n                },\n                overrides={\n                    \"fcm\": {\n                        \"data\": {\n                            \"key\": \"value\",\n                        },\n                    },\n                },\n                to=[\n                    \"SUBSCRIBER_ID\",\n                    \"SUBSCRIBER_ID\",\n                ],\n            ),\n        ],\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -1523,7 +1553,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.triggerBroadcast({\n    name: \"\u003cvalue\u003e\",\n    payload: {\n      \"comment_id\": \"string\",\n      \"post\": {\n        \"text\": \"string\",\n      },\n    },\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.triggerBroadcast({\n    name: \"<value>\",\n    payload: {\n      \"comment_id\": \"string\",\n      \"post\": {\n        \"text\": \"string\",\n      },\n    },\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$triggerEventToAllRequestDto = new Components\\TriggerEventToAllRequestDto(\n    name: '<value>',\n    payload: [\n        'comment_id' => 'string',\n        'post' => [\n            'text' => 'string',\n        ],\n    ],\n    overrides: new Components\\TriggerEventToAllRequestDtoOverrides(),\n);\n\n$response = $sdk->triggerBroadcast(\n    triggerEventToAllRequestDto: $triggerEventToAllRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->triggerEventResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.TriggerBroadcast(ctx, components.TriggerEventToAllRequestDto{\n        Name: \"<value>\",\n        Payload: map[string]any{\n            \"comment_id\": \"string\",\n            \"post\": map[string]any{\n                \"text\": \"string\",\n            },\n        },\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.TriggerEventResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.trigger_broadcast(trigger_event_to_all_request_dto={\n        \"name\": \"<value>\",\n        \"payload\": {\n            \"comment_id\": \"string\",\n            \"post\": {\n                \"text\": \"string\",\n            },\n        },\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -2018,7 +2063,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.cancel(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.cancel(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->cancel(\n    transactionId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->dataBooleanDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Cancel(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.DataBooleanDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.cancel(transaction_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -2595,6 +2655,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.notifications.list({});\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Operations;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$request = new Operations\\NotificationsControllerListNotificationsRequest();\n\n$response = $sdk->notifications->list(\n    request: $request\n);\n\nif ($response->activitiesResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Notifications.List(ctx, operations.NotificationsControllerListNotificationsRequest{})\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.ActivitiesResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.notifications.list(request={})\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -3077,6 +3152,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.notifications.stats.retrieve();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->notifications->stats->get(\n    idempotencyKey: '<value>'\n);\n\nif ($response->activityStatsResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Notifications.Stats.Retrieve(ctx, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.ActivityStatsResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.notifications.stats.retrieve()\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -3571,6 +3661,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.notifications.stats.graph();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->notificationsStats->getGraph(\n    days: 517.81,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->activityGraphStatesResponses !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Notifications.Stats.Graph(ctx, nil, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.ActivityGraphStatesResponses != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.notifications.stats.graph()\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -4059,7 +4164,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.notifications.retrieve(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.notifications.retrieve(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->notifications->get(\n    notificationId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->activityNotificationResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Notifications.Retrieve(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.ActivityNotificationResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.notifications.retrieve(notification_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -4545,6 +4665,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.list();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->integrations->list(\n    idempotencyKey: '<value>'\n);\n\nif ($response->integrationResponseDtos !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Integrations.List(ctx, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.IntegrationResponseDtos != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.integrations.list()\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -5034,7 +5169,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.create({\n    providerId: \"\u003cid\u003e\",\n    channel: \"sms\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.create({\n    providerId: \"<id>\",\n    channel: \"sms\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$createIntegrationRequestDto = new Components\\CreateIntegrationRequestDto(\n    providerId: '<id>',\n    channel: Components\\CreateIntegrationRequestDtoChannel::Sms,\n);\n\n$response = $sdk->integrations->create(\n    createIntegrationRequestDto: $createIntegrationRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->integrationResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Integrations.Create(ctx, components.CreateIntegrationRequestDto{\n        ProviderID: \"<id>\",\n        Channel: components.CreateIntegrationRequestDtoChannelSms,\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.IntegrationResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import novu_py\nfrom novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.integrations.create(create_integration_request_dto={\n        \"provider_id\": \"<id>\",\n        \"channel\": novu_py.CreateIntegrationRequestDtoChannel.SMS,\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -5521,6 +5671,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.listActive();\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->integrations->listActive(\n    idempotencyKey: '<value>'\n);\n\nif ($response->integrationResponseDtos !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Integrations.ListActive(ctx, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.IntegrationResponseDtos != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.integrations.list_active()\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -6011,7 +6176,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.webhooks.retrieve(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.webhooks.retrieve(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->integrations->webhooks->getSupportStatus(\n    providerOrIntegrationId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->boolean !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Integrations.Webhooks.Retrieve(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.Boolean != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.integrations.webhooks.retrieve(provider_or_integration_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -6503,7 +6683,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.update({}, \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.update({}, \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$updateIntegrationRequestDto = new Components\\UpdateIntegrationRequestDto();\n\n$response = $sdk->integrations->update(\n    integrationId: '<id>',\n    updateIntegrationRequestDto: $updateIntegrationRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->integrationResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Integrations.Update(ctx, \"<id>\", components.UpdateIntegrationRequestDto{}, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.IntegrationResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.integrations.update(integration_id=\"<id>\", update_integration_request_dto={})\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -6993,7 +7188,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.delete(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.delete(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->integrations->delete(\n    integrationId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->integrationResponseDtos !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Integrations.Delete(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.IntegrationResponseDtos != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.integrations.delete(integration_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -7476,7 +7686,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.setAsPrimary(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.integrations.setAsPrimary(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->integrations->setAsPrimary(\n    integrationId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->integrationResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Integrations.SetAsPrimary(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.IntegrationResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.integrations.set_as_primary(integration_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -8009,6 +8234,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.list();\n\n  for await (const page of result) {\n    // Handle the page\n    console.log(page);\n  }\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$responses = $sdk->subscribers->list(\n    page: 7685.78,\n    limit: 10,\n    idempotencyKey: '<value>'\n\n);\n\n\nforeach ($responses as $response) {\n    if ($response->statusCode === 200) {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.List(ctx, nil, nil, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.Object != nil {\n        for {\n            // handle items\n\n            res, err = res.Next()\n\n            if err != nil {\n                // handle error\n            }\n\n            if res == nil {\n                break\n            }\n        }\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.list()\n\n    while res is not None:\n        # Handle items\n\n        res = res.next()"
           }
         ]
       }
@@ -8501,7 +8741,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.createBulk({\n    subscribers: [\n      {\n        subscriberId: \"\u003cid\u003e\",\n      },\n    ],\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.createBulk({\n    subscribers: [\n      {\n        subscriberId: \"<id>\",\n      },\n    ],\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$bulkSubscriberCreateDto = new Components\\BulkSubscriberCreateDto(\n    subscribers: [\n        new Components\\CreateSubscriberRequestDto(\n            subscriberId: '<id>',\n        ),\n    ],\n);\n\n$response = $sdk->subscribers->createBulk(\n    bulkSubscriberCreateDto: $bulkSubscriberCreateDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->bulkCreateSubscriberResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.CreateBulk(ctx, components.BulkSubscriberCreateDto{\n        Subscribers: []components.CreateSubscriberRequestDto{\n            components.CreateSubscriberRequestDto{\n                SubscriberID: \"<id>\",\n            },\n        },\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.BulkCreateSubscriberResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.create_bulk(bulk_subscriber_create_dto={\n        \"subscribers\": [\n            {\n                \"subscriber_id\": \"<id>\",\n            },\n        ],\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -9002,7 +9257,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.credentials.update({\n    providerId: \"pushpad\",\n    credentials: {\n      webhookUrl: \"https://example.com/webhook\",\n      channel: \"general\",\n      deviceTokens: [\n        \"token1\",\n        \"token2\",\n        \"token3\",\n      ],\n      alertUid: \"12345-abcde\",\n      title: \"Critical Alert\",\n      imageUrl: \"https://example.com/image.png\",\n      state: \"resolved\",\n      externalUrl: \"https://example.com/details\",\n    },\n  }, \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.credentials.update({\n    providerId: \"pushpad\",\n    credentials: {\n      webhookUrl: \"https://example.com/webhook\",\n      channel: \"general\",\n      deviceTokens: [\n        \"token1\",\n        \"token2\",\n        \"token3\",\n      ],\n      alertUid: \"12345-abcde\",\n      title: \"Critical Alert\",\n      imageUrl: \"https://example.com/image.png\",\n      state: \"resolved\",\n      externalUrl: \"https://example.com/details\",\n    },\n  }, \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$updateSubscriberChannelRequestDto = new Components\\UpdateSubscriberChannelRequestDto(\n    providerId: Components\\UpdateSubscriberChannelRequestDtoProviderId::PushWebhook,\n    credentials: new Components\\ChannelCredentials(\n        webhookUrl: 'https://example.com/webhook',\n        channel: 'general',\n        deviceTokens: [\n            'token1',\n            'token2',\n            'token3',\n        ],\n        alertUid: '12345-abcde',\n        title: 'Critical Alert',\n        imageUrl: 'https://example.com/image.png',\n        state: 'resolved',\n        externalUrl: 'https://example.com/details',\n    ),\n);\n\n$response = $sdk->subscribers->updateCredentials(\n    subscriberId: '<id>',\n    updateSubscriberChannelRequestDto: $updateSubscriberChannelRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->subscriberResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Credentials.Update(ctx, \"<id>\", components.UpdateSubscriberChannelRequestDto{\n        ProviderID: components.UpdateSubscriberChannelRequestDtoProviderIDPushpad,\n        Credentials: components.ChannelCredentials{\n            WebhookURL: novugo.String(\"https://example.com/webhook\"),\n            Channel: novugo.String(\"general\"),\n            DeviceTokens: []string{\n                \"token1\",\n                \"token2\",\n                \"token3\",\n            },\n            AlertUID: novugo.String(\"12345-abcde\"),\n            Title: novugo.String(\"Critical Alert\"),\n            ImageURL: novugo.String(\"https://example.com/image.png\"),\n            State: novugo.String(\"resolved\"),\n            ExternalURL: novugo.String(\"https://example.com/details\"),\n        },\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.SubscriberResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import novu_py\nfrom novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.credentials.update(subscriber_id=\"<id>\", update_subscriber_channel_request_dto={\n        \"provider_id\": novu_py.UpdateSubscriberChannelRequestDtoProviderID.PUSHPAD,\n        \"credentials\": {\n            \"webhook_url\": \"https://example.com/webhook\",\n            \"channel\": \"general\",\n            \"device_tokens\": [\n                \"token1\",\n                \"token2\",\n                \"token3\",\n            ],\n            \"alert_uid\": \"12345-abcde\",\n            \"title\": \"Critical Alert\",\n            \"image_url\": \"https://example.com/image.png\",\n            \"state\": \"resolved\",\n            \"external_url\": \"https://example.com/details\",\n        },\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -9502,7 +9772,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.credentials.append({\n    providerId: \"zulip\",\n    credentials: {\n      webhookUrl: \"https://example.com/webhook\",\n      channel: \"general\",\n      deviceTokens: [\n        \"token1\",\n        \"token2\",\n        \"token3\",\n      ],\n      alertUid: \"12345-abcde\",\n      title: \"Critical Alert\",\n      imageUrl: \"https://example.com/image.png\",\n      state: \"resolved\",\n      externalUrl: \"https://example.com/details\",\n    },\n  }, \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.credentials.append({\n    providerId: \"zulip\",\n    credentials: {\n      webhookUrl: \"https://example.com/webhook\",\n      channel: \"general\",\n      deviceTokens: [\n        \"token1\",\n        \"token2\",\n        \"token3\",\n      ],\n      alertUid: \"12345-abcde\",\n      title: \"Critical Alert\",\n      imageUrl: \"https://example.com/image.png\",\n      state: \"resolved\",\n      externalUrl: \"https://example.com/details\",\n    },\n  }, \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$updateSubscriberChannelRequestDto = new Components\\UpdateSubscriberChannelRequestDto(\n    providerId: Components\\UpdateSubscriberChannelRequestDtoProviderId::Zulip,\n    credentials: new Components\\ChannelCredentials(\n        webhookUrl: 'https://example.com/webhook',\n        channel: 'general',\n        deviceTokens: [\n            'token1',\n            'token2',\n            'token3',\n        ],\n        alertUid: '12345-abcde',\n        title: 'Critical Alert',\n        imageUrl: 'https://example.com/image.png',\n        state: 'resolved',\n        externalUrl: 'https://example.com/details',\n    ),\n);\n\n$response = $sdk->subscribersCredentials->append(\n    subscriberId: '<id>',\n    updateSubscriberChannelRequestDto: $updateSubscriberChannelRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->subscriberResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Credentials.Append(ctx, \"<id>\", components.UpdateSubscriberChannelRequestDto{\n        ProviderID: components.UpdateSubscriberChannelRequestDtoProviderIDZulip,\n        Credentials: components.ChannelCredentials{\n            WebhookURL: novugo.String(\"https://example.com/webhook\"),\n            Channel: novugo.String(\"general\"),\n            DeviceTokens: []string{\n                \"token1\",\n                \"token2\",\n                \"token3\",\n            },\n            AlertUID: novugo.String(\"12345-abcde\"),\n            Title: novugo.String(\"Critical Alert\"),\n            ImageURL: novugo.String(\"https://example.com/image.png\"),\n            State: novugo.String(\"resolved\"),\n            ExternalURL: novugo.String(\"https://example.com/details\"),\n        },\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.SubscriberResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import novu_py\nfrom novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.credentials.append(subscriber_id=\"<id>\", update_subscriber_channel_request_dto={\n        \"provider_id\": novu_py.UpdateSubscriberChannelRequestDtoProviderID.ZULIP,\n        \"credentials\": {\n            \"webhook_url\": \"https://example.com/webhook\",\n            \"channel\": \"general\",\n            \"device_tokens\": [\n                \"token1\",\n                \"token2\",\n                \"token3\",\n            ],\n            \"alert_uid\": \"12345-abcde\",\n            \"title\": \"Critical Alert\",\n            \"image_url\": \"https://example.com/image.png\",\n            \"state\": \"resolved\",\n            \"external_url\": \"https://example.com/details\",\n        },\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -9994,7 +10279,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.credentials.delete(\"\u003cid\u003e\", \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.credentials.delete(\"<id>\", \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->subscribersCredentials->deleteProvider(\n    subscriberId: '<id>',\n    providerId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->statusCode === 200) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Credentials.Delete(ctx, \"<id>\", \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.credentials.delete(subscriber_id=\"<id>\", provider_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -10496,7 +10796,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.properties.updateOnlineFlag({\n    isOnline: false,\n  }, \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.properties.updateOnlineFlag({\n    isOnline: false,\n  }, \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$updateSubscriberOnlineFlagRequestDto = new Components\\UpdateSubscriberOnlineFlagRequestDto(\n    isOnline: false,\n);\n\n$response = $sdk->subscribers->updateOnlineStatus(\n    subscriberId: '<id>',\n    updateSubscriberOnlineFlagRequestDto: $updateSubscriberOnlineFlagRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->subscriberResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Properties.UpdateOnlineFlag(ctx, \"<id>\", components.UpdateSubscriberOnlineFlagRequestDto{\n        IsOnline: false,\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.SubscriberResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.properties.update_online_flag(subscriber_id=\"<id>\", update_subscriber_online_flag_request_dto={\n        \"is_online\": False,\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -11031,7 +11346,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.notifications.feed({\n    subscriberId: \"\u003cid\u003e\",\n    payload: \"btoa(JSON.stringify({ foo: 123 })) results in base64 encoded string like eyJmb28iOjEyM30=\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.notifications.feed({\n    subscriberId: \"<id>\",\n    payload: \"btoa(JSON.stringify({ foo: 123 })) results in base64 encoded string like eyJmb28iOjEyM30=\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Operations;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$request = new Operations\\SubscribersV1ControllerGetNotificationsFeedRequest(\n    subscriberId: '<id>',\n    payload: 'btoa(JSON.stringify({ foo: 123 })) results in base64 encoded string like eyJmb28iOjEyM30=',\n);\n\n$response = $sdk->subscribers->notifications->getFeed(\n    request: $request\n);\n\nif ($response->feedResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Notifications.Feed(ctx, operations.SubscribersV1ControllerGetNotificationsFeedRequest{\n        SubscriberID: \"<id>\",\n        Payload: novugo.String(\"btoa(JSON.stringify({ foo: 123 })) results in base64 encoded string like eyJmb28iOjEyM30=\"),\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.FeedResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.notifications.feed(request={\n        \"subscriber_id\": \"<id>\",\n        \"payload\": \"btoa(JSON.stringify({ foo: 123 })) results in base64 encoded string like eyJmb28iOjEyM30=\",\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -11542,7 +11872,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.notifications.unseenCount({\n    subscriberId: \"\u003cid\u003e\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.notifications.unseenCount({\n    subscriberId: \"<id>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->subscribersNotifications->getUnseenCount(\n    subscriberId: '<id>',\n    seen: false,\n    limit: 100,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->unseenCountResponse !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Notifications.UnseenCount(ctx, \"<id>\", nil, nil, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.UnseenCountResponse != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.notifications.unseen_count(subscriber_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -12046,7 +12391,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.messages.markAllAs({\n    messageId: \"\u003cid\u003e\",\n    markAs: \"unread\",\n  }, \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.messages.markAllAs({\n    messageId: \"<id>\",\n    markAs: \"unread\",\n  }, \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$messageMarkAsRequestDto = new Components\\MessageMarkAsRequestDto(\n    messageId: '<id>',\n    markAs: Components\\MarkAs::Unread,\n);\n\n$response = $sdk->subscribers->messages->markAllAs(\n    subscriberId: '<id>',\n    messageMarkAsRequestDto: $messageMarkAsRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->messageResponseDtos !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Messages.MarkAllAs(ctx, \"<id>\", components.MessageMarkAsRequestDto{\n        MessageID: components.CreateMessageIDStr(\n            \"<id>\",\n        ),\n        MarkAs: components.MarkAsUnread,\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.MessageResponseDtos != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import novu_py\nfrom novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.messages.mark_all_as(subscriber_id=\"<id>\", message_mark_as_request_dto={\n        \"message_id\": \"<id>\",\n        \"mark_as\": novu_py.MarkAs.UNREAD,\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -12547,7 +12907,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.messages.markAll({\n    markAs: \"seen\",\n  }, \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.messages.markAll({\n    markAs: \"seen\",\n  }, \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$markAllMessageAsRequestDto = new Components\\MarkAllMessageAsRequestDto(\n    markAs: Components\\MarkAllMessageAsRequestDtoMarkAs::Seen,\n);\n\n$response = $sdk->subscribersMessages->markAll(\n    subscriberId: '<id>',\n    markAllMessageAsRequestDto: $markAllMessageAsRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->number !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Messages.MarkAll(ctx, \"<id>\", components.MarkAllMessageAsRequestDto{\n        MarkAs: components.MarkAllMessageAsRequestDtoMarkAsSeen,\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.Number != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import novu_py\nfrom novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.messages.mark_all(subscriber_id=\"<id>\", mark_all_message_as_request_dto={\n        \"mark_as\": novu_py.MarkAllMessageAsRequestDtoMarkAs.SEEN,\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -13062,7 +13437,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.messages.updateAsSeen({\n    messageId: \"\u003cid\u003e\",\n    type: \"\u003cvalue\u003e\",\n    subscriberId: \"\u003cid\u003e\",\n    markMessageActionAsSeenDto: {\n      status: \"done\",\n    },\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.messages.updateAsSeen({\n    messageId: \"<id>\",\n    type: \"<value>\",\n    subscriberId: \"<id>\",\n    markMessageActionAsSeenDto: {\n      status: \"done\",\n    },\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\nuse novu\\Models\\Operations;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$request = new Operations\\SubscribersV1ControllerMarkActionAsSeenRequest(\n    messageId: '<id>',\n    type: '<value>',\n    subscriberId: '<id>',\n    markMessageActionAsSeenDto: new Components\\MarkMessageActionAsSeenDto(\n        status: Components\\MarkMessageActionAsSeenDtoStatus::Done,\n    ),\n);\n\n$response = $sdk->subscribers->messages->updateAsSeen(\n    request: $request\n);\n\nif ($response->messageResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"github.com/novuhq/novu-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Messages.UpdateAsSeen(ctx, operations.SubscribersV1ControllerMarkActionAsSeenRequest{\n        MessageID: \"<id>\",\n        Type: \"<value>\",\n        SubscriberID: \"<id>\",\n        MarkMessageActionAsSeenDto: components.MarkMessageActionAsSeenDto{\n            Status: components.MarkMessageActionAsSeenDtoStatusDone,\n        },\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.MessageResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "import novu_py\nfrom novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.messages.update_as_seen(request={\n        \"message_id\": \"<id>\",\n        \"type\": \"<value>\",\n        \"subscriber_id\": \"<id>\",\n        \"mark_message_action_as_seen_dto\": {\n            \"status\": novu_py.MarkMessageActionAsSeenDtoStatus.DONE,\n        },\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -13635,7 +14025,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.authentication.chatAccessOauthCallBack({\n    subscriberId: \"\u003cid\u003e\",\n    providerId: \"\u003cid\u003e\",\n    hmacHash: \"\u003cvalue\u003e\",\n    environmentId: \"\u003cid\u003e\",\n    code: \"\u003cvalue\u003e\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.authentication.chatAccessOauthCallBack({\n    subscriberId: \"<id>\",\n    providerId: \"<id>\",\n    hmacHash: \"<value>\",\n    environmentId: \"<id>\",\n    code: \"<value>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Operations;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$request = new Operations\\SubscribersV1ControllerChatOauthCallbackRequest(\n    subscriberId: '<id>',\n    providerId: '<value>',\n    hmacHash: '<value>',\n    environmentId: '<id>',\n    code: '<value>',\n);\n\n$response = $sdk->subscribers->authentication->handleOauthCallback(\n    request: $request\n);\n\nif ($response->res !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Authentication.ChatAccessOauthCallBack(ctx, operations.SubscribersV1ControllerChatOauthCallbackRequest{\n        SubscriberID: \"<id>\",\n        ProviderID: \"<id>\",\n        HmacHash: \"<value>\",\n        EnvironmentID: \"<id>\",\n        Code: \"<value>\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.Res != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.authentication.chat_access_oauth_call_back(request={\n        \"subscriber_id\": \"<id>\",\n        \"provider_id\": \"<id>\",\n        \"hmac_hash\": \"<value>\",\n        \"environment_id\": \"<id>\",\n        \"code\": \"<value>\",\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -14129,7 +14534,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.authentication.chatAccessOauth({\n    subscriberId: \"\u003cid\u003e\",\n    providerId: \"\u003cid\u003e\",\n    hmacHash: \"\u003cvalue\u003e\",\n    environmentId: \"\u003cid\u003e\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.authentication.chatAccessOauth({\n    subscriberId: \"<id>\",\n    providerId: \"<id>\",\n    hmacHash: \"<value>\",\n    environmentId: \"<id>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Operations;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$request = new Operations\\SubscribersV1ControllerChatAccessOauthRequest(\n    subscriberId: '<id>',\n    providerId: '<value>',\n    hmacHash: '<value>',\n    environmentId: '<id>',\n);\n\n$response = $sdk->subscribersAuthentication->chatAccessOauth(\n    request: $request\n);\n\nif ($response->statusCode === 200) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Authentication.ChatAccessOauth(ctx, operations.SubscribersV1ControllerChatAccessOauthRequest{\n        SubscriberID: \"<id>\",\n        ProviderID: \"<id>\",\n        HmacHash: \"<value>\",\n        EnvironmentID: \"<id>\",\n    })\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.authentication.chat_access_oauth(request={\n        \"subscriber_id\": \"<id>\",\n        \"provider_id\": \"<id>\",\n        \"hmac_hash\": \"<value>\",\n        \"environment_id\": \"<id>\",\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -14692,6 +15112,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.search({});\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Operations;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$request = new Operations\\SubscribersControllerSearchSubscribersRequest();\n\n$response = $sdk->subscribers->search(\n    request: $request\n);\n\nif ($response->listSubscribersResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Search(ctx, operations.SubscribersControllerSearchSubscribersRequest{})\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.ListSubscribersResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.search()\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -15182,7 +15617,7 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.create({\n    subscriberId: \"\u003cid\u003e\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.create({\n    subscriberId: \"<id>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
           }
         ]
       }
@@ -15673,7 +16108,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.retrieve(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.retrieve(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->subscribers->get(\n    subscriberId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->subscriberResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Retrieve(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.SubscriberResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.retrieve(subscriber_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -16172,7 +16622,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.patch({}, \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.patch({}, \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$patchSubscriberRequestDto = new Components\\PatchSubscriberRequestDto();\n\n$response = $sdk->subscribers->patch(\n    subscriberId: '<id>',\n    patchSubscriberRequestDto: $patchSubscriberRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->subscriberResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Patch(ctx, \"<id>\", components.PatchSubscriberRequestDto{}, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.SubscriberResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.patch(subscriber_id=\"<id>\", patch_subscriber_request_dto={})\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -16661,7 +17126,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.delete(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.delete(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->subscribers->delete(\n    subscriberId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->removeSubscriberResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Delete(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.RemoveSubscriberResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.delete(subscriber_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -17153,7 +17633,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.preferences.list(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.preferences.list(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->subscribersPreferences->retrieve(\n    subscriberId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->getSubscriberPreferencesDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Preferences.Retrieve(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.GetSubscriberPreferencesDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.preferences.retrieve(subscriber_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -17653,7 +18148,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.preferences.update({\n    channels: {},\n  }, \"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.subscribers.preferences.update({\n    channels: {},\n  }, \"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$patchSubscriberPreferencesDto = new Components\\PatchSubscriberPreferencesDto(\n    channels: new Components\\PatchPreferenceChannelsDto(),\n);\n\n$response = $sdk->subscribers->updatePreferences(\n    subscriberId: '<id>',\n    patchSubscriberPreferencesDto: $patchSubscriberPreferencesDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->getSubscriberPreferencesDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Subscribers.Preferences.Update(ctx, \"<id>\", components.PatchSubscriberPreferencesDto{\n        Channels: components.PatchPreferenceChannelsDto{},\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.GetSubscriberPreferencesDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.subscribers.preferences.update(subscriber_id=\"<id>\", patch_subscriber_preferences_dto={\n        \"channels\": {},\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -18181,6 +18691,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.messages.retrieve({});\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Operations;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$request = new Operations\\MessagesControllerGetMessagesRequest();\n\n$response = $sdk->messages->get(\n    request: $request\n);\n\nif ($response->activitiesResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/operations\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Messages.Retrieve(ctx, operations.MessagesControllerGetMessagesRequest{})\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.ActivitiesResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.messages.retrieve(request={})\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -18670,7 +19195,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.messages.delete(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.messages.delete(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->messages->delete(\n    messageId: '<id>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->deleteMessageResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Messages.Delete(ctx, \"<id>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.DeleteMessageResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.messages.delete(message_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -19170,7 +19710,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.messages.deleteByTransactionId(\"\u003cid\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.messages.deleteByTransactionId(\"<id>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Operations;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->messages->deleteByTransactionId(\n    transactionId: '<id>',\n    channel: Operations\\Channel::Push,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->statusCode === 200) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Messages.DeleteByTransactionID(ctx, \"<id>\", nil, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.messages.delete_by_transaction_id(transaction_id=\"<id>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -19662,7 +20217,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.create({\n    key: \"\u003ckey\u003e\",\n    name: \"\u003cvalue\u003e\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.create({\n    key: \"<key>\",\n    name: \"<value>\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$createTopicRequestDto = new Components\\CreateTopicRequestDto(\n    key: '<key>',\n    name: '<value>',\n);\n\n$response = $sdk->topics->create(\n    createTopicRequestDto: $createTopicRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->createTopicResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Topics.Create(ctx, components.CreateTopicRequestDto{\n        Key: \"<key>\",\n        Name: \"<value>\",\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.CreateTopicResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.topics.create(create_topic_request_dto={\n        \"key\": \"<key>\",\n        \"name\": \"<value>\",\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -20177,6 +20747,21 @@
             "lang": "typescript",
             "label": "TypeScript",
             "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.list({\n    key: \"exampleKey\",\n  });\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->topics->list(\n    page: 0,\n    pageSize: 10,\n    key: 'exampleKey',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->filterTopicsResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Topics.List(ctx, nil, nil, novugo.String(\"exampleKey\"), nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.FilterTopicsResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.topics.list(key=\"exampleKey\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -20679,7 +21264,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.subscribers.assign({\n    subscribers: [\n      \"\u003cvalue\u003e\",\n      \"\u003cvalue\u003e\",\n      \"\u003cvalue\u003e\",\n    ],\n  }, \"\u003cvalue\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.subscribers.assign({\n    subscribers: [\n      \"<value>\",\n      \"<value>\",\n      \"<value>\",\n    ],\n  }, \"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$addSubscribersRequestDto = new Components\\AddSubscribersRequestDto(\n    subscribers: [\n        '<value>',\n    ],\n);\n\n$response = $sdk->topics->subscribers->assign(\n    topicKey: '<value>',\n    addSubscribersRequestDto: $addSubscribersRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->assignSubscriberToTopicDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Topics.Subscribers.Assign(ctx, \"<value>\", components.AddSubscribersRequestDto{\n        Subscribers: []string{\n            \"<value>\",\n            \"<value>\",\n            \"<value>\",\n        },\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.AssignSubscriberToTopicDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.topics.subscribers.assign(topic_key=\"<value>\", add_subscribers_request_dto={\n        \"subscribers\": [\n            \"<value>\",\n            \"<value>\",\n            \"<value>\",\n        ],\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -21180,7 +21780,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.subscribers.retrieve(\"\u003cid\u003e\", \"\u003cvalue\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.subscribers.retrieve(\"<id>\", \"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->topicsSubscribers->check(\n    externalSubscriberId: '<id>',\n    topicKey: '<value>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->topicSubscriberDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Topics.Subscribers.Retrieve(ctx, \"<id>\", \"<value>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.TopicSubscriberDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.topics.subscribers.retrieve(external_subscriber_id=\"<id>\", topic_key=\"<value>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -21676,7 +22291,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.subscribers.remove({\n    subscribers: [\n      \"\u003cvalue\u003e\",\n      \"\u003cvalue\u003e\",\n    ],\n  }, \"\u003cvalue\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.subscribers.remove({\n    subscribers: [\n      \"<value>\",\n      \"<value>\",\n    ],\n  }, \"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$removeSubscribersRequestDto = new Components\\RemoveSubscribersRequestDto(\n    subscribers: [\n        '<value>',\n    ],\n);\n\n$response = $sdk->topics->subscribers->remove(\n    topicKey: '<value>',\n    removeSubscribersRequestDto: $removeSubscribersRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->statusCode === 200) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Topics.Subscribers.Remove(ctx, \"<value>\", components.RemoveSubscribersRequestDto{\n        Subscribers: []string{\n            \"<value>\",\n            \"<value>\",\n        },\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.topics.subscribers.remove(topic_key=\"<value>\", remove_subscribers_request_dto={\n        \"subscribers\": [\n            \"<value>\",\n            \"<value>\",\n        ],\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -22160,7 +22790,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.delete(\"\u003cvalue\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.delete(\"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->topics->delete(\n    topicKey: '<value>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->statusCode === 200) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Topics.Delete(ctx, \"<value>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.topics.delete(topic_key=\"<value>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -22649,7 +23294,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.retrieve(\"\u003cvalue\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.retrieve(\"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n\n\n$response = $sdk->topics->get(\n    topicKey: '<value>',\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->getTopicResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Topics.Retrieve(ctx, \"<value>\", nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.GetTopicResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.topics.retrieve(topic_key=\"<value>\")\n\n    # Handle response\n    print(res)"
           }
         ]
       },
@@ -23149,7 +23809,22 @@
           {
             "lang": "typescript",
             "label": "TypeScript",
-            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.rename({\n    name: \"\u003cvalue\u003e\",\n  }, \"\u003cvalue\u003e\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+            "source": "import { Novu } from \"@novu/api\";\n\nconst novu = new Novu({\n  secretKey: \"YOUR_SECRET_KEY_HERE\",\n});\n\nasync function run() {\n  const result = await novu.topics.rename({\n    name: \"<value>\",\n  }, \"<value>\");\n\n  // Handle the result\n  console.log(result);\n}\n\nrun();"
+          },
+          {
+            "lang": "php",
+            "label": "PHP",
+            "source": "declare(strict_types=1);\n\nrequire 'vendor/autoload.php';\n\nuse novu;\nuse novu\\Models\\Components;\n\n$sdk = novu\\Novu::builder()\n    ->setSecurity(\n        '<YOUR_API_KEY_HERE>'\n    )\n    ->build();\n\n$renameTopicRequestDto = new Components\\RenameTopicRequestDto(\n    name: '<value>',\n);\n\n$response = $sdk->topics->rename(\n    topicKey: '<value>',\n    renameTopicRequestDto: $renameTopicRequestDto,\n    idempotencyKey: '<value>'\n\n);\n\nif ($response->renameTopicResponseDto !== null) {\n    // handle response\n}"
+          },
+          {
+            "lang": "go",
+            "label": "Go",
+            "source": "package main\n\nimport(\n\t\"context\"\n\t\"os\"\n\tnovugo \"github.com/novuhq/novu-go\"\n\t\"github.com/novuhq/novu-go/models/components\"\n\t\"log\"\n)\n\nfunc main() {\n    ctx := context.Background()\n    \n    s := novugo.New(\n        novugo.WithSecurity(os.Getenv(\"NOVU_SECRET_KEY\")),\n    )\n\n    res, err := s.Topics.Rename(ctx, \"<value>\", components.RenameTopicRequestDto{\n        Name: \"<value>\",\n    }, nil)\n    if err != nil {\n        log.Fatal(err)\n    }\n    if res.RenameTopicResponseDto != nil {\n        // handle response\n    }\n}"
+          },
+          {
+            "lang": "python",
+            "label": "Python",
+            "source": "from novu_py import Novu\nimport os\n\nwith Novu(\n    secret_key=os.getenv(\"NOVU_SECRET_KEY\", \"\"),\n) as novu:\n\n    res = novu.topics.rename(topic_key=\"<value>\", rename_topic_request_dto={\n        \"name\": \"<value>\",\n    })\n\n    # Handle response\n    print(res)"
           }
         ]
       }
@@ -23306,7 +23981,7 @@
         "type": "apiKey",
         "name": "Authorization",
         "in": "header",
-        "description": "API key authentication. Allowed headers-- \"Authorization: ApiKey \u003capi_key\u003e\".",
+        "description": "API key authentication. Allowed headers-- \"Authorization: ApiKey <api_key>\".",
         "x-speakeasy-example": "YOUR_SECRET_KEY_HERE"
       }
     },
@@ -23823,7 +24498,7 @@
                 "text": "string"
               }
             },
-            "description": "The payload object is used to pass additional information that \n    could be used to render the template, or perform routing rules based on it. \n      For In-App channel, payload data are also available in \u003cInbox /\u003e",
+            "description": "The payload object is used to pass additional information that \n    could be used to render the template, or perform routing rules based on it. \n      For In-App channel, payload data are also available in <Inbox />",
             "additionalProperties": true
           },
           "overrides": {
