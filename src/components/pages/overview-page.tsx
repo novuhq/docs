@@ -18,7 +18,7 @@ export function OverviewPage() {
       <div className="container mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-[500] tracking-tight mb-1">
+          <h1 className="text-4xl font-[500] tracking-tight mb-1 text-foreground">
             Documentation
           </h1>
           <p className="text-lg text-muted-foreground mb-4 max-w-2xl mx-auto leading-normal font-[300] mt-0">
@@ -26,10 +26,8 @@ export function OverviewPage() {
             into your application.
           </p>
           <div className="flex gap-3 justify-center">
-            <Button className="rounded-md bg-[#111827] text-white hover:bg-[#111827]/90">
-              Get started
-            </Button>
-            <Button color="outline" className="rounded-md">
+            <Button className="rounded-md">Get started</Button>
+            <Button color="secondary" className="rounded-md">
               Browse examples
             </Button>
           </div>
@@ -43,15 +41,15 @@ export function OverviewPage() {
               href="/docs/getting-started"
               className="group no-underline block"
             >
-              <div className="relative flex flex-col p-5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all duration-300 gap-5">
-                <div className="flex size-11 items-center justify-center rounded-md border border-dotted border-product-divider dark:border-product-divider-inverse-subtle">
-                  <Book className="w-5 h-5 text-indigo-600" />
+              <div className="relative flex flex-col p-5 rounded-lg border border-border hover:bg-accent transition-all duration-300 gap-5">
+                <div className="flex size-11 items-center justify-center rounded-md border border-dotted border-border">
+                  <Book className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div className="mt-auto max-w-xl">
-                  <h2 className="text-base font-medium text-slate-900 mb-0 mt-0">
+                  <h2 className="text-base font-medium text-foreground mb-0 mt-0">
                     Get started
                   </h2>
-                  <p className="text-sm text-[#57565d] font-[300] leading-normal mb-0">
+                  <p className="text-sm text-muted-foreground font-[300] leading-normal mb-0">
                     Learn how to install and configure Novu into your project.
                   </p>
                 </div>
@@ -62,15 +60,15 @@ export function OverviewPage() {
               href="/docs/platform/authentication"
               className="group no-underline block"
             >
-              <div className="relative flex flex-col p-5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all duration-300 gap-5">
-                <div className="flex size-11 items-center justify-center rounded-md border border-dotted border-product-divider dark:border-product-divider-inverse-subtle">
-                  <Key className="w-5 h-5 text-indigo-600" />
+              <div className="relative flex flex-col p-5 rounded-lg border border-border hover:bg-accent transition-all duration-300 gap-5">
+                <div className="flex size-11 items-center justify-center rounded-md border border-dotted border-border">
+                  <Key className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div className="mt-auto max-w-xl">
-                  <h2 className="text-base font-medium text-slate-900 mb-0 mt-0">
+                  <h2 className="text-base font-medium text-foreground mb-0 mt-0">
                     Authentication
                   </h2>
-                  <p className="text-sm text-[#57565d] font-[300] leading-normal mb-0">
+                  <p className="text-sm text-muted-foreground font-[300] leading-normal mb-0">
                     Learn how to secure your Novu app and manage API keys.
                   </p>
                 </div>
@@ -84,15 +82,15 @@ export function OverviewPage() {
               href="/docs/platform/quickstart"
               className="group no-underline block h-full"
             >
-              <div className="relative flex flex-col p-5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-all duration-300 gap-5 h-full">
-                <div className="flex size-11 items-center justify-center rounded-md border border-dotted border-product-divider dark:border-product-divider-inverse-subtle">
-                  <Send className="w-5 h-5 text-pink-600" />
+              <div className="relative flex flex-col p-5 rounded-lg border border-border hover:bg-accent transition-all duration-300 gap-5 h-full">
+                <div className="flex size-11 items-center justify-center rounded-md border border-dotted border-border">
+                  <Send className="w-5 h-5 text-pink-600 dark:text-pink-400" />
                 </div>
                 <div className="mt-auto">
-                  <h2 className="text-base font-medium text-slate-900 mb-0 mt-0">
+                  <h2 className="text-base font-medium text-foreground mb-0 mt-0">
                     Tutorial
                   </h2>
-                  <p className="text-sm text-[#57565d] font-[300] leading-normal mb-0">
+                  <p className="text-sm text-muted-foreground font-[300] leading-normal mb-0">
                     Follow our interactive tutorial for adding notifications to
                     your app.
                   </p>
@@ -104,77 +102,79 @@ export function OverviewPage() {
 
         {/* API Reference Section */}
         <div>
-          <h2 className="text-2xl font-medium mb-6">API Reference</h2>
+          <h2 className="text-2xl font-medium mb-6 text-foreground">
+            API Reference
+          </h2>
           <div className="grid md:grid-cols-2 gap-3">
             {[
               {
                 title: "REST API",
                 package: "https://api.novu.co/v1",
                 icon: RestApiIcon,
-                color: "text-[#000000]",
+                color: "text-foreground dark:text-foreground",
                 href: "/docs/api/overview",
               },
               {
                 title: "Node.js",
                 package: "@novu/api",
                 icon: NodejsIcon,
-                color: "text-[#339933]",
+                color: "text-[#339933] dark:text-[#43c743]",
                 href: "/docs/sdks/nodejs",
               },
               {
                 title: "Python",
                 package: "novu-py",
                 icon: PythonIcon,
-                color: "text-[#3776AB]",
+                color: "text-[#3776AB] dark:text-[#4d9fe6]",
                 href: "/docs/sdks/python",
               },
               {
                 title: "Go",
                 package: "github.com/novuhq/novu-go",
                 icon: GolangIcon,
-                color: "text-[#00ADD8]",
+                color: "text-[#00ADD8] dark:text-[#29c4ec]",
                 href: "/docs/sdks/go",
               },
               {
                 title: "PHP",
                 package: "novuhq/novu",
                 icon: PhpIcon,
-                color: "text-[#777BB4]",
+                color: "text-[#777BB4] dark:text-[#9b9fd8]",
                 href: "/docs/sdks/php",
               },
               {
                 title: "Java",
                 package: "co.novu:novu-java",
                 icon: JavaIcon,
-                color: "text-[#007396]",
+                color: "text-[#007396] dark:text-[#1a9fd1]",
                 href: "/docs/sdks/java",
               },
               {
                 title: "Laravel",
                 package: "novu/novu-laravel",
                 icon: LaravelIcon,
-                color: "text-[#FF2D20]",
+                color: "text-[#FF2D20] dark:text-[#ff4d42]",
                 href: "/docs/sdks/laravel",
               },
               {
                 title: ".NET",
                 package: "Novu",
                 icon: DotnetIcon,
-                color: "text-[#512BD4]",
+                color: "text-[#512BD4] dark:text-[#7048ec]",
                 href: "/docs/sdks/dotnet",
               },
               {
                 title: "Ruby",
                 package: "novu",
                 icon: RubyIcon,
-                color: "text-[#CC342D]",
+                color: "text-[#CC342D] dark:text-[#e65a54]",
                 href: "/docs/sdks/ruby",
               },
               {
                 title: "Kotlin",
                 package: "co.novu:novu-kotlin",
                 icon: Layers,
-                color: "text-[#7F52FF]",
+                color: "text-[#7F52FF] dark:text-[#9c7aff]",
                 href: "/docs/sdks/kotlin",
               },
             ].map((item) => (
@@ -183,17 +183,17 @@ export function OverviewPage() {
                 href={item.href}
                 className="group no-underline"
               >
-                <div className="flex items-center gap-3 p-3.5 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
+                <div className="flex items-center gap-3 p-3.5 border border-border rounded-lg hover:bg-accent transition-colors">
                   <div
-                    className={`${item.color} flex items-center text-product-bolder h-12 w-12 justify-center rounded-lg border border-dotted border-product-divider bg-product-surface-base group-hover:border-product-divider-bold group-focus:border-product-divider-bold`}
+                    className={`${item.color} flex items-center h-12 w-12 justify-center rounded-lg border border-dotted border-border bg-background group-hover:border-border group-focus:border-border`}
                   >
                     <item.icon className="w-4 h-4" />
                   </div>
                   <div>
-                    <div className="text-sm font-medium text-slate-900">
+                    <div className="text-sm font-medium text-foreground">
                       {item.title}
                     </div>
-                    <div className="text-xs text-slate-500 font-medium">
+                    <div className="text-xs text-muted-foreground font-medium">
                       {item.package}
                     </div>
                   </div>
