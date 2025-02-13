@@ -21,6 +21,11 @@ async function copyOpenApiFile(dest = '.next/server') {
     process.exit(1);
   }
 }
+
+copyOpenApiFile('./');
+copyOpenApiFile('.next/server/app/docs/[[...slug]]/');
+copyOpenApiFile('.next/server/app/');
+copyOpenApiFile('.next/static/');
 copyOpenApiFile('.next/');
 copyOpenApiFile('.next/server'); 
 copyOpenApiFile('.next/server/chunks');
