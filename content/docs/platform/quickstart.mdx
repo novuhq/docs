@@ -17,7 +17,7 @@ Before you can start integrating Novu into your application, you need to create 
   </Step>
 
   <Step title="Add the Novu SDK into your backend">
-    Our SDKs support [most major programming languages](/sdks/overview), making it easy to get started. Is your preferred language missing? [Reach out to us!](https://novu.co/contact)
+    Our SDKs support [most major programming languages](/docs/sdks/overview), making it easy to get started. Is your preferred language missing? [Reach out to us!](https://novu.co/contact)
   </Step>
 
   <Step title="Configure environment variables">
@@ -44,11 +44,11 @@ Before you can start integrating Novu into your application, you need to create 
       </Accordion>
 
       <Accordion title="Add steps to your workflow" value="add-steps">
-          Every notification workflow starts with at least one [channel step](/workflow/channel-steps). To add a step, click the **Plus** button (**+**) in the Workflow Editor.
+          Every notification workflow starts with at least one [channel step](/docs/workflow/channel-steps). To add a step, click the **Plus** button (**+**) in the Workflow Editor.
 
           ![Add steps to your workflow](/getting-started/media-assets/add-steps.png)
 
-          In the editor, you can customize your workflow with various steps, including **Action steps** (e.g., [Digest](/workflow/digest) and [Delay](/workflow/delay)) and **[delivery channels](/workflow/channel-steps)**. Select a delivery channel to begin crafting your workflow.
+          In the editor, you can customize your workflow with various steps, including **Action steps** (e.g., [Digest](/docs/workflow/digest) and [Delay](/docs/workflow/delay)) and **[delivery channels](/docs/workflow/channel-steps)**. Select a delivery channel to begin crafting your workflow.
 
           Workflows can include multiple steps, with each step sending a notification to the user. Steps execute in the order they are added.
 
@@ -106,7 +106,7 @@ Before you can start integrating Novu into your application, you need to create 
 
       <Accordion title="Design the notification templates" value="design-templates">
           Once you've added a channel step, you can customize the notification content.
-          Click **"Configure Channel Step Template"** in the channel's edit view to open the [Notification Template Editor](/workflow/template-editor) and start editing.
+          Click **"Configure Channel Step Template"** in the channel's edit view to open the [Notification Template Editor](/docs/workflow/template-editor) and start editing.
 
           ![Configure channel step template](/getting-started/media-assets/notification-template.png)
 
@@ -207,7 +207,7 @@ Before you can start integrating Novu into your application, you need to create 
       - **Payload**: The payload to pass to the workflow, this is optional and can be used to pass additional information to the workflow.
     </Callout>
 
-    In this example, we're using the [Node.js SDK](/sdks/nodejs) to trigger the workflow. But the same can be done with any of the [SDKs](/sdks/overview).
+    In this example, we're using the [Node.js SDK](/docs/sdks/nodejs) to trigger the workflow. But the same can be done with any of the [SDKs](/docs/sdks/overview).
 
     Add the trigger snippet to your backend and call the trigger function with the **Workflow identifier**, **Subscriber ID** and **Payload**.
 

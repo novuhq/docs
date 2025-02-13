@@ -164,7 +164,7 @@ workflow("new-signup", async ({ step, payload }) => {
   </Tab>
 </Tabs>
 
-For the full list of parameters, check out the [full SDK reference](/framework/typescript/steps/email).
+For the full list of parameters, check out the [full SDK reference](/docs/framework/typescript/steps/email).
 
 ## Schema Validation & IDE IntelliSense
 
@@ -172,7 +172,7 @@ You can use **Zod, Class-Validator or JSON Schema** based on your needs.
 
 - **[Zod](https://zod.dev/)** - A TypeScript-first schema declaration and validation library.
 - **[Class-Validator](https://github.com/typestack/class-validator)** - A TypeScript-first validation library using decorators for OOP-style applications.
-- **[JSON Schema](/framework/schema/json-schema)** - The most popular schema language for defining JSON data structures.
+- **[JSON Schema](/docs/framework/schema/json-schema)** - The most popular schema language for defining JSON data structures.
 
 If you only want local IDE IntelliSense, you are able to pass plain JS Classes, which will not provide any Schema Definition useable by Novu Platform.
 
@@ -190,7 +190,7 @@ You can use variables in any step control value, whether set by the developer or
 <img src="/images/controls-autocomplete.gif" alt="Example for variables autocomplete in dashboard" />
 
 ### Variable Options
-- **Subscriber Attributes**: Access all [subscriber attributes](/concepts/subscribers#subscriber-attributes). Example: `{{subscriber.firstName}}`
+- **Subscriber Attributes**: Access all [subscriber attributes](/docs/concepts/subscribers#subscriber-attributes). Example: `{{subscriber.firstName}}`
 - **Payload Variables**: Use all payload variables defined in the `payloadSchema`. Example: `{{payload.userId}}`
 - **Liquid Filters**: Apply [liquid filters](https://liquidjs.com/filters/overview.html) to format or manipulate variable values. Examples: `{{subscriber.firstName | append: ': ' | append: payload.status | capitalize}}` or
 `{{payload.invoiceDate | date: '%a, %b %d, %y'}}` will format the date as `Thu, Jan 01, 24`
