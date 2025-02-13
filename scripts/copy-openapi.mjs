@@ -4,10 +4,10 @@ import { fileURLToPath } from 'url';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
-async function copyOpenApiFile() {
+async function copyOpenApiFile(dest = '.next/server') {
   try {
     const sourceFile = join(__dirname, '..', 'openapi.json');
-    const targetDir = join(__dirname, '..', '.next/server');
+    const targetDir = join(__dirname, '..', dest);
     const targetFile = join(targetDir, 'openapi.json');
 
     // Ensure .next directory exists
@@ -21,5 +21,6 @@ async function copyOpenApiFile() {
     process.exit(1);
   }
 }
-
-copyOpenApiFile(); 
+copyOpenApiFile('.next/');
+copyOpenApiFile('.next/server'); 
+copyOpenApiFile('.next/server/chunks');
