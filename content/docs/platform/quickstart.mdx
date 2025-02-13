@@ -1,12 +1,15 @@
 ---
 title: "Quickstart"
+pageTitle: "Get start with Inbox using Novu and React"
 description: "Learn how to quickly get started with Novu."
 ---
 
 import { Accordion, Accordions } from '@/components/accordion';
 import { Step, Steps } from '@/components/steps';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { Bell, BellRing, Clock, Code, Layers, Mail, MessageSquare, Phone } from 'lucide-react';
+import Link from 'next/link';
 
 Before you can start integrating Novu into your application, you need to create a Novu account and set up a new workflow in the Novu Dashboard. This guide walks you through those steps.
 
@@ -17,18 +20,18 @@ Before you can start integrating Novu into your application, you need to create 
     ```
   </Step>
 
-  <Step title="Embed the Inbox component">
+  <Step title="Create the Inbox component">
     To start using the Inbox component, you need to embed it in your application. 
     Import the `Inbox` component and pass the `applicationIdentifier` and `subscriberId` to the component.
 
       
-        ```tsx title="app.tsx" tab="Next.js"
+        ```tsx title="components/inbox.tsx" tab="Next.js"
         'use client';
         import React from 'react';
         import { Inbox } from '@novu/react';
         import { useRouter } from 'next/navigation';
         
-        function Novu() {
+        export function NotificationInbox() {
           const router = useRouter();
           
           return (
@@ -48,14 +51,11 @@ Before you can start integrating Novu into your application, you need to create 
           const navigate = useNavigate();
           
           return (
-            <div>
-              {/* Example usage of Inbox component */}
-              <Inbox
-                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-                subscriberId="YOUR_SUBSCRIBER_ID"
-                routerPush={(path: string) => navigate(path)}
-              />
-            </div>
+            <Inbox
+              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+              subscriberId="YOUR_SUBSCRIBER_ID"
+              routerPush={(path: string) => navigate(path)}
+            />
           );
         }
         ```
@@ -85,7 +85,6 @@ Before you can start integrating Novu into your application, you need to create 
         function Novu() {
           return (
             <div>
-              {/* Example usage of Inbox component */}
               <Inbox
                 applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
                 subscriberId="YOUR_SUBSCRIBER_ID"
@@ -95,11 +94,11 @@ Before you can start integrating Novu into your application, you need to create 
           );
         }
         ```
-        ```tsx title="app.tsx" tab="Create React App"
+        ```tsx title="components/inbox.tsx" tab="Create React App"
         import { Inbox } from '@novu/react';
         import { useNavigate } from 'react-router-dom';
         
-        function Novu() {
+        function NotificationInbox() {
           const navigate = useNavigate();
           
           return (
@@ -114,7 +113,12 @@ Before you can start integrating Novu into your application, you need to create 
           );
         }
         ```
-
+        <SignedOut>
+          <div className="text-sm text-gray-500 text-center mt-[-12px]">
+            [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
+          </div>
+        </SignedOut>
+       
     <Callout type="info">
       You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard-v2.novu.co/api-keys).
       The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/docs/concepts/subscribers).
@@ -125,13 +129,12 @@ Before you can start integrating Novu into your application, you need to create 
     <Accordions>
       <Accordion title="European Region Instructions">
         If you are using the European region in novu, you need to set the `backendUrl` and `socketUrl` props.
-        ```tsx showLineNumbers
+        ```tsx
         import { Inbox } from '@novu/react';
 
         function Novu() {
           return (
             <div>
-              {/* Example usage of Inbox component */}
               <Inbox
                 applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
                 subscriberId="YOUR_SUBSCRIBER_ID"
@@ -146,8 +149,22 @@ Before you can start integrating Novu into your application, you need to create 
     </Accordions>
   </Step>
 
-  <Step title="Create a Novu account">
-    [Create a new account](https://dashboard-v2.novu.co/signup) on Novu Cloud or [sign in](https://dashboard-v2.novu.co/login) if you already have an account.
+  <Step title="Add the Inbox to your navbar">
+  Now you can import the `NotificationInbox` component and add it to your navbar, it will automatically display the Bell icon, you can customize it later.
+  
+    ```tsx title="pages/layout.tsx"
+    import { useRouter } from 'next/navigation';
+    import { NotificationInbox } from "./components/inbox";
+
+    export default function Layout() {
+      return (
+        <nav>
+       // [!code highlight]
+          <NotificationInbox /> 
+        </nav>
+      );
+    }
+    ```
   </Step>
 
   <Step title="Add the Novu SDK into your backend">

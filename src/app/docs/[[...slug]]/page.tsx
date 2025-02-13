@@ -46,7 +46,9 @@ export default async function Page(props: {
         className: "[&>article]:gap-4",
       }}
     >
-      <DocsTitle>{page.data.pageTitle ?? page.data.title}</DocsTitle>
+      <DocsTitle className="max-w-[640px]">
+        {page.data.pageTitle ?? page.data.title}
+      </DocsTitle>
       <DocsDescription className="mb-4">
         {page.data.description}
       </DocsDescription>
