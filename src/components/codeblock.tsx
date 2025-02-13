@@ -1,5 +1,6 @@
-'use client';
-import { Check, Copy } from 'lucide-react';
+"use client";
+import type { ScrollAreaViewportProps } from "@radix-ui/react-scroll-area";
+import { Check, Copy } from "lucide-react";
 import {
   type ButtonHTMLAttributes,
   type HTMLAttributes,
@@ -7,16 +8,11 @@ import {
   forwardRef,
   useCallback,
   useRef,
-} from 'react';
-import { cn } from '../lib/cn';
-import {
-  ScrollArea,
-  ScrollBar,
-  ScrollViewport,
-} from './ui/scroll-area';
-import { useCopyButton } from '../lib/use-copy-button';
-import { buttonVariants } from './ui/button';
-import type { ScrollAreaViewportProps } from '@radix-ui/react-scroll-area';
+} from "react";
+import { cn } from "../lib/cn";
+import { useCopyButton } from "../lib/use-copy-button";
+import { buttonVariants } from "./ui/button";
+import { ScrollArea, ScrollBar, ScrollViewport } from "./ui/scroll-area";
 
 export type CodeBlockProps = HTMLAttributes<HTMLElement> & {
   /**
@@ -48,16 +44,16 @@ export const Pre = forwardRef<HTMLPreElement, HTMLAttributes<HTMLPreElement>>(
     return (
       <pre
         ref={ref}
-        className={cn('p-4 focus-visible:outline-none', className)}
+        className={cn("p-4 focus-visible:outline-none", className)}
         {...props}
       >
         {props.children}
       </pre>
     );
-  },
+  }
 );
 
-Pre.displayName = 'Pre';
+Pre.displayName = "Pre";
 
 export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
   (
@@ -69,20 +65,20 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
       viewportProps,
       ...props
     },
-    ref,
+    ref
   ) => {
     const areaRef = useRef<HTMLDivElement>(null);
     const onCopy = useCallback(() => {
-      const pre = areaRef.current?.getElementsByTagName('pre').item(0);
+      const pre = areaRef.current?.getElementsByTagName("pre").item(0);
 
       if (!pre) return;
 
       const clone = pre.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll('.nd-copy-ignore').forEach((node) => {
+      clone.querySelectorAll(".nd-copy-ignore").forEach((node) => {
         node.remove();
       });
 
-      void navigator.clipboard.writeText(clone.textContent ?? '');
+      void navigator.clipboard.writeText(clone.textContent ?? "");
     }, []);
 
     return (
@@ -90,10 +86,10 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
         ref={ref}
         {...props}
         className={cn(
-          'not-prose group fd-codeblock relative my-6 overflow-hidden rounded-lg border bg-fd-secondary/50 text-sm',
+          "not-prose group fd-codeblock relative my-6 overflow-hidden rounded-lg border bg-fd-secondary/50 text-sm",
           keepBackground &&
-            'bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]',
-          props.className,
+            "bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]",
+          props.className
         )}
       >
         {title ? (
@@ -102,14 +98,14 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
               <div
                 className="text-fd-muted-foreground [&_svg]:size-3.5"
                 dangerouslySetInnerHTML={
-                  typeof icon === 'string'
+                  typeof icon === "string"
                     ? {
                         __html: icon,
                       }
                     : undefined
                 }
               >
-                {typeof icon !== 'string' ? icon : null}
+                {typeof icon !== "string" ? icon : null}
               </div>
             ) : null}
             <figcaption className="flex-1 truncate text-fd-muted-foreground">
@@ -130,7 +126,7 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
         <ScrollArea ref={areaRef} dir="ltr">
           <ScrollViewport
             {...viewportProps}
-            className={cn('max-h-[600px]', viewportProps?.className)}
+            className={cn("max-h-[600px]", viewportProps?.className)}
           >
             {props.children}
           </ScrollViewport>
@@ -138,10 +134,10 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
         </ScrollArea>
       </figure>
     );
-  },
+  }
 );
 
-CodeBlock.displayName = 'CodeBlock';
+CodeBlock.displayName = "CodeBlock";
 
 function CopyButton({
   className,
@@ -157,19 +153,19 @@ function CopyButton({
       type="button"
       className={cn(
         buttonVariants({
-          color: 'ghost',
+          color: "ghost",
         }),
-        'transition-opacity group-hover:opacity-100 [&_svg]:size-3.5',
-        !checked && '[@media(hover:hover)]:opacity-0',
-        className,
+        "transition-opacity group-hover:opacity-100 [&_svg]:size-3.5",
+        !checked && "[@media(hover:hover)]:opacity-0",
+        className
       )}
-      aria-label={checked ? 'Copied Text' : 'Copy Text'}
+      aria-label={checked ? "Copied Text" : "Copy Text"}
       onClick={onClick}
       {...props}
     >
-      <Check className={cn('transition-transform', !checked && 'scale-0')} />
+      <Check className={cn("transition-transform", !checked && "scale-0")} />
       <Copy
-        className={cn('absolute transition-transform', checked && 'scale-0')}
+        className={cn("absolute transition-transform", checked && "scale-0")}
       />
     </button>
   );

@@ -3,15 +3,149 @@ title: "Quickstart"
 description: "Learn how to quickly get started with Novu."
 ---
 
+import { Accordion, Accordions } from '@/components/accordion';
 import { Step, Steps } from '@/components/steps';
-import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
-import { Callout } from 'fumadocs-ui/components/callout';
-import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { Bell, BellRing, Clock, Code, Layers, Mail, MessageSquare, Phone } from 'lucide-react';
 
 Before you can start integrating Novu into your application, you need to create a Novu account and set up a new workflow in the Novu Dashboard. This guide walks you through those steps.
 
 <Steps>
+  <Step title="Install the Inbox package">
+    ```package-install 
+    npm install @novu/react 
+    ```
+  </Step>
+
+  <Step title="Embed the Inbox component">
+    To start using the Inbox component, you need to embed it in your application. 
+    Import the `Inbox` component and pass the `applicationIdentifier` and `subscriberId` to the component.
+
+      
+        ```tsx title="app.tsx" tab="Next.js"
+        'use client';
+        import React from 'react';
+        import { Inbox } from '@novu/react';
+        import { useRouter } from 'next/navigation';
+        
+        function Novu() {
+          const router = useRouter();
+          
+          return (
+            <Inbox // [!code highlight]
+              applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" // [!code highlight]
+              subscriberId="YOUR_SUBSCRIBER_ID" // [!code highlight]
+              routerPush={(path: string) => router.push(path)} // [!code highlight]
+            /> // [!code highlight]
+          );
+        }
+        ```
+        ```tsx title="app.tsx" tab="Remix"
+        import { Inbox } from '@novu/react';
+        import { useNavigate } from '@remix-run/react';
+        
+        function Novu() {
+          const navigate = useNavigate();
+          
+          return (
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+              />
+            </div>
+          );
+        }
+        ```
+        ```tsx title="app.tsx" tab="React Router"
+        import { Inbox } from '@novu/react';
+        import { useNavigate } from 'react-router-dom';
+        
+        function Novu() {
+          const navigate = useNavigate();
+          
+          return (
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+              />
+            </div>
+          );
+        }
+        ```
+        ```tsx title="app.tsx" tab="Gatsby"
+        import { Inbox } from '@novu/react';
+        import { navigate } from 'gatsby';
+        
+        function Novu() {
+          return (
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+              />
+            </div>
+          );
+        }
+        ```
+        ```tsx title="app.tsx" tab="Create React App"
+        import { Inbox } from '@novu/react';
+        import { useNavigate } from 'react-router-dom';
+        
+        function Novu() {
+          const navigate = useNavigate();
+          
+          return (
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                routerPush={(path: string) => navigate(path)}
+              />
+            </div>
+          );
+        }
+        ```
+
+    <Callout type="info">
+      You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard-v2.novu.co/api-keys).
+      The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/docs/concepts/subscribers).
+    </Callout>
+
+    Novu uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
+
+    <Accordions>
+      <Accordion title="European Region Instructions">
+        If you are using the European region in novu, you need to set the `backendUrl` and `socketUrl` props.
+        ```tsx showLineNumbers
+        import { Inbox } from '@novu/react';
+
+        function Novu() {
+          return (
+            <div>
+              {/* Example usage of Inbox component */}
+              <Inbox
+                applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+                subscriberId="YOUR_SUBSCRIBER_ID"
+                backendUrl="https://eu.api.novu.co"
+                socketUrl="https://eu.ws.novu.co"
+              />
+            </div>
+          );
+        }
+        ```
+      </Accordion>
+    </Accordions>
+  </Step>
+
   <Step title="Create a Novu account">
     [Create a new account](https://dashboard-v2.novu.co/signup) on Novu Cloud or [sign in](https://dashboard-v2.novu.co/login) if you already have an account.
   </Step>

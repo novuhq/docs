@@ -1,4 +1,12 @@
-import { defineDocs, frontmatterSchema, metaSchema } from "fumadocs-mdx/config";
+import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
+import { remarkInstall } from "fumadocs-docgen";
+import {
+  defineConfig,
+  defineDocs,
+  frontmatterSchema,
+  metaSchema,
+} from "fumadocs-mdx/config";
+import { transformerTwoslash } from "fumadocs-twoslash";
 import { z } from "zod";
 
 export const docs = defineDocs({
@@ -19,5 +27,59 @@ export const docs = defineDocs({
       description: z.string().optional(),
       pageTitle: z.string().optional(),
     }),
+  },
+});
+
+export default defineConfig({
+  lastModifiedTime: "git",
+  mdxOptions: {
+    rehypeCodeOptions: {
+      lazy: true,
+      experimentalJSEngine: true,
+      langs: [
+        "ts",
+        "js",
+        "html",
+        "tsx",
+        "mdx",
+        "json",
+        "bash",
+        "php",
+        "csharp",
+        "python",
+        "ruby",
+        "go",
+        "java",
+        "kotlin",
+        "swift",
+      ],
+      inline: "tailing-curly-colon",
+      themes: {
+        light: "github-light",
+        dark: "github-dark",
+      },
+      transformers: [
+        ...(rehypeCodeDefaultOptions.transformers ?? []),
+        transformerTwoslash(),
+        {
+          name: "transformers:remove-notation-escape",
+          code(hast) {
+            for (const line of hast.children) {
+              if (line.type !== "element") continue;
+
+              const lastSpan = line.children.findLast(
+                (v) => v.type === "element"
+              );
+
+              const head = lastSpan?.children[0];
+              if (head?.type !== "text") return;
+
+              head.value = head.value.replace(/\[\\!code/g, "[!code");
+            }
+          },
+        },
+      ],
+    },
+    remarkPlugins: [[remarkInstall, { persist: { id: "package-manager" } }]],
   },
 });
