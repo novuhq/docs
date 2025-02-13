@@ -11,7 +11,6 @@ const config = {
     'oxc-transform',
     '@shikijs/twoslash',
   ],
-
   images: {
     remotePatterns: [
       {

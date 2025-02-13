@@ -22,10 +22,14 @@ async function copyOpenApiFile(dest = '.next/server') {
   }
 }
 
-copyOpenApiFile('./');
+
 copyOpenApiFile('.next/server/app/docs/[[...slug]]/');
 copyOpenApiFile('.next/server/app/');
 copyOpenApiFile('.next/static/');
 copyOpenApiFile('.next/');
 copyOpenApiFile('.next/server'); 
 copyOpenApiFile('.next/server/chunks');
+copyOpenApiFile('_next/');
+copyOpenApiFile('.');
+copyOpenApiFile('./public/');
+
