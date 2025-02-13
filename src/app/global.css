@@ -12,6 +12,17 @@
   button {
     cursor: pointer;
   }
+
+  p {
+    line-height: 1.625;
+    color: (--foreground);
+    margin-bottom: 12px;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-normal);
+  }
 }
 
 @theme {
@@ -28,8 +39,8 @@
   --animate-stroke: stroke 5s linear infinite;
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-
-  --color-gradient-radial: radial-gradient(circle, var(--tw-gradient-stops));
+  --font-weight-normal: 300;
+  
   --color-repeat-gradient-to-r: repeating-linear-gradient(
     to right,
     var(--tw-gradient-stops)
@@ -40,15 +51,6 @@
   );
 }
 
-.ui {
-  --color-fd-primary: var(--ui-color);
-}
-
-.headless {
-  --color-fd-primary: var(--headless-color);
-}
-
-
 
 :root {
   --fd-article-max-width: 720px;
@@ -56,7 +58,7 @@
   --ui-color: hsl(220, 91%, 54%);
 
   --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+  --foreground: 250 3% 35%;
 
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;

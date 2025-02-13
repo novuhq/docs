@@ -27,9 +27,14 @@ export default async function Page(props: {
         style: "clerk",
         single: false,
       }}
+      container={{
+        className: "[&>article]:gap-4",
+      }}
     >
       <DocsTitle>{page.data.pageTitle ?? page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
+      <DocsDescription className="mb-4">
+        {page.data.description}
+      </DocsDescription>
       <DocsBody>
         <MDX
           components={{
