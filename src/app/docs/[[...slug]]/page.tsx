@@ -40,7 +40,7 @@ export default async function Page(props: {
         path,
       }}
       article={{
-        className: "max-sm:pb-16 max-w-[720px]",
+        className: "max-sm:pb-16 max-w-[770px] !px-0",
       }}
       container={{
         className: "[&>article]:gap-4",
