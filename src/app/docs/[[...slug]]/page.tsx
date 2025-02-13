@@ -8,6 +8,7 @@ import {
   DocsPage,
   DocsTitle,
 } from "fumadocs-ui/page";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Callout } from "../../../components/callout";
 import { CodeBlock } from "../../../components/codeblock";
@@ -64,6 +65,13 @@ export default async function Page(props: {
             PopupTrigger,
             Tabs: Tabs,
             Tab: Tab,
+            Method: (props) => (
+              <Link href={props.href}>
+                <span className="text-sm bg-[#f3f0ff] hover:cursor-pointer border border-[#e4defc] text-[#5746af] leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem]">
+                  {props.children}
+                </span>
+              </Link>
+            ),
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             img: (props) => <ImageZoom {...(props as any)} />,
           }}
