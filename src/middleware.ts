@@ -20,14 +20,14 @@ export default async function middleware(
     request.nextUrl.pathname === "/docs"
   ) {
     return NextResponse.redirect(
-      new URL("/docs/platform/quickstart", request.url)
+      new URL("/docs/platform/overview", request.url)
     );
   }
 
   // Handle platform redirect
   if (request.nextUrl.pathname === "/docs/platform") {
     return NextResponse.redirect(
-      new URL("/docs/platform/quickstart", request.url)
+      new URL("/docs/platform/overview", request.url)
     );
   }
 
