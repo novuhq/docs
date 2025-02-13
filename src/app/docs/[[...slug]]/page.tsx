@@ -59,7 +59,11 @@ export default async function Page(props: {
             ...defaultMdxComponents,
             CodeBlock: CodeBlock,
             Callout: Callout,
-            APIPage: openapi.APIPage,
+            APIPage: (props) => (
+              <div id="api-page">
+                <openapi.APIPage {...props} />
+              </div>
+            ),
             Popup,
             PopupContent,
             PopupTrigger,
