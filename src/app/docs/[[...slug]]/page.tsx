@@ -14,6 +14,12 @@ import { Callout } from "../../../components/callout";
 import { CodeBlock } from "../../../components/codeblock";
 import { Tab } from "../../../components/tabs";
 import { Tabs } from "../../../components/ui/tabs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../../components/ui/tooltip";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -69,8 +75,29 @@ export default async function Page(props: {
             PopupTrigger,
             Tabs: Tabs,
             Tab: Tab,
+            Tooltip: ({
+              children,
+              content,
+            }: {
+              children: React.ReactNode;
+              content: string;
+            }) => (
+              <TooltipProvider delayDuration={50}>
+                <Tooltip>
+                  <TooltipTrigger
+                    asChild
+                    className="text-sm bg-zinc-100 hover:cursor-pointer text-zinc-700 leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] decoration-dotted decoration-zinc-400 underline underline-offset-4"
+                  >
+                    {children}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{content}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            ),
             Method: (props) => (
-              <Link href={props.href}>
+              <Link href={props.href} className="no-underline">
                 <span className="text-sm bg-[#f3f0ff] hover:cursor-pointer border border-[#e4defc] text-[#5746af] leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem]">
                   {props.children}
                 </span>
