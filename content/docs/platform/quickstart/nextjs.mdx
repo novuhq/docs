@@ -5,6 +5,7 @@ description: "Learn how to quickly get started with Novu."
 ---
 
 import { Accordion, Accordions } from '@/components/accordion';
+import { BuildWorkflowStep, CreateAccountStep } from '@/components/quickstart/common-steps';
 import { Step, Steps } from '@/components/steps';
 import { Button } from '@/components/ui/button';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
@@ -15,10 +16,9 @@ import Link from 'next/link';
 Before you can start integrating Novu into your application, you need to create a Novu account and set up a new workflow in the Novu Dashboard. This guide walks you through those steps.
 
 <Steps>
-  <Step title="Create a Novu account">
-    If you don't have a Novu account, you can create one [here](https://dashboard-v2.novu.co/auth/sign-up).
-  </Step>
-  <Step title={<>Install the Inbox next.js package</>}>
+  <CreateAccountStep />
+
+  <Step title="Install the Inbox next.js package">
     ```package-install 
     npm install @novu/nextjs 
     ```
@@ -77,10 +77,5 @@ Before you can start integrating Novu into your application, you need to create 
     ```
   </Step>
 
-  <Step title="Next: Build a workflow">
-    Navigate through the sections below to create your first custom workflow.
-    <Button color="secondary" size="sm" className="h-8 px-4">
-      Create a workflow
-    </Button>
-  </Step>
+  <BuildWorkflowStep />
 </Steps>
