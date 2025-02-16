@@ -1,7 +1,8 @@
-import { SignedIn, SignedOut, SignInButton } from "@clerk/nextjs";
+import { SignedIn, SignedOut } from "@clerk/nextjs";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import Image from "next/image";
-import { Button } from "../components/ui/button";
+import { Button, buttonVariants } from "../components/ui/button";
+import { cn } from "../lib/utils";
 
 export const logo = (
   <>
@@ -64,7 +65,18 @@ export const baseOptions: BaseLayoutProps = {
       children: (
         <div className="flex items-center gap-2 justify-end ml-auto">
           <SignedOut>
-            <SignInButton />
+            <a
+              href="https://dashboard-v2.novu.co/auth/sign-in"
+              className={cn(buttonVariants({ color: "secondary", size: "md" }))}
+            >
+              Sign In
+            </a>
+            <a
+              href="https://dashboard-v2.novu.co/auth/sign-up"
+              className={cn(buttonVariants({ color: "primary", size: "md" }))}
+            >
+              Sign Up
+            </a>
           </SignedOut>
           <SignedIn>
             <Button color="secondary">Visit Dashboard</Button>
