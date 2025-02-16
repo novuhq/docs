@@ -1,5 +1,6 @@
 import "./global.css";
 
+import { AnalyticsProvider } from "@/components/analytics-provider";
 import { source } from "@/lib/source";
 import { ClerkProvider } from "@clerk/nextjs";
 import { GoogleTagManager } from "@next/third-parties/google";
@@ -53,6 +54,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               {...baseOptions}
               githubUrl="https://github.com/novuhq/novu"
             >
+              <AnalyticsProvider />
               {children}
             </DocsLayout>
           </RootProvider>
