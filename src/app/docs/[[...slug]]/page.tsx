@@ -1,5 +1,6 @@
 import { openapi, source } from "@/lib/source";
 import { Popup, PopupContent, PopupTrigger } from "fumadocs-twoslash/ui";
+import { createTypeTable } from "fumadocs-typescript/ui";
 import { ImageZoom } from "fumadocs-ui/components/image-zoom";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import {
@@ -20,6 +21,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "../../../components/ui/tooltip";
+
+const { AutoTypeTable } = createTypeTable();
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -73,6 +76,7 @@ export default async function Page(props: {
             Popup,
             PopupContent,
             PopupTrigger,
+            AutoTypeTable,
             Tabs: Tabs,
             Tab: Tab,
             Tooltip: ({

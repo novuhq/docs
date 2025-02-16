@@ -10,19 +10,30 @@ import { Step, Steps } from '@/components/steps';
 import { Button } from '@/components/ui/button';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-import { Bell, BellRing, Clock, Code, Layers, Mail, MessageSquare, Phone } from 'lucide-react';
+import { Bell, BellRing, BookOpenCheck, Clock, Code2, Globe2, Laptop, Layers, Library, Mail, MessageSquare, Phone, Users2 } from 'lucide-react';
 import Link from 'next/link';
+
+## Quickstart
 
 Before you can start integrating Novu into your application, you need to create a Novu account and set up a new workflow in the Novu Dashboard. This guide walks you through those steps.
 
 <Steps>
   <CreateAccountStep />
 
-  <Step title="Install the Inbox next.js package">
+  <Step title="Create a new Next.js application">
+    You can use the following command to create a new Next.js application, or use your own and continue from the next step.
+
+    ```package-install 
+    npx create-next-app@latest
+    ```
+  </Step>
+
+  <Step title="Install the Inbox package">
     ```package-install 
     npm install @novu/nextjs 
     ```
   </Step>
+
 
   <Step title="Create the Inbox component">
     To start using the Inbox component, you need to embed it in your application. 
@@ -52,11 +63,6 @@ Before you can start integrating Novu into your application, you need to create 
         [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
       </div>
     </SignedOut>
-  
-    <Callout type="info">
-      You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard-v2.novu.co/api-keys).
-      The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/docs/concepts/subscribers).
-    </Callout>
   </Step>
 
   <Step title="Add the Inbox to your navbar">
@@ -77,5 +83,47 @@ Before you can start integrating Novu into your application, you need to create 
     ```
   </Step>
 
-  <BuildWorkflowStep />
+  <Step title="Create your first subscriber">
+    Novu will automatically create a subscriber when a new `subscriberId` was detected from the `Inbox` component props.
+    
+    ```package-install 
+    npm run dev
+    ```
+  </Step>
+
+  <Step title="Trigger your first notification">
+    Now you have setup the Inbox component and created a subscriber, it's now time to trigger your first notification workflow.
+
+    <Button color="primary" className="h-9">
+      Visit Dashboard
+    </Button>
+  </Step>
+
 </Steps>
+
+## Next steps
+
+
+<Cards cols={2}>
+  <Card title="Inbox and preferences UI components" icon={<Library />} href="/inbox/overview">
+    Explore our full-stack UI components libraries for building in-app notifications.
+  </Card>
+  <Card title="Novu Framework " icon={<Code2 />} href="/framework/overview">
+    Extend Novu Workflows with code, and accomplish literally any advanced use case imaginable.
+  </Card>
+  <Card title="Framework SDK" icon={<Code2 />} href="/sdks/overview">
+    For more advanced use cases, use our SDK to integrate Novu with your backend codebase.
+  </Card>
+  <Card title="Multi-tenancy" icon={<Users2 />} href="/concepts/tenants">
+    Manage multiple tenants within an organization.
+  </Card>
+  <Card title="Localization" icon={<Globe2 />} href="/inbox/react/localization">
+    Manage localized versions of your notification templates.
+  </Card>
+  <Card title="Local studio" icon={<Laptop />} href="/framework/studio">
+    Use our local studio with Novu Framework to design and test your notification templates.
+  </Card>
+  <Card title="Environments" icon={<Layers />} href="/concepts/environments">
+    Manage multiple environments based on your application's deployment stages.
+  </Card>
+</Cards>

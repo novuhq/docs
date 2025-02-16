@@ -1,0 +1,137 @@
+---
+title: "@novu/react"
+pageTitle: "API reference for the @novu/react package"
+---
+
+## InboxProps
+
+The main props for the Novu Inbox component.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function NotificationCenter() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriberId="USER_ID"
+      backendUrl="https://api.novu.co"
+      socketUrl="https://ws.novu.co"
+      placement="right"
+      placementOffset={10}
+      onNotificationClick={(notification) => {
+        // Handle notification click
+        console.log(notification);
+      }}
+    />
+  );
+}
+```
+
+<AutoTypeTable path="./content/docs/platform/sdks/client/types/react-types.ts" name="InboxProps" />
+
+## Appearance
+
+The appearance configuration for the Novu Inbox.
+
+<AutoTypeTable path="./content/docs/platform/sdks/client/types/react-types.ts" name="InboxAppearanceProps" />
+
+### Variables
+
+<AutoTypeTable path="./content/docs/platform/sdks/client/types/react-types.ts" name="InboxAppearanceVariables" />
+
+### Elements
+
+<AutoTypeTable path="./content/docs/platform/sdks/client/types/react-types.ts" name="InboxAppearanceElements" />
+
+## BellProps
+
+Props for the Novu Bell component.
+
+```tsx
+import { Bell } from '@novu/react';
+
+function NotificationBell() {
+  return (
+    <Bell
+      renderBell={(unreadCount) => (
+        <div className="relative">
+          <BellIcon className="h-6 w-6" />
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
+              {unreadCount}
+            </span>
+          )}
+        </div>
+      )}
+    />
+  );
+}
+```
+
+<AutoTypeTable path="./content/docs/platform/sdks/client/types/react-types.ts" name="BellProps" />
+
+## NotificationProps
+
+Props for the Novu Notifications component.
+
+```tsx
+import { Notifications } from '@novu/react';
+
+function NotificationList() {
+  return (
+    <Notifications
+      onNotificationClick={(notification) => {
+        // Handle notification click
+        console.log(notification);
+      }}
+      renderNotification={({ content, createdAt }) => (
+        <div className="flex gap-2 p-2">
+          <div className="flex-1">
+            <p>{content}</p>
+            <time className="text-sm text-gray-500">
+              {new Date(createdAt).toLocaleDateString()}
+            </time>
+          </div>
+        </div>
+      )}
+    />
+  );
+}
+```
+
+<AutoTypeTable path="./content/docs/platform/sdks/client/types/react-types.ts" name="NotificationProps" />
+
+## InboxContentProps
+
+Props for the Novu InboxContent component.
+
+```tsx
+import { InboxContent } from '@novu/react';
+
+function CustomInbox() {
+  return (
+    <div className="custom-inbox-wrapper">
+      <InboxContent
+        onNotificationClick={(notification) => {
+          // Handle notification click
+          console.log(notification);
+        }}
+        onPrimaryActionClick={(notification, action) => {
+          // Handle primary action click
+          console.log(notification, action);
+        }}
+        hideNav={false}
+        renderNotification={({ content, createdAt }) => (
+          <div className="notification-item">
+            <p>{content}</p>
+            <time>{new Date(createdAt).toLocaleDateString()}</time>
+          </div>
+        )}
+      />
+    </div>
+  );
+}
+```
+
+<AutoTypeTable path="./content/docs/platform/sdks/client/types/react-types.ts" name="InboxContentProps" />
