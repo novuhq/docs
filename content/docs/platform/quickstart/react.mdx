@@ -1,6 +1,6 @@
 ---
-title: "Next.js"
-pageTitle: "Get started with Inbox using Novu and Next.js"
+title: "React Router"
+pageTitle: "Get started with Inbox using Novu and React Router"
 description: "Learn how to quickly get started with Novu."
 ---
 
@@ -8,7 +8,6 @@ import { Accordion, Accordions } from '@/components/accordion';
 import { BuildWorkflowStep, CreateAccountStep, CreateSubscriberStep, TriggerNotificationStep } from '@/components/quickstart/common-steps';
 import { Step, Steps } from '@/components/steps';
 import { Button } from '@/components/ui/button';
-import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { Bell, BellRing, BookOpenCheck, Clock, Code2, Globe2, Laptop, Layers, Library, Mail, MessageSquare, Phone, Users2 } from 'lucide-react';
 import Link from 'next/link';
@@ -20,17 +19,19 @@ Before you can start integrating Novu into your application, you need to create 
 <Steps>
   <CreateAccountStep />
 
-  <Step title="Create a new Next.js application">
-    You can use the following command to create a new Next.js application, or use your own and continue from the next step.
+  <Step title="Create a new React application">
+    You can use the following command to create a new React application with Vite, or use your own and continue from the next step.
 
     ```package-install 
-    npx create-next-app@latest
+    npm create vite@latest my-app -- --template react-ts
+    cd my-app
+    npm install
     ```
   </Step>
 
-  <Step title="Install the Inbox package">
+  <Step title="Install the required packages">
     ```package-install 
-    npm install @novu/nextjs
+    npm install @novu/react react-router-dom
     ```
   </Step>
 
@@ -39,53 +40,61 @@ Before you can start integrating Novu into your application, you need to create 
     Import the <Method href="/docs/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>
      component and pass the <Tooltip content="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page.">`applicationIdentifier`</Tooltip> and <Tooltip content="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database.">`subscriberId`</Tooltip> to the component.
       
-    ```tsx title="components/inbox.tsx"
-    'use client';
+    ```tsx title="src/components/notification-center.tsx"
     import React from 'react';
-    import { Inbox } from '@novu/nextjs';
-    import { useRouter } from 'next/navigation';
+    import { Inbox } from '@novu/react';
+    import { useNavigate } from 'react-router';
     
-    export function NotificationInbox() {
-      const router = useRouter();
+    export function NotificationCenter() {
+      const navigate = useNavigate();
       
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
           subscriberId="YOUR_SUBSCRIBER_ID"
-          routerPush={(path: string) => router.push(path)}
+          routerPush={(path: string) => navigate(path)}
         />
       );
     }
     ```
-    <SignedOut>
-      <div className="text-sm text-gray-500 text-center mt-[-12px]">
-        [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
-      </div>
-    </SignedOut>
+
+    <div className="text-sm text-gray-500 text-center mt-[-12px]">
+      [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
+    </div>
   </Step>
 
-  <Step title="Add the Inbox to your navbar">
-    Now you can import the `NotificationInbox` component and add it to your navbar, it will automatically display the Bell icon, you can customize it later.
+  <Step title="Set up React Router and add the Notification Center">
+    Now you can set up React Router and add the `NotificationCenter` component to your app layout.
     
-    ```tsx title="app/layout.tsx"
-    import { NotificationInbox } from "@/components/inbox";
+    ```tsx title="src/App.tsx"
+    import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+    import { NotificationCenter } from './components/notification-center';
 
-    export default function RootLayout({
-      children,
-    }: {
-      children: React.ReactNode;
-    }) {
+    function Layout({ children }: { children: React.ReactNode }) {
       return (
-        <html lang="en">
-          <body>
-            <nav>
-              <NotificationInbox />
-            </nav>
-            {children}
-          </body>
-        </html>
+        <div>
+          <nav>
+            <NotificationCenter />
+          </nav>
+          {children}
+        </div>
       );
     }
+
+    function App() {
+      return (
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              {/* Add your routes here */}
+            </Routes>
+          </Layout>
+        </Router>
+      );
+    }
+
+    export default App;
     ```
   </Step>
 
