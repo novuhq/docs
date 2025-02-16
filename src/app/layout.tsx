@@ -5,13 +5,13 @@ import { source } from "@/lib/source";
 import { ClerkProvider } from "@clerk/nextjs";
 import { GoogleTagManager } from "@next/third-parties/google";
 import { DocsLayout } from "fumadocs-ui/layouts/notebook";
-import { RootProvider } from "fumadocs-ui/provider";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
 import { Viewport } from "next";
 import type { ReactNode } from "react";
 import { baseUrl, createMetadata } from "../lib/metadata";
 import { baseOptions } from "./layout.config";
+import { Provider } from "./provider";
 
 export const metadata = createMetadata({
   title: {
@@ -44,11 +44,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         )}
 
         <body className="flex flex-col min-h-screen">
-          <RootProvider
-            theme={{
-              defaultTheme: "light",
-            }}
-          >
+          <Provider>
             <DocsLayout
               tree={source.pageTree}
               {...baseOptions}
@@ -57,7 +53,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               <AnalyticsProvider />
               {children}
             </DocsLayout>
-          </RootProvider>
+          </Provider>
         </body>
       </html>
     </ClerkProvider>

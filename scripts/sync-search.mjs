@@ -18,7 +18,7 @@ export async function updateSearchIndexes() {
   const manager = new CloudManager({ api_key: apiKey });
  
   await sync(manager, {
-    index: 'novu-docs',
+    index: 'hgwfc5y4s21ljqubwp0zk3z4',
     documents: records,
   });
  
