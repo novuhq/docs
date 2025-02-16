@@ -112,25 +112,4 @@ There are three types of action steps supported by Novu:
 
 ## Execution of workflow steps
 
-When a workflow is triggered, its steps are executed in a predetermined sequence. This ensures a controlled, orderly flow and helps maintain the integrity of the notification process. 
-Here's how it works:
-
-<div className="space-y-4">
-  <div className="rounded-lg border p-4">
-    <h3 className="font-medium">1. Step-by-step activation</h3>
-    <p>Each step is executed one at a time, in the exact order they are defined. This guarantees that dependencies and prerequisites for later steps are met before moving forward.</p>
-  </div>
-  
-  <div className="rounded-lg border p-4">
-    <h3 className="font-medium">2. Predictable flow</h3>
-    <p>Sequential execution creates a reliable process, ensuring that outputs from earlier steps seamlessly influence subsequent steps.</p>
-  </div>
-  
-  <div className="rounded-lg border p-4">
-    <h3 className="font-medium">3. Orderly messaging</h3>
-    <p>Messages are sent in a structured manner, preventing overlap or confusion and ensuring each step receives the attention it requires.</p>
-  </div>
-</div>
-
-By following this approach, workflows remain consistent, predictable, and effective.
-Read more about building workflows [here](/docs/workflow/overview).
+When a workflow is triggered, its steps are executed in a predetermined sequence from top to bottom. This ensures a controlled, orderly flow and helps maintain the integrity of the notification process. 

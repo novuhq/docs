@@ -11,6 +11,7 @@ import {
 } from "fumadocs-ui/page";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Accordion, Accordions } from "../../../components/accordion";
 import { Callout } from "../../../components/callout";
 import { CodeBlock } from "../../../components/codeblock";
 import { Tab } from "../../../components/tabs";
@@ -73,6 +74,8 @@ export default async function Page(props: {
                 <openapi.APIPage {...props} />
               </div>
             ),
+            Accordions: Accordions,
+            Accordion: Accordion,
             Popup,
             PopupContent,
             PopupTrigger,
@@ -102,7 +105,7 @@ export default async function Page(props: {
             ),
             Method: (props) => (
               <Link href={props.href} className="no-underline">
-                <span className="text-sm bg-[#f3f0ff] hover:cursor-pointer border border-[#e4defc] text-[#5746af] leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem]">
+                <span className="text-sm bg-[#f3f0ff] hover:cursor-pointer border border-[#e4defc] text-[#5746af] leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] whitespace-nowrap">
                   {props.children}
                 </span>
               </Link>

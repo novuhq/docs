@@ -22,11 +22,9 @@ When creating a new workflow, you can specify default preferences for your subsc
 
 <img src="/images/preferences/inbox-workflow-preferences.png" alt="Inbox Workflow Preferences" className="rounded-lg border w-[400px]" />
 
-<div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950">
-  <p className="text-sm text-blue-700 dark:text-blue-400">
-    Inbox displays only channels used by the current workflow.
-  </p>
-</div>
+<Callout type="info">
+  Inbox displays only channels used by the current workflow.
+</Callout>
 
 ## Subscriber global preferences 
 
@@ -40,19 +38,3 @@ In some cases, you don't want the subscriber to be able to unsubscribe from mand
 
 In those cases you can mark a workflow as `critical` in the Dashboard. Critical workflow are not displayed in the subscriber preferences page.
 
-## API
-
-<Cards>
-  <Card 
-    title="Define workflow channel preferences" 
-    href="/framework/typescript/workflow#workflow-channel-preferences" 
-  />
-  <Card 
-    title="Get subscriber preferences via the API" 
-    href="/api-reference/subscribers/get-subscriber-preferences" 
-  />
-  <Card 
-    title="Update subscriber preferencs via the API" 
-    href="/api-reference/subscribers/update-subscriber-preference" 
-  />
-</Cards>

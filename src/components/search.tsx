@@ -12,7 +12,6 @@ export default function CustomSearchDialog(props: SharedProps) {
         path: "url",
         title: "title",
         description: "content",
-        section: "section",
       }}
       index={{
         endpoint: "https://cloud.orama.run/v1/indexes/novu-docs-z1d208",
