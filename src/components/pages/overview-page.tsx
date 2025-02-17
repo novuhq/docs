@@ -39,7 +39,7 @@ export function OverviewPage() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 mb-24">
           <div className="md:col-span-8 flex flex-col gap-4">
             <Link
-              href="/docs/platform/quickstart/nextjs"
+              href="/platform/quickstart/nextjs"
               className="group no-underline block"
             >
               <div className="relative flex flex-col p-5 rounded-lg border border-border hover:bg-accent transition-all duration-300 gap-5">
@@ -59,7 +59,7 @@ export function OverviewPage() {
             </Link>
 
             <Link
-              href="/docs/platform/concepts/workflows"
+              href="/platform/concepts/workflows"
               className="group no-underline block"
             >
               <div className="relative flex flex-col p-5 rounded-lg border border-border hover:bg-accent transition-all duration-300 gap-5">
@@ -81,7 +81,7 @@ export function OverviewPage() {
 
           <div className="md:col-span-4 h-full">
             <Link
-              href="/docs/platform/inbox/overview"
+              href="/platform/inbox/overview"
               className="group no-underline block h-full"
             >
               <div className="relative flex flex-col p-5 rounded-lg border border-border hover:bg-accent transition-all duration-300 gap-5 h-full">
@@ -113,70 +113,70 @@ export function OverviewPage() {
                 package: "https://api.novu.co/v1",
                 icon: RestApiIcon,
                 color: "text-foreground dark:text-foreground",
-                href: "/docs/api-reference/overview",
+                href: "/api-reference/overview",
               },
               {
                 title: "Node.js",
                 package: "@novu/api",
                 icon: NodejsIcon,
                 color: "text-[#339933] dark:text-[#43c743]",
-                href: "/docs/platform/sdks/server/nodejs",
+                href: "/platform/sdks/server/nodejs",
               },
               {
                 title: "Python",
                 package: "novu-py",
                 icon: PythonIcon,
                 color: "text-[#3776AB] dark:text-[#4d9fe6]",
-                href: "/docs/platform/sdks/server/python",
+                href: "/platform/sdks/server/python",
               },
               {
                 title: "Go",
                 package: "github.com/novuhq/novu-go",
                 icon: GolangIcon,
                 color: "text-[#00ADD8] dark:text-[#29c4ec]",
-                href: "/docs/platform/sdks/server/go",
+                href: "/platform/sdks/server/go",
               },
               {
                 title: "PHP",
                 package: "novuhq/novu",
                 icon: PhpIcon,
                 color: "text-[#777BB4] dark:text-[#9b9fd8]",
-                href: "/docs/platform/sdks/server/php",
+                href: "/platform/sdks/server/php",
               },
               {
                 title: "Java",
                 package: "co.novu:novu-java",
                 icon: JavaIcon,
                 color: "text-[#007396] dark:text-[#1a9fd1]",
-                href: "/docs/platform/sdks/server/java",
+                href: "/platform/sdks/server/java",
               },
               {
                 title: "Laravel",
                 package: "novu/novu-laravel",
                 icon: LaravelIcon,
                 color: "text-[#FF2D20] dark:text-[#ff4d42]",
-                href: "/docs/platform/sdks/server/laravel",
+                href: "/platform/sdks/server/laravel",
               },
               {
                 title: ".NET",
                 package: "Novu",
                 icon: DotnetIcon,
                 color: "text-[#512BD4] dark:text-[#7048ec]",
-                href: "/docs/platform/sdks/server/dotnet",
+                href: "/platform/sdks/server/dotnet",
               },
               {
                 title: "Ruby",
                 package: "novu",
                 icon: RubyIcon,
                 color: "text-[#CC342D] dark:text-[#e65a54]",
-                href: "/docs/platform/sdks/server/ruby",
+                href: "/platform/sdks/server/ruby",
               },
               {
                 title: "Kotlin",
                 package: "co.novu:novu-kotlin",
                 icon: Layers,
                 color: "text-[#7F52FF] dark:text-[#9c7aff]",
-                href: "/docs/platform/sdks/server/kotlin",
+                href: "/platform/sdks/server/kotlin",
               },
             ].map((item) => (
               <Link

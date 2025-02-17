@@ -1,11 +1,62 @@
 ---
-title: "Overview"
+title: "@novu/react"
 pageTitle: "API reference for the @novu/react package"
 ---
 
-## InboxProps
+## Components
 
-The main props for the Novu Inbox component.
+The @novu/react package provides React components for building notification UIs.
+
+## Inbox
+
+The main component for displaying notifications.
+
+### Props
+
+<TypeTable name="InboxProps" type={{
+  "applicationIdentifier": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriberId": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriberHash": {
+    "description": "",
+    "type": "string"
+  },
+  "backendUrl": {
+    "description": "",
+    "type": "string"
+  },
+  "socketUrl": {
+    "description": "",
+    "type": "string"
+  },
+  "appearance": {
+    "description": "",
+    "type": "Appearance"
+  },
+  "localization": {
+    "description": "",
+    "type": "Localization"
+  },
+  "tabs": {
+    "description": "",
+    "type": "Tab[]"
+  },
+  "preferencesFilter": {
+    "description": "",
+    "type": "PreferencesFilter"
+  },
+  "routerPush": {
+    "description": "",
+    "type": "RouterPush"
+  }
+}} />
+
+### Usage
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -28,25 +79,515 @@ function NotificationCenter() {
 }
 ```
 
-<AutoTypeTable path="./content/docs/platform/sdks/types/react-types.ts" name="InboxProps" />
+### Appearance Configuration
 
-## Appearance
+<TypeTable name="InboxAppearanceProps" type={{
+  "variables": {
+    "description": "",
+    "type": "Variables"
+  },
+  "animations": {
+    "description": "",
+    "type": "boolean"
+  },
+  "baseTheme": {
+    "description": "",
+    "type": "Theme | Theme[]"
+  }
+}} />
 
-The appearance configuration for the Novu Inbox.
+#### Variables
 
-<AutoTypeTable path="./content/docs/platform/sdks/types/react-types.ts" name="InboxAppearanceProps" />
+<TypeTable name="InboxAppearanceVariables" type={{
+  "colorBackground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorForeground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorPrimary": {
+    "description": "",
+    "type": "string"
+  },
+  "colorPrimaryForeground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorSecondary": {
+    "description": "",
+    "type": "string"
+  },
+  "colorSecondaryForeground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorCounter": {
+    "description": "",
+    "type": "string"
+  },
+  "colorCounterForeground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorNeutral": {
+    "description": "",
+    "type": "string"
+  },
+  "colorShadow": {
+    "description": "",
+    "type": "string"
+  },
+  "fontSize": {
+    "description": "",
+    "type": "string"
+  },
+  "borderRadius": {
+    "description": "",
+    "type": "string"
+  }
+}} />
 
-### Variables
+#### Elements
 
-<AutoTypeTable path="./content/docs/platform/sdks/types/react-types.ts" name="InboxAppearanceVariables" />
+<TypeTable name="InboxAppearanceElements" type={{
+  "button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "popoverContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "popoverTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItemLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItemLeftIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItemRightIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tooltipContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tooltipTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "back__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "skeletonText": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "skeletonAvatar": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tabsRoot": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tabsList": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tabsContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tabsTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dots": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "root": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "bellIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "bellContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "bellDot": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferences__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "loading": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inbox__popoverTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inbox__popoverContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListEmptyNoticeContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListEmptyNotice": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListEmptyNoticeIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListNewNotificationsNotice__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notification": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDot": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSubject": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSubject__strong": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationBody": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationBody__strong": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationBodyContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationImage": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDate": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDefaultActions": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationCustomActions": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationPrimaryAction__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSecondaryAction__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationRead__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnread__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationArchive__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnarchive__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabs__tabsRoot": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabs__tabsList": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabs__tabsContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabs__tabsTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabsTriggerLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabsTriggerCount": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__title": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemLeft__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActionsContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownItemLeft__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dots": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dots": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownItemRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabelHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowContainerDisabledNotice": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabelDisabled__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowContainerRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowArrow__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelsContainerCollapsible": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelsContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelDescription": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelName": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelSwitchContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelSwitch": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelSwitchThumb": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesHeader__back__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesHeader__title": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesLoadingContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "strong": {
+    "description": "",
+    "type": "ElementStyles"
+  }
+}} />
 
-### Elements
+## Bell
 
-<AutoTypeTable path="./content/docs/platform/sdks/types/react-types.ts" name="InboxAppearanceElements" />
+A customizable notification bell component.
 
-## BellProps
+### Props
 
-Props for the Novu Bell component.
+<TypeTable name="BellProps" type={{
+  "renderBell": {
+    "description": "",
+    "type": "BellRenderer"
+  }
+}} />
+
+### Usage
 
 ```tsx
 import { Bell } from '@novu/react';
@@ -69,11 +610,32 @@ function NotificationBell() {
 }
 ```
 
-<AutoTypeTable path="./content/docs/platform/sdks/types/react-types.ts" name="BellProps" />
+## Notifications
 
-## NotificationProps
+A component for rendering a list of notifications.
 
-Props for the Novu Notifications component.
+### Props
+
+<TypeTable name="NotificationProps" type={{
+  "renderNotification": {
+    "description": "",
+    "type": "NotificationsRenderer"
+  },
+  "onNotificationClick": {
+    "description": "",
+    "type": "NotificationClickHandler"
+  },
+  "onPrimaryActionClick": {
+    "description": "",
+    "type": "NotificationActionClickHandler"
+  },
+  "onSecondaryActionClick": {
+    "description": "",
+    "type": "NotificationActionClickHandler"
+  }
+}} />
+
+### Usage
 
 ```tsx
 import { Notifications } from '@novu/react';
@@ -100,11 +662,40 @@ function NotificationList() {
 }
 ```
 
-<AutoTypeTable path="./content/docs/platform/sdks/types/react-types.ts" name="NotificationProps" />
+## InboxContent
 
-## InboxContentProps
+A component for building custom notification inboxes.
 
-Props for the Novu InboxContent component.
+### Props
+
+<TypeTable name="InboxContentProps" type={{
+  "renderNotification": {
+    "description": "",
+    "type": "NotificationsRenderer"
+  },
+  "onNotificationClick": {
+    "description": "",
+    "type": "NotificationClickHandler"
+  },
+  "onPrimaryActionClick": {
+    "description": "",
+    "type": "NotificationActionClickHandler"
+  },
+  "onSecondaryActionClick": {
+    "description": "",
+    "type": "NotificationActionClickHandler"
+  },
+  "initialPage": {
+    "description": "",
+    "type": "InboxPage"
+  },
+  "hideNav": {
+    "description": "",
+    "type": "boolean"
+  }
+}} />
+
+### Usage
 
 ```tsx
 import { InboxContent } from '@novu/react';
@@ -133,5 +724,3 @@ function CustomInbox() {
   );
 }
 ```
-
-<AutoTypeTable path="./content/docs/platform/sdks/types/react-types.ts" name="InboxContentProps" />

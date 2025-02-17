@@ -15,40 +15,27 @@ export default async function middleware(
   request: NextRequest,
   event: NextFetchEvent
 ) {
-  if (
-    request.nextUrl.pathname === "/" ||
-    request.nextUrl.pathname === "/docs"
-  ) {
+  if (request.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/platform/overview", request.url));
+  }
+
+  if (request.nextUrl.pathname === "/platform") {
+    return NextResponse.redirect(new URL("/platform/overview", request.url));
+  }
+
+  if (request.nextUrl.pathname === "/community") {
+    return NextResponse.redirect(new URL("/community/overview", request.url));
+  }
+
+  if (request.nextUrl.pathname === "/api-reference") {
     return NextResponse.redirect(
-      new URL("/docs/platform/overview", request.url)
+      new URL("/api-reference/overview", request.url)
     );
   }
 
-  // Handle platform redirect
-  if (request.nextUrl.pathname === "/docs/platform") {
-    return NextResponse.redirect(
-      new URL("/docs/platform/overview", request.url)
-    );
+  if (request.nextUrl.pathname === "/framework") {
+    return NextResponse.redirect(new URL("/framework/overview", request.url));
   }
 
-  if (request.nextUrl.pathname === "/docs/community") {
-    return NextResponse.redirect(
-      new URL("/docs/community/overview", request.url)
-    );
-  }
-
-  if (request.nextUrl.pathname === "/docs/api-reference") {
-    return NextResponse.redirect(
-      new URL("/docs/api-reference/overview", request.url)
-    );
-  }
-
-  if (request.nextUrl.pathname === "/docs/framework") {
-    return NextResponse.redirect(
-      new URL("/docs/framework/overview", request.url)
-    );
-  }
-
-  // Continue with Clerk middleware
   return clerkMiddleware(request, event);
 }

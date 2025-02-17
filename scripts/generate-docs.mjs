@@ -18,6 +18,7 @@ async function main() {
     groupBy: 'tag',
     per: 'operation',
   });
+  
 }
 
 main().catch(console.error);

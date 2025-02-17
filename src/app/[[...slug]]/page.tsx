@@ -1,7 +1,6 @@
 import { openapi, source } from "@/lib/source";
 import { Popup, PopupContent, PopupTrigger } from "fumadocs-twoslash/ui";
-import { createTypeTable } from "fumadocs-typescript/ui";
-import { ImageZoom } from "fumadocs-ui/components/image-zoom";
+import { TypeTable } from "fumadocs-ui/components/type-table";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import {
   DocsBody,
@@ -11,19 +10,19 @@ import {
 } from "fumadocs-ui/page";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Accordion, Accordions } from "../../../components/accordion";
-import { Callout } from "../../../components/callout";
-import { CodeBlock } from "../../../components/codeblock";
-import { Tab } from "../../../components/tabs";
-import { Tabs } from "../../../components/ui/tabs";
+import { Accordion, Accordions } from "../../components/accordion";
+import { Callout } from "../../components/callout";
+import { CodeBlock } from "../../components/codeblock";
+import { ImageZoom } from "../../components/image-zoom";
+import { Step, Steps } from "../../components/steps";
+import { Tab } from "../../components/tabs";
+import { Tabs } from "../../components/ui/tabs";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../../../components/ui/tooltip";
-
-const { AutoTypeTable } = createTypeTable();
+} from "../../components/ui/tooltip";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -76,10 +75,12 @@ export default async function Page(props: {
             ),
             Accordions: Accordions,
             Accordion: Accordion,
+            Steps: Steps,
+            Step: Step,
             Popup,
             PopupContent,
             PopupTrigger,
-            AutoTypeTable,
+            TypeTable: TypeTable,
             Tabs: Tabs,
             Tab: Tab,
             Tooltip: ({
@@ -110,8 +111,7 @@ export default async function Page(props: {
                 </span>
               </Link>
             ),
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            img: (props) => <ImageZoom {...(props as any)} />,
+            img: (props) => <ImageZoom {...props} />,
           }}
         />
       </DocsBody>
