@@ -8,23 +8,11 @@ export function PythonIcon(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <defs>
-        <linearGradient
-          id="logosPython0"
-          x1="12.959%"
-          x2="79.639%"
-          y1="12.039%"
-          y2="78.201%"
-        >
+        <linearGradient id="logosPython0" x1="12.959%" x2="79.639%" y1="12.039%" y2="78.201%">
           <stop offset="0%" stopColor="#387EB8" />
           <stop offset="100%" stopColor="#366994" />
         </linearGradient>
-        <linearGradient
-          id="logosPython1"
-          x1="19.128%"
-          x2="90.742%"
-          y1="20.579%"
-          y2="88.429%"
-        >
+        <linearGradient id="logosPython1" x1="19.128%" x2="90.742%" y1="20.579%" y2="88.429%">
           <stop offset="0%" stopColor="#FFE052" />
           <stop offset="100%" stopColor="#FFC331" />
         </linearGradient>

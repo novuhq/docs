@@ -110,14 +110,14 @@ import {
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-    to: {
-        subscriberId: '<SUBSCRIBER_ID>',
-    },
-    overrides: {
-        sms: {
-            integrationIdentifier: 'infobip-abcdef',
-        },
-    },
+to: {
+subscriberId: '<SUBSCRIBER_ID>',
+},
+overrides: {
+sms: {
+integrationIdentifier: 'infobip-abcdef',
+},
+},
 });
 
 ```
@@ -135,3 +135,4 @@ Common errors and reason for these errors while sending sms messages using Novu.
 1. Subscriber does not have a configured channel.
     - if the `from` field is missing / null / undefined.
 
+```

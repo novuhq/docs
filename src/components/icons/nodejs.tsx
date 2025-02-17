@@ -8,86 +8,44 @@ export function NodejsIcon(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <defs>
-        <linearGradient
-          id="logosNodejs0"
-          x1="68.188%"
-          x2="27.823%"
-          y1="17.487%"
-          y2="89.755%"
-        >
+        <linearGradient id="logosNodejs0" x1="68.188%" x2="27.823%" y1="17.487%" y2="89.755%">
           <stop offset="0%" stopColor="#41873F" />
           <stop offset="32.88%" stopColor="#418B3D" />
           <stop offset="63.52%" stopColor="#419637" />
           <stop offset="93.19%" stopColor="#3FA92D" />
           <stop offset="100%" stopColor="#3FAE2A" />
         </linearGradient>
-        <linearGradient
-          id="logosNodejs1"
-          x1="43.277%"
-          x2="159.245%"
-          y1="55.169%"
-          y2="-18.306%"
-        >
+        <linearGradient id="logosNodejs1" x1="43.277%" x2="159.245%" y1="55.169%" y2="-18.306%">
           <stop offset="13.76%" stopColor="#41873F" />
           <stop offset="40.32%" stopColor="#54A044" />
           <stop offset="71.36%" stopColor="#66B848" />
           <stop offset="90.81%" stopColor="#6CC04A" />
         </linearGradient>
-        <linearGradient
-          id="logosNodejs2"
-          x1="-4413.77%"
-          x2="5327.93%"
-          y1="13.43%"
-          y2="13.43%"
-        >
+        <linearGradient id="logosNodejs2" x1="-4413.77%" x2="5327.93%" y1="13.43%" y2="13.43%">
           <stop offset="9.192%" stopColor="#6CC04A" />
           <stop offset="28.64%" stopColor="#66B848" />
           <stop offset="59.68%" stopColor="#54A044" />
           <stop offset="86.24%" stopColor="#41873F" />
         </linearGradient>
-        <linearGradient
-          id="logosNodejs3"
-          x1="-4.389%"
-          x2="101.499%"
-          y1="49.997%"
-          y2="49.997%"
-        >
+        <linearGradient id="logosNodejs3" x1="-4.389%" x2="101.499%" y1="49.997%" y2="49.997%">
           <stop offset="9.192%" stopColor="#6CC04A" />
           <stop offset="28.64%" stopColor="#66B848" />
           <stop offset="59.68%" stopColor="#54A044" />
           <stop offset="86.24%" stopColor="#41873F" />
         </linearGradient>
-        <linearGradient
-          id="logosNodejs4"
-          x1="-9713.77%"
-          x2="27.93%"
-          y1="36.21%"
-          y2="36.21%"
-        >
+        <linearGradient id="logosNodejs4" x1="-9713.77%" x2="27.93%" y1="36.21%" y2="36.21%">
           <stop offset="9.192%" stopColor="#6CC04A" />
           <stop offset="28.64%" stopColor="#66B848" />
           <stop offset="59.68%" stopColor="#54A044" />
           <stop offset="86.24%" stopColor="#41873F" />
         </linearGradient>
-        <linearGradient
-          id="logosNodejs5"
-          x1="-103.861%"
-          x2="100.797%"
-          y1="50.275%"
-          y2="50.275%"
-        >
+        <linearGradient id="logosNodejs5" x1="-103.861%" x2="100.797%" y1="50.275%" y2="50.275%">
           <stop offset="9.192%" stopColor="#6CC04A" />
           <stop offset="28.64%" stopColor="#66B848" />
           <stop offset="59.68%" stopColor="#54A044" />
           <stop offset="86.24%" stopColor="#41873F" />
         </linearGradient>
-        <linearGradient
-          id="logosNodejs6"
-          x1="130.613%"
-          x2="4.393%"
-          y1="-211.069%"
-          y2="201.605%"
-        >
+        <linearGradient id="logosNodejs6" x1="130.613%" x2="4.393%" y1="-211.069%" y2="201.605%">
           <stop offset="0%" stopColor="#41873F" />
           <stop offset="32.88%" stopColor="#418B3D" />
           <stop offset="63.52%" stopColor="#419637" />

@@ -1,12 +1,6 @@
 export function DotnetIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="35"
-      height="35"
-      viewBox="0 0 256 256"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 256 256" {...props}>
       <g fill="none">
         <rect width="256" height="256" fill="#512BD4" rx="60" />
         <path

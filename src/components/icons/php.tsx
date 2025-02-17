@@ -1,12 +1,6 @@
 export function PhpIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="35"
-      height="35"
-      viewBox="0 0 128 128"
-      {...props}
-    >
+    <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 128 128" {...props}>
       <path
         fill="url(#deviconPhp0)"
         d="M0 64c0 18.593 28.654 33.667 64 33.667c35.346 0 64-15.074 64-33.667c0-18.593-28.655-33.667-64-33.667C28.654 30.333 0 45.407 0 64Z"

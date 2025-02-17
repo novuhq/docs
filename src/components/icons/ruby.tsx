@@ -8,50 +8,26 @@ export function RubyIcon(props: React.SVGProps<SVGSVGElement>) {
       {...props}
     >
       <defs>
-        <linearGradient
-          id="logosRuby0"
-          x1="84.75%"
-          x2="58.254%"
-          y1="111.399%"
-          y2="64.584%"
-        >
+        <linearGradient id="logosRuby0" x1="84.75%" x2="58.254%" y1="111.399%" y2="64.584%">
           <stop offset="0%" stopColor="#FB7655" />
           <stop offset="0%" stopColor="#FB7655" />
           <stop offset="41%" stopColor="#E42B1E" />
           <stop offset="99%" stopColor="#900" />
           <stop offset="100%" stopColor="#900" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby1"
-          x1="116.651%"
-          x2="1.746%"
-          y1="60.89%"
-          y2="19.288%"
-        >
+        <linearGradient id="logosRuby1" x1="116.651%" x2="1.746%" y1="60.89%" y2="19.288%">
           <stop offset="0%" stopColor="#871101" />
           <stop offset="0%" stopColor="#871101" />
           <stop offset="99%" stopColor="#911209" />
           <stop offset="100%" stopColor="#911209" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby2"
-          x1="75.774%"
-          x2="38.978%"
-          y1="219.327%"
-          y2="7.829%"
-        >
+        <linearGradient id="logosRuby2" x1="75.774%" x2="38.978%" y1="219.327%" y2="7.829%">
           <stop offset="0%" stopColor="#871101" />
           <stop offset="0%" stopColor="#871101" />
           <stop offset="99%" stopColor="#911209" />
           <stop offset="100%" stopColor="#911209" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby3"
-          x1="50.012%"
-          x2="66.483%"
-          y1="7.234%"
-          y2="79.135%"
-        >
+        <linearGradient id="logosRuby3" x1="50.012%" x2="66.483%" y1="7.234%" y2="79.135%">
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="23%" stopColor="#E57252" />
@@ -59,13 +35,7 @@ export function RubyIcon(props: React.SVGProps<SVGSVGElement>) {
           <stop offset="99%" stopColor="#A60003" />
           <stop offset="100%" stopColor="#A60003" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby4"
-          x1="46.174%"
-          x2="49.932%"
-          y1="16.348%"
-          y2="83.047%"
-        >
+        <linearGradient id="logosRuby4" x1="46.174%" x2="49.932%" y1="16.348%" y2="83.047%">
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="23%" stopColor="#E4714E" />
@@ -73,13 +43,7 @@ export function RubyIcon(props: React.SVGProps<SVGSVGElement>) {
           <stop offset="99%" stopColor="#A80D00" />
           <stop offset="100%" stopColor="#A80D00" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby5"
-          x1="36.965%"
-          x2="49.528%"
-          y1="15.594%"
-          y2="92.478%"
-        >
+        <linearGradient id="logosRuby5" x1="36.965%" x2="49.528%" y1="15.594%" y2="92.478%">
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="18%" stopColor="#E46342" />
@@ -87,39 +51,21 @@ export function RubyIcon(props: React.SVGProps<SVGSVGElement>) {
           <stop offset="99%" stopColor="#A80D00" />
           <stop offset="100%" stopColor="#A80D00" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby6"
-          x1="13.609%"
-          x2="85.764%"
-          y1="58.346%"
-          y2="-46.717%"
-        >
+        <linearGradient id="logosRuby6" x1="13.609%" x2="85.764%" y1="58.346%" y2="-46.717%">
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="54%" stopColor="#C81F11" />
           <stop offset="99%" stopColor="#BF0905" />
           <stop offset="100%" stopColor="#BF0905" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby7"
-          x1="27.624%"
-          x2="50.745%"
-          y1="21.135%"
-          y2="79.056%"
-        >
+        <linearGradient id="logosRuby7" x1="27.624%" x2="50.745%" y1="21.135%" y2="79.056%">
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="0%" stopColor="#FFF" />
           <stop offset="31%" stopColor="#DE4024" />
           <stop offset="99%" stopColor="#BF190B" />
           <stop offset="100%" stopColor="#BF190B" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby8"
-          x1="-20.667%"
-          x2="104.242%"
-          y1="122.282%"
-          y2="-6.342%"
-        >
+        <linearGradient id="logosRuby8" x1="-20.667%" x2="104.242%" y1="122.282%" y2="-6.342%">
           <stop offset="0%" stopColor="#BD0012" />
           <stop offset="0%" stopColor="#BD0012" />
           <stop offset="7%" stopColor="#FFF" />
@@ -131,63 +77,33 @@ export function RubyIcon(props: React.SVGProps<SVGSVGElement>) {
           <stop offset="99%" stopColor="#E82609" />
           <stop offset="100%" stopColor="#E82609" />
         </linearGradient>
-        <linearGradient
-          id="logosRuby9"
-          x1="58.792%"
-          x2="11.964%"
-          y1="65.205%"
-          y2="50.128%"
-        >
+        <linearGradient id="logosRuby9" x1="58.792%" x2="11.964%" y1="65.205%" y2="50.128%">
           <stop offset="0%" stopColor="#8C0C01" />
           <stop offset="0%" stopColor="#8C0C01" />
           <stop offset="54%" stopColor="#990C00" />
           <stop offset="99%" stopColor="#A80D0E" />
           <stop offset="100%" stopColor="#A80D0E" />
         </linearGradient>
-        <linearGradient
-          id="logosRubya"
-          x1="79.319%"
-          x2="23.088%"
-          y1="62.754%"
-          y2="17.888%"
-        >
+        <linearGradient id="logosRubya" x1="79.319%" x2="23.088%" y1="62.754%" y2="17.888%">
           <stop offset="0%" stopColor="#7E110B" />
           <stop offset="0%" stopColor="#7E110B" />
           <stop offset="99%" stopColor="#9E0C00" />
           <stop offset="100%" stopColor="#9E0C00" />
         </linearGradient>
-        <linearGradient
-          id="logosRubyb"
-          x1="92.88%"
-          x2="59.841%"
-          y1="74.122%"
-          y2="39.704%"
-        >
+        <linearGradient id="logosRubyb" x1="92.88%" x2="59.841%" y1="74.122%" y2="39.704%">
           <stop offset="0%" stopColor="#79130D" />
           <stop offset="0%" stopColor="#79130D" />
           <stop offset="99%" stopColor="#9E120B" />
           <stop offset="100%" stopColor="#9E120B" />
         </linearGradient>
-        <linearGradient
-          id="logosRubyc"
-          x1="56.57%"
-          x2="3.105%"
-          y1="101.717%"
-          y2="11.993%"
-        >
+        <linearGradient id="logosRubyc" x1="56.57%" x2="3.105%" y1="101.717%" y2="11.993%">
           <stop offset="0%" stopColor="#8B2114" />
           <stop offset="0%" stopColor="#8B2114" />
           <stop offset="43%" stopColor="#9E100A" />
           <stop offset="99%" stopColor="#B3100C" />
           <stop offset="100%" stopColor="#B3100C" />
         </linearGradient>
-        <linearGradient
-          id="logosRubyd"
-          x1="30.87%"
-          x2="92.471%"
-          y1="35.599%"
-          y2="100.694%"
-        >
+        <linearGradient id="logosRubyd" x1="30.87%" x2="92.471%" y1="35.599%" y2="100.694%">
           <stop offset="0%" stopColor="#B31000" />
           <stop offset="0%" stopColor="#B31000" />
           <stop offset="44%" stopColor="#910F08" />
@@ -233,10 +149,7 @@ export function RubyIcon(props: React.SVGProps<SVGSVGElement>) {
         fill="url(#logosRuby2)"
         d="m240.896 241.257l-118.646-9.313l-69.674 21.986l188.32-12.673Z"
       />
-      <path
-        fill="url(#logosRuby3)"
-        d="m52.744 253.955l29.64-97.1L17.16 170.8l35.583 83.154Z"
-      />
+      <path fill="url(#logosRuby3)" d="m52.744 253.955l29.64-97.1L17.16 170.8l35.583 83.154Z" />
       <path
         fill="url(#logosRuby4)"
         d="M180.358 188.05L153.085 81.226l-78.047 73.16l105.32 33.666Z"
@@ -245,14 +158,8 @@ export function RubyIcon(props: React.SVGProps<SVGSVGElement>) {
         fill="url(#logosRuby5)"
         d="m248.693 82.73l-73.777-60.256l-20.544 66.418l94.321-6.162Z"
       />
-      <path
-        fill="url(#logosRuby6)"
-        d="M214.191.99L170.8 24.97L143.424.669l70.767.322Z"
-      />
-      <path
-        fill="url(#logosRuby7)"
-        d="m0 203.372l18.177-33.151l-14.704-39.494L0 203.372Z"
-      />
+      <path fill="url(#logosRuby6)" d="M214.191.99L170.8 24.97L143.424.669l70.767.322Z" />
+      <path fill="url(#logosRuby7)" d="m0 203.372l18.177-33.151l-14.704-39.494L0 203.372Z" />
       <path
         fill="#FFF"
         d="m2.496 129.48l14.794 41.963l64.283-14.422l73.39-68.207l20.712-65.787L143.063 0L87.618 20.75c-17.469 16.248-51.366 48.396-52.588 49c-1.21.618-22.384 40.639-32.534 59.73Z"
