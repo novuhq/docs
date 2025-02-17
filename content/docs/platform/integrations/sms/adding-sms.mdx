@@ -8,6 +8,7 @@ icon: "circle-plus"
 import { Card } from 'fumadocs-ui/components/card'
 import { Step, Steps } from 'fumadocs-ui/components/steps'
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { CodeIcon } from "@/components/icons/overview"
 
 <Steps>
 <Step title="Enable SMS channel in Novu Dashboard">
@@ -44,7 +45,7 @@ The SMS channel is not enabled by default. To use it, configure a provider like 
 <Step title="Add a workflow trigger to your backend">
 Novu's server-side SDKs make integrating Novu's REST APIs straightforward, letting you focus on implementing workflows without dealing with repetitive code.
 
-<Card title="Server-side SDKs" href="/sdks/overview#server-side-sdks" />
+<Card title="Server-side SDKs" icon={<CodeIcon />} href="/platform/sdks/server" />
 </Step>
 
 <Step title="Test and verify SMS channel">
@@ -128,7 +129,3 @@ Common errors and reason for these errors while sending sms messages using Novu.
 
 1. Subscriber does not have a configured channel.
     - if the `from` field is missing / null / undefined.
-
-<Callout type="info">
-Looking to integrate an SMS provider? Check out our [provider integrations](/integrations/providers/sms/overview).
-</Callout>

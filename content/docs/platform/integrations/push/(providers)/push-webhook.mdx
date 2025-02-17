@@ -23,7 +23,7 @@ Users can use their own api url as webhook url and novu will make a post request
 This step is a mandatory step. Other push providers have third party dependencies where a device token can be generated. But in case of push webhook provider, there is no any way to generate device token. Any random string can be used as device token.
 
 <Tabs items={['Node.js', 'cURL']}>
-<Tab value="Node.js">
+  <Tab value="Node.js">
 ```javascript
 import {
   Novu,
@@ -50,11 +50,10 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   "integrationIdentifier": "push-webhook-MnGLxp8uy"
 }'
 ```
-
   </Tab>
 </Tabs>
 
-Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.  
 
 ## Example paylod sent by novu to webhook url
 
