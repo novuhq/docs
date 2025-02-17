@@ -1,7 +1,7 @@
 @import 'tailwindcss';
-@import 'fumadocs-ui/css/black.css';
+@import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
-@import '@scalar/api-client-react/style.css' layer(base);
+@import '@scalar/api-client-react/style.css';
 @import 'fumadocs-twoslash/twoslash.css';
 
 
@@ -10,6 +10,10 @@
 @plugin 'tailwindcss-animate';
 
 @layer base {
+  aside .custom-nav {
+    display: none !important;
+  }
+
   button {
     cursor: pointer;
   }
@@ -156,32 +160,6 @@ body {
   --color-fd-accent: hsl(250 20% 38.3%) !important;
   --color-fd-muted-foreground: hsl(230 80% 84%) !important;
   --color-fd-card: hsl(230 40% 26.3%) !important;
-}
-
-@keyframes circuit_1 {
-  0% {
-    transform: translateY(-20px);
-  }
-
-  100% {
-    transform: translateY(100px);
-  }
-}
-
-@keyframes circuit_1_x_energy {
-  0%,
-  46% {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  47%,
-  70% {
-    opacity: 100%;
-  }
-  100% {
-    opacity: 0;
-    transform: translateX(212px);
-  }
 }
 
 /* Navigation active states */
