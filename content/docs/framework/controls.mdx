@@ -33,74 +33,79 @@ The snippet below shows a configuration for the Step Control schema. If you don'
 
 <Tabs items={['Zod Schema', 'Class-Validator Schema', 'JSON Schema']}>
   <Tab value="Zod Schema">
+
 ```tsx
 import { z } from 'zod';
+import { render } from 'react-email';
+import { ReactEmailContent } from './ReactEmailContent';
 
-workflow("new-signup", async ({ step, payload }) => {
-await step.email(
-"send-email",
-async (controls) => {
-return {
-subject: controls.subject,
-body: render(
-<ReactEmailContent
-            hideBanner={controls.hideBanner}
-            components={controls.components}
-          />
-),
-};
-},
-{
-controlSchema: z.object({
-hideBanner: z.boolean().default(false),
-subject: z.string().default('Hi {{subscriber.firstName | capitalize}}'),
-components: z.array(z.object({
-type: z.enum(['header', 'cta-row', 'footer']),
-content: z.string()
-}))
-})
-}
-);
-});
-
-````
-  </Tab>
-  <Tab value="Class-Validator Schema">
-```tsx
-class NewSignUpComponent {
-    @IsString()
-    subject: string;
-
-    @IsString()
-    content: string;
-}
-class NewSignUpControlSchema {
-    @IsBoolean()
-    hideBanner: Boolean;
-
-    @IsString()
-    @IsNotEmpty()
-    @IsOptional()
-    subject?: string;
-
-    // Allowing no code control over the component in the Dashboard UI
-    @Type(() => NewSignUpComponent)
-    @NestedValidation({ each: true })
-    @IsOptional()
-    components?: NewSignUpComponent[];
-}
-
-workflow("new-signup", async ({ step, payload }) => {
+workflow('new-signup', async ({ step, payload }) => {
   await step.email(
-    "send-email",
+    'send-email',
     async (controls) => {
       return {
         subject: controls.subject,
         body: render(
-          <ReactEmailContent
-            hideBanner={controls.hideBanner}
-            components={controls.components}
-          />
+          <ReactEmailContent hideBanner={controls.hideBanner} components={controls.components} />
+        ),
+      };
+    },
+    {
+      controlSchema: z.object({
+        hideBanner: z.boolean().default(false),
+        subject: z.string().default('Hi {{subscriber.firstName | capitalize}}'),
+        components: z.array(
+          z.object({
+            type: z.enum(['header', 'cta-row', 'footer']),
+            content: z.string(),
+          })
+        ),
+      }),
+    }
+  );
+});
+```
+
+  </Tab>
+  <Tab value="Class-Validator Schema">
+
+```tsx
+import { IsString, IsNotEmpty, IsOptional, IsBoolean } from 'class-validator';
+import { Type } from 'class-transformer';
+import { render } from 'react-email';
+import { ReactEmailContent } from './ReactEmailContent';
+
+class NewSignUpComponent {
+  @IsString()
+  subject: string;
+
+  @IsString()
+  content: string;
+}
+class NewSignUpControlSchema {
+  @IsBoolean()
+  hideBanner: boolean;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsOptional()
+  subject?: string;
+
+  // Allowing no code control over the component in the Dashboard UI
+  @Type(() => NewSignUpComponent)
+  @NestedValidation({ each: true })
+  @IsOptional()
+  components?: NewSignUpComponent[];
+}
+
+workflow('new-signup', async ({ step, payload }) => {
+  await step.email(
+    'send-email',
+    async (controls) => {
+      return {
+        subject: controls.subject,
+        body: render(
+          <ReactEmailContent hideBanner={controls.hideBanner} components={controls.components} />
         ),
       };
     },
@@ -110,7 +115,7 @@ workflow("new-signup", async ({ step, payload }) => {
     }
   );
 });
-````
+```
 
   </Tab>
   <Tab value="JSON Schema">

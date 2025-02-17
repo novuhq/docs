@@ -35,7 +35,7 @@ If we currently don't support your framework, you can write a custom `serve` fun
 import { type Request, type Response } from 'express';
 import { NovuRequestHandler, ServeHandlerOptions } from '@novu/framework';
 
-export const serve = (options: ServeHandlerOptions): any => {
+export const serve = (options: ServeHandlerOptions) => {
   const requestHandler = new NovuRequestHandler({
     frameworkName: 'express',
     ...options,

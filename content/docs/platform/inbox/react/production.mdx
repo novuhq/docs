@@ -29,11 +29,13 @@ const hmacHash = createHmac('sha256', process.env.NOVU_SECRET_KEY)
 2. Then pass the created HMAC to your client side application forward it to the component:
 
 ```tsx
+import { Inbox } from '@novu/react';
+
 <Inbox
   applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
   subscriberId="YOUR_SUBSCRIBER_ID"
   subscriberHash="YOUR_SUBSCRIBER_ID_HASH_VALUE"
-/>
+/>;
 ```
 
 <Callout type="info">

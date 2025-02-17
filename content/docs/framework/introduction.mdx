@@ -188,6 +188,8 @@ Payload schema defines the payload passed during the `novu.trigger` method. This
 
 ```tsx
 import { workflow } from '@novu/framework';
+import { render } from 'react-email';
+import { ReactEmailContent } from './ReactEmailContent';
 
 workflow(
   'comment-on-post',
@@ -219,15 +221,15 @@ workflow(
 Tags are used to categorize the workflows. They also allow you to filter and group notifications for your [Inbox](/inbox/overview) tabs.
 
 ```tsx
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
 
 workflow(
-  "acme-login-alert",
+  'acme-login-alert',
   async ({ step, payload }) => {
     await step.inApp('inbox', async () => {
       return {
         subject: 'New Login Detected',
-        body: 'We noticed a login from a new device or location. If this wasn't you, change your password immediately.',
+        body: "We noticed a login from a new device or location. If this wasn't you, change your password immediately.",
       };
     });
   },

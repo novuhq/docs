@@ -69,7 +69,7 @@ export const goalReminderInAppAfterDelay = workflow(
         };
       },
       {
-        skip: () => (subscriber as any).data?.goalReminderInAppAllowed === false,
+        skip: () => subscriber.data?.goalReminderInAppAllowed === false,
       }
     );
   }

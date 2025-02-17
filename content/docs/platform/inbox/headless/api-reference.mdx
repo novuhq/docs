@@ -108,11 +108,11 @@ type Subscriber = {
 };
 
 enum ChannelType {
-  IN_APP = "in_app",
-  EMAIL = "email",
-  SMS = "sms",
-  CHAT = "chat",
-  PUSH = "push"
+  IN_APP = 'in_app',
+  EMAIL = 'email',
+  SMS = 'sms',
+  CHAT = 'chat',
+  PUSH = 'push',
 }
 
 type Redirect = {
@@ -126,7 +126,7 @@ type Action = {
   redirect?: Redirect;
 };
 
-interface Notification = {
+interface Notification {
   id: string;
   subject?: string;
   body: string;
@@ -143,7 +143,7 @@ interface Notification = {
   tags?: string[];
   data?: Record<string, unknown>;
   redirect?: Redirect;
-};
+}
 ```
 
 ### list

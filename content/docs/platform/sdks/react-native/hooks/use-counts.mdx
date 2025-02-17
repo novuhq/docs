@@ -17,7 +17,7 @@ The `useCounts` hook provides a way to fetch various notification counts, includ
 ## Return Value
 
 ```typescript
-{
+type CountsReturn = {
   data: {
     unreadCount: number;
     unseenCount: number;
@@ -26,7 +26,7 @@ The `useCounts` hook provides a way to fetch various notification counts, includ
   isLoading: boolean;
   error: Error | null;
   refetch: () => void;
-}
+};
 ```
 
 ## Example Usage
@@ -34,6 +34,7 @@ The `useCounts` hook provides a way to fetch various notification counts, includ
 Here's how to use the `useCounts` hook to fetch and display notification counts:
 
 ```tsx
+import { View, Text, ActivityIndicator } from 'react-native';
 import { useCounts } from '@novu/react-native';
 
 function NotificationBadge() {
@@ -57,6 +58,7 @@ function NotificationBadge() {
 You can filter counts for a specific store:
 
 ```tsx
+import { View, Text, ActivityIndicator } from 'react-native';
 function StoreNotifications({ storeId }) {
   const { data, isLoading } = useCounts({
     storeId: storeId,
@@ -78,6 +80,7 @@ function StoreNotifications({ storeId }) {
 You can also apply additional filters using the query parameter:
 
 ```tsx
+import { View, Text, ActivityIndicator } from 'react-native';
 function FilteredNotifications() {
   const { data, isLoading } = useCounts({
     query: {

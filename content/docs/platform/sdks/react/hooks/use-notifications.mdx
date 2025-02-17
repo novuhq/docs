@@ -17,7 +17,7 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
 ## Return Value
 
 ```typescript
-{
+type NotificationReturn = {
   notifications: Array<{
     id: string;
     content: string;
@@ -31,7 +31,7 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
   error: Error | null;
   loadMore: () => void;
   refetch: () => void;
-}
+};
 ```
 
 ## Example Usage

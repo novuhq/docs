@@ -114,27 +114,26 @@ Checkout the [API reference](/api-reference/subscribers/update-subscriber-creden
 ## Checking Authenticity
 
 ```typescript
-import crypto from "crypto"
+import crypto from 'crypto';
 
 // secret key added in step 3
-const secretKey = "YOUR_HMAC_SECRET_KEY"
+const secretKey = 'YOUR_HMAC_SECRET_KEY';
 
 // function to handle webhook url route request
-async acceptNovuPushWebHookRequest(request, response){
-
-  const payloadSentByNovu = request.body
-  const hmacHashSentByNovu = request.headers['x-novu-signature']
+async function acceptNovuPushWebHookRequest(request, response) {
+  const payloadSentByNovu = request.body;
+  const hmacHashSentByNovu = request.headers['x-novu-signature'];
 
   const actualHashValue = crypto
     .createHmac('sha256', secretKey)
     .update(payloadSentByNovu, 'utf-8')
     .digest('hex');
 
-  if(hmacHashSentByNovu === actualHashValue){
+  if (hmacHashSentByNovu === actualHashValue) {
     // handle the notification
-    console.log("Request sent by Novu")
+    console.log('Request sent by Novu');
   } else {
-    throw new Error("Not a valid request")
+    throw new Error('Not a valid request');
   }
 }
 ```

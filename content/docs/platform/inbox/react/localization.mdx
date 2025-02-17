@@ -61,11 +61,12 @@ import { workflow } from '@novu/framework';
 const weeklyCommentsWorkflow = workflow(
   'comment-on-post',
   async ({ step }) => {
-    ...
-  });
-}, {
-  name: 'Post comments', // 👈 name is optional
-});
+    // workflow logic
+  },
+  {
+    name: 'Post comments', // 👈 name is optional
+  }
+);
 ```
 
 Now, your specified workflow name will be displayed in the `<Inbox />` component:

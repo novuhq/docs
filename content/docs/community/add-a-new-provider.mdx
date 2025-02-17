@@ -88,7 +88,7 @@ Make sure your selected name is not conflicting with our existing provider's nam
 
 Once our `example-provider` is generated we will need to begin working from within `packages/providers/src/lib/example-provider` directory. Make sure to write the test for this new provider.
 
-```ts packages/providers/src/lib/example-provider/example-provider.provider.ts
+```typescript
 import {
   ChannelTypeEnum,
   ISendMessageSuccessResponse,
@@ -97,7 +97,7 @@ import {
 } from '@novu/stateless';
 
 export class ExampleProviderEmailProvider implements IEmailProvider {
-  id = 'example-provider'
+  id = 'example-provider';
   channelType = ChannelTypeEnum.EMAIL as ChannelTypeEnum.EMAIL;
 
   constructor(
@@ -109,7 +109,8 @@ export class ExampleProviderEmailProvider implements IEmailProvider {
   async sendMessage(options: IEmailOptions): Promise<ISendMessageSuccessResponse> {
     return {
       id: 'id_returned_by_provider',
-      date: 'current_time'
+      date: 'current_time',
+    };
   }
 }
 ```
@@ -190,8 +191,7 @@ export enum EmailProviderIdEnum {
 
 Now we need to add the provider data to the list located at `libs/shared/src/consts/providers/channels/email.ts`. Note that the `id` is the provider's name, `displayName` is the provider's name in Pascal's case, `credentials` are the ones we created in the previous step, `logoFileName` should be as it was on the adding logo step (with the format type included).
 
-```tsx libs/shared/src/consts/providers/channels/email.ts
-{
+```json
   id: 'example-provider',
   displayName: 'Example Provider',
   channel: ChannelTypeEnum.EMAIL,

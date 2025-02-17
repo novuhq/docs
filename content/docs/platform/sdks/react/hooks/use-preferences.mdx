@@ -10,7 +10,7 @@ The `usePreferences` hook provides a way to fetch and manage notification prefer
 ## Return Value
 
 ```typescript
-{
+type PreferencesReturn = {
   preferences: Array<{
     template: {
       _id: string;
@@ -27,9 +27,12 @@ The `usePreferences` hook provides a way to fetch and manage notification prefer
   }>;
   isLoading: boolean;
   error: Error | null;
-  updatePreference: (params: { templateId: string; channelType: string; enabled: boolean }) =>
-    Promise<void>;
-}
+  updatePreference: (params: {
+    templateId: string;
+    channelType: string;
+    enabled: boolean;
+  }) => Promise<void>;
+};
 ```
 
 ## Example Usage

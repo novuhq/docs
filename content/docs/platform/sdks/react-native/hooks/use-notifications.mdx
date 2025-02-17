@@ -3,8 +3,6 @@ title: 'useNotifications'
 description: 'Learn how to use the useNotifications hook to fetch and manage notifications in your React Native application'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-
 The `useNotifications` hook provides a way to fetch and manage notifications in your React Native application. It includes support for pagination, filtering, and real-time updates.
 
 ## Hook Parameters
@@ -17,21 +15,21 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
 ## Return Value
 
 ```typescript
-{
-  notifications: Array<{
+type NotificationReturn = {
+  notifications: {
     id: string;
     content: string;
     createdAt: Date;
     read: boolean;
     seen: boolean;
     // ... other notification fields
-  }>;
+  }[];
   hasMore: boolean;
   isLoading: boolean;
   error: Error | null;
   loadMore: () => void;
   refetch: () => void;
-}
+};
 ```
 
 ## Example Usage
@@ -73,7 +71,7 @@ You can implement pull-to-refresh using the `refetch` function:
 
 ```tsx
 import { useNotifications } from '@novu/react-native';
-import { RefreshControl } from 'react-native';
+import { RefreshControl, FlatList, View, Text, ActivityIndicator } from 'react-native';
 
 function RefreshableNotificationsList() {
   const { notifications, isLoading, refetch } = useNotifications();
@@ -99,6 +97,8 @@ function RefreshableNotificationsList() {
 You can apply filters using the query parameter:
 
 ```tsx
+import { RefreshControl, FlatList, View, Text, ActivityIndicator } from 'react-native';
+
 function FilteredNotifications() {
   const { notifications, isLoading } = useNotifications({
     query: {

@@ -55,6 +55,8 @@ await step.email('digest-email', async () => {
 You can use the digested events to create rich, aggregated notifications. Here's an example:
 
 ```tsx
+import { ActivityDigestEmail } from './ActivityDigestEmail';
+
 const { events } = await step.digest('activity-digest', async () => {
   return {
     amount: 1,

@@ -147,7 +147,7 @@ This object used to access and override the underlying deliver providers SDKs. T
 
 An example of this is the `slack` provider, which allows you to customize the content of the notification with Slack `blocks` to create a rich notification experience.
 
-```tsx
+```typescript
 type ProvidersOverride = {
   [key: ProviderEnum]: ProviderCallback;
 };
@@ -161,7 +161,7 @@ type ProviderOverridesParams = {
   output: StepOutput;
 };
 
-type ProviderOverrideOutput = {
+interface ProviderOverrideOutput {
   // A map of the properties used by the Provider.
   // These properties are strongly typed and validated
   // against the underlying provider SDK.
@@ -174,7 +174,7 @@ type ProviderOverrideOutput = {
     headers: Record<string, unknown>;
     query: Record<string, unknown>;
   };
-};
+}
 ```
 
 The `_passthrough` object and the known provider values are deeply merged prior to sending the request to the provider, with the `_passthrough` object taking precedence.

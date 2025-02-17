@@ -17,12 +17,12 @@ Here's an example:
 import { workflow } from '@novu/framework';
 
 workflow(
-  "acme-login-alert",
+  'acme-login-alert',
   async ({ step, payload }) => {
     await step.inApp('inbox', async () => {
       return {
         subject: 'New Login Detected',
-        body: 'We noticed a login from a new device or location. If this wasn't you, change your password immediately.',
+        body: "We noticed a login from a new device or location. If this wasn't you, change your password immediately.",
       };
     });
   },
@@ -32,12 +32,12 @@ workflow(
 );
 
 workflow(
-  "acme-password-change",
+  'acme-password-change',
   async ({ step, payload }) => {
     await step.inApp('inbox', async () => {
       return {
         subject: 'Password Changed',
-        body: 'Your password was successfully updated. If you didn't request this, contact support right away.',
+        body: "Your password was successfully updated. If you didn't request this, contact support right away.",
       };
     });
   },

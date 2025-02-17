@@ -96,6 +96,7 @@ You might want to use variables to the styling of multiple components at once, f
 You can override the default elements by passing your own styles or CSS classes to the `elements` object.
 
 ```tsx
+import { Inbox } from '@novu/react';
 const appearance = {
   variables: {
     colorBackground: 'yellow',
@@ -300,9 +301,12 @@ You can learn more about the Novu Framework in-app step [here](/framework/typesc
 You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component, this will allow you to style and render more complex notification items.
 
 ```tsx
+import { Inbox } from '@novu/react';
+import { CustomNotification } from './CustomNotification';
+
 <Inbox
   renderNotification={(notification) => {
     return <CustomNotification notification={notification} />;
   }}
-/>
+/>;
 ```
