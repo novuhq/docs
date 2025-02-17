@@ -39,7 +39,7 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
       <div
         ref={ref}
         className={cn(
-          "element flex w-full flex-col flex-wrap overflow-hidden border rounded-lg p-4 text-sm bg-[#f7f7f7] dark:bg-zinc-900 dark:border-zinc-800 leading-relaxed",
+          "element mb-4 flex w-full flex-col flex-wrap overflow-hidden border rounded-lg p-4 text-sm bg-[#f7f7f7] dark:bg-zinc-900 dark:border-zinc-800 leading-relaxed",
           className
         )}
         {...props}
