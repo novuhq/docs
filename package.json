@@ -8,7 +8,8 @@
     "start": "next start",
     "postinstall": "fumadocs-mdx",
     "build:docs": "node ./scripts/generate-docs.mjs",
-    "sync:search": "node ./scripts/sync-search.mjs"
+    "sync:search": "node ./scripts/sync-search.mjs",
+    "post:build": "cp tsconfig.json .next/server/"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.11.2",
