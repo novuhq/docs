@@ -1,0 +1,9 @@
+[build]
+  command = "cp tsconfig.json .next/server/ && next build"
+  publish = ".next"
+
+[build.environment]
+  NEXT_TELEMETRY_DISABLED = "1"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs" 
