@@ -20,7 +20,7 @@ Usually, it's placed somewhere in the root of your application, which makes the 
 ## Example Usage
 
 <Tabs items={['US', 'EU', 'HMAC Encryption']}>
-  <Tab>
+  <Tab value="US">
     ```tsx
     import { NovuProvider } from '@novu/react';
 
@@ -37,7 +37,7 @@ Usually, it's placed somewhere in the root of your application, which makes the 
     ```
 
   </Tab>
-  <Tab>
+  <Tab value="EU">
     ```tsx
     import { NovuProvider } from '@novu/react';
 
@@ -56,7 +56,7 @@ Usually, it's placed somewhere in the root of your application, which makes the 
     ```
 
   </Tab>
-  <Tab>
+  <Tab value="HMAC Encryption">
     <Callout type="info">
       Read more about [HMAC Encryption](/inbox/react/production#hmac-encryption).
     </Callout>
