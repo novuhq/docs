@@ -1,17 +1,36 @@
 ---
-title: "Next.js"
-pageTitle: "Get started with Inbox using Novu and Next.js"
-description: "Learn how to quickly get started with Novu."
+title: 'Next.js'
+pageTitle: 'Get started with Inbox using Novu and Next.js'
+description: 'Learn how to quickly get started with Novu.'
 ---
 
 import { Accordion, Accordions } from '@/components/accordion';
 import { CodeBlock } from '@/components/codeblock';
-import { BuildWorkflowStep, CreateAccountStep, CreateSubscriberStep, TriggerNotificationStep } from '@/components/quickstart/common-steps';
+import {
+  BuildWorkflowStep,
+  CreateAccountStep,
+  CreateSubscriberStep,
+  TriggerNotificationStep,
+} from '@/components/quickstart/common-steps';
 import { InboxCodeBlock } from '@/components/quickstart/inbox-code';
 import { Button } from '@/components/ui/button';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-import { Bell, BellRing, BookOpenCheck, Clock, Code2, Globe2, Laptop, Layers, Library, Mail, MessageSquare, Phone, Users2 } from 'lucide-react';
+import {
+  Bell,
+  BellRing,
+  BookOpenCheck,
+  Clock,
+  Code2,
+  Globe2,
+  Laptop,
+  Layers,
+  Library,
+  Mail,
+  MessageSquare,
+  Phone,
+  Users2,
+} from 'lucide-react';
 import Link from 'next/link';
 
 ## Quickstart
@@ -24,30 +43,33 @@ Before you can start integrating Novu into your application, you need to create 
   <Step title="Create a new Next.js application">
     You can use the following command to create a new Next.js application, or use your own and continue from the next step.
 
-    ```package-install 
+    ```package-install
     npx create-next-app@latest
     ```
+
   </Step>
 
-  <Step title="Install the Inbox package">
-    ```package-install 
-    npm install @novu/nextjs
-    ```
-  </Step>
+<Step title="Install the Inbox package">```package-install npm install @novu/nextjs ```</Step>
 
-  <Step title="Create the Inbox component">
-    To start using the Inbox component, you need to embed it in your application. 
-    Import the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>
-     component and pass the <Tooltip content="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page.">`applicationIdentifier`</Tooltip> and <Tooltip content="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database.">`subscriberId`</Tooltip> to the component.
-    
-    <InboxCodeBlock />
-    
-    <SignedOut>
-      <div className="text-sm text-gray-500 text-center mt-[-12px]">
-        [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
-      </div>
-    </SignedOut>
-  </Step>
+<Step title="Create the Inbox component">
+  To start using the Inbox component, you need to embed it in your application. Import the{' '}
+  <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>
+  component and pass the{' '}
+  <Tooltip content="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page.">
+    `applicationIdentifier`
+  </Tooltip>{' '}
+  and{' '}
+  <Tooltip content="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database.">
+    `subscriberId`
+  </Tooltip>{' '}
+  to the component.
+  <InboxCodeBlock />
+  <SignedOut>
+    <div className="text-sm text-gray-500 text-center mt-[-12px]">
+      [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
+    </div>
+  </SignedOut>
+</Step>
 
   <Step title="Add the Inbox to your navbar">
     Now you can import the `NotificationInbox` component and add it to your navbar, it will automatically display the Bell icon, you can customize it later.
@@ -72,18 +94,20 @@ Before you can start integrating Novu into your application, you need to create 
       );
     }
     ```
+
   </Step>
 
   <Step title="Create your first subscriber">
     Novu will automatically create a subscriber when a new `subscriberId` was
     detected from the `Inbox` component props.
 
-    ```package-install 
+    ```package-install
     npm run dev
     ```
+
   </Step>
 
-  <TriggerNotificationStep />
+<TriggerNotificationStep />
 
 </Steps>
 

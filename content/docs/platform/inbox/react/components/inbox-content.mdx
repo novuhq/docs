@@ -1,6 +1,6 @@
 ---
-title: "<InboxContent />"
-description: "Learn how to use the InboxContent component with custom popovers and handle notification interactions"
+title: '<InboxContent />'
+description: 'Learn how to use the InboxContent component with custom popovers and handle notification interactions'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
@@ -10,7 +10,8 @@ By default, `<InboxContent />` renders the content of the `<Inbox />` popover. T
 ## Basic Usage
 
 <Callout type="info">
-  The InboxContent component provides a flexible way to customize the inbox display while maintaining all the core notification functionality.
+  The InboxContent component provides a flexible way to customize the inbox display while
+  maintaining all the core notification functionality.
 </Callout>
 
 ```tsx
@@ -19,10 +20,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 export default function CustomPopoverPage() {
   return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    >
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
       <Popover>
         <PopoverTrigger>
           <Bell />
@@ -46,16 +44,13 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 export default function CustomPopoverPage() {
   return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    >
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
       <Popover>
         <PopoverTrigger>
           <Bell />
         </PopoverTrigger>
         <PopoverContent className="h-[500px] w-[400px] overflow-auto p-0">
-          <InboxContent 
+          <InboxContent
             onNotificationClick={(notification) => {
               // your logic to handle notification click
             }}
@@ -81,8 +76,6 @@ export default function CustomPopoverPage() {
 ```
 
 <Callout type="info">
-  The example above demonstrates how to:
-  - Handle notification clicks
-  - Customize primary and secondary action behaviors
-  - Provide custom rendering for notifications
+  The example above demonstrates how to: - Handle notification clicks - Customize primary and
+  secondary action behaviors - Provide custom rendering for notifications
 </Callout>

@@ -1,9 +1,9 @@
 ---
-title: "Zulip"
-description: "Learn about how to use Zulip provider for chat notifications"
+title: 'Zulip'
+description: 'Learn about how to use Zulip provider for chat notifications'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 Zulip does not need any API Key or client ID to push messages in it. All it needs is the webhook URL of the channel you want to send messages to. That itself acts as the credential.
 
@@ -52,7 +52,8 @@ const novu = new Novu("<NOVU_SECRET_KEY>");
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Zulip, {
 webhookUrl: "<WEBHOOK_URL>",
 });
-```
+
+````
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -67,7 +68,8 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   },
   "integrationIdentifier": "zulip-MnGLxp8uy"
 }'
-```
+````
+
 </Tab>
 </Tabs>
 

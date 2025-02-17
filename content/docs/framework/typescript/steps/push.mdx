@@ -1,7 +1,7 @@
 ---
-pageTitle: "Push Channel Step"
-title: "Push"
-description: "Learn how to use the push step to send notifications to mobile and web apps"
+pageTitle: 'Push Channel Step'
+title: 'Push'
+description: 'Learn how to use the push step to send notifications to mobile and web apps'
 ---
 
 The `push` step allows you to send notifications to mobile and web applications through various push notification providers.
@@ -10,26 +10,26 @@ The `push` step allows you to send notifications to mobile and web applications 
 
 ```tsx
 await step.push('new-message', async () => {
-    return {
-        title: 'New Message',
-        body: 'You have received a new message from John',
-        data: {
-            messageId: '123',
-            senderId: '456'
-        }
-    };
+  return {
+    title: 'New Message',
+    body: 'You have received a new message from John',
+    data: {
+      messageId: '123',
+      senderId: '456',
+    },
+  };
 });
 ```
 
 ## Push Step Output
 
-| Property | Type | Required | Description |
-| -------- | ---- | -------- | ----------- |
-| title | string | Yes | The notification title that appears in the push notification |
-| body | string | Yes | The main content of the push notification |
-| data | object | No | Additional data to be sent with the notification |
-| image | string | No | URL of an image to display in the notification |
-| icon | string | No | URL of an icon to display in the notification |
+| Property | Type   | Required | Description                                                  |
+| -------- | ------ | -------- | ------------------------------------------------------------ |
+| title    | string | Yes      | The notification title that appears in the push notification |
+| body     | string | Yes      | The main content of the push notification                    |
+| data     | object | No       | Additional data to be sent with the notification             |
+| image    | string | No       | URL of an image to display in the notification               |
+| icon     | string | No       | URL of an icon to display in the notification                |
 
 ## Push Step Result
 

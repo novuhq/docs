@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import SearchDialog from "fumadocs-ui/components/dialog/search-algolia";
-import { useState } from "react";
+import SearchDialog from 'fumadocs-ui/components/dialog/search-algolia';
+import { useState } from 'react';
 
 export function SearchButton() {
   const [open, setOpen] = useState(false);
@@ -37,16 +37,16 @@ export function SearchButton() {
         index="docs"
         tags={[
           {
-            name: "All",
-            value: "all",
+            name: 'All',
+            value: 'all',
           },
           {
-            name: "Inbox",
-            value: "inbox",
+            name: 'Inbox',
+            value: 'inbox',
           },
           {
-            name: "Concepts",
-            value: "concepts",
+            name: 'Concepts',
+            value: 'concepts',
           },
         ]}
       />

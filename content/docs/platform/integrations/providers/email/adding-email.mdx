@@ -1,21 +1,21 @@
 ---
-title: "Adding Email Channel"
-sidebarTitle: "Adding Email Channel"
-description: "Learn how to add the Email channel to your application"
-icon: "circle-plus"
+title: 'Adding Email Channel'
+sidebarTitle: 'Adding Email Channel'
+description: 'Learn how to add the Email channel to your application'
+icon: 'circle-plus'
 ---
 
-
-import { Card } from 'fumadocs-ui/components/card'
-import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Card } from 'fumadocs-ui/components/card';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 The Email channel enables you to send email notifications to users for events like password resets, onboarding, or system alerts.
 
 <Steps>
   <Step title="Enable Email Channel in Novu Dashboard">
 
-  <Callout type="info">
-By default, the Email channel is enabled and configured with Novu's default provider. If it is disabled, notifications sent to this channel will not be processed.
+<Callout type="info">
+  By default, the Email channel is enabled and configured with Novu's default provider. If it is
+  disabled, notifications sent to this channel will not be processed.
 </Callout>
 
 1. Go to the Novu Dashboard and click **"Integrations"** on the left sidebar
@@ -25,11 +25,10 @@ By default, the Email channel is enabled and configured with Novu's default prov
 5. (Optional) Add Conditions to activate the provider only under certain conditions, **useful for tenant-based providers**
 6. Click **"Create"**
 7. Add your Email provider credentials:
-    - **From**: Displayed as the sender of the email (ensure compliance with local regulations)
-    - **Sender Name**: The name that will be used to send the email
-    - Provider-specific credentials such as API key / Auth token, Account SID, username, or password
+   - **From**: Displayed as the sender of the email (ensure compliance with local regulations)
+   - **Sender Name**: The name that will be used to send the email
+   - Provider-specific credentials such as API key / Auth token, Account SID, username, or password
 8. Save the configuration by clicking **"Update"**
-
 
   </Step>
 
@@ -42,7 +41,6 @@ By default, the Email channel is enabled and configured with Novu's default prov
 
   </Step>
 
-
   <Step title="Add a workflow trigger to your backend">
 Novu's server-side SDKs make integrating Novu's REST APIs straightforward, letting you focus on implementing workflows without dealing with repetitive code.
 
@@ -54,6 +52,7 @@ Ensure your configuration is working by sending a test notification.
 
     1. Go to the Novu Dashboard, navigate to the "Workflows" section, and locate your configured workflow.
     2. Click **"Test Workflow"** and provide sample data (e.g., user ID, email address).
-    3. Verify the email delivery in the Novu Logs or your email provider dashboard.  
+    3. Verify the email delivery in the Novu Logs or your email provider dashboard.
+
   </Step>
 </Steps>

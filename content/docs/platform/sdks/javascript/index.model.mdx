@@ -1,6 +1,6 @@
 ---
-title: "@novu/js"
-pageTitle: "API reference for the @novu/js package"
+title: '@novu/js'
+pageTitle: 'API reference for the @novu/js package'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
@@ -27,6 +27,7 @@ The Novu client provides methods to interact with notifications, preferences, an
       applicationIdentifier: "APPLICATION_IDENTIFIER",
     });
     ```
+
   </Tab>
   <Tab value="EU">
     ```typescript
@@ -39,6 +40,7 @@ The Novu client provides methods to interact with notifications, preferences, an
       socketUrl: "https://eu.ws.novu.co",
     });
     ```
+
   </Tab>
   <Tab value="HMAC">
     ```typescript
@@ -50,6 +52,7 @@ The Novu client provides methods to interact with notifications, preferences, an
       subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
     });
     ```
+
   </Tab>
 </Tabs>
 
@@ -70,7 +73,7 @@ const notifications = await novu.notifications.list({
   limit: 30,
   read: false,
   archived: false,
-  tags: ["tag1", "tag2"],
+  tags: ['tag1', 'tag2'],
   offset: 0,
 });
 ```
@@ -98,11 +101,7 @@ const count = await novu.notifications.count({
 
 // Multiple filters
 const counts = await novu.notifications.count({
-  filters: [
-    { read: false },
-    { archived: true },
-    { tags: ['tag1'] }
-  ]
+  filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }],
 });
 ```
 
@@ -111,7 +110,7 @@ const counts = await novu.notifications.count({
 Marks a notification as read.
 
 ```typescript
-await novu.notifications.read("NOTIFICATION_ID");
+await novu.notifications.read('NOTIFICATION_ID');
 ```
 
 #### unread
@@ -119,7 +118,7 @@ await novu.notifications.read("NOTIFICATION_ID");
 Marks a notification as unread.
 
 ```typescript
-await novu.notifications.unread("NOTIFICATION_ID");
+await novu.notifications.unread('NOTIFICATION_ID');
 ```
 
 #### archive
@@ -127,7 +126,7 @@ await novu.notifications.unread("NOTIFICATION_ID");
 Archives a notification.
 
 ```typescript
-await novu.notifications.archive("NOTIFICATION_ID");
+await novu.notifications.archive('NOTIFICATION_ID');
 ```
 
 #### unarchive
@@ -135,7 +134,7 @@ await novu.notifications.archive("NOTIFICATION_ID");
 Unarchives a notification.
 
 ```typescript
-await novu.notifications.unarchive("NOTIFICATION_ID");
+await novu.notifications.unarchive('NOTIFICATION_ID');
 ```
 
 #### readAll
@@ -187,9 +186,9 @@ Updates channel preferences for a specific workflow or globally.
 ```typescript
 await novu.preferences.update({
   workflowId: 'workflow_id',
-  channelPreferences: { 
-    email: false, 
-    sms: false 
+  channelPreferences: {
+    email: false,
+    sms: false,
   },
 });
 ```
@@ -240,4 +239,3 @@ novu.on('notifications.unread_count_changed', (data) => {
 ---type-table---
 ../types/js-types.ts#Subscriber
 ---end---
-

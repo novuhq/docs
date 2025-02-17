@@ -1,9 +1,9 @@
 ---
-title: "Discord"
-description: "Learn about how to use Discord provider for chat notifications"
+title: 'Discord'
+description: 'Learn about how to use Discord provider for chat notifications'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 When using Discord, you will have to store the integration credentials within the subscriber entity. Discord supports two ways to do this:
 
@@ -35,7 +35,8 @@ const novu = new Novu("<NOVU_SECRET_KEY>");
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Discord, {
 webhookUrl: "<WEBHOOK_URL>",
 });
-```
+
+````
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -50,7 +51,8 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   },
   "integrationIdentifier": "discord-MnGLxp8uy"
 }'
-```
+````
+
 </Tab>
 </Tabs>
 

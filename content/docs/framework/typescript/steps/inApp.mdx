@@ -1,6 +1,6 @@
 ---
-pageTitle: "In-App Channel Step"
-title: "In-App"
+pageTitle: 'In-App Channel Step'
+title: 'In-App'
 description: "Learn how to use the In-App step to send notifications to your web or mobile app's inbox"
 ---
 
@@ -23,14 +23,14 @@ await step.inApp('inbox', async () => {
       redirect: {
         url: 'https://acme.com/get-started',
         target: '_self',
-      }
+      },
     },
     secondaryAction: {
       label: 'Learn More',
       redirect: {
         url: 'https://acme.com/learn-more',
         target: '_self',
-      }
+      },
     },
     data: {
       customData: 'customValue',
@@ -43,32 +43,31 @@ await step.inApp('inbox', async () => {
 ## Return Value
 
 ```tsx
-const {
-  seen,
-  read,
-  lastSeenDate,
-  lastReadDate,
-} = await step.inApp('inbox', resolver);
+const { seen, read, lastSeenDate, lastReadDate } = await step.inApp('inbox', resolver);
 ```
 
 ## In-App Step Output
 
 ### body
+
 - **Type**: `string`
 - **Required**: Yes
 - **Description**: The body of the inbox notification. The main content of the notification.
 
 ### subject
+
 - **Type**: `string`
 - **Required**: No
 - **Description**: The subject of the inbox notification. This property communicates the subject of the notification to the user.
 
 ### avatar
+
 - **Type**: `string`
 - **Required**: No
 - **Description**: The avatar shown in the inbox notification. When specified, overrides the avatar of the actor initiating the notification.
 
 ### redirect
+
 - **Type**: `object`
 - **Required**: No
 - **Description**: The redirect object is used to define the URL to visit when interacting with the notification. This property can be omitted in place of an `onNotificationClick` [handler](/inbox/react/components#handle-notification-click) implemented in the `<Inbox />` component.
@@ -77,6 +76,7 @@ const {
   - `target` (string): The target attribute specifies where the new window or tab will be opened. Defaults to `_blank`. Supported values: `_self, _blank, _parent, _top, _unfencedTop`.
 
 ### primaryAction
+
 - **Type**: `object`
 - **Required**: No
 - **Description**: Define a primary action to be shown in the inbox notification. The primary action will appear with an accent color.
@@ -87,6 +87,7 @@ const {
     - `target` (string): The target attribute specifies where the new window or tab will be opened. Defaults to `_blank`. Supported values: `_self, _blank, _parent, _top, _unfencedTop`.
 
 ### secondaryAction
+
 - **Type**: `object`
 - **Required**: No
 - **Description**: Define a secondary action to be shown in the inbox notification. The secondary action will appear with a muted color.
@@ -97,6 +98,7 @@ const {
     - `target` (string): The target attribute specifies where the new window or tab will be opened. Defaults to `_blank`. Supported values: `_self, _blank, _parent, _top, _unfencedTop`.
 
 ### data
+
 - **Type**: `object`
 - **Required**: No
 - **Description**: Custom data to be sent with the notification. This data can be used to [customize the notification item rendered](/inbox/react/components#custom-notification-item) in the `<Inbox />`.
@@ -104,21 +106,25 @@ const {
 ## In-App Step Result
 
 ### seen
+
 - **Type**: `boolean`
 - **Required**: Yes
 - **Description**: A flag indicating if the notification has been seen. This property is useful when conditionally delivering notifications in subsequent steps via the `skip` function. A notification is marked as seen when the user views the notification.
 
 ### read
+
 - **Type**: `boolean`
 - **Required**: Yes
 - **Description**: A flag indicating if the notification has been read. A notification is marked as read when the user confirms the notification.
 
 ### lastSeenDate
+
 - **Type**: `date | null`
 - **Required**: Yes
 - **Description**: The date the notification was last seen. This corresponds to the date the `seen` property was set to `true`, or `null` if the notification has not been seen.
 
 ### lastReadDate
+
 - **Type**: `date | null`
 - **Required**: Yes
 - **Description**: The date the notification was last read. This corresponds to the date the `read` property was set to `true`, or `null` if the notification has not been read.

@@ -1,3 +1,3 @@
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 export type MyInterface = typeof Inbox;

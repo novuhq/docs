@@ -9,10 +9,10 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
 
 ## Hook Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| storeId | string | No | Filter notifications by a specific store ID |
-| query | object | No | Additional query parameters for filtering |
+| Parameter | Type   | Required | Description                                 |
+| --------- | ------ | -------- | ------------------------------------------- |
+| storeId   | string | No       | Filter notifications by a specific store ID |
+| query     | object | No       | Additional query parameters for filtering   |
 
 ## Return Value
 
@@ -43,17 +43,11 @@ import { useNotifications } from '@novu/react-native';
 import { View, Text, ActivityIndicator, FlatList } from 'react-native';
 
 function NotificationsList() {
-  const { 
-    notifications, 
-    hasMore, 
-    isLoading, 
-    error,
-    loadMore 
-  } = useNotifications();
-  
+  const { notifications, hasMore, isLoading, error, loadMore } = useNotifications();
+
   if (isLoading) return <ActivityIndicator />;
   if (error) return <Text>Error: {error.message}</Text>;
-  
+
   return (
     <FlatList
       data={notifications}
@@ -67,9 +61,7 @@ function NotificationsList() {
       )}
       onEndReached={hasMore ? loadMore : undefined}
       onEndReachedThreshold={0.5}
-      ListFooterComponent={
-        hasMore ? <ActivityIndicator /> : null
-      }
+      ListFooterComponent={hasMore ? <ActivityIndicator /> : null}
     />
   );
 }
@@ -96,12 +88,7 @@ function RefreshableNotificationsList() {
           <Text>{new Date(notification.createdAt).toLocaleString()}</Text>
         </View>
       )}
-      refreshControl={
-        <RefreshControl
-          refreshing={isLoading}
-          onRefresh={refetch}
-        />
-      }
+      refreshControl={<RefreshControl refreshing={isLoading} onRefresh={refetch} />}
     />
   );
 }
@@ -116,12 +103,12 @@ function FilteredNotifications() {
   const { notifications, isLoading } = useNotifications({
     query: {
       templates: ['welcome-template', 'order-update'],
-      emails: ['user@example.com']
-    }
+      emails: ['user@example.com'],
+    },
   });
-  
+
   if (isLoading) return <ActivityIndicator />;
-  
+
   return (
     <FlatList
       data={notifications}
@@ -137,5 +124,6 @@ function FilteredNotifications() {
 ```
 
 <Callout type="info">
-  The notifications list is automatically updated in real-time when new notifications arrive or when notifications are marked as read/unread.
+  The notifications list is automatically updated in real-time when new notifications arrive or when
+  notifications are marked as read/unread.
 </Callout>

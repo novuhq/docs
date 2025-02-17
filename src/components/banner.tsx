@@ -51,7 +51,7 @@ export function Banner({
         'sticky top-0 z-40 flex flex-row items-center justify-center bg-fd-secondary px-4 text-center text-sm font-medium',
         variant === 'rainbow' && 'bg-fd-background',
         !open && 'hidden',
-        props.className,
+        props.className
       )}
       style={{
         height,
@@ -64,9 +64,7 @@ export function Banner({
             : `:root { --fd-banner-height: ${height}; }`}
         </style>
       ) : null}
-      {globalKey ? (
-        <style>{`.${globalKey} #${id} { display: none; }`}</style>
-      ) : null}
+      {globalKey ? <style>{`.${globalKey} #${id} { display: none; }`}</style> : null}
       {globalKey ? (
         <script
           dangerouslySetInnerHTML={{
@@ -85,10 +83,9 @@ export function Banner({
           className={cn(
             buttonVariants({
               color: 'ghost',
-              className:
-                'absolute end-2 top-1/2 -translate-y-1/2 text-fd-muted-foreground',
+              className: 'absolute end-2 top-1/2 -translate-y-1/2 text-fd-muted-foreground',
               size: 'icon',
-            }),
+            })
           )}
         >
           <X />

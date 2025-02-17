@@ -10,14 +10,14 @@ Usually, it's placed somewhere in the root of your application, which makes the 
 
 ## Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| subscriberId | string | Yes | The unique identifier of the subscriber |
-| applicationIdentifier | string | Yes | Your application identifier from Novu |
-| subscriberHash | string | No | HMAC encryption hash for the subscriber |
-| backendUrl | string | No | Custom backend URL for self-hosted instances |
-| socketUrl | string | No | Custom socket URL for self-hosted instances |
-| children | ReactNode | Yes | The child components that will have access to the Novu context |
+| Prop                  | Type      | Required | Description                                                    |
+| --------------------- | --------- | -------- | -------------------------------------------------------------- |
+| subscriberId          | string    | Yes      | The unique identifier of the subscriber                        |
+| applicationIdentifier | string    | Yes      | Your application identifier from Novu                          |
+| subscriberHash        | string    | No       | HMAC encryption hash for the subscriber                        |
+| backendUrl            | string    | No       | Custom backend URL for self-hosted instances                   |
+| socketUrl             | string    | No       | Custom socket URL for self-hosted instances                    |
+| children              | ReactNode | Yes      | The child components that will have access to the Novu context |
 
 ## Example Usage
 
@@ -37,6 +37,7 @@ Usually, it's placed somewhere in the root of your application, which makes the 
       );
     }
     ```
+
   </Tab>
   <Tab>
     ```tsx
@@ -55,6 +56,7 @@ Usually, it's placed somewhere in the root of your application, which makes the 
       );
     }
     ```
+
   </Tab>
   <Tab>
     <Callout type="info">
@@ -76,5 +78,6 @@ Usually, it's placed somewhere in the root of your application, which makes the 
       );
     }
     ```
+
   </Tab>
 </Tabs>

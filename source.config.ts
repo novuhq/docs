@@ -1,16 +1,11 @@
-import { rehypeCodeDefaultOptions } from "fumadocs-core/mdx-plugins";
-import { remarkInstall } from "fumadocs-docgen";
-import {
-  defineConfig,
-  defineDocs,
-  frontmatterSchema,
-  metaSchema,
-} from "fumadocs-mdx/config";
-import { transformerTwoslash } from "fumadocs-twoslash";
-import { z } from "zod";
+import { rehypeCodeDefaultOptions } from 'fumadocs-core/mdx-plugins';
+import { remarkInstall } from 'fumadocs-docgen';
+import { defineConfig, defineDocs, frontmatterSchema, metaSchema } from 'fumadocs-mdx/config';
+import { transformerTwoslash } from 'fumadocs-twoslash';
+import { z } from 'zod';
 
 export const docs = defineDocs({
-  dir: "content/docs",
+  dir: 'content/docs',
   docs: {
     schema: frontmatterSchema.extend({
       preview: z.string().optional(),
@@ -31,55 +26,53 @@ export const docs = defineDocs({
 });
 
 export default defineConfig({
-  lastModifiedTime: "git",
+  lastModifiedTime: 'git',
   mdxOptions: {
     rehypeCodeOptions: {
       lazy: true,
       experimentalJSEngine: true,
       langs: [
-        "ts",
-        "js",
-        "html",
-        "tsx",
-        "mdx",
-        "json",
-        "bash",
-        "php",
-        "csharp",
-        "python",
-        "ruby",
-        "go",
-        "java",
-        "kotlin",
-        "swift",
+        'ts',
+        'js',
+        'html',
+        'tsx',
+        'mdx',
+        'json',
+        'bash',
+        'php',
+        'csharp',
+        'python',
+        'ruby',
+        'go',
+        'java',
+        'kotlin',
+        'swift',
       ],
-      inline: "tailing-curly-colon",
+      inline: 'tailing-curly-colon',
       themes: {
-        light: "github-light",
-        dark: "github-dark",
+        light: 'github-light',
+        dark: 'github-dark',
       },
       transformers: [
         ...(rehypeCodeDefaultOptions.transformers ?? []),
         transformerTwoslash(),
         {
-          name: "transformers:remove-notation-escape",
+          name: 'transformers:remove-notation-escape',
           code(hast) {
             for (const line of hast.children) {
-              if (line.type !== "element") continue;
+              if (line.type !== 'element') continue;
 
-              const lastSpan = line.children.findLast(
-                (v) => v.type === "element"
-              );
+              const lastSpan = line.children.findLast((v) => v.type === 'element');
 
               const head = lastSpan?.children[0];
-              if (head?.type !== "text") return;
+              if (head?.type !== 'text') return;
 
-              head.value = head.value.replace(/\[\\!code/g, "[!code");
+              head.value = head.value.replace(/\[\\!code/g, '[!code');
             }
           },
         },
       ],
     },
-    remarkPlugins: [[remarkInstall, { persist: { id: "package-manager" } }]],
+    remarkPlugins: [[remarkInstall, { persist: { id: 'package-manager' } }]],
   },
 });

@@ -4,11 +4,7 @@ import { InfoIcon } from 'lucide-react';
 import Link from 'next/link';
 import { cva } from 'class-variance-authority';
 import { cn } from '../lib/cn';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from './ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import type { ReactNode } from 'react';
 
 export function Info({ children }: { children: ReactNode }): ReactNode {
@@ -39,14 +35,11 @@ interface ObjectType {
 }
 
 const field = cva('inline-flex flex-row items-center gap-1');
-const code = cva(
-  'rounded-md bg-fd-secondary p-1 text-fd-secondary-foreground',
-  {
-    variants: {
-      color: { primary: 'bg-fd-primary/10 text-fd-primary' },
-    },
+const code = cva('rounded-md bg-fd-secondary p-1 text-fd-secondary-foreground', {
+  variants: {
+    color: { primary: 'bg-fd-primary/10 text-fd-primary' },
   },
-);
+});
 
 export function TypeTable({ type }: { type: Record<string, ObjectType> }) {
   return (
@@ -71,9 +64,7 @@ export function TypeTable({ type }: { type: Record<string, ObjectType> }) {
               <td>
                 <div className={field()}>
                   <code className={code()}>{value.type}</code>
-                  {value.typeDescription ? (
-                    <Info>{value.typeDescription}</Info>
-                  ) : null}
+                  {value.typeDescription ? <Info>{value.typeDescription}</Info> : null}
                   {value.typeDescriptionLink ? (
                     <Link href={value.typeDescriptionLink}>
                       <InfoIcon className="size-4" />
@@ -82,11 +73,7 @@ export function TypeTable({ type }: { type: Record<string, ObjectType> }) {
                 </div>
               </td>
               <td>
-                {value.default ? (
-                  <code className={code()}>{value.default}</code>
-                ) : (
-                  <span>-</span>
-                )}
+                {value.default ? <code className={code()}>{value.default}</code> : <span>-</span>}
               </td>
             </tr>
           ))}

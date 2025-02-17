@@ -1,14 +1,13 @@
 ---
-title: "Adding Chat Channel"
-sidebarTitle: "Adding Chat Channel"
-description: "Learn how to add the Chat channel to your application"
-icon: "circle-plus"
+title: 'Adding Chat Channel'
+sidebarTitle: 'Adding Chat Channel'
+description: 'Learn how to add the Chat channel to your application'
+icon: 'circle-plus'
 ---
 
-
-import { Card } from 'fumadocs-ui/components/card'
-import { Step, Steps } from 'fumadocs-ui/components/steps'
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Card } from 'fumadocs-ui/components/card';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 Chat channels allow you to deliver instant, contextual messages to your subscribers via their preferred chat platform and apps.
 
@@ -16,7 +15,8 @@ Chat channels allow you to deliver instant, contextual messages to your subscrib
 <Step title="Enable Chat Channel in Novu Dashboard">
 
 <Callout type="info">
-The Chat channel is not enabled by default. To use it, configure a provider like Slack, Discord, or others.
+  The Chat channel is not enabled by default. To use it, configure a provider like Slack, Discord,
+  or others.
 </Callout>
 
 - Go to the Novu Dashboard and click **"Integrations"** on the left sidebar
@@ -26,8 +26,12 @@ The Chat channel is not enabled by default. To use it, configure a provider like
 - (Optional) Add Conditions to activate the provider only under certain conditions, **useful for tenant-based providers**
 - Click **"Create"**
 - Add your Chat provider credentials:
-    <Callout type="warning">Each chat provider requires different type of credentials. There are few providers which does not require any credentials example: `Discord`</Callout>
-    - Provider-specific credentials such as API key / Auth token, Client ID, Client Secret, or password
+  <Callout type="warning">
+    Each chat provider requires different type of credentials. There are few providers which does
+    not require any credentials example: `Discord`
+  </Callout>
+  - Provider-specific credentials such as API key / Auth token, Client ID, Client Secret, or
+  password
 - Save the configuration by clicking **"Update"**
 
 </Step>
@@ -38,8 +42,8 @@ The Chat channel is not enabled by default. To use it, configure a provider like
 - Click the **"Add a Workflow"** button
 - Add a step and select **"Chat"** as the channel
 - Configure the Chat content:
-    - Message body (e.g., `{{subscriber.firstName}}, your order {{orderId}} has shipped.`)
-    - Dynamic placeholders for personalized content
+  - Message body (e.g., `{{subscriber.firstName}}, your order {{orderId}} has shipped.`)
+  - Dynamic placeholders for personalized content
 - Optionally, set fallback channels to ensure reliable delivery if Chat fails
 
 </Step>
@@ -79,15 +83,17 @@ This step can be skipped if you already have a subscriber. You can use the `subs
 </Step>
 
 <Step title="Update Subscriber Credentials">
-[Update](/integrations/providers/chat/overview#update-credential-webhookurl) the subscriber credential `webhookUrl` for this provider and integration.
+  [Update](/integrations/providers/chat/overview#update-credential-webhookurl) the subscriber
+  credential `webhookUrl` for this provider and integration.
 </Step>
 
 <Step title="Configure Workflow">
-Create a new [worklow](/workflow/overview) or use an existing workflow. Add chat channel and [write content](/content-creation-design/notification-content-creation#chat) for the message.
+  Create a new [worklow](/workflow/overview) or use an existing workflow. Add chat channel and
+  [write content](/content-creation-design/notification-content-creation#chat) for the message.
 </Step>
 
 <Step title="Trigger Workflow">
-Trigger this workflow to above `subscriberId` using trigger identifier.
+  Trigger this workflow to above `subscriberId` using trigger identifier.
 </Step>
 
 <Step title="Verify Message">
@@ -110,7 +116,8 @@ const novu = new Novu("<NOVU_SECRET_KEY>");
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
 webhookUrl: "<WEBHOOK_URL>",
 });
-```
+
+````
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -125,14 +132,17 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   },
   "integrationIdentifier": "slack-MnGLxp8uy"
 }'
-```
+````
+
 </Tab>
 </Tabs>
 
 Checkout the [API reference](/api-reference/subscribers/update-subscriber-credentials) for more details.
 
 <Callout type="info">
-Integration identifier is similar to Provider identifier but it is different than Provider Id. It is unique for each integration. You can find the `integrationIdentifier` in the integration store page.
+  Integration identifier is similar to Provider identifier but it is different than Provider Id. It
+  is unique for each integration. You can find the `integrationIdentifier` in the integration store
+  page.
 </Callout>
 
 ## Common errors
@@ -145,5 +155,3 @@ Common erros and reason of those errors while sending chat messages using Novu.
   - `webhookUrl` field is null, undefined or not set. Check using [get subscriber api](/api-reference/subscribers/get-subscriber)
 - Subscriber does not have an active integration
   - if subscriber have credentials set but integration is either not active or deleted for this credential
-
-

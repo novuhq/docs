@@ -1,11 +1,10 @@
 ---
-pageTitle: "How to send WhatsApp Business notifications with Novu"
-title: "WhatsApp Business"
-description: "Learn about how to use WhatsApp for chat notifications"
+pageTitle: 'How to send WhatsApp Business notifications with Novu'
+title: 'WhatsApp Business'
+description: 'Learn about how to use WhatsApp for chat notifications'
 ---
 
-
-import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 ## Getting Started
 
@@ -16,10 +15,12 @@ To integrate WhatsApp Business with Novu, You will have to create a facebook dev
 Visit the [Facebook Developer Portal](https://developers.facebook.com/apps/) and create a new app.
 
 Select "Other" for "What do you want your app to do?" and select "Business" for "Select an app type".
+
 </Step>
 
 <Step title="Setup WhatsApp product">
-On the App Setup page, click on "Set Up" under the "WhatsApp" product. You will need to create or add a Facebook Business Account to your app.
+  On the App Setup page, click on "Set Up" under the "WhatsApp" product. You will need to create or
+  add a Facebook Business Account to your app.
 </Step>
 
 <Step title="Send a sandbox message">
@@ -36,8 +37,8 @@ Copy the following pieces and paste them in the Novu WhatsApp Business integrati
 </Step>
 
 <Step title="Add a test phone number">
-You can add a test phone number to the sandbox by clicking on the **"Add Phone Number"** button.
-This number can be used to test your integration with Novu before submitting for a review.
+  You can add a test phone number to the sandbox by clicking on the **"Add Phone Number"** button.
+  This number can be used to test your integration with Novu before submitting for a review.
 </Step>
 
 <Step title="Send a test notification from Novu">
@@ -82,8 +83,9 @@ Follow the [Facebook Instructions](https://developers.facebook.com/docs/whatsapp
 </Step>
 
 <Step title="Generate a permanent access token">
-Follow the [Facebook Instructions](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started/) on how to generate a permanent access token.
-Depending on your use case.
+  Follow the [Facebook
+  Instructions](https://developers.facebook.com/docs/whatsapp/business-management-api/get-started/)
+  on how to generate a permanent access token. Depending on your use case.
 </Step>
 
 <Step title="Create a WhatsApp template">
@@ -93,23 +95,24 @@ After your template is approved, you can use the `template_name` to send notific
 To send a notification with a template, you will need to add the following to the `overrides` field:
 
 ```typescript
-novu.trigger("workflow-id", {
+novu.trigger('workflow-id', {
   to: {
-    subscriberId: "SUBSCRIBER_ID",
-    phone: "+11111111111",
+    subscriberId: 'SUBSCRIBER_ID',
+    phone: '+11111111111',
   },
   payload: {},
   overrides: {
     chat: {
       template: {
-        name: "template_name",
+        name: 'template_name',
         language: {
-          code: "en_US",
+          code: 'en_US',
         },
       },
     },
   },
 });
 ```
+
 </Step>
 </Steps>

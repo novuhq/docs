@@ -16,10 +16,7 @@ import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    >
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
       <Notifications />
     </Inbox>
   );
@@ -35,10 +32,7 @@ import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    >
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
       <Notifications
         renderNotification={(notification) => (
           <div>
@@ -54,5 +48,6 @@ function Novu() {
 ```
 
 <Callout type="info">
-  The `renderNotification` prop gives you full control over how each notification is displayed, allowing you to customize the layout, styling, and what notification data to show.
+  The `renderNotification` prop gives you full control over how each notification is displayed,
+  allowing you to customize the layout, styling, and what notification data to show.
 </Callout>

@@ -9,10 +9,10 @@ The `useCounts` hook provides a way to fetch various notification counts, includ
 
 ## Hook Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| storeId | string | No | Filter counts by a specific store ID |
-| query | object | No | Additional query parameters for filtering |
+| Parameter | Type   | Required | Description                               |
+| --------- | ------ | -------- | ----------------------------------------- |
+| storeId   | string | No       | Filter counts by a specific store ID      |
+| query     | object | No       | Additional query parameters for filtering |
 
 ## Return Value
 
@@ -38,10 +38,10 @@ import { useCounts } from '@novu/react';
 
 function NotificationBadge() {
   const { data, isLoading, error } = useCounts();
-  
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  
+
   return (
     <div>
       <span>Unread: {data?.unreadCount}</span>
@@ -59,11 +59,11 @@ You can filter counts for a specific store:
 ```tsx
 function StoreNotifications({ storeId }) {
   const { data, isLoading } = useCounts({
-    storeId: storeId
+    storeId: storeId,
   });
-  
+
   if (isLoading) return <div>Loading...</div>;
-  
+
   return (
     <div>
       <span>Store Notifications: {data?.total}</span>
@@ -82,12 +82,12 @@ function FilteredNotifications() {
   const { data, isLoading } = useCounts({
     query: {
       templates: ['welcome-template', 'order-update'],
-      emails: ['user@example.com']
-    }
+      emails: ['user@example.com'],
+    },
   });
-  
+
   if (isLoading) return <div>Loading...</div>;
-  
+
   return (
     <div>
       <span>Filtered Notifications: {data?.total}</span>
@@ -98,5 +98,6 @@ function FilteredNotifications() {
 ```
 
 <Callout type="info">
-  The counts are automatically updated in real-time when notifications are marked as read/unread or when new notifications arrive.
+  The counts are automatically updated in real-time when notifications are marked as read/unread or
+  when new notifications arrive.
 </Callout>

@@ -1,12 +1,13 @@
 ---
-title: "Push"
-pageTitle: "Push Providers Integration"
-description: "Learn how to configure the Push channel"
-icon: "circle-info"
+title: 'Push'
+pageTitle: 'Push Providers Integration'
+description: 'Learn how to configure the Push channel'
+icon: 'circle-info'
 ---
+
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-Push notifications are a powerful way to deliver real-time updates, reminders, and personalized messages to your users across mobile and web platforms. 
+Push notifications are a powerful way to deliver real-time updates, reminders, and personalized messages to your users across mobile and web platforms.
 Whether it's a promotional alert, a system notification, or a critical update, push notifications are key to enhancing engagement and retention.
 
 Novu simplifies the process by offering a unified API that supports multiple push notification providers, enabling reliable and efficient message delivery.
@@ -19,12 +20,13 @@ Novu simplifies the process by offering a unified API that supports multiple pus
 - **Device Management**: Keep subscriber device tokens in sync using just-in-time or manual updates
 
 ## Common Use Cases
+
 - **Transactional Notifications**: Payment updates, delivery alerts, appointment reminders
 - **Engagement Notifications**: Promotions, re-engagement campaigns, social media interactions
 - **System Alerts**: Security warnings, downtime alerts, account activity updates
 
-
 ## How to send push notifications
+
 To send a push notification to subscribers (users) using Novu:
 
 - Add a push channel provider in integration store
@@ -59,14 +61,14 @@ Novu offers to ways of keeping your device tokens in sync with subscriber profil
 When triggering a workflow, you can pass the `channels` array on the subscriber object with the device tokens for the push provider of your choice. Here is an example with fcm:
 
 ```typescript
-novu.trigger("workflow-id", {
+novu.trigger('workflow-id', {
   to: {
-    subscriberId: "subscriber-id",
+    subscriberId: 'subscriber-id',
     channels: [
       {
-        providerId: "fcm",
+        providerId: 'fcm',
         credentials: {
-          deviceTokens: ["token-1", "token-2"],
+          deviceTokens: ['token-1', 'token-2'],
         },
       },
     ],
@@ -100,31 +102,33 @@ const subscriber = await novu.subscribers.get('subscriberId');
 
 // get current device tokens from subscriber credentials for the provider
 const currentDeviceTokens = subsciber.data.data.channels.find(
-  // _integrationId can also be checked in place of providerId ;
-  (channel) => channel.providerId === PushProviderIdEnum.FCM,
+// \_integrationId can also be checked in place of providerId ;
+(channel) => channel.providerId === PushProviderIdEnum.FCM,
 ).credentials.deviceTokens;
 
 // remove all device tokens
 await this.novu.subscribers.setCredentials(
-  'subscriberId',
-  PushProviderIdEnum.FCM, {
-    deviceTokens: []
-  },
+'subscriberId',
+PushProviderIdEnum.FCM, {
+deviceTokens: []
+},
 );
 
 // remove the token you want to remove
 const newDeviceTokens = currentDeviceTokens.filter(
-  (token) => token !== 'token-to-be-removed',
+(token) => token !== 'token-to-be-removed',
 );
 
 // update subscriber credentials with new device tokens
 await this.novu.subscribers.setCredentials(
-  'subscriberId',
-  PushProviderIdEnum.FCM, {
-    deviceTokens: newDeviceTokens
-  },
+'subscriberId',
+PushProviderIdEnum.FCM, {
+deviceTokens: newDeviceTokens
+},
 );
+
 ```
   </Tab>
 </Tabs>
 
+```

@@ -1,16 +1,13 @@
-import { AlertTriangle, CircleX } from "lucide-react";
-import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
-import { cn } from "../lib/cn";
+import { AlertTriangle, CircleX } from 'lucide-react';
+import { forwardRef, type HTMLAttributes, type ReactNode } from 'react';
+import { cn } from '../lib/cn';
 
-type CalloutProps = Omit<
-  HTMLAttributes<HTMLDivElement>,
-  "title" | "type" | "icon"
-> & {
+type CalloutProps = Omit<HTMLAttributes<HTMLDivElement>, 'title' | 'type' | 'icon'> & {
   title?: ReactNode;
   /**
    * @defaultValue info
    */
-  type?: "info" | "warn" | "error";
+  type?: 'info' | 'warn' | 'error';
 
   /**
    * Force an icon
@@ -34,12 +31,12 @@ const InfoIcon = ({ className }: { className: string }) => (
 );
 
 export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
-  ({ className, children, title, type = "info", icon, ...props }, ref) => {
+  ({ className, children, title, type = 'info', icon, ...props }, ref) => {
     return (
       <div
         ref={ref}
         className={cn(
-          "element mb-4 flex w-full flex-col flex-wrap overflow-hidden border rounded-lg p-4 text-sm bg-[#f7f7f7] dark:bg-zinc-900 dark:border-zinc-800 leading-relaxed",
+          'element mb-4 flex w-full flex-col flex-wrap overflow-hidden border rounded-lg p-4 text-sm bg-[#f7f7f7] dark:bg-zinc-900 dark:border-zinc-800 leading-relaxed',
           className
         )}
         {...props}
@@ -48,20 +45,14 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
           <div className="flex items-center justify-center size-5">
             {icon ??
               {
-                info: (
-                  <InfoIcon className="size-4 fill-[#87858e] dark:fill-zinc-300" />
-                ),
-                warn: (
-                  <AlertTriangle className="size-4 fill-orange-500 text-fd-card" />
-                ),
+                info: <InfoIcon className="size-4 fill-[#87858e] dark:fill-zinc-300" />,
+                warn: <AlertTriangle className="size-4 fill-orange-500 text-fd-card" />,
                 error: <CircleX className="size-4 fill-red-500 text-fd-card" />,
               }[type]}
           </div>
           <div className="flex flex-col gap-1">
             {title ? (
-              <div className="font-medium text-[#1a1523] dark:text-white">
-                {title}
-              </div>
+              <div className="font-medium text-[#1a1523] dark:text-white">{title}</div>
             ) : null}
             <div className="text-[#57565d] dark:text-zinc-200 [&>p]:mt-0 [&>p]:mb-0 [&>a]:text-blue-600 dark:[&>a]:text-blue-300 [&>a]:underline [&>a:hover]:opacity-80">
               {children}
@@ -73,4 +64,4 @@ export const Callout = forwardRef<HTMLDivElement, CalloutProps>(
   }
 );
 
-Callout.displayName = "Callout";
+Callout.displayName = 'Callout';

@@ -8,10 +8,9 @@ export class NovuApiError extends Error {
   }
 }
 
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
-const API_HOSTNAME =
-  process.env.NEXT_PUBLIC_NOVU_API_URL || "http://localhost:3000";
+const API_HOSTNAME = process.env.NEXT_PUBLIC_NOVU_API_URL || 'http://localhost:3000';
 
 type ErrorData = {
   message?: string | { message?: string };
@@ -24,7 +23,7 @@ const request = async <T>(
     body?: unknown;
     method?: HttpMethod;
     headers?: HeadersInit;
-    version?: "v1" | "v2";
+    version?: 'v1' | 'v2';
     signal?: AbortSignal;
     token?: string;
   }
@@ -33,14 +32,14 @@ const request = async <T>(
     body,
     environment,
     headers,
-    method = "GET",
-    version = "v1",
+    method = 'GET',
+    version = 'v1',
     signal,
     token,
   } = options || {};
 
   if (!token) {
-    throw new Error("No authentication token provided");
+    throw new Error('No authentication token provided');
   }
 
   try {
@@ -48,8 +47,8 @@ const request = async <T>(
       method,
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        ...(environment && { "Novu-Environment-Id": environment._id }),
+        'Content-Type': 'application/json',
+        ...(environment && { 'Novu-Environment-Id': environment._id }),
         ...headers,
       },
       signal,
@@ -59,18 +58,11 @@ const request = async <T>(
       config.body = JSON.stringify(body);
     }
 
-    const response = await fetch(
-      `${API_HOSTNAME}/${version}${endpoint}`,
-      config
-    );
+    const response = await fetch(`${API_HOSTNAME}/${version}${endpoint}`, config);
 
     if (!response.ok) {
       const errorData = await response.json();
-      throw new NovuApiError(
-        parseErrorMessage(errorData),
-        response.status,
-        errorData
-      );
+      throw new NovuApiError(parseErrorMessage(errorData), response.status, errorData);
     }
 
     if (response.status === 204) {
@@ -82,7 +74,7 @@ const request = async <T>(
     if (error instanceof NovuApiError) {
       throw error;
     }
-    if (typeof error === "object" && error && "message" in error) {
+    if (typeof error === 'object' && error && 'message' in error) {
       throw new Error(`Fetch error: ${error.message}`);
     }
     throw new Error(`Fetch error: ${JSON.stringify(error)}`);
@@ -96,19 +88,17 @@ type RequestOptions = {
   token?: string;
 };
 
-export const get = <T>(
-  endpoint: string,
-  { environment, signal, token }: RequestOptions = {}
-) => request<T>(endpoint, { method: "GET", environment, signal, token });
+export const get = <T>(endpoint: string, { environment, signal, token }: RequestOptions = {}) =>
+  request<T>(endpoint, { method: 'GET', environment, signal, token });
 
 function parseErrorMessage(errorData: ErrorData): string {
-  const DEFAULT_ERROR = "Novu API error";
+  const DEFAULT_ERROR = 'Novu API error';
 
   if (!errorData?.message) {
     return DEFAULT_ERROR;
   }
 
-  if (typeof errorData.message !== "string") {
+  if (typeof errorData.message !== 'string') {
     return errorData.message?.message || DEFAULT_ERROR;
   }
 

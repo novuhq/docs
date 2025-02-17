@@ -1,6 +1,6 @@
 ---
-title: "Environments"
-description: "Understanding and managing environments in Novu"
+title: 'Environments'
+description: 'Understanding and managing environments in Novu'
 ---
 
 Novu uses environments to separate your development and production workflows. When you create an account, you'll get two default environments: `Development` and `Production`.
@@ -11,13 +11,11 @@ Use the development environment to test new notification workflows, validate cha
 
 ## Production Environment
 
-The production environment is your live environment where notifications are sent to real users. 
+The production environment is your live environment where notifications are sent to real users.
 
 ## Custom Environments
 
-<Callout type="info">
-  Custom environments are available in Business and Enterprise plans
-</Callout>
+<Callout type="info">Custom environments are available in Business and Enterprise plans</Callout>
 
 Create custom environments to match your development workflow:
 
@@ -31,6 +29,7 @@ The sync process works the same way as between development and production enviro
 ## What's Unique to Each Environment?
 
 Each environment maintains its own separate:
+
 - Subscriber list
 - Notification workflows
 - Message history
@@ -44,6 +43,7 @@ Each environment maintains its own separate:
 Each environment has two unique identifiers:
 
 1. **Application Identifier**
+
    - Public ID for client-side apps
    - Unique per environment
    - Safe to expose in frontend code
@@ -58,6 +58,6 @@ Each environment has two unique identifiers:
 ## Promoting Changes to Production
 
 You can move changes from development to production in two ways:
+
 1. Using the Dashboard's sync interface
 2. Using the Sync API in your CI/CD pipeline
-

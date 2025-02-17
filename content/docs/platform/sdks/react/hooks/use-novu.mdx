@@ -26,25 +26,21 @@ import { useNovu } from '@novu/react';
 
 function NotificationActions() {
   const { novu, isLoading } = useNovu();
-  
+
   if (isLoading) return <div>Loading...</div>;
-  
+
   const markAllAsRead = async () => {
     await novu.notifications.readAll();
   };
-  
+
   const archiveAllRead = async () => {
     await novu.notifications.archiveAllRead();
   };
-  
+
   return (
     <div>
-      <button onClick={markAllAsRead}>
-        Mark All as Read
-      </button>
-      <button onClick={archiveAllRead}>
-        Archive All Read
-      </button>
+      <button onClick={markAllAsRead}>Mark All as Read</button>
+      <button onClick={archiveAllRead}>Archive All Read</button>
     </div>
   );
 }
@@ -57,15 +53,15 @@ The Novu client provides methods for managing notifications:
 ```tsx
 function NotificationItem({ notification }) {
   const { novu } = useNovu();
-  
+
   const markAsRead = async () => {
     await novu.notifications.read(notification.id);
   };
-  
+
   const archive = async () => {
     await novu.notifications.archive(notification.id);
   };
-  
+
   return (
     <div>
       <h3>{notification.content}</h3>
@@ -83,27 +79,24 @@ You can also manage notification preferences:
 ```tsx
 function PreferencesManager() {
   const { novu } = useNovu();
-  
+
   const updatePreferences = async () => {
     await novu.preferences.update({
       workflowId: 'workflow_id',
-      channelPreferences: { 
+      channelPreferences: {
         email: false,
-        sms: true 
-      }
+        sms: true,
+      },
     });
   };
-  
-  return (
-    <button onClick={updatePreferences}>
-      Update Preferences
-    </button>
-  );
+
+  return <button onClick={updatePreferences}>Update Preferences</button>;
 }
 ```
 
 <Callout type="info">
-  The Novu client instance provides access to all the functionality available in the [Headless API](/inbox/headless/api-reference).
+  The Novu client instance provides access to all the functionality available in the [Headless
+  API](/inbox/headless/api-reference).
 </Callout>
 
 ```tsx

@@ -1,20 +1,20 @@
 ---
-title: "Adding SMS Channel"
-sidebarTitle: "Adding SMS Channel"
-description: "Learn how to add the SMS channel to your application"
-icon: "circle-plus"
+title: 'Adding SMS Channel'
+sidebarTitle: 'Adding SMS Channel'
+description: 'Learn how to add the SMS channel to your application'
+icon: 'circle-plus'
 ---
 
-
-import { Card } from 'fumadocs-ui/components/card'
-import { Step, Steps } from 'fumadocs-ui/components/steps'
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Card } from 'fumadocs-ui/components/card';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 <Steps>
 <Step title="Enable SMS channel in Novu Dashboard">
 
 <Callout type="info">
-The SMS channel is not enabled by default. To use it, configure a provider like Twilio, Nexmo, or others, and ensure compliance with country-specific restrictions for sender IDs (`from`).
+  The SMS channel is not enabled by default. To use it, configure a provider like Twilio, Nexmo, or
+  others, and ensure compliance with country-specific restrictions for sender IDs (`from`).
 </Callout>
 
 1. Go to the Novu Dashboard and click **"Integrations"** on the left sidebar
@@ -24,8 +24,8 @@ The SMS channel is not enabled by default. To use it, configure a provider like 
 5. (Optional) Add Conditions to activate the provider only under certain conditions, **useful for tenant-based providers**
 6. Click **"Create"**
 7. Add your SMS provider credentials:
-    - **From**: Displayed as the sender of the SMS (ensure compliance with local regulations)
-    - Provider-specific credentials such as API key / Auth token, Account SID, username, or password
+   - **From**: Displayed as the sender of the SMS (ensure compliance with local regulations)
+   - Provider-specific credentials such as API key / Auth token, Account SID, username, or password
 8. Save the configuration by clicking **"Update"**
 
 </Step>
@@ -59,7 +59,8 @@ Ensure your SMS configuration is working correctly by testing the setup.
 </Steps>
 
 <Callout type="info">
-Some countries have strict restriction of using verified `from` sender id (name). Kindly check country and provider specific requirements first.
+  Some countries have strict restriction of using verified `from` sender id (name). Kindly check
+  country and provider specific requirements first.
 </Callout>
 
 ## Sending SMS overrides
@@ -106,15 +107,16 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-  to: {
-    subscriberId: '<SUBSCRIBER_ID>',
-  },
-  overrides: {
-    sms: {
-      integrationIdentifier: 'infobip-abcdef',
-    },
-  },
+to: {
+subscriberId: '<SUBSCRIBER_ID>',
+},
+overrides: {
+sms: {
+integrationIdentifier: 'infobip-abcdef',
+},
+},
 });
+
 ```
 </Tab>
 </Tabs>
@@ -133,3 +135,4 @@ Common errors and reason for these errors while sending sms messages using Novu.
 <Callout type="info">
 Looking to integrate an SMS provider? Check out our [provider integrations](/integrations/providers/sms/overview).
 </Callout>
+```

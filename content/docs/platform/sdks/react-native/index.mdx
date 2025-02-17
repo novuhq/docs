@@ -4,13 +4,13 @@ title: 'Quickstart'
 description: 'Learn how to add Novu powered Inbox to your React Native app'
 ---
 
-
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 You can build your own Inbox UI with Novu's React Native hooks SDK. Novu will take care of data fetching, real-time updates and will help you build a fully custom notification-center UI.
 
 <Callout type="info">
-View our [React Native Expo Template](https://github.com/novuhq/novu-expo) for a live example of the inbox in action.
+  View our [React Native Expo Template](https://github.com/novuhq/novu-expo) for a live example of
+  the inbox in action.
 </Callout>
 
 <Steps>
@@ -24,20 +24,22 @@ View our [React Native Expo Template](https://github.com/novuhq/novu-expo) for a
     The `NovuProvider` component is used to provide the Novu context to the inbox hooks. Make sure that the provider is wrapping your Inbox hook usages at the component tree.
 
     ```tsx
+
 import { NovuProvider } from '@novu/react-native';
 
 function Layout() {
-  return (
-     <NovuProvider
+return (
+<NovuProvider
       subscriberId="YOUR_SUBSCRIBER_ID"
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
     >
-      {/* Your app components where you want to use the hooks */}
-      <YourCustomInbox />
-    </NovuProvider>
-  );
+{/* Your app components where you want to use the hooks */}
+<YourCustomInbox />
+</NovuProvider>
+);
 }
-```
+
+````
 
     <Callout type="info">
     You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard-v2.novu.co/api-keys).
@@ -59,7 +61,7 @@ import { useNotifications, Notification } from "@novu/react-native";
 function YourCustomInbox() {
    const { notifications, isLoading, fetchMore, hasMore, refetch } = useNotifications();
 
-  const renderItem = ({ item }) => (  
+  const renderItem = ({ item }) => (
     <View>
       <Text>{item.body}</Text>
     </View>
@@ -109,7 +111,8 @@ function YourCustomInbox() {
     />
   );
 }
-```
+````
+
   </Step>
 
   <Step title="Trigger a notification">
@@ -117,5 +120,3 @@ function YourCustomInbox() {
     To create your first workflow, follow our [quickstart guide](/getting-started/quickstart).
   </Step>
 </Steps>
-
-

@@ -1,13 +1,12 @@
 ---
-title: "Adding Push Channel"
-sidebarTitle: "Adding Push Channel"
-description: "Learn how to add the push channel to your application"
-icon: "circle-plus"
+title: 'Adding Push Channel'
+sidebarTitle: 'Adding Push Channel'
+description: 'Learn how to add the push channel to your application'
+icon: 'circle-plus'
 ---
 
-
-import { Step, Steps } from 'fumadocs-ui/components/steps'
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 <Steps>
   <Step title="Add a push channel provider">
@@ -55,7 +54,6 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
   </Step>
 </Steps>
 
-
 ## Supported providers
 
 - [Firebase Cloud Messaging (FCM)](/integrations/providers/push/fcm)
@@ -66,7 +64,6 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
 - [Push webhook](/integrations/providers/push/push-webhook)
 
 <Callout>Novu supports multiple active providers for push channel.</Callout>
-
 
 ## Managing push device tokens
 
@@ -82,14 +79,14 @@ Novu offers to ways of keeping your device tokens in sync with subscriber profil
 When triggering a workflow, you can pass the `channels` array on the subscriber object with the device tokens for the push provider of your choice. Here is an example with fcm:
 
 ```typescript
-novu.trigger("workflow-id", {
+novu.trigger('workflow-id', {
   to: {
-    subscriberId: "subscriber-id",
+    subscriberId: 'subscriber-id',
     channels: [
       {
-        providerId: "fcm",
+        providerId: 'fcm',
         credentials: {
-          deviceTokens: ["token-1", "token-2"],
+          deviceTokens: ['token-1', 'token-2'],
         },
       },
     ],
@@ -142,6 +139,8 @@ await this.novu.subscribers.setCredentials(
 PushProviderIdEnum.FCM,
 { deviceTokens: newDeviceTokens },
 );
+
 ```
 </Tab>
 </Tabs>
+```

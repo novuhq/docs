@@ -1,15 +1,15 @@
 ---
-title: "Writing Email Template"
-sidebarTitle: "Writing Email Template"
-description: "Learn how to write an email template in Novu. This document will guide you through the process of creating an email template using the Novu email editor, all supported blocks and how to use them"
-icon: "file-pen"
+title: 'Writing Email Template'
+sidebarTitle: 'Writing Email Template'
+description: 'Learn how to write an email template in Novu. This document will guide you through the process of creating an email template using the Novu email editor, all supported blocks and how to use them'
+icon: 'file-pen'
 ---
 
 ## Email Editor
 
 The Email Editor is a `WYSIWYG` editor that allows you to create and edit email templates. It has two fields: `Subject` and `Body`.
 
-  <img src="/images/channels-and-providers/email/writing-email-template/email-editor.png" />
+<img src="/images/channels-and-providers/email/writing-email-template/email-editor.png" />
 
 - **Subject** - Title of the email. It supports variables and can be customized based on the subscriber properties and payload variables.
 - **Body** - Main content of the email. It is made of blocks.
@@ -18,7 +18,7 @@ The Email Editor is a `WYSIWYG` editor that allows you to create and edit email 
 
 Email editor body is made of blocks. A block can be added by clicking on the plus icon on the top left corner of the editor or by adding a forward slash `/`. In both the cases, a popover will appear with the list of supported blocks. Click on the desired block to add it to the editor. Menu option besides plus (+) icon can be used to **duplicate** or **delete** the block.
 
-  <img src="/images/channels-and-providers/email/writing-email-template/email-blocks.gif" />
+<img src="/images/channels-and-providers/email/writing-email-template/email-blocks.gif" />
 
 The Email Editor supports the following blocks:
 
@@ -28,7 +28,7 @@ The Email Editor supports the following blocks:
 - **Heading 3** - Small heading (H3)
 - **Bullet List** - Bullet list (bullet points like •)
 - **Numbered List** - Numbered list (numeric digits like 1,2,3)
-- **Image** - Full widh image with absolute url, image position can be customized 
+- **Image** - Full widh image with absolute url, image position can be customized
 - **Section** - Create a section to group content together
 - **Column** - Creates columns to group content together, useful for responsive design
 - **Divider** - Separates the content, adds a line to highlight the separation
@@ -54,19 +54,18 @@ The Email Editor supports the following blocks:
 ></iframe>
 
 In above video:
+
 - `{{payload.order.items}}` is array of items in the order and can be used to iterate over the items
 
 then each item in the iteration has following properties:
+
 - `{{payload.order.items.name}}` is the name of the item
 - `{{payload.order.items.price}}` is the price of the item
-
 
 ### Show Block
 
 Show block can be used to conditionally show content based on a condition. Use the eye icon to toggle the visibility of the content. Few components supports eye icon. Conditions could be based on subscribr properties, payload variables.
 
-  <img src="/images/channels-and-providers/email/writing-email-template/show-block.gif" />
+<img src="/images/channels-and-providers/email/writing-email-template/show-block.gif" />
 
 In above example, if subscriber has `showTracking` field set to `true` in custom `data` attribute, then the `Track your order` button will be shown in the email sent to the subscriber. Similarly, paylaod variables can be used to conditionally show the content.
-
-

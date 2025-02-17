@@ -27,27 +27,21 @@ import { View, Button, ActivityIndicator } from 'react-native';
 
 function NotificationActions() {
   const { novu, isLoading } = useNovu();
-  
+
   if (isLoading) return <ActivityIndicator />;
-  
+
   const markAllAsRead = async () => {
     await novu.notifications.readAll();
   };
-  
+
   const archiveAllRead = async () => {
     await novu.notifications.archiveAllRead();
   };
-  
+
   return (
     <View>
-      <Button 
-        title="Mark All as Read"
-        onPress={markAllAsRead}
-      />
-      <Button 
-        title="Archive All Read"
-        onPress={archiveAllRead}
-      />
+      <Button title="Mark All as Read" onPress={markAllAsRead} />
+      <Button title="Archive All Read" onPress={archiveAllRead} />
     </View>
   );
 }
@@ -62,15 +56,15 @@ import { View, Text, Button } from 'react-native';
 
 function NotificationItem({ notification }) {
   const { novu } = useNovu();
-  
+
   const markAsRead = async () => {
     await novu.notifications.read(notification.id);
   };
-  
+
   const archive = async () => {
     await novu.notifications.archive(notification.id);
   };
-  
+
   return (
     <View>
       <Text>{notification.content}</Text>
@@ -90,28 +84,24 @@ import { Button } from 'react-native';
 
 function PreferencesManager() {
   const { novu } = useNovu();
-  
+
   const updatePreferences = async () => {
     await novu.preferences.update({
       workflowId: 'workflow_id',
-      channelPreferences: { 
+      channelPreferences: {
         email: false,
-        sms: true 
-      }
+        sms: true,
+      },
     });
   };
-  
-  return (
-    <Button 
-      title="Update Preferences"
-      onPress={updatePreferences}
-    />
-  );
+
+  return <Button title="Update Preferences" onPress={updatePreferences} />;
 }
 ```
 
 <Callout type="info">
-  The Novu client instance provides access to all the functionality available in the [Headless API](/inbox/headless/api-reference).
+  The Novu client instance provides access to all the functionality available in the [Headless
+  API](/inbox/headless/api-reference).
 </Callout>
 
 ```tsx

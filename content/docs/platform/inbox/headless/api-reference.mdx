@@ -8,11 +8,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { TypeTable } from 'fumadocs-ui/components/type-table';
 
 export function FunctionParams({ children }) {
-  return (
-    <div className="mt-4 mb-8">
-      {children}
-    </div>
-  );
+  return <div className="mt-4 mb-8">{children}</div>;
 }
 
 ## Novu
@@ -23,14 +19,14 @@ export function FunctionParams({ children }) {
 
 The Novu constructor accepts the following options:
 
-| Option | Type | Required | Description |
-|--------|------|----------|-------------|
-| subscriberId | string | Yes | The unique identifier of the subscriber |
-| applicationIdentifier | string | Yes | Your application identifier from Novu |
-| subscriberHash | string | No | HMAC encryption hash for the subscriber |
-| backendUrl | string | No | Custom backend URL for self-hosted instances |
-| socketUrl | string | No | Custom socket URL for self-hosted instances |
-| useCache | boolean | No | Enable/disable response caching (default: true) |
+| Option                | Type    | Required | Description                                     |
+| --------------------- | ------- | -------- | ----------------------------------------------- |
+| subscriberId          | string  | Yes      | The unique identifier of the subscriber         |
+| applicationIdentifier | string  | Yes      | Your application identifier from Novu           |
+| subscriberHash        | string  | No       | HMAC encryption hash for the subscriber         |
+| backendUrl            | string  | No       | Custom backend URL for self-hosted instances    |
+| socketUrl             | string  | No       | Custom socket URL for self-hosted instances     |
+| useCache              | boolean | No       | Enable/disable response caching (default: true) |
 
 ### Usage
 
@@ -44,6 +40,7 @@ The Novu constructor accepts the following options:
       applicationIdentifier: "APPLICATION_IDENTIFIER",
     });
     ```
+
   </Tab>
   <Tab>
     ```typescript
@@ -56,6 +53,7 @@ The Novu constructor accepts the following options:
       socketUrl: "https://eu.ws.novu.co",
     });
     ```
+
   </Tab>
   <Tab>
     <Callout type="info">
@@ -71,6 +69,7 @@ The Novu constructor accepts the following options:
       subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
     });
     ```
+
   </Tab>
 </Tabs>
 
@@ -82,6 +81,7 @@ The Novu constructor accepts the following options:
 ## Notifications
 
 ### Methods
+
 - [list](#list)
 - [count](#count)
 - [read](#read)
@@ -151,10 +151,10 @@ interface Notification = {
 Method to fetch the list of notifications based on the provided filters.
 
 <Callout type="info">
-  By default, the response is cached internally and stored by provided filters as a key.
-  The cache will be updated automatically with the subsequent response if the filters didn't change.
-  All cached responses will be merged into a single list and returned as the result.
-  You can disable this behaviour by setting the `useCache` parameter to `false` in the Novu constructor options.
+  By default, the response is cached internally and stored by provided filters as a key. The cache
+  will be updated automatically with the subsequent response if the filters didn't change. All
+  cached responses will be merged into a single list and returned as the result. You can disable
+  this behaviour by setting the `useCache` parameter to `false` in the Novu constructor options.
 </Callout>
 
 ### Filter Parameters
@@ -162,29 +162,29 @@ Method to fetch the list of notifications based on the provided filters.
 <TypeTable
   type={{
     tags: {
-      type: "string[]",
-      description: "Filter notifications by workflow tags"
+      type: 'string[]',
+      description: 'Filter notifications by workflow tags',
     },
     read: {
-      type: "boolean",
-      description: "Filter by read status"
+      type: 'boolean',
+      description: 'Filter by read status',
     },
     archived: {
-      type: "boolean", 
-      description: "Filter by archived status"
+      type: 'boolean',
+      description: 'Filter by archived status',
     },
     limit: {
-      type: "number",
-      description: "Number of notifications to fetch (1-100, default: 10)"
+      type: 'number',
+      description: 'Number of notifications to fetch (1-100, default: 10)',
     },
     after: {
-      type: "string",
-      description: "Fetch notifications after a specific notification ID"
+      type: 'string',
+      description: 'Fetch notifications after a specific notification ID',
     },
     offset: {
-      type: "number",
-      description: "Skip first N notifications"
-    }
+      type: 'number',
+      description: 'Skip first N notifications',
+    },
   }}
 />
 
@@ -193,27 +193,27 @@ Method to fetch the list of notifications based on the provided filters.
 <TypeTable
   type={{
     data: {
-      type: "object",
-      description: "Response data object",
+      type: 'object',
+      description: 'Response data object',
       properties: {
         notifications: {
-          type: "Notification[]",
-          description: "Array of notification objects"
+          type: 'Notification[]',
+          description: 'Array of notification objects',
         },
         hasMore: {
-          type: "boolean",
-          description: "Whether there are more notifications to fetch"
+          type: 'boolean',
+          description: 'Whether there are more notifications to fetch',
         },
         filter: {
-          type: "NotificationFilter",
-          description: "Applied filter criteria"
-        }
-      }
+          type: 'NotificationFilter',
+          description: 'Applied filter criteria',
+        },
+      },
     },
     error: {
-      type: "NovuError",
-      description: "Error object if request fails"
-    }
+      type: 'NovuError',
+      description: 'Error object if request fails',
+    },
   }}
 />
 
@@ -224,7 +224,7 @@ const notifications = await novu.notifications.list({
   limit: 30,
   read: false,
   archived: false,
-  tags: ["tag1", "tag2"],
+  tags: ['tag1', 'tag2'],
   offset: 0,
 });
 ```
@@ -235,12 +235,12 @@ Method to fetch the count of read, unread, archived and unarchived notifications
 
 #### Parameters
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| tags | string[] | Count notifications by workflow tags |
-| read | boolean | Count by read status |
-| archived | boolean | Count by archived status |
-| filters | Filter[] | Multiple filters for different counts |
+| Parameter | Type     | Description                           |
+| --------- | -------- | ------------------------------------- |
+| tags      | string[] | Count notifications by workflow tags  |
+| read      | boolean  | Count by read status                  |
+| archived  | boolean  | Count by archived status              |
+| filters   | Filter[] | Multiple filters for different counts |
 
 #### Returns
 
@@ -282,11 +282,7 @@ const count = await novu.notifications.count({
 
 // Multiple filters
 const counts = await novu.notifications.count({
-  filters: [
-    { read: false },
-    { archived: true },
-    { tags: ['tag1'] }
-  ]
+  filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }],
 });
 ```
 
@@ -297,10 +293,10 @@ Method marks a notification as read.
 <TypeTable
   type={{
     notificationId: {
-      type: "string",
-      description: "The ID of the notification to mark as read",
-      required: true
-    }
+      type: 'string',
+      description: 'The ID of the notification to mark as read',
+      required: true,
+    },
   }}
 />
 
@@ -311,10 +307,10 @@ Method marks a notification as unread.
 <TypeTable
   type={{
     notificationId: {
-      type: "string",
-      description: "The ID of the notification to mark as unread",
-      required: true
-    }
+      type: 'string',
+      description: 'The ID of the notification to mark as unread',
+      required: true,
+    },
   }}
 />
 
@@ -325,10 +321,10 @@ Method marks a notification as archived.
 <TypeTable
   type={{
     notificationId: {
-      type: "string",
-      description: "The ID of the notification to archive",
-      required: true
-    }
+      type: 'string',
+      description: 'The ID of the notification to archive',
+      required: true,
+    },
   }}
 />
 
@@ -339,10 +335,10 @@ Method marks a notification as unarchived.
 <TypeTable
   type={{
     notificationId: {
-      type: "string",
-      description: "The ID of the notification to unarchive",
-      required: true
-    }
+      type: 'string',
+      description: 'The ID of the notification to unarchive',
+      required: true,
+    },
   }}
 />
 
@@ -353,9 +349,10 @@ Method marks all notifications as read. Notifications can be filtered by tags.
 <TypeTable
   type={{
     tags: {
-      type: "string[]",
-      description: "Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags."
-    }
+      type: 'string[]',
+      description:
+        'Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags.',
+    },
   }}
 />
 
@@ -374,9 +371,10 @@ Method marks all notifications as archived. Notifications can be filtered by tag
 <TypeTable
   type={{
     tags: {
-      type: "string[]",
-      description: "Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags."
-    }
+      type: 'string[]',
+      description:
+        'Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags.',
+    },
   }}
 />
 
@@ -395,9 +393,10 @@ Method marks all read notifications as archived. Notifications can be filtered b
 <TypeTable
   type={{
     tags: {
-      type: "string[]",
-      description: "Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags."
-    }
+      type: 'string[]',
+      description:
+        'Workflow tags can be used to filter notifications, and organize them into different groups. Read more about how can you define workflow tags.',
+    },
   }}
 />
 
@@ -416,17 +415,18 @@ Method marks primary action of a notification as completed. It changes the `isCo
 <TypeTable
   type={{
     notificationId: {
-      type: "string",
-      description: "The ID of the notification to mark as completed",
-      required: true
-    }
+      type: 'string',
+      description: 'The ID of the notification to mark as completed',
+      required: true,
+    },
   }}
 />
 
 #### Usage
+
 ```typescript
 await novu.notifications.completePrimary({
-  notificationId: "notification.id",
+  notificationId: 'notification.id',
 });
 ```
 
@@ -437,17 +437,18 @@ Method marks secondary action of a notification as completed. It changes the `is
 <TypeTable
   type={{
     notificationId: {
-      type: "string",
-      description: "The ID of the notification to mark as completed",
-      required: true
-    }
+      type: 'string',
+      description: 'The ID of the notification to mark as completed',
+      required: true,
+    },
   }}
 />
 
 #### Usage
+
 ```typescript
 await novu.notifications.completeSecondary({
-  notificationId: "notification.id",
+  notificationId: 'notification.id',
 });
 ```
 
@@ -458,17 +459,18 @@ Method marks primary action of a notification as pending. It changes the `isComp
 <TypeTable
   type={{
     notificationId: {
-      type: "string",
-      description: "The ID of the notification to revert to pending",
-      required: true
-    }
+      type: 'string',
+      description: 'The ID of the notification to revert to pending',
+      required: true,
+    },
   }}
 />
 
 #### Usage
+
 ```typescript
 await novu.notifications.revertPrimary({
-  notificationId: "notification.id",
+  notificationId: 'notification.id',
 });
 ```
 
@@ -479,17 +481,18 @@ Method marks secondary action of a notification as pending. It changes the `isCo
 <TypeTable
   type={{
     notificationId: {
-      type: "string",
-      description: "The ID of the notification to revert to pending",
-      required: true
-    }
+      type: 'string',
+      description: 'The ID of the notification to revert to pending',
+      required: true,
+    },
   }}
 />
 
 #### Usage
+
 ```typescript
 await novu.notifications.revertSecondary({
-  notificationId: "notification.id",
+  notificationId: 'notification.id',
 });
 ```
 
@@ -549,7 +552,7 @@ await novu.preferences.list();
 
 ### update
 
-Update the global or per workflow channel preferences of the subscriber. 
+Update the global or per workflow channel preferences of the subscriber.
 
 If `workflowId` is provided, it updates the channel preferences of the specific workflow. Otherwise, it updates the global channel preferences.
 
@@ -558,13 +561,13 @@ If `workflowId` is provided, it updates the channel preferences of the specific 
 <TypeTable
   type={{
     workflowId: {
-      type: "string",
-      description: "The ID of the workflow to update preferences for"
+      type: 'string',
+      description: 'The ID of the workflow to update preferences for',
     },
     channelPreferences: {
-      type: "ChannelPreference",
-      description: "The channel preferences to update"
-    }
+      type: 'ChannelPreference',
+      description: 'The channel preferences to update',
+    },
   }}
 />
 

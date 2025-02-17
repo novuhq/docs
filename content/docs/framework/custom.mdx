@@ -1,7 +1,7 @@
 ---
-pageTitle: "Custom Action"
-title: "Custom"
-description: "Used to execute any custom code as a step in the workflow."
+pageTitle: 'Custom Action'
+title: 'Custom'
+description: 'Used to execute any custom code as a step in the workflow.'
 ---
 
 A custom steps allows to execute any custom logic and persist in the durable execution context. The result of this step can be used in subsequent steps.
@@ -17,21 +17,21 @@ A custom steps allows to execute any custom logic and persist in the durable exe
 
 ```tsx
 const stepResult = await step.custom(
-  "custom-step",
+  'custom-step',
   async () => {
     return {
-      item_name: "A product name",
+      item_name: 'A product name',
       item_price: 100,
     };
   },
   {
     outputSchema: {
-      type: "object",
+      type: 'object',
       properties: {
-        item_name: { type: "string" },
-        item_price: { type: "number" },
+        item_name: { type: 'string' },
+        item_price: { type: 'number' },
       },
-      required: ["item_name", "item_price"],
+      required: ['item_name', 'item_price'],
     },
   }
 );
@@ -51,9 +51,9 @@ The Custom Step function should return a valid serializable object. The return v
 The result can only be used in the `resolver` of the step/providers/skip functions of subsequent steps.
 
 ```tsx
-workflow("hello-world-workflow", async ({ payload }) => {
+workflow('hello-world-workflow', async ({ payload }) => {
   const task = await step.custom(
-    "fetch-db-data",
+    'fetch-db-data',
     async () => {
       const taskData = db.fetchTask(payload.task_id);
       return {
@@ -64,23 +64,23 @@ workflow("hello-world-workflow", async ({ payload }) => {
     },
     {
       outputSchema: {
-        type: "object",
+        type: 'object',
         properties: {
-          task_title: { type: "string" },
-          task_id: { type: "string" },
-          complete: { type: "boolean" },
+          task_title: { type: 'string' },
+          task_id: { type: 'string' },
+          complete: { type: 'boolean' },
         },
-        required: ["task_id", "complete"],
+        required: ['task_id', 'complete'],
       },
     }
   );
 
   await step.email(
-    "send-email",
+    'send-email',
     () => {
       return {
         subject: `Task reminder for ${task.task_title}`,
-        body: "Task is not yet complete. Please complete the task.",
+        body: 'Task is not yet complete. Please complete the task.',
       };
     },
     {

@@ -1,11 +1,10 @@
 ---
-title: "Twilio"
-description: "Learn how to use the Twilio provider to send sms notifications using Novu"
+title: 'Twilio'
+description: 'Learn how to use the Twilio provider to send sms notifications using Novu'
 ---
 
-
-import { Step, Steps } from 'fumadocs-ui/components/steps'
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 You can utilize the [Twilio](https://www.twilio.com/) API to communicate with your customers using SMS messaging. Let's look at how you can do that:
 
@@ -22,10 +21,14 @@ You can utilize the [Twilio](https://www.twilio.com/) API to communicate with yo
 2. Click on it to get your Twilio phone number.
 
 <Callout type="info">
-When first using Twilio there should be an option to get a Twilio phone number in the main console. Otherwise, you may have to [Buy](https://console.twilio.com/us1/develop/phone-numbers/manage/search?frameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3Fx-target-region%3Dus1&currentFrameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3FisoCountry%3DUS%26searchTerm%3D%26searchFilter%3Dleft%26searchType%3Dnumber%26x-target-region%3Dus1%26__override_layout__%3Dembed%26bifrost%3Dtrue) a number to begin using it. For first-time users, utilize the free number provided.
+  When first using Twilio there should be an option to get a Twilio phone number in the main
+  console. Otherwise, you may have to
+  [Buy](https://console.twilio.com/us1/develop/phone-numbers/manage/search?frameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3Fx-target-region%3Dus1&currentFrameUrl=%2Fconsole%2Fphone-numbers%2Fsearch%3FisoCountry%3DUS%26searchTerm%3D%26searchFilter%3Dleft%26searchType%3Dnumber%26x-target-region%3Dus1%26__override_layout__%3Dembed%26bifrost%3Dtrue)
+  a number to begin using it. For first-time users, utilize the free number provided.
 </Callout>
 
 For more detailed instructions, follow one of their many [Tutorials](https://www.twilio.com/docs/usage/requests-to-twilio) within their docs.
+
 </Step>
 
 <Step title="Understand the Key Components">
@@ -37,7 +40,7 @@ Irrespective of the language you use, the process requires:
    - Your Twilio phone number
    - The recipient's phone number
    - The SMS message body
-</Step>
+     </Step>
 </Steps>
 
 ## Creating a Twilio integration with Novu
@@ -78,5 +81,6 @@ await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
 </Tabs>
 
 <Callout type="info">
-Read more about [sending a Message with the Twilio API for WhatsApp](https://www.twilio.com/docs/whatsapp/tutorial).
+  Read more about [sending a Message with the Twilio API for
+  WhatsApp](https://www.twilio.com/docs/whatsapp/tutorial).
 </Callout>

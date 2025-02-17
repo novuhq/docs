@@ -1,7 +1,7 @@
 ---
-pageTitle: "Styling the Inbox component"
-title: "Styling"
-description: "Learn how to style the pre built Inbox component"
+pageTitle: 'Styling the Inbox component'
+title: 'Styling'
+description: 'Learn how to style the pre built Inbox component'
 ---
 
 import { TypeTable } from 'fumadocs-ui/components/type-table';
@@ -19,7 +19,8 @@ Depending on the level of customization you need, you can choose to style the in
 - [Custom Composition](/inbox/react/components/overview#composition) - Compose our components for custom layouts
 
 <Callout type="info">
-  You can see Styling in action on the [Inbox Playground](https://inbox.novu.co) with common themes like Notion, Reddit and more!
+  You can see Styling in action on the [Inbox Playground](https://inbox.novu.co) with common themes
+  like Notion, Reddit and more!
 </Callout>
 
 ## Appearance Prop
@@ -38,53 +39,53 @@ You might want to use variables to the styling of multiple components at once, f
 <TypeTable
   type={{
     colorBackground: {
-      type: "string",
-      description: "The background color of the inbox component."
+      type: 'string',
+      description: 'The background color of the inbox component.',
     },
     colorForeground: {
-      type: "string",
-      description: "The primary text color used in the inbox."
+      type: 'string',
+      description: 'The primary text color used in the inbox.',
     },
     colorPrimary: {
-      type: "string",
-      description: "The main accent color for interactive elements."
+      type: 'string',
+      description: 'The main accent color for interactive elements.',
     },
     colorPrimaryForeground: {
-      type: "string",
-      description: "The text color used on primary-colored elements."
+      type: 'string',
+      description: 'The text color used on primary-colored elements.',
     },
     colorSecondary: {
-      type: "string",
-      description: "A secondary color for less prominent elements."
+      type: 'string',
+      description: 'A secondary color for less prominent elements.',
     },
     colorSecondaryForeground: {
-      type: "string",
-      description: "The text color used on secondary-colored elements."
+      type: 'string',
+      description: 'The text color used on secondary-colored elements.',
     },
     colorCounter: {
-      type: "string",
-      description: "The background color of notification counters."
+      type: 'string',
+      description: 'The background color of notification counters.',
     },
     colorCounterForeground: {
-      type: "string",
-      description: "The text color used in notification counters."
+      type: 'string',
+      description: 'The text color used in notification counters.',
     },
     colorNeutral: {
-      type: "string",
-      description: "A neutral color used for borders or backgrounds."
+      type: 'string',
+      description: 'A neutral color used for borders or backgrounds.',
     },
     colorShadow: {
-      type: "string",
-      description: "The color of shadows applied to elements."
+      type: 'string',
+      description: 'The color of shadows applied to elements.',
     },
     fontSize: {
-      type: "string",
-      description: "The base font size for text in the inbox."
+      type: 'string',
+      description: 'The base font size for text in the inbox.',
     },
     borderRadius: {
-      type: "string",
-      description: "The border radius applied to various elements."
-    }
+      type: 'string',
+      description: 'The border radius applied to various elements.',
+    },
   }}
 />
 
@@ -97,7 +98,7 @@ You can override the default elements by passing your own styles or CSS classes 
 ```tsx
 const appearance = {
   variables: {
-    colorBackground: "yellow",
+    colorBackground: 'yellow',
   },
 };
 
@@ -119,7 +120,7 @@ Strip the `nv-` prefix when and add it to the `elements` object. For example, to
 const appearance = {
   elements: {
     notificationPrimaryAction__button: {
-      backgroundColor: "red",
+      backgroundColor: 'red',
     },
   },
 };
@@ -128,7 +129,9 @@ const appearance = {
 <img src="/images/inbox/Elements.png" alt="Finding Element Selectors" />
 
 <Callout type="info">
-  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in Appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the available elements.
+  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in
+  Appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the
+  available elements.
 </Callout>
 
 ### Dark theme
@@ -136,9 +139,9 @@ const appearance = {
 No need to implement a custom dark theme. Just import our premade `dark` theme and use it via the `baseTheme` option in `appearance`.
 
 ```tsx
-import { Inbox } from "@novu/react";
-import { dark } from "@novu/react/themes";
-import { useTheme } from "next-themes";
+import { Inbox } from '@novu/react';
+import { dark } from '@novu/react/themes';
+import { useTheme } from 'next-themes';
 
 export function Novu() {
   const { resolvedTheme } = useTheme();
@@ -147,7 +150,7 @@ export function Novu() {
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriberId="YOUR_SUBSCRIBER_ID"
-      appearance={{ baseTheme: resolvedTheme === "dark" ? dark : undefined }}
+      appearance={{ baseTheme: resolvedTheme === 'dark' ? dark : undefined }}
     />
   );
 }
@@ -163,13 +166,12 @@ You can also use Tailwind CSS classes to style the Inbox components. You can pas
 directly to the `elements` object.
 
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 const appearance = {
   elements: {
-    bellIcon: "p-4 bg-white rounded-full",
-    notification:
-      "bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-50",
+    bellIcon: 'p-4 bg-white rounded-full',
+    notification: 'bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-50',
   },
 };
 
@@ -215,8 +217,8 @@ You can also use `CSS Modules` to style the Inbox components. Here's how you can
 - Import the CSS module file and pass the classes to the elements object.
 
 ```tsx
-import { Inbox } from "@novu/react";
-import styles from "./styles.module.css";
+import { Inbox } from '@novu/react';
+import styles from './styles.module.css';
 
 const appearance = {
   elements: {
@@ -242,19 +244,19 @@ You can also use a styles object to style the Inbox components. You can pass the
 directly to the `elements` object.
 
 ```tsx
-import { Inbox } from "@novu/react";
+import { Inbox } from '@novu/react';
 
 const appearance = {
   elements: {
     bellIcon: {
-      padding: "1rem",
-      backgroundColor: "white",
-      borderRadius: "50%",
+      padding: '1rem',
+      backgroundColor: 'white',
+      borderRadius: '50%',
     },
     notification: {
-      backgroundColor: "white",
-      borderRadius: "0.5rem",
-      boxShadow: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      backgroundColor: 'white',
+      borderRadius: '0.5rem',
+      boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
     },
   },
 };
@@ -277,17 +279,17 @@ To highlight important words or phrases within your notification messages, you c
 Here's an example of how you can do this using the Novu Framework:
 
 ```js
-await step.inApp("inbox", async () => {
+await step.inApp('inbox', async () => {
   return {
-    subject: "**A new member joined the team!**",
-    body: "**John Doe** joined the team! Say hello and help them feel at home",
+    subject: '**A new member joined the team!**',
+    body: '**John Doe** joined the team! Say hello and help them feel at home',
   };
 });
 ```
 
 <Callout type="info">
-  Please note, that when you are rendering the custom notification component you
-  will need to parse the text and apply the bold styling accordingly.
+  Please note, that when you are rendering the custom notification component you will need to parse
+  the text and apply the bold styling accordingly.
 </Callout>
 
 Currently we only support bold text. We are working on adding more text formatting options in the future.

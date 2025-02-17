@@ -1,6 +1,6 @@
 ---
-title: "Workflows"
-description: "Learn what workflows are and how they work in Novu"
+title: 'Workflows'
+description: 'Learn what workflows are and how they work in Novu'
 ---
 
 A workflow holds the entire flow of steps (nodes) that are sent to the subscriber. This is where all the different channels are tied together under a single entity.
@@ -9,7 +9,7 @@ A workflow holds the entire flow of steps (nodes) that are sent to the subscribe
 
 A workflow acts as the blueprint for the notifications that will be sent. This is where all the different channels, filters, rules and actions are tied together under a single entity.
 
-The **Workflow Editor** simplifies building automated, personalized workflows without coding while also allowing developers to refine code-based workflows. 
+The **Workflow Editor** simplifies building automated, personalized workflows without coding while also allowing developers to refine code-based workflows.
 
 ## How it works
 
@@ -17,11 +17,19 @@ Workflow Editor builds on the principle of steps. Instead of defining a single, 
 
 In case of an error, a failed step is retried individually without needing to re-run any previous steps. Instead of the entire business logic, each step can take up your serverless function execution duration, and many more benefits.
 
-<img src="/workflow/media-assets/how-it-works.png" alt="Workflow Editor" className="rounded-lg border" />
+<img
+  src="/workflow/media-assets/how-it-works.png"
+  alt="Workflow Editor"
+  className="rounded-lg border"
+/>
 
 Here is how a workflow looks like in the UI Workflow Editor:
 
-<img src="/workflow/media-assets/workflow-editor.png" alt="Workflow Editor" className="rounded-lg border" />
+<img
+  src="/workflow/media-assets/workflow-editor.png"
+  alt="Workflow Editor"
+  className="rounded-lg border"
+/>
 
 ## Workflow building blocks
 
@@ -34,7 +42,7 @@ Every Novu workflow is built using these four key elements:
 
 ### Workflow identifier
 
-Give your Workflow a clear, descriptive name that your team can easily identify. 
+Give your Workflow a clear, descriptive name that your team can easily identify.
 Workflow identifiers should be unique to your application and descriptive of the workflow's purpose.
 
 For example:
@@ -84,11 +92,11 @@ The Workflow Editor is designed for **Omni-Channel Communication**, delivering a
   - **Enterprise messaging platforms** (e.g., Slack, Microsoft Teams)
   - **Consumer messaging apps** (e.g., WhatsApp, Telegram, Discord)
 
-Most providers within Novu use credentials that you supply to deliver notifications on your behalf. These credentials and other settings are what make a configured channel. 
+Most providers within Novu use credentials that you supply to deliver notifications on your behalf. These credentials and other settings are what make a configured channel.
 
 ### Action steps
 
-**Action steps** are purpose built functions that help manage the workflow flow. **Action Steps** can be executed before and after **Channel steps**. 
+**Action steps** are purpose built functions that help manage the workflow flow. **Action Steps** can be executed before and after **Channel steps**.
 For example, you can use a **Delay** to pause a workflow for a certain duration before sending a notification.
 
 There are three types of action steps supported by Novu:
@@ -100,16 +108,31 @@ There are three types of action steps supported by Novu:
 ## Example use cases
 
 <Cards>
-  <Card title="Order or transaction updates" description="Notifications for orders, shipping, or subscription statuses" />
+  <Card
+    title="Order or transaction updates"
+    description="Notifications for orders, shipping, or subscription statuses"
+  />
   <Card title="User onboarding" description="Welcome emails, follow-up emails, and more" />
   <Card title="User engagement" description="Re-engagement campaigns, follow-up emails, and more" />
-  <Card title="Product updates" description="Notifications for product updates, new features, and more" />
-  <Card title="Abandoned cart recovery" description="Notifications for abandoned carts and follow-up emails" />
-  <Card title="Password reset" description="Notifications for password resets and follow-up emails" />
-  <Card title="Administrative actions" description="Notifications for administrative actions like account deletions and more" />
+  <Card
+    title="Product updates"
+    description="Notifications for product updates, new features, and more"
+  />
+  <Card
+    title="Abandoned cart recovery"
+    description="Notifications for abandoned carts and follow-up emails"
+  />
+  <Card
+    title="Password reset"
+    description="Notifications for password resets and follow-up emails"
+  />
+  <Card
+    title="Administrative actions"
+    description="Notifications for administrative actions like account deletions and more"
+  />
   <Card title="System errors and alerts" description="Notifications for system errors and alerts" />
 </Cards>
 
 ## Execution of workflow steps
 
-When a workflow is triggered, its steps are executed in a predetermined sequence from top to bottom. This ensures a controlled, orderly flow and helps maintain the integrity of the notification process. 
+When a workflow is triggered, its steps are executed in a predetermined sequence from top to bottom. This ensures a controlled, orderly flow and helps maintain the integrity of the notification process.

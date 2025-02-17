@@ -1,6 +1,6 @@
 ---
-title: "@novu/js"
-pageTitle: "API reference for the @novu/js package"
+title: '@novu/js'
+pageTitle: 'API reference for the @novu/js package'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
@@ -11,36 +11,39 @@ The Novu client provides methods to interact with notifications, preferences, an
 
 ### Constructor Options
 
-<TypeTable name="NovuOptions" type={{
-  "applicationIdentifier": {
-    "description": "",
-    "type": "string"
-  },
-  "subscriberId": {
-    "description": "",
-    "type": "string"
-  },
-  "subscriberHash": {
-    "description": "",
-    "type": "string"
-  },
-  "backendUrl": {
-    "description": "",
-    "type": "string"
-  },
-  "apiUrl": {
-    "description": "",
-    "type": "string"
-  },
-  "socketUrl": {
-    "description": "",
-    "type": "string"
-  },
-  "useCache": {
-    "description": "",
-    "type": "boolean"
-  }
-}} />
+<TypeTable
+  name="NovuOptions"
+  type={{
+    applicationIdentifier: {
+      description: '',
+      type: 'string',
+    },
+    subscriberId: {
+      description: '',
+      type: 'string',
+    },
+    subscriberHash: {
+      description: '',
+      type: 'string',
+    },
+    backendUrl: {
+      description: '',
+      type: 'string',
+    },
+    apiUrl: {
+      description: '',
+      type: 'string',
+    },
+    socketUrl: {
+      description: '',
+      type: 'string',
+    },
+    useCache: {
+      description: '',
+      type: 'boolean',
+    },
+  }}
+/>
 
 ### Usage
 
@@ -54,6 +57,7 @@ The Novu client provides methods to interact with notifications, preferences, an
       applicationIdentifier: "APPLICATION_IDENTIFIER",
     });
     ```
+
   </Tab>
   <Tab value="EU">
     ```typescript
@@ -66,6 +70,7 @@ The Novu client provides methods to interact with notifications, preferences, an
       socketUrl: "https://eu.ws.novu.co",
     });
     ```
+
   </Tab>
   <Tab value="HMAC">
     ```typescript
@@ -77,6 +82,7 @@ The Novu client provides methods to interact with notifications, preferences, an
       subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
     });
     ```
+
   </Tab>
 </Tabs>
 
@@ -88,66 +94,75 @@ The Novu client provides methods to interact with notifications, preferences, an
 
 Fetches a list of notifications based on provided filters.
 
-<TypeTable name="NotificationFilter" type={{
-  "tags": {
-    "description": "",
-    "type": "string[]"
-  },
-  "read": {
-    "description": "",
-    "type": "boolean"
-  },
-  "archived": {
-    "description": "",
-    "type": "boolean"
-  }
-}} />
+<TypeTable
+  name="NotificationFilter"
+  type={{
+    tags: {
+      description: '',
+      type: 'string[]',
+    },
+    read: {
+      description: '',
+      type: 'boolean',
+    },
+    archived: {
+      description: '',
+      type: 'boolean',
+    },
+  }}
+/>
 
 ```typescript
 const notifications = await novu.notifications.list({
   limit: 30,
   read: false,
   archived: false,
-  tags: ["tag1", "tag2"],
+  tags: ['tag1', 'tag2'],
   offset: 0,
 });
 ```
 
 The response will be of type:
 
-<TypeTable name="NotificationsResponse" type={{
-  "notifications": {
-    "description": "",
-    "type": "Notification[]"
-  },
-  "hasMore": {
-    "description": "",
-    "type": "boolean"
-  },
-  "filter": {
-    "description": "",
-    "type": "NotificationFilter"
-  }
-}} />
+<TypeTable
+  name="NotificationsResponse"
+  type={{
+    notifications: {
+      description: '',
+      type: 'Notification[]',
+    },
+    hasMore: {
+      description: '',
+      type: 'boolean',
+    },
+    filter: {
+      description: '',
+      type: 'NotificationFilter',
+    },
+  }}
+/>
 
 #### count
 
 Fetches the count of notifications based on filters.
 
-<TypeTable name="NotificationFilter" type={{
-  "tags": {
-    "description": "",
-    "type": "string[]"
-  },
-  "read": {
-    "description": "",
-    "type": "boolean"
-  },
-  "archived": {
-    "description": "",
-    "type": "boolean"
-  }
-}} />
+<TypeTable
+  name="NotificationFilter"
+  type={{
+    tags: {
+      description: '',
+      type: 'string[]',
+    },
+    read: {
+      description: '',
+      type: 'boolean',
+    },
+    archived: {
+      description: '',
+      type: 'boolean',
+    },
+  }}
+/>
 
 ```typescript
 // Single filter
@@ -158,11 +173,7 @@ const count = await novu.notifications.count({
 
 // Multiple filters
 const counts = await novu.notifications.count({
-  filters: [
-    { read: false },
-    { archived: true },
-    { tags: ['tag1'] }
-  ]
+  filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }],
 });
 ```
 
@@ -171,7 +182,7 @@ const counts = await novu.notifications.count({
 Marks a notification as read.
 
 ```typescript
-await novu.notifications.read("NOTIFICATION_ID");
+await novu.notifications.read('NOTIFICATION_ID');
 ```
 
 #### unread
@@ -179,7 +190,7 @@ await novu.notifications.read("NOTIFICATION_ID");
 Marks a notification as unread.
 
 ```typescript
-await novu.notifications.unread("NOTIFICATION_ID");
+await novu.notifications.unread('NOTIFICATION_ID');
 ```
 
 #### archive
@@ -187,7 +198,7 @@ await novu.notifications.unread("NOTIFICATION_ID");
 Archives a notification.
 
 ```typescript
-await novu.notifications.archive("NOTIFICATION_ID");
+await novu.notifications.archive('NOTIFICATION_ID');
 ```
 
 #### unarchive
@@ -195,7 +206,7 @@ await novu.notifications.archive("NOTIFICATION_ID");
 Unarchives a notification.
 
 ```typescript
-await novu.notifications.unarchive("NOTIFICATION_ID");
+await novu.notifications.unarchive('NOTIFICATION_ID');
 ```
 
 #### readAll
@@ -232,62 +243,68 @@ const preferences = await novu.preferences.list();
 
 The response will be of type:
 
-<TypeTable name="PreferenceResponse" type={{
-  "level": {
-    "description": "",
-    "type": "PreferenceLevel"
-  },
-  "enabled": {
-    "description": "",
-    "type": "boolean"
-  },
-  "channels": {
-    "description": "",
-    "type": "ChannelPreference"
-  },
-  "overrides": {
-    "description": "",
-    "type": "IPreferenceOverride[]"
-  },
-  "workflow": {
-    "description": "",
-    "type": "Workflow"
-  }
-}} />
+<TypeTable
+  name="PreferenceResponse"
+  type={{
+    level: {
+      description: '',
+      type: 'PreferenceLevel',
+    },
+    enabled: {
+      description: '',
+      type: 'boolean',
+    },
+    channels: {
+      description: '',
+      type: 'ChannelPreference',
+    },
+    overrides: {
+      description: '',
+      type: 'IPreferenceOverride[]',
+    },
+    workflow: {
+      description: '',
+      type: 'Workflow',
+    },
+  }}
+/>
 
 #### update
 
 Updates channel preferences for a specific workflow or globally.
 
-<TypeTable name="ChannelPreference" type={{
-  "email": {
-    "description": "",
-    "type": "boolean"
-  },
-  "sms": {
-    "description": "",
-    "type": "boolean"
-  },
-  "in_app": {
-    "description": "",
-    "type": "boolean"
-  },
-  "chat": {
-    "description": "",
-    "type": "boolean"
-  },
-  "push": {
-    "description": "",
-    "type": "boolean"
-  }
-}} />
+<TypeTable
+  name="ChannelPreference"
+  type={{
+    email: {
+      description: '',
+      type: 'boolean',
+    },
+    sms: {
+      description: '',
+      type: 'boolean',
+    },
+    in_app: {
+      description: '',
+      type: 'boolean',
+    },
+    chat: {
+      description: '',
+      type: 'boolean',
+    },
+    push: {
+      description: '',
+      type: 'boolean',
+    },
+  }}
+/>
 
 ```typescript
 await novu.preferences.update({
   workflowId: 'workflow_id',
-  channelPreferences: { 
-    email: false, 
-    sms: false 
+  channelPreferences: {
+    email: false,
+    sms: false,
   },
 });
 ```
@@ -317,165 +334,176 @@ novu.on('notifications.unread_count_changed', (data) => {
 
 ### Notification
 
-<TypeTable name="Notification" type={{
-  "id": {
-    "description": "",
-    "type": "string"
-  },
-  "subject": {
-    "description": "",
-    "type": "string"
-  },
-  "body": {
-    "description": "",
-    "type": "string"
-  },
-  "to": {
-    "description": "",
-    "type": "Subscriber"
-  },
-  "isRead": {
-    "description": "",
-    "type": "boolean"
-  },
-  "isArchived": {
-    "description": "",
-    "type": "boolean"
-  },
-  "createdAt": {
-    "description": "",
-    "type": "string"
-  },
-  "readAt": {
-    "description": "",
-    "type": "string"
-  },
-  "archivedAt": {
-    "description": "",
-    "type": "string"
-  },
-  "avatar": {
-    "description": "",
-    "type": "string"
-  },
-  "primaryAction": {
-    "description": "",
-    "type": "Action"
-  },
-  "secondaryAction": {
-    "description": "",
-    "type": "Action"
-  },
-  "channelType": {
-    "description": "",
-    "type": "ChannelType"
-  },
-  "tags": {
-    "description": "",
-    "type": "string[]"
-  },
-  "redirect": {
-    "description": "",
-    "type": "Redirect"
-  },
-  "data": {
-    "description": "",
-    "type": "Record<string, unknown>"
-  },
-  "read": {
-    "description": "",
-    "type": "() => Result<Notification, NovuError>"
-  },
-  "unread": {
-    "description": "",
-    "type": "() => Result<Notification, NovuError>"
-  },
-  "archive": {
-    "description": "",
-    "type": "() => Result<Notification, NovuError>"
-  },
-  "unarchive": {
-    "description": "",
-    "type": "() => Result<Notification, NovuError>"
-  },
-  "completePrimary": {
-    "description": "",
-    "type": "() => Result<Notification, NovuError>"
-  },
-  "completeSecondary": {
-    "description": "",
-    "type": "() => Result<Notification, NovuError>"
-  },
-  "revertPrimary": {
-    "description": "",
-    "type": "() => Result<Notification, NovuError>"
-  },
-  "revertSecondary": {
-    "description": "",
-    "type": "() => Result<Notification, NovuError>"
-  },
-  "on": {
-    "description": "",
-    "type": "<Key extends EventNames>(eventName: Key, listener: EventHandler<Events[Key]>) => () => void"
-  },
-  "off": {
-    "description": "",
-    "type": "<Key extends EventNames>(eventName: Key, listener: EventHandler<Events[Key]>) => void"
-  }
-}} />
+<TypeTable
+  name="Notification"
+  type={{
+    id: {
+      description: '',
+      type: 'string',
+    },
+    subject: {
+      description: '',
+      type: 'string',
+    },
+    body: {
+      description: '',
+      type: 'string',
+    },
+    to: {
+      description: '',
+      type: 'Subscriber',
+    },
+    isRead: {
+      description: '',
+      type: 'boolean',
+    },
+    isArchived: {
+      description: '',
+      type: 'boolean',
+    },
+    createdAt: {
+      description: '',
+      type: 'string',
+    },
+    readAt: {
+      description: '',
+      type: 'string',
+    },
+    archivedAt: {
+      description: '',
+      type: 'string',
+    },
+    avatar: {
+      description: '',
+      type: 'string',
+    },
+    primaryAction: {
+      description: '',
+      type: 'Action',
+    },
+    secondaryAction: {
+      description: '',
+      type: 'Action',
+    },
+    channelType: {
+      description: '',
+      type: 'ChannelType',
+    },
+    tags: {
+      description: '',
+      type: 'string[]',
+    },
+    redirect: {
+      description: '',
+      type: 'Redirect',
+    },
+    data: {
+      description: '',
+      type: 'Record<string, unknown>',
+    },
+    read: {
+      description: '',
+      type: '() => Result<Notification, NovuError>',
+    },
+    unread: {
+      description: '',
+      type: '() => Result<Notification, NovuError>',
+    },
+    archive: {
+      description: '',
+      type: '() => Result<Notification, NovuError>',
+    },
+    unarchive: {
+      description: '',
+      type: '() => Result<Notification, NovuError>',
+    },
+    completePrimary: {
+      description: '',
+      type: '() => Result<Notification, NovuError>',
+    },
+    completeSecondary: {
+      description: '',
+      type: '() => Result<Notification, NovuError>',
+    },
+    revertPrimary: {
+      description: '',
+      type: '() => Result<Notification, NovuError>',
+    },
+    revertSecondary: {
+      description: '',
+      type: '() => Result<Notification, NovuError>',
+    },
+    on: {
+      description: '',
+      type: '<Key extends EventNames>(eventName: Key, listener: EventHandler<Events[Key]>) => () => void',
+    },
+    off: {
+      description: '',
+      type: '<Key extends EventNames>(eventName: Key, listener: EventHandler<Events[Key]>) => void',
+    },
+  }}
+/>
 
 ### Action
 
-<TypeTable name="Action" type={{
-  "label": {
-    "description": "",
-    "type": "string"
-  },
-  "isCompleted": {
-    "description": "",
-    "type": "boolean"
-  },
-  "redirect": {
-    "description": "",
-    "type": "Redirect"
-  }
-}} />
+<TypeTable
+  name="Action"
+  type={{
+    label: {
+      description: '',
+      type: 'string',
+    },
+    isCompleted: {
+      description: '',
+      type: 'boolean',
+    },
+    redirect: {
+      description: '',
+      type: 'Redirect',
+    },
+  }}
+/>
 
 ### NotificationButton
 
-<TypeTable name="NotificationButton" type={{
-  "PRIMARY": {
-    "description": "",
-    "type": "NotificationButton.PRIMARY"
-  },
-  "SECONDARY": {
-    "description": "",
-    "type": "NotificationButton.SECONDARY"
-  }
-}} />
+<TypeTable
+  name="NotificationButton"
+  type={{
+    PRIMARY: {
+      description: '',
+      type: 'NotificationButton.PRIMARY',
+    },
+    SECONDARY: {
+      description: '',
+      type: 'NotificationButton.SECONDARY',
+    },
+  }}
+/>
 
 ### Subscriber
 
-<TypeTable name="Subscriber" type={{
-  "id": {
-    "description": "",
-    "type": "string"
-  },
-  "firstName": {
-    "description": "",
-    "type": "string"
-  },
-  "lastName": {
-    "description": "",
-    "type": "string"
-  },
-  "avatar": {
-    "description": "",
-    "type": "string"
-  },
-  "subscriberId": {
-    "description": "",
-    "type": "string"
-  }
-}} />
-
+<TypeTable
+  name="Subscriber"
+  type={{
+    id: {
+      description: '',
+      type: 'string',
+    },
+    firstName: {
+      description: '',
+      type: 'string',
+    },
+    lastName: {
+      description: '',
+      type: 'string',
+    },
+    avatar: {
+      description: '',
+      type: 'string',
+    },
+    subscriberId: {
+      description: '',
+      type: 'string',
+    },
+  }}
+/>
