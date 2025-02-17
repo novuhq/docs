@@ -5,7 +5,6 @@ description: 'Connect a Python application to Novu'
 icon: 'python'
 ---
 
-import { Card, Cards } from 'fumadocs-ui/components/card';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 Novu's Python SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your Python application.
@@ -14,27 +13,31 @@ Novu's Python SDK provides simple, yet comprehensive notification management, an
 
 ## Installation
 
-<Cards>
-  <Card title="PIP">
+<Tabs items={['PIP', 'Poetry', 'Shell and script usage with uv']}>
+  <Tab value="PIP">
     PIP is the default package installer for Python, enabling easy installation and management of packages from PyPI via the command line.
     ```bash
     pip install novu-py
     ```
-  </Card>
+  </Tab>
+  <Tab value="Poetry">
 
-<Card title="Poetry">
-  Poetry is a modern tool that simplifies dependency management and package publishing by using a
-  single pyproject.toml file to handle project metadata and dependencies. ```bash poetry add novu-py
-  ```
-</Card>
+Poetry is a modern tool that simplifies dependency management and package publishing by using a single pyproject.toml file to handle project metadata and dependencies.
 
-  <Card title="Shell and script usage with uv">
+    ```bash
+    poetry add novu-py
+    ```
+
+  </Tab>
+  <Tab value="Shell and script usage with uv">
     You can use this SDK in a Python shell with uv and the uvx command that comes with it like so:
+
     ```bash
     uvx --from novu-py python
     ```
 
     It's also possible to write a standalone Python script without needing to set up a whole project like so:
+
     ```python
     #!/usr/bin/env -S uv run --script
     # /// script
@@ -54,15 +57,16 @@ Novu's Python SDK provides simple, yet comprehensive notification management, an
     ```
     Once that is saved to a file, you can run it with uv run `script.py` where `script.py` can be replaced with the actual file name.
 
-  </Card>
-</Cards>
+  </Tab>
+</Tabs>
 
 ## Usage
 
 <Tabs items={['US Region', 'EU Region']}>
-<Tab value="US Region">
+  <Tab value="US Region">
+    <Tabs items={['Synchronous', 'Asynchronous']}>
+      <Tab value="Synchronous">
 ```python
-# Synchronous Example
 import novu_py
 from novu_py import Novu
 import os
@@ -95,8 +99,10 @@ secret_key=os.getenv("NOVU_SECRET_KEY", ""),
     # Handle response
     print(res)
 
-# Asynchronous Example
-
+```
+      </Tab>
+      <Tab value="Asynchronous">
+```python
 import asyncio
 import novu_py
 from novu_py import Novu
@@ -132,18 +138,21 @@ secret_key=os.getenv("NOVU_SECRET_KEY", ""),
         print(res)
 
 asyncio.run(main())
+```
 
-````
-</Tab>
-<Tab value="EU Region">
+      </Tab>
+    </Tabs>
+
+  </Tab>
+  <Tab value="EU Region">
 ```python
 import novu_py
 from novu_py import Novu
 import os
 
 with Novu(
-    server_url="https:/eu.api.novu.co",
-    secret_key=os.getenv("NOVU_SECRET_KEY", ""),
+server_url="https:/eu.api.novu.co",
+secret_key=os.getenv("NOVU_SECRET_KEY", ""),
 ) as novu:
 
     res = novu.trigger(trigger_event_request_dto=novu_py.TriggerEventRequestDto(
@@ -166,7 +175,8 @@ with Novu(
 
     # Handle response
     print(res)
-````
 
-</Tab>
+```
+  </Tab>
 </Tabs>
+```
