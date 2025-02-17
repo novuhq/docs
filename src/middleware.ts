@@ -15,10 +15,7 @@ export default async function middleware(
   request: NextRequest,
   event: NextFetchEvent
 ) {
-  if (
-    request.nextUrl.pathname === "/" ||
-    request.nextUrl.pathname === "/docs"
-  ) {
+  if (request.nextUrl.pathname === "/") {
     return NextResponse.redirect(new URL("/platform/overview", request.url));
   }
 
