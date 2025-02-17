@@ -10,19 +10,19 @@ import {
 } from "fumadocs-ui/page";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Accordion, Accordions } from "../../../components/accordion";
-import { Callout } from "../../../components/callout";
-import { CodeBlock } from "../../../components/codeblock";
-import { ImageZoom } from "../../../components/image-zoom";
-import { Step, Steps } from "../../../components/steps";
-import { Tab } from "../../../components/tabs";
-import { Tabs } from "../../../components/ui/tabs";
+import { Accordion, Accordions } from "../../components/accordion";
+import { Callout } from "../../components/callout";
+import { CodeBlock } from "../../components/codeblock";
+import { ImageZoom } from "../../components/image-zoom";
+import { Step, Steps } from "../../components/steps";
+import { Tab } from "../../components/tabs";
+import { Tabs } from "../../components/ui/tabs";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../../../components/ui/tooltip";
+} from "../../components/ui/tooltip";
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;

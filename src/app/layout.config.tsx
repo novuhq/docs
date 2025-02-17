@@ -37,25 +37,25 @@ export const baseOptions: BaseLayoutProps = {
   },
   links: [
     {
-      url: "/docs/platform",
+      url: "/platform",
       type: "button",
       text: "Documentation",
       active: "nested-url",
     },
     {
-      url: "/docs/framework/introduction",
+      url: "/framework/introduction",
       type: "button",
       text: "Framework",
       active: "nested-url",
     },
     {
-      url: "/docs/community",
+      url: "/community",
       type: "button",
       text: "Community",
       active: "nested-url",
     },
     {
-      url: "/docs/api-reference",
+      url: "/api-reference",
       type: "button",
       text: "API Reference",
       active: "nested-url",
