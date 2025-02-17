@@ -5,6 +5,20 @@ description: "Explore Novu's comprehensive collection of server-side and client-
 ---
 
 import { Card, Cards } from 'fumadocs-ui/components/card'
+/* server side icons */
+import { DotnetIcon } from "@/components/icons/dotnet";
+import { GolangIcon } from "@/components/icons/golang";
+import { JavaIcon } from "@/components/icons/java";
+import { LaravelIcon } from "@/components/icons/laravel";
+import { NodejsIcon } from "@/components/icons/nodejs";
+import { PhpIcon } from "@/components/icons/php";
+import { PythonIcon } from "@/components/icons/python";
+import { RubyIcon } from "@/components/icons/ruby";
+import { KotlinIcon } from "@/components/icons/kotlin";
+/* client side icons */
+import { ReactIcon } from "@/components/icons/react";
+import { TypescriptIcon } from "@/components/icons/typescript";
+import { JavascriptIcon } from "@/components/icons/javascript";
 
 ## Server-side SDKs
 
@@ -12,33 +26,38 @@ import { Card, Cards } from 'fumadocs-ui/components/card'
 
 Novu's server-side SDKs simplify the integration with Novu's REST APIs.
 
-<Cards>
-  <Card title="Node.js" href="/sdks/nodejs">
-    Official Node.js SDK for Novu
+#### Offical SDKs maintained by Novu:
+<Cards cols={2}>
+  <Card title="Node.js (Official)" icon={<NodejsIcon />} color="#ea5a0c" href="/platform/sdks/server/nodejs">
+    Connect your Node app to Novu via the Node.js SDK.
   </Card>
-  <Card title="Python" href="/sdks/python">
-    Official Python SDK for Novu
+  <Card title="Python (Official)" icon={<PythonIcon />} color="#dc2626" href="/platform/sdks/server/python">
+    Connect your Python app to Novu via the Python SDK.
   </Card>
-  <Card title="Go" href="/sdks/go">
-    Official Go SDK for Novu
+    <Card title="Go (Official)" icon={<GolangIcon />} color="#0285c7" href="/platform/sdks/server/go">
+    Connect your Golang app to Novu via the Go SDK.
   </Card>
-  <Card title="PHP" href="/sdks/php">
-    Official PHP SDK for Novu
+  <Card title="PHP (Official)" icon={<PhpIcon />} color="#16a34a" href="/platform/sdks/server/php">
+    Connect your PHP app to Novu via the PHP SDK.
   </Card>
-  <Card title="Java" href="/sdks/java">
-    Official Java SDK for Novu
+</Cards>
+
+#### SDKs maintained by the community:
+<Cards cols={2}>
+  <Card title="Laravel (Community)" icon={<LaravelIcon />} color="#dc2626" href="/platform/sdks/server/laravel">
+    Connect your Laravel app to Novu via the Laravel SDK.
   </Card>
-  <Card title="C#" href="/sdks/dotnet">
-    Official .NET SDK for Novu
+  <Card title="Kotlin (Community)" icon={<KotlinIcon />} color="#dc2626" href="/platform/sdks/server/kotlin">
+    Connect your Kotlin app to Novu via the Kotlin SDK.
   </Card>
-  <Card title="Ruby" href="/sdks/ruby">
-    Official Ruby SDK for Novu
+  <Card title="Java (Community)" icon={<JavaIcon />} color="#dc2626" href="/platform/sdks/server/java">
+    Connect your Java app to Novu via the Java SDK.
   </Card>
-  <Card title="Laravel" href="/sdks/laravel">
-    Official Laravel SDK for Novu
+  <Card title="Ruby (Community)" icon={<RubyIcon />} color="#dc2626" href="/platform/sdks/server/ruby">
+    Connect your Ruby app to Novu via the Ruby SDK.
   </Card>
-  <Card title="Kotlin" href="/sdks/kotlin">
-    Official Kotlin SDK for Novu
+  <Card title=".NET (Community)"  icon={<DotnetIcon />}  color="#dc2626" href="/platform/sdks/server/dotnet">
+    Connect your C#/.NET app to Novu via the .NET SDK.
   </Card>
 </Cards>
 
@@ -46,28 +65,28 @@ Novu's server-side SDKs simplify the integration with Novu's REST APIs.
 
 The Framework SDK is a TypeScript library that allows you to build notification workflows and execute them in your own runtime environment. 
 
-<Cards>
-  <Card title="Typescript" href="/framework/typescript/overview">
-    Build and execute notification workflows in TypeScript
-  </Card>
-</Cards>
-
 <Callout type="info">
   While triggering notifications is supported in all SDKs, creating and managing notification workflows is only supported in the Framework Typescript SDK.
 </Callout>
+
+<Cards>
+  <Card title="Typescript" icon={<TypescriptIcon />} href="/framework/typescript/overview">
+    Build and execute notification workflows in TypeScript
+  </Card>
+</Cards>
 
 ## Web and Mobile SDKs
 
 Novu provides the following web client SDKs to enable integrations with Novu's prebuilt UI components, allowing you to easily add notification functionality to your applications without handling complex notification logic manually.
 
 <Cards>
-  <Card title="React" href="/inbox/react/get-started">
+  <Card title="React" icon={<ReactIcon />} href="/inbox/react/get-started">
     Official React SDK for Novu's notification center
   </Card>
-  <Card title="React-Native" href="/inbox/react-native/quickstart">
-    Official React Native SDK for mobile applications
-  </Card>
-  <Card title="Headless" href="/inbox/headless/get-started">
+  <Card title="Headless" icon={<JavascriptIcon />} href="/inbox/headless/get-started">
     Framework-agnostic SDK for custom implementations
+  </Card>
+  <Card title="React-Native" icon={<ReactIcon />} href="/inbox/react-native/quickstart">
+    Official React Native SDK for mobile applications
   </Card>
 </Cards>
