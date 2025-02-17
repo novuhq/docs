@@ -19,6 +19,12 @@ const config = {
       },
     ],
   },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.externals.push('typescript');
+    }
+    return config;
+  },
 };
 
 export default withMDX(config);
