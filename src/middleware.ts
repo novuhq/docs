@@ -24,7 +24,6 @@ export default async function middleware(
     );
   }
 
-  // Handle platform redirect
   if (request.nextUrl.pathname === "/docs/platform") {
     return NextResponse.redirect(
       new URL("/docs/platform/overview", request.url)
@@ -49,6 +48,5 @@ export default async function middleware(
     );
   }
 
-  // Continue with Clerk middleware
   return clerkMiddleware(request, event);
 }
