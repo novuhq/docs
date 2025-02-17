@@ -14,6 +14,7 @@ import { Accordion, Accordions } from "../../../components/accordion";
 import { Callout } from "../../../components/callout";
 import { CodeBlock } from "../../../components/codeblock";
 import { ImageZoom } from "../../../components/image-zoom";
+import { Step, Steps } from "../../../components/steps";
 import { Tab } from "../../../components/tabs";
 import { Tabs } from "../../../components/ui/tabs";
 import {
@@ -74,6 +75,8 @@ export default async function Page(props: {
             ),
             Accordions: Accordions,
             Accordion: Accordion,
+            Steps: Steps,
+            Step: Step,
             Popup,
             PopupContent,
             PopupTrigger,
