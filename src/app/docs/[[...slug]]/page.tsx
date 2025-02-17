@@ -1,6 +1,5 @@
 import { openapi, source } from "@/lib/source";
 import { Popup, PopupContent, PopupTrigger } from "fumadocs-twoslash/ui";
-import { ImageZoom } from "fumadocs-ui/components/image-zoom";
 import { TypeTable } from "fumadocs-ui/components/type-table";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import {
@@ -14,6 +13,7 @@ import { notFound } from "next/navigation";
 import { Accordion, Accordions } from "../../../components/accordion";
 import { Callout } from "../../../components/callout";
 import { CodeBlock } from "../../../components/codeblock";
+import { ImageZoom } from "../../../components/image-zoom";
 import { Tab } from "../../../components/tabs";
 import { Tabs } from "../../../components/ui/tabs";
 import {
@@ -108,8 +108,7 @@ export default async function Page(props: {
                 </span>
               </Link>
             ),
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            img: (props) => <ImageZoom {...(props as any)} />,
+            img: (props) => <ImageZoom {...props} />,
           }}
         />
       </DocsBody>
