@@ -10,7 +10,12 @@
     "build:docs": "node ./scripts/generate-docs.mjs && node ./scripts/generate-types.mjs",
     "sync:search": "node ./scripts/sync-search.mjs",
     "post:build": "cp tsconfig.json .next/",
-    "generate:types": "node ./scripts/generate-types.mjs"
+    "generate:types": "node ./scripts/generate-types.mjs",
+    "lint": "next lint",
+    "lint:mdx": "eslint \"**/*.mdx\" --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx,json}\"",
+    "validate-links": "tsx scripts/validate-mdx-links.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.11.2",
@@ -55,15 +60,33 @@
   "devDependencies": {
     "@fumadocs/cli": "^0.0.8",
     "@tailwindcss/postcss": "^4.0.5",
+    "@types/glob": "^8.1.0",
     "@types/mdx": "^2.0.13",
     "@types/node": "22.13.1",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.24.1",
+    "@typescript-eslint/parser": "^8.24.1",
+    "chalk": "^5.4.1",
     "eslint": "^8",
     "eslint-config-next": "15.1.6",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-markdown": "^5.1.0",
+    "eslint-plugin-mdx": "^3.1.5",
+    "eslint-plugin-prettier": "^5.2.3",
+    "glob": "^11.0.1",
     "postcss": "^8.5.1",
     "source-map-support": "^0.5.21",
+    "prettier": "^3.5.1",
+    "remark-lint-no-dead-urls": "^2.0.1",
+    "remark-lint-no-undefined-references": "^5.0.1",
+    "remark-mdx": "^3.1.0",
+    "remark-parse": "^11.0.0",
+    "remark-validate-links": "^13.0.2",
     "tailwindcss": "^4.0.5",
-    "typescript": "^5.7.3"
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.0.0"
   }
 }

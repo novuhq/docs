@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Image, { type ImageProps } from "next/image";
-import { type ImgHTMLAttributes } from "react";
-import Zoom, { type UncontrolledProps } from "react-medium-image-zoom";
-import "./image-zoom.css";
+import Image, { type ImageProps } from 'next/image';
+import { type ImgHTMLAttributes } from 'react';
+import Zoom, { type UncontrolledProps } from 'react-medium-image-zoom';
+import './image-zoom.css';
 
-export type ImageZoomProps = Omit<ImageProps, "alt"> & {
+export type ImageZoomProps = Omit<ImageProps, 'alt'> & {
   /**
    * Alt text for the image
    */
@@ -21,19 +21,13 @@ export type ImageZoomProps = Omit<ImageProps, "alt"> & {
   rmiz?: UncontrolledProps;
 };
 
-function getImageSrc(src: ImageProps["src"]): string {
-  if (typeof src === "string") return src;
-  if ("default" in src) return src.default.src;
+function getImageSrc(src: ImageProps['src']): string {
+  if (typeof src === 'string') return src;
+  if ('default' in src) return src.default.src;
   return src.src;
 }
 
-export function ImageZoom({
-  zoomInProps,
-  children,
-  rmiz,
-  alt = "",
-  ...props
-}: ImageZoomProps) {
+export function ImageZoom({ zoomInProps, children, rmiz, alt = '', ...props }: ImageZoomProps) {
   return (
     <Zoom
       zoomMargin={20}

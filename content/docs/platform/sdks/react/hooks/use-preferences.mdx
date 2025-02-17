@@ -10,7 +10,7 @@ The `usePreferences` hook provides a way to fetch and manage notification prefer
 ## Return Value
 
 ```typescript
-{
+type PreferencesReturn = {
   preferences: Array<{
     template: {
       _id: string;
@@ -32,7 +32,7 @@ The `usePreferences` hook provides a way to fetch and manage notification prefer
     channelType: string;
     enabled: boolean;
   }) => Promise<void>;
-}
+};
 ```
 
 ## Example Usage
@@ -44,16 +44,16 @@ import { usePreferences } from '@novu/react';
 
 function PreferencesList() {
   const { preferences, isLoading, error, updatePreference } = usePreferences();
-  
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  
+
   return (
     <div>
       {preferences.map((preference) => (
         <div key={preference.template._id}>
           <h3>{preference.template.name}</h3>
-          
+
           <label>
             <input
               type="checkbox"
@@ -62,13 +62,13 @@ function PreferencesList() {
                 updatePreference({
                   templateId: preference.template._id,
                   channelType: 'email',
-                  enabled: e.target.checked
+                  enabled: e.target.checked,
                 });
               }}
             />
             Email Notifications
           </label>
-          
+
           <label>
             <input
               type="checkbox"
@@ -77,7 +77,7 @@ function PreferencesList() {
                 updatePreference({
                   templateId: preference.template._id,
                   channelType: 'sms',
-                  enabled: e.target.checked
+                  enabled: e.target.checked,
                 });
               }}
             />
@@ -97,11 +97,9 @@ You can organize preferences by channel type:
 ```tsx
 function ChannelPreferences() {
   const { preferences, updatePreference } = usePreferences();
-  
-  const emailPreferences = preferences.filter(
-    (pref) => pref.channels.email !== undefined
-  );
-  
+
+  const emailPreferences = preferences.filter((pref) => pref.channels.email !== undefined);
+
   return (
     <div>
       <h2>Email Preferences</h2>
@@ -115,7 +113,7 @@ function ChannelPreferences() {
                 updatePreference({
                   templateId: preference.template._id,
                   channelType: 'email',
-                  enabled: e.target.checked
+                  enabled: e.target.checked,
                 });
               }}
             />
@@ -135,7 +133,7 @@ Some workflows might be marked as critical, meaning they cannot be disabled:
 ```tsx
 function CriticalPreferences() {
   const { preferences } = usePreferences();
-  
+
   return (
     <div>
       {preferences.map((preference) => (
@@ -152,7 +150,7 @@ function CriticalPreferences() {
                   updatePreference({
                     templateId: preference.template._id,
                     channelType: 'email',
-                    enabled: e.target.checked
+                    enabled: e.target.checked,
                   });
                 }}
               />
@@ -167,5 +165,6 @@ function CriticalPreferences() {
 ```
 
 <Callout type="info">
-  Changes to preferences are automatically synchronized with the server and will affect future notifications immediately.
+  Changes to preferences are automatically synchronized with the server and will affect future
+  notifications immediately.
 </Callout>

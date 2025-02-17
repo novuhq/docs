@@ -1,6 +1,6 @@
-import { baseUrl } from "@/lib/metadata";
-import { source } from "@/lib/source";
-import type { MetadataRoute } from "next";
+import { baseUrl } from '@/lib/metadata';
+import { source } from '@/lib/source';
+import type { MetadataRoute } from 'next';
 
 export const revalidate = false;
 
@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return {
           url: url(page.url),
           lastModified: lastModified ? new Date(lastModified) : undefined,
-          changeFrequency: "weekly",
+          changeFrequency: 'weekly',
           priority: 0.5,
         } as MetadataRoute.Sitemap[number];
       })

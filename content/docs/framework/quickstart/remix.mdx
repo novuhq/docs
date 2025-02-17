@@ -1,18 +1,16 @@
 ---
-pageTitle: "Remix Quickstart"
-title: "Remix"
-description: "Get started with Novu Framework in a Remix application"
+pageTitle: 'Remix Quickstart'
+title: 'Remix'
+description: 'Get started with Novu Framework in a Remix application'
 ---
 
-import DeployApp from "@/snippets/quickstart/deploy.mdx";
-import NextStepsStep from "@/snippets/quickstart/next-steps.mdx";
-import PackagesStep from "@/snippets/quickstart/packages.mdx";
-import SecretStep from "@/snippets/quickstart/secret.mdx";
-import LocalStudio from "@/snippets/quickstart/start-studio.mdx";
-import TestStep from "@/snippets/quickstart/test.mdx";
-import WorkflowStep from "@/snippets/quickstart/workflow.mdx";
-
-
+import DeployApp from '@/snippets/quickstart/deploy.mdx';
+import NextStepsStep from '@/snippets/quickstart/next-steps.mdx';
+import PackagesStep from '@/snippets/quickstart/packages.mdx';
+import SecretStep from '@/snippets/quickstart/secret.mdx';
+import LocalStudio from '@/snippets/quickstart/start-studio.mdx';
+import TestStep from '@/snippets/quickstart/test.mdx';
+import WorkflowStep from '@/snippets/quickstart/workflow.mdx';
 
 In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Remix application and send our first test workflow.
 
@@ -29,11 +27,11 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Rem
         ```typescript app/routes/api.novu.ts
         import { serve } from "@novu/framework/remix";
         import { testWorkflow } from "../novu/workflows";
-        
+
         const handler = serve({
             workflows: [testWorkflow]
         });
-        
+
         export { handler as action, handler as loader };
         ```
     </Step>
@@ -41,7 +39,7 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Rem
         <SecretStep />
     </Step>
     <Step title="Create your workflow definition">
-        Add a `novu` folder in your app folder as such ```app/novu/workflows.ts``` that will contain your workflow definitions. 
+        Add a `novu` folder in your app folder as such ```app/novu/workflows.ts``` that will contain your workflow definitions.
 
         <WorkflowStep />
     </Step>
@@ -64,6 +62,7 @@ In this guide, we will add a Novu [Bridge Endpoint](/concepts/endpoint) to a Rem
     <Step title="Deploy your application">
         <DeployApp />
     </Step>
+
 </Steps>
 
 <NextStepsStep />

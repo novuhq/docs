@@ -14,10 +14,7 @@ import { Inbox, Bell } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    >
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
       <Bell />
     </Inbox>
   );
@@ -51,7 +48,8 @@ function Novu() {
 ## Custom Popover Integration
 
 <Callout type="info">
-  `<Inbox />` can be mounted in your own popover component. For further customization, you can also use the `renderBell` and `renderNotification` render props.
+  `<Inbox />` can be mounted in your own popover component. For further customization, you can also
+  use the `renderBell` and `renderNotification` render props.
 </Callout>
 
 Below is an example of how to use `<Inbox />` with [Radix UI](https://www.radix-ui.com/):
@@ -64,10 +62,7 @@ import { Inbox, Bell, Notifications } from '@novu/react';
 import './styles.css';
 
 const PopoverDemo = () => (
-  <Inbox
-    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-    subscriberId="YOUR_SUBSCRIBER_ID"
-  >
+  <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
     <Popover.Root>
       <Popover.Trigger asChild>
         <Bell

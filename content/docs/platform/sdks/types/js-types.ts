@@ -8,7 +8,7 @@ import type {
   NovuOptions,
   PreferencesResponse,
   Subscriber,
-} from "@novu/js";
+} from '@novu/js';
 
 export type {
   Action,

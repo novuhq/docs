@@ -1,18 +1,21 @@
-"use client";
-import type { ScrollAreaViewportProps } from "@radix-ui/react-scroll-area";
-import { Check, Copy } from "lucide-react";
+'use client';
+import type { ScrollAreaViewportProps } from '@radix-ui/react-scroll-area';
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
+import { Check, Copy } from 'lucide-react';
 import {
   type ButtonHTMLAttributes,
   type HTMLAttributes,
   type ReactNode,
   forwardRef,
   useCallback,
+  useMemo,
   useRef,
-} from "react";
-import { cn } from "../lib/cn";
-import { useCopyButton } from "../lib/use-copy-button";
-import { buttonVariants } from "./ui/button";
-import { ScrollArea, ScrollBar, ScrollViewport } from "./ui/scroll-area";
+  useState,
+} from 'react';
+import { cn } from '../lib/cn';
+import { useCopyButton } from '../lib/use-copy-button';
+import { buttonVariants } from './ui/button';
+import { ScrollArea, ScrollBar, ScrollViewport } from './ui/scroll-area';
 
 export type CodeBlockProps = HTMLAttributes<HTMLElement> & {
   /**
@@ -37,98 +40,157 @@ export type CodeBlockProps = HTMLAttributes<HTMLElement> & {
   keepBackground?: boolean;
 
   viewportProps?: ScrollAreaViewportProps;
+
+  code: string;
+
+  /**
+   * Array of line numbers to mask (1-indexed)
+   */
+  maskedLines?: number[];
+
+  /**
+   * Array of character ranges to mask in format [lineNumber, startChar, endChar]
+   */
+  maskedRanges?: [number, number, number][];
 };
 
 export const Pre = forwardRef<HTMLPreElement, HTMLAttributes<HTMLPreElement>>(
   ({ className, ...props }, ref) => {
     return (
-      <pre
-        ref={ref}
-        className={cn("p-4 focus-visible:outline-none", className)}
-        {...props}
-      >
+      <pre ref={ref} className={cn('p-4 focus-visible:outline-none', className)} {...props}>
         {props.children}
       </pre>
     );
   }
 );
 
-Pre.displayName = "Pre";
+Pre.displayName = 'Pre';
 
 export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
   (
     {
       title,
+      code,
       allowCopy = true,
       keepBackground = false,
       icon,
       viewportProps,
+      maskedLines = [],
+      maskedRanges = [],
       ...props
     },
     ref
   ) => {
     const areaRef = useRef<HTMLDivElement>(null);
+    const [revealedLines, setRevealedLines] = useState<number[]>([]);
+    const [revealedRanges, setRevealedRanges] = useState<string[]>([]);
+
     const onCopy = useCallback(() => {
-      const pre = areaRef.current?.getElementsByTagName("pre").item(0);
+      const pre = areaRef.current?.getElementsByTagName('pre').item(0);
 
       if (!pre) return;
 
       const clone = pre.cloneNode(true) as HTMLElement;
-      clone.querySelectorAll(".nd-copy-ignore").forEach((node) => {
+      clone.querySelectorAll('.nd-copy-ignore').forEach((node) => {
         node.remove();
       });
 
-      void navigator.clipboard.writeText(clone.textContent ?? "");
+      void navigator.clipboard.writeText(clone.textContent ?? '');
     }, []);
+
+    const processedCode = useMemo(() => {
+      const lines = code.split('\n');
+
+      return lines
+        .map((line, index) => {
+          const lineNumber = index + 1;
+
+          if (maskedLines.includes(lineNumber) && !revealedLines.includes(lineNumber)) {
+            return '***'.repeat(Math.ceil(line.length / 3));
+          }
+
+          let processedLine = line;
+          maskedRanges.forEach(([rangeLine, start, end]) => {
+            if (
+              rangeLine === lineNumber &&
+              !revealedRanges.includes(`${lineNumber}-${start}-${end}`)
+            ) {
+              const before = processedLine.slice(0, start);
+              const masked = '***'.repeat(Math.ceil((end - start) / 3));
+              const after = processedLine.slice(end);
+              processedLine = before + masked + after;
+            }
+          });
+
+          return processedLine;
+        })
+        .join('\n');
+    }, [code, maskedLines, maskedRanges, revealedLines, revealedRanges]);
+
+    const hasMaskedContent = maskedLines.length > 0 || maskedRanges.length > 0;
 
     return (
       <figure
         ref={ref}
         {...props}
         className={cn(
-          "not-prose group fd-codeblock relative my-6 overflow-hidden rounded-lg border bg-fd-secondary/50 text-sm",
-          keepBackground &&
-            "bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]",
+          'not-prose group fd-codeblock relative my-6 overflow-hidden rounded-lg border bg-fd-secondary/50 text-sm',
+          keepBackground && 'bg-[var(--shiki-light-bg)] dark:bg-[var(--shiki-dark-bg)]',
           props.className
         )}
       >
-        {title ? (
+        {title || allowCopy || hasMaskedContent ? (
           <div className="flex flex-row items-center gap-2 border-b bg-fd-muted px-4 py-1.5">
             {icon ? (
               <div
                 className="text-fd-muted-foreground [&_svg]:size-3.5"
                 dangerouslySetInnerHTML={
-                  typeof icon === "string"
+                  typeof icon === 'string'
                     ? {
                         __html: icon,
                       }
                     : undefined
                 }
               >
-                {typeof icon !== "string" ? icon : null}
+                {typeof icon !== 'string' ? icon : null}
               </div>
             ) : null}
-            <figcaption className="flex-1 truncate text-fd-muted-foreground">
-              {title}
-            </figcaption>
-            {allowCopy ? (
-              <CopyButton className="-me-2" onCopy={onCopy} />
-            ) : null}
+            <figcaption className="flex-1 truncate text-fd-muted-foreground">{title}</figcaption>
+            <div className="flex gap-2">
+              {hasMaskedContent && (
+                <button
+                  type="button"
+                  className={cn(
+                    buttonVariants({
+                      color: 'ghost',
+                    }),
+                    'transition-opacity group-hover:opacity-100 [&_svg]:size-3.5',
+                    '[@media(hover:hover)]:opacity-0'
+                  )}
+                  onClick={() => {
+                    setRevealedLines(maskedLines);
+                    setRevealedRanges(
+                      maskedRanges.map(([line, start, end]) => `${line}-${start}-${end}`)
+                    );
+                  }}
+                >
+                  Reveal
+                </button>
+              )}
+              {allowCopy && <CopyButton className="-me-2" onCopy={onCopy} />}
+            </div>
           </div>
         ) : (
           allowCopy && (
-            <CopyButton
-              className="absolute right-2 top-2 z-[2] backdrop-blur-md"
-              onCopy={onCopy}
-            />
+            <CopyButton className="absolute right-2 top-2 z-[2] backdrop-blur-md" onCopy={onCopy} />
           )
         )}
         <ScrollArea ref={areaRef} dir="ltr">
           <ScrollViewport
             {...viewportProps}
-            className={cn("max-h-[600px]", viewportProps?.className)}
+            className={cn('max-h-[600px]', viewportProps?.className)}
           >
-            {props.children}
+            <DynamicCodeBlock lang="tsx" code={processedCode} />
           </ScrollViewport>
           <ScrollBar orientation="horizontal" />
         </ScrollArea>
@@ -137,7 +199,7 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
   }
 );
 
-CodeBlock.displayName = "CodeBlock";
+CodeBlock.displayName = 'CodeBlock';
 
 function CopyButton({
   className,
@@ -153,20 +215,18 @@ function CopyButton({
       type="button"
       className={cn(
         buttonVariants({
-          color: "ghost",
+          color: 'ghost',
         }),
-        "transition-opacity group-hover:opacity-100 [&_svg]:size-3.5",
-        !checked && "[@media(hover:hover)]:opacity-0",
+        'transition-opacity group-hover:opacity-100 [&_svg]:size-3.5',
+        !checked && '[@media(hover:hover)]:opacity-0',
         className
       )}
-      aria-label={checked ? "Copied Text" : "Copy Text"}
+      aria-label={checked ? 'Copied Text' : 'Copy Text'}
       onClick={onClick}
       {...props}
     >
-      <Check className={cn("transition-transform", !checked && "scale-0")} />
-      <Copy
-        className={cn("absolute transition-transform", checked && "scale-0")}
-      />
+      <Check className={cn('transition-transform', !checked && 'scale-0')} />
+      <Copy className={cn('absolute transition-transform', checked && 'scale-0')} />
     </button>
   );
 }

@@ -1,20 +1,21 @@
 ---
-pageTitle: "Novu Framework Overview"
-title: "Introduction"
+pageTitle: 'Novu Framework Overview'
+title: 'Introduction'
 description: "Learn how to extend Novu's capabilities by building custom notification workflows with code using the Novu Framework."
 ---
 
-import { ExpressjsIcon } from "@/components/icons/expressjs";
-import { H3Icon } from "@/components/icons/h3";
-import { LambdaIcon } from "@/components/icons/lambda";
-import { NestjsIcon } from "@/components/icons/nestjs";
-import { NextjsIcon } from "@/components/icons/nextjs";
-import { NuxtIcon } from "@/components/icons/nuxt";
-import { RemixIcon } from "@/components/icons/remix";
-import { SvelteIcon } from "@/components/icons/svelte";
+import { ExpressjsIcon } from '@/components/icons/expressjs';
+import { H3Icon } from '@/components/icons/h3';
+import { LambdaIcon } from '@/components/icons/lambda';
+import { NestjsIcon } from '@/components/icons/nestjs';
+import { NextjsIcon } from '@/components/icons/nextjs';
+import { NuxtIcon } from '@/components/icons/nuxt';
+import { RemixIcon } from '@/components/icons/remix';
+import { SvelteIcon } from '@/components/icons/svelte';
 import { Card, Cards } from 'fumadocs-ui/components/card';
 
 Novu Framework enables you to run a part of the core Novu workflow engine from within your network boundary. This also opens up a powerful new capability: **you can create Novu workflows entirely in code**. This is important because:
+
 - You can inject custom code that does nearly anything you can imagine as part of a Novu workflow
 - Your code-based workflow lives alongside your application code in source control
 - You can hydrate notification content using local data-sources, reducing what you need to sync outside of your IT boundary
@@ -30,6 +31,7 @@ When enabled, Novu Cloud will call the Bridge Endpoint when it needs to retrieve
 Use the `npx novu init` command to create a sample Bridge application with a built-in Bridge Endpoint.
 
 ## Quickstart
+
 To get started with Novu Framework, pick your preferred technology from the list below:
 
 <Cards>

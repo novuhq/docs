@@ -1,5 +1,5 @@
 ---
-title: "What is Novu?"
+title: 'What is Novu?'
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
@@ -7,14 +7,17 @@ import { Card, Cards } from 'fumadocs-ui/components/card';
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-
-Novu is an open-source notification infrastructure platform that greatly reduces the effort and complexity required to implement notifications your users will love, all without the need to build your own notification system. 
+Novu is an open-source notification infrastructure platform that greatly reduces the effort and complexity required to implement notifications your users will love, all without the need to build your own notification system.
 
 We designed Novu with both developers and product teams in mind: it's easy for developers to implement quickly, and simple for less-technical users to interact with and maintain content with a powerful intuitive dashboard.
 
 Novu functions as an abstraction layer between your application and end users, and manages all aspects of notification workflow logic and delivery provider management.
 
-<img src="/getting-started/media-assets/how-novu-works.png" alt="How Novu works" className="rounded-lg border" />
+<img
+  src="/getting-started/media-assets/how-novu-works.png"
+  alt="How Novu works"
+  className="rounded-lg border"
+/>
 
 ---
 
@@ -31,7 +34,10 @@ Managing notifications across multiple channels is painful. Each notification de
       <li>Keep track of multiple API keys and credentials</li>
       <li>Build abstraction layers to standardize notification logic</li>
       <li>Deal with provider-specific rate limits and quotas</li>
-      <li>Maintain separate content formats and hydration methods for each channel and notification type</li>
+      <li>
+        Maintain separate content formats and hydration methods for each channel and notification
+        type
+      </li>
     </ul>
   </div>
 </div>
@@ -48,25 +54,33 @@ Instead of juggling multiple providers' APIs and SDKs, you get a single, consist
     <ul className="mt-2 list-disc pl-4">
       <li>Trigger notifications across any channel</li>
       <li>Manage subscriber profiles and preferences</li>
-      <li>Power real-time notification feeds with our <a href="/inbox/overview" className="underline">full-stack UI Components libraries</a></li>
+      <li>
+        Power real-time notification feeds with our{' '}
+        <a href="/inbox/overview" className="underline">
+          full-stack UI Components libraries
+        </a>
+      </li>
       <li>Handle notification templates and workflows</li>
     </ul>
     <p className="mt-2">And much more.</p>
-    <p className="mt-2 font-medium">This is a robust, highly customizable infrastructure layer that sits between your application and the user's devices and channels.</p>
+    <p className="mt-2 font-medium">
+      This is a robust, highly customizable infrastructure layer that sits between your application
+      and the user's devices and channels.
+    </p>
   </div>
 </div>
 
 There are two ways to integrate Novu with your application or website:
 
 <Cards>
-  <Card 
+  <Card
     href="/sdks/overview"
-    title="Server-side SDKs" 
+    title="Server-side SDKs"
     description="Use our server-side SDKs for seamless integration"
   />
-  <Card 
+  <Card
     href="/api-reference/overview"
-    title="Direct HTTP Requests" 
+    title="Direct HTTP Requests"
     description="Make direct HTTP requests using your environment's API Secret Key"
   />
 </Cards>
@@ -77,19 +91,24 @@ Every request you make is automatically routed to the correct [environment](/con
 
 ## Workflows
 
-Workflows are the core building blocks of Novu's notification system. They enable you to design sophisticated messaging sequences that can span multiple communication channels like in-app, email, SMS, chat, and push. 
+Workflows are the core building blocks of Novu's notification system. They enable you to design sophisticated messaging sequences that can span multiple communication channels like in-app, email, SMS, chat, and push.
 
 Using intuitive logical operators and [action steps](/concepts/workflows#action-step), you can create dynamic notification paths that automatically adapt based on your [end user](/additional-resources/glossary#subscribers) preferences and behavior.
 
 <div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950">
   <p className="text-sm text-blue-700 dark:text-blue-400 font-medium">
-    Every notification in Novu originates from a workflow trigger, making workflows the central orchestration layer for your entire messaging infrastructure.
+    Every notification in Novu originates from a workflow trigger, making workflows the central
+    orchestration layer for your entire messaging infrastructure.
   </p>
 </div>
 
 Whether you need to send a simple welcome email or implement a complex multi-step notification sequence with digests, delays, fallbacks, and conditional logic, workflows provide the foundation for managing these communications effectively.
 
-<img src="/getting-started/media-assets/novu-workflow.png" alt="Novu Workflows" className="rounded-lg border" />
+<img
+  src="/getting-started/media-assets/novu-workflow.png"
+  alt="Novu Workflows"
+  className="rounded-lg border"
+/>
 
 In the code snippets below, you can see how a workflow trigger API request looks.
 
@@ -132,29 +151,30 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
 await novu.trigger('workflow_identifier', {
-  to: {
-    subscriberId: '<id>',
-    email: 'john@doemail.com',
-    firstName: 'John',
-    lastName: 'Doe',
-    phone: '+1234567890',
-    avatar: 'AVATAR_URL',
-  },
-  payload: {
-    comment_id: 'string',
-    post: {
-      text: 'string',
-    },
-  },
-  overrides: {
-    fcm: {
-      data: {
-        key: 'value',
-      },
-    },
-  },
+to: {
+subscriberId: '<id>',
+email: 'john@doemail.com',
+firstName: 'John',
+lastName: 'Doe',
+phone: '+1234567890',
+avatar: 'AVATAR_URL',
+},
+payload: {
+comment_id: 'string',
+post: {
+text: 'string',
+},
+},
+overrides: {
+fcm: {
+data: {
+key: 'value',
+},
+},
+},
 });
-```
+
+````
   </Tab>
   <Tab value="Python">
 ```python
@@ -188,23 +208,24 @@ with Novu(
 
     # Handle response
     print(res)
-```
+````
+
   </Tab>
   <Tab value="Go">
 ```go
 package main
 
 import(
-    "context"
-    "os"
-    novugo "github.com/novuhq/novu-go"
-    "github.com/novuhq/novu-go/models/components"
-    "log"
+"context"
+"os"
+novugo "github.com/novuhq/novu-go"
+"github.com/novuhq/novu-go/models/components"
+"log"
 )
 
 func main() {
-    ctx := context.Background()
-    
+ctx := context.Background()
+
     s := novugo.New(
         novugo.WithSecurity(os.Getenv("NOVU_SECRET_KEY")),
     )
@@ -236,8 +257,10 @@ func main() {
     if res.TriggerEventResponseDto != nil {
         // handle response
     }
+
 }
-```
+
+````
   </Tab>
   <Tab value="PHP">
 ```php
@@ -281,13 +304,14 @@ $response = $sdk->trigger(
 if ($response->triggerEventResponseDto !== null) {
     // handle response
 }
-```
+````
+
   </Tab>
 </Tabs>
 
 ---
 
-To trigger a notification workflow process in Novu, you must specify the intended subscriber(s). 
+To trigger a notification workflow process in Novu, you must specify the intended subscriber(s).
 **This is a fundamental concept in Novu because it determines the routing of your notifications.**
 
 ## Subscribers
@@ -299,14 +323,15 @@ The subscriber is identified through one of two methods:
 - A `subscriberId` - this uniquely identifies a specific user in your system (similar to how each user has a unique user_id in a database)
 - A `topicKey` - this represents a channel or category that multiple subscribers can opt into (like a subscription group)
 
-
 <Callout>
+
 **When you trigger workflows to subscribers, Novu maintains a cache of their notification-related data, including:**
 
 - Required contact information (email, phone number)
 - Profile details (avatar URL)
 - Platform-specific tokens (push notifications, webhooks)
 - Custom properties (plan type, user role, timezone)
+
 </Callout>
 
 Below is a detailed breakdown of the subscriber object:
@@ -314,7 +339,7 @@ Below is a detailed breakdown of the subscriber object:
 ```json
 {
   // Core Identifiers
-    "subscriberId": "UNIQUE_USER_IDENTIFIER_IN_YOUR_SYSTEM",
+  "subscriberId": "UNIQUE_USER_IDENTIFIER_IN_YOUR_SYSTEM",
   "_id": "NOVU_GENERATED_SUBSCRIBER_ID",
   "_organizationId": "NOVU_GENERATED_ORG_ID",
   "_environmentId": "NOVU_GENERATED_ENV_ID",
@@ -371,19 +396,20 @@ Below is a detailed breakdown of the subscriber object:
 
 To deliver notifications to subscribers, you need to configure a [channel](/additional-resources/glossary#channels).
 
-A channel in Novu is a configured delivery method for sending notifications to subscribers. 
+A channel in Novu is a configured delivery method for sending notifications to subscribers.
 Each channel connects to a specific delivery [provider](/additional-resources/glossary#providers) that handles the actual notification delivery.
 
 **Sending notifications with Novu:**
 
 <Steps>
   <Step title="Configure one or more channels by selecting and setting up providers">
-    Novu allows you to set up multiple notification delivery providers and integrate them into your notification workflows. 
-    
-    Each [channel](/workflow/channel-steps) corresponds to a configured provider that you can use to deliver notifications in production. 
+    Novu allows you to set up multiple notification delivery providers and integrate them into your
+    notification workflows. Each [channel](/workflow/channel-steps) corresponds to a configured
+    provider that you can use to deliver notifications in production.
   </Step>
   <Step title="Add these channels to your notification workflows">
-    Use these channels individually or combine them in workflows for multi-channel notification delivery. 
+    Use these channels individually or combine them in workflows for multi-channel notification
+    delivery.
   </Step>
   <Step title="Trigger the workflow">
     Make an API call or use a `cURL` command to trigger your workflow to a `subscriberId`.
@@ -391,7 +417,9 @@ Each channel connects to a specific delivery [provider](/additional-resources/gl
 </Steps>
 
 <Callout>
-For example, you might configure an email channel using SendGrid as the provider and an SMS channel using Twilio. These channels can be used independently or together in workflows to achieve multi-channel delivery.
+  For example, you might configure an email channel using SendGrid as the provider and an SMS
+  channel using Twilio. These channels can be used independently or together in workflows to achieve
+  multi-channel delivery.
 </Callout>
 
 Here's an overview of our supported channels and providers:
@@ -403,23 +431,28 @@ Here's an overview of our supported channels and providers:
    [Learn more about email channel →](/integrations/providers/email/overview)
  </Accordion>
 
- <Accordion title="SMS" icon="message-sms">
-   Deliver SMS messages through trusted providers including [Africa's Talking](https://africastalking.com/), [Amazon SNS](https://aws.amazon.com/sns/), [Mailersend](https://www.mailersend.com/), [MessageBird](https://messagebird.com/), [Plivo](https://www.plivo.com/), [Sinch](https://www.sinch.com/), [Telnyx](https://telnyx.com/), [Twilio](https://www.twilio.com/), and [Vonage](https://www.vonage.com/). 
-   
-   [Learn more about SMS channel →](/integrations/providers/sms/overview)
- </Accordion>
+<Accordion title="SMS" icon="message-sms">
+  Deliver SMS messages through trusted providers including [Africa's
+  Talking](https://africastalking.com/), [Amazon SNS](https://aws.amazon.com/sns/),
+  [Mailersend](https://www.mailersend.com/), [MessageBird](https://messagebird.com/),
+  [Plivo](https://www.plivo.com/), [Sinch](https://www.sinch.com/), [Telnyx](https://telnyx.com/),
+  [Twilio](https://www.twilio.com/), and [Vonage](https://www.vonage.com/). [Learn more about SMS
+  channel →](/integrations/providers/sms/overview)
+</Accordion>
 
- <Accordion title="Push Notifications" icon="mobile">
-   Send push notifications across major platforms including [Apple Push Notification Service](https://developer.apple.com/notifications/) for iOS, [Expo](https://expo.dev/) for React Native, and [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging) for Android. 
-   
-   [Learn more about Push channel →](/integrations/providers/push/overview)
- </Accordion>
+<Accordion title="Push Notifications" icon="mobile">
+  Send push notifications across major platforms including [Apple Push Notification
+  Service](https://developer.apple.com/notifications/) for iOS, [Expo](https://expo.dev/) for React
+  Native, and [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging) for
+  Android. [Learn more about Push channel →](/integrations/providers/push/overview)
+</Accordion>
 
- <Accordion title="Chat Platforms" icon="message">
-   Integrate with popular messaging platforms including [Discord](https://discord.com/), [Microsoft Teams](https://www.microsoft.com/teams), [Slack](https://slack.com/), [Telegram](https://telegram.org/), and [WhatsApp](https://www.whatsapp.com/). 
-   
-   [Learn more about Chat channel →](/integrations/providers/chat/overview)
- </Accordion>
+<Accordion title="Chat Platforms" icon="message">
+  Integrate with popular messaging platforms including [Discord](https://discord.com/), [Microsoft
+  Teams](https://www.microsoft.com/teams), [Slack](https://slack.com/),
+  [Telegram](https://telegram.org/), and [WhatsApp](https://www.whatsapp.com/). [Learn more about
+  Chat channel →](/integrations/providers/chat/overview)
+</Accordion>
 
  <Accordion title="In-app Notifications" icon="bell">
    Build native notification experiences with our real-time notification feed API, ready-to-use UI components, and custom integration options for seamless implementation in your application. 
@@ -461,13 +494,13 @@ Novu allows you to design notification templates using an intuitive combination 
 
 ## Actions
 
-Adding action steps (or functions) to your workflows is a powerful way to create more complex and unique notification experiences for your users. 
+Adding action steps (or functions) to your workflows is a powerful way to create more complex and unique notification experiences for your users.
 
 Each workflow can combine multiple action steps to model complex logic that creates better notification experiences. You can combine the following action steps with any number of channel steps to create personalized notifications for your users:
 
     ### Digest
     Digest actions combine multiple notifications into a single, consolidated message. This helps prevent notification fatigue and provides better context for your users.
-    
+
     - Group related notifications within a specified time window
     - Customize aggregation logic and formatting
 
@@ -492,11 +525,11 @@ Each workflow can combine multiple action steps to model complex logic that crea
 
 ---
 
-## Step Conditions 
+## Step Conditions
 
 In addition to combining channel steps and action steps to create complex workflows, you can augment these steps with additional logic based on the subscriber, inputs from your application, or the status of previous workflow steps. These are called step conditions.
 
-Step conditions are powerful rules that determine when a workflow executes channel and action steps. 
+Step conditions are powerful rules that determine when a workflow executes channel and action steps.
 
 They evaluate trigger data, subscriber properties, and previous step outcomes to create personalized user experiences.
 
@@ -518,9 +551,10 @@ Step conditions automatically respect subscriber communication preferences, incl
 
 Empower the end users and subscribers to decide what, when, and how they want to receive notifications.
 
-In Novu, each workflow run is executed on behalf of a subscriber, and each subscriber can specify their preferences to receive notifications across a number of different criteria: 
-- channel types 
-- individual workflows 
+In Novu, each workflow run is executed on behalf of a subscriber, and each subscriber can specify their preferences to receive notifications across a number of different criteria:
+
+- channel types
+- individual workflows
 - workflow categories
 
 ![preferences](/getting-started/media-assets/preferences.png)
@@ -533,9 +567,9 @@ Novu automatically enforces user communication [preferences](/concepts/preferenc
 
 ### Build something
 
-If you want to start by adding Novu to your existing system, you can check out our quick start guide to implement your first workflow. 
+If you want to start by adding Novu to your existing system, you can check out our quick start guide to implement your first workflow.
 
-<Card 
+<Card
   href="/getting-started/quickstart"
   title="Quick Start"
   description="Learn how to integrate Novu with your backend codebase."
@@ -543,42 +577,42 @@ If you want to start by adding Novu to your existing system, you can check out o
 
 ### Keep learning
 
-While the workflow engine is at the heart of Novu, our goal is to build a complete notification system for our customers. 
+While the workflow engine is at the heart of Novu, our goal is to build a complete notification system for our customers.
 
 **Here is an overview of some of the more-advanced concepts and features Novu has to offer:**
 
 <Cards>
-  <Card 
+  <Card
     href="/inbox/overview"
     title="Inbox and Preferences UI Components"
     description="Explore our full-stack UI components libraries for building in-app notifications."
   />
-  <Card 
+  <Card
     href="/framework/overview"
     title="Novu Framework"
     description="Extend your workflows past the UI to accomplish any use case imaginable."
   />
-  <Card 
+  <Card
     href="/sdks/overview"
     title="Novu Framework SDK"
     description="Use our SDK to integrate Novu with your backend codebase."
   />
-  <Card 
+  <Card
     href="/concepts/tenants"
     title="Multi-tenancy"
     description="Manage multiple tenants within an organization."
   />
-  <Card 
+  <Card
     href="/inbox/react/localization"
     title="Localization"
     description="Manage localized versions of your notification templates."
   />
-  <Card 
+  <Card
     href="/framework/studio"
     title="Local Studio"
     description="Use our local studio to design and test your notification templates."
   />
-  <Card 
+  <Card
     href="/concepts/environments"
     title="Environments"
     description="Manage multiple environments based on your application's deployment stages."

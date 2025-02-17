@@ -2,14 +2,9 @@ import Link from 'fumadocs-core/link';
 import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../lib/cn';
 
-export function Cards(
-  props: HTMLAttributes<HTMLDivElement>,
-): React.ReactElement {
+export function Cards(props: HTMLAttributes<HTMLDivElement>): React.ReactElement {
   return (
-    <div
-      {...props}
-      className={cn('grid grid-cols-1 gap-4 sm:grid-cols-2', props.className)}
-    >
+    <div {...props} className={cn('grid grid-cols-1 gap-4 sm:grid-cols-2', props.className)}>
       {props.children}
     </div>
   );
@@ -24,12 +19,7 @@ export type CardProps = HTMLAttributes<HTMLElement> & {
   external?: boolean;
 };
 
-export function Card({
-  icon,
-  title,
-  description,
-  ...props
-}: CardProps): React.ReactElement {
+export function Card({ icon, title, description, ...props }: CardProps): React.ReactElement {
   const E = props.href ? Link : 'div';
 
   return (
@@ -39,7 +29,7 @@ export function Card({
       className={cn(
         'block rounded-lg border bg-fd-card p-4 text-fd-card-foreground shadow-md transition-colors',
         props.href && 'hover:bg-fd-accent/80',
-        props.className,
+        props.className
       )}
     >
       {icon ? (
@@ -48,13 +38,9 @@ export function Card({
         </div>
       ) : null}
       <h3 className="not-prose mb-1 text-sm font-medium">{title}</h3>
-      {description ? (
-        <p className="my-0 text-sm text-fd-muted-foreground">{description}</p>
-      ) : null}
+      {description ? <p className="my-0 text-sm text-fd-muted-foreground">{description}</p> : null}
       {props.children ? (
-        <div className="text-sm text-fd-muted-foreground prose-no-margin">
-          {props.children}
-        </div>
+        <div className="text-sm text-fd-muted-foreground prose-no-margin">{props.children}</div>
       ) : null}
     </E>
   );

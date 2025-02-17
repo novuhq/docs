@@ -1,9 +1,9 @@
 ---
-title: "Telnyx"
-description: "Learn how to use the Telnyx provider to send sms notifications using Novu"
+title: 'Telnyx'
+description: 'Learn how to use the Telnyx provider to send sms notifications using Novu'
 ---
 
-import { Step, Steps } from 'fumadocs-ui/components/steps'
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 You can use the [Telnyx](https://telnyx.com/) provider to send transactional emails to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
@@ -22,22 +22,18 @@ Make sure the API key's status is showing as active before using it.
 </Step>
 
 <Step title="Get your Message Profile ID">
-1. Navigate to [Messaging](https://portal.telnyx.com/#/app/messaging) to find the profiles
-2. Create a Telnyx Messaging Profile if you haven't already ([learn more](https://developers.telnyx.com/docs/v2/messaging/quickstarts/portal-setup))
-3. Go to the active Messaging Profile
-4. Copy the profile ID
+  1. Navigate to [Messaging](https://portal.telnyx.com/#/app/messaging) to find the profiles 2.
+  Create a Telnyx Messaging Profile if you haven't already ([learn
+  more](https://developers.telnyx.com/docs/v2/messaging/quickstarts/portal-setup)) 3. Go to the
+  active Messaging Profile 4. Copy the profile ID
 </Step>
 
 <Step title="Prepare your From Address">
-<Callout type="info">
-A valid from address must be one of:
-- A valid phone number in +E.164 format
-- A short code
-- An alphanumeric sender ID that:
-  - Is 1-11 characters long
-  - Contains only ASCII letters, numbers, and spaces
-  - Has at least one letter
-</Callout>
+  <Callout type="info">
+    A valid from address must be one of: - A valid phone number in +E.164 format - A short code - An
+    alphanumeric sender ID that: - Is 1-11 characters long - Contains only ASCII letters, numbers,
+    and spaces - Has at least one letter
+  </Callout>
 </Step>
 
 <Step title="Connect Telnyx to Novu">

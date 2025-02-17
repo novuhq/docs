@@ -1,9 +1,6 @@
 'use client';
 
-import type {
-  TabsContentProps,
-  TabsProps as BaseProps,
-} from '@radix-ui/react-tabs';
+import type { TabsContentProps, TabsProps as BaseProps } from '@radix-ui/react-tabs';
 import {
   useMemo,
   useState,
@@ -32,7 +29,7 @@ function removeChangeListener(id: string, listener: ChangeListener): void {
   const list = listeners.get(id) ?? [];
   listeners.set(
     id,
-    list.filter((item) => item !== listener),
+    list.filter((item) => item !== listener)
   );
 }
 
@@ -91,9 +88,7 @@ export function Tabs({
     if (!groupId) return;
     const onUpdate: ChangeListener = (v) => onChangeRef.current(v);
 
-    const previous = persist
-      ? localStorage.getItem(groupId)
-      : sessionStorage.getItem(groupId);
+    const previous = persist ? localStorage.getItem(groupId) : sessionStorage.getItem(groupId);
 
     if (previous) onUpdate(previous);
     addChangeListener(groupId, onUpdate);
@@ -150,7 +145,7 @@ export function Tabs({
       <TabsContext.Provider
         value={useMemo(
           () => ({ items, valueToIdMap, collection }),
-          [valueToIdMap, collection, items],
+          [valueToIdMap, collection, items]
         )}
       >
         {props.children}
@@ -178,7 +173,7 @@ export function Tab({ value, className, ...props }: TabProps) {
     ctx?.items.at(useCollectionIndex());
   if (!resolvedValue)
     throw new Error(
-      'Failed to resolve tab `value`, please pass a `value` prop to the Tab component.',
+      'Failed to resolve tab `value`, please pass a `value` prop to the Tab component.'
     );
 
   const v = toValue(resolvedValue);
@@ -192,7 +187,7 @@ export function Tab({ value, className, ...props }: TabProps) {
       value={v}
       className={cn(
         'prose-no-margin [&>figure:only-child]:-m-4 [&>figure:only-child]:rounded-none [&>figure:only-child]:border-none',
-        className,
+        className
       )}
       {...props}
     >

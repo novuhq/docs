@@ -1,10 +1,10 @@
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
 
-export const testWorkflow = workflow("test-workflow", async ({ step }) => {
-  await step.email("test-email", async () => {
+export const testWorkflow = workflow('test-workflow', async ({ step }) => {
+  await step.email('test-email', async () => {
     return {
-      subject: "Test Email",
-      body: "This is a test email from Novu Framework!",
+      subject: 'Test Email',
+      body: 'This is a test email from Novu Framework!',
     };
   });
-}); 
+});

@@ -1,13 +1,13 @@
 ---
-pageTitle: "E-mail Providers Integration"
-title: "E-mail"
-description: "Learn how to configure the Email channel"
-icon: "info"
+pageTitle: 'E-mail Providers Integration'
+title: 'E-mail'
+description: 'Learn how to configure the Email channel'
+icon: 'info'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-The Email Channel is a critical component for delivering notifications reliably. Whether it's a password reset, an onboarding email, or an alert about account activity, email remains a trusted medium for reaching users. 
+The Email Channel is a critical component for delivering notifications reliably. Whether it's a password reset, an onboarding email, or an alert about account activity, email remains a trusted medium for reaching users.
 Novu simplifies this process, allowing you to focus on implementation rather than infrastructure.
 
 ## Key Features
@@ -46,22 +46,23 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-  to: {
-    subscriberId: '<SUBSCRIBER_ID>',
-  },
-  overrides: {
-    email: {
-      to: ['to@novu.co'],
-      from: 'from@novu.co',
-      senderName: 'Novu Team',
-      text: 'text version of email using overrides',
-      replyTo: 'no-reply@novu.co',
-      cc: ['1@novu.co'],
-      bcc: ['2@novu.co'],
-    },
-  },
+to: {
+subscriberId: '<SUBSCRIBER_ID>',
+},
+overrides: {
+email: {
+to: ['to@novu.co'],
+from: 'from@novu.co',
+senderName: 'Novu Team',
+text: 'text version of email using overrides',
+replyTo: 'no-reply@novu.co',
+cc: ['1@novu.co'],
+bcc: ['2@novu.co'],
+},
+},
 });
-```
+
+````
 </Tab>
 </Tabs>
 
@@ -101,7 +102,8 @@ novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
     ],
   },
 });
-```
+````
+
 </Tab>
 <Tab value="cURL">
 Use https://eu.api.novu.co/v1/events/trigger api endpoint for the EU region.
@@ -158,15 +160,16 @@ import { Novu } from '@novu/node';
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
 novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-  to: {
-    subscriberId: '<SUBSCRIBER_ID>',
-  },
-  overrides: {
-    email: {
-      integrationIdentifier: "brevo-abcdef"
-    },
-  },
+to: {
+subscriberId: '<SUBSCRIBER_ID>',
+},
+overrides: {
+email: {
+integrationIdentifier: "brevo-abcdef"
+},
+},
 });
+
 ```
 </Tab>
 </Tabs>
@@ -178,3 +181,4 @@ Integration identifier is similar to Provider identifier but it is different tha
 <Callout type="info">
 Looking to integrate an email provider? Check out our [provider integrations](/integrations/providers/email/overview).
 </Callout>
+```

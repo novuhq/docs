@@ -9,15 +9,15 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
 
 ## Hook Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| storeId | string | No | Filter notifications by a specific store ID |
-| query | object | No | Additional query parameters for filtering |
+| Parameter | Type   | Required | Description                                 |
+| --------- | ------ | -------- | ------------------------------------------- |
+| storeId   | string | No       | Filter notifications by a specific store ID |
+| query     | object | No       | Additional query parameters for filtering   |
 
 ## Return Value
 
 ```typescript
-{
+type NotificationReturn = {
   notifications: Array<{
     id: string;
     content: string;
@@ -31,7 +31,7 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
   error: Error | null;
   loadMore: () => void;
   refetch: () => void;
-}
+};
 ```
 
 ## Example Usage
@@ -42,17 +42,11 @@ Here's how to use the `useNotifications` hook to fetch and display notifications
 import { useNotifications } from '@novu/react';
 
 function NotificationsList() {
-  const { 
-    notifications, 
-    hasMore, 
-    isLoading, 
-    error,
-    loadMore 
-  } = useNotifications();
-  
+  const { notifications, hasMore, isLoading, error, loadMore } = useNotifications();
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  
+
   return (
     <div>
       {notifications.map((notification) => (
@@ -62,9 +56,7 @@ function NotificationsList() {
           <span>{notification.read ? 'Read' : 'Unread'}</span>
         </div>
       ))}
-      {hasMore && (
-        <button onClick={loadMore}>Load More</button>
-      )}
+      {hasMore && <button onClick={loadMore}>Load More</button>}
     </div>
   );
 }
@@ -122,12 +114,12 @@ function FilteredNotifications() {
   const { notifications, isLoading } = useNotifications({
     query: {
       templates: ['welcome-template', 'order-update'],
-      emails: ['user@example.com']
-    }
+      emails: ['user@example.com'],
+    },
   });
-  
+
   if (isLoading) return <div>Loading...</div>;
-  
+
   return (
     <div>
       {notifications.map((notification) => (
@@ -141,5 +133,6 @@ function FilteredNotifications() {
 ```
 
 <Callout type="info">
-  The notifications list is automatically updated in real-time when new notifications arrive or when notifications are marked as read/unread.
+  The notifications list is automatically updated in real-time when new notifications arrive or when
+  notifications are marked as read/unread.
 </Callout>

@@ -1,9 +1,8 @@
 ---
-pageTitle: "Novu Framework TypeScript SDK"
-title: "Overview"
+pageTitle: 'Novu Framework TypeScript SDK'
+title: 'Overview'
 description: "Learn how to use Novu's TypeScript SDK to build type-safe notification workflows with advanced features like payload validation and step controls."
 ---
-
 
 Although you can trigger Novu workflows from any programming language using our Rest API SDKs.
 
@@ -21,21 +20,21 @@ Our `@novu/framework` SDK is written in Typescript, and we recommend using Types
 When defining a [workflow payload](/concepts/payload) schema, our SDK will automatically infer it to a Typescript interface.
 
 ```tsx
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
 
 const myWorkflow = workflow(
-  "new-signup",
+  'new-signup',
   async ({ step, payload }) => {
-    await step.email("send-email", () => {
+    await step.email('send-email', () => {
       return {
-        subject: "Hello World",
+        subject: 'Hello World',
         // The payload object here is type-safe
         body: `Hi ${payload.name}, welcome to our platform!`,
       };
     });
   },
   {
-    payloadSchema: { properties: { name: { type: "string" } } },
+    payloadSchema: { properties: { name: { type: 'string' } } },
   }
 );
 ```
@@ -55,5 +54,5 @@ Build and define type safe controls to expose no-code editing capabilities to yo
 - [Steps](/sdks/framework/typescript/steps)
 
 <Callout type="info">
-The `@novu/framework` SDK is compatible with Node.js version 20.0.0 and above.
+  The `@novu/framework` SDK is compatible with Node.js version 20.0.0 and above.
 </Callout>

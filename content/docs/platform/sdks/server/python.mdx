@@ -1,11 +1,11 @@
 ---
-pageTitle: "Python SDK"
-title: "Python"
-description: "Connect a Python application to Novu"
-icon: "python"
+pageTitle: 'Python SDK'
+title: 'Python'
+description: 'Connect a Python application to Novu'
+icon: 'python'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 Novu's Python SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your Python application.
 
@@ -22,11 +22,12 @@ Novu's Python SDK provides simple, yet comprehensive notification management, an
   </Tab>
   <Tab value="Poetry">
 
-    Poetry is a modern tool that simplifies dependency management and package publishing by using a single pyproject.toml file to handle project metadata and dependencies.
-    
+Poetry is a modern tool that simplifies dependency management and package publishing by using a single pyproject.toml file to handle project metadata and dependencies.
+
     ```bash
     poetry add novu-py
     ```
+
   </Tab>
   <Tab value="Shell and script usage with uv">
     You can use this SDK in a Python shell with uv and the uvx command that comes with it like so:
@@ -55,6 +56,7 @@ Novu's Python SDK provides simple, yet comprehensive notification management, an
     # Rest of script here...
     ```
     Once that is saved to a file, you can run it with uv run `script.py` where `script.py` can be replaced with the actual file name.
+
   </Tab>
 </Tabs>
 
@@ -70,7 +72,7 @@ from novu_py import Novu
 import os
 
 with Novu(
-    secret_key=os.getenv("NOVU_SECRET_KEY", ""),
+secret_key=os.getenv("NOVU_SECRET_KEY", ""),
 ) as novu:
 
     res = novu.trigger(trigger_event_request_dto=novu_py.TriggerEventRequestDto(
@@ -96,6 +98,7 @@ with Novu(
 
     # Handle response
     print(res)
+
 ```
       </Tab>
       <Tab value="Asynchronous">
@@ -106,9 +109,9 @@ from novu_py import Novu
 import os
 
 async def main():
-    async with Novu(
-        secret_key=os.getenv("NOVU_SECRET_KEY", ""),
-    ) as novu:
+async with Novu(
+secret_key=os.getenv("NOVU_SECRET_KEY", ""),
+) as novu:
 
         res = await novu.trigger_async(trigger_event_request_dto=novu_py.TriggerEventRequestDto(
             workflow_id="workflow_identifier",
@@ -136,8 +139,10 @@ async def main():
 
 asyncio.run(main())
 ```
+
       </Tab>
     </Tabs>
+
   </Tab>
   <Tab value="EU Region">
 ```python
@@ -146,8 +151,8 @@ from novu_py import Novu
 import os
 
 with Novu(
-    server_url="https:/eu.api.novu.co",
-    secret_key=os.getenv("NOVU_SECRET_KEY", ""),
+server_url="https:/eu.api.novu.co",
+secret_key=os.getenv("NOVU_SECRET_KEY", ""),
 ) as novu:
 
     res = novu.trigger(trigger_event_request_dto=novu_py.TriggerEventRequestDto(
@@ -170,7 +175,8 @@ with Novu(
 
     # Handle response
     print(res)
+
 ```
   </Tab>
 </Tabs>
-
+```

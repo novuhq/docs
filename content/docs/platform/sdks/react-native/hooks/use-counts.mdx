@@ -9,15 +9,15 @@ The `useCounts` hook provides a way to fetch various notification counts, includ
 
 ## Hook Parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| storeId | string | No | Filter counts by a specific store ID |
-| query | object | No | Additional query parameters for filtering |
+| Parameter | Type   | Required | Description                               |
+| --------- | ------ | -------- | ----------------------------------------- |
+| storeId   | string | No       | Filter counts by a specific store ID      |
+| query     | object | No       | Additional query parameters for filtering |
 
 ## Return Value
 
 ```typescript
-{
+type CountsReturn = {
   data: {
     unreadCount: number;
     unseenCount: number;
@@ -26,7 +26,7 @@ The `useCounts` hook provides a way to fetch various notification counts, includ
   isLoading: boolean;
   error: Error | null;
   refetch: () => void;
-}
+};
 ```
 
 ## Example Usage
@@ -34,14 +34,15 @@ The `useCounts` hook provides a way to fetch various notification counts, includ
 Here's how to use the `useCounts` hook to fetch and display notification counts:
 
 ```tsx
+import { View, Text, ActivityIndicator } from 'react-native';
 import { useCounts } from '@novu/react-native';
 
 function NotificationBadge() {
   const { data, isLoading, error } = useCounts();
-  
+
   if (isLoading) return <ActivityIndicator />;
   if (error) return <Text>Error: {error.message}</Text>;
-  
+
   return (
     <View>
       <Text>Unread: {data?.unreadCount}</Text>
@@ -57,13 +58,14 @@ function NotificationBadge() {
 You can filter counts for a specific store:
 
 ```tsx
+import { View, Text, ActivityIndicator } from 'react-native';
 function StoreNotifications({ storeId }) {
   const { data, isLoading } = useCounts({
-    storeId: storeId
+    storeId: storeId,
   });
-  
+
   if (isLoading) return <ActivityIndicator />;
-  
+
   return (
     <View>
       <Text>Store Notifications: {data?.total}</Text>
@@ -78,16 +80,17 @@ function StoreNotifications({ storeId }) {
 You can also apply additional filters using the query parameter:
 
 ```tsx
+import { View, Text, ActivityIndicator } from 'react-native';
 function FilteredNotifications() {
   const { data, isLoading } = useCounts({
     query: {
       templates: ['welcome-template', 'order-update'],
-      emails: ['user@example.com']
-    }
+      emails: ['user@example.com'],
+    },
   });
-  
+
   if (isLoading) return <ActivityIndicator />;
-  
+
   return (
     <View>
       <Text>Filtered Notifications: {data?.total}</Text>
@@ -98,5 +101,6 @@ function FilteredNotifications() {
 ```
 
 <Callout type="info">
-  The counts are automatically updated in real-time when notifications are marked as read/unread or when new notifications arrive.
+  The counts are automatically updated in real-time when notifications are marked as read/unread or
+  when new notifications arrive.
 </Callout>

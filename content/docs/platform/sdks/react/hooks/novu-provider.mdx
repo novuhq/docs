@@ -3,26 +3,24 @@ title: 'NovuProvider'
 description: 'Learn how to use the NovuProvider component to set up the Novu context in your React application'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-
 The `NovuProvider` is the top-level component that provides the [Novu instance](/inbox/headless/api-reference#novu) to the rest of the hooks through the context.
 Usually, it's placed somewhere in the root of your application, which makes the hooks accessible throughout the application.
 
 ## Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| subscriberId | string | Yes | The unique identifier of the subscriber |
-| applicationIdentifier | string | Yes | Your application identifier from Novu |
-| subscriberHash | string | No | HMAC encryption hash for the subscriber |
-| backendUrl | string | No | Custom backend URL for self-hosted instances |
-| socketUrl | string | No | Custom socket URL for self-hosted instances |
-| children | ReactNode | Yes | The child components that will have access to the Novu context |
+| Prop                  | Type      | Required | Description                                                    |
+| --------------------- | --------- | -------- | -------------------------------------------------------------- |
+| subscriberId          | string    | Yes      | The unique identifier of the subscriber                        |
+| applicationIdentifier | string    | Yes      | Your application identifier from Novu                          |
+| subscriberHash        | string    | No       | HMAC encryption hash for the subscriber                        |
+| backendUrl            | string    | No       | Custom backend URL for self-hosted instances                   |
+| socketUrl             | string    | No       | Custom socket URL for self-hosted instances                    |
+| children              | ReactNode | Yes      | The child components that will have access to the Novu context |
 
 ## Example Usage
 
 <Tabs items={['US', 'EU', 'HMAC Encryption']}>
-  <Tab>
+  <Tab value="US">
     ```tsx
     import { NovuProvider } from '@novu/react';
 
@@ -37,8 +35,9 @@ Usually, it's placed somewhere in the root of your application, which makes the 
       );
     }
     ```
+
   </Tab>
-  <Tab>
+  <Tab value="EU">
     ```tsx
     import { NovuProvider } from '@novu/react';
 
@@ -55,8 +54,9 @@ Usually, it's placed somewhere in the root of your application, which makes the 
       );
     }
     ```
+
   </Tab>
-  <Tab>
+  <Tab value="HMAC Encryption">
     <Callout type="info">
       Read more about [HMAC Encryption](/inbox/react/production#hmac-encryption).
     </Callout>
@@ -76,5 +76,6 @@ Usually, it's placed somewhere in the root of your application, which makes the 
       );
     }
     ```
+
   </Tab>
 </Tabs>

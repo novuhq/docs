@@ -1,9 +1,8 @@
 ---
-pageTitle: "Introduction to Novu Framework"
-title: "Overview"
-description: "Discover how the Novu Framework empowers you to build, customize, and manage advanced notification workflows with a mix of code and no-code capabilities."
+pageTitle: 'Introduction to Novu Framework'
+title: 'Overview'
+description: 'Discover how the Novu Framework empowers you to build, customize, and manage advanced notification workflows with a mix of code and no-code capabilities.'
 ---
-
 
 The Novu framework allows you to build and manage advanced notification workflows with code, and expose no-code controls for non-technical users to modify.
 
@@ -20,20 +19,20 @@ Each Novu workflow is composed of 3 main components:
 Let's take a look at a simple example of a workflow that sends an email after one day:
 
 ```tsx
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
 
-workflow("sample-workflow", async (step) => {
-  await step.delay("delay", async () => {
+workflow('sample-workflow', async (step) => {
+  await step.delay('delay', async () => {
     return {
-      unit: "days",
+      unit: 'days',
       amount: 1,
     };
   });
 
-  await step.email("email-step", async () => {
+  await step.email('email-step', async () => {
     return {
-      subject: "Welcome to Novu",
-      body: "Hello, welcome to Novu!",
+      subject: 'Welcome to Novu',
+      body: 'Hello, welcome to Novu!',
     };
   });
 });
@@ -66,15 +65,15 @@ Novu supported the following Action Steps: **delay**, **custom** and **digest**.
 Here's a bare-bones example of a workflow to send a notification in response to a trigger:
 
 ```tsx
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
 
 const myWorkflow = workflow(
-  "new-signup",
+  'new-signup',
   async ({ step, payload }) => {
-    await step.email("send-email", async () => {
+    await step.email('send-email', async () => {
       return {
         subject: `Welcome to Acme, ${payload.name}`,
-        body: "We look forward to helping you achieve mission.",
+        body: 'We look forward to helping you achieve mission.',
       };
     });
   },
@@ -89,16 +88,16 @@ We'll build on top of this basic code block in the following examples below.
 You can add any custom logic needed into your steps. For example, you might want to fetch more information about your new user from a database during the workflow execution. You can achieve this with the following changes:
 
 ```tsx
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
 
 const myWorkflow = workflow(
-  "new-signup",
+  'new-signup',
   async ({ step, payload }) => {
-    await step.email("send-email", async () => {
+    await step.email('send-email', async () => {
       const user = await db.getUser(payload.userId);
       return {
         subject: `Welcome to Acme ${user.productTier} tier, ${user.name}`,
-        body: "We look forward to helping you achieve mission.",
+        body: 'We look forward to helping you achieve mission.',
       };
     });
   },
@@ -113,26 +112,26 @@ We call this **just-in-time** notification data fetching. It allows you pull in 
 What if you want to send another update to the same user in one week? But you don't want to send the follow-up if the user opted out. We can add more steps to the workflow to achieve this.
 
 ```tsx
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
 
 const myWorkflow = workflow(
-  "new-signup",
+  'new-signup',
   async ({ step, payload }) => {
-    await step.email("send-email", async () => {
+    await step.email('send-email', async () => {
       const user = await db.getUser(payload.userId);
       return {
         subject: `Welcome to Acme ${user.productTier} tier, ${user.name}`,
-        body: "We look forward to helping you achieve mission.",
+        body: 'We look forward to helping you achieve mission.',
       };
     });
 
-    await step.delay("onboarding-follow-up", async () => ({
+    await step.delay('onboarding-follow-up', async () => ({
       amount: 1,
-      unit: "weeks",
+      unit: 'weeks',
     }));
 
     await step.inApp(
-      "onboarding-follow-up",
+      'onboarding-follow-up',
       async (controls) => {
         const user = await db.getUser(payload.userId);
         return {
@@ -142,15 +141,15 @@ const myWorkflow = workflow(
       {
         skip: () => !payload.shouldFollowUp,
         controlSchema: {
-          type: "object",
+          type: 'object',
           properties: {
             feedbackUrl: {
-              type: "string",
-              format: "uri",
-              default: "https://acme.com/feedback",
+              type: 'string',
+              format: 'uri',
+              default: 'https://acme.com/feedback',
             },
           },
-          required: ["feedbackUrl"],
+          required: ['feedbackUrl'],
           additionalProperties: false,
         } as const,
       }
@@ -158,12 +157,12 @@ const myWorkflow = workflow(
   },
   {
     payloadSchema: {
-      type: "object",
+      type: 'object',
       properties: {
-        userId: { type: "string" },
-        shouldFollowUp: { type: "boolean", default: true },
+        userId: { type: 'string' },
+        shouldFollowUp: { type: 'boolean', default: true },
       },
-      required: ["userId", "shouldFollowUp"],
+      required: ['userId', 'shouldFollowUp'],
       additionalProperties: false,
     } as const,
   }
@@ -179,7 +178,8 @@ With this simple workflow, we:
 That's the flexibility that Novu Framework offers.
 
 <Callout type="info">
-Read the section on [Controls](/framework/controls) next to learn how to expose Novu's no-code editing capabilities to your peers.
+  Read the section on [Controls](/framework/controls) next to learn how to expose Novu's no-code
+  editing capabilities to your peers.
 </Callout>
 
 ## Payload schema
@@ -187,12 +187,14 @@ Read the section on [Controls](/framework/controls) next to learn how to expose 
 Payload schema defines the payload passed during the `novu.trigger` method. This is useful for ensuring that the payload is correctly formatted and that the data is valid.
 
 ```tsx
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
+import { render } from 'react-email';
+import { ReactEmailContent } from './ReactEmailContent';
 
 workflow(
-  "comment-on-post",
+  'comment-on-post',
   async ({ step, payload }) => {
-    await step.email("send-email", async () => {
+    await step.email('send-email', async () => {
       return {
         subject: `You have a new comment from: ${payload.author_name}`,
         body: render(<ReactEmailContent comment={payload.comment} />),
@@ -201,13 +203,13 @@ workflow(
   },
   {
     payloadSchema: {
-      type: "object",
+      type: 'object',
       properties: {
-        post_id: { type: "number" },
-        author_name: { type: "string" },
-        comment: { type: "string", maxLength: 200 },
+        post_id: { type: 'number' },
+        author_name: { type: 'string' },
+        comment: { type: 'string', maxLength: 200 },
       },
-      required: ["post_id", "comment"],
+      required: ['post_id', 'comment'],
       additionalProperties: false,
     } as const,
   }
@@ -219,15 +221,15 @@ workflow(
 Tags are used to categorize the workflows. They also allow you to filter and group notifications for your [Inbox](/inbox/overview) tabs.
 
 ```tsx
-import { workflow } from "@novu/framework";
+import { workflow } from '@novu/framework';
 
 workflow(
-  "acme-login-alert",
+  'acme-login-alert',
   async ({ step, payload }) => {
     await step.inApp('inbox', async () => {
       return {
         subject: 'New Login Detected',
-        body: 'We noticed a login from a new device or location. If this wasn't you, change your password immediately.',
+        body: "We noticed a login from a new device or location. If this wasn't you, change your password immediately.",
       };
     });
   },

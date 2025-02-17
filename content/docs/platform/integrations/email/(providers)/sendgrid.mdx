@@ -1,9 +1,13 @@
 ---
-title: "SendGrid"
-description: "Learn how to use the SendGrid provider to send email notifications using Novu"
+title: 'SendGrid'
+description: 'Learn how to use the SendGrid provider to send email notifications using Novu'
 ---
 
+<<<<<<< HEAD:content/docs/platform/integrations/email/(providers)/sendgrid.mdx
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs'
+=======
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+>>>>>>> docs-v3:content/docs/platform/integrations/providers/email/sendgrid.mdx
 
 You can use the [SendGrid](https://sendgrid.com/) provider to send transactional emails to your customers using the Novu Platform with a single API to create multi-channel experiences.
 
@@ -62,46 +66,47 @@ import { Novu } from "@novu/node";
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.trigger("workflowIdentifier", {
-  to: "subscriberId",
-  payload: {},
-  overrides: {
-    email: {
-      customData: {
-        // sendgrid template templateId
-        templateId: "sendgrid-template-id",
-        // sendgrid template variables
-        dynamicTemplateData: {
-          total: "$ 239.85",
-          items: [
-            {
-              text: "New Line Sneakers",
-              image:
-                "https://marketing-image-production.s3.amazonaws.com/uploads/8dda1131320a6d978b515cc04ed479df259a458d5d45d58b6b381cae0bf9588113e80ef912f69e8c4cc1ef1a0297e8eefdb7b270064cc046b79a44e21b811802.png",
-              price: "$ 79.95",
-            },
-            {
-              text: "Old Line Sneakers rlfjrjrh4hr4rh4",
-              image:
-                "https://marketing-image-production.s3.amazonaws.com/uploads/3629f54390ead663d4eb7c53702e492de63299d7c5f7239efdc693b09b9b28c82c924225dcd8dcb65732d5ca7b7b753c5f17e056405bbd4596e4e63a96ae5018.png",
-              price: "$ 79.95",
-            },
-          ],
-          receipt: true,
-          name: "Sample Name",
-          address01: "1234 Fake St.",
-          address02: "Apt. 123",
-          city: "Place",
-          state: "CO",
-          zip: "80202",
-        },
-      },
-    },
-  },
-  // actorId is subscriberId of actor
-  actor: "actorId",
-  tenant: "tenantIdentifier",
+to: "subscriberId",
+payload: {},
+overrides: {
+email: {
+customData: {
+// sendgrid template templateId
+templateId: "sendgrid-template-id",
+// sendgrid template variables
+dynamicTemplateData: {
+total: "$ 239.85",
+items: [
+{
+text: "New Line Sneakers",
+image:
+"https://marketing-image-production.s3.amazonaws.com/uploads/8dda1131320a6d978b515cc04ed479df259a458d5d45d58b6b381cae0bf9588113e80ef912f69e8c4cc1ef1a0297e8eefdb7b270064cc046b79a44e21b811802.png",
+price: "$ 79.95",
+},
+{
+text: "Old Line Sneakers rlfjrjrh4hr4rh4",
+image:
+"https://marketing-image-production.s3.amazonaws.com/uploads/3629f54390ead663d4eb7c53702e492de63299d7c5f7239efdc693b09b9b28c82c924225dcd8dcb65732d5ca7b7b753c5f17e056405bbd4596e4e63a96ae5018.png",
+price: "$ 79.95",
+},
+],
+receipt: true,
+name: "Sample Name",
+address01: "1234 Fake St.",
+address02: "Apt. 123",
+city: "Place",
+state: "CO",
+zip: "80202",
+},
+},
+},
+},
+// actorId is subscriberId of actor
+actor: "actorId",
+tenant: "tenantIdentifier",
 });
-```
+
+````
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -143,7 +148,8 @@ curl --location 'https://api.novu.co/v1/events/trigger' \
         }
     }
 }'
-```
+````
+
 </Tab>
 <Tab value="Novu Framework">
 ```typescript

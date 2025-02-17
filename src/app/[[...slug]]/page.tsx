@@ -1,32 +1,25 @@
-import { openapi, source } from "@/lib/source";
-import { Popup, PopupContent, PopupTrigger } from "fumadocs-twoslash/ui";
-import { TypeTable } from "fumadocs-ui/components/type-table";
-import defaultMdxComponents from "fumadocs-ui/mdx";
-import {
-  DocsBody,
-  DocsDescription,
-  DocsPage,
-  DocsTitle,
-} from "fumadocs-ui/page";
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { Accordion, Accordions } from "../../components/accordion";
-import { Callout } from "../../components/callout";
-import { CodeBlock } from "../../components/codeblock";
-import { ImageZoom } from "../../components/image-zoom";
-import { Step, Steps } from "../../components/steps";
-import { Tab } from "../../components/tabs";
-import { Tabs } from "../../components/ui/tabs";
+import { openapi, source } from '@/lib/source';
+import { Popup, PopupContent, PopupTrigger } from 'fumadocs-twoslash/ui';
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+import defaultMdxComponents from 'fumadocs-ui/mdx';
+import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { Accordion, Accordions } from '../../components/accordion';
+import { Callout } from '../../components/callout';
+import { CodeBlock } from '../../components/codeblock';
+import { ImageZoom } from '../../components/image-zoom';
+import { Step, Steps } from '../../components/steps';
+import { Tab } from '../../components/tabs';
+import { Tabs } from '../../components/ui/tabs';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../../components/ui/tooltip";
+} from '../../components/ui/tooltip';
 
-export default async function Page(props: {
-  params: Promise<{ slug?: string[] }>;
-}) {
+export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
   const page = source.getPage(params.slug);
 
@@ -40,28 +33,24 @@ export default async function Page(props: {
       toc={page.data.toc}
       full={page.data.full}
       tableOfContent={{
-        style: "clerk",
+        style: 'clerk',
         single: false,
       }}
       editOnGithub={{
-        repo: "docs",
-        owner: "novuhq",
-        sha: "main",
+        repo: 'docs',
+        owner: 'novuhq',
+        sha: 'main',
         path,
       }}
       article={{
-        className: "max-sm:pb-16 max-w-[770px] !px-0",
+        className: 'max-sm:pb-16 max-w-[770px] !px-0',
       }}
       container={{
-        className: "[&>article]:gap-4",
+        className: '[&>article]:gap-4',
       }}
     >
-      <DocsTitle className="max-w-[640px]">
-        {page.data.pageTitle ?? page.data.title}
-      </DocsTitle>
-      <DocsDescription className="mb-4">
-        {page.data.description}
-      </DocsDescription>
+      <DocsTitle className="max-w-[640px]">{page.data.pageTitle ?? page.data.title}</DocsTitle>
+      <DocsDescription className="mb-4">{page.data.description}</DocsDescription>
       <DocsBody>
         <MDX
           components={{
@@ -83,13 +72,7 @@ export default async function Page(props: {
             TypeTable: TypeTable,
             Tabs: Tabs,
             Tab: Tab,
-            Tooltip: ({
-              children,
-              content,
-            }: {
-              children: React.ReactNode;
-              content: string;
-            }) => (
+            Tooltip: ({ children, content }: { children: React.ReactNode; content: string }) => (
               <TooltipProvider delayDuration={50}>
                 <Tooltip>
                   <TooltipTrigger
@@ -123,9 +106,7 @@ export async function generateStaticParams() {
   return source.generateParams();
 }
 
-export async function generateMetadata(props: {
-  params: Promise<{ slug?: string[] }>;
-}) {
+export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
   const page = source.getPage(params.slug);
   if (!page) notFound();

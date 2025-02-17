@@ -1,8 +1,7 @@
 ---
-title: "Step Conditions"
-description: "Create dynamic notification workflows using rule-based conditions. Control message delivery based on subscriber data, payload information, and workflow outcomes."
+title: 'Step Conditions'
+description: 'Create dynamic notification workflows using rule-based conditions. Control message delivery based on subscriber data, payload information, and workflow outcomes.'
 ---
-
 
 The Step Condition feature in Novu enables you to define conditional logic for each workflow step (node), ensuring a precise and tailored notification experience. This feature adds flexibility and control by allowing you to determine whether a step should execute based on subscriber data, payload data, or conditions stemming from previous workflow steps.
 
@@ -33,7 +32,7 @@ Conditions can leverage subscriber-related fields to tailor notifications based 
 - `subscriber.lastOnlineAt`
 
 <Callout type="info">
-For instance, you might want to send an SMS only to users whose `subscriber.isOnline` is `false`.
+  For instance, you might want to send an SMS only to users whose `subscriber.isOnline` is `false`.
 </Callout>
 
 ### 2. **Payload Data**
@@ -70,7 +69,7 @@ This is especially useful for tailoring follow-up notifications. For instance, s
 
 ### 4. **Advanced Application State Calculations**
 
-For more complex scenarios where you need to perform advanced calculations based on your application state, you can use the [Novu Framework Skip Step](/framework/typescript/steps/overview). 
+For more complex scenarios where you need to perform advanced calculations based on your application state, you can use the [Novu Framework Skip Step](/framework/typescript/steps/overview).
 
 This approach allows you to:
 
@@ -85,30 +84,30 @@ The skip step gives you full programmatic control over whether a notification st
 
 The query builder enables you to construct powerful logical expressions for your step conditions. Supported operators include:
 
-| Operator | Description | Example |
-| --- | --- | --- |
-| `=` | Equal to | `subscriber.locale = "en-US"` |
-| `!=` | Not equal to | `subscriber.isOnline != true` |
-| `<` | Less than | `payload.totalAmount < 100` |
-| `>` | Greater than | `payload.totalAmount > 100` |
-| `<=` | Less than or equal to | `payload.totalAmount <= 200` |
-| `>=` | Greater than or equal to | `payload.totalAmount >= 200` |
-| `contains` | Contains a substring | `payload.orderId contains "123"` |
-| `begins with` | Starts with | `subscriber.firstName begins with "J"` |
-| `ends with` | Ends with | `subscriber.email ends with "@xyz.com"` |
-| `does not contain` | Does not contain a substring | `payload.orderId does not contain "456"` |
-| `does not begin with` | Does not start with | `subscriber.firstName does not begin with "M"` |
-| `does not end with` | Does not end with | `subscriber.lastName does not end with "Smith"` |
-| `is null` | Is null | `subscriber.phone is null` |
-| `is not null` | Is not null | `subscriber.email is not null` |
-| `in` | Matches one of several values | `subscriber.locale in ["en-US", "es-ES"]` |
-| `not in` | Does not match any of the listed values | `subscriber.locale not in ["fr-FR", "de-DE"]` |
-| `between` | Within a range | `payload.totalAmount between [50, 200]` |
-| `not between` | Outside of a range | `payload.totalAmount not between [0, 50]` |
+| Operator              | Description                             | Example                                         |
+| --------------------- | --------------------------------------- | ----------------------------------------------- |
+| `=`                   | Equal to                                | `subscriber.locale = "en-US"`                   |
+| `!=`                  | Not equal to                            | `subscriber.isOnline != true`                   |
+| `<`                   | Less than                               | `payload.totalAmount < 100`                     |
+| `>`                   | Greater than                            | `payload.totalAmount > 100`                     |
+| `<=`                  | Less than or equal to                   | `payload.totalAmount <= 200`                    |
+| `>=`                  | Greater than or equal to                | `payload.totalAmount >= 200`                    |
+| `contains`            | Contains a substring                    | `payload.orderId contains "123"`                |
+| `begins with`         | Starts with                             | `subscriber.firstName begins with "J"`          |
+| `ends with`           | Ends with                               | `subscriber.email ends with "@xyz.com"`         |
+| `does not contain`    | Does not contain a substring            | `payload.orderId does not contain "456"`        |
+| `does not begin with` | Does not start with                     | `subscriber.firstName does not begin with "M"`  |
+| `does not end with`   | Does not end with                       | `subscriber.lastName does not end with "Smith"` |
+| `is null`             | Is null                                 | `subscriber.phone is null`                      |
+| `is not null`         | Is not null                             | `subscriber.email is not null`                  |
+| `in`                  | Matches one of several values           | `subscriber.locale in ["en-US", "es-ES"]`       |
+| `not in`              | Does not match any of the listed values | `subscriber.locale not in ["fr-FR", "de-DE"]`   |
+| `between`             | Within a range                          | `payload.totalAmount between [50, 200]`         |
+| `not between`         | Outside of a range                      | `payload.totalAmount not between [0, 50]`       |
 
 ## Using Dynamic Data Fields for Comparison
 
-The **value** field in a condition can also be a dynamic data field. This allows you to compare two data points dynamically rather than using static values. 
+The **value** field in a condition can also be a dynamic data field. This allows you to compare two data points dynamically rather than using static values.
 
 For example:
 
@@ -127,7 +126,7 @@ For example:
 
 <img src="/workflow/media-assets/step-conditions.png" alt="Step Conditions" />
 
-In this case, the step will execute only if `payload.foo` is equal to `payload.bar` at runtime. 
+In this case, the step will execute only if `payload.foo` is equal to `payload.bar` at runtime.
 
 You can also use subscriber variables in the same way:
 

@@ -1,6 +1,6 @@
 ---
-title: "Rate Limiting"
-pageTitle: "API Rate Limiting"
+title: 'Rate Limiting'
+pageTitle: 'API Rate Limiting'
 description: "In this page you can learn about how rate limiting works with Novu's API"
 ---
 
@@ -15,15 +15,15 @@ Standard requests cost 1 request token and bulk requests cost 100 request tokens
 
 Each category has a different limit of requests per second (RPS), with the endpoints in each category shown below.
 
-| Category      | Free   | Business | Endpoints                                                            |
-| ------------- | ------ | -------- | -------------------------------------------------------------------- |
-| Events        | 60 RPS | 600 RPS  | Trigger                                                              |
-| Configuration | 20 RPS | 200 RPS  | Subscribers, Topics, Tenants                                         |
+| Category      | Free   | Business | Endpoints                                                      |
+| ------------- | ------ | -------- | -------------------------------------------------------------- |
+| Events        | 60 RPS | 600 RPS  | Trigger                                                        |
+| Configuration | 20 RPS | 200 RPS  | Subscribers, Topics, Tenants                                   |
 | Global        | 30 RPS | 300 RPS  | All other endpoints consume request tokens from this category. |
 
 ### HTTP response headers
 
-When integrating with Novu API, it’s important to consider the rate limiting HTTP headers included in the response. These headers help you manage your API usage and avoid hitting rate limits. 
+When integrating with Novu API, it’s important to consider the rate limiting HTTP headers included in the response. These headers help you manage your API usage and avoid hitting rate limits.
 
 ```
 RateLimit-Remaining: 219

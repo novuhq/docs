@@ -11,10 +11,7 @@ const Tabs = React.forwardRef<
     <TabsPrimitive.Root
       ref={ref}
       {...props}
-      className={cn(
-        'flex flex-col overflow-hidden rounded-xl border bg-fd-card',
-        props.className,
-      )}
+      className={cn('flex flex-col overflow-hidden rounded-xl border bg-fd-card', props.className)}
     />
   );
 });
@@ -30,7 +27,7 @@ const TabsList = React.forwardRef<
     {...props}
     className={cn(
       'flex flex-row items-end gap-4 overflow-x-auto bg-fd-secondary px-4 text-fd-muted-foreground',
-      props.className,
+      props.className
     )}
   />
 ));
@@ -45,7 +42,7 @@ const TabsTrigger = React.forwardRef<
     {...props}
     className={cn(
       'whitespace-nowrap border-b border-transparent py-2 text-sm font-medium transition-colors hover:text-fd-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=active]:border-fd-primary data-[state=active]:text-fd-primary',
-      props.className,
+      props.className
     )}
   />
 ));
@@ -55,11 +52,7 @@ const TabsContent = React.forwardRef<
   React.ComponentRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
 >((props, ref) => (
-  <TabsPrimitive.Content
-    ref={ref}
-    {...props}
-    className={cn('p-4', props.className)}
-  />
+  <TabsPrimitive.Content ref={ref} {...props} className={cn('p-4', props.className)} />
 ));
 TabsContent.displayName = 'TabsContent';
 

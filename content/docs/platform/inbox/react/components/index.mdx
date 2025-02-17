@@ -31,10 +31,7 @@ The Inbox is composed of the following sub-components that you can use to build 
 
 The internal UI and styles for those components can be modified using the [`appearance`](/inbox/react/styling#appearance-prop) prop.
 
-<img 
-  src="/images/inbox/component_composition.png" 
-  alt="Component Composition"
-/>
+<img src="/images/inbox/component_composition.png" alt="Component Composition" />
 
 ## Layouts
 
@@ -50,11 +47,12 @@ A trigger button usually located at the top right corner of the screen, which tr
 import { Inbox } from '@novu/react';
 
 function Novu() {
-  return (
-    <Inbox subscriberId="1" applicationIdentifier="1" />
-  );
-}
-```
+return (
+
+<Inbox subscriberId="1" applicationIdentifier="1" />
+); }
+
+````
   </Tab>
   <Tab>
     ```tsx
@@ -75,7 +73,8 @@ function Novu() {
     </Inbox>
   );
 }
-```
+````
+
   </Tab>
 </Tabs>
 
@@ -88,13 +87,8 @@ import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    >
-     {showSideMenu && (
-      <Notifications />
-     )}
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
+      {showSideMenu && <Notifications />}
     </Inbox>
   );
 }
@@ -109,11 +103,8 @@ import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
-     <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    >
-        <Notifications />
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
+      <Notifications />
     </Inbox>
   );
 }
@@ -127,10 +118,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 export default function CustomPopoverPage() {
   return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    >
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
       <Popover>
         <PopoverTrigger>
           <Bell />

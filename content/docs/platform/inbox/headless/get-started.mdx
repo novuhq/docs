@@ -4,7 +4,6 @@ title: 'Headless'
 description: 'A lightweight, standalone package for building custom in-app notification interfaces with Novu, providing essential functionalities and flexibility.'
 ---
 
-
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 The headless version of Novu's notification library package provides users with a lightweight solution for integrating notification functionality into their web applications. With just the essential API methods, users can easily incorporate our notification system into any framework or vanilla JavaScript project, without being constrained by our default UI or dependencies. The SDK includes real-time notifications through a WebSocket connection and can be safely used across web browsers.
@@ -18,11 +17,7 @@ npm install @novu/js
 ```
 </Step>
 
-<Step title="Import Package">
-```typescript
-import { Novu } from "@novu/js";
-```
-</Step>
+<Step title="Import Package">```typescript import {Novu} from "@novu/js"; ```</Step>
 
 <Step title="Initialize Session">
     <Tabs items={['US', 'EU', 'HMAC Encryption']}>
@@ -31,10 +26,11 @@ import { Novu } from "@novu/js";
 import { Novu } from "@novu/js";
 
 const novu = new Novu({
-  subscriberId: "SUBSCRIBER_ID",
-  applicationIdentifier: "APPLICATION_IDENTIFIER",
+subscriberId: "SUBSCRIBER_ID",
+applicationIdentifier: "APPLICATION_IDENTIFIER",
 });
-```
+
+````
 </Tab>
       <Tab>
 ```typescript
@@ -46,7 +42,8 @@ const novu = new Novu({
   backendUrl: "https://eu.api.novu.co",
   socketUrl: "https://eu.ws.novu.co",
 });
-```
+````
+
 </Tab>
       <Tab>
         <Callout type="info">
@@ -54,14 +51,15 @@ Read more about [HMAC Encryption](/inbox/react/production#hmac-encryption).
         </Callout>
 
 ```typescript
-import { Novu } from "@novu/js";
+import { Novu } from '@novu/js';
 
 const novu = new Novu({
-  subscriberId: "SUBSCRIBER_ID",
-  applicationIdentifier: "APPLICATION_IDENTIFIER",
-  subscriberHash: "SUBSCRIBER_HASH_HMAC_SUBSCRIBER_HASH_HMAC_ENCRYPTION",
+  subscriberId: 'SUBSCRIBER_ID',
+  applicationIdentifier: 'APPLICATION_IDENTIFIER',
+  subscriberHash: 'SUBSCRIBER_HASH_HMAC_SUBSCRIBER_HASH_HMAC_ENCRYPTION',
 });
 ```
+
 </Tab>
 </Tabs>
 </Step>
@@ -73,7 +71,8 @@ const response = await novu.notifications.list({
 });
 
 const notifications = response.data.notifications
-```
+
+````
 </Step>
 
   <Step title="Display Notifications">
@@ -93,4 +92,4 @@ novu.on("notifications.notification_received", (data) => {
 novu.on("notifications.unread_count_changed", (data) => {
   console.log("new unread notifications count =>", data);
 });
-```
+````

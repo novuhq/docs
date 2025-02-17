@@ -1,5 +1,5 @@
 ---
-title: "Subscribers"
+title: 'Subscribers'
 ---
 
 import { TypeTable } from 'fumadocs-ui/components/type-table';
@@ -7,8 +7,8 @@ import { TypeTable } from 'fumadocs-ui/components/type-table';
 In Novu, we call the entities designed to receive notifications as `Subscribers`. Each subscriber is unique and identified by a unique subscriberId.
 
 <Callout type="info">
-  We recommend using the internal unique id your application uses for a specific
-  user as the `subscriberId`.
+  We recommend using the internal unique id your application uses for a specific user as the
+  `subscriberId`.
 </Callout>
 
 Each subscriber has the following data points:
@@ -25,42 +25,42 @@ Each subscriber has the following data points:
       type: 'string',
       description: 'Unique identifier for the subscriber',
       default: undefined,
-      typeDescription: 'Required'
+      typeDescription: 'Required',
     },
     firstName: {
       type: 'string',
       description: 'First name of the subscriber',
-      default: undefined
+      default: undefined,
     },
     lastName: {
       type: 'string',
       description: 'Last name of the subscriber',
-      default: undefined
+      default: undefined,
     },
     email: {
       type: 'string',
       description: 'Email address of the subscriber',
-      default: undefined
+      default: undefined,
     },
     phone: {
       type: 'string',
       description: 'Phone number of the subscriber',
-      default: undefined
+      default: undefined,
     },
     locale: {
       type: 'string',
       description: 'Locale preference of the subscriber',
-      default: undefined
+      default: undefined,
     },
     avatar: {
       type: 'string',
-      description: 'URL to the subscriber\'s avatar image',
+      description: "URL to the subscriber's avatar image",
     },
     data: {
       type: 'object',
       description: 'Custom key-value pairs for additional subscriber data',
-      default: '{}'
-    }
+      default: '{}',
+    },
   }}
 />
 
@@ -80,17 +80,17 @@ const novu = new Novu('<NOVU_SECRET_KEY>');
 await novu.trigger({
   workflowId: '<WORKFLOW_TRIGGER_IDENTIFIER>',
   to: {
-      subscriberId: '111',
-      email: 'john.doe@domain.com',
-      firstName: 'John',
-      lastName: 'Doe',
-      phone: '+13603963366',
+    subscriberId: '111',
+    email: 'john.doe@domain.com',
+    firstName: 'John',
+    lastName: 'Doe',
+    phone: '+13603963366',
   },
   payload: {
-      customVariable: 'variableValue',
-      organization: {
-          logo: 'https://organization.com/logo.png',
-      },
+    customVariable: 'variableValue',
+    organization: {
+      logo: 'https://organization.com/logo.png',
+    },
   },
 });
 ```

@@ -1,15 +1,34 @@
 ---
-title: "Remix"
-pageTitle: "Get started with Inbox using Novu and Remix"
-description: "Learn how to quickly get started with Novu."
+title: 'Remix'
+pageTitle: 'Get started with Inbox using Novu and Remix'
+description: 'Learn how to quickly get started with Novu.'
 ---
 
 import { Accordion, Accordions } from '@/components/accordion';
-import { BuildWorkflowStep, CreateAccountStep, CreateSubscriberStep, TriggerNotificationStep } from '@/components/quickstart/common-steps';
+import {
+  BuildWorkflowStep,
+  CreateAccountStep,
+  CreateSubscriberStep,
+  TriggerNotificationStep,
+} from '@/components/quickstart/common-steps';
 import { Step, Steps } from '@/components/steps';
 import { Button } from '@/components/ui/button';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-import { Bell, BellRing, BookOpenCheck, Clock, Code2, Globe2, Laptop, Layers, Library, Mail, MessageSquare, Phone, Users2 } from 'lucide-react';
+import {
+  Bell,
+  BellRing,
+  BookOpenCheck,
+  Clock,
+  Code2,
+  Globe2,
+  Laptop,
+  Layers,
+  Library,
+  Mail,
+  MessageSquare,
+  Phone,
+  Users2,
+} from 'lucide-react';
 import Link from 'next/link';
 
 ## Quickstart
@@ -22,16 +41,13 @@ Before you can start integrating Novu into your application, you need to create 
   <Step title="Create a new Remix application">
     You can use the following command to create a new Remix application, or use your own and continue from the next step.
 
-    ```package-install 
+    ```package-install
     npx create-remix@latest
     ```
+
   </Step>
 
-  <Step title="Install the Inbox package">
-    ```package-install 
-    npm install @novu/react
-    ```
-  </Step>
+<Step title="Install the Inbox package">```package-install npm install @novu/react ```</Step>
 
   <Step title="Create the Inbox component">
     To start using the Inbox component, you need to embed it in your application. 
@@ -58,6 +74,7 @@ Before you can start integrating Novu into your application, you need to create 
     <div className="text-sm text-gray-500 text-center mt-[-12px]">
       [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
     </div>
+
   </Step>
 
   <Step title="Add the Notification Center to your layout">
@@ -102,17 +119,14 @@ Before you can start integrating Novu into your application, you need to create 
       );
     }
     ```
+
   </Step>
 
-  <CreateSubscriberStep />
+<CreateSubscriberStep />
 
-  <Step title="Start the development server">
-    ```package-install 
-    npm run dev
-    ```
-  </Step>
+<Step title="Start the development server">```package-install npm run dev ```</Step>
 
-  <TriggerNotificationStep />
+<TriggerNotificationStep />
 
 </Steps>
 

@@ -1,19 +1,17 @@
 ---
-pageTitle: "Digest Action for Framework Based Workflows"
-title: "Digest Action"
-description: "Learn how to use the Digest Engine to collect multiple events into a single message"
+pageTitle: 'Digest Action for Framework Based Workflows'
+title: 'Digest Action'
+description: 'Learn how to use the Digest Engine to collect multiple events into a single message'
 ---
-
-
 
 You can use the Digest Engine to collect multiple events to a single message. Learn more about the [Digest Engine](/workflow/digest).
 
 ## Defining a digest step
 
 ```tsx
-const digestResult = await step.digest("digest", async () => {
+const digestResult = await step.digest('digest', async () => {
   return {
-    unit: "days", // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+    unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
     amount: 3, // the number of units to digest events for
   };
 });
@@ -21,34 +19,35 @@ const digestResult = await step.digest("digest", async () => {
 
 ## Writing digest content
 
-In many cases, you will need to access all the digested events payload in order to show the user all or parts of the events included in this digest. 
+In many cases, you will need to access all the digested events payload in order to show the user all or parts of the events included in this digest.
 
 **For example:** "John and 5 others liked your photo."
 
-The digest function returns an array of triggers that have been digested. 
-You can use this array to perform any necessary actions on the digested triggers. 
+The digest function returns an array of triggers that have been digested.
+You can use this array to perform any necessary actions on the digested triggers.
 Like Sending and email, or updating a database.
 
 ```tsx
-const { events } = await step.digest("digest-3-days", async () => {
+const { events } = await step.digest('digest-3-days', async () => {
   return {
-    unit: "days", // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
+    unit: 'days', // 'seconds' | 'minutes' | 'hours' | 'days' | 'weeks' | 'months'
     amount: 3, // the number of units to digest events for
   };
 });
 
-await step.email("send-email", async () => {
+await step.email('send-email', async () => {
   const eventCount = events.length;
 
   return {
-    subject: "Digest Email",
+    subject: 'Digest Email',
     body: `You have ${eventCount} new events`,
   };
 });
 ```
 
 <Callout type="info">
-Step controls: At the moment, it is not possible to use digest information in step controls. You can only use it from the code, by creating a custom component for handling digested data.
+  Step controls: At the moment, it is not possible to use digest information in step controls. You
+  can only use it from the code, by creating a custom component for handling digested data.
 </Callout>
 
 The digest step returns an object with events array. Each event in the array has the following properties:
@@ -58,5 +57,6 @@ The digest step returns an object with events array. Each event in the array has
 - **payload** - The original payload passed to the event
 
 <Callout type="info">
-Changing the step content after triggering the workflow with digest step will not affect the existing digested events.
+  Changing the step content after triggering the workflow with digest step will not affect the
+  existing digested events.
 </Callout>

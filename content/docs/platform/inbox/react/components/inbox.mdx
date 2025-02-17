@@ -15,10 +15,7 @@ import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-    />
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID" />
   );
 }
 ```
@@ -28,7 +25,8 @@ function Novu() {
 The Inbox component uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
 
 <Callout type="info">
-To make the navigation work, you will need to specify the `routerPush` behaviour depending on your routing library.
+  To make the navigation work, you will need to specify the `routerPush` behaviour depending on your
+  routing library.
 </Callout>
 
 <Tabs items={['Next.js', 'Remix', 'React Router', 'Gatsby', 'Create React App']}>
@@ -49,6 +47,7 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
       );
     }
     ```
+
   </Tab>
   <Tab>
     ```tsx
@@ -67,6 +66,7 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
       );
     }
     ```
+
   </Tab>
   <Tab>
     ```tsx
@@ -85,6 +85,7 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
       );
     }
     ```
+
   </Tab>
   <Tab>
     ```tsx
@@ -101,6 +102,7 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
       );
     }
     ```
+
   </Tab>
   <Tab>
     ```tsx
@@ -119,6 +121,7 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
       );
     }
     ```
+
   </Tab>
 </Tabs>
 
@@ -127,7 +130,8 @@ To make the navigation work, you will need to specify the `routerPush` behaviour
 ### Notification Click
 
 <Callout type="info">
-  You can handle notification clicks without navigation by using the `onNotificationClick` prop. This is useful for opening modals or drawers instead of navigating to a page.
+  You can handle notification clicks without navigation by using the `onNotificationClick` prop.
+  This is useful for opening modals or drawers instead of navigating to a page.
 </Callout>
 
 ```tsx
@@ -195,8 +199,10 @@ function Novu() {
 ### Custom Notification Item
 
 <Callout type="info">
-  Customize the notification item using the `renderNotification` prop. The `notification.data` property allows accessing custom information while rendering the notification item.
-  You can learn how to pass it with the Novu Framework in-app step output [here](/framework/typescript/steps/inApp).
+  Customize the notification item using the `renderNotification` prop. The `notification.data`
+  property allows accessing custom information while rendering the notification item. You can learn
+  how to pass it with the Novu Framework in-app step output
+  [here](/framework/typescript/steps/inApp).
 </Callout>
 
 ```tsx
@@ -242,8 +248,9 @@ function Novu() {
 ### Filtering Preferences
 
 <Callout type="info">
-  Customize visible preferences using the `preferencesFilter` prop to display only relevant preferences to your users.
-  The filtering works by matching workflow [tags](/workflow/overview#tags) with the specified filter `tags` value.
+  Customize visible preferences using the `preferencesFilter` prop to display only relevant
+  preferences to your users. The filtering works by matching workflow
+  [tags](/workflow/overview#tags) with the specified filter `tags` value.
 </Callout>
 
 ```tsx
