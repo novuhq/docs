@@ -74,7 +74,7 @@ There are two ways to integrate Novu with your application or website:
 
 <Cards>
   <Card
-    href="/sdks/overview"
+    href="/platform/sdks/overview"
     title="Server-side SDKs"
     description="Use our server-side SDKs for seamless integration"
   />
@@ -85,7 +85,7 @@ There are two ways to integrate Novu with your application or website:
   />
 </Cards>
 
-Every request you make is automatically routed to the correct [environment](/concepts/environments), ensuring clear separation between **development** and **production** environments.
+Every request you make is automatically routed to the correct [environment](/platform/concepts/environments), ensuring clear separation between **development** and **production** environments.
 
 ---
 
@@ -93,7 +93,7 @@ Every request you make is automatically routed to the correct [environment](/con
 
 Workflows are the core building blocks of Novu's notification system. They enable you to design sophisticated messaging sequences that can span multiple communication channels like in-app, email, SMS, chat, and push.
 
-Using intuitive logical operators and [action steps](/concepts/workflows#action-step), you can create dynamic notification paths that automatically adapt based on your [end user](/additional-resources/glossary#subscribers) preferences and behavior.
+Using intuitive logical operators and [action step](/platform/concepts/workflows#action-step), you can create dynamic notification paths that automatically adapt based on your [end user](/platform/additional-resources/glossary#subscribers) preferences and behavior.
 
 <div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-4 dark:bg-blue-950">
   <p className="text-sm text-blue-700 dark:text-blue-400 font-medium">
@@ -394,17 +394,17 @@ Below is a detailed breakdown of the subscriber object:
 
 ## Channels
 
-To deliver notifications to subscribers, you need to configure a [channel](/additional-resources/glossary#channels).
+To deliver notifications to subscribers, you need to configure a [channel](/platform/additional-resources/glossary#channels).
 
 A channel in Novu is a configured delivery method for sending notifications to subscribers.
-Each channel connects to a specific delivery [provider](/additional-resources/glossary#providers) that handles the actual notification delivery.
+Each channel connects to a specific delivery [provider](/platform/additional-resources/glossary#providers) that handles the actual notification delivery.
 
 **Sending notifications with Novu:**
 
 <Steps>
   <Step title="Configure one or more channels by selecting and setting up providers">
     Novu allows you to set up multiple notification delivery providers and integrate them into your
-    notification workflows. Each [channel](/workflow/channel-steps) corresponds to a configured
+    notification workflows. Each [channel](/platform/workflow/channel-steps) corresponds to a configured
     provider that you can use to deliver notifications in production.
   </Step>
   <Step title="Add these channels to your notification workflows">
@@ -428,7 +428,7 @@ Here's an overview of our supported channels and providers:
  <Accordion title="Email" icon="envelope">
    Send emails through leading providers including [Amazon SES](https://aws.amazon.com/ses/), [Mailersend](https://www.mailersend.com/), [Mailgun](https://www.mailgun.com/), [Mailjet](https://www.mailjet.com/), [Mailtrap](https://mailtrap.io/), [Mandrill](https://mandrillapp.com/), [Postmark](https://postmarkapp.com/), [Resend](https://resend.com/), [Sendgrid](https://sendgrid.com/), [SMTP](https://en.wikipedia.org/wiki/Simple_Mail_Transfer_Protocol), and [Sparkpost](https://www.sparkpost.com/).
    
-   [Learn more about email channel →](/integrations/providers/email/overview)
+   [Learn more about email channel →](/platform/integrations/email)
  </Accordion>
 
 <Accordion title="SMS" icon="message-sms">
@@ -437,27 +437,27 @@ Here's an overview of our supported channels and providers:
   [Mailersend](https://www.mailersend.com/), [MessageBird](https://messagebird.com/),
   [Plivo](https://www.plivo.com/), [Sinch](https://www.sinch.com/), [Telnyx](https://telnyx.com/),
   [Twilio](https://www.twilio.com/), and [Vonage](https://www.vonage.com/). [Learn more about SMS
-  channel →](/integrations/providers/sms/overview)
+  channel →](/platform/integrations/sms)
 </Accordion>
 
 <Accordion title="Push Notifications" icon="mobile">
   Send push notifications across major platforms including [Apple Push Notification
   Service](https://developer.apple.com/notifications/) for iOS, [Expo](https://expo.dev/) for React
   Native, and [Firebase Cloud Messaging](https://firebase.google.com/products/cloud-messaging) for
-  Android. [Learn more about Push channel →](/integrations/providers/push/overview)
+  Android. [Learn more about Push channel →](/platform/integrations/push)
 </Accordion>
 
 <Accordion title="Chat Platforms" icon="message">
   Integrate with popular messaging platforms including [Discord](https://discord.com/), [Microsoft
   Teams](https://www.microsoft.com/teams), [Slack](https://slack.com/),
   [Telegram](https://telegram.org/), and [WhatsApp](https://www.whatsapp.com/). [Learn more about
-  Chat channel →](/integrations/providers/chat/overview)
+  Chat channel →](/platform/integrations/chat)
 </Accordion>
 
  <Accordion title="In-app Notifications" icon="bell">
    Build native notification experiences with our real-time notification feed API, ready-to-use UI components, and custom integration options for seamless implementation in your application. 
    
-   [Learn more about In-app channel →](/integrations/providers/in-app/overview)
+   [Learn more about In-app channel →](/platform/inbox/overview)
  </Accordion>
 </Accordions>
 
@@ -504,7 +504,7 @@ Each workflow can combine multiple action steps to model complex logic that crea
     - Group related notifications within a specified time window
     - Customize aggregation logic and formatting
 
-    [Learn more about Digest action →](/workflow/digest)
+    [Learn more about Digest action →](/platform/workflow/digest)
 
     ### Delay
     Delay actions introduce controlled waiting periods between steps in your workflow. This enables better timing and sequencing of notifications.
@@ -512,7 +512,7 @@ Each workflow can combine multiple action steps to model complex logic that crea
     - Set precise delay durations (seconds to months)
     - Support for cron-style scheduling
 
-    [Learn more about Delay action →](/workflow/delay)
+    [Learn more about Delay action →](/platform/workflow/delay)
 
     ### Custom
     Custom actions allow you to integrate specialized business logic directly into your notification workflows while maintaining workflow durability and state management.
@@ -521,7 +521,11 @@ Each workflow can combine multiple action steps to model complex logic that crea
     - Can serve as a trigger for other workflows
     - Pass data from your application's database into the workflow
 
-    [Learn more about Custom action →](/workflow/custom)
+    <Callout type="info">
+      Custom Step is supported only in the Novu Framework.
+    </Callout>
+
+    [Learn more about Custom action →](/framework/custom)
 
 ---
 
@@ -559,7 +563,7 @@ In Novu, each workflow run is executed on behalf of a subscriber, and each subsc
 
 ![preferences](/getting-started/media-assets/preferences.png)
 
-Novu automatically enforces user communication [preferences](/concepts/preferences) during workflow execution, while giving developers full flexibility to customize how these preferences are displayed and which options are available to users.
+Novu automatically enforces user communication [preferences](/platform/concepts/preferences) during workflow execution, while giving developers full flexibility to customize how these preferences are displayed and which options are available to users.
 
 ---
 
@@ -570,7 +574,7 @@ Novu automatically enforces user communication [preferences](/concepts/preferenc
 If you want to start by adding Novu to your existing system, you can check out our quick start guide to implement your first workflow.
 
 <Card
-  href="/getting-started/quickstart"
+  href="/platform/quickstart/nextjs"
   title="Quick Start"
   description="Learn how to integrate Novu with your backend codebase."
 />
@@ -583,27 +587,27 @@ While the workflow engine is at the heart of Novu, our goal is to build a comple
 
 <Cards>
   <Card
-    href="/inbox/overview"
+    href="/platform/inbox/overview"
     title="Inbox and Preferences UI Components"
     description="Explore our full-stack UI components libraries for building in-app notifications."
   />
   <Card
-    href="/framework/overview"
+    href="/framework/introduction"
     title="Novu Framework"
     description="Extend your workflows past the UI to accomplish any use case imaginable."
   />
   <Card
-    href="/sdks/overview"
+    href="/platform/sdks/overview"
     title="Novu Framework SDK"
     description="Use our SDK to integrate Novu with your backend codebase."
   />
   <Card
-    href="/concepts/tenants"
+    href="/platform/concepts/tenants"
     title="Multi-tenancy"
     description="Manage multiple tenants within an organization."
   />
   <Card
-    href="/inbox/react/localization"
+    href="/platform/inbox/react/localization"
     title="Localization"
     description="Manage localized versions of your notification templates."
   />
@@ -613,7 +617,7 @@ While the workflow engine is at the heart of Novu, our goal is to build a comple
     description="Use our local studio to design and test your notification templates."
   />
   <Card
-    href="/concepts/environments"
+    href="/platform/concepts/environments"
     title="Environments"
     description="Manage multiple environments based on your application's deployment stages."
   />
