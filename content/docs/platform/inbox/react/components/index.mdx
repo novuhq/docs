@@ -27,7 +27,8 @@ The Inbox is composed of the following sub-components that you can use to build 
   <Card
     title="InboxContent"
     icon={<Layout />}
-    href="/platform/inbox/react/components/inbox-content">
+    href="/platform/inbox/react/components/inbox-content"
+  >
     Usage with a custom popover
   </Card>
 </Cards>
@@ -46,19 +47,19 @@ A trigger button usually located at the top right corner of the screen, which tr
 
 <Tabs items={['Default Bell', 'Custom Bell']}>
   <Tab>
-    ```tsx
+
+```tsx
 import { Inbox } from '@novu/react';
 
 function Novu() {
-return (
+  return <Inbox subscriberId="1" applicationIdentifier="1" />;
+}
+```
 
-<Inbox subscriberId="1" applicationIdentifier="1" />
-); }
-
-````
   </Tab>
   <Tab>
-    ```tsx
+
+```tsx
 import { Inbox, Bell } from '@novu/react';
 import { BellIcon } from './icons';
 
@@ -76,7 +77,7 @@ function Novu() {
     </Inbox>
   );
 }
-````
+```
 
   </Tab>
 </Tabs>
