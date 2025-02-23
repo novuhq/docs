@@ -57,16 +57,12 @@ export function InboxCodeBlock() {
   const code = `'use client';
 import React from 'react';
 import { Inbox } from '@novu/nextjs';
-import { useRouter } from 'next/navigation';
 
 export function NotificationInbox() {
-  const router = useRouter();
-  
   return (
     <Inbox
       applicationIdentifier="${environment?.identifier || 'YOUR_APPLICATION_IDENTIFIER'}"
       subscriberId="${user?.externalId || 'YOUR_SUBSCRIBER_ID'}"
-      routerPush={(path: string) => router.push(path)}
     />
   );
 }`;

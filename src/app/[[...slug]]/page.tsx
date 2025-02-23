@@ -77,7 +77,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
                 <Tooltip>
                   <TooltipTrigger
                     asChild
-                    className="text-sm bg-zinc-100 hover:cursor-pointer text-zinc-700 leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] decoration-dotted decoration-zinc-400 underline underline-offset-4"
+                    className="text-sm inline-block bg-zinc-100 hover:cursor-pointer text-zinc-700 leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] decoration-dotted decoration-zinc-400 underline underline-offset-4"
                   >
                     {children}
                   </TooltipTrigger>

@@ -473,13 +473,11 @@ function Novu() {
               onClick={(e) => {
                 e.preventDefault();
                 handleNotificationClick();
-              }}
-            >
+              }}>
               {notification.content}
             </a>
           );
-        }}
-      >
+        }}>
         {({ unseenCount }) => {
           return <NotificationBell unseenCount={unseenCount} />;
         }}
@@ -500,8 +498,7 @@ function Novu() {
   const renderCustomNotificationItem = (notification) => (
     <div
       className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}
-      onClick={() => notification.read()}
-    >
+      onClick={() => notification.read()}>
       <img src={notification.avatar} alt="Avatar" className="notification-avatar" />
       <div className="notification-content">
         <h4 className="notification-subject">{notification.subject}</h4>
@@ -540,8 +537,7 @@ function Novu() {
     <NovuProvider
       applicationIdentifier="YOUR_APP_ID"
       subscriberId="YOUR_SUBSCRIBER_ID"
-      styles={{ notifications: { listItem: { layout: { color: '#E3554D' } } } }}
-    >
+      styles={{ notifications: { listItem: { layout: { color: '#E3554D' } } } }}>
       <PopoverNotificationCenter>
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
@@ -626,8 +622,7 @@ function Novu() {
         },
       ]}
       subscriberId="YOUR_SUBSCRIBER_ID"
-      applicationIdentifier="YOUR_APP_ID"
-    >
+      applicationIdentifier="YOUR_APP_ID">
       <PopoverNotificationCenter
         tabs={[
           { name: 'Product Updates', storeId: 'product-updates' },
@@ -635,8 +630,7 @@ function Novu() {
         ]}
         colorScheme={colorScheme}
         onNotificationClick={handlerOnNotificationClick}
-        onActionClick={handlerOnActionClick}
-      >
+        onActionClick={handlerOnActionClick}>
         {({ unseenCount }) => {
           return <NotificationBell colorScheme={colorScheme} unseenCount={unseenCount} />;
         }}

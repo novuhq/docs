@@ -2,7 +2,9 @@ import { rehypeCodeDefaultOptions } from 'fumadocs-core/mdx-plugins';
 import { remarkInstall } from 'fumadocs-docgen';
 import { defineConfig, defineDocs, frontmatterSchema, metaSchema } from 'fumadocs-mdx/config';
 import { transformerTwoslash } from 'fumadocs-twoslash';
+import remarkDirective from 'remark-directive';
 import { z } from 'zod';
+import { remarkTooltip } from './src/lib/remark-tooltip';
 
 export const docs = defineDocs({
   dir: 'content/docs',
@@ -73,6 +75,10 @@ export default defineConfig({
         },
       ],
     },
-    remarkPlugins: [[remarkInstall, { persist: { id: 'package-manager' } }]],
+    remarkPlugins: [
+      remarkDirective,
+      remarkTooltip,
+      [remarkInstall, { persist: { id: 'package-manager' } }],
+    ],
   },
 });

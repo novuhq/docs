@@ -9,6 +9,7 @@ import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import { Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
@@ -43,14 +44,16 @@ export default function Layout({ children }: { children: ReactNode }) {
 
         <body className="flex flex-col min-h-screen">
           <Provider>
-            <DocsLayout
-              tree={source.pageTree}
-              {...baseOptions}
-              githubUrl="https://github.com/novuhq/novu"
-            >
-              <AnalyticsProvider />
-              {children}
-            </DocsLayout>
+            <TooltipProvider delayDuration={50}>
+              <DocsLayout
+                tree={source.pageTree}
+                {...baseOptions}
+                githubUrl="https://github.com/novuhq/novu"
+              >
+                <AnalyticsProvider />
+                {children}
+              </DocsLayout>
+            </TooltipProvider>
           </Provider>
         </body>
       </html>
