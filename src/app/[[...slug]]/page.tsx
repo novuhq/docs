@@ -77,7 +77,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
                 <Tooltip>
                   <TooltipTrigger
                     asChild
-                    className="text-sm inline-block bg-zinc-100 hover:cursor-pointer text-zinc-700 leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] decoration-dotted decoration-zinc-400 underline underline-offset-4"
+                    className="text-sm inline-block bg-zinc-100 dark:bg-zinc-800 hover:cursor-pointer text-zinc-700 dark:text-zinc-300 leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] decoration-dotted decoration-zinc-400 dark:decoration-zinc-500 underline underline-offset-4"
                   >
                     {children}
                   </TooltipTrigger>
@@ -89,7 +89,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
             ),
             Method: (props) => (
               <Link href={props.href} className="no-underline">
-                <span className="text-sm bg-[#f3f0ff] hover:cursor-pointer border border-[#e4defc] text-[#5746af] leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] whitespace-nowrap">
+                <span className="text-sm bg-[#f3f0ff] dark:bg-[#2d2a3f] hover:cursor-pointer border border-[#e4defc] dark:border-[#4a4273] text-[#5746af] dark:text-[#a89ade] leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] whitespace-nowrap">
                   {props.children}
                 </span>
               </Link>
