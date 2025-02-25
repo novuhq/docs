@@ -1,6 +1,6 @@
 ---
 pageTitle: 'Headless Inbox component for React'
-title: 'Headless Get Started'
+title: 'Headless'
 description: 'A lightweight, standalone package for building custom in-app notification interfaces with Novu, providing essential functionalities and flexibility.'
 ---
 
@@ -12,27 +12,30 @@ The headless version of Novu's notification library package provides users with 
 
 <Steps>
 <Step title="Installation">
+
 ```bash
 npm install @novu/js
 ```
-</Step>
 
-<Step title="Import Package">```typescript import {Novu} from "@novu/js"; ```</Step>
+</Step>
 
 <Step title="Initialize Session">
     <Tabs items={['US', 'EU', 'HMAC Encryption']}>
       <Tab>
+
 ```typescript
 import { Novu } from "@novu/js";
 
 const novu = new Novu({
-subscriberId: "SUBSCRIBER_ID",
-applicationIdentifier: "APPLICATION_IDENTIFIER",
+  subscriberId: "SUBSCRIBER_ID",
+  applicationIdentifier: "APPLICATION_IDENTIFIER",
 });
 
-````
+```
+
 </Tab>
       <Tab>
+
 ```typescript
 import { Novu } from "@novu/js";
 
@@ -42,13 +45,10 @@ const novu = new Novu({
   backendUrl: "https://eu.api.novu.co",
   socketUrl: "https://eu.ws.novu.co",
 });
-````
+```
 
-</Tab>
+      </Tab>
       <Tab>
-        <Callout type="info">
-Read more about [HMAC Encryption](/platform/inbox/react/production#hmac-encryption).
-        </Callout>
 
 ```typescript
 import { Novu } from '@novu/js';
@@ -76,7 +76,9 @@ const notifications = response.data.notifications
 </Step>
 
   <Step title="Display Notifications">
+
 Display `notifications` in your UI.
+
 </Step>
 </Steps>
 

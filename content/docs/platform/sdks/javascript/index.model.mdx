@@ -1,6 +1,7 @@
 ---
 title: '@novu/js'
 pageTitle: 'API reference for the @novu/js package'
+description: 'Complete API reference for the Novu JavaScript package'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
@@ -17,7 +18,7 @@ The Novu client provides methods to interact with notifications, preferences, an
 
 ### Usage
 
-<Tabs items={['US', 'EU']}>
+<Tabs items={['US', 'EU', 'HMAC Encryption']}>
   <Tab value="US">
     ```typescript
     import { Novu } from "@novu/js";
@@ -27,7 +28,6 @@ The Novu client provides methods to interact with notifications, preferences, an
       applicationIdentifier: "APPLICATION_IDENTIFIER",
     });
     ```
-
   </Tab>
   <Tab value="EU">
     ```typescript
@@ -40,9 +40,8 @@ The Novu client provides methods to interact with notifications, preferences, an
       socketUrl: "https://eu.ws.novu.co",
     });
     ```
-
   </Tab>
-  <Tab value="HMAC">
+  <Tab value="HMAC Encryption">
     ```typescript
     import { Novu } from "@novu/js";
 
@@ -52,7 +51,6 @@ The Novu client provides methods to interact with notifications, preferences, an
       subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
     });
     ```
-
   </Tab>
 </Tabs>
 
@@ -92,18 +90,25 @@ Fetches the count of notifications based on filters.
 ../types/js-types.ts#NotificationFilter
 ---end---
 
-```typescript
-// Single filter
-const count = await novu.notifications.count({
-  read: false,
-  archived: false,
-});
-
-// Multiple filters
-const counts = await novu.notifications.count({
-  filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }],
-});
-```
+<Tabs items={['Single Filter', 'Multiple Filters']}>
+  <Tab value="Single Filter">
+    ```typescript
+    // Single filter
+    const count = await novu.notifications.count({
+      read: false,
+      archived: false,
+    });
+    ```
+  </Tab>
+  <Tab value="Multiple Filters">
+    ```typescript
+    // Multiple filters
+    const counts = await novu.notifications.count({
+      filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }],
+    });
+    ```
+  </Tab>
+</Tabs>
 
 #### read
 
@@ -154,6 +159,56 @@ Archives all notifications. Can be filtered by tags.
 ```typescript
 await novu.notifications.archiveAll({
   tags: ['tag1', 'tag2'],
+});
+```
+
+#### archiveAllRead
+
+Archives all read notifications. Can be filtered by tags.
+
+```typescript
+await novu.notifications.archiveAllRead({
+  tags: ['tag1', 'tag2'],
+});
+```
+
+#### completePrimary
+
+Marks primary action of a notification as completed.
+
+```typescript
+await novu.notifications.completePrimary({
+  notificationId: 'notification.id',
+});
+```
+
+#### completeSecondary
+
+Marks secondary action of a notification as completed.
+
+```typescript
+await novu.notifications.completeSecondary({
+  notificationId: 'notification.id',
+});
+```
+
+#### revertPrimary
+
+Reverts primary action of a notification to pending.
+
+```typescript
+await novu.notifications.revertPrimary({
+  notificationId: 'notification.id',
+});
+```
+
+#### revertSecondary
+
+Reverts secondary action of a notification to pending.
+
+```typescript
+await novu.notifications.revertSecondary({
+  notificationId: 'notification.id',
 });
 ```
 
