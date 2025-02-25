@@ -7,7 +7,7 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
-import { Viewport } from 'next';
+import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';

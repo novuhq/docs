@@ -35,6 +35,8 @@
   body {
     font-family: var(--font-sans);
     font-weight: var(--font-weight-normal);
+    overscroll-behavior-y: none;
+    background-color: var(--color-fd-background);
   }
 
   article:has(#api-page) {
@@ -43,6 +45,10 @@
 
   .fd-step::before {
     left: -45px !important;
+  }
+
+  header > div > div > div.flex.flex-row.items-center.gap-6.px-4 {
+    width: 100% !important;
   }
 }
 
@@ -102,11 +108,6 @@
   --ring: 222.2 84% 4.9%;
 
   --radius: 0.5rem;
-}
-
-body {
-  overscroll-behavior-y: none;
-  background-color: var(--color-fd-background);
 }
 
 .dark {

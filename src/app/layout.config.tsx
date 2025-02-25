@@ -33,6 +33,7 @@ export const baseOptions: BaseLayoutProps = {
     ),
     transparentMode: 'top',
   },
+
   links: [
     {
       url: '/platform',
