@@ -42,8 +42,7 @@ Every Novu workflow is built using these four key elements:
 
 ### Workflow identifier
 
-Give your Workflow a clear, descriptive name that your team can easily identify.
-Workflow identifiers should be unique to your application and descriptive of the workflow's purpose.
+Give your Workflow a clear, descriptive name that your team can easily identify. Workflow identifiers should be unique to your application and descriptive of the workflow's purpose.
 
 For example:
 
@@ -60,8 +59,7 @@ When the trigger happens, it sends the data the workflow needs to notify subscri
 
 Triggers are the only way to start workflows and send notifications, making sure everything runs as expected.
 
-**Example of a trigger**
-Here's an example of an API call to trigger an event:
+**Example of a trigger** Here's an example of an API call to trigger an event:
 
 ```bash
 curl -X POST https://api.novu.co/v1/events/trigger \
@@ -96,41 +94,12 @@ Most providers within Novu use credentials that you supply to deliver notificati
 
 ### Action step
 
-**Action step** is a purpose built functions that help manage the workflow flow. **Action Step** can be executed before and after **Channel step**.
-For example, you can use a **Delay** to pause a workflow for a certain duration before sending a notification.
+**Action step** is a purpose built functions that help manage the workflow flow. **Action Step** can be executed before and after **Channel step**. For example, you can use a **Delay** to pause a workflow for a certain duration before sending a notification.
 
 There are three types of action steps supported by Novu:
 
 - **[Delay](/platform/workflow/delay)**
 - **[Digest](/platform/workflow/digest)**
-
-## Example use cases
-
-<Cards>
-  <Card
-    title="Order or transaction updates"
-    description="Notifications for orders, shipping, or subscription statuses"
-  />
-  <Card title="User onboarding" description="Welcome emails, follow-up emails, and more" />
-  <Card title="User engagement" description="Re-engagement campaigns, follow-up emails, and more" />
-  <Card
-    title="Product updates"
-    description="Notifications for product updates, new features, and more"
-  />
-  <Card
-    title="Abandoned cart recovery"
-    description="Notifications for abandoned carts and follow-up emails"
-  />
-  <Card
-    title="Password reset"
-    description="Notifications for password resets and follow-up emails"
-  />
-  <Card
-    title="Administrative actions"
-    description="Notifications for administrative actions like account deletions and more"
-  />
-  <Card title="System errors and alerts" description="Notifications for system errors and alerts" />
-</Cards>
 
 ## Execution of workflow steps
 
