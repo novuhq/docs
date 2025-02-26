@@ -5,7 +5,6 @@ description: 'Learn how to add the push channel to your application'
 icon: 'circle-plus'
 ---
 
-import { Step, Steps } from 'fumadocs-ui/components/steps';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 <Steps>
@@ -116,33 +115,15 @@ import {
 
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
-// fetch subscriber details
-const subscriber = await novu.subscribers.get('subscriberId');
+// fetch subscriber details const subscriber = await novu.subscribers.get('subscriberId');
 
-// get current device tokens from subscriber credentials for the provider
-const currentDeviceTokens = subsciber.data.data.channels.find(
-// \_integrationId can also be checked in place of providerId ;
-(channel) => channel.providerId === PushProviderIdEnum.FCM,
-).credentials.deviceTokens;
+// get current device tokens from subscriber credentials for the provider const currentDeviceTokens = subsciber.data.data.channels.find( // \_integrationId can also be checked in place of providerId ; (channel) => channel.providerId === PushProviderIdEnum.FCM, ).credentials.deviceTokens;
 
-// remove all device tokens
-await this.novu.subscribers.setCredentials(
-'subscriberId',
-PushProviderIdEnum.FCM,
-{ deviceTokens: [] },
-);
+// remove all device tokens await this.novu.subscribers.setCredentials( 'subscriberId', PushProviderIdEnum.FCM, { deviceTokens: [] }, );
 
-// remove the token you want to remove
-const newDeviceTokens = currentDeviceTokens.filter(
-(token) => token !== 'token-to-be-removed',
-);
+// remove the token you want to remove const newDeviceTokens = currentDeviceTokens.filter( (token) => token !== 'token-to-be-removed', );
 
-// update subscriber credentials with new device tokens
-await this.novu.subscribers.setCredentials(
-'subscriberId',
-PushProviderIdEnum.FCM,
-{ deviceTokens: newDeviceTokens },
-);
+// update subscriber credentials with new device tokens await this.novu.subscribers.setCredentials( 'subscriberId', PushProviderIdEnum.FCM, { deviceTokens: newDeviceTokens }, );
 
 ```
 </Tab>

@@ -6,9 +6,9 @@ icon: 'circle-plus'
 ---
 
 import { Card } from 'fumadocs-ui/components/card';
-import { Step, Steps } from 'fumadocs-ui/components/steps';
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
 import { CodeIcon } from '@/components/icons/overview';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 <Steps>
 <Step title="Enable SMS channel in Novu Dashboard">
@@ -109,16 +109,7 @@ import {
 
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
-novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-to: {
-subscriberId: '<SUBSCRIBER_ID>',
-},
-overrides: {
-sms: {
-integrationIdentifier: 'infobip-abcdef',
-},
-},
-});
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', { to: { subscriberId: '<SUBSCRIBER_ID>', }, overrides: { sms: { integrationIdentifier: 'infobip-abcdef', }, }, });
 
 ```
 </Tab>
