@@ -150,29 +150,7 @@ import { Novu } from '@novu/node';
 
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
-await novu.trigger('workflow_identifier', {
-to: {
-subscriberId: '<id>',
-email: 'john@doemail.com',
-firstName: 'John',
-lastName: 'Doe',
-phone: '+1234567890',
-avatar: 'AVATAR_URL',
-},
-payload: {
-comment_id: 'string',
-post: {
-text: 'string',
-},
-},
-overrides: {
-fcm: {
-data: {
-key: 'value',
-},
-},
-},
-});
+await novu.trigger('workflow_identifier', { to: { subscriberId: '<id>', email: 'john@doemail.com', firstName: 'John', lastName: 'Doe', phone: '+1234567890', avatar: 'AVATAR_URL', }, payload: { comment_id: 'string', post: { text: 'string', }, }, overrides: { fcm: { data: { key: 'value', }, }, }, });
 
 ````
   </Tab>
@@ -215,16 +193,9 @@ with Novu(
 ```go
 package main
 
-import(
-"context"
-"os"
-novugo "github.com/novuhq/novu-go"
-"github.com/novuhq/novu-go/models/components"
-"log"
-)
+import( "context" "os" novugo "github.com/novuhq/novu-go" "github.com/novuhq/novu-go/models/components" "log" )
 
-func main() {
-ctx := context.Background()
+func main() { ctx := context.Background()
 
     s := novugo.New(
         novugo.WithSecurity(os.Getenv("NOVU_SECRET_KEY")),
@@ -311,8 +282,7 @@ if ($response->triggerEventResponseDto !== null) {
 
 ---
 
-To trigger a notification workflow process in Novu, you must specify the intended subscriber(s).
-**This is a fundamental concept in Novu because it determines the routing of your notifications.**
+To trigger a notification workflow process in Novu, you must specify the intended subscriber(s). **This is a fundamental concept in Novu because it determines the routing of your notifications.**
 
 ## Subscribers
 
@@ -396,8 +366,7 @@ Below is a detailed breakdown of the subscriber object:
 
 To deliver notifications to subscribers, you need to configure a [channel](/platform/additional-resources/glossary#channels).
 
-A channel in Novu is a configured delivery method for sending notifications to subscribers.
-Each channel connects to a specific delivery [provider](/platform/additional-resources/glossary#providers) that handles the actual notification delivery.
+A channel in Novu is a configured delivery method for sending notifications to subscribers. Each channel connects to a specific delivery [provider](/platform/additional-resources/glossary#providers) that handles the actual notification delivery.
 
 **Sending notifications with Novu:**
 
@@ -592,16 +561,6 @@ While the workflow engine is at the heart of Novu, our goal is to build a comple
     description="Explore our full-stack UI components libraries for building in-app notifications."
   />
   <Card
-    href="/framework/introduction"
-    title="Novu Framework"
-    description="Extend your workflows past the UI to accomplish any use case imaginable."
-  />
-  <Card
-    href="/platform/sdks/overview"
-    title="Novu Framework SDK"
-    description="Use our SDK to integrate Novu with your backend codebase."
-  />
-  <Card
     href="/platform/concepts/tenants"
     title="Multi-tenancy"
     description="Manage multiple tenants within an organization."
@@ -610,11 +569,6 @@ While the workflow engine is at the heart of Novu, our goal is to build a comple
     href="/platform/inbox/react/localization"
     title="Localization"
     description="Manage localized versions of your notification templates."
-  />
-  <Card
-    href="/framework/studio"
-    title="Local Studio"
-    description="Use our local studio to design and test your notification templates."
   />
   <Card
     href="/platform/concepts/environments"
