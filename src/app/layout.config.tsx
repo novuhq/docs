@@ -42,6 +42,12 @@ export const baseOptions: BaseLayoutProps = {
       active: 'nested-url',
     },
     {
+      url: '/guides/overview',
+      type: 'button',
+      text: 'Guides',
+      active: 'nested-url',
+    },
+    {
       url: '/framework/introduction',
       type: 'button',
       text: 'Framework',
