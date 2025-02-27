@@ -86,10 +86,13 @@ type RequestOptions = {
   environment?: { _id: string };
   signal?: AbortSignal;
   token?: string;
+  version?: 'v1' | 'v2';
 };
 
-export const get = <T>(endpoint: string, { environment, signal, token }: RequestOptions = {}) =>
-  request<T>(endpoint, { method: 'GET', environment, signal, token });
+export const get = <T>(
+  endpoint: string,
+  { environment, signal, token, version = 'v1' }: RequestOptions = {}
+) => request<T>(endpoint, { method: 'GET', environment, signal, token, version });
 
 function parseErrorMessage(errorData: ErrorData): string {
   const DEFAULT_ERROR = 'Novu API error';
