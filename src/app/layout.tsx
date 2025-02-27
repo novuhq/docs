@@ -45,11 +45,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <body className="flex flex-col min-h-screen">
           <Provider>
             <TooltipProvider delayDuration={50}>
-              <DocsLayout
-                tree={source.pageTree}
-                {...baseOptions}
-                githubUrl="https://github.com/novuhq/novu"
-              >
+              <DocsLayout tree={source.pageTree} {...baseOptions}>
                 <AnalyticsProvider />
                 {children}
               </DocsLayout>

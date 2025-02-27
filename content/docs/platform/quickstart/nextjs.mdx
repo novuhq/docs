@@ -76,7 +76,7 @@ npm install @novu/nextjs
     Now you can import the `NotificationInbox` component and add it to your navbar, it will automatically display the Bell icon, you can customize it later.
     
     ```tsx title="app/layout.tsx"
-    import { NotificationInbox } from "@/components/inbox";
+    import { NotificationInbox } from "@/components/inbox"; // [!code highlight]
 
     export default function RootLayout({
       children,
@@ -87,6 +87,7 @@ npm install @novu/nextjs
         <html lang="en">
           <body>
             <nav>
+             // [!code highlight]
               <NotificationInbox />
             </nav>
             {children}

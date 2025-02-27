@@ -1,4 +1,5 @@
 import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { GithubInfo } from 'fumadocs-ui/components/github-info';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
 import { Button, buttonVariants } from '../components/ui/button';
@@ -82,6 +83,10 @@ export const baseOptions: BaseLayoutProps = {
           </SignedIn>
         </div>
       ),
+    },
+    {
+      type: 'custom',
+      children: <GithubInfo owner="novuhq" repo="novu" className="lg:-mx-2" />,
     },
   ],
 };

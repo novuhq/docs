@@ -50,6 +50,7 @@ export default defineConfig({
         'kotlin',
         'swift',
       ],
+
       inline: 'tailing-curly-colon',
       themes: {
         light: 'github-light',
