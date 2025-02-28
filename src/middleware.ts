@@ -16,7 +16,9 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
   // Root redirects
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/platform/overview', request.url));
+    return NextResponse.redirect(new URL('/platform/overview', request.url), {
+      status: 308,
+    });
   }
 
   // Section root redirects
@@ -28,7 +30,9 @@ export default async function middleware(request: NextRequest, event: NextFetchE
   };
 
   if (pathname in sectionRedirects) {
-    return NextResponse.redirect(new URL(sectionRedirects[pathname], request.url));
+    return NextResponse.redirect(new URL(sectionRedirects[pathname], request.url), {
+      status: 308,
+    });
   }
 
   // Pattern-based redirects
@@ -198,7 +202,9 @@ export default async function middleware(request: NextRequest, event: NextFetchE
       if (redirectPath === null) {
         continue;
       }
-      return NextResponse.redirect(new URL(redirectPath, request.url));
+      return NextResponse.redirect(new URL(redirectPath, request.url), {
+        status: 308,
+      });
     }
   }
 
@@ -226,7 +232,9 @@ export default async function middleware(request: NextRequest, event: NextFetchE
   };
 
   if (pathname in redirectMap) {
-    return NextResponse.redirect(new URL(redirectMap[pathname], request.url));
+    return NextResponse.redirect(new URL(redirectMap[pathname], request.url), {
+      status: 308,
+    });
   }
 
   // Check if the path doesn't start with any of our known prefixes
@@ -262,7 +270,9 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
     // Prevent double redirects - if we're already redirecting to a known path, don't add platform prefix
     if (!knownPrefixes.some((prefix) => restOfPath.startsWith(prefix.slice(1)))) {
-      return NextResponse.redirect(new URL(`/platform/${restOfPath}`, request.url));
+      return NextResponse.redirect(new URL(`/platform/${restOfPath}`, request.url), {
+        status: 308,
+      });
     }
   }
 
