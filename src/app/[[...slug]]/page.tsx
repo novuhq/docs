@@ -18,6 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '../../components/ui/tooltip';
+import { metadataImage } from '../../lib/metadata-image';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -123,8 +124,8 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
-  return {
+  return metadataImage.withImage(page.slugs, {
     title: page.data.title,
     description: page.data.description,
-  };
+  });
 }
