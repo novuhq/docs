@@ -79,7 +79,9 @@ export const baseOptions: BaseLayoutProps = {
             </a>
           </SignedOut>
           <SignedIn>
-            <Button color="secondary">Visit Dashboard</Button>
+            <Button color="secondary" href="https://dashboard-v2.novu.co">
+              Visit Dashboard
+            </Button>
           </SignedIn>
         </div>
       ),
