@@ -9,6 +9,7 @@ import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { ThemeToggle } from '../components/theme-toggle';
 import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
@@ -48,7 +49,17 @@ export default function Layout({ children }: { children: ReactNode }) {
               <DocsLayout
                 tree={source.pageTree}
                 {...baseOptions}
-                sidebar={{ collapsible: true, tabs: false }}
+                sidebar={{
+                  collapsible: true,
+                  tabs: false,
+                  footer: (
+                    <div className="flex gap-2 justify-start w-full">
+                      <div className="ml-auto">
+                        <ThemeToggle />
+                      </div>
+                    </div>
+                  ),
+                }}
               >
                 <AnalyticsProvider />
                 {children}
