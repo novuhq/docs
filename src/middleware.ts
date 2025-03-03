@@ -210,6 +210,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
   // Specific redirects for cases that don't fit patterns
   const redirectMap: Record<string, string> = {
+    '/overview/introduction': '/platform/overview',
     // Content and Design
     '/content-creation-design/handlebars-helpers': '/platform/templates/handlebars-helpers',
     '/content-creation-design/layouts': '/platform/templates/layouts',
