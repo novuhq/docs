@@ -10,8 +10,7 @@ import { Callout } from '../../components/callout';
 import { CodeBlock, Pre } from '../../components/codeblock';
 import { ImageZoom } from '../../components/image-zoom';
 import { Step, Steps } from '../../components/steps';
-import { Tab } from '../../components/tabs';
-import { Tabs } from '../../components/ui/tabs';
+import { Tab, Tabs } from '../../components/tabs';
 import {
   Tooltip,
   TooltipContent,
