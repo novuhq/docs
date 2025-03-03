@@ -21,7 +21,7 @@ npx novu@latest dev
 
 The Dev Studio will be started by default on port 2022, and accessible via: http://localhost:2022
 
-After successfully connecting the Studio to your local [Bridge Endpoint](/concepts/endpoint), you will be able to preview in real time any workflows and content defined in your code. This is ideal for quick prototyping, debugging, styling, and adjusting your workflows before syncing them to Novu Cloud.
+After successfully connecting the Studio to your local [Bridge Endpoint](/framework/endpoint), you will be able to preview in real time any workflows and content defined in your code. This is ideal for quick prototyping, debugging, styling, and adjusting your workflows before syncing them to Novu Cloud.
 
 ## Control and Payload forms
 
@@ -39,7 +39,7 @@ By default the Novu CLI will automatically create a tunnel URL connected to your
 
 ## Connect Studio to your local server
 
-By default, the Studio will connect to the Novu [Bridge Endpoint](/concepts/endpoint) running on your local machine at `http://localhost:4000/api/novu` if your server is running on a different port or the workflows are served from a different endpoint path you can use the following optional parameters to connect:
+By default, the Studio will connect to the Novu [Bridge Endpoint](/framework/endpoint) running on your local machine at `http://localhost:4000/api/novu` if your server is running on a different port or the workflows are served from a different endpoint path you can use the following optional parameters to connect:
 
 ```bash
 npx novu@latest dev --port <YOUR_SERVER_PORT> --route <YOUR_NOVU_ROUTE_PATH>

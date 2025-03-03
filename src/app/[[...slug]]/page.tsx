@@ -7,17 +7,17 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Accordion, Accordions } from '../../components/accordion';
 import { Callout } from '../../components/callout';
-import { CodeBlock } from '../../components/codeblock';
+import { CodeBlock, Pre } from '../../components/codeblock';
 import { ImageZoom } from '../../components/image-zoom';
 import { Step, Steps } from '../../components/steps';
-import { Tab } from '../../components/tabs';
-import { Tabs } from '../../components/ui/tabs';
+import { Tab, Tabs } from '../../components/tabs';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '../../components/ui/tooltip';
+import { metadataImage } from '../../lib/metadata-image';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -26,14 +26,13 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   if (!page) notFound();
 
   const MDX = page.data.body;
-  const path = `apps/docs/content/docs/${page.file.path}`;
+  const path = `content/docs/${page.file.path}`;
 
   return (
     <DocsPage
       toc={page.data.toc}
       full={page.data.full}
       tableOfContent={{
-        style: 'clerk',
         single: false,
       }}
       editOnGithub={{
@@ -55,6 +54,18 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         <MDX
           components={{
             ...defaultMdxComponents,
+            pre: (props) => {
+              // Extract language and title from className if available
+              const className = props.className || '';
+              const match = /language-(\w+)/.exec(className);
+              const lang = match ? match[1] : '';
+
+              return (
+                <CodeBlock title={lang} {...props}>
+                  <Pre {...props} />
+                </CodeBlock>
+              );
+            },
             CodeBlock: CodeBlock,
             Callout: Callout,
             APIPage: (props) => (
@@ -77,7 +88,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
                 <Tooltip>
                   <TooltipTrigger
                     asChild
-                    className="text-sm bg-zinc-100 hover:cursor-pointer text-zinc-700 leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] decoration-dotted decoration-zinc-400 underline underline-offset-4"
+                    className="text-sm inline-block bg-zinc-100 dark:bg-zinc-800 hover:cursor-pointer text-zinc-700 dark:text-zinc-300 leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] decoration-dotted decoration-zinc-400 dark:decoration-zinc-500 underline underline-offset-4"
                   >
                     {children}
                   </TooltipTrigger>
@@ -89,7 +100,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
             ),
             Method: (props) => (
               <Link href={props.href} className="no-underline">
-                <span className="text-sm bg-[#f3f0ff] hover:cursor-pointer border border-[#e4defc] text-[#5746af] leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] whitespace-nowrap">
+                <span className="text-sm bg-[#f3f0ff] dark:bg-[#2d2a3f] hover:cursor-pointer border border-[#e4defc] dark:border-[#4a4273] text-[#5746af] dark:text-[#a89ade] leading-[20px] text-[.8125rem] rounded-md px-1 py-[.25rem] px-[.375rem] whitespace-nowrap">
                   {props.children}
                 </span>
               </Link>
@@ -111,8 +122,8 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
-  return {
+  return metadataImage.withImage(page.slugs, {
     title: page.data.title,
     description: page.data.description,
-  };
+  });
 }

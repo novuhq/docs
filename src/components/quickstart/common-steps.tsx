@@ -36,7 +36,7 @@ export function TriggerNotificationStep() {
     <Step title="Trigger your first notification">
       Now you have setup the Notification Center and created a subscriber, it&apos;s time to trigger
       your first notification workflow. <br />
-      <Button color="primary" className="h-9 mt-4">
+      <Button color="primary" className="h-9 mt-4" href="https://dashboard-v2.novu.co">
         Visit Dashboard
       </Button>
     </Step>

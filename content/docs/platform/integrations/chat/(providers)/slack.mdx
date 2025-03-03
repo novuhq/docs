@@ -3,7 +3,6 @@ title: 'Slack'
 description: 'Learn about how to use Slack provider for chat notifications'
 ---
 
-import { Step, Steps } from 'fumadocs-ui/components/steps';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 When using Slack you will have to save the integration credentials in the subscriber entity.
@@ -108,9 +107,7 @@ import {
 
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
-webhookUrl: "<WEBHOOK_URL>",
-});
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, { webhookUrl: "<WEBHOOK_URL>", });
 
 ````
 </Tab>

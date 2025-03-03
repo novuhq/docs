@@ -3,7 +3,7 @@ import React from 'react';
 import { cn } from '../../lib/utils';
 
 export const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md p-2 text-sm font-medium transition-colors duration-100 disabled:pointer-events-none disabled:opacity-50',
+  'inline-flex items-center justify-center rounded-md p-2 text-sm font-medium transition-colors duration-100 disabled:pointer-events-none disabled:opacity-50 hover:no-underline hover:cursor-pointer',
   {
     variants: {
       color: {
@@ -19,6 +19,10 @@ export const buttonVariants = cva(
         icon: 'p-1.5 [&_svg]:size-5',
       },
     },
+    defaultVariants: {
+      color: 'primary',
+      size: 'md',
+    },
   }
 );
 
@@ -26,12 +30,44 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'outline' | 'ghost' | 'secondary';
   size?: 'sm' | 'md' | 'icon';
   isLoading?: boolean;
+  asChild?: boolean;
+  href?: string;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, color, size, ...props }, ref) => {
+export const Button = React.forwardRef<HTMLElement, ButtonProps>(
+  ({ className, color, size, href, ...props }, ref) => {
+    if (href) {
+      // Filter out button-specific props that shouldn't be passed to an anchor
+      const {
+        type,
+        disabled,
+        form,
+        formAction,
+        formEncType,
+        formMethod,
+        formNoValidate,
+        formTarget,
+        name,
+        value,
+        ...anchorProps
+      } = props;
+
+      return (
+        <a
+          className={cn(buttonVariants({ color, size, className }))}
+          ref={ref as React.ForwardedRef<HTMLAnchorElement>}
+          href={href}
+          {...(anchorProps as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+        />
+      );
+    }
+
     return (
-      <button className={cn(buttonVariants({ color, size, className }))} ref={ref} {...props} />
+      <button
+        className={cn(buttonVariants({ color, size, className }))}
+        ref={ref as React.ForwardedRef<HTMLButtonElement>}
+        {...props}
+      />
     );
   }
 );

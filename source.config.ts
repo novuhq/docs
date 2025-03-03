@@ -2,7 +2,9 @@ import { rehypeCodeDefaultOptions } from 'fumadocs-core/mdx-plugins';
 import { remarkInstall } from 'fumadocs-docgen';
 import { defineConfig, defineDocs, frontmatterSchema, metaSchema } from 'fumadocs-mdx/config';
 import { transformerTwoslash } from 'fumadocs-twoslash';
+import remarkDirective from 'remark-directive';
 import { z } from 'zod';
+import { remarkTooltip } from './src/lib/remark-tooltip';
 
 export const docs = defineDocs({
   dir: 'content/docs',
@@ -48,6 +50,7 @@ export default defineConfig({
         'kotlin',
         'swift',
       ],
+
       inline: 'tailing-curly-colon',
       themes: {
         light: 'github-light',
@@ -58,11 +61,14 @@ export default defineConfig({
         transformerTwoslash(),
         {
           name: 'transformers:remove-notation-escape',
-          code(hast) {
+          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+          code(hast: any) {
             for (const line of hast.children) {
               if (line.type !== 'element') continue;
 
-              const lastSpan = line.children.findLast((v) => v.type === 'element');
+              const lastSpan = line.children.findLast(
+                (v: { type: string }) => v.type === 'element'
+              );
 
               const head = lastSpan?.children[0];
               if (head?.type !== 'text') return;
@@ -70,9 +76,14 @@ export default defineConfig({
               head.value = head.value.replace(/\[\\!code/g, '[!code');
             }
           },
-        },
+          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        } as any,
       ],
     },
-    remarkPlugins: [[remarkInstall, { persist: { id: 'package-manager' } }]],
+    remarkPlugins: [
+      remarkDirective,
+      remarkTooltip,
+      [remarkInstall, { persist: { id: 'package-manager' } }],
+    ],
   },
 });

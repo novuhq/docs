@@ -12,24 +12,28 @@ import { Bell, Code, Layout, Sliders } from 'lucide-react';
 The Inbox is composed of the following sub-components that you can use to build your Inbox structure and layout:
 
 <Cards>
-  <Card title="Inbox" icon={<Layout />} href="/inbox/react/components/inbox">
+  <Card title="Inbox" icon={<Layout />} href="/platform/inbox/react/components/inbox">
     The Inbox wrapper, which is used to wrap the entire inbox UI and establish the session
   </Card>
-  <Card title="Bell" icon={<Bell />} href="/inbox/react/components/bell">
+  <Card title="Bell" icon={<Bell />} href="/platform/inbox/react/components/bell">
     Used to display the bell icon and trigger the popover component when clicked
   </Card>
-  <Card title="Notifications" icon={<Code />} href="/inbox/react/components/notifications">
+  <Card title="Notifications" icon={<Code />} href="/platform/inbox/react/components/notifications">
     Displays the notifications list
   </Card>
-  <Card title="Preferences" icon={<Sliders />} href="/inbox/react/components/preferences">
+  <Card title="Preferences" icon={<Sliders />} href="/platform/inbox/react/components/preferences">
     Used to display the preferences modal
   </Card>
-  <Card title="InboxContent" icon={<Layout />} href="/inbox/react/components/inbox-content">
+  <Card
+    title="InboxContent"
+    icon={<Layout />}
+    href="/platform/inbox/react/components/inbox-content"
+  >
     Usage with a custom popover
   </Card>
 </Cards>
 
-The internal UI and styles for those components can be modified using the [`appearance`](/inbox/react/styling#appearance-prop) prop.
+The internal UI and styles for those components can be modified using the [`appearance`](/platform/inbox/react/styling#appearance-prop) prop.
 
 <img src="/images/inbox/component_composition.png" alt="Component Composition" />
 
@@ -43,19 +47,19 @@ A trigger button usually located at the top right corner of the screen, which tr
 
 <Tabs items={['Default Bell', 'Custom Bell']}>
   <Tab>
-    ```tsx
+
+```tsx
 import { Inbox } from '@novu/react';
 
 function Novu() {
-return (
+  return <Inbox subscriberId="1" applicationIdentifier="1" />;
+}
+```
 
-<Inbox subscriberId="1" applicationIdentifier="1" />
-); }
-
-````
   </Tab>
   <Tab>
-    ```tsx
+
+```tsx
 import { Inbox, Bell } from '@novu/react';
 import { BellIcon } from './icons';
 
@@ -73,7 +77,7 @@ function Novu() {
     </Inbox>
   );
 }
-````
+```
 
   </Tab>
 </Tabs>

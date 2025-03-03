@@ -14,6 +14,7 @@ import {
 } from '@/components/quickstart/common-steps';
 import { InboxCodeBlock } from '@/components/quickstart/inbox-code';
 import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import {
@@ -28,6 +29,7 @@ import {
   Library,
   Mail,
   MessageSquare,
+  Palette,
   Phone,
   Users2,
 } from 'lucide-react';
@@ -49,20 +51,19 @@ Before you can start integrating Novu into your application, you need to create 
 
   </Step>
 
-<Step title="Install the Inbox package">```package-install npm install @novu/nextjs ```</Step>
+<Step title="Install the Inbox package">
+To install the Inbox package, run the following command:
+
+```package-install
+npm install @novu/nextjs
+```
+
+</Step>
 
 <Step title="Create the Inbox component">
   To start using the Inbox component, you need to embed it in your application. Import the{' '}
-  <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>
-  component and pass the{' '}
-  <Tooltip content="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page.">
-    `applicationIdentifier`
-  </Tooltip>{' '}
-  and{' '}
-  <Tooltip content="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database.">
-    `subscriberId`
-  </Tooltip>{' '}
-  to the component.
+  <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component and pass the{' '} :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and{' '} :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} to the component.
+
   <InboxCodeBlock />
   <SignedOut>
     <div className="text-sm text-gray-500 text-center mt-[-12px]">
@@ -75,7 +76,7 @@ Before you can start integrating Novu into your application, you need to create 
     Now you can import the `NotificationInbox` component and add it to your navbar, it will automatically display the Bell icon, you can customize it later.
     
     ```tsx title="app/layout.tsx"
-    import { NotificationInbox } from "@/components/inbox";
+    import { NotificationInbox } from "@/components/inbox"; // [!code highlight]
 
     export default function RootLayout({
       children,
@@ -86,6 +87,7 @@ Before you can start integrating Novu into your application, you need to create 
         <html lang="en">
           <body>
             <nav>
+             // [!code highlight]
               <NotificationInbox />
             </nav>
             {children}
@@ -114,23 +116,21 @@ Before you can start integrating Novu into your application, you need to create 
 ## Next steps
 
 <Cards cols={2}>
-  <Card title="Inbox and preferences UI components" icon={<Library />} href="/inbox/overview">
+  <Card
+    title="Inbox and preferences UI components"
+    icon={<Library />}
+    href="/platform/inbox/overview"
+  >
     Explore our full-stack UI components libraries for building in-app notifications.
   </Card>
-  <Card title="Novu Framework " icon={<Code2 />} href="/framework/overview">
-    Extend Novu Workflows with code, and accomplish literally any advanced use case imaginable.
-  </Card>
-  <Card title="Framework SDK" icon={<Code2 />} href="/sdks/overview">
-    For more advanced use cases, use our SDK to integrate Novu with your backend codebase.
+  <Card title="Styling" icon={<Palette />} href="/inbox/react/styling">
+    Customize the look and feel of your Inbox to match your application's design.
   </Card>
   <Card title="Multi-tenancy" icon={<Users2 />} href="/concepts/tenants">
     Manage multiple tenants within an organization.
   </Card>
   <Card title="Localization" icon={<Globe2 />} href="/inbox/react/localization">
     Manage localized versions of your notification templates.
-  </Card>
-  <Card title="Local studio" icon={<Laptop />} href="/framework/studio">
-    Use our local studio with Novu Framework to design and test your notification templates.
   </Card>
   <Card title="Environments" icon={<Layers />} href="/concepts/environments">
     Manage multiple environments based on your application's deployment stages.

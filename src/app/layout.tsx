@@ -7,8 +7,10 @@ import { GoogleTagManager } from '@next/third-parties/google';
 import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
-import { Viewport } from 'next';
+import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { ThemeToggle } from '../components/theme-toggle';
+import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
@@ -43,14 +45,26 @@ export default function Layout({ children }: { children: ReactNode }) {
 
         <body className="flex flex-col min-h-screen">
           <Provider>
-            <DocsLayout
-              tree={source.pageTree}
-              {...baseOptions}
-              githubUrl="https://github.com/novuhq/novu"
-            >
-              <AnalyticsProvider />
-              {children}
-            </DocsLayout>
+            <TooltipProvider delayDuration={50}>
+              <DocsLayout
+                tree={source.pageTree}
+                {...baseOptions}
+                sidebar={{
+                  collapsible: true,
+                  tabs: false,
+                  footer: (
+                    <div className="flex gap-2 justify-start w-full">
+                      <div className="ml-auto">
+                        <ThemeToggle />
+                      </div>
+                    </div>
+                  ),
+                }}
+              >
+                <AnalyticsProvider />
+                {children}
+              </DocsLayout>
+            </TooltipProvider>
           </Provider>
         </body>
       </html>

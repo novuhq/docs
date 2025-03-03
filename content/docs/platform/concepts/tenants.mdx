@@ -3,36 +3,85 @@ title: 'Multi-tenancy'
 description: 'Learn about how to implement multi-tenant notifications in Novu'
 ---
 
-<Callout type="info">
-  This features is currently under development, and planned to be released in Q2 2025.
-</Callout>
-
 Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants.
+
+Tenants are also commonly called workspaces or organizations.
 
 Some of the common multi-tenancy use cases are:
 
-- Group subscribers by the tenant
-- Use a different delivery provider for each tenant
+- Group subscribers notification feeds by the tenant
 - Adjust the content of the notification depending on the tenant
-- Specify different subscriber preference defaults
 
-## Tenant Management
+## How to implement multi-tenancy in Novu
 
-Tenants can be created and modified via the API or Dashboard. Each tenant can have multiple fields representing the tenant's data:
+Novu supports multi-tenancy out of the box, the most simple way to implement tenant separation is by prefixing the subscriber identifier with the tenant identifier.
 
-- Identifier - The identifier is a unique value, and can be used later when pointing to this tenant during trigger calls.
-- Name - A human-readable name of the tenant.
-- Data - A custom data object that can store information about the tenant. This data can be later accessed inside workflows.
+```typescript
+const subscriberId = `${tenantId}:${userId}`;
 
-## Multi-tenancy vs topics
-
-While topics can be mapped to any nested entity in your application such as teams, projects, issues, and etc...
-and used for broadcasing messages to different subsets of your audience, tenants are some times refered to as "organizations", "workspaces", "companies" or "accounts" and are usually directly tied to your customer entities which used to customize the notification behavior and defaults for each customer.
-
-## Using Tenant data
-
-When creating a tenant, you can specify a data object that will be available to you in your workflows. This can be useful to store information about the tenant such as the name, logo, etc...
-
+await novu.trigger({
+  workflowId,
+  to: {
+    subscriberId,
+  },
+  payload: {
+    tenantId,
+  },
+});
 ```
-Welcome to the {{ tenant.name }} workspace!
+
+### Tenant in Inbox
+
+When using the Inbox feature, you can use the tenant identifier to group notifications by tenant.
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function InboxComponent({ tenantId, userId }}) {
+  return <Inbox subscriberId={`${tenantId}:${userId}`} />;
+}
 ```
+
+Each subscriber in a tenant will have it's own unique inbox feed, including a separate preference configuration set.
+
+## Adjusting notification content based on tenant
+
+When triggering a notification, you can pass a custom tenant object or identifier and use it to manipulate workflows or content.
+
+```typescript
+const subscriberId = `${tenantId}:${userId}`;
+
+await novu.trigger({
+  workflowId,
+  to: {
+    subscriberId,
+  },
+  payload: {
+    tenant: {
+      id: tenantId,
+      name: "Acme Corp",
+      logo: "https://acme-corp.com/logo.png",
+      primaryColor: "red",
+    }
+  },
+});
+```
+
+The tenant object will be available to use in the workflow editor as a variable for the following areas:
+
+- Content (use `{{payload.tenant.name}}` to display the tenant name in an email or any other channel)
+- Step Conditions (use `{{payload.tenant.id}}` to conditionally execute a step based on the tenant)
+
+## FAQ
+
+<Accordions>
+
+<Accordion title="Can I use a different delivery provider for each tenant?">
+  Currently we do not support using a different delivery provider for each tenant. You can reach out to support@novu.co in case this is a feature required for your use case.
+</Accordion>
+
+<Accordion title="Can I specify different workflow preferences for each tenant?">
+  We don't support specifying different workflow preferences for each tenant. You can reach out to support@novu.co in case this is a feature required for your use case.
+</Accordion>
+
+</Accordions>

@@ -163,7 +163,6 @@ export function OverviewPage() {
                   </div>
                   <div>
                     <div className="text-sm font-medium text-foreground">{item.title}</div>
-                    <div className="text-xs text-muted-foreground font-medium">{item.package}</div>
                   </div>
                 </div>
               </Link>

@@ -6,9 +6,9 @@ icon: 'circle-plus'
 ---
 
 import { Card } from 'fumadocs-ui/components/card';
-import { Step, Steps } from 'fumadocs-ui/components/steps';
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
 import { CodeIcon } from '@/components/icons/overview';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 Chat channels allow you to deliver instant, contextual messages to your subscribers via their preferred chat platform and apps.
 
@@ -27,12 +27,13 @@ Chat channels allow you to deliver instant, contextual messages to your subscrib
 - (Optional) Add Conditions to activate the provider only under certain conditions, **useful for tenant-based providers**
 - Click **"Create"**
 - Add your Chat provider credentials:
-  <Callout type="info">
-    Each chat provider requires different type of credentials. There are few providers which does
-    not require any credentials example: `Discord`
-  </Callout>
-  - Provider-specific credentials such as API key / Auth token, Client ID, Client Secret, or
-  password
+
+<Callout type="info">
+  Each chat provider requires different type of credentials. There are few providers which does
+  not require any credentials example: `Discord`
+</Callout>
+
+- Provider-specific credentials such as API key / Auth token, Client ID, Client Secret, or password
 - Save the configuration by clicking **"Update"**
 
 </Step>
@@ -114,9 +115,7 @@ import {
 
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, {
-webhookUrl: "<WEBHOOK_URL>",
-});
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, { webhookUrl: "<WEBHOOK_URL>", });
 
 ````
 </Tab>

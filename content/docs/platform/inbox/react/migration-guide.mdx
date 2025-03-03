@@ -4,9 +4,10 @@ description: 'This guide outlines the key differences between the `@novu/notific
 ---
 
 <Callout type="info">
-  [@novu/react](/inbox/react/get-started) Inbox react component and
-  [@novu/js](/inbox/headless/get-started) headless package is compatible with
-  [@novu/framework](/workflow/overview) based workflows only. With old UI based workflows, our old
+  [@novu/react](/platform/sdks/react) Inbox react component and
+  [@novu/js](/platform/inbox/headless/get-started) headless package is compatible with
+  [@novu/framework](/platform/workflow/overview) based workflows only. With old UI based workflows,
+  our old
   [@novu/notification-center](https://v0.x-docs.novu.co/notification-center/client/react/get-started)
   component should be used.
 </Callout>
@@ -33,7 +34,7 @@ The `@novu/react` package introduces several breaking changes compared to the `@
 
 ### Styling
 
-- The `styles` props is replaced by an enchanced and easy to use `appearance` prop to customize the appearance of the notification components. For more information on `appearance` customization visit [here](/inbox/react/styling).
+- The `styles` props is replaced by an enchanced and easy to use `appearance` prop to customize the appearance of the notification components. For more information on `appearance` customization visit [here](/platform/inbox/react/styling).
 
 ### Notification
 
@@ -472,13 +473,11 @@ function Novu() {
               onClick={(e) => {
                 e.preventDefault();
                 handleNotificationClick();
-              }}
-            >
+              }}>
               {notification.content}
             </a>
           );
-        }}
-      >
+        }}>
         {({ unseenCount }) => {
           return <NotificationBell unseenCount={unseenCount} />;
         }}
@@ -499,8 +498,7 @@ function Novu() {
   const renderCustomNotificationItem = (notification) => (
     <div
       className={`notification-item ${notification.isRead ? 'read' : 'unread'}`}
-      onClick={() => notification.read()}
-    >
+      onClick={() => notification.read()}>
       <img src={notification.avatar} alt="Avatar" className="notification-avatar" />
       <div className="notification-content">
         <h4 className="notification-subject">{notification.subject}</h4>
@@ -539,8 +537,7 @@ function Novu() {
     <NovuProvider
       applicationIdentifier="YOUR_APP_ID"
       subscriberId="YOUR_SUBSCRIBER_ID"
-      styles={{ notifications: { listItem: { layout: { color: '#E3554D' } } } }}
-    >
+      styles={{ notifications: { listItem: { layout: { color: '#E3554D' } } } }}>
       <PopoverNotificationCenter>
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
@@ -592,7 +589,7 @@ function Novu() {
 export default Novu;
 ```
 
-For more information on `appearance` customization visit [here](/inbox/react/styling).
+For more information on `appearance` customization visit [here](/platform/inbox/react/styling).
 
 ## Multiple Tabs Support
 
@@ -625,8 +622,7 @@ function Novu() {
         },
       ]}
       subscriberId="YOUR_SUBSCRIBER_ID"
-      applicationIdentifier="YOUR_APP_ID"
-    >
+      applicationIdentifier="YOUR_APP_ID">
       <PopoverNotificationCenter
         tabs={[
           { name: 'Product Updates', storeId: 'product-updates' },
@@ -634,8 +630,7 @@ function Novu() {
         ]}
         colorScheme={colorScheme}
         onNotificationClick={handlerOnNotificationClick}
-        onActionClick={handlerOnActionClick}
-      >
+        onActionClick={handlerOnActionClick}>
         {({ unseenCount }) => {
           return <NotificationBell colorScheme={colorScheme} unseenCount={unseenCount} />;
         }}
@@ -724,7 +719,7 @@ export default Novu;
 
 ## HMAC Encryption
 
-The process remains the same as before. See the detailed guide [here](/inbox/react/production#hmac-encryption).
+The process remains the same as before. See the detailed guide [here](/platform/inbox/react/production#hmac-encryption).
 
 ## Handling Notifications
 

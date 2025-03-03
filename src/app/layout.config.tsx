@@ -1,4 +1,5 @@
 import { SignedIn, SignedOut } from '@clerk/nextjs';
+import { GithubInfo } from 'fumadocs-ui/components/github-info';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
 import { Button, buttonVariants } from '../components/ui/button';
@@ -33,6 +34,7 @@ export const baseOptions: BaseLayoutProps = {
     ),
     transparentMode: 'top',
   },
+  disableThemeSwitch: true,
   links: [
     {
       url: '/platform',
@@ -77,10 +79,16 @@ export const baseOptions: BaseLayoutProps = {
             </a>
           </SignedOut>
           <SignedIn>
-            <Button color="secondary">Visit Dashboard</Button>
+            <Button color="secondary" href="https://dashboard-v2.novu.co">
+              Visit Dashboard
+            </Button>
           </SignedIn>
         </div>
       ),
+    },
+    {
+      type: 'custom',
+      children: <GithubInfo owner="novuhq" repo="novu" className="lg:-mx-2" />,
     },
   ],
 };
