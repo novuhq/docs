@@ -45,7 +45,11 @@ export default function Layout({ children }: { children: ReactNode }) {
         <body className="flex flex-col min-h-screen">
           <Provider>
             <TooltipProvider delayDuration={50}>
-              <DocsLayout tree={source.pageTree} {...baseOptions}>
+              <DocsLayout
+                tree={source.pageTree}
+                {...baseOptions}
+                sidebar={{ collapsible: true, tabs: false }}
+              >
                 <AnalyticsProvider />
                 {children}
               </DocsLayout>

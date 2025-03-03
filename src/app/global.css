@@ -9,10 +9,6 @@
 @plugin 'tailwindcss-animate';
 
 @layer base {
-  aside .custom-nav {
-    display: none !important;
-  }
-
   article {
     padding-left: 24px !important;
     padding-right: 24px !important;
@@ -41,6 +37,10 @@
   .line.highlighted {
     background-color: rgb(243, 240, 255) !important;
     border-left: 1px solid #5746af !important;
+  }
+
+  button[aria-label='Collapse Sidebar'] {
+    display: none !important;
   }
 
   body {
