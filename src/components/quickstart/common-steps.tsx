@@ -5,8 +5,9 @@ import Link from 'next/link';
 export function CreateAccountStep() {
   return (
     <Step title="Create a Novu account">
-      If you don&apos;t have a Novu account, you can create one{' '}
-      <Link href="https://dashboard-v2.novu.co/auth/sign-up">here</Link>.
+      <Link href="https://dashboard-v2.novu.co/auth/sign-up">Create a Novu account</Link> or{' '}
+      <Link href="https://dashboard-v2.novu.co/auth/sign-in">sign in</Link> to an existing account
+      to access the dashboard.
     </Step>
   );
 }
