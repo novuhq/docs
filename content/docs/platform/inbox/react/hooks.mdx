@@ -69,13 +69,11 @@ Follow these steps to get started with building your custom inbox UI:
     The `BellButton` component fetches the unread notifications count and renders the count value in the indicator:
 
     ```tsx
-    import { useUnreadCount } from '@novu/react';
+    import { useCounts } from '@novu/react';
 
     function BellButton() {
-      const { unreadCount, isLoading, error } = useUnreadCount();
-
-      if (isLoading) return <div>Loading...</div>;
-      if (error) return <div>Error: {error.message}</div>;
+      const { counts } = useCounts({ filters: [{ read: false }] });
+      const unreadCount = counts?.[0].count ?? 0;
 
       return (
         <button>
@@ -96,10 +94,12 @@ Follow these steps to get started with building your custom inbox UI:
     function NotificationsList() {
       const {
         notifications,
+        error,
         isLoading,
+        isFetching,
+        refetch,
+        fetchMore,
         hasMore,
-        loadMore,
-        error
       } = useNotifications();
 
       if (isLoading) return <div>Loading...</div>;
@@ -114,14 +114,14 @@ Follow these steps to get started with building your custom inbox UI:
             />
           ))}
           {hasMore && (
-            <button onClick={loadMore}>Load More</button>
+            <button onClick={fetchMore}>Load More</button>
           )}
         </div>
       );
     }
     ```
 
-    ### Notification Item
+    #### Notification Item
 
     The `NotificationItem` component renders each notification item. When any action is performed on the `notification` instance (e.g., "read" button is clicked), the SDK will optimistically update the notification, which will trigger a rerender of the `useNotifications` hook.
 
