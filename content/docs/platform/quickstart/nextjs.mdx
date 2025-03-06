@@ -70,20 +70,18 @@ This guide walks you through integrating Novu’s Inbox into your Next.js applic
     In the `src` directory of your Next.js project, create a `components/inbox.tsx` file with the following content:
 
     <InboxCodeBlock />
-    If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. However if it’s not, here is how to access them:
-    1. `applicationIdentifier` – In the Novu dashboard, click API Keys, and then locate your unique Application Identifier.
-    2. `subscriberId` – In the Novu dashboard, click Subscribers, and then locate the `subscriberId`.
-        - A default subscriber is automatically created when you sign up.
-        - If no subscriber exists, create one, and a subscriberId will be generated automatically.
-
-    <Callout type="info">
-      **Note:** If you pass a `subscriberId` that does not exist yet, Novu will automatically create a new subscriber with that ID.
-    </Callout>
     <SignedOut>
       <div className="text-sm text-gray-500 text-center mt-[-12px]">
         [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
       </div>
     </SignedOut>
+    If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. However if it’s not, here is how to access them:
+    * `applicationIdentifier` – In the Novu dashboard, click API Keys, and then locate your unique Application Identifier.
+    * `subscriberId` – This represents a user in your system, usually the user id from your database. For the quick start purposes we are going to use an auto-generated `subscriberId` for your Dashboard user.
+
+    <Callout type="info">
+      **Note:** If you pass a `subscriberId` that does not exist yet, Novu will automatically create a new subscriber with that ID.
+    </Callout>
 
   </Step>
 
