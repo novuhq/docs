@@ -54,37 +54,41 @@ This guide walks you through integrating Novu’s Inbox into your Next.js applic
 
   </Step>
 
-<Step title="Install Novu’s inbox package">
-To install the Inbox package, run:
-
-```package-install
-npm install @novu/nextjs
-```
-
-</Step>
-
-<Step title="Create an Inbox component">
-  In the `src` directory of your Next.js project, create a `components/inbox.tsx` file with the following content:
-
-  <InboxCodeBlock />
-  If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. However if it’s not, here is how to access them:
-   1. `applicationIdentifier` – In the Novu dashboard, click API Keys, and then locate your unique Application Identifier.
-   2. `subscriberId` – In the Novu dashboard, click Subscribers, and then locate the `subscriberId`.
-      - A default subscriber is automatically created when you sign up.
-      - If no subscriber exists, create one, and a subscriberId will be generated automatically.
+  <Step>
+  ### Install Novu’s inbox package
   
-  <Callout type="info">
-    **Note:** If you pass a `subscriberId` that does not exist yet, Novu will automatically create a new subscriber with that ID.
-  </Callout>
-  <SignedOut>
-    <div className="text-sm text-gray-500 text-center mt-[-12px]">
-      [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
-    </div>
-  </SignedOut>
+  To install the Inbox package, run:
+  
+  ```package-install
+  npm install @novu/nextjs
+  ```
 
-</Step>
+  </Step>
 
-  <Step title="Add the notification inbox component to your navbar">
+  <Step>
+  ### Create an Inbox component
+    In the `src` directory of your Next.js project, create a `components/inbox.tsx` file with the following content:
+
+    <InboxCodeBlock />
+    If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. However if it’s not, here is how to access them:
+    1. `applicationIdentifier` – In the Novu dashboard, click API Keys, and then locate your unique Application Identifier.
+    2. `subscriberId` – In the Novu dashboard, click Subscribers, and then locate the `subscriberId`.
+        - A default subscriber is automatically created when you sign up.
+        - If no subscriber exists, create one, and a subscriberId will be generated automatically.
+
+    <Callout type="info">
+      **Note:** If you pass a `subscriberId` that does not exist yet, Novu will automatically create a new subscriber with that ID.
+    </Callout>
+    <SignedOut>
+      <div className="text-sm text-gray-500 text-center mt-[-12px]">
+        [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
+      </div>
+    </SignedOut>
+
+  </Step>
+
+  <Step>
+  ### Add the notification inbox component to your navbar
     In the `layout.tsx` file, import the `NotificationInbox` component, and add it to your navbar. By default, it will show a bell icon, which opens the Inbox UI when clicked:
 
     ```tsx title="app/layout.tsx"
@@ -111,7 +115,8 @@ npm install @novu/nextjs
 
   </Step>
 
-  <Step title="Run Your application">
+  <Step>
+  ### Run Your Application
     Start your development server:
 
     ```package-install
@@ -123,7 +128,8 @@ npm install @novu/nextjs
 
   </Step>
 
-  <Step title="Trigger your first notification">
+  <Step>
+  ### Trigger your first notification
     In this step, you'll create a simple workflow to send your first notification via the Inbox component. Follow these steps to set up and trigger a workflow from your Novu dashboard.
     1. Go to your [Novu dashboard](https://dashboard-v2.novu.co/auth/sign-in).
     2. In the sidebar, click **Workflows**.
@@ -139,7 +145,8 @@ npm install @novu/nextjs
 
   </Step>
 
-  <Step title="View the notification in your app">
+  <Step>
+  ###  View the notification in your app
     Go back to your Next.js app, then click the bell icon.
 
     You should see the notification you just sent from Novu! 🎉
