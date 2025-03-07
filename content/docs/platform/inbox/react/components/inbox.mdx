@@ -179,9 +179,10 @@ function Novu() {
 
 ```tsx
 import { Inbox } from '@novu/react';
+import { useState } from 'react';
 
 function Novu() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -198,13 +199,6 @@ function Novu() {
 
 ### Custom Notification Item
 
-<Callout type="info">
-  Customize the notification item using the `renderNotification` prop. The `notification.data`
-  property allows accessing custom information while rendering the notification item. You can learn
-  how to pass it with the Novu Framework in-app step output
-  [here](/framework/typescript/steps/inApp).
-</Callout>
-
 ```tsx
 import { Inbox } from '@novu/react';
 
@@ -217,7 +211,6 @@ function Novu() {
         <div>
           <h3>{notification.subject}</h3>
           <p>{notification.body}</p>
-          <p>{notification.data.text}</p>
         </div>
       )}
     />
@@ -254,7 +247,7 @@ function Novu() {
 </Callout>
 
 ```tsx
-import { Inbox, Preferences } from '@novu/react';
+import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
