@@ -1,6 +1,6 @@
 ---
-title: '@novu/react'
-pageTitle: 'API reference for the @novu/react package'
+title: "@novu/react"
+pageTitle: "API reference for the @novu/react package"
 ---
 
 ## Components
@@ -20,7 +20,7 @@ The main component for displaying notifications.
 ### Usage
 
 ```tsx
-import { Inbox } from '@novu/react';
+import { Inbox } from "@novu/react";
 
 function NotificationCenter() {
   return (
@@ -71,8 +71,8 @@ A customizable notification bell component.
 ### Usage
 
 ```tsx
-import { Bell } from '@novu/react';
-import { BellIcon } from 'lucide-react';
+import { Bell } from "@novu/react";
+import { BellIcon } from "lucide-react";
 
 function NotificationBell() {
   return (
@@ -105,7 +105,7 @@ A component for rendering a list of notifications.
 ### Usage
 
 ```tsx
-import { Notifications } from '@novu/react';
+import { Notifications } from "@novu/react";
 
 function NotificationList() {
   return (
@@ -114,10 +114,10 @@ function NotificationList() {
         // Handle notification click
         console.log(notification);
       }}
-      renderNotification={({ content, createdAt }) => (
+      renderNotification={({ body, createdAt }) => (
         <div className="flex gap-2 p-2">
           <div className="flex-1">
-            <p>{content}</p>
+            <p>{body}</p>
             <time className="text-sm text-gray-500">
               {new Date(createdAt).toLocaleDateString()}
             </time>
@@ -142,7 +142,7 @@ A component for building custom notification inboxes.
 ### Usage
 
 ```tsx
-import { InboxContent } from '@novu/react';
+import { InboxContent } from "@novu/react";
 
 function CustomInbox() {
   return (
@@ -152,14 +152,14 @@ function CustomInbox() {
           // Handle notification click
           console.log(notification);
         }}
-        onPrimaryActionClick={(notification, action) => {
+        onPrimaryActionClick={(notification) => {
           // Handle primary action click
-          console.log(notification, action);
+          console.log(notification);
         }}
         hideNav={false}
-        renderNotification={({ content, createdAt }) => (
+        renderNotification={({ body, createdAt }) => (
           <div className="notification-item">
-            <p>{content}</p>
+            <p>{body}</p>
             <time>{new Date(createdAt).toLocaleDateString()}</time>
           </div>
         )}

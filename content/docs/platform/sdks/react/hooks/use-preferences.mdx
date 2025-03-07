@@ -1,88 +1,191 @@
 ---
-title: 'usePreferences'
-description: 'Learn how to use the usePreferences hook to manage notification preferences in your React application'
+title: "usePreferences"
+description: "Learn how to use the usePreferences hook to manage notification preferences in your React application"
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 The `usePreferences` hook provides a way to fetch and manage notification preferences for the current subscriber. This includes both global preferences and workflow-specific preferences.
 
+## Hook Parameters
+
+<TypeTable
+  type={{
+    filter: {
+      type: "{ tags?: string[] }",
+      description: "Filter preferences by tags",
+    },
+    onSuccess: {
+      type: "(data: Preference[]) => void",
+      description:
+        "Callback function called when preferences are successfully fetched",
+    },
+    onError: {
+      type: "(error: NovuError) => void",
+      description: "Callback function called when an error occurs",
+    },
+  }}
+/>
+
 ## Return Value
 
-```typescript
-type PreferencesReturn = {
-  preferences: Array<{
-    template: {
-      _id: string;
-      name: string;
-      critical: boolean;
-    };
+<TypeTable
+  type={{
+    preferences: {
+      type: "Preference[] | undefined",
+      description: "Array of preference objects",
+      typeDescription: "undefined if data is not yet loaded",
+    },
+    error: {
+      type: "NovuError | undefined",
+      description: "Error object if the request failed",
+      typeDescription: "undefined if no error occurred",
+    },
+    isLoading: {
+      type: "boolean",
+      description: "True during the initial load, false otherwise",
+    },
+    isFetching: {
+      type: "boolean",
+      description:
+        "True during any loading state (initial or refetch), false otherwise",
+    },
+    refetch: {
+      type: "() => Promise<void>",
+      description: "Function to manually trigger a refetch of the preferences",
+    },
+  }}
+/>
+
+## Preference Type
+
+The Preference type from @novu/js includes these properties:
+
+<TypeTable
+  type={{
+    level: {
+      type: "PreferenceLevel",
+      description: "Level of the preference (global or template)",
+    },
+    enabled: {
+      type: "boolean",
+      description: "Whether notifications are enabled for this preference",
+    },
     channels: {
-      email?: boolean;
-      sms?: boolean;
-      in_app?: boolean;
-      chat?: boolean;
-      push?: boolean;
-    };
-  }>;
-  isLoading: boolean;
-  error: Error | null;
-  updatePreference: (params: {
-    templateId: string;
-    channelType: string;
-    enabled: boolean;
-  }) => Promise<void>;
-};
-```
+      type: "{ email?: boolean; sms?: boolean; in_app?: boolean; chat?: boolean; push?: boolean; }",
+      description: "Channel-specific preferences",
+    },
+    workflow: {
+      type: "{ id: string; name: string; critical: boolean; }",
+      description: "Information about the associated workflow",
+      typeDescription: "Only available for template-level preferences",
+    },
+  }}
+/>
 
 ## Example Usage
 
 Here's how to use the `usePreferences` hook to display and manage notification preferences:
 
 ```tsx
-import { usePreferences } from '@novu/react';
+import type { Preference, ChannelType } from "@novu/js";
+import { usePreferences } from "@novu/react";
 
 function PreferencesList() {
-  const { preferences, isLoading, error, updatePreference } = usePreferences();
+  const { preferences, isLoading, error, refetch } = usePreferences();
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
+  const updatePreference = async (
+    preference: Preference,
+    channelType: string,
+    enabled: boolean,
+  ) => {
+    try {
+      await preference.update({
+        channels: {
+          [channelType]: enabled,
+        },
+      });
+
+      // Refresh preferences
+      refetch();
+    } catch (error) {
+      console.error("Failed to update preference:", error);
+    }
+  };
+
   return (
-    <div>
-      {preferences.map((preference) => (
-        <div key={preference.template._id}>
-          <h3>{preference.template.name}</h3>
+    <div className="space-y-4">
+      {preferences?.map((preference) => (
+        <div
+          key={preference.workflow?.id || "global"}
+          className="p-4 border rounded-lg"
+        >
+          <h3 className="font-medium">
+            {preference.workflow?.name || "Global Preferences"}
+            {preference.workflow?.critical && (
+              <span className="ml-2 text-xs bg-red-100 text-red-800 px-2 py-1 rounded">
+                Critical
+              </span>
+            )}
+          </h3>
 
-          <label>
-            <input
-              type="checkbox"
-              checked={preference.channels.email}
-              onChange={(e) => {
-                updatePreference({
-                  templateId: preference.template._id,
-                  channelType: 'email',
-                  enabled: e.target.checked,
-                });
-              }}
-            />
-            Email Notifications
-          </label>
+          <div className="mt-2 space-y-2">
+            {Object.entries(preference.channels).map(([channel, enabled]) => (
+              <div key={channel} className="flex items-center justify-between">
+                <span className="capitalize">{channel.replace("_", " ")}</span>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={enabled}
+                    disabled={preference.workflow?.critical}
+                    onChange={(e) =>
+                      updatePreference(preference, channel, e.target.checked)
+                    }
+                    className="sr-only peer"
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed"></div>
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
 
-          <label>
-            <input
-              type="checkbox"
-              checked={preference.channels.sms}
-              onChange={(e) => {
-                updatePreference({
-                  templateId: preference.template._id,
-                  channelType: 'sms',
-                  enabled: e.target.checked,
-                });
-              }}
-            />
-            SMS Notifications
-          </label>
+### With Filtering
+
+You can filter preferences by tags:
+
+```tsx
+import { usePreferences } from "@novu/react";
+
+function FilteredPreferences() {
+  const { preferences, isLoading } = usePreferences({
+    filter: {
+      tags: ["important", "marketing"],
+    },
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-bold">Marketing Preferences</h2>
+      {preferences?.map((preference) => (
+        <div
+          key={preference.workflow?.id || "global"}
+          className="p-4 border rounded-lg"
+        >
+          <h3 className="font-medium">
+            {preference.workflow?.name || "Global Preferences"}
+          </h3>
+          {/* Preference controls */}
         </div>
       ))}
     </div>
@@ -95,68 +198,71 @@ function PreferencesList() {
 You can organize preferences by channel type:
 
 ```tsx
+import type { Preference, ChannelType } from "@novu/js";
+import { usePreferences } from "@novu/react";
+
 function ChannelPreferences() {
-  const { preferences, updatePreference } = usePreferences();
+  const { preferences, isLoading, refetch } = usePreferences();
 
-  const emailPreferences = preferences.filter((pref) => pref.channels.email !== undefined);
+  if (isLoading) return <div>Loading...</div>;
 
-  return (
-    <div>
-      <h2>Email Preferences</h2>
-      {emailPreferences.map((preference) => (
-        <div key={preference.template._id}>
-          <label>
-            <input
-              type="checkbox"
-              checked={preference.channels.email}
-              onChange={(e) => {
-                updatePreference({
-                  templateId: preference.template._id,
-                  channelType: 'email',
-                  enabled: e.target.checked,
-                });
-              }}
-            />
-            {preference.template.name}
-          </label>
-        </div>
-      ))}
-    </div>
-  );
-}
-```
+  const updatePreference = async (
+    preference: Preference,
+    channelType: string,
+    enabled: boolean,
+  ) => {
+    try {
+      await preference.update({
+        channels: {
+          [channelType]: enabled,
+        },
+      });
+      refetch();
+    } catch (error) {
+      console.error("Failed to update preference:", error);
+    }
+  };
 
-### With Critical Workflows
-
-Some workflows might be marked as critical, meaning they cannot be disabled:
-
-```tsx
-function CriticalPreferences() {
-  const { preferences } = usePreferences();
+  // Group preferences by channel
+  const channels = ["email", "sms", "in_app", "push", "chat"];
 
   return (
-    <div>
-      {preferences.map((preference) => (
-        <div key={preference.template._id}>
-          <h3>{preference.template.name}</h3>
-          {preference.template.critical ? (
-            <span>Critical - Cannot be disabled</span>
-          ) : (
-            <label>
-              <input
-                type="checkbox"
-                checked={preference.channels.email}
-                onChange={(e) => {
-                  updatePreference({
-                    templateId: preference.template._id,
-                    channelType: 'email',
-                    enabled: e.target.checked,
-                  });
-                }}
-              />
-              Enable Notifications
-            </label>
-          )}
+    <div className="space-y-8">
+      {channels.map((channel) => (
+        <div key={channel} className="border-t pt-4">
+          <h2 className="text-xl font-medium capitalize mb-4">
+            {channel.replace("_", " ")} Notifications
+          </h2>
+          <div className="space-y-2">
+            {preferences
+              ?.filter((pref) => channel in pref.channels)
+              .map((preference) => (
+                <div
+                  key={preference.workflow?.id || "global"}
+                  className="flex items-center justify-between p-2 hover:bg-gray-50 rounded"
+                >
+                  <span>
+                    {preference.workflow?.name || "Global Preferences"}
+                  </span>
+                  <label className="relative inline-flex items-center cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={
+                        preference.channels[
+                          channel as keyof typeof preference.channels
+                        ]
+                      }
+                      disabled={preference.workflow?.critical}
+                      onChange={(e) =>
+                        updatePreference(preference, channel, e.target.checked)
+                      }
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 peer-disabled:opacity-50 peer-disabled:cursor-not-allowed"></div>
+                  </label>
+                </div>
+              ))}
+          </div>
         </div>
       ))}
     </div>
@@ -165,6 +271,6 @@ function CriticalPreferences() {
 ```
 
 <Callout type="info">
-  Changes to preferences are automatically synchronized with the server and will affect future
-  notifications immediately.
+  Changes to preferences are automatically synchronized with the server and will
+  affect future notifications immediately.
 </Callout>
