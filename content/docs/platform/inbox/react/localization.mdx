@@ -50,25 +50,3 @@ function Novu() {
   );
 }
 ```
-
-### Specifying the workflow name using Framework
-
-In addition to specifying a workflow name in the `<Inbox />` component, you can also specify the workflow name in your Framework definition. The `name` property is optional, so if you don't specify it, the `workflowId` will be used as the name.
-
-```typescript
-import { workflow } from '@novu/framework';
-
-const weeklyCommentsWorkflow = workflow(
-  'comment-on-post',
-  async ({ step }) => {
-    // workflow logic
-  },
-  {
-    name: 'Post comments', // 👈 name is optional
-  }
-);
-```
-
-Now, your specified workflow name will be displayed in the `<Inbox />` component:
-
-<img src="/images/inbox/framework-preferences-name.png" alt="Localized workflow name" />

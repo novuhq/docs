@@ -1,6 +1,6 @@
 ---
-title: 'NovuProvider'
-description: 'Learn how to use the NovuProvider component to set up the Novu context in your React application'
+title: "NovuProvider"
+description: "Learn how to use the NovuProvider component to set up the Novu context in your React application"
 ---
 
 The `NovuProvider` is the top-level component that provides the [Novu instance](/platform/inbox/headless/api-reference#novu) to the rest of the hooks through the context.
@@ -8,14 +8,38 @@ Usually, it's placed somewhere in the root of your application, which makes the 
 
 ## Props
 
-| Prop                  | Type      | Required | Description                                                    |
-| --------------------- | --------- | -------- | -------------------------------------------------------------- |
-| subscriberId          | string    | Yes      | The unique identifier of the subscriber                        |
-| applicationIdentifier | string    | Yes      | Your application identifier from Novu                          |
-| subscriberHash        | string    | No       | HMAC encryption hash for the subscriber                        |
-| backendUrl            | string    | No       | Custom backend URL for self-hosted instances                   |
-| socketUrl             | string    | No       | Custom socket URL for self-hosted instances                    |
-| children              | ReactNode | Yes      | The child components that will have access to the Novu context |
+<TypeTable
+  type={{
+    subscriberId: {
+      type: "string",
+      description: "The unique identifier of the subscriber",
+      typeDescription: "Required",
+    },
+    applicationIdentifier: {
+      type: "string",
+      description: "Your application identifier from Novu",
+      typeDescription: "Required",
+    },
+    subscriberHash: {
+      type: "string",
+      description: "HMAC encryption hash for the subscriber",
+    },
+    backendUrl: {
+      type: "string",
+      description: "Custom backend URL for self-hosted instances",
+    },
+    socketUrl: {
+      type: "string",
+      description: "Custom socket URL for self-hosted instances",
+    },
+    children: {
+      type: "ReactNode",
+      description:
+        "The child components that will have access to the Novu context",
+      typeDescription: "Required",
+    },
+  }}
+/>
 
 ## Example Usage
 

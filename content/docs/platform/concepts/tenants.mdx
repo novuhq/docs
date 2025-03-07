@@ -3,6 +3,8 @@ title: 'Multi-tenancy'
 description: 'Learn about how to implement multi-tenant notifications in Novu'
 ---
 
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+
 Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants.
 
 Tenants are also commonly called workspaces or organizations.
@@ -14,7 +16,7 @@ Some of the common multi-tenancy use cases are:
 
 ## How to implement multi-tenancy in Novu
 
-Novu supports multi-tenancy out of the box, the most simple way to implement tenant separation is by prefixing the subscriber identifier with the tenant identifier.
+Novu supports multi-tenancy out of the box, the most simple way to implement tenant separation is by prefixing the subscriber identifier with the :tooltip[tenant identifier]{label="The tenant identifier is a unique identifier for the tenant in your application. Usually the tenant id in your database."}
 
 ```typescript
 const subscriberId = `${tenantId}:${userId}`;
