@@ -23,8 +23,86 @@ export const metadata = createMetadata({
   description: 'The documentation for Novu',
   metadataBase: baseUrl,
   icons: {
-    icon: [{ url: '/favicon.ico' }, { url: '/favicon.svg', type: 'image/svg+xml' }],
-    apple: [{ url: '/favicon-gradient.png' }],
+    icon: [
+      {
+        url: '/dark-favicon/favicon.ico',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/favicon.ico',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/dark-favicon/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/dark-favicon/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+    apple: [
+      {
+        url: '/dark-favicon/apple-touch-icon.png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/apple-touch-icon.png',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+    other: [
+      {
+        url: '/dark-favicon/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/dark-favicon/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        rel: 'manifest',
+        url: '/dark-favicon/site.webmanifest',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        rel: 'manifest',
+        url: '/light-favicon/site.webmanifest',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
   },
 });
 
