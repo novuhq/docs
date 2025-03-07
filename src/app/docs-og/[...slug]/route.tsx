@@ -3,8 +3,8 @@ import type { ImageResponse } from 'next/og';
 import { readFileSync } from 'node:fs';
 import { generateOGImage } from './og';
 
-const font = readFileSync('./src/app/docs-og/[[...slug]]/JetBrainsMono-Regular.ttf');
-const fontBold = readFileSync('./src/app/docs-og/[[...slug]]/JetBrainsMono-Bold.ttf');
+const font = readFileSync('./src/app/docs-og/[...slug]/JetBrainsMono-Regular.ttf');
+const fontBold = readFileSync('./src/app/docs-og/[...slug]/JetBrainsMono-Bold.ttf');
 
 export const GET = metadataImage.createAPI((page): ImageResponse => {
   return generateOGImage({

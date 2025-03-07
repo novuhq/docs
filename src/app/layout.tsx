@@ -22,6 +22,10 @@ export const metadata = createMetadata({
   },
   description: 'The documentation for Novu',
   metadataBase: baseUrl,
+  icons: {
+    icon: [{ url: '/favicon.ico' }, { url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/favicon-gradient.png' }],
+  },
 });
 
 export const viewport: Viewport = {
