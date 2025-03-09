@@ -512,10 +512,10 @@ Create `app/api/notifications/route.ts` :
 
 <Files>
   <Folder name="app" defaultOpen>
+    <Folder name="utils" defaultClose>
+      <File name="novu.ts" />
+    </Folder>
     <Folder name="api" defaultOpen>
-      <Folder name="notifications" defaultOpen>
-        <File name="route.ts" />
-      </Folder>
       <Folder name="webhooks" defaultClose>
         <Folder name="clerk" defaultClose>
           <File name="route.ts" />
@@ -527,11 +527,23 @@ Create `app/api/notifications/route.ts` :
 
 ```jsx
 import { Novu } from '@novu/api';
+
 const novu = new Novu({
     secretKey: process.env['NOVU_SECRET_KEY']
 });
 
-export async function triggerWorkflow(workflowId: string, subscriber: object, payload: object) {
+interface Subscriber {
+    subscriberId: string;
+    firstName?: string;
+    lastName?: string;
+    email: string;
+    phone?: string;
+    locale?: string;
+    avatar?: string;
+    data?: { [key: string]: string | number | boolean | string[] };
+}
+
+export async function triggerWorkflow(workflowId: string, subscriber: Subscriber, payload: object) {
     try {
         await novu.trigger({
             workflowId,
