@@ -1,7 +1,7 @@
 'use client';
 
 import { get } from '@/lib/novu-api';
-import { useAuth, useUser } from '@clerk/nextjs';
+import { SignedOut, useAuth, useUser } from '@clerk/nextjs';
 import { useEffect, useState } from 'react';
 import { DynamicCodeBlock } from '../codeblock';
 
@@ -71,6 +71,11 @@ export function NotificationInbox() {
   return (
     <>
       <DynamicCodeBlock title="components/inbox.tsx" code={code} lang="tsx" />
+      <SignedOut>
+        <div className="text-sm text-gray-500 text-center mt-[-12px]">
+          [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
+        </div>
+      </SignedOut>
     </>
   );
 }
