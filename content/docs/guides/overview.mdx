@@ -1,3 +1,31 @@
 ---
 title: 'Overview'
+pageTitle: 'Guides overview'
 ---
+
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { ClerkIcon } from '@/components/icons/clerk';
+import { StripeIcon } from '@/components/icons/stripe';
+
+## Webhook Integration Guides
+
+Webhooks enable real-time event-driven communication between applications, making integrations more efficient and responsive.  
+
+In Novu, webhooks trigger notification workflows whenever specific events occur in external applications. This ensures notifications are delivered exactly when they’re needed, keeping users informed without delay.
+
+For example, when a user signs up via Clerk or completes a payment through Stripe, a webhook delivers the event payload to Novu, which then processes it and triggers the appropriate workflow.
+
+This allows for real-time notifications—whether it’s a welcome email, payment confirmation SMS, or in-app alert—without the need for constant polling, ensuring efficiency and a seamless user experience.
+
+<Cards>
+  <Card title="Clerk" icon={<ClerkIcon />} href="/guides/webhooks/clerk">
+  <p>
+    Use Clerks webhooks events to trigger authentication related notifications workflows.
+  </p>
+  </Card>
+  <Card title="Stripe" icon={<StripeIcon />} href="/guides/webhooks/stripe">
+  <p>
+    Use Stripe webhooks events to trigger payment related notifications workflows.
+  </p>
+  </Card>
+</Cards>
