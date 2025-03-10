@@ -25,62 +25,67 @@ To use the MailerSend provider in the email channel, you will need to create a M
 
 Novu has its own email editor for writing email template. If you want to use pre made template from MailerSend, you can use `customData` filed of email overrides to send template details. Make sure your `Api Key` has enough permission to read and process the template.
 
+<Callout type="info">
+  sending `customData` field in overrides to send mailersend template will work only in following cases:
+  - if workflow is triggered to only one subscriber 
+  - if workflow is triggered to multiple subscribers or topic but mailersend template does not have any dynamic variables related to subscriber attributes like `firstName`, `lastName`, `email`, etc as same overrides will be applied to all subscribers or topic
+</Callout>
+
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
 ```jsx
 import {
-  Novu
+    Novu
 } from '@novu/node';
 
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
 await novu.subscribers.trigger("workflowIdentifier", {
-to: "subscriberId",
-payload: {},
-overrides: {
-email: {
-customData: {
-// mailersend template templateId
-templateId: 'mailersend-template-id',
-// mailersend template variables
-personalization: [{
-email: 'recipient@email.com',
-data: {
-items: {
-price: '',
-product: '',
-quantity: '',
-},
-order: {
-date: '',
-order_number: '',
-billing_address: '',
-customer_message: '',
-},
-store: {
-name: '',
-},
-invoice: {
-total: '',
-subtotal: '',
-pay_method: '',
-},
-customer: {
-name: '',
-email: '',
-phone: '',
-},
-},
-}, ],
-},
-}
-},
-// actorId is subscriberId of actor
-actor: "actorId"
-tenant: "tenantIdentifier"
+    to: "subscriberId",
+    payload: {},
+    overrides: {
+        email: {
+            customData: {
+                // mailersend template templateId
+                templateId: 'mailersend-template-id',
+                // mailersend template variables
+                personalization: [{
+                    email: 'recipient@email.com',
+                    data: {
+                        items: {
+                            price: '',
+                            product: '',
+                            quantity: '',
+                        },
+                        order: {
+                            date: '',
+                            order_number: '',
+                            billing_address: '',
+                            customer_message: '',
+                        },
+                        store: {
+                            name: '',
+                        },
+                        invoice: {
+                            total: '',
+                            subtotal: '',
+                            pay_method: '',
+                        },
+                        customer: {
+                            name: '',
+                            email: '',
+                            phone: '',
+                        },
+                    },
+                }, ],
+            },
+        }
+    },
+    // actorId is subscriberId of actor
+    actor: "actorId"
+    tenant: "tenantIdentifier"
 });
-
-````
+```
 </Tab>
 <Tab value="cURL">
 ```bash
