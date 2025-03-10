@@ -8,16 +8,15 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 import { Card, Cards } from 'fumadocs-ui/components/card';
 import { NextjsIcon } from '@/components/icons/nextjs';
 import { ExpressjsIcon } from '@/components/icons/expressjs';
-import { Step, Steps } from 'fumadocs-ui/components/steps';
 import { Callout } from 'fumadocs-ui/components/callout';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { File, Folder, Files } from 'fumadocs-ui/components/files';
 
-You'll learn how to automatically trigger notification workflows when **any Stripe event** occurs, such as **payment, subscription, customer creation**.
+You'll learn how to automatically trigger notification workflows when **any Stripe event** occurs, such as **payment, subscription, or customer events**.
 
 ## Overview
 
-When specific events happen in Stripe (e.g., payment, subscription, customer creation), this integration will:
+When specific events happen in Stripe (e.g., payment, subscription, or customer events), this integration will:
 
 1. Receive the webhook event from Stripe.
 2. Verify the webhook signature.
@@ -25,48 +24,47 @@ When specific events happen in Stripe (e.g., payment, subscription, customer cre
 4. Trigger the corresponding **Novu notification workflow**.
 
 <Callout>
-You can also clone this repository: https://github.com/iampearceman/clerk-webhook-novu
+You can also clone this repository: https://github.com/novuhq/stripe-to-novu-webhooks
 </Callout>
 
 ## Prerequisites
 
 Before proceeding, ensure you have:
 
-- A **Clerk + Next.js app** ([Set up Clerk](https://clerk.com/docs/quickstarts/nextjs)).
+- A **Stripe account** ([Sign up here](https://dashboard.stripe.com/signup)).
 - A **Novu account** ([Sign up here](https://novu.com/signup)).
 
 
 <Steps>
-<Step title="Step 1: Install Dependencies">
+<Step>
 
-## **Step 1: Install Dependencies**
+## Install Dependencies
 
 Run the following command to install the required packages:
 
 ```
-npm install svix @novu/api @clerk/nextjs
+npm install @novu/api @clerk/nextjs @stripe
 ```
 
 </Step>
 
-<Step title="Step 2: Configure Environment Variables">
+<Step>
 
-## **Step 2: Configure Environment Variables**
+## Configure Environment Variables
 
 Add the following variables to your `.env.local` file:
 
 ```
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
-CLERK_SECRET_KEY=sk_test_...
-CLERK_SIGNING_SECRET=whsec_...
 NOVU_SECRET_KEY=novu_secret_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
 ```
 
 </Step>
 
-<Step title="Step 3: Expose Your Local Server">
+<Step>
 
-## **Step 3: Expose Your Local Server**
+## Expose Your Local Server
 
 To test webhooks locally, you need to expose your **local server** to the internet.
 
@@ -117,39 +115,49 @@ Learn more about **ngrok** [here](https://dashboard.ngrok.com/get-started/setup)
 
 </Step>
 
-<Step title="Step 4: Set Up Clerk Webhook Endpoint">
+<Step>
 
-## **Step 4: Set Up Clerk Webhook Endpoint**
+## Set Up Stripe Webhook Endpoint
 
-1. Go to the **Clerk Webhooks** page ([link](https://dashboard.clerk.com/last-active?path=webhooks)).
+Stripe supports two endpoint types: Account and Connect. Create an endpoint for Account unless you’ve created a Connect application. You can register up to 16 webhook endpoints on each Stripe account.
+
+<Callout type="info" title="Note">
+When you create an endpoint in the Dashboard, you can choose between your Account’s API version or the latest API version. You can test other API versions in Workbench using stripe webhook_endpoints create, but you must create a webhook endpoint using the API to use other API versions in production.
+</Callout>
+
+Use the following steps to register a webhook endpoint in the Developers Dashboard.
+
+
+1. Navigate to the [**Webhooks page**](https://dashboard.stripe.com/webhooks).
 2. Click **Add Endpoint**.
-3. Set the **Endpoint URL** as:
+3. Add your webhook endpoint’s HTTPS URL in **Endpoint URL**.
 
    ```
-      https://your-forwarding-URL/api/webhooks/clerk
+      https://your-forwarding-URL/api/webhooks/stripe
    ```
 
-4. Subscribe to the **relevant Clerk events** (e.g., `user.created`, `email.created` etc.).
-5. Click **Create** and keep the settings page open.
+4. If you have a **Stripe Connect account**, enter a description, then click **Listen to events** on **Connected accounts**.
+5. Select the [event types](https://docs.stripe.com/api#event_types) you’re currently receiving in your local webhook endpoint in **Select events**.
+6. Click **Add endpoint**.
 
 </Step>
 
-<Step title="Step 5: Add Signing Secret to Environment Variables">
+<Step>
 
-## **Step 5: Add Signing Secret to Environment Variables**
+## Add Signing Secret to Environment Variables
 
-1. Copy the **Signing Secret** from Clerk's **Webhook Endpoint Settings**.
+1. Copy the **Signing Secret** from Stripe's **Webhook Endpoint Settings**.
 2. Add it to your `.env.local` file:
 
 ```
-CLERK_SIGNING_SECRET=your_signing_secret_here
+STRIPE_WEBHOOK_SECRET=your_signing_secret_here
 ```
 
 </Step>
 
-<Step title="Step 6: Make Webhook Route Public">
+<Step>
 
-## **Step 6: Make Webhook Route Public**
+## Make Webhook Route Public
 
 Ensure the webhook route is public by updating `middleware.ts` :
 
@@ -163,17 +171,17 @@ export default clerkMiddleware({
 
 </Step>
 
-<Step title="Step 7: Create Webhook Endpoint for Clerk in Next.js">
+<Step>
 
-## **Step 7: Create Webhook Endpoint for Clerk in Next.js**
+## Create Webhook Endpoint for Clerk in Next.js
 
-Create `app/api/webhooks/clerk/route.ts`:
+Create `app/api/webhooks/stripe/route.ts`:
 
 <Files>
   <Folder name="app" defaultOpen>
     <Folder name="api" defaultOpen>
       <Folder name="webhooks" defaultOpen>
-        <Folder name="clerk" defaultOpen>
+        <Folder name="stripe" defaultOpen>
           <File name="route.ts" />
         </Folder>
       </Folder>
@@ -184,340 +192,98 @@ Create `app/api/webhooks/clerk/route.ts`:
 The following snippet is the complete code of how to create a webhook endpoint for Clerk in Next.js:
 
 ```jsx
-import { Webhook } from 'svix'
-import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
-import { triggerWorkflow } from '../../notifications/route'
+import Stripe from "stripe";
+import { NextResponse, NextRequest } from "next/server";
+import { triggerWorkflow } from "@/app/utils/novu";
 
-export async function POST(request: Request) {
-    try {
-        const SIGNING_SECRET = process.env.SIGNING_SECRET
-        if (!SIGNING_SECRET) {
-            throw new Error('Please add SIGNING_SECRET from Clerk Dashboard to .env')
-        }
 
-        const webhook = new Webhook(SIGNING_SECRET)
-        const headerPayload = await headers()
-        const validatedHeaders = validateHeaders(headerPayload)
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-        const payload = await request.json()
-        const body = JSON.stringify(payload)
+const supportedEvents = [
+  "customer.subscription.created",
+  "customer.subscription.updated",
+];
 
-        const event = await verifyWebhook(webhook, body, {
-            'svix-id': validatedHeaders.svix_id,
-            'svix-timestamp': validatedHeaders.svix_timestamp,
-            'svix-signature': validatedHeaders.svix_signature,
-        })
+export async function POST(request: NextRequest) {
+  const webhookPayload = await request.text();
+  const response = JSON.parse(webhookPayload);
 
-        await handleWebhookEvent(event)
+  const signature = request.headers.get("Stripe-Signature");
 
-        return new Response('Webhook received', { status: 200 })
-    } catch (error) {
-        console.error('Webhook processing error:', error)
-        return new Response(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`, { status: 400 })
+  try {
+    let event = stripe.webhooks.constructEvent(
+      webhookPayload,
+      signature!,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+
+    if (supportedEvents.includes(event.type)) {
+      const workflow = event.type.replaceAll(".", "-");
+      const subscriber = await buildSubscriberData(response);
+      const payload = await payloadBuilder(response);
+      console.log(
+        "Triggering workflow:", workflow,
+        "Subscriber:", subscriber,
+        "Payload:", payload
+      );
+      return await triggerWorkflow(workflow, subscriber, payload);
     }
+
+    return NextResponse.json({ status: "sucess", event: event.type, response: response });
+  } catch (error) {
+    return NextResponse.json({ status: "Failed", error });
+  }
 }
 
-const handleWebhookEvent = async (event: WebhookEvent) => {
-    if (event.type !== "user.created" && event.type !== "email.created") {
-        return
-    }
 
-    const workflow = await workflowBuilder(event)
-    const subscriber = await subscriberBuilder(event)
-    const payload = await payloadBuilder(event)
 
-    console.log("Triggering workflow:", workflow, "Subscriber:", subscriber, "Payload:", payload)
-    await triggerWorkflow(workflow, subscriber, payload)
-}
-
-async function workflowBuilder(event: WebhookEvent) {
-    let workflow = "";
-    if (event.type === "user.created") {
-        workflow = "user-created";
-    } else if (event.type === "email.created") {
-        workflow = `${event.data.slug?.replace(/_/g, '-') || ''}`;
-    }
-    return workflow;
-}
-
-async function subscriberBuilder(response: any) {
-
-    // Rely only on webhook event data
-    const webhookData = response.data;
-
-    // Get the user from Clerk (Optional)
-    // const user = await clerkClient.users.getUser(data.id);
-
-    // Build the subscriber data
-    return {
-        subscriberId: webhookData.id, // Required field
-        firstName: webhookData.first_name || '',
-        lastName: webhookData.last_name || '',
-        email: webhookData.email_addresses[0]?.email_address || '',
-        phone: webhookData.phone_numbers?.[0]?.phone_number || '',
-        locale: 'en_US', // Default locale
-        avatar: webhookData.image_url || '',
-        data: {
-            username: webhookData.username || '',
-            clerkUserId: webhookData.id || '',
-        },
-    }
+async function buildSubscriberData(response: any) {
+  const customer = await stripe.customers.retrieve(response.data.object.customer);
+  console.log("Customer", customer);
+  
+  if ('deleted' in customer) {
+    throw new Error('Customer has been deleted');
+  }
+  
+  // Split the full name into first and last name
+  const [firstName = '', lastName = ''] = (customer.name || '').split(' ');
+  
+  return {
+    subscriberId: customer.id,
+    email: customer.email || 'test2@test.com',
+    firstName: firstName || '',
+    lastName: lastName || '',
+    phone: customer?.phone || '',
+    locale: customer?.preferred_locales?.[0] || 'en', // Use first preferred locale or default to 'en'
+    avatar: '', // Stripe customer doesn't have avatar
+    data: {
+      stripeCustomerId: customer.id,
+    },
+  };
 }
 
 async function payloadBuilder(response: any) {
-    const webhookData = JSON.parse(response);
-    return webhookData;
-}
-
-const validateHeaders = (headerPayload: Headers) => {
-    const svix_id = headerPayload.get('svix-id')
-    const svix_timestamp = headerPayload.get('svix-timestamp')
-    const svix_signature = headerPayload.get('svix-signature')
-
-    if (!svix_id || !svix_timestamp || !svix_signature) {
-        throw new Error('Missing Svix headers')
-    }
-
-    return { svix_id, svix_timestamp, svix_signature }
-}
-
-const verifyWebhook = async (webhook: Webhook, body: string, headers: any): Promise<WebhookEvent> => {
-    try {
-        return webhook.verify(body, headers) as WebhookEvent
-    } catch (err) {
-        console.error('Error: Could not verify webhook:', err)
-        throw new Error('Verification error')
-    }
+  const webhookData = JSON.parse(response);
+  return webhookData;
 }
 ```
-
-<Accordions>
-<Accordion title="Breakdown of the code">
-
----
-
-**Imports and Dependencies**
-
-```jsx
-import { Webhook } from 'svix'
-import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
-import { triggerWorkflow } from '../../notifications/route'
-```
-
-- `Webhook` from `svix`: This is a library used to verify the authenticity of incoming webhooks by checking their signatures. Webhooks often use signatures to ensure the payload hasn’t been tampered with.
-
-- `headers` from `next/headers`: A Next.js utility to access HTTP headers from the incoming request in the App Router.
-
-- `WebhookEvent` from `@clerk/nextjs/server`: A type definition for webhook events, likely provided by Clerk (a user authentication and management service). This ensures type safety when handling events.
-
-- `triggerWorkflow`: A custom function (imported from another file) that triggers a workflow. This is likely where notifications or other business logic is executed.
-
----
-
-**Main Entry Point: `POST` Handler**
-
-```jsx
-export async function POST(request: Request) {
-    try {
-        const SIGNING_SECRET = process.env.SIGNING_SECRET
-        if (!SIGNING_SECRET) {
-            throw new Error('Please add SIGNING_SECRET from Clerk Dashboard to .env')
-        }
- 
-        const webhook = new Webhook(SIGNING_SECRET)
-        const headerPayload = await headers()
-        const validatedHeaders = validateHeaders(headerPayload)
- 
-        const payload = await request.json()
-        const body = JSON.stringify(payload)
- 
-        const event = await verifyWebhook(webhook, body, {
-            'svix-id': validatedHeaders.svix_id,
-            'svix-timestamp': validatedHeaders.svix_timestamp,
-            'svix-signature': validatedHeaders.svix_signature,
-        })
- 
-        await handleWebhookEvent(event)
- 
-        return new Response('Webhook received', { status: 200 })
-    } catch (error) {
-        console.error('Webhook processing error:', error)
-        return new Response(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`, { status: 400 })
-    }
-}
-```
-
-This is the main function that handles incoming HTTP POST requests (webhook events).
-
----
-
-**Handling the Webhook Event: `handleWebhookEvent`**
-
-```jsx
-const handleWebhookEvent = async (event: WebhookEvent) => {
-    if (event.type !== "user.created" && event.type !== "email.created") {
-        return
-    }
- 
-    const workflow = await workflowBuilder(event)
-    const subscriber = await subscriberBuilder(event)
-    const payload = await payloadBuilder(event)
- 
-    console.log("Triggering workflow:", workflow, "Subscriber:", subscriber, "Payload:", payload)
-    await triggerWorkflow(workflow, subscriber, payload)
-}
-```
-
-This function processes the verified webhook event.
-
----
-
-**Building the Workflow: `workflowBuilder`**
-
-```jsx
-async function workflowBuilder(event: WebhookEvent) {
-    let workflow = "";
-    if (event.type === "user.created") {
-        workflow = "user-created";
-    } else if (event.type === "email.created") {
-        workflow = `${event.data.slug?.replace(/_/g, '-') || ''}`;
-    }
-    return workflow;
-}
-```
-
-This function determines the type of workflow to trigger based on the event type.
-
----
-
-**Building the Subscriber: `subscriberBuilder`**
-
-```jsx
-async function subscriberBuilder(response: any) {
- 
-    // Rely only on webhook event data
-    const webhookData = response.data;
- 
-    // Get the user from Clerk (Optional)
-    // const user = await clerkClient.users.getUser(data.id);
- 
-    // Build the subscriber data
-    return {
-        subscriberId: webhookData.id, // Required field
-        firstName: webhookData.first_name || '',
-        lastName: webhookData.last_name || '',
-        email: webhookData.email_addresses[0]?.email_address || '',
-        phone: webhookData.phone_numbers?.[0]?.phone_number || '',
-        locale: 'en_US', // Default locale
-        avatar: webhookData.image_url || '',
-        data: {
-            username: webhookData.username || '',
-            clerkUserId: webhookData.id || '',
-        },
-    }
-}
-```
-
-This function builds the subscriber data based on the webhook event data.
-
----
-
-**Building the Payload: `payloadBuilder`**
-
-```jsx
-async function payloadBuilder(response: any) {
-    const webhookData = JSON.parse(response);
-    return webhookData;
-}
-```
-
-This function constructs the payload for the workflow.
-
----
-
-**Validating the Headers: `validateHeaders`**
-
-```jsx
-const validateHeaders = (headerPayload: Headers) => {
-    const svix_id = headerPayload.get('svix-id')
-    const svix_timestamp = headerPayload.get('svix-timestamp')
-    const svix_signature = headerPayload.get('svix-signature')
- 
-    if (!svix_id || !svix_timestamp || !svix_signature) {
-        throw new Error('Missing Svix headers')
-    }
- 
-    return { svix_id, svix_timestamp, svix_signature }
-}
-```
-
-This function extracts and validates the Svix headers from the request.
-
----
-
-**Verifying the Webhook: `verifyWebhook`**
-
-```jsx
-const verifyWebhook = async (webhook: Webhook, body: string, headers: any): Promise<WebhookEvent> => {
-    try {
-        return webhook.verify(body, headers) as WebhookEvent
-    } catch (err) {
-        console.error('Error: Could not verify webhook:', err)
-        throw new Error('Verification error')
-    }
-}
-```
-
-This function verifies the authenticity of the webhook using the `svix` library.
-
----
-
-**How It All Fits Together**
-
-Here’s a high-level flow of how the code works:
-
-1. **Receive a Webhook:**
-   The `POST` handler receives an `HTTP POST` request with a webhook payload.
-
-2. **Validate and Verify:**
-   The `validateHeaders` function ensures the required Svix headers are present. The `verifyWebhook` function uses the `svix` library to verify the webhook’s authenticity.
-
-3. **Process the Event:**
-   The `handleWebhookEvent` function filters events and processes only `user.created` or `email.created` events.
-
-   It calls helper functions (`workflowBuilder`, `subscriberBuilder`, `payloadBuilder`) to construct the necessary data.
-
-4. **Trigger a Workflow:**
-   The `triggerWorkflow` function is called with the constructed data, executing the desired business logic (e.g., sending notifications).
-
-5. **Return a Response:**
-   A success (200) or error (400) response is returned to the webhook provider.
-
----
-
-</Accordion>
-</Accordions>
-
 
 </Step>
 
+<Step>
 
-<Step title="Step 8: Add Novu Workflow Notification Trigger Function">
+## Add Novu Workflow Notification Trigger Function
 
-## **Step 8: Add Novu Workflow Notification Trigger Function**
-
-Create `app/api/notifications/route.ts` :
+Create `app/utils/novu.ts` :
 
 <Files>
   <Folder name="app" defaultOpen>
+    <Folder name="utils" defaultOpen>
+      <File name="novu.ts" />
+    </Folder>
     <Folder name="api" defaultOpen>
-      <Folder name="notifications" defaultOpen>
-        <File name="route.ts" />
-      </Folder>
-      <Folder name="webhooks" defaultClose>
-        <Folder name="clerk" defaultClose>
+      <Folder name="webhooks" defaultOpen>
+        <Folder name="stripe" defaultOpen>
           <File name="route.ts" />
         </Folder>
       </Folder>
@@ -527,12 +293,15 @@ Create `app/api/notifications/route.ts` :
 
 ```jsx
 import { Novu } from '@novu/api';
+import { SubscriberPayloadDto } from '@novu/api/models/components/subscriberpayloaddto';
+
 const novu = new Novu({
     secretKey: process.env['NOVU_SECRET_KEY']
 });
 
-export async function triggerWorkflow(workflowId: string, subscriber: object, payload: object) {
+export async function triggerWorkflow(workflowId: string, subscriber: SubscriberPayloadDto, payload: object) {
     try {
+        console.log("Payload:", payload ,"Triggering workflow:", workflowId, "Subscriber:", subscriber)
         await novu.trigger({
             workflowId,
             to: subscriber,
@@ -547,9 +316,9 @@ export async function triggerWorkflow(workflowId: string, subscriber: object, pa
 
 </Step>
 
-<Step title="Step 9: Add or create Novu workflows in your Novu dashboard">
+<Step>
 
-## **Step 9: Add or create Novu workflows in your Novu dashboard**
+## Add or create Novu workflows in your Novu dashboard
 
 In Novu, a webhook event—such as a user being created or updated—can trigger one or more workflows, depending on how you want to handle these events in your application. 
 
@@ -557,11 +326,11 @@ A workflow defines a sequence of actions (e.g., sending notifications, updating 
 
 The Novu dashboard allows you to either create a custom workflow from scratch or choose from pre-built templates to streamline the process.
 
-**Steps to Create a Workflow**
+---
 
 Follow these steps to set up your workflow(s) in the Novu dashboard:
 
-### 9.1: Identify the Triggering Event(s)
+### Identify the Triggering Event(s)
 
    Determine which webhook events will activate your workflow (e.g., "user created," "user updated").
    
@@ -570,75 +339,178 @@ Follow these steps to set up your workflow(s) in the Novu dashboard:
 <Accordions>
   <Accordion title="Supported webhook events">
 
-  To find a list of all the events Clerk supports:
-  1. In the Clerk Dashboard, navigate to the Webhooks page.
-  2. Select the Event Catalog tab.
+  To find a list of all the events Stripe supports and learn more about them, visit the [Stripe documentation](https://docs.stripe.com/event-destinations).
+
 
   </Accordion>
 
   <Accordion title="Payload structure">
 
-  The payload of a webhook is a JSON object that contains the following properties:
-  
-  - `data`: contains the actual payload sent by Clerk. 
-    The payload can be a different object depending on the event type. 
-    
-    For example, for `user.*` events, the payload will always be the [User object](https://clerk.com/docs/references/javascript/user).
-  
-  - `object`: always set to `event`.
-  
-  - `type`: the type of event that triggered the webhook.
-  
-  - `timestamp`: timestamp in milliseconds of when the event occurred.
-  
-  - `instance_id`: the identifier of your Clerk instance.
-
-  The following example shows the payload of a `user.created` event:
+  The following example shows the payload of a `customer.subscription.created` event:
 
   ```json
-  {
-  "data": {
-    "birthday": "",
-    "created_at": 1654012591514,
-    "email_addresses": [
-      {
-        "email_address": "exaple@example.org",
-        "id": "idn_29w83yL7CwVlJXylYLxcslromF1",
-        "linked_to": [],
-        "object": "email_address",
-        "verification": {
-          "status": "verified",
-          "strategy": "ticket"
-        }
+{
+  "object": {
+    "id": "sub_1Qy9WoR7RyRE3Uxrj6iaIAHV",
+    "object": "subscription",
+    "application": null,
+    "application_fee_percent": null,
+    "automatic_tax": {
+      "disabled_reason": null,
+      "enabled": false,
+      "liability": null
+    },
+    "billing_cycle_anchor": 1740910426,
+    "billing_cycle_anchor_config": null,
+    "billing_thresholds": null,
+    "cancel_at": null,
+    "cancel_at_period_end": false,
+    "canceled_at": null,
+    "cancellation_details": {
+      "comment": null,
+      "feedback": null,
+      "reason": null
+    },
+    "collection_method": "charge_automatically",
+    "created": 1740910426,
+    "currency": "usd",
+    "current_period_end": 1743588826,
+    "current_period_start": 1740910426,
+    "customer": "cus_RrtJuJIveFMpmq",
+    "days_until_due": null,
+    "default_payment_method": null,
+    "default_source": null,
+    "default_tax_rates": [],
+    "description": null,
+    "discount": null,
+    "discounts": [],
+    "ended_at": null,
+    "invoice_settings": {
+      "account_tax_ids": null,
+      "issuer": {
+        "type": "self"
       }
-    ],
-    "external_accounts": [],
-    "external_id": "567772",
-    "first_name": "Example",
-    "gender": "",
-    "id": "user_29w83sxmDNGwOuEthce5gg56FcC",
-    "image_url": "https://img.clerk.com/xxxxxx",
-    "last_name": "Example",
-    "last_sign_in_at": 1654012591514,
-    "object": "user",
-    "password_enabled": true,
-    "phone_numbers": [],
-    "primary_email_address_id": "idn_29w83yL7CwVlJXylYLxcslromF1",
-    "primary_phone_number_id": null,
-    "primary_web3_wallet_id": null,
-    "private_metadata": {},
-    "profile_image_url": "https://www.gravatar.com/avatar?d=mp",
-    "public_metadata": {},
-    "two_factor_enabled": false,
-    "unsafe_metadata": {},
-    "updated_at": 1654012591835,
-    "username": null,
-    "web3_wallets": []
+    },
+    "items": {
+      "object": "list",
+      "data": [
+        {
+          "id": "si_sdfsFwsthbHIUHJY",
+          "object": "subscription_item",
+          "billing_thresholds": null,
+          "created": 1740910426,
+          "discounts": [],
+          "metadata": {},
+          "plan": {
+            "id": "price_1Qy9WnR7RyRE3UxrRi33EJNc",
+            "object": "plan",
+            "active": true,
+            "aggregate_usage": null,
+            "amount": 1500,
+            "amount_decimal": "1500",
+            "billing_scheme": "per_unit",
+            "created": 1740910425,
+            "currency": "usd",
+            "interval": "month",
+            "interval_count": 1,
+            "livemode": false,
+            "metadata": {},
+            "meter": null,
+            "nickname": null,
+            "product": "prod_RrtJKUBhMKqoHb",
+            "tiers_mode": null,
+            "transform_usage": null,
+            "trial_period_days": null,
+            "usage_type": "licensed"
+          },
+          "price": {
+            "id": "price_1Qy9WnR7RyRE3UxrRi33EJNc",
+            "object": "price",
+            "active": true,
+            "billing_scheme": "per_unit",
+            "created": 1740910425,
+            "currency": "usd",
+            "custom_unit_amount": null,
+            "livemode": false,
+            "lookup_key": null,
+            "metadata": {},
+            "nickname": null,
+            "product": "prod_RrtJKUBhMKqoHb",
+            "recurring": {
+              "aggregate_usage": null,
+              "interval": "month",
+              "interval_count": 1,
+              "meter": null,
+              "trial_period_days": null,
+              "usage_type": "licensed"
+            },
+            "tax_behavior": "unspecified",
+            "tiers_mode": null,
+            "transform_quantity": null,
+            "type": "recurring",
+            "unit_amount": 1500,
+            "unit_amount_decimal": "1500"
+          },
+          "quantity": 1,
+          "subscription": "sub_1Qy9WoR7RyRE3Uxrj6iaIAHV",
+          "tax_rates": []
+        }
+      ],
+      "has_more": false,
+      "total_count": 1,
+      "url": "/v1/subscription_items?subscription=sub_1Qy9WoR7RyRE3Uxrj6iaIAHV"
+    },
+    "latest_invoice": "in_1Qy9WoR7RyRE3UxrNBjqvFxM",
+    "livemode": false,
+    "metadata": {},
+    "next_pending_invoice_item_invoice": null,
+    "on_behalf_of": null,
+    "pause_collection": null,
+    "payment_settings": {
+      "payment_method_options": null,
+      "payment_method_types": null,
+      "save_default_payment_method": "off"
+    },
+    "pending_invoice_item_interval": null,
+    "pending_setup_intent": null,
+    "pending_update": null,
+    "plan": {
+      "id": "price_1Qy9WnR7RyRE3UxrRi33EJNc",
+      "object": "plan",
+      "active": true,
+      "aggregate_usage": null,
+      "amount": 1500,
+      "amount_decimal": "1500",
+      "billing_scheme": "per_unit",
+      "created": 1740910425,
+      "currency": "usd",
+      "interval": "month",
+      "interval_count": 1,
+      "livemode": false,
+      "metadata": {},
+      "meter": null,
+      "nickname": null,
+      "product": "prod_RrtJKUBhMKqoHb",
+      "tiers_mode": null,
+      "transform_usage": null,
+      "trial_period_days": null,
+      "usage_type": "licensed"
+    },
+    "quantity": 1,
+    "schedule": null,
+    "start_date": 1740910426,
+    "status": "active",
+    "test_clock": null,
+    "transfer_data": null,
+    "trial_end": null,
+    "trial_settings": {
+      "end_behavior": {
+        "missing_payment_method": "create_invoice"
+      }
+    },
+    "trial_start": null
   },
-  "instance_id": "ins_123",
-  "object": "event",
-  "timestamp": 1654012591835,
-  "type": "user.created"
+  "previous_attributes": null
 }
 ```
 
@@ -648,7 +520,7 @@ Follow these steps to set up your workflow(s) in the Novu dashboard:
 
 
 
-### 9.2: Choose Your Starting Point
+### Choose Your Starting Point
 
 <Tabs items={['Use a Workflow Template', 'Create a Blank Workflow', 'Code-First Workflow (Novu Framework)']}>
 <Tab value="Use a Workflow Template">
@@ -680,7 +552,7 @@ Follow these steps to set up your workflow(s) in the Novu dashboard:
 </Tabs>
    
 
-### 9.3: Configure the Workflow  
+### Configure the Workflow  
 
    - For a template, tweak the existing steps to align with your requirements.  
 
@@ -688,7 +560,7 @@ Follow these steps to set up your workflow(s) in the Novu dashboard:
 
    - For a code-first workflow, you can use the Novu Framework to build your workflow right within your code base.
 
-### 9.4: Set Trigger Conditions
+### Set Trigger Conditions
 
    - Link the workflow to the correct webhook event(s). 
 
@@ -704,36 +576,36 @@ Follow these steps to set up your workflow(s) in the Novu dashboard:
 
 </Step>
 
-<Step title="Step 10: Disable Email **Delivered by Clerk**">
+<Step>
 
-## Step 10: Disable Email **Delivered by Clerk**
+## Disable Email Delivery by Stripe
 
-By default, Clerk sends email notifications whenever necessary, such as Magic Links for email verification, Invitations, Password Resets, and more.
+By default, Stripe sends email notifications whenever necessary, such as subscription created, updated, and more.
 
-To prevent users from receiving duplicate emails, we need to disable email delivery by Clerk for the notifications handled by Novu.
+To prevent users from receiving duplicate emails, we need to disable email delivery by Stripe for the notifications handled by Novu.
 
-1. Navigate to the **Emails** section in the Clerk Dashboard.
+1. In your Stripe Dashboard, navigate to the **Settings**.
 
-   ![Clerk's Dashboard 1](/images/guides/clerk/clerk-email-dashboard.png)
+2. Under the **Product Settings** section, navigate to the **Billing** tab.
 
-2. Select any **email.created** event that you want Novu to handle.
-3. Toggle **off** email delivery for the selected event.
+3. Toggle **off** delivery of the events you want to handle with Novu.
 
-   ![Clerk's Dashboard 2](/images/guides/clerk/clerk-email-dashboard2.png)
 
-This ensures that Clerk does not send duplicate emails, allowing Novu to manage the notifications seamlessly.
+This ensures that Stripe does not send duplicate emails, allowing Novu to manage the notifications seamlessly.
 
 </Step>
 
-<Step title="Step 11: Test the Webhook">
+<Step>
 
-## **Step 11: Test the Webhook**
+## Test the Webhook
 
-1. Start your Next.js server.
-2. Go to **Clerk Webhooks → Testing**.
-3. Select an event (e.g., `user.created`, `email.created`).
-4. Click **Send Example**.
-5. Verify logs in **your terminal**.
+<Cards>
+<Card title="Stripe CLI" href="https://docs.stripe.com/stripe-cli/triggers">
+
+Learn how you can test the webhook events using the Stripe CLI.
+
+</Card>
+</Cards>
 
 </Step>
 </Steps>
