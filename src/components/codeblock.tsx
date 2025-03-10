@@ -168,7 +168,7 @@ export function DynamicCodeBlock({
   code,
   options,
 }: {
-  title: string;
+  title?: string;
   lang: string;
   code: string;
   options?: Omit<HighlightOptions, 'lang'>;
