@@ -44,11 +44,13 @@ The `usePreferences` hook provides a way to fetch and manage notification prefer
     isLoading: {
       type: "boolean",
       description: "True during the initial load, false otherwise",
+      default: "true",
     },
     isFetching: {
       type: "boolean",
       description:
         "True during any loading state (initial or refetch), false otherwise",
+      default: "true",
     },
     refetch: {
       type: "() => Promise<void>",

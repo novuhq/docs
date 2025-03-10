@@ -6,17 +6,17 @@ description: 'Get started with Novu Framework in a NestJS application'
 
 import DeployApp from '@/snippets/quickstart/deploy.mdx';
 import NextStepsStep from '@/snippets/quickstart/next-steps.mdx';
-import PackagesStep from '@/snippets/quickstart/packages.mdx';
-import SecretStep from '@/snippets/quickstart/secret.mdx';
-import LocalStudio from '@/snippets/quickstart/start-studio.mdx';
-import TestStep from '@/snippets/quickstart/test.mdx';
-import WorkflowStep from '@/snippets/quickstart/workflow.mdx';
+import { PackagesStep } from '@/snippets/quickstart/packages.tsx';
+import { SecretStep } from '@/snippets/quickstart/secret.tsx';
+import { StudioStep } from '@/snippets/quickstart/studio.tsx';
+import { TestStep } from '@/snippets/quickstart/test.tsx';
+import { WorkflowStep } from '@/snippets/quickstart/workflow.tsx';
 
 In this guide, we will add a Novu [Bridge Endpoint](/platform/concepts/endpoint) to a NestJS application and send our first test workflow.
 
 <Steps>
     <Step title="Set up your local environment">
-        <LocalStudio />
+        <StudioStep />
     </Step>
     <Step title="Install packages">
         <PackagesStep />

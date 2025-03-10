@@ -28,13 +28,13 @@ export default function NotFound() {
         </p>
 
         <div className="flex items-center justify-center gap-4 pt-4">
-          <Button asChild>
+          <Button>
             <Link href="/" className="flex items-center gap-2">
               <HomeIcon className="w-4 h-4" />
               Home
             </Link>
           </Button>
-          <Button asChild>
+          <Button>
             <Link href="javascript:history.back()" className="flex items-center gap-2">
               <ArrowLeft className="w-4 h-4" />
               Go Back
