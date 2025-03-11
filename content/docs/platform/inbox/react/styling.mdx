@@ -33,8 +33,7 @@ The `appearance` prop can be used to customise the Inbox. It has three main keys
 
 ### Variables
 
-Variables are used to define global styling properties that can be reused throughout the inbox.
-You might want to use variables to the styling of multiple components at once, for example, if you want to change the border radius of all the components at once, you can do so by updating the `colorPrimary` variable, which will modify the CTA buttons, unseen counter and etc...
+Variables are used to define global styling properties that can be reused throughout the inbox. You might want to use variables to the styling of multiple components at once, for example, if you want to change the border radius of all the components at once, you can do so by updating the `colorPrimary` variable, which will modify the CTA buttons, unseen counter and etc...
 
 <TypeTable
   type={{
@@ -89,7 +88,7 @@ You might want to use variables to the styling of multiple components at once, f
   }}
 />
 
-<img src="/images/inbox/Variables Inbox.png" alt="Appearance Variables" />
+<img src="/images/inbox/styling_01@2x.png" alt="Appearance Variables" />
 
 #### Styling Variables
 
@@ -108,8 +107,7 @@ const appearance = {
 
 ### Elements
 
-The `elements` object allows you to define styles for these components. Each key corresponds to an component, and the value is an object containing `style properties` or you can also pass your `css classes`.
-Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
+The `elements` object allows you to define styles for these components. Each key corresponds to an component, and the value is an object containing `style properties` or you can also pass your `css classes`. Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
 
 #### Finding element selectors
 
@@ -127,7 +125,7 @@ const appearance = {
 };
 ```
 
-<img src="/images/inbox/Elements.png" alt="Finding Element Selectors" />
+<img src="/images/inbox/styling_02@2x.png" alt="Finding Element Selectors" />
 
 <Callout type="info">
   Any selector that appears before the 🔔 emoji, can be targeted via the elements property in
@@ -163,8 +161,7 @@ You can override the default elements by passing your own styles or CSS classes 
 
 #### Using Tailwind CSS
 
-You can also use Tailwind CSS classes to style the Inbox components. You can pass the classes
-directly to the `elements` object.
+You can also use Tailwind CSS classes to style the Inbox components. You can pass the classes directly to the `elements` object.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -241,8 +238,7 @@ export function Novu() {
 
 #### Using Styles Object
 
-You can also use a styles object to style the Inbox components. You can pass the styles
-directly to the `elements` object.
+You can also use a styles object to style the Inbox components. You can pass the styles directly to the `elements` object.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -275,9 +271,7 @@ export function Novu() {
 
 #### Render subject and body with bold text
 
-By default, the Inbox notification text for the subject and body is rendered in a normal font weight.
-To highlight important words or phrases within your notification messages, you can wrap the desired subject or body text in double asterisks (\*\*).
-Here's an example of how you can do this using the Novu Framework:
+By default, the Inbox notification text for the subject and body is rendered in a normal font weight. To highlight important words or phrases within your notification messages, you can wrap the desired subject or body text in double asterisks (\*\*). Here's an example of how you can do this using the Novu Framework:
 
 ```js
 await step.inApp('inbox', async () => {
@@ -293,8 +287,7 @@ await step.inApp('inbox', async () => {
   the text and apply the bold styling accordingly.
 </Callout>
 
-Currently we only support bold text. We are working on adding more text formatting options in the future.
-You can learn more about the Novu Framework in-app step [here](/framework/typescript/steps/inApp).
+Currently we only support bold text. We are working on adding more text formatting options in the future. You can learn more about the Novu Framework in-app step [here](/framework/typescript/steps/inApp).
 
 ## Render Notification Component
 
