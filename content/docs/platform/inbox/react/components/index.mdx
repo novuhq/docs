@@ -35,7 +35,7 @@ The Inbox is composed of the following sub-components that you can use to build 
 
 The internal UI and styles for those components can be modified using the [`appearance`](/platform/inbox/react/styling#appearance-prop) prop.
 
-<img src="/images/inbox/component_composition.png" alt="Component Composition" />
+<img src="/images/inbox/composition@2x.png" alt="Component Composition" />
 
 ## Layouts
 
@@ -65,7 +65,7 @@ import { BellIcon } from './icons';
 
 function Novu() {
   return (
-    <Inbox>
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
       <Bell
         renderBell={(unreadCount) => (
           <div>

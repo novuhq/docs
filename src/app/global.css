@@ -9,7 +9,18 @@
 @plugin 'tailwindcss-animate';
 
 @layer base {
-  aside .custom-nav {
+  article {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  @media (max-width: 768px) {
+    aside {
+      background-color: var(--color-fd-background) !important;
+    }
+  }
+
+  header div[data-theme-toggle] {
     display: none !important;
   }
 
@@ -30,6 +41,10 @@
   .line.highlighted {
     background-color: rgb(243, 240, 255) !important;
     border-left: 1px solid #5746af !important;
+  }
+
+  button[aria-label='Collapse Sidebar'] {
+    display: none !important;
   }
 
   body {

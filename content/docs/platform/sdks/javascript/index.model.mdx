@@ -115,7 +115,7 @@ Fetches the count of notifications based on filters.
 Marks a notification as read.
 
 ```typescript
-await novu.notifications.read('NOTIFICATION_ID');
+await novu.notifications.read({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 #### unread
@@ -123,7 +123,7 @@ await novu.notifications.read('NOTIFICATION_ID');
 Marks a notification as unread.
 
 ```typescript
-await novu.notifications.unread('NOTIFICATION_ID');
+await novu.notifications.unread({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 #### archive
@@ -131,7 +131,7 @@ await novu.notifications.unread('NOTIFICATION_ID');
 Archives a notification.
 
 ```typescript
-await novu.notifications.archive('NOTIFICATION_ID');
+await novu.notifications.archive({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 #### unarchive
@@ -139,7 +139,7 @@ await novu.notifications.archive('NOTIFICATION_ID');
 Unarchives a notification.
 
 ```typescript
-await novu.notifications.unarchive('NOTIFICATION_ID');
+await novu.notifications.unarchive({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 #### readAll
@@ -177,9 +177,7 @@ await novu.notifications.archiveAllRead({
 Marks primary action of a notification as completed.
 
 ```typescript
-await novu.notifications.completePrimary({
-  notificationId: 'notification.id',
-});
+await novu.notifications.completePrimary({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 #### completeSecondary
@@ -187,9 +185,7 @@ await novu.notifications.completePrimary({
 Marks secondary action of a notification as completed.
 
 ```typescript
-await novu.notifications.completeSecondary({
-  notificationId: 'notification.id',
-});
+await novu.notifications.completeSecondary({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 #### revertPrimary
@@ -197,9 +193,7 @@ await novu.notifications.completeSecondary({
 Reverts primary action of a notification to pending.
 
 ```typescript
-await novu.notifications.revertPrimary({
-  notificationId: 'notification.id',
-});
+await novu.notifications.revertPrimary({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 #### revertSecondary
@@ -207,9 +201,7 @@ await novu.notifications.revertPrimary({
 Reverts secondary action of a notification to pending.
 
 ```typescript
-await novu.notifications.revertSecondary({
-  notificationId: 'notification.id',
-});
+await novu.notifications.revertSecondary({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 ## Preferences
@@ -229,24 +221,6 @@ The response will be of type:
 ---type-table---
 ../types/js-types.ts#PreferenceResponse
 ---end---
-
-#### update
-
-Updates channel preferences for a specific workflow or globally.
-
----type-table---
-../types/js-types.ts#ChannelPreference
----end---
-
-```typescript
-await novu.preferences.update({
-  workflowId: 'workflow_id',
-  channelPreferences: {
-    email: false,
-    sms: false,
-  },
-});
-```
 
 ## Events
 

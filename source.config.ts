@@ -50,6 +50,7 @@ export default defineConfig({
         'kotlin',
         'swift',
       ],
+
       inline: 'tailing-curly-colon',
       themes: {
         light: 'github-light',
@@ -63,6 +64,8 @@ export default defineConfig({
           preprocess(code: string) {
             return code;
           },
+          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+
           code(hast: any) {
             for (const line of hast.children) {
               if (line.type !== 'element') continue;
@@ -77,6 +80,8 @@ export default defineConfig({
               head.value = head.value.replace(/\[\\!code/g, '[!code');
             }
           },
+          // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+
         } as any,
       ],
     },

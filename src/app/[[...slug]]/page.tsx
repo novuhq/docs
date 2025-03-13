@@ -7,17 +7,17 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Accordion, Accordions } from '../../components/accordion';
 import { Callout } from '../../components/callout';
-import { CodeBlock } from '../../components/codeblock';
+import { CodeBlock, Pre } from '../../components/codeblock';
 import { ImageZoom } from '../../components/image-zoom';
 import { Step, Steps } from '../../components/steps';
-import { Tab } from '../../components/tabs';
-import { Tabs } from '../../components/ui/tabs';
+import { Tab, Tabs } from '../../components/tabs';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from '../../components/ui/tooltip';
+import { metadataImage } from '../../lib/metadata-image';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -26,14 +26,13 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   if (!page) notFound();
 
   const MDX = page.data.body;
-  const path = `apps/docs/content/docs/${page.file.path}`;
+  const path = `content/docs/${page.file.path}`;
 
   return (
     <DocsPage
       toc={page.data.toc}
       full={page.data.full}
       tableOfContent={{
-        style: 'clerk',
         single: false,
       }}
       editOnGithub={{
@@ -55,6 +54,18 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
         <MDX
           components={{
             ...defaultMdxComponents,
+            pre: (props) => {
+              // Extract language and title from className if available
+              const className = props.className || '';
+              const match = /language-(\w+)/.exec(className);
+              const lang = match ? match[1] : '';
+
+              return (
+                <CodeBlock title={lang} {...props}>
+                  <Pre {...props} />
+                </CodeBlock>
+              );
+            },
             CodeBlock: CodeBlock,
             Callout: Callout,
             APIPage: (props) => (
@@ -111,8 +122,8 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
-  return {
+  return metadataImage.withImage(page.slugs, {
     title: page.data.title,
     description: page.data.description,
-  };
+  });
 }

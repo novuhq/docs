@@ -309,43 +309,6 @@ The response will be of type:
   }
 }} />
 
-#### update
-
-Updates channel preferences for a specific workflow or globally.
-
-<TypeTable name="ChannelPreference" type={{
-  "email": {
-    "description": "",
-    "type": "boolean"
-  },
-  "sms": {
-    "description": "",
-    "type": "boolean"
-  },
-  "in_app": {
-    "description": "",
-    "type": "boolean"
-  },
-  "chat": {
-    "description": "",
-    "type": "boolean"
-  },
-  "push": {
-    "description": "",
-    "type": "boolean"
-  }
-}} />
-
-```typescript
-await novu.preferences.update({
-  workflowId: 'workflow_id',
-  channelPreferences: {
-    email: false,
-    sms: false,
-  },
-});
-```
-
 ## Events
 
 The Novu client provides real-time event handling through WebSocket connections.

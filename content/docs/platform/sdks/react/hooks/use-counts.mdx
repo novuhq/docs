@@ -1,31 +1,47 @@
 ---
-title: 'useCounts'
-description: 'Learn how to use the useCounts hook to fetch notification counts in your React application'
+title: "useCounts"
+description: "Learn how to use the useCounts hook to fetch notification counts in your React application"
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 The `useCounts` hook provides a way to fetch various notification counts, including unread, unseen, and total counts. This hook is useful for displaying notification badges and indicators in your application.
 
 ## Hook Parameters
 
-| Parameter | Type   | Required | Description                               |
-| --------- | ------ | -------- | ----------------------------------------- |
-| storeId   | string | No       | Filter counts by a specific store ID      |
-| query     | object | No       | Additional query parameters for filtering |
+<TypeTable
+  type={{
+    filters: {
+      type: "NotificationFilter[]",
+      description: "Array of filters to apply when fetching counts",
+      typeDescription: "Required",
+    },
+    onSuccess: {
+      type: "(data: Count[]) => void",
+      description:
+        "Callback function called when counts are successfully fetched",
+    },
+    onError: {
+      type: "(error: NovuError) => void",
+      description: "Callback function called when an error occurs",
+    },
+  }}
+/>
 
 ## Return Value
 
 ```typescript
-type CountsReturn = {
-  data: {
-    unreadCount: number;
-    unseenCount: number;
-    total: number;
-  };
+type Count = {
+  count: number;
+  filter: NotificationFilter;
+};
+
+type UseCountsResult = {
+  counts?: Count[];
+  error?: NovuError;
   isLoading: boolean;
-  error: Error | null;
-  refetch: () => void;
+  isFetching: boolean;
+  refetch: () => Promise<void>;
 };
 ```
 
@@ -34,70 +50,22 @@ type CountsReturn = {
 Here's how to use the `useCounts` hook to fetch and display notification counts:
 
 ```tsx
-import { useCounts } from '@novu/react';
+import { useCounts } from "@novu/react";
 
-function NotificationBadge() {
-  const { data, isLoading, error } = useCounts();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+function BellButton() {
+  const { counts } = useCounts({ filters: [{ read: false }] });
+  const unreadCount = counts?.[0].count ?? 0;
 
   return (
-    <div>
-      <span>Unread: {data?.unreadCount}</span>
-      <span>Unseen: {data?.unseenCount}</span>
-      <span>Total: {data?.total}</span>
-    </div>
-  );
-}
-```
-
-### With Store ID
-
-You can filter counts for a specific store:
-
-```tsx
-function StoreNotifications({ storeId }) {
-  const { data, isLoading } = useCounts({
-    storeId: storeId,
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-
-  return (
-    <div>
-      <span>Store Notifications: {data?.total}</span>
-      <span>Unread: {data?.unreadCount}</span>
-    </div>
-  );
-}
-```
-
-### With Query Filters
-
-You can also apply additional filters using the query parameter:
-
-```tsx
-function FilteredNotifications() {
-  const { data, isLoading } = useCounts({
-    query: {
-      templates: ['welcome-template', 'order-update'],
-      emails: ['user@example.com'],
-    },
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-
-  return (
-    <div>
-      <span>Filtered Notifications: {data?.total}</span>
-      <span>Unread: {data?.unreadCount}</span>
-    </div>
+    <button>
+      <BellIcon />
+      {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
+    </button>
   );
 }
 ```
 
 <Callout type="info">
-  The counts are automatically updated in real-time when notifications are marked as read/unread or
-  when new notifications arrive.
+  The counts are automatically updated in real-time when notifications are
+  marked as read/unread or when new notifications arrive.
 </Callout>

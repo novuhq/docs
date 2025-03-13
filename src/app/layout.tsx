@@ -9,6 +9,7 @@ import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { ThemeToggle } from '../components/theme-toggle';
 import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
@@ -21,6 +22,88 @@ export const metadata = createMetadata({
   },
   description: 'The documentation for Novu',
   metadataBase: baseUrl,
+  icons: {
+    icon: [
+      {
+        url: '/dark-favicon/favicon.ico',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/favicon.ico',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/dark-favicon/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/dark-favicon/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+    apple: [
+      {
+        url: '/dark-favicon/apple-touch-icon.png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/apple-touch-icon.png',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+    other: [
+      {
+        url: '/dark-favicon/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        url: '/dark-favicon/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        url: '/light-favicon/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        media: '(prefers-color-scheme: dark)',
+      },
+      {
+        rel: 'manifest',
+        url: '/dark-favicon/site.webmanifest',
+        media: '(prefers-color-scheme: light)',
+      },
+      {
+        rel: 'manifest',
+        url: '/light-favicon/site.webmanifest',
+        media: '(prefers-color-scheme: dark)',
+      },
+    ],
+  },
 });
 
 export const viewport: Viewport = {
@@ -48,7 +131,17 @@ export default function Layout({ children }: { children: ReactNode }) {
               <DocsLayout
                 tree={source.pageTree}
                 {...baseOptions}
-                githubUrl="https://github.com/novuhq/novu"
+                sidebar={{
+                  collapsible: true,
+                  tabs: false,
+                  footer: (
+                    <div className="flex gap-2 justify-start w-full">
+                      <div className="ml-auto">
+                        <ThemeToggle />
+                      </div>
+                    </div>
+                  ),
+                }}
               >
                 <AnalyticsProvider />
                 {children}
