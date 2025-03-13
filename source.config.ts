@@ -60,11 +60,16 @@ export default defineConfig({
         transformerTwoslash(),
         {
           name: 'transformers:remove-notation-escape',
-          code(hast) {
+          preprocess(code: string) {
+            return code;
+          },
+          code(hast: any) {
             for (const line of hast.children) {
               if (line.type !== 'element') continue;
 
-              const lastSpan = line.children.findLast((v) => v.type === 'element');
+              const lastSpan = line.children.findLast(
+                (v: { type: string }) => v.type === 'element'
+              );
 
               const head = lastSpan?.children[0];
               if (head?.type !== 'text') return;
@@ -72,7 +77,7 @@ export default defineConfig({
               head.value = head.value.replace(/\[\\!code/g, '[!code');
             }
           },
-        },
+        } as any,
       ],
     },
     remarkPlugins: [

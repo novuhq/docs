@@ -7,7 +7,10 @@ interface DirectiveNode {
   type: 'textDirective' | 'leafDirective' | 'containerDirective';
   name: string;
   attributes?: Record<string, string>;
-  children?: Array<any>;
+  children?: Array<{
+    type: string;
+    value: string;
+  }>;
   data?: Record<string, unknown>;
 }
 
