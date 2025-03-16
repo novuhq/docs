@@ -6,7 +6,7 @@ description: 'Learn how to deploy Novu with Docker'
 
 Docker compose is the easiest way to get started with self-hosted Novu. This guide will walk you through the steps to run all services in single virtual machine using docker compose. This guide uses latest docker images. If you are looking to self host 0.24.x version, checkout [0.24.x docs](https://v0.x-docs.novu.co/self-hosting-novu/deploy-with-docker)
 
-## Before you begin
+## Prerequisites
 
 You need the following installed in your system:
 
@@ -32,7 +32,7 @@ cp .env.example .env
 
 ### Configure Environment
 
-#### Local deployment
+#### Local Deployment
 
 To run Novu in local machine, default configuration can be used. Start Novu with:
 
@@ -62,7 +62,7 @@ docker-compose -f docker-compose.yml up
 
 Access your dashboard at [http://vps-ip-address:4200](http://vps-ip-address:4200/).
 
-## Securing your setup
+## Securing Your Setup
 
 While we provide example secrets for getting started, you should NEVER deploy your Novu setup using the defaults provided.
 
@@ -119,7 +119,7 @@ if novu is run using above docker compose command in local machine, use below co
 npx novu@latest dev -d http://localhost:4200 -p <bridge_application_port>
 ```
 
-Following actions will occur with below command:
+Following actions will occur:
 
 - Novu local studio will be started on default port 2002,
 - Novu will generate a tunnel url that will forward the request to bridge application running on `<bridge_application_port>`
@@ -131,6 +131,9 @@ To use bridge application url as bridge url, use below command:
 
 ```bash
 npx novu@latest dev -d http://localhost:4200 -p <bridge_application_port> -t http://host.docker.internal:<bridge_application_port>
+
+# example:
+npx novu@latest dev -d http://localhost:4200 -p 4000 -t http://host.docker.internal:4000
 ```
 
 <Callout type="info">
