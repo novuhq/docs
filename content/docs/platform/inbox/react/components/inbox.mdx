@@ -218,6 +218,50 @@ function Novu() {
 }
 ```
 
+### Custom Notification Subject
+
+Render a custom subject for the notification, while keeping the default notification component.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      renderSubject={(notification) => (
+        <div>
+          <p>{notification.subject}</p>
+        </div>
+      )}
+    />
+  );
+}
+```
+
+### Custom Notification Body
+
+Render a custom body for the notification, while keeping the default notification component.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      renderBody={(notification) => (
+        <div>
+          <p>{notification.body}</p>
+        </div>
+      )}
+    />
+  );
+}
+```
+
 ### Custom Bell
 
 ```tsx
