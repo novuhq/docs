@@ -1,5 +1,6 @@
 ---
 title: 'Subscribers'
+description: "Subscribers are the entities designed to receive notifications. Each subscriber is unique and identified by a unique subscriberId. Learn how to manage subscribers in Novu."
 ---
 
 import { TypeTable } from 'fumadocs-ui/components/type-table';
@@ -75,16 +76,18 @@ A non-existing subscriber can be added by sending subscriber data in `to` field 
 ```jsx title="Node.js"
 import { Novu } from '@novu/api';
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu({
+  secretKey: "YOUR_SECRET_KEY_HERE",
+});
 
 await novu.trigger({
   workflowId: '<WORKFLOW_TRIGGER_IDENTIFIER>',
   to: {
-    subscriberId: '111',
-    email: 'john.doe@domain.com',
-    firstName: 'John',
-    lastName: 'Doe',
-    phone: '+13603963366',
+    subscriberId: "subscriber_unique_identifier",
+    firstName: "Albert",
+    lastName: "Einstein",
+    email: "albert@einstein.com",
+    phone: "+1234567890",
   },
   payload: {
     customVariable: 'variableValue',
@@ -97,4 +100,109 @@ await novu.trigger({
 
 When triggering the workflow, you must specify all required `to` fields per the channels in the workflow. For example, if an email step is included in the workflow, then the `to.email` field must be specified. Similarly if an SMS step is included, the `to.phone` field must be specified.
 
-If you are defining workflows with code, you can use the `subscriberId` to hydrate subscriber data directly from your database or other sources during workflow execution. This is useful when you don't want to store all the subscriber data in Novu.
+If you are defining workflows with code using [@novu/framework](/framework/introduction), you can use the `subscriberId` to hydrate subscriber data directly from your database or other sources during workflow execution. This is useful when you don't want to store all the subscriber data in Novu.
+
+For example, you may have a welcome onboarding email that you trigger immediately after a user signs up, with the email only sent 1 hour after signup:
+
+```typescript
+import { workflow } from '@novu/framework';
+import { userDb } from '../db/userDb';
+
+export const welcomeEmail = workflow('welcome-email', async ({ step, subscriber }) => {
+  await step.delay('delay', () => ({ amount: 1, unit: 'hours' }));
+
+  await step.email('send-email', async (controls) => {
+    // Fetch user data from your database in real-time to
+    // ensure up-to-date information
+    const user = await userDb.findById(subscriber.subscriberId);
+
+    return {
+      subject: `Welcome, ${user.firstName}`,
+      body: 'Welcome to our platform!',
+    };
+  });
+});
+```
+
+Then, when you trigger the workflow, you can pass the `subscriberId` and the workflow will fetch the user data from your database in real-time:
+
+```typescript
+await welcomeEmail.trigger({
+  to: {
+    subscriberId: '123',
+    email: 'john.doe@domain.com',
+  },
+});
+```
+
+<Callout type="info">
+It is possible for two subscribers to have the same email address in our system as `subscriberId` is the unique identifier that distinguishes one subscriber from another.
+</Callout>
+
+### Migration (Optional)
+
+Create the subscriber and then trigger the notification to this subscriber. Here `subscriberId` is the required field and other fields are optional.
+
+```jsx
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "YOUR_SECRET_KEY_HERE",
+});
+
+await novu.subscribers.create({
+  subscriberId: "subscriber_unique_identifier",
+  firstName: "Albert",
+  lastName: "Einstein",
+  email: "albert@einstein.com",
+  phone: "+1234567890",
+  avatar: 'https://example.com/images/avatar.jpg',
+  locale: 'en-US',
+  data: { customKey1: 'customVal1', customKey2: 'customVal2' },
+});
+
+```
+
+Novu will create a subscriber if one does not exist and will update the existing subscriber. You can call this function during registration or signup to make sure the subscriber data is up-to-date, if you wish to save additional attributes with a subscriber, you can pass additional custom data in the **data** field as key-value pairs.
+
+## Bulk Subscriber Creation
+
+You can create subscribers in bulk _(up to 500 at once)_ via the SDKs or [API](/api-reference/subscribers/subscribers-v1-controller_bulk-create-subscribers).
+
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu({
+  secretKey: "YOUR_SECRET_KEY_HERE",
+});
+
+await novu.subscribers.createBulk({
+  subscribers: [
+    {
+      subscriberId: "albert_einstein_user_id",
+      firstName: "Albert",
+      lastName: "Einstein",
+      email: "albert@einstein.com",
+      phone: "+1234567890",
+      avatar: 'https://example.com/images/albert_einstein.jpg',
+      locale: 'en-US',
+      data: { isScientist: true },
+    },
+    {
+      subscriberId: "nikola_tesla_user_id",
+      firstName: "Nikola",
+      lastName: "Tesla",
+      email: "nikola@tesla.com",
+      phone: "+1234567890",
+      avatar: 'https://example.com/images/nikola_tesla.jpg',
+      locale: 'en-US',
+      data: { isInventor: true },
+    }
+  ],
+});
+```
+
+## Manage Subscribers from Dashbpard
+
+Subscribers can be managed from the dashboard by navigating to the `Subscribers` page.
+
