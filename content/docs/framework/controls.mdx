@@ -8,8 +8,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 Controls are defined using [JSON Schema](/framework/schema/json-schema) or [Zod](https://zod.dev), providing a strong run-time validation system for your workflows.
 
-This ensures that you as the developer and your non-technical peers are speaking the same language.
-Those responsible for styling and copy can edit with confidence, knowing their changes are tested in code.
+This ensures that you as the developer and your non-technical peers are speaking the same language. Those responsible for styling and copy can edit with confidence, knowing their changes are tested in code.
 
 ## Controls vs Payload
 
@@ -28,8 +27,7 @@ Those responsible for styling and copy can edit with confidence, knowing their c
 
 ## Step Controls
 
-Step Control schema defines the control passed during the `step` method. These controls can be modified and persisted in the Novu Dashboard UI.
-The snippet below shows a configuration for the Step Control schema. If you don't provide a schema, Typescript will infer the data type to `unknown`, reminding you of the best practice to specify your schema.
+Step Control schema defines the control passed during the `step` method. These controls can be modified and persisted in the Novu Dashboard UI. The snippet below shows a configuration for the Step Control schema. If you don't provide a schema, Typescript will infer the data type to `unknown`, reminding you of the best practice to specify your schema.
 
 <Tabs items={['Zod Schema', 'Class-Validator Schema', 'JSON Schema']}>
   <Tab value="Zod Schema">
@@ -184,7 +182,7 @@ If you only want local IDE IntelliSense, you are able to pass plain JS Classes, 
 
 All provided **Zod** and **Class-Transformer** Schemas are compiled into **JSON Schema** which is passed to Novu. This ensures a consistent validation approach and UX by managing Payload and Control Data directly from the Platform.
 
-<Callout type="warning">
+<Callout type="warn">
   There may be inconsistencies when using Class-Transformer especially with nested schema objects.
   Please check out the guidelines on converting Class-Transformer classes to JSON Schema before
   using it here:
@@ -193,8 +191,7 @@ All provided **Zod** and **Class-Transformer** Schemas are compiled into **JSON 
 
 ## Using Variables
 
-To facilitate the use of variables in the control schema, enclose the variable name in double curly braces using the `{{variableName}}` syntax. For example, `{{subscriber.firstName | capitalize}}` will be dynamically replaced with the actual value of the subscriber's first name at runtime.
-You can use variables in any step control value, whether set by the developer or within the Novu Dashboard UI. To facilitate this, the Novu Dashboard UI offers auto-completion for variables. Simply start typing `{{` to view a list of all available variables.
+To facilitate the use of variables in the control schema, enclose the variable name in double curly braces using the `{{variableName}}` syntax. For example, `{{subscriber.firstName | capitalize}}` will be dynamically replaced with the actual value of the subscriber's first name at runtime. You can use variables in any step control value, whether set by the developer or within the Novu Dashboard UI. To facilitate this, the Novu Dashboard UI offers auto-completion for variables. Simply start typing `{{` to view a list of all available variables.
 
 <img
   src="/images/controls-autocomplete.gif"
@@ -205,5 +202,4 @@ You can use variables in any step control value, whether set by the developer or
 
 - **Subscriber Attributes**: Access all [subscriber attributes](/platform/concepts/subscribers#subscriber-attributes). Example: `{{subscriber.firstName}}`
 - **Payload Variables**: Use all payload variables defined in the `payloadSchema`. Example: `{{payload.userId}}`
-- **Liquid Filters**: Apply [liquid filters](https://liquidjs.com/filters/overview.html) to format or manipulate variable values. Examples: `{{subscriber.firstName | append: ': ' | append: payload.status | capitalize}}` or
-  `{{payload.invoiceDate | date: '%a, %b %d, %y'}}` will format the date as `Thu, Jan 01, 24`
+- **Liquid Filters**: Apply [liquid filters](https://liquidjs.com/filters/overview.html) to format or manipulate variable values. Examples: `{{subscriber.firstName | append: ': ' | append: payload.status | capitalize}}` or `{{payload.invoiceDate | date: '%a, %b %d, %y'}}` will format the date as `Thu, Jan 01, 24`

@@ -26,10 +26,10 @@ await step.email('digest-email', async () => {
 
 ## Digest Step Output
 
-| Property | Type                                                               | Required | Description                                    |
-| -------- | ------------------------------------------------------------------ | -------- | ---------------------------------------------- |
-| amount   | number                                                             | Yes      | The number of time units to collect events for |
-| unit     | 'seconds' \| 'minutes' \| 'hours' \| 'days' \| 'weeks' \| 'months' | Yes      | The time unit for the digest period            |
+| Property | Type | Required | Description |
+| --- | --- | --- | --- |
+| amount | number | Yes | The number of time units to collect events for |
+| unit | 'seconds' \| 'minutes' \| 'hours' \| 'days' \| 'weeks' \| 'months' | Yes | The time unit for the digest period |
 
 ## Digest Step Result
 
@@ -78,7 +78,7 @@ await step.email('digest-notification', async () => {
 });
 ```
 
-<Callout type="warning">
+<Callout type="warn">
   Changes to the workflow content after triggering will not affect existing digested events. The
   content is determined at the time of event digestion.
 </Callout>
