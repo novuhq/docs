@@ -55,7 +55,7 @@ export function InboxCodeBlock() {
     void fetchNovuData();
   }, [userId, getToken]);
 
-  const code = `'use client';
+  const code = `
 import React from 'react';
 import { Inbox } from '@novu/nextjs';
 
