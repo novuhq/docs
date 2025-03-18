@@ -4,9 +4,15 @@ import { visit } from 'unist-util-visit';
 
 const INLINE_COMPONENTS = ['Tooltip', 'Method', 'Link'];
 
+interface JSXNode {
+  type: 'jsx';
+  value: string;
+  data?: Record<string, unknown>;
+}
+
 export const remarkPreserveInline: Plugin<[], Root> = () => {
   return (tree) => {
-    visit(tree, 'jsx', (node: any) => {
+    visit(tree, 'jsx', (node: JSXNode) => {
       // Check if the node starts with any of our inline components
       const isInlineComponent = INLINE_COMPONENTS.some((component) => {
         const componentStart = `<${component}`;

@@ -28,6 +28,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/community': '/community/overview',
     '/api-reference': '/api-reference/overview',
     '/framework': '/framework/overview',
+    '/guides': '/guides/overview',
   };
 
   if (pathname in sectionRedirects) {
@@ -239,15 +240,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
   }
 
   // Check if the path doesn't start with any of our known prefixes
-  const knownPrefixes = [
-    '/platform/',
-    '/community/',
-    '/api-reference/',
-    '/framework/',
-    '/llms.txt',
-    '/static.json',
-    '/docs-og/',
-  ];
+  const knownPrefixes = ['/platform/', '/community/', '/api-reference/', '/framework/', '/guides/'];
   const startsWithKnownPrefix = knownPrefixes.some((prefix) => pathname.startsWith(prefix));
 
   // Skip the catch-all redirect for paths that:
@@ -255,16 +248,8 @@ export default async function middleware(request: NextRequest, event: NextFetchE
   // 2. Are exactly '/platform'
   // 3. Are static assets or API routes (these are handled by the matcher)
   // 4. Are root paths that we handle above
-  const skipPaths = [
-    '/',
-    '/platform',
-    '/community',
-    '/api-reference',
-    '/framework',
-    '/llms.txt',
-    '/static.json',
-    '/docs-og',
-  ];
+  const skipPaths = ['/', '/platform', '/community', '/api-reference', '/framework', '/guides'];
+
   if (!startsWithKnownPrefix && !skipPaths.includes(pathname)) {
     // Remove leading slash and redirect to /platform/[rest of path]
     const restOfPath = pathname.startsWith('/') ? pathname.slice(1) : pathname;

@@ -61,7 +61,11 @@ export default defineConfig({
         transformerTwoslash(),
         {
           name: 'transformers:remove-notation-escape',
+          preprocess(code: string) {
+            return code;
+          },
           // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+
           code(hast: any) {
             for (const line of hast.children) {
               if (line.type !== 'element') continue;
@@ -77,6 +81,7 @@ export default defineConfig({
             }
           },
           // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+
         } as any,
       ],
     },
