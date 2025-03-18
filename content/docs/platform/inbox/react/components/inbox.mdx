@@ -32,17 +32,13 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
 <Tabs items={['Next.js', 'Remix', 'React Router', 'Gatsby', 'Create React App']}>
   <Tab>
     ```tsx
-    import { Inbox } from '@novu/react';
-    import { useRouter } from 'next/navigation'
+    import { Inbox } from '@novu/nextjs';
 
     function Novu() {
-      const router = useRouter();
-
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
           subscriberId="YOUR_SUBSCRIBER_ID"
-          routerPush={(path: string) =>  router.push(path)}
         />
       );
     }
