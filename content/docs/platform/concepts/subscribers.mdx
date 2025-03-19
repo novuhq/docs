@@ -67,7 +67,7 @@ Each subscriber has the following data points:
 
 ## Creating a subscriber
 
-We support creating new subscriber using two ways, `Ahead of Trigger` means adding subscribers before triggering notification or `Just-in-time` means sending complete subscriber data in `to` field while triggering.
+We support creating new subscriber using two ways, `Just-in-time` means sending complete subscriber data in `to` field while triggering or `Ahead of Trigger` means adding subscribers before triggering notification.
 
 ### Just-in-time
 
@@ -99,6 +99,8 @@ await novu.trigger({
 ```
 
 When triggering the workflow, you must specify all required `to` fields per the channels in the workflow. For example, if an email step is included in the workflow, then the `to.email` field must be specified. Similarly if an SMS step is included, the `to.phone` field must be specified.
+
+#### Hydrating users data from database
 
 If you are defining workflows with code using [@novu/framework](/framework/introduction), you can use the `subscriberId` to hydrate subscriber data directly from your database or other sources during workflow execution. This is useful when you don't want to store all the subscriber data in Novu.
 
@@ -139,7 +141,7 @@ await welcomeEmail.trigger({
 It is possible for two subscribers to have the same email address in our system as `subscriberId` is the unique identifier that distinguishes one subscriber from another.
 </Callout>
 
-### Migration (Optional)
+### Ahead of Trigger
 
 Create the subscriber and then trigger the notification to this subscriber. Here `subscriberId` is the required field and other fields are optional.
 
