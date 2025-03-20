@@ -5,7 +5,7 @@ import { DotnetIcon } from '@/components/icons/dotnet';
 import { GolangIcon } from '@/components/icons/golang';
 import { JavaIcon } from '@/components/icons/java';
 import { LaravelIcon } from '@/components/icons/laravel';
-import { NodejsIcon } from '@/components/icons/nodejs';
+import { TypescriptIcon } from '@/components/icons/typescript';
 import { PhpIcon } from '@/components/icons/php';
 import { PythonIcon } from '@/components/icons/python';
 import { RestApiIcon } from '@/components/icons/rest-api';
@@ -91,11 +91,11 @@ export function OverviewPage() {
                 href: '/api-reference/overview',
               },
               {
-                title: 'Node.js',
+                title: 'Typescript',
                 package: '@novu/api',
-                icon: NodejsIcon,
+                icon: TypescriptIcon,
                 color: 'text-[#339933] dark:text-[#43c743]',
-                href: '/platform/sdks/server/nodejs',
+                href: '/platform/sdks/server/typescript',
               },
               {
                 title: 'Python',
