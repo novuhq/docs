@@ -30,8 +30,8 @@ import {
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.Pushpad, {
-// the user ID (uid) that you used for Pushpad
-deviceTokens: ['user123'],
+  // the user ID (uid) that you used for Pushpad
+  deviceTokens: ['user123'],
 });
 
 ````
@@ -47,7 +47,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   "deviceTokens": ['user123'],
   "integrationIdentifier": "pushpad-MnGLxp8uy"
 }'
-````
+```
 
 </Tab>
 </Tabs>

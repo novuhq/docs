@@ -66,14 +66,13 @@ import {
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials(
-'subscriberId',
-PushProviderIdEnum.FCM, {
-deviceTokens: ['token1', 'token2']
-},
-'fcm-MnGLxp8uy'
+  'subscriberId',
+  PushProviderIdEnum.FCM, {
+    deviceTokens: ['token1', 'token2']
+  },
+  'fcm-MnGLxp8uy'
 );
-
-````
+```
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -91,7 +90,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   },
   "integrationIdentifier": "fcm-MnGLxp8uy"
 }'
-````
+```
 
 </Tab>
 </Tabs>
@@ -147,40 +146,39 @@ In that case, you must use the `link` property with a relative URL.
 <Tab value="Node.js">
 ```javascript
 import {
-    Novu
+  Novu
 } from "@novu/node";
 
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
-to: {
-subscriberId: "<SUBSCRIBER_ID>",
-},
-payload: {
-abc: "def", // If the notification is a data notification, the payload will be sent as the data
-},
-overrides: {
-fcm: {
-webPush: {
-fcmOptions: {
-link: "/foo",
-},
-},
-},
-},
+  to: {
+    subscriberId: "<SUBSCRIBER_ID>",
+  },
+  payload: {
+    abc: "def", // If the notification is a data notification, the payload will be sent as the data
+  },
+  overrides: {
+    fcm: {
+      webPush: {
+        fcmOptions: {
+          link: "/foo",
+        },
+      },
+    },
+  },
 });
-
-````
+```
 </Tab>
 <Tab value="Curl">
-```bash
+```curl
 curl --location --request POST 'https://url.to.our.selfhosted.novu' \
     --header 'Authorization: ApiKey KEY' \
     --header 'Content-Type: application/json' \
     --data-raw '{
         "name": "workflow-name",
         "to": {
-            ...
+            "subscriberId": "subscriberId"
         },
         "overrides": {
           "fcm": {
@@ -192,7 +190,7 @@ curl --location --request POST 'https://url.to.our.selfhosted.novu' \
           }
         }
       }'
-````
+```
 
 </Tab>
 </Tabs>
