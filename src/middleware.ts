@@ -125,8 +125,8 @@ export default async function middleware(request: NextRequest, event: NextFetchE
         const page = matches[1];
         const pageMap: Record<string, string> = {
           quickstart: '/platform/quickstart/nextjs',
-          'how-novu-works': '/platform/how-novu-works',
-          introduction: '/platform/how-novu-works',
+          'what-is-novu': '/platform/what-is-novu',
+          introduction: '/platform/what-is-novu',
           concepts: '/platform/concepts/overview',
           'non-technical': '/platform/overview/non-technical',
           'commercial-open-source': '/platform/overview/commercial-open-source',
@@ -134,6 +134,12 @@ export default async function middleware(request: NextRequest, event: NextFetchE
         };
         return pageMap[page] || `/platform/${page}`;
       },
+    },
+
+    // Redirects from how-novu-works to what-is-novu
+    {
+      pattern: /^\/platform\/how-novu-works$/,
+      handler: () => '/platform/what-is-novu',
     },
     // Self hosting pattern
     {
