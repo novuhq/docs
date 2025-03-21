@@ -30,8 +30,8 @@ import {
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.PusherBeams, {
-// Your user's unique 'userId' from Pusher Beams
-deviceTokens: ['userId-from-pusher-beams'],
+  // Your user's unique 'userId' from Pusher Beams
+  deviceTokens: ['userId-from-pusher-beams'],
 });
 
 ````

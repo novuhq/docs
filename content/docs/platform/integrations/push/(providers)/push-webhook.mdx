@@ -34,7 +34,7 @@ const novu = new Novu("<NOVU_SECRET_KEY>");
 
 // PushProviderIdEnum.PushWebhook = push-webhook
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.PushWebhook, {
-deviceTokens: ['ANY_RANDOM_STRING'],
+  deviceTokens: ['ANY_RANDOM_STRING'],
 });
 
 ````

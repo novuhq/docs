@@ -30,11 +30,10 @@ import {
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.OneSignal, {
-// Your user's unique 'player_id' from OneSignal
-deviceTokens: [ 'ad0452ca-3ca7-43b5-bf9b-fa93fd322035' ],
+  // Your user's unique 'player_id' from OneSignal
+  deviceTokens: [ 'ad0452ca-3ca7-43b5-bf9b-fa93fd322035' ],
 });
-
-````
+```
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -47,8 +46,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   "deviceTokens": ["ad0452ca-3ca7-43b5-bf9b-fa93fd322035"],
   "integrationIdentifier": "one-signal-MnGLxp8uy"
 }'
-````
-
+```
 </Tab>
 </Tabs>
 

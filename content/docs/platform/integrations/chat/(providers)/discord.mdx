@@ -33,10 +33,10 @@ import {
 const novu = new Novu("<NOVU_SECRET_KEY>");
 
 await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Discord, {
-webhookUrl: "<WEBHOOK_URL>",
+  webhookUrl: "<WEBHOOK_URL>",
 });
 
-````
+```
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -51,8 +51,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
   },
   "integrationIdentifier": "discord-MnGLxp8uy"
 }'
-````
-
+```
 </Tab>
 </Tabs>
 

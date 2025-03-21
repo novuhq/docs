@@ -35,3 +35,56 @@ The Chat channel provides:
 - **System Alerts**: Push critical system or workflow notifications to technical teams via chat platforms
 - **Event Reminders**: Send timely reminders for meetings, webinars, or deadlines
 - **Community Notifications**: Manage announcements, updates, or discussions in platforms like Discord
+
+
+## Update credential webhookUrl
+
+<Tabs items={['Node.js', 'cURL']}>
+<Tab value="Node.js">
+```javascript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, { webhookUrl: "<WEBHOOK_URL>", });
+
+```
+</Tab>
+<Tab value="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+  "providerId": "slack",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "slack-MnGLxp8uy"
+}'
+```
+</Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+
+<Callout type="info">
+  Integration identifier is similar to Provider identifier but it is different than Provider Id. It
+  is unique for each integration. You can find the `integrationIdentifier` in the integration store
+  page.
+</Callout>
+
+## Common errors
+
+Common erros and reason of those errors while sending chat messages using Novu.
+
+- Subscriber does not have a configured channel
+  - if the subscriber does not have credentials set up for any of the chat provider
+- Webhook URL for the chat channel is missing
+  - `webhookUrl` field is null, undefined or not set. Check using [get subscriber api](/api-reference/subscribers/subscribers-controller_get-subscriber)
+- Subscriber does not have an active integration
+  - if subscriber have credentials set but integration is either not active or deleted for this credential
