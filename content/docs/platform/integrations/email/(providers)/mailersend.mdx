@@ -4,6 +4,7 @@ description: 'Learn how to use the MailerSend provider to send email notificatio
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { EmailProviderNextSteps }  from '@/snippets/channels/email/email-provider-next-steps.tsx';
 
 [MailerSend](https://www.mailersend.com/) is an email delivery service that allows you to send emails from your application.
 
@@ -40,49 +41,10 @@ import {
 
 const novu = new Novu('<NOVU_SECRET_KEY>');
 
-await novu.subscribers.trigger("workflowIdentifier", {
-    to: "subscriberId",
-    payload: {},
-    overrides: {
-        email: {
-            customData: {
-                // mailersend template templateId
-                templateId: 'mailersend-template-id',
-                // mailersend template variables
-                personalization: [{
-                    email: 'recipient@email.com',
-                    data: {
-                        items: {
-                            price: '',
-                            product: '',
-                            quantity: '',
-                        },
-                        order: {
-                            date: '',
-                            order_number: '',
-                            billing_address: '',
-                            customer_message: '',
-                        },
-                        store: {
-                            name: '',
-                        },
-                        invoice: {
-                            total: '',
-                            subtotal: '',
-                            pay_method: '',
-                        },
-                        customer: {
-                            name: '',
-                            email: '',
-                            phone: '',
-                        },
-                    },
-                }, ],
-            },
-        }
-    },
-});
+await novu.subscribers.trigger("workflowIdentifier", { to: "subscriberId", payload: {}, overrides: { email: { customData: { // mailersend template templateId templateId: 'mailersend-template-id', // mailersend template variables personalization: [{ email: 'recipient@email.com', data: { items: { price: '', product: '', quantity: '', }, order: { date: '', order_number: '', billing_address: '', customer_message: '', }, store: { name: '', }, invoice: { total: '', subtotal: '', pay_method: '', }, customer: { name: '', email: '', phone: '', }, }, }, ], }, } }, });
+
 ```
+
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -135,3 +97,7 @@ curl --location 'https://api.novu.co/v1/events/trigger' \
 
 </Tab>
 </Tabs>
+
+## Next Steps
+
+<EmailProviderNextSteps />
