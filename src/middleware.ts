@@ -254,7 +254,15 @@ export default async function middleware(request: NextRequest, event: NextFetchE
   // 2. Are exactly '/platform'
   // 3. Are static assets or API routes (these are handled by the matcher)
   // 4. Are root paths that we handle above
-  const skipPaths = ['/', '/platform', '/community', '/api-reference', '/framework', '/guides'];
+  const skipPaths = [
+    '/',
+    '/platform',
+    '/community',
+    '/api-reference',
+    '/framework',
+    '/guides',
+    '/robots.txt',
+  ];
 
   if (!startsWithKnownPrefix && !skipPaths.includes(pathname)) {
     // Remove leading slash and redirect to /platform/[rest of path]
