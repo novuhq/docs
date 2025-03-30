@@ -1,18 +1,20 @@
-import { generateFiles } from 'fumadocs-typescript';
+import { createGenerator, generateFiles } from 'fumadocs-typescript';
 import * as path from 'node:path';
- 
-void generateFiles({
+
+const generator = createGenerator();
+
+void generateFiles(generator, {
   input: ['./content/docs/**/*.model.mdx'],
   options: {
     templates: {
       block: (props) => {
         const typeObj = {};
-        
+
         for (const entry of props.entries || []) {
           typeObj[entry.name] = {
             description: entry.description || '',
             type: entry.type,
-            ...(entry.tags?.default ? { default: entry.tags.default } : {})
+            ...(entry.tags?.default ? { default: entry.tags.default } : {}),
           };
         }
 
@@ -21,9 +23,5 @@ void generateFiles({
     },
   },
   // Rename x.model.mdx to x.mdx
-  output: (file) =>
-    path.resolve(
-      path.dirname(file),
-      `${path.basename(file).split('.')[0]}.mdx`,
-    ),
+  output: (file) => path.resolve(path.dirname(file), `${path.basename(file).split('.')[0]}.mdx`),
 });
