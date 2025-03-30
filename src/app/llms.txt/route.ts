@@ -1,5 +1,7 @@
 import fg from 'fast-glob';
+import { fileGenerator, remarkDocGen, remarkInstall } from 'fumadocs-docgen';
 import { remarkInclude } from 'fumadocs-mdx/config';
+import { remarkAutoTypeTable } from 'fumadocs-typescript';
 import matter from 'gray-matter';
 import * as fs from 'node:fs/promises';
 import { remark } from 'remark';
@@ -9,17 +11,30 @@ import remarkStringify from 'remark-stringify';
 
 export const revalidate = false;
 
+const processor = remark()
+  .use(remarkMdx)
+  .use(remarkInclude)
+  .use(remarkGfm)
+  .use(remarkAutoTypeTable)
+  .use(remarkDocGen, { generators: [fileGenerator()] })
+  .use(remarkInstall, { persist: { id: 'package-manager' } })
+  .use(remarkStringify);
+
 export async function GET() {
-  // all scanned content
-  const files = await fg(['./content/docs/**/*.mdx']);
+  const files = await fg(['./content/docs/**/*.mdx', '!./content/docs/openapi/**/*']);
 
   const scan = files.map(async (file) => {
     const fileContent = await fs.readFile(file);
     const { content, data } = matter(fileContent.toString());
 
-    const processed = await processContent(content);
+    const processed = await processor.process({
+      path: file,
+      value: content,
+    });
     return `file: ${file}
-meta: ${JSON.stringify(data, null, 2)}
+# ${data.title}
+
+${data.description}
         
 ${processed}`;
   });
@@ -27,18 +42,4 @@ ${processed}`;
   const scanned = await Promise.all(scan);
 
   return new Response(scanned.join('\n\n'));
-}
-
-async function processContent(content: string): Promise<string> {
-  const file = await remark()
-    .use(remarkMdx)
-    // https://fumadocs.vercel.app/docs/mdx/include
-    .use(remarkInclude)
-    // gfm styles
-    .use(remarkGfm)
-    // .use(your remark plugins)
-    .use(remarkStringify) // to string
-    .process(content);
-
-  return String(file);
 }

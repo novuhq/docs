@@ -11,6 +11,7 @@ import { CodeBlock, Pre } from '../../components/codeblock';
 import { ImageZoom } from '../../components/image-zoom';
 import { Step, Steps } from '../../components/steps';
 import { Tab, Tabs } from '../../components/tabs';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../components/ui/hover-card';
 import {
   Tooltip,
   TooltipContent,
@@ -64,6 +65,28 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
                 <CodeBlock title={lang} {...props}>
                   <Pre {...props} />
                 </CodeBlock>
+              );
+            },
+            a: ({ href, ...props }) => {
+              const found = source.getPageByHref(href ?? '', {
+                dir: page.file.dirname,
+              });
+
+              if (!found) return <Link href={href} {...props} />;
+
+              return (
+                <HoverCard openDelay={500}>
+                  <HoverCardTrigger asChild>
+                    <Link
+                      href={found.hash ? `${found.page.url}#${found.hash}` : found.page.url}
+                      {...props}
+                    />
+                  </HoverCardTrigger>
+                  <HoverCardContent className="text-sm">
+                    <p className="font-medium">{found.page.data.title}</p>
+                    <p className="text-fd-muted-foreground">{found.page.data.description}</p>
+                  </HoverCardContent>
+                </HoverCard>
               );
             },
             CodeBlock: CodeBlock,
