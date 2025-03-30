@@ -1,7 +1,7 @@
 'use client';
 import type { ScrollAreaViewportProps } from '@radix-ui/react-scroll-area';
+import { HighlightOptions } from 'fumadocs-core/highlight';
 import { useShiki } from 'fumadocs-core/highlight/client';
-import type { HighlightOptions } from 'fumadocs-core/server';
 import { Check, Copy } from 'lucide-react';
 import {
   type ButtonHTMLAttributes,

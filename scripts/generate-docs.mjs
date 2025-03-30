@@ -7,7 +7,12 @@ async function main() {
   // clean generated files
   rimrafSync(out, {
     filter(v) {
-      return !v.endsWith('index.mdx') && !v.endsWith('meta.json') && !v.endsWith('overview.mdx') && !v.endsWith('rate-limiting.mdx');
+      return (
+        !v.endsWith('index.mdx') &&
+        !v.endsWith('meta.json') &&
+        !v.endsWith('overview.mdx') &&
+        !v.endsWith('rate-limiting.mdx')
+      );
     },
   });
 
@@ -18,7 +23,6 @@ async function main() {
     groupBy: 'tag',
     per: 'operation',
   });
-  
 }
 
 main().catch(console.error);
