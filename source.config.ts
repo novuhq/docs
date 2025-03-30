@@ -81,7 +81,6 @@ export default defineConfig({
             }
           },
           // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-
         } as any,
       ],
     },
