@@ -1,6 +1,5 @@
 import { docs } from '@/.source';
 import { loader } from 'fumadocs-core/source';
-import { APIPlayground } from 'fumadocs-openapi/scalar';
 import { attachFile, createOpenAPI } from 'fumadocs-openapi/server';
 import { icons } from 'lucide-react';
 import { createElement } from 'react';
@@ -22,9 +21,6 @@ export const source = loader({
 });
 
 export const openapi = createOpenAPI({
-  renderer: {
-    APIPlayground,
-  },
   shikiOptions: {
     themes: {
       dark: 'vesper',
