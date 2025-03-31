@@ -74,7 +74,7 @@ export function NotificationInbox() {
       <DynamicCodeBlock title="components/inbox.tsx" code={code} lang="tsx" />
       <SignedOut>
         <div className="text-sm text-gray-500 text-center mt-2">
-          <Link href="https://dashboard-v2.novu.co/auth/sign-up">Sign in</Link> to get your own API
+          <Link href="https://dashboard.novu.co/auth/sign-up">Sign in</Link> to get your own API
           keys
         </div>
       </SignedOut>

@@ -5,11 +5,11 @@ import { DotnetIcon } from '@/components/icons/dotnet';
 import { GolangIcon } from '@/components/icons/golang';
 import { JavaIcon } from '@/components/icons/java';
 import { LaravelIcon } from '@/components/icons/laravel';
-import { TypescriptIcon } from '@/components/icons/typescript';
 import { PhpIcon } from '@/components/icons/php';
 import { PythonIcon } from '@/components/icons/python';
 import { RestApiIcon } from '@/components/icons/rest-api';
 import { RubyIcon } from '@/components/icons/ruby';
+import { TypescriptIcon } from '@/components/icons/typescript';
 import { Button } from '@/components/ui/button';
 
 export function OverviewPage() {
@@ -22,7 +22,7 @@ export function OverviewPage() {
             Novu is the platform for adding real-time Inbox and notifications into your application.
           </p>
           <div className="flex gap-3 justify-center">
-            <Link href="https://dashboard-v2.novu.co/auth/sign-up" target="_blank">
+            <Link href="https://dashboard.novu.co/auth/sign-up" target="_blank">
               <Button className="rounded-md" color="primary">
                 Create an Account
               </Button>

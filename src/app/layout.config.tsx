@@ -72,20 +72,20 @@ export const baseOptions: BaseLayoutProps = {
         <div className="flex items-center gap-2 justify-end ml-auto custom-nav">
           <SignedOut>
             <a
-              href="https://dashboard-v2.novu.co/auth/sign-in"
+              href="https://dashboard.novu.co/auth/sign-in"
               className={cn(buttonVariants({ color: 'secondary', size: 'md' }))}
             >
               Sign In
             </a>
             <a
-              href="https://dashboard-v2.novu.co/auth/sign-up"
+              href="https://dashboard.novu.co/auth/sign-up"
               className={cn(buttonVariants({ color: 'primary', size: 'md' }))}
             >
               Sign Up
             </a>
           </SignedOut>
           <SignedIn>
-            <Button color="secondary" href="https://dashboard-v2.novu.co">
+            <Button color="secondary" href="https://dashboard.novu.co">
               Visit Dashboard
             </Button>
           </SignedIn>

@@ -6,31 +6,31 @@ description: 'Create an account and learn how to start using Novu notification I
 
 import { Accordion, Accordions } from '@/components/accordion';
 import {
-  BuildWorkflowStep,
-  CreateAccountStep,
-  CreateSubscriberStep,
-  TriggerNotificationStep,
+    BuildWorkflowStep,
+    CreateAccountStep,
+    CreateSubscriberStep,
+    TriggerNotificationStep,
 } from '@/components/quickstart/common-steps';
 import { Step, Steps } from '@/components/steps';
 import { Button } from '@/components/ui/button';
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import {
-  Bell,
-  BellRing,
-  BookOpenCheck,
-  Clock,
-  Code2,
-  Globe2,
-  Laptop,
-  Layers,
-  Library,
-  Mail,
-  MessageSquare,
-  Palette,
-  Phone,
-  Users2,
-  Workflow
+    Bell,
+    BellRing,
+    BookOpenCheck,
+    Clock,
+    Code2,
+    Globe2,
+    Laptop,
+    Layers,
+    Library,
+    Mail,
+    MessageSquare,
+    Palette,
+    Phone,
+    Users2,
+    Workflow
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -39,7 +39,7 @@ This guide walks you through integrating Novu’s Inbox into your Remix applicat
 <Steps>
   <Step>
   ### Create a Novu account
-    [Create a Novu account](https://dashboard-v2.novu.co/auth/sign-up) or [sign in](https://dashboard-v2.novu.co/auth/sign-in) to an existing account
+    [Create a Novu account](https://dashboard.novu.co/auth/sign-up) or [sign in](https://dashboard.novu.co/auth/sign-in) to an existing account
   </Step>
 
   <Step>
@@ -82,7 +82,7 @@ This guide walks you through integrating Novu’s Inbox into your Remix applicat
     ```
 
     <div className="text-sm text-gray-500 text-center mt-[-12px]">
-      [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
+      [Sign in](https://dashboard.novu.co/auth/sign-up) to get your own API keys
     </div>
 
     If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. Otherwise, you can manually retrieve them:
@@ -159,7 +159,7 @@ This guide walks you through integrating Novu’s Inbox into your Remix applicat
 
 In this step, you'll create a simple workflow to send your first notification via the Inbox component. Follow these steps to set up and trigger a workflow from your Novu dashboard.
 
-1. Go to your [Novu dashboard](https://dashboard-v2.novu.co/auth/sign-in).
+1. Go to your [Novu dashboard](https://dashboard.novu.co/auth/sign-in).
 2. In the sidebar, click **Workflows**.
 3. Click **Create Workflow**. Enter a name for your workflow (e.g., "Welcome Notification").
 4. Click **Create Workflow** to save it.
