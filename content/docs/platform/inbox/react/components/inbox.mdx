@@ -299,3 +299,35 @@ function Novu() {
   );
 }
 ```
+
+### Data object
+
+The Data object set in the dashboard for an in-app step will be available in the `notification.data` object.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberId="YOUR_SUBSCRIBER_ID"
+      renderNotification={(notification) => (
+        <div>
+          <p>{notification.data.customKey}</p>
+        </div>
+      )}
+    />
+  );
+}
+```
+
+This is not typed by default. You can declare the `NotificationData` interface in the global namespace to get type safety.
+
+```ts
+declare global {
+  interface NotificationData {
+    customKey: string;
+  }
+}
+```
