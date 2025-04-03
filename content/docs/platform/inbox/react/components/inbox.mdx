@@ -302,7 +302,12 @@ function Novu() {
 
 ### Data object
 
-The Data object set in the dashboard for an in-app step will be available in the `notification.data` object.
+<img
+  alt="Data object for in-app Inbox step"
+  src="/images/inbox/data-object.png"
+/>
+
+The data object set in the dashboard for an in-app step as shown in the screenshot above will be available in the `notification.data` object. It could be used to pass custom information to customize the notification item
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -331,3 +336,8 @@ declare global {
   }
 }
 ```
+
+#### Usecases:
+To build custom notification item, you need much more information than `subject` and `body` , so those extra details can be sent in the data object
+- **Notion Inbox** - Notion Inbox comment notification has participants details, to create similar notification, you will need participants details so you can send the list of participants (avatar, name) in the data object.
+- **Linear Inbox** - Linear Inbox reaction notification has emoji with commenter avatar, emoji detakls can be sent in the data object and later used in the custom notification item.
