@@ -302,7 +302,6 @@ function Novu() {
 
 ### Data object
 
-
 <img
   alt="Data object for in-app Inbox step"
   src="/images/inbox/data-object.png"
@@ -337,3 +336,8 @@ declare global {
   }
 }
 ```
+
+#### Usecases:
+To build custom notification item, you need much more information than `subject` and `body` , so those extra details can be sent in the data object
+- **Notion Inbox** - Notion Inbox comment notification has participants details, to create similar notification, you will need participants details so you can send the list of participants (avatar, name) in the data object.
+- **Linear Inbox** - Linear Inbox reaction notification has emoji with commenter avatar, emoji detakls can be sent in the data object and later used in the custom notification item.
