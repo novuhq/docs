@@ -302,12 +302,15 @@ function Novu() {
 
 ### Data object
 
-The `data` object is a key-value store within each notification, used to extend <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> notifications by embedding step-specific metadata. It provides flexible notification handling, supporting both static and dynamic values. Dynamic values can reference properties such as `subscriber.firstName`, enabling customized rendering logic based on notification attributes.
+The `data` object is a key-value store within each notification, used to extend <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> notifications by embedding step-specific metadata. It provides flexible notification handling, supporting both static and dynamic values:
 
-You can pass data like:
-* `reactionType`: To display specific icons (e.g., 👍, ❤️, comment bubble).
+- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don’t change based on the recipient or context.
+- **Dynamic Values**: These values are derived from subscriber or payload data. For instance, they can reference `subscriber.firstName` or `payload.issueId` to tailor notifications for individual users.
+
+You can pass data such as:
+* `reactionType`: To display specific icons such as 👍, ❤️, or a comment bubble.
 * `entityId` (like `pullRequestId` or `issueId`): Create direct links or show relevant badges (e.g., a GitHub logo linking to the PR).
-* `status` or `actionType`: To show visual cues like colored dots or status icons (e.g., green for 'merged', orange for 'commented').
+* `status` or `actionType`: To show visual cues such as colored dots or status icons (e.g., green for 'merged', orange for 'commented').
 
 <img
   alt="Data object for in-app Inbox step"
@@ -329,8 +332,11 @@ The `data` object is defined within a workflow's in-app step in the Novu dashboa
   />
 
 ```
+<Callout type="warn">
+      **Note:** `notification.data` is included in the client response, so do not store any sensitive data in it.
+</Callout>
 
-`notification.data` is included in the client response, so sensitive data should not be stored. By default, `notification.data` is untyped. To ensure type safety, declare the `NotificationData` interface globally.
+By default, `notification.data` is untyped. To ensure type safety, declare the `NotificationData` interface globally.
 
 ```ts
 declare global {
@@ -341,5 +347,5 @@ declare global {
 }
 ```
 
-This let’s TypeScript to infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, properties should be checked for existence before usage. 
+This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage. 
 
