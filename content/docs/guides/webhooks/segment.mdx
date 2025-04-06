@@ -54,7 +54,7 @@ By the end, you'll have a working integration that creates subscribers and trigg
      * @param {FunctionSettings} settings - Function settings including API key
      */
     async function onIdentify(event, settings) {
-      const endpoint = 'https://api.novu.co/v1/subscribers';
+      const endpoint = 'https://api.novu.co/v2/subscribers';
       const apiKey = settings.apiKey;
 
       if (!apiKey) throw new Error('Novu API key is missing in settings');
@@ -67,11 +67,6 @@ By the end, you'll have a working integration that creates subscribers and trigg
         email: event.traits?.email || null,
         phone: event.traits?.phone || null,
         avatar: event.traits?.avatar || null,
-        timezone: event.context?.timezone || null,
-        locale: event.context?.locale || null,
-        data: {
-          updatedAt: event.timestamp || null
-        }
       };
 
       try {
