@@ -605,6 +605,7 @@ Workflow `payload` variables: `{{userName}}`, `{{theme}}`, `{{errorMessage}}`, `
 </Accordions>
 
 
+
 ### Video processing
 
 This example shows how to build a video transcription service that notifies users when their video has been transcribed or if an error occurs during processing.
@@ -1156,13 +1157,63 @@ Once you've added custom fields to a subscriber, you can use them in Novu templa
 
 <Cards>
   <Card title="Data Management">
-    Store your Novu `subscriberId` as part of your user model — so you always have a reference.
+    As a best practice, maintain consistent subscriber identification:
+    - Use your internal `userId` as the `subscriberId` in Novu
+    - Keep this mapping consistent across all integrations
+    - Store notification preferences and settings in your user model
+    - Consider adding a reference field in your user table: `novuSubscriberId`
+    
+    Example user model:
+    ```typescript
+    interface User {
+      id: string;
+      email: string;
+      novuSubscriberId: string; // Same as user.id
+      notificationPreferences: {
+        marketing: boolean;
+        updates: boolean;
+        // ... other preferences
+      }
+    }
+    ```
+    
+    This ensures reliable user tracking and simplifies debugging notification issues.
   </Card>
   <Card title="Proactive Updates">
-    Create/update subscribers proactively when user data changes (e.g., phone number updates).
+    Keep subscriber data synchronized by:
+    - Updating Novu whenever user contact info changes
+    - Implementing webhooks to handle notification delivery status
+    - Setting up retry mechanisms for failed updates
+    
+    ```typescript
+    // Example of proactive update
+    async function updateUserProfile(userId: string, newData: UserUpdateData) {
+      // Update your database
+      await db.users.update(userId, newData);
+      
+      // Sync with Novu
+      await novu.subscribers.update(userId, {
+        email: newData.email,
+        phone: newData.phone,
+        data: { lastUpdated: new Date() }
+      });
+    }
+    ```
   </Card>
   <Card title="Additional Data">
-    Use `data` to store additional info like roles, tags for more personalized notifications.
+    Enhance notifications with contextual data:
+    - Store user preferences, roles, and settings
+    - Include relevant business logic flags
+    - Add metadata for analytics and tracking
+    
+    ```typescript
+    // Example of rich subscriber data
+    await novu.subscribers.update(userId, {
+      data: {
+        role: 'admin',
+      }
+    });
+    ```
   </Card>
 </Cards>
 
