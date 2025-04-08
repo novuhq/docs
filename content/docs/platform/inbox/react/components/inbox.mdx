@@ -320,17 +320,18 @@ You can pass data such as:
 The `data` object is defined within a workflow's in-app step in the Novu dashboard. Each key-value pair, referred to as a property, can be static or dynamic, and you get up to 10 properties per in-app step. These properties are accessible on the frontend via the `notification.data` property.
 
 ```tsx
-  <Inbox
-    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-    subscriberId="YOUR_SUBSCRIBER_ID"
-    renderNotification={(notification) => (
-      <div>
-        <p>{notification.data?.customKey}</p>
-        <p>{notification.data?.dataId}</p>
-      </div>
-    )}
-  />
+import { Inbox } from '@novu/react';
 
+<Inbox
+  applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+  subscriberId="YOUR_SUBSCRIBER_ID"
+  renderNotification={(notification) => (
+    <div>
+      <p>{notification.data?.customKey}</p>
+      <p>{notification.data?.dataId}</p>
+    </div>
+  )}
+/>
 ```
 <Callout type="warn">
       `notification.data` is included in the client response, so do not store any sensitive data in it.
