@@ -393,8 +393,8 @@ export const generateContent = task({
     
     // Generate text content
     const textResult = await openai.chat.completions.create({
-      model: "gpt-4o",
-      messages: generateTextPrompt(theme, description),
+      model: "gpt-4",
+      messages: [{ role: "user", content: description }]
     });
 
     if (!textResult.choices[0]?.message?.content) {
@@ -404,7 +404,8 @@ export const generateContent = task({
     // Generate image content
     const imageResult = await openai.images.generate({
       model: "dall-e-3",
-      prompt: generateImagePrompt(theme, description),
+      prompt: description,
+      size: "1024x1024"
     });
 
     if (!imageResult.data[0]?.url) {
@@ -441,10 +442,10 @@ export const processContentRequest = task({
       
       // Send completion notification
       await notifyContentReady.run({ 
-        userId: payload.userId, 
-        email: payload.email, 
-        theme: payload.theme, 
-        contentId: contentId,
+        userId,
+        email,
+        theme,
+        contentId,
         contentPreview: result.text.substring(0, 100) + "...",
         imageUrl: result.imageUrl
       });
@@ -460,9 +461,9 @@ export const processContentRequest = task({
       console.error("Content generation failed:", errorMessage);
       
       await notifyError.run({
-        userId: payload.userId,
-        email: payload.email,
-        theme: payload.theme,
+        userId,
+        email,
+        theme,
         errorMessage: errorMessage
       });
       
@@ -488,11 +489,18 @@ export const generateContent = task({
   id: "generate-content",
   retry: { maxAttempts: 3 },
   run: async ({ userId, email, theme, description }) => {
-    // Generate text using GPT-4o
-    const textResult = await openai.chat.completions.create({...});
+    // Generate text using GPT-4
+    const textResult = await openai.chat.completions.create({
+      model: "gpt-4",
+      messages: [{ role: "user", content: description }]
+    });
     
     // Generate image using DALL-E 3
-    const imageResult = await openai.images.generate({...});
+    const imageResult = await openai.images.generate({
+      model: "dall-e-3",
+      prompt: description,
+      size: "1024x1024"
+    });
     
     return {
       text: textResult.choices[0].message.content,
@@ -504,7 +512,7 @@ export const generateContent = task({
 <Callout>
   This task handles the actual AI content generation:
 
-- It creates text content using GPT-4o
+- It creates text content using GPT-4
 - It creates an image using DALL-E 3
 - It has built-in retry logic (will try up to 3 times if it fails)
 </Callout>
@@ -567,14 +575,26 @@ export const processContentRequest = task({
       const result = await generateContent.run(payload);
       
       // 2. Send success notification
-      await notifyContentReady.run({...});
+      await notifyContentReady.run({
+        userId: payload.userId,
+        email: payload.email,
+        theme: payload.theme,
+        contentId: payload.userId + '-' + Date.now(),
+        contentPreview: result.text.substring(0, 100) + "...",
+        imageUrl: result.imageUrl
+      });
       
-      return { success: true, ... };
+      return { success: true, ...result };
     } catch (error) {
       // 3. Send error notification if anything fails
-      await notifyError.run({...});
+      await notifyError.run({
+        userId: payload.userId,
+        email: payload.email,
+        theme: payload.theme,
+        errorMessage: error instanceof Error ? error.message : "Unknown error occurred"
+      });
       
-      return { success: false, error: errorMessage };
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error occurred" };
     }
   },
 });
@@ -818,10 +838,10 @@ export const processTranscriptionRequest = task({
       const result = await transcribeVideo.run(payload);
       
       // Send completion notification
-      await notifyTranscriptionComplete.run({ 
-        userId: payload.userId, 
-        email: payload.email, 
-        videoName: payload.videoName || "Your video", 
+      await notifyTranscriptionComplete.run({
+        userId: payload.userId,
+        email: payload.email,
+        videoName: payload.videoName || "Your video",
         transcriptionId: result.transcriptionId,
         wordCount: result.wordCount,
         duration: result.duration
@@ -972,14 +992,26 @@ export const processTranscriptionRequest = task({
       const result = await transcribeVideo.run(payload);
       
       // 2. Send success notification
-      await notifyTranscriptionComplete.run({...});
+      await notifyTranscriptionComplete.run({
+        userId: payload.userId,
+        email: payload.email,
+        videoName: payload.videoName || "Your video",
+        transcriptionId: result.transcriptionId,
+        wordCount: result.wordCount,
+        duration: result.duration
+      });
       
       return { success: true, transcriptionId: result.transcriptionId };
     } catch (error) {
       // 3. Send error notification if anything fails
-      await notifyTranscriptionError.run({...});
+      await notifyTranscriptionError.run({
+        userId: payload.userId,
+        email: payload.email,
+        videoName: payload.videoName || "Your video",
+        errorMessage: error instanceof Error ? error.message : "Unknown error occurred"
+      });
       
-      return { success: false, error: errorMessage };
+      return { success: false, error: error instanceof Error ? error.message : "Unknown error occurred" };
     }
   },
 });
