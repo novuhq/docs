@@ -302,42 +302,51 @@ function Novu() {
 
 ### Data object
 
+The `data` object is a key-value store within each notification, used to extend <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> notifications by embedding step-specific metadata. It provides flexible notification handling, supporting both static and dynamic values:
+
+- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don’t change based on the recipient or context.
+- **Dynamic Values**: These values are derived from subscriber or payload data. For instance, they can reference `subscriber.firstName` or `payload.issueId` to tailor notifications for individual users.
+
+You can pass data such as:
+* `reactionType`: To display specific icons such as 👍, ❤️, or a comment bubble.
+* `entityId` (like `pullRequestId` or `issueId`): Create direct links or show relevant badges (e.g., a GitHub logo linking to the PR).
+* `status` or `actionType`: To show visual cues such as colored dots or status icons (e.g., green for 'merged', orange for 'commented').
+
 <img
   alt="Data object for in-app Inbox step"
   src="/images/inbox/data-object.png"
 />
 
-The data object set in the dashboard for an in-app step as shown in the screenshot above will be available in the `notification.data` object. It could be used to pass custom information to customize the notification item
+The `data` object is defined within a workflow's in-app step in the Novu dashboard. Each key-value pair, referred to as a property, can be static or dynamic, and you get up to 10 properties per in-app step. These properties are accessible on the frontend via the `notification.data` property.
 
 ```tsx
 import { Inbox } from '@novu/react';
 
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
-      renderNotification={(notification) => (
-        <div>
-          <p>{notification.data.customKey}</p>
-        </div>
-      )}
-    />
-  );
-}
+<Inbox
+  applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+  subscriberId="YOUR_SUBSCRIBER_ID"
+  renderNotification={(notification) => (
+    <div>
+      <p>{notification.data?.customKey}</p>
+      <p>{notification.data?.dataId}</p>
+    </div>
+  )}
+/>
 ```
+<Callout type="warn">
+      `notification.data` is included in the client response, so do not store any sensitive data in it.
+</Callout>
 
-This is not typed by default. You can declare the `NotificationData` interface in the global namespace to get type safety.
+By default, `notification.data` is untyped. To ensure type safety, declare the `NotificationData` interface globally.
 
 ```ts
 declare global {
   interface NotificationData {
-    customKey: string;
+    customKey?: string;
+    dataId?: number;
   }
 }
 ```
 
-#### Usecases:
-To build custom notification item, you need much more information than `subject` and `body` , so those extra details can be sent in the data object
-- **Notion Inbox** - Notion Inbox comment notification has participants details, to create similar notification, you will need participants details so you can send the list of participants (avatar, name) in the data object.
-- **Linear Inbox** - Linear Inbox reaction notification has emoji with commenter avatar, emoji detakls can be sent in the data object and later used in the custom notification item.
+This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage. 
+
