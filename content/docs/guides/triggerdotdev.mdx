@@ -1155,8 +1155,8 @@ Once you've added custom fields to a subscriber, you can use them in Novu templa
 
 ## Best Practices
 
-<Cards>
-  <Card title="Data Management">
+<Accordions>
+  <Accordion title="Data Management Best Practices">
     As a best practice, maintain consistent subscriber identification:
     - Use your internal `userId` as the `subscriberId` in Novu
     - Keep this mapping consistent across all integrations
@@ -1178,8 +1178,9 @@ Once you've added custom fields to a subscriber, you can use them in Novu templa
     ```
     
     This ensures reliable user tracking and simplifies debugging notification issues.
-  </Card>
-  <Card title="Proactive Updates">
+  </Accordion>
+
+  <Accordion title="Proactive Data Synchronization">
     Keep subscriber data synchronized by:
     - Updating Novu whenever user contact info changes
     - Implementing webhooks to handle notification delivery status
@@ -1199,8 +1200,9 @@ Once you've added custom fields to a subscriber, you can use them in Novu templa
       });
     }
     ```
-  </Card>
-  <Card title="Additional Data">
+  </Accordion>
+
+  <Accordion title="Enriching Subscriber Data">
     Enhance notifications with contextual data:
     - Store user preferences, roles, and settings
     - Include relevant business logic flags
@@ -1211,9 +1213,11 @@ Once you've added custom fields to a subscriber, you can use them in Novu templa
     await novu.subscribers.update(userId, {
       data: {
         role: 'admin',
+        subscriptionTier: 'premium',
+        features: ['advanced-analytics', 'priority-support']
       }
     });
     ```
-  </Card>
-</Cards>
+  </Accordion>
+</Accordions>
 
