@@ -71,7 +71,7 @@ We support creating new subscriber using two ways, `Just-in-time` means sending 
 
 ### Just-in-time
 
-A non-existing subscriber can be added by sending subscriber data in `to` field of the trigger method. If any subscriber with provided `subscriberId` does not exists, a new subscriber will be created. In this case, subscriber will be created first and then the trigger will be executed synchronously.
+A non-existing subscriber can be added by sending subscriber data in `to` field of the trigger method. If any subscriber with provided `subscriberId` does not exists, a new subscriber will be created. In this case, subscriber will be created first and then the trigger will be executed synchronously. If a subscriber with the provided `subscriberId` already exists and the data in `to` field of the trigger method is different from the data already stored in Novu, the subscriber will be updated with the new data and then the trigger will be executed synchronously.
 
 ```jsx title="Node.js"
 import { Novu } from '@novu/api';
