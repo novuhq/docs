@@ -9,7 +9,7 @@ The `Bell` component displays the notification bell icon. It can also be used to
 
 ## Custom Bell
 
-You can pass any custom components as children to `<Bell/>` and render them as custom bell icon.
+You can pass any custom components to the `renderBell` prop to use with your own bell icon and unread count UI.
 
 ```tsx
 import { Inbox, Bell } from '@novu/react';
@@ -17,16 +17,17 @@ import { BellIcon } from './icons';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
-      <Bell
-        renderBell={(unreadCount) => (
-          <div>
-            <span>{unreadCount}</span>
-            <BellIcon />
-          </div>
-        )}
-      />
-    </Inbox>
+    <Inbox 
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" 
+      subscriberId="YOUR_SUBSCRIBER_ID" 
+      renderBell={(unreadCount) => {
+          return (
+            <div className="bg-purple-300 p-4 inline-flex">
+              New ${unreadCount} notifications
+            </div>
+          );
+      }} 
+    />
   );
 }
 ```
