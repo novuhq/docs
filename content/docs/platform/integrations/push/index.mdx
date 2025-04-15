@@ -83,9 +83,13 @@ Use the Novu Set Credentials API to update subscriber profiles with device token
 
 ## Frequently Asked Questions
 
-### How to remove one device token from subscriber credentials?
+### How to remove one or more device tokens from subscriber credentials?
 
 To remove a device token from subscriber credentials, you need to get the current device tokens from subscriber credentials, remove all deviceTokens, remove the token you want to remove and then update the subscriber credentials with new device tokens.
+
+**Example:**
+
+If a user logs in to their device and their device gets registered to their subscriberId, and then this user logs out and a friend logs in, so these device tokens should be removed from user's credentials.
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
@@ -126,5 +130,3 @@ await this.novu.subscribers.setCredentials(
 ```
   </Tab>
 </Tabs>
-
-```
