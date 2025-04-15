@@ -53,6 +53,7 @@ The Novu client provides methods for managing notifications:
 
 ```tsx
 import { View, Text, Button } from 'react-native';
+import { useNovu } from '@novu/react-native';
 
 function NotificationItem({ notification }) {
   const { novu } = useNovu();
@@ -81,6 +82,7 @@ You can also manage notification preferences:
 
 ```tsx
 import { Button } from 'react-native';
+import { useNovu } from '@novu/react-native';
 
 function PreferencesManager() {
   const { novu } = useNovu();
@@ -99,10 +101,7 @@ function PreferencesManager() {
 }
 ```
 
-<Callout type="info">
-  The Novu client instance provides access to all the functionality available in the [Headless
-  API](/platform/inbox/headless/api-reference).
-</Callout>
+### Listening for new notifications 
 
 ```tsx
 import { useNovu } from '@novu/react-native';
@@ -125,3 +124,9 @@ const NotificationToast = () => {
   return null;
 };
 ```
+
+<Callout type="info">
+  The Novu client instance provides access to all the functionality available in the [Headless
+  API](/platform/inbox/headless/api-reference).
+</Callout>
+
