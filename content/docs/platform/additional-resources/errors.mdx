@@ -1,0 +1,43 @@
+---
+title: 'Errors'
+description: 'Common errors and their solutions'
+icon: 'alert-circle'
+---
+
+## Introduction
+
+Activity feed page displays all the events that have occurred This page is useful for debugging and monitoring triggered events and notification delivery. Each event has steps and logs with each step. These logs can have errors which can be useful for debugging.
+
+## Common errors
+
+### Webhook URL for the chat channel is missing
+
+This error occurs when subscriber is missing chat channel provider credentials. Chat providers requires a webhook url to which notifications will be sent. Read more about [updating webhook url](/platform/integrations/chat#update-credential-webhookurl).
+
+
+### All chat channels failed to send the message
+
+Our workflow engine sends chat messages to all active chat providers. This error occurs when all chat providers have failed to send the message to all active chat providers
+
+### Subscriber is missing a phone number
+
+To send a sms message to user (subscriber), `phone` field is required. Above error occurs when subscriber is missing a phone number. Similar error could be `Subscriber missing recipient details` Read on [subscribers page](/platform/concepts/subscribers) on how to create and update subscriber attributes.
+
+### Message content could not be generated
+
+This error occurs when there are some invalid characters in the step editor content. If it is an email step, error could be **Message content could not be generated due to syntax error in email editor**. To resolve this error, please ensure that the content is valid and does not contain any invalid characters.
+
+### Subscriber does not have an active integration
+
+This error occurs when push or chat providers are not configured in integration store and hence subscriber is missing credentials for chat or push channel providers. 
+
+### Subscriber does not have a configured channel
+
+This error occurs subscriber is missing credentials for chat or push channel providers. Read more on how to use [chat channel](/platform/integrations/chat) and [push channel](/platform/integrations/push)
+
+### Novu's provider limit has been reached
+
+Novu creates demo providers in email and sms channel for each environment. These providers have a limit of 300 emails and 20 sms per month. These providers should be used only for testing purposes. Above error occurs when these demo provider's limit has been reached.
+
+### Bridge execution failed
+If bridge url is invalid or not reachable, this error occurs.
