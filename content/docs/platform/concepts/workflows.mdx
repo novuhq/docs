@@ -2,67 +2,180 @@
 title: 'Workflows'
 description: 'Learn what workflows are and how they work in Novu'
 ---
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
-A workflow holds the entire flow of steps (nodes) that are sent to the subscriber. This is where all the different channels are tied together under a single entity.
+In Novu, a workflow is the blueprint that defines the end-to-end process for delivering a notification to one or more subscribers. It acts as the central logic layer for routing messages across different channels such as email, SMS, in-app, push, or chat and controlling what notification to send, when to send it and through which channels they are sent.
 
-## Structure
+You can think of a workflow as a CI/CD pipeline for notifications or an assembly line:
+- The event enters at the start.
+- The logic defines how it moves through conditions, waits, and transformations.
+- Each step performs a specific action.
+- At the end, the user receives one or more messages based on the outcome.
 
-A workflow acts as the blueprint for the notifications that will be sent. This is where all the different channels, filters, rules and actions are tied together under a single entity.
+Workflows can be simple consisting of just one step like sending an in-app notification when a user signs up. Or complex, for example, “When a payment fails, wait 30 minutes, check the user type, then send an email and an in-app message. If there is no response in 24 hours, follow up with an SMS.” 
 
-The **Workflow Editor** simplifies building automated, personalized workflows without coding while also allowing developers to refine code-based workflows.
+It can also be extended further than that depending on your use case.
 
-## How it works
 
-Workflow Editor builds on the principle of steps. Instead of defining a single, complex piece of business logic, workflows contain multiple individual steps.
+## Workflow steps
+A workflow in Novu is built as a sequence of steps, each representing a distinct action or delivery mechanism. These steps are the building blocks of your notification logic. They determine what happens, when it happens, and how the message is sent to the user.
 
-In case of an error, a failed step is retried individually without needing to re-run any previous steps. Instead of the entire business logic, each step can take up your serverless function execution duration, and many more benefits.
+You define and arrange steps using the Workflow Editor in the Novu Dashboard, where each node on the canvas represents a single step in the execution flow.
 
-<img
-  src="/workflow/media-assets/how-it-works.png"
-  alt="Workflow Editor"
-  className="rounded-lg border"
-/>
+Each step operates independently, meaning that if one step fails, others can still succeed. This makes workflows both modular and fault-tolerant.
 
-Here is how a workflow looks like in the UI Workflow Editor:
+### Types of Steps
+Each workflow can contain two types of steps:
 
-<img
-  src="/workflow/media-assets/workflow-editor.png"
-  alt="Workflow Editor"
-  className="rounded-lg border"
-/>
+#### Channel Steps
+These steps deliver the actual notification through one of Novu’s supported channels. Each step contains its own notification template, content editor, and channel-specific settings.
 
-## Workflow building blocks
+**Supported channel types include**:
+- Email
+- In-App (Inbox Component)
+- SMS
+- Push
+- Chat (For example, Slack, Microsoft Teams)
 
-Every Novu workflow is built using these four key elements:
+<Callout type="warn">
+  A channel step will only execute if:
+  - The subscriber has the required credentials (for example, email, phone number).
+  - A valid integration is configured for that channel in the environment.
 
-- **Workflow identifier**: A unique ID used to link triggers to the correct workflow
-- **Trigger**: The event or action that starts the workflow
-- **Channel steps**: These send notifications through your configured channels
-- **Action steps**: Functions that manage the workflow's logic and control its flow
+</Callout>
 
-### Workflow identifier
+#### Action Steps
 
-Give your Workflow a clear, descriptive name that your team can easily identify. Workflow identifiers should be unique to your application and descriptive of the workflow's purpose.
+These steps allow you to introduce logic and flow control into the workflow. They don’t send notifications, but instead alter the timing or shape of the delivery pipeline.
+
+Common action steps include:
+- **Delay**: Pause the workflow for a fixed amount of time before moving to the next step.
+- **Digest**:  Group multiple similar events into a single message (for example “You have 5 new mentions”).
+
+#### Designing multi-channel sequences
+Because steps are chainable, you can build complex notification sequences such as:
+- Send an In-App message.
+- Wait 24 hours (Delay).
+- If the message is unread, send an Email.
+- If the subscriber is a premium user, follow up with an SMS.
+
+This allows Novu workflows to adapt to user behavior and preferences while keeping the configuration visual and testable.
+
+## Workflows editor
+All workflows in Novu are defined within the Workflow Editor, accessible via the Novu Dashboard. This visual builder allows you to model the sequence of steps that occur when a notification is triggered.
+
+Workflows created in the dashboard run via Novu’s Shared Bridge Endpoint, a centralized infrastructure that securely handles workflow execution for all customers. This means your app doesn’t need to manage orchestration logic; Novu takes care of triggering, step execution, retries, and delivery flow behind the scenes.
+
+<Callout type="info">
+ While most users rely on the Shared Bridge Endpoint, Novu also allows advanced users to host their own Bridge application and define workflows in code using the Novu Framework.
+</Callout>
+
+### Building the sequence
+The Workflow Editor provides a workflow builder where each step in the notification flow can either be Channel steps or Action steps.
+
+By default, every workflow has a Trigger step, which represents the point of entry, usually an event sent from your backend via API. From there, you add steps to control the flow of delivery.
+
+Workflows are executed top-to-bottom in the order of steps, with optional filters, conditions, and step configurations applied at each point.
+
+### Template editor in workflow
+Each channel step in a workflow includes a template editor. This is where you can configure what the user sees or receives, whether that’s an email, an SMS, or an in-app message.
+
+Each channel step has its own content format:
+- **Email**: Subject and body (HTML, Markdown, or text)
+- **SMS and Chat**: body-only
+- **In-App (Inbox)**: Subject, body, optional CTA buttons, data object
+- **Push**: Subject and body
+
+'The template editor supports dynamic personalization using variables. You can insert variables using double curly braces `{{ }}` to tailor messages based on subscriber information or payload data.'
 
 For example:
+- **Payload variable**:
+```txt
+Your order {{ payload.orderId }} has been confirmed.
+```
+- **Subscriber variable**:
+```txt
+Hello {{ subscriber.firstName }}, your current plan is {{ subscriber.data.plan }}.
+```
 
-- Abandoned cart recovery
-- Password reset flow
-- New user welcome series
-- Re-engagement campaign
+Clicking a variable inside the editor reveals a popover where you can:
+- Apply Liquid filters to format and transform values
+- Use raw Liquid.js syntax for advanced logic and dynamic content
 
-### Trigger
+For a full breakdown of how to use the template editor, personalize messages, and work with Liquid syntax, see the [Template Editor documentation](/platform/workflow/template-editor).
 
-A trigger starts every workflow. It's an action or event that tells the workflow to begin. To do this, you call the Novu API with a unique workflow trigger identifier (`workflow_id`), which links the trigger to the correct workflow.
+## Workflow identifier
+Each workflow has a unique `workflow_identifier` used to reference it during API calls. While the workflow name can be changed, the workflow identifier becomes immutable after creating the workflow.
 
-When the trigger happens, it sends the data the workflow needs to notify subscribers. [Learn more about subscribers](/platform/concepts/subscribers).
+Workflow identifiers must be unique within your Novu project and are typically lowercase with hyphens.
 
-Triggers are the only way to start workflows and send notifications, making sure everything runs as expected.
+<Callout type="info">
+When naming a workflow, choose a clear, descriptive name that reflects its purpose. This name helps teams distinguish between multiple workflows and maintain clarity as your notification system grows. 
+</Callout>
 
-**Example of a trigger** Here's an example of an API call to trigger an event:
+## Workflow status
+Workflows can exist in one of three states:
 
-```bash
-curl -X POST https://api.novu.co/v1/events/trigger \
+|         **Status**           | **What it means**                                                                              |
+|------------------------------|------------------------------------------------------------------------------------------------|
+|       `active`               | The workflow is ready to be triggered. Steps are valid, templates are complete, and all required integrations are connected. |
+|       `inactive`             | The workflow is paused. It cannot be triggered, but you can still edit its structure or steps.|
+|       `action required`      | The workflow contains one or more errors such as missing required fields or unconnected channels. It can still be triggered. |
+
+## Workflow tags
+Tags are labels that help you organize and group workflows. They don’t affect delivery, but they play a major role in how notifications are filtered, displayed, or managed by both your app and your users via the Inbox Component.
+
+**Use tags to**:
+- Group related notifications, for example, `security`, `account-activity`, and `marketing`.
+- Support filtered views on your front end; for example, show only promotional messages.
+- Categorize workflows for better team visibility and long-term maintainability.
+
+Think of tags as your notification system's folders; they help your team and your users stay organized.
+
+**Example use cases**:
+- Show only `security` tagged notifications in a high-priority tab.
+- Let users mute or opt out of `marketing` tagged workflows via preferences.
+- Organize large numbers of workflows by function, region, or product area.
+
+## Critical workflows
+
+Critical workflows are notifications that must always be delivered to users, regardless of their personal preferences. These workflows are essential to the user experience and system integrity, and users cannot disable them through notification settings.
+
+Marking a workflow as critical ensures that high-priority messages are delivered without exception. This is particularly important for notifications that carry security, financial, or access-related information, where missing a message could lead to confusion, loss of access, or reduced trust.
+
+**Examples of critical workflows include**:
+- **Security alerts**: Password resets or suspicious login attempts.
+- **Invitations**: Granting users access to workspaces, projects, or systems.
+- **Onboarding flows**: Guiding new users through setup steps.
+- **Payment and billing updates**: Confirmations or failed transactions.
+- **Order and shipping notifications**: Providing delivery status or tracking details.
+
+## Syncing Workflows between environments
+In Novu, syncing a workflow means copying it from one environment (typically development or staging) to another (such as production). This is how you “deploy” workflow changes without having to rebuild them manually across environments.
+
+Instead of editing workflows directly in production, it's best practice to design and test them in a non-production environment first. Once validated, you can sync the workflow to production with a single action.
+
+**When a workflow is synced**:
+- A copy is created or updated in the target environment.
+- The workflow identifier remains the same, ensuring existing triggers continue to function correctly.
+- Any updates to the template, steps, or configuration are reflected in the destination environment.
+
+**Syncing is supported across environments based on your plan**:
+- Team plans and above support syncing to any available environment.
+- Lower-tier plans support syncing only between development and production.
+
+## Triggering workflows
+Every workflow in Novu is initiated by a trigger, which can be an external event or action that starts the notification flow. Triggers connect real-world events (such as a comment being posted or an order being placed) to a specific workflow using a unique identifier (`workflowId`).
+
+The trigger event is the only mechanism for launching workflows and delivering notifications. When triggered, it carries all necessary context, including subscriber details, payload data, and optional overrides.
+
+Here's an example of an API call to trigger an event:
+
+<Tabs items={['cURL', 'JavaScript', 'TypeScript', 'PHP', 'Go', 'Python']}>
+  <Tab>
+  ```
+  curl -X POST https://api.novu.co/v1/events/trigger \
   -H "Authorization: ApiKey <NOVU_SECRET_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -72,35 +185,229 @@ curl -X POST https://api.novu.co/v1/events/trigger \
     },
     "payload": {}
   }'
-```
+  ```
+  </Tab>
+  <Tab>
+  ```js
+  fetch("https://api.novu.co/v1/events/trigger", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "ApiKey <NOVU_SECRET_KEY>",
+    "idempotency-key": "example-key"
+  },
+  body: JSON.stringify({
+    name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
+    to: {
+      subscriberId: "<UNIQUE_SUBSCRIBER_IDENTIFIER>"
+    },
+    payload: {}
+  })
+});
+  ```
+  </Tab>
+  <Tab>
+  ```ts
+  import { Novu } from "@novu/api";
 
-### Channel step
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+});
 
-A **Channel step** in Novu represents a configured provider to send notifications to your recipients.
+async function run() {
+  const result = await novu.trigger({
+    workflowId: "<WORKFLOW_TRIGGER_IDENTIFIER>",
+    to: {
+      subscriberId: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+    },
+    payload: {},
+  });
 
-The Workflow Editor is designed for **Omni-Channel Communication**, delivering a unified experience across diverse messaging channels:
+  console.log(result);
+}
 
-- **In-app notifications**
-- **Email**
-- **SMS**
-- **Push**
-  - **Mobile push**
-  - **Web push**
-- **Chat**
-  - **Enterprise messaging platforms** (e.g., Slack, Microsoft Teams)
-  - **Consumer messaging apps** (e.g., WhatsApp, Telegram, Discord)
+run();
+  ```
+  </Tab>
+  <Tab>
+  ```php
+  declare(strict_types=1);
 
-Most providers within Novu use credentials that you supply to deliver notifications on your behalf. These credentials and other settings are what make a configured channel.
+require 'vendor/autoload.php';
 
-### Action step
+use novu;
+use novu\Models\Components;
 
-**Action step** is a purpose built functions that help manage the workflow flow. **Action Step** can be executed before and after **Channel step**. For example, you can use a **Delay** to pause a workflow for a certain duration before sending a notification.
+$sdk = novu\Novu::builder()
+    ->setSecurity('<NOVU_SECRET_KEY>')
+    ->build();
 
-There are two types of action steps supported by Novu:
+$triggerEventRequestDto = new Components\TriggerEventRequestDto(
+    workflowId: '<WORKFLOW_TRIGGER_IDENTIFIER>',
+    payload: [],
+    to: new Components\SubscriberPayloadDto(
+        subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
+    ),
+);
 
-- **[Delay](/platform/workflow/delay)**
-- **[Digest](/platform/workflow/digest)**
+$response = $sdk->trigger(
+    triggerEventRequestDto: $triggerEventRequestDto,
+    idempotencyKey: 'example-key'
+);
 
-## Execution of workflow steps
+if ($response->triggerEventResponseDto !== null) {
+    // handle response
+}
+  ```
+  </Tab>
+  <Tab>
+  ```go
+  package main
 
-When a workflow is triggered, its steps are executed in a predetermined sequence from top to bottom. This ensures a controlled, orderly flow and helps maintain the integrity of the notification process.
+import (
+  "context"
+  novugo "github.com/novuhq/novu-go"
+  "github.com/novuhq/novu-go/models/components"
+  "log"
+)
+
+func main() {
+  ctx := context.Background()
+
+  s := novugo.New(
+    novugo.WithSecurity("<NOVU_SECRET_KEY>"),
+  )
+
+  res, err := s.Trigger(ctx, components.TriggerEventRequestDto{
+    WorkflowID: "<WORKFLOW_TRIGGER_IDENTIFIER>",
+    Payload: map[string]any{},
+    To: components.CreateToSubscriberPayloadDto(
+      components.SubscriberPayloadDto{
+        SubscriberID: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+      },
+    ),
+  }, nil)
+
+  if err != nil {
+    log.Fatal(err)
+  }
+
+  if res.TriggerEventResponseDto != nil {
+    // handle response
+  }
+}
+  ```
+  </Tab>
+  <Tab>
+  ```py
+  import novu_py
+from novu_py import Novu
+
+with Novu(
+    secret_key="<NOVU_SECRET_KEY>",
+) as novu:
+    res = novu.trigger(trigger_event_request_dto=novu_py.TriggerEventRequestDto(
+        workflow_id="<WORKFLOW_TRIGGER_IDENTIFIER>",
+        payload={},
+        to=novu_py.SubscriberPayloadDto(
+            subscriber_id="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
+        ),
+    ))
+
+    print(res)
+  ```
+  </Tab>
+</Tabs>
+
+### Trigger the request lifecycle
+When a trigger event is sent to the `/events/trigger` endpoint, the following steps occur:
+- **Subscriber mapping and validation**: Subscribers are identified and validated to ensure they’re eligible to receive the notification.
+- **Workflow validation**: The system checks that the associated workflow is active and valid.
+- **Attachment upload** (*if applicable*): Any included attachments are uploaded to storage.
+- **Event queuing**: The validated event is added to a queue for efficient processing.
+
+### Processing the Trigger event
+Once queued, the event is picked up by a worker which handles:
+
+- **Subscriber upsert**: Creates or updates the subscriber using data from the to object.
+- **Notification entity creation**: Stores key data about the organization, template, subscriber, and payload.
+- **Job Creation**: Generates jobs based on the workflow’s steps. Each job defines what action to take and on which channel.
+
+### Job status lifecycle
+Jobs created during workflow processing transition through several statuses:
+
+| Status     | Description                                                                 |
+|------------|-----------------------------------------------------------------------------|
+| `PENDING`  | Job is created but not yet added to the queue.                             |
+| `QUEUED`   | Job is ready and waiting in the queue.                                     |
+| `RUNNING`  | Job is actively being processed.                                           |
+| `COMPLETED`| Job finished successfully.                                                 |
+| `FAILED`   | Job encountered an error and couldn’t be completed.                        |
+| `DELAYED`  | Job is intentionally delayed (e.g., for digests or time-based delays).     |
+| `CANCELED` | Job has been manually or programmatically canceled.                        |
+| `MERGED`   | Event was merged into another digesting event.                             |
+| `SKIPPED`  | Event digesting was skipped, often in backoff scenarios.                   |
+
+## Workflow activity feed
+Once a workflow is triggered, Novu tracks the full execution lifecycle, from trigger to delivery inside the Activity Feed. This gives you a transparent view into every step of the process, allowing you to debug, trace failures, and understand how your notification logic behaves in production. Each environment has its own workflow activity feed.
+
+### Filtering workflow executions
+To make tracking specific executions easier, the Activity Feed allows you to filter by:
+
+- **Workflow name**: Useful when testing or observing a specific flow across multiple subscribers.
+- **Channel type**: See only executions that include Email, SMS, In-App, etc.
+- **Time period**: Narrow the view to the last 24 hours, 7 days, 30 days, or a custom range.
+- **Transaction ID**:  If you're logging the `transactionId` returned during a trigger, you can look it up directly for an exact match.
+
+When a workflow is triggered, the activity feed logs show the following information:
+
+- The workflow identifier (which workflow was triggered).
+- The subscriber ID (who it was triggered for).
+- A unique transaction ID.
+- Execution status (e.g., completed, failed).
+- The time it was triggered.
+
+### Step-level execution logs
+Clicking into an execution opens a detailed view that shows exactly what happened in each step:
+- When the step was created and queued.
+- Provider responses.
+- Errors or reasons for failure.
+
+## Workflow channel preferences
+When setting up a workflow, you can define channel preferences that determine how notifications are delivered to subscribers. In the Novu dashboard, you can set default preferences for each workflow, specifying which channels, such as Email, In-App, or SMS, should be used by default during notification delivery.
+
+These defaults ensure that subscribers receive messages through the most appropriate channels, even if they haven’t customized their own preferences.
+
+## Workflow step conditions
+
+Step Conditions in Novu is used to control whether a step in your workflow should be executed, based on dynamic logic. This lets you create more intelligent and personalized workflows that respond to dynamic user and application data.
+
+Conditions can be based on subscriber fields, payload data, or the results of previous steps. For example, you might skip sending an SMS if the user is already online, or send a follow-up email only if an in-app message hasn’t been read within 24 hours.
+
+Step conditions can be built using a visual query builder that supports advanced logical expressions and dynamic comparisons between fields
+
+See the [Step Conditions documentation](/platform/workflow/step-conditions) to learn more about all supported condition types, operators, and usage examples.
+
+## Frequently asked questions
+<Accordions type="multiple">
+  <Accordion title="Is it necessary to create a workflow to send notifications?">
+    Yes, creating a workflow is mandatory to send notifications.
+  </Accordion>
+
+  <Accordion title="Can we send notifications without a workflow?">
+    No, without workflows, notifications cannot be sent.
+  </Accordion>
+
+  <Accordion title="Can workflows be managed via code?">
+    Yes, if you are using Node.js, you can use the <a href="/framework/quickstart/nextjs">Novu Framework</a>.
+  </Accordion>
+
+  <Accordion title="How can all workflows be synced at once to another environment?">
+    Currently, only a single workflow can be synced at a time.
+  </Accordion>
+
+  <Accordion title="Can workflows be created via code?">
+    No, this is not currently supported. Please contact <a href="mailto:support@novu.co">support@novu.co</a> to get on the waitlist.
+  </Accordion>
+</Accordions>
+
