@@ -13,9 +13,14 @@ You can think of a workflow as a CI/CD pipeline for notifications or an assembly
 - Each step performs a specific action.
 - At the end, the user receives one or more messages based on the outcome.
 
-Workflows can be simple consisting of just one step like sending an in-app notification when a user signs up. Or complex, for example, “When a payment fails, wait 30 minutes, check the user type, then send an email and an in-app message. If there is no response in 24 hours, follow up with an SMS.” 
 
-It can also be extended further than that depending on your use case.
+Workflows can be simple:
+* When a user signs up, send them a welcome email.
+
+Or complex:
+* When a payment fails, wait 30 minutes, check the user type, then send an email and an in-app message. If no response in 24 hours, follow up with an SMS message.
+
+It can also be extended further than these depending on your use case.
 
 
 ## Workflow steps
@@ -55,7 +60,8 @@ Common action steps include:
 - **Delay**: Pause the workflow for a fixed amount of time before moving to the next step.
 - **Digest**:  Group multiple similar events into a single message (for example “You have 5 new mentions”).
 
-#### Designing multi-channel sequences
+### Designing multi-channel sequences
+
 Because steps are chainable, you can build complex notification sequences such as:
 - Send an in-App message.
 - Wait 24 hours (Delay).
@@ -105,7 +111,7 @@ Your order {{ payload.orderId }} has been confirmed.
 Hello {{ subscriber.firstName }}, your current plan is {{ subscriber.data.plan }}.
 ```
 
-Clicking a variable inside the editor reveals a popover where you can:
+Clicking a variable inside the editor opens a dialog where you can:
 
 - Apply Liquid.js filters to format and transform values
 - Use raw Liquid.js syntax for advanced logic and dynamic content
