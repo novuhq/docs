@@ -11,10 +11,10 @@ import {
   Workflow
 } from 'lucide-react';
 
-This guide walks you through integrating Novu’s Inbox into your Vue application for real time in-app notifications, from setup to triggering your first notification. By the end, you'll have a working notification inbox.
+This guide walks you through integrating Novu's Inbox into your Vue application for real time in-app notifications, from setup to triggering your first notification. By the end, you'll have a working notification inbox.
 
 <Callout type="info">
-  This guide uses @novu/js headless library to build the Inbox component in Vue. Novu currently does not support native Vue Inbox component.
+  This guide uses @novu/js javascript sdk to build the Inbox component in Vue. Novu currently does not support native Vue Inbox component.
 </Callout>
 
 <Steps>
@@ -27,7 +27,7 @@ This guide walks you through integrating Novu’s Inbox into your Vue applicatio
   ### Create a Vue application
     Create a new vue app with create-vue package. Skip this step if you already have an existing project:
 
-    ```bash
+    ```package-install
     npm create vue@latest novu-inbox-vue
     ```
 
@@ -37,16 +37,16 @@ This guide walks you through integrating Novu’s Inbox into your Vue applicatio
     cd novu-inbox-vue
     ```
 
-    ```bash
+    ```package-install
     npm install
     ```
   </Step>
 
   <Step>
   ### Install the required package
-  Run the command below to install [Novu headless SDK](/platform/sdks/headless), which provides required component for Inbox UI:
+  Run the command below to install [Novu Javascript SDK](/platform/sdks/javascript), which provides required component for Inbox UI:
 
-    ```bash
+    ```package-install
     npm install @novu/js
     ```
   </Step>
@@ -58,6 +58,10 @@ This guide walks you through integrating Novu’s Inbox into your Vue applicatio
 
 ```vue title="src/components/NovuInbox.vue"
 <template>
+  <!-- 
+    This empty div serves as a mounting point for the Novu Inbox.
+    We use Vue's ref attribute to get direct access to this DOM element.
+  -->
   <div ref="novuInbox"></div>
 </template>
 
@@ -72,16 +76,20 @@ interface NovuOptions {
   };
 }
 
+// Create a reactive reference to hold the DOM element
 const novuInbox = ref<HTMLElement | null>(null);
+// Store the Novu instance for cleanup during unmount
 let novuInstance: NovuUI | null = null;
 
 onMounted(() => {
+  // Ensure our div reference exists before proceeding
   if (!novuInbox.value) {
     console.error("Novu inbox container element not found");
     return;
   }
 
   try {
+    // Initialize the Novu UI instance with required configuration
     const novu = new NovuUI({
       options: {
         applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
@@ -89,21 +97,26 @@ onMounted(() => {
       },
     } as NovuOptions);
 
+    // Mount the Inbox component to our div reference
+    // This is where Novu creates and injects its Inbox UI
     novu.mountComponent({
       name: "Inbox",
       props: {},
-      element: novuInbox.value,
+      element: novuInbox.value, // The actual DOM element where Inbox will be mounted
     });
 
+    // Store the instance for cleanup
     novuInstance = novu;
   } catch (error) {
     console.error("Failed to initialize Novu inbox:", error);
   }
 });
 
+// Clean up when the component is destroyed
 onUnmounted(() => {
   if (novuInstance && novuInbox.value) {
     try {
+      // Properly unmount the Novu component to prevent memory leaks
       novuInstance.unmountComponent(novuInbox.value);
     } catch (error) {
       console.error("Failed to unmount Novu inbox:", error);
@@ -116,7 +129,7 @@ onUnmounted(() => {
       [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
     </div>
 
-     If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. Otherwise, you can manually retrieve them:
+     If you're signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. Otherwise, you can manually retrieve them:
     * `applicationIdentifier` - In the Novu dashboard, click API Keys, and then locate your unique Application Identifier.
     * `subscriberId` - This represents a user in your system (typically the user's ID in your database). For quick start purposes, an auto-generated subscriberId is provided for your Dashboard user.
 
@@ -145,12 +158,12 @@ onUnmounted(() => {
   ### Run Your Application
   Start your development server:
 
-  ```bash
+  ```package-install
   npm run start
   ```
   Once the application is running, a bell icon will appear on the top left side of the screen. Clicking it opens the notification inbox UI.
 
-  Currently, there are no notifications. Let’s trigger one!
+  Currently, there are no notifications. Let's trigger one!
 
   </Step>
 
@@ -169,7 +182,7 @@ onUnmounted(() => {
     - **Subject**: "Welcome to Novu"
     - **Body**: "Hello, world! "
 
-  7. Once you’ve added the subject and body, close the editor.
+  7. Once you've added the subject and body, close the editor.
   8. Click **Trigger**.
   9. Click **Test Workflow**.
 
@@ -189,11 +202,11 @@ onUnmounted(() => {
 
 <Cards cols={2}>
   <Card
-    title="Headless SDK API Reference"
+    title="Javascript SDK API Reference"
     icon={<Library />}
-    href="/platform/sdks/headless"
+    href="/platform/sdks/javascript"
   >
-    Explore headless sdk API reference for more advanced use cases.
+    Explore JavaScript SDK API reference for more advanced use cases.
   </Card>
   <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow/overview">
      Design and manage advanced notification workflows.
