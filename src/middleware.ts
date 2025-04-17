@@ -135,12 +135,6 @@ export default async function middleware(request: NextRequest, event: NextFetchE
         return pageMap[page] || `/platform/${page}`;
       },
     },
-
-    // Redirects from how-novu-works to what-is-novu
-    {
-      pattern: /^\/platform\/how-novu-works$/,
-      handler: () => '/platform/what-is-novu',
-    },
     // Self hosting pattern
     {
       pattern: /^\/self-hosting-novu\/(.+)$/,
