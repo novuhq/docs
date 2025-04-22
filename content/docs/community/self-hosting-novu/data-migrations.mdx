@@ -28,20 +28,20 @@ manages the complexity of versions across connections strings. Manually add and 
 - **Migrations are manual.**
 - They must be run from an environment that has **access to the migration scripts**.
 - There is no practical way to run those from within the docker container at the moment becuase the migrations scripts
-  are not shipped with the images
+are not shipped with the images
 - Requires **valid MongoDB credentials** and **network access**.
 - Typically run **during deployment** of new application versions.
 - **Novu does not use a versioning or idempotent migration strategy.**
-  See [Versioning Note](#migration-versioning-and-idempotency) below.
+See [Versioning Note](#migration-versioning-and-idempotency) below.
 - Migrations once added to source code do not change (by policy)
 - Refer to the table of releases to know which to run when
 - There is a shell script at the end that you can use to ease the burden (
-  see [run-migrations.sh](#run-migrations-script))
+see [run-migrations.sh](#run-migrations-script))
 - Success of this process requires cloning the git repository and setting up the projects from source before starting
-  migrations
+migrations
 - Success may also require the Redis instance to be running during execution for some migrations (here's the kicker,
-  these are running locally otherwise you would need (potentially) another tunnel through to the remote
-  version [TODO: confirm side effects (April, 2025)])
+these are running locally otherwise you would need (potentially) another tunnel through to the remote
+version [TODO: confirm side effects (April, 2025)])
 - warning: some migrations do not exit properly ( eg < 0.19.0 ) and require Ctrl-C to finish and continue
 
 ## Migration Release Map
@@ -57,7 +57,7 @@ closest following release tag.
 | [`v0.23.0`](https://github.com/novuhq/novu/releases/tag/v0.23.0) | 2024-02-02       | `encrypt-api-keys` *(API keys encryption)*                                                                                                                                                                                                                                                                                                                                       |
 | [`v0.24.0`](https://github.com/novuhq/novu/releases/tag/v0.24.0) | 2024-03-06       | `normalize-message-template-cta-action` *(Normalize CTA action)* <br> `topic-subscriber-normalize` *(Normalize topic-subscriber links)*                                                                                                                                                                                                                                          |
 | [`v2.0.0`](https://github.com/novuhq/novu/releases/tag/v2.0.0)   | 2024-10-07       | `subscribers` *(Subscriber record adjustments)*                                                                                                                                                                                                                                                                                                                                  |
-| [`v2.0.1`](https://github.com/novuhq/novu/releases/tag/v2.0.1)   | 2024-11-11       | `preference-centralization` *(Preference model centralization)*                                                                                                                                                                                                                                                                                                                  |
+| [`v2.0.1`](https://github.com/novuhq/novu/releases/tag/v2.0.1)   | 2024-11-11       | `preference-centralization` *(Preference model centralization)* — **ensure this is done before v2.1 as repository access has been removed**                                                                                                                                                                                                                                            |
 | *(future release)*                                               | *sometime 2025*  | `deleteLogs` *(Cleanup deleted logs)*                                                                                                                                                                                                                                                                                                                                            |
 
 ### Historical releases
@@ -101,17 +101,19 @@ cd novu
 
 git checkout <your-version-tag>  # e.g. v0.24.0
 npm run clean
-npm run setup:project
+npm run setup:project # really important to run if you change tag
 cd apps/api
 ```
 
 **Notes:**
 
 - If you want to know which tags are availabel: `git tag`
-- Because migrations don't change, in practice having latest source will be good enough
+- Because migrations don't change, in practice having a later source will be good enough
+- You a tag over next for stability
+- Some migrations may fail because they rely of code solutions rather than direct mongo queries
 - Migrations are located in: `apps/api/migrations/`
 - Checkout by tag stops accidentally running too many migrations that would normally be managed by migrations runner (
-  see [migration versioning](#migration-versioning-and-idempotency) )
+see [migration versioning](#migration-versioning-and-idempotency) )
 
 ### 2. Connect to Your MongoDB Database
 
@@ -165,7 +167,7 @@ Novu **does not implement a versioning system** or record migration history in t
 
 - Migrations **must be manually tracked**.
 - There is **no built-in idempotency** for running the migration, so running a script twice may cause duplicate data or
-  errors (but by policy the underlying code does its best)
+errors (but by policy the underlying code does its best)
 - It is your responsibility to **ensure each script runs only once** and in the correct order.
 
 ### What Is an Idempotent Migration?
@@ -180,8 +182,8 @@ Note:
 
 - there are libraries that support idempotent Mongo migrations in TypeScript
 - if you want to introduce versioned/idempotent migrations in your own deployment process, consider [
-  `migrate-mongo`](https://github.com/seppevs/migrate-mongo) or [
-  `mongodb-migrations`](https://github.com/emirotin/mongodb-migrations)
+`migrate-mongo`](https://github.com/seppevs/migrate-mongo) or [
+`mongodb-migrations`](https://github.com/emirotin/mongodb-migrations)
 
 ## Tips
 
@@ -194,7 +196,7 @@ Note:
 
 Use this shell to ease the burden, ensure that it is executable. Instructions are in the script comments.
 
-```
+```bash
 chmod +x run-migrations.sh
 ```
 
@@ -286,9 +288,9 @@ get_migration_path() {
     subscriber-preferences-level) echo "subscriber-preferences-level/subscriber-preferences-level.migration.ts" ;;
     integration-scheme-update) echo "integration-scheme-update/add-primary-priority-migration.ts integration-scheme-update/update-primary-for-disabled-novu-integrations.ts integration-scheme-update/add-integration-identifier-migration.ts" ;;
     normalize-users-email) echo "normalize-users-email/normalize-users-email.migration.ts" ;;
-    subscribers) echo "subscribers/subscribers.migration.ts" ;;
-    preference-centralization) echo "preference-centralization/preference-centralization.migration.ts" ;;
-    deleteLogs) echo "deleteLogs/delete-logs.migration.ts" ;;
+    subscribers) echo "subscribers/remove-duplicated-subscribers/remove-duplicated-subscribers.migration.ts" ;;
+    preference-centralization) echo "preference-centralization/preference-centralization-migration.ts" ;;
+    deleteLogs) echo "deleteLogs/deleteLogsCollection.ts" ;;
     *) echo "" ;;
   esac
 }
@@ -349,7 +351,6 @@ if [ "$DRY_RUN" = true ]; then
 else
   echo "✅ All applicable migrations completed."
 fi
-
 ```
 
 ### Reference for Generating Table
@@ -361,7 +362,7 @@ If multiple migrations appear before a release, they’re grouped under that ver
 
 #### Generating Migrations List
 
-```
+```bash
 for file in *; do
   echo "$(git log --diff-filter=A --follow --format=%ad --date=short -- $file | head -1) $file"
 done | sort
@@ -377,7 +378,7 @@ done | sort
 
 #### Generating Releases List
 
-```
+```bash
 git for-each-ref --sort=creatordate --format '%(creatordate:short) %(refname:short)' refs/tags
 
 2023-08-13 v0.17.2
@@ -390,9 +391,9 @@ git for-each-ref --sort=creatordate --format '%(creatordate:short) %(refname:sho
 2024-11-11 v2.0.1
 ```
 
-#### Listing all migrastions
+#### Listing all migrations
 
-```
+```bash
 find . -type f -name "*.ts" ! -name "*.spec.ts"
 
 ./fcm-credentials/fcm-credentials-migration.ts
@@ -413,5 +414,4 @@ find . -type f -name "*.ts" ! -name "*.spec.ts"
 ./integration-scheme-update/update-primary-for-disabled-novu-integrations.ts
 ./integration-scheme-update/add-integration-identifier-migration.ts
 ./normalize-users-email/normalize-users-email.migration.ts
-
 ```
