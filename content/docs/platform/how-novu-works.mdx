@@ -28,7 +28,7 @@ Everything starts with your organization, the top-level entity in Novu. Each org
 - Production for live apps
 - Any custom environments you need (for example, Staging)
 
-**Each environment contains**:
+Each environment contains:
 - Independent workflows
 - Environment-specific subscribers
 - Topics
@@ -51,11 +51,11 @@ To learn more about Workflows, refer to the [Workflows documentation](/platform/
 
 A subscriber represents a user in a given environment. Each subscriber has:
 
-- Channel identifiers: Such as email address or phone number.
-- A unique `subscriberId`: Used when triggering workflows and resolving the recipient.
-- Personal details: You can pass `firstName` and `lastName` when creating the subscriber.
-- Custom metadata: Stored under a `data` field, which is a flexible JSON object where you can store any additional user-specific information (for example, plan level, preferences, timestamps).
-- Environment-specific preferences: Like preferred channels and opt-in settings.
+- **Channel identifiers**: Such as email address or phone number.
+- **A unique `subscriberId`**: Used when triggering workflows and resolving the recipient.
+- **Personal details**: You can pass `firstName` and `lastName` when creating the subscriber.
+- **Custom metadata**: Stored under a `data` field, which is a flexible JSON object where you can store any additional user-specific information (for example, plan level, preferences, timestamps).
+- **Environment-specific preferences**: Like preferred channels and opt-in settings.
 
 To send notifications to multiple users, you can group subscribers into a topic. A workflow can be triggered for an individual subscriber or for all subscribers within a topic.
 
@@ -67,18 +67,17 @@ To learn more about Subscribers, refer to the [Subscribers documentation](/platf
 
 Each channel represents a delivery medium (Email, SMS, Push, Chat, or In-App). Channels are linked to provider configurations known as integrations, which are defined per environment.
 
-In-App messages are delivered to the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, which is located in your frontend and listens for messages scoped to the current environment and subscriber.
+In-app messages are delivered to the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, which is located in your frontend and listens for messages scoped to the current environment and subscriber.
 
-To learn more about Channels and the Inbox component, refer to the [Channels documentation](/platform/integrations/overview)
+To learn more about channels and the Inbox component, refer to the [Channels documentation](/platform/integrations/overview)
 
 ### Integrations
 
-Integrations connect Novu to external delivery providers (e.g., SendGrid, Twilio, Firebase Cloud Messaging, Slack). They are configured per environment and mapped to specific channels.
+Integrations connect Novu to external delivery providers (for example, SendGrid, Twilio, Firebase Cloud Messaging, Slack). They are configured per environment and mapped to specific channels.
 
 During workflow execution, Novu uses these integrations to send messages for steps that require external delivery. The presence of an integration for a given channel is required for a workflow step to succeed.
 
-To learn more about Integrations, refer to the [Integrations documentation](/platform/concepts/integrations
-)
+To learn more about Integrations, refer to the [Integrations documentation](/platform/concepts/integrations).
 
 ## How it all connects
 
