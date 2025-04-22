@@ -58,3 +58,7 @@ If a workflow is triggered to a [subscriber](/platform/concepts/subscribers), th
 ### If notifications were filtered out, are they still billed?
 
 Yes, they are still billed. The number of billed events is the number of subscribers or topic subscribers the workflow was triggered to, regardless of whether notifications were filtered out as per subscriber's [workflow channel preferences](/platform/concepts/preferences#workflow-channel-preferences), [global channel preferences](/platform/concepts/preferences#subscriber-global-preferences) or [step conditions](/platform/workflow/step-conditions).
+
+### How events are billed for digested events?
+
+As a workflow triggered to one subscriber is billed as 1 event. if events are digested 15 times and digested notification is sent 15th time, then 15 events will be billed.
