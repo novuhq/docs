@@ -1,6 +1,6 @@
 ---
 title: 'How Novu Works'
-description: 'A high-level overview of Novu’s architecture: workflows, triggers, subscribers, and environments, and how they connect to support In-app and external channels.'
+description: 'A high-level overview of Novu’s architecture: workflows, triggers, subscribers, and environments, and how they connect to support in-app and external channels.'
 ---
 
 import { Step, Steps } from '@/components/steps';
@@ -15,13 +15,13 @@ The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>
 
 Unlike external channels that rely on third-party providers, the Inbox is internal to your app. It uses the environment’s `application identifier` to establish a secure connection, scoped to your subscribers.
 
-When a workflow includes an in-App step, messages are routed to the subscriber’s inbox in real time. The Inbox component handles rendering, notification management, users' preferences, and message actions without requiring additional backend logic.
+When a workflow includes an in-app step, messages are routed to the subscriber’s inbox in real time. The Inbox component handles rendering, notification management, users' preferences, and message actions without requiring additional backend logic.
 
 ## Core concepts overview
 
 At a high level, Novu’s architecture is built around modular but connected concepts. Each concept serves a specific role in the delivery pipeline and is scoped to an environment.
 
-### Organization and Environments
+### Organization and environments
 
 Everything starts with your organization, the top-level entity in Novu. Each organization can have multiple environments, such as:
 - Development for testing
@@ -45,7 +45,7 @@ Workflows are environment-specific and versioned. You trigger them using the RES
 
 Each trigger becomes an event that flows through the workflow. Steps in the workflow generate messages, which are delivered via their corresponding channels or routed to the inbox.
 
-To learn more about Workflows, refer to the [Workflows documentation](/platform/concepts/workflows)
+To learn more about workflows, refer to the [Workflows documentation](/platform/concepts/workflows).
 
 ### Subscribers and topics
 
@@ -61,11 +61,11 @@ To send notifications to multiple users, you can group subscribers into a topic.
 
 Subscriber resolution is part of workflow execution. Novu uses the subscriber's metadata to determine how messages are personalized, delivered, and stored.
 
-To learn more about Subscribers, refer to the [Subscribers documentation](/platform/concepts/subscribers)
+To learn more about subscribers, refer to the [Subscribers documentation](/platform/concepts/subscribers).
 
 ### Channels and the Inbox component
 
-Each channel represents a delivery medium (Email, SMS, Push, Chat, or In-App). Channels are linked to provider configurations known as integrations, which are defined per environment.
+Each channel represents a delivery medium (email, SMS, push, chat, or in-app). Channels are linked to provider configurations known as integrations, which are defined per environment.
 
 In-app messages are delivered to the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, which is located in your frontend and listens for messages scoped to the current environment and subscriber.
 
@@ -101,7 +101,7 @@ Your application calls Novu’s API and passes in:
 
   <Step title="The workflow steps execute sequentially">
    Each step is evaluated in order. These steps include:
-   - Channel steps: deliver a message via email, SMS, push, in-app, or chat.
+   - **Channel steps**: Deliver a message via email, SMS, push, in-app, or chat.
    - **Action steps**: Introduce logic such as delays or digest aggregation.
   </Step>
 
