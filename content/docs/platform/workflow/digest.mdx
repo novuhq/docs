@@ -1,6 +1,6 @@
 ---
 title: 'Digest Engine'
-pageTitle: 'Collect Multiple Events to a Single Message with the Digest Engine'
+description: 'Collect Multiple Events to a Single Message with the Digest Engine'
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
@@ -29,6 +29,138 @@ The time interval determines how long the digest engine will wait before sending
 
 Here, in the image below, `5` is the interval amount, and `mins` is the interval unit. Interval units can be `sec(s)`, `min(s)`, `hour(s)`, or `day(s)`.
 
+## Digest event count variables
+
+Events count variables provide a structured way to access, format, and display digest event data across different messaging channels in your workflow using built-in logic and formatting powered by LiquidJS filters. 
+
+Instead of manually writing custom logic to count events or format summary content, you can easily reference totals and relevant details directly within your notification templates to render digest summaries, such as daily digests or batch emails.
+
+<Callout type="info" title="Note">These variables are automatically exposed in all variable-supporting inputs following a digest step. They are not editable, as their values are determined by the digest payload. </Callout>
+
+### Digest variables
+
+Digest variables are exposed after a Digest Step has been executed and are available in all subsequent steps. These variables let you work directly with the collected events, including iterating through them or displaying a summary count.
+
+#### steps.digest-step.events
+
+The `steps.digest-step.events` variable is an array that contains all the events collected by the Digest step. Each item in the array represents one digested event, including its payload.
+
+You can loop through it to build dynamic message lists, such as comment summaries or blog post digests, and use it with LiquidJS filters.
+
+```
+New posts published: {{steps.digest-step.events | tosentence: payload.title}}
+```
+
+If two events were collected, the rendered message would be:
+
+```
+New posts published: Scaling Node.js Apps, and Designing for Accessibility
+```
+
+#### steps.digest-step.eventCount
+
+The `steps.digest-step.eventCount` variable holds the total number of events collected during the Digest step window. It is an integer value and can be used directly or passed into LiquidJS filters like pluralize to generate grammatically correct summaries.
+
+```
+You have {{steps.digest-step.eventCount | pluralize: "new comment", "new comments"}}.
+
+```
+
+If two events were collected, the rendered message would be:
+
+```
+You have 2 new comments.
+```
+
+### Digest template variables
+
+Digest template variables are designed to simplify how you represent digested event data in user-facing messages. They wrap digest variables and LiquidJS filters to output preformatted summaries with minimal effort.
+
+#### steps.digest-step.countSummary
+
+The `countSummary` variable returns a sentence fragment summarizing the total number of digested events with correct pluralization.
+
+This variable is built on top of:
+* `steps.digest-step.eventCount`
+* The LiquidJS pluralize filter
+
+Internally, `countSummary` uses the event count to apply plural logic. For example, if eventCount is 1, it outputs "1 notification", and for 3, it returns "3 notifications".
+
+You can include it directly in an editor to render readable summaries like:
+
+```
+You have {{steps.digest-step.countSummary}} available.
+
+```
+
+If the Digest collected 5 events, the output would be:
+
+```
+You have 5 notifications available.
+```
+
+If only one event was collected:
+```
+You have 1 notification available.
+
+```
+
+#### steps.digest-step.sentenceSummary
+
+The `sentenceSummary` variable returns a sentence-style string listing key items from the digested events array, such as a list of names, and gracefully handles formatting depending on the number of items present.
+
+This variable is built on top of:
+* `steps.digest-step.events`
+* The LiquidJS `toSentence` filter
+
+You can configure the `toSentence` filter by passing:
+* A key path to extract from each item (for example, payload.name)
+* The number of items to display before collapsing (for example, 3)
+* The suffix to use for remaining items (for example, "others")
+
+Used with the `sentenceSummary` variable, this enables output like:
+
+```
+{{steps.digest-step.sentenceSummary}} replied to your post.
+```
+
+If the events contain names "Radek", "Dima", and 5 more users, the result would be:
+
+```
+Radek, Dima, and 5 others replied to your post.
+```
+
+If there are only two events:
+
+```
+Radek and Dima replied to your post.
+```
+
+These variable allows for dynamic personalization without writing custom iteration logic in your template.
+
+## Email editor digest block
+
+The Digest Block is available in the email editor when working with workflows that include a Digest Step. It loops over the events collected by your Digest Step and displays them in your email content, handling both layout and repetition automatically.
+
+When you add a Digest Block to your email template:
+* It automatically inserts a repeat block that loops over `steps.digest-step.events`.
+* Inside this loop, you define the structure once (for example, how each comment or notification looks), and it repeats for every event.
+* The block also supports rendering a summary using the `steps.digest-step.eventCount` variable, typically with the pluralize LiquidJS filter.
+
+Under the hood, the Digest Block uses a structure similar to this:
+
+```
+{% for event in steps.digest-step.events %}
+  <!-- Your layout for each event goes here -->
+  {{ event.payload.name }} commented: {{ event.payload.comment }}
+{% endfor %}
+```
+
+You don't need to write this manually. The Email Editor handles this for you by letting you drag the Digest Block into your message and customize the content visually using the available variables.
+
+<Callout type="info" title="Note">
+The Digest Block only appears if your workflow has a preceding Digest Step. This block will not be shown in the editor without a Digest Step.
+</Callout>
 ## Digest strategy types
 
 The strategy which Novu should use to handle the digest step. More details on available strategies below.
