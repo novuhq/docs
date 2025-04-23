@@ -16,11 +16,19 @@ The main component for displaying notifications.
 <TypeTable name="InboxProps" type={{
   "applicationIdentifier": {
     "description": "",
-    "type": "string"
+    "type": "string",
+    "required":"true"
+  },
+  "subscriber": {
+    "description": "",
+    "type": "Subscriber | string",
+    "required":"true",
+    "typeDescriptionLink": "/platform/sdks/javascript#subscriber"
   },
   "subscriberId": {
-    "description": "",
-    "type": "string"
+    "description": "Deprecated: Please use the subscriber prop instead",
+    "type": "string",
+    "deprecated": "true",
   },
   "subscriberHash": {
     "description": "",
@@ -56,6 +64,9 @@ The main component for displaying notifications.
   }
 }} />
 
+
+
+
 ### Usage
 
 ```tsx
@@ -65,7 +76,7 @@ function NotificationCenter() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="USER_ID"
+      subscriber="USER_ID"
       backendUrl="https://api.novu.co"
       socketUrl="https://ws.novu.co"
       placement="right"

@@ -71,7 +71,7 @@ export function InboxCodeBlock() {
           <nav className="flex justify-end items-center p-4 gap-4 h-16">
             <Inbox
               applicationIdentifier="${environment?.identifier || 'YOUR_APPLICATION_IDENTIFIER'}"
-              subscriberId="${user?.externalId || 'YOUR_SUBSCRIBER_ID'}"
+              subscriber="${user?.externalId || 'YOUR_SUBSCRIBER_ID'}"
             />
           </nav>
           {children}
