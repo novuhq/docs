@@ -169,7 +169,7 @@ You can configure the `toSentence` filter by passing:
 - The number of items to display before collapsing (for example, 3)
 - The suffix to use for remaining items (for example, "others")
 
-Internally, `sentenceSummary` uses the events array to generate the sentence. To use `sentenceSummary` in the editor, select it from the variables dropdown. This will automatically insert the variable like this:
+Internally, `sentenceSummary` uses the events array to generate the sentence. To use `sentenceSummary` in the editor, select it from the variables dropdown. This automatically inserts the variable as shown:
 
 ```
 {{steps.digest-step.events | toSentence:'payload.name', 3, 'others'}} replied to your post.
