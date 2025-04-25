@@ -30,6 +30,12 @@ await step.email('digest-email', async () => {
 | --- | --- | --- | --- |
 | amount | number | Yes | The number of time units to collect events for |
 | unit | 'seconds' \| 'minutes' \| 'hours' \| 'days' \| 'weeks' \| 'months' | Yes | The time unit for the digest period |
+| cron | string | No | The cron expression to use for the digest |
+| digestKey | string | No | The key to use for digesting events |
+
+<Callout type="info">
+  Use either cron or amount-unit. Using both will result in an error.
+</Callout>
 
 ## Digest Step Result
 
@@ -37,7 +43,7 @@ await step.email('digest-email', async () => {
 | -------- | ------------- | -------------------------------------------------- |
 | events   | DigestEvent[] | Array of events collected during the digest period |
 
-### DigestEvent Type
+## DigestEvent Type
 
 | Property | Type   | Description                                 |
 | -------- | ------ | ------------------------------------------- |
@@ -76,6 +82,46 @@ await step.email('digest-notification', async () => {
     body: render(<ActivityDigestEmail activities={activities} />),
   };
 });
+```
+
+## Cron based digest
+
+You can use cron based digest to digest events based on a cron expression.
+
+```tsx
+const digestedEvents = await step.digest('cron-digest', async () => {
+  return {
+    cron: '0 0 * * *', // every day at midnight
+  };
+});
+```
+
+## Custom Digest Key
+
+You can use a custom digest key to digest events based on a custom key. By default, events are digested based on the `subscriberId`. With a custom digest key, events are digested based on the combination of the `subscriberId` and the `digestKey` value.
+
+```tsx
+export const customDigestKey = workflow(
+  "custom-digest-key",
+  async ({ step, payload }) => {
+    const { events } = await step.digest("digest-step", async () => {
+      return {
+        unit: "hours",
+        amount: 1,
+        digestKey: payload.ticket_id,
+      };
+    });
+
+    console.log("events ==>", events);
+
+    // use above events to send email / in-app notification
+  },
+  {
+    payloadSchema: z.object({
+      ticket_id: z.string(),
+    }),
+  }
+);
 ```
 
 <Callout type="warn">
