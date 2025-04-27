@@ -1,4 +1,5 @@
 import { openapi, source } from '@/lib/source';
+import { APIPage } from 'fumadocs-openapi/ui';
 import { Popup, PopupContent, PopupTrigger } from 'fumadocs-twoslash/ui';
 import { TypeTable } from 'fumadocs-ui/components/type-table';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
@@ -93,7 +94,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
             Callout: Callout,
             APIPage: (props) => (
               <div id="api-page">
-                <openapi.APIPage {...props} />
+                <APIPage {...openapi.getAPIPageProps(props)} />
               </div>
             ),
             Accordions: Accordions,
