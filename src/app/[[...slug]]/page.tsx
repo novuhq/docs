@@ -92,11 +92,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
             },
             CodeBlock: CodeBlock,
             Callout: Callout,
-            APIPage: (props) => (
-              <div id="api-page">
-                <APIPage {...openapi.getAPIPageProps(props)} />
-              </div>
-            ),
+            APIPage: (props) => <APIPage {...openapi.getAPIPageProps(props)} />,
             Accordions: Accordions,
             Accordion: Accordion,
             Steps: Steps,
