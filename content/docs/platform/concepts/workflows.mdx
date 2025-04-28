@@ -20,6 +20,10 @@ Workflows can be simple:
 Or complex:
 * When a payment fails, wait 30 minutes, check the user type, then send an email and an in-app message. If no response in 24 hours, follow up with an SMS message.
 
+* • When a payment fails, wait 30 minutes, check the user type, send an email and an in-app message. If there’s no response in 24 hours, follow up with an SMS.
+
+
+
 It can also be extended further than these depending on your use case.
 
 
@@ -47,7 +51,7 @@ Supported channel types include:
 - Push (Firebase, OneSignal)
 - Chat (Slack, Microsoft Teams)
 
-<Callout type="warn">
+<Callout title="Note" type="warn">
   A channel step only runs if:
   - The subscriber has either an email, phone number and subscriberId.
   - A valid integration is configured for that channel in the environment.
@@ -74,7 +78,7 @@ This allows Novu workflows to adapt to user behavior and preferences while keepi
 
 ## Workflows editor
 
-All workflows in Novu are defined within the Workflow Editor, accessible via the Novu Dashboard. This visual builder allows you to model the sequence of steps that occur when a notification is triggered.
+All workflows in Novu are defined within the Workflow Editor, accessible via the Novu Dashboard. This visual builder let's you define the sequence of steps such as sending emails, SMS, or in-app notifications that happen when a notification event is triggered.
 
 Workflows created in the dashboard run via Novu’s Shared Bridge Endpoint, a centralized infrastructure that securely handles workflow execution for all customers. This means that your app doesn’t need to manage orchestration logic; Novu takes care of triggering, step execution, retries, and delivery flow behind the scenes.
 
@@ -82,43 +86,7 @@ Workflows created in the dashboard run via Novu’s Shared Bridge Endpoint, a ce
  While most users rely on the Shared Bridge Endpoint, Novu allows advanced users to host their own Bridge application and define workflows in code using the Novu Framework.
 </Callout>
 
-### Building the sequence
-
-The Workflow Editor provides a workflow builder where each step in the notification flow can either be channel steps or action steps.
-
-By default, every workflow has a trigger step, which represents the point of entry, usually an event sent from your backend via API. From there, you add steps to control the flow of delivery.
-
-Workflows are executed top-to-bottom in the order of steps, with optional filters, conditions, and step configurations applied at each point.
-
-### Template editor in workflow
-
-Each channel step in a workflow includes a template editor. This is where you can configure what the user sees or receives, whether that’s an email, an SMS message, or an in-app message.
-
-Each channel step has its own content format:
-- **Email**: Subject and body (HTML, Markdown, or text)
-- **SMS and Chat**: body-only
-- **In-App (Inbox)**: Subject, body, optional CTA buttons, data object
-- **Push**: Subject and body
-
-The template editor supports dynamic personalization using variables. You can insert variables using double curly braces `{{ }}` to tailor messages based on subscriber information or payload data.
-
-For example:
-
-- **Payload variable**:
-```txt
-Your order {{ payload.orderId }} has been confirmed.
-```
-- **Subscriber variable**:
-```txt
-Hello {{ subscriber.firstName }}, your current plan is {{ subscriber.data.plan }}.
-```
-
-Clicking a variable inside the editor opens a dialog where you can:
-
-- Apply Liquid.js filters to format and transform values
-- Use raw Liquid.js syntax for advanced logic and dynamic content
-
-For a full explanation of how to use the template editor, personalize messages, and work with Liquid syntax, refer to the [Template Editor documentation](/platform/workflow/template-editor).
+To learn more about building workflows using the workflow editor, filters, and personalizing templates, refer to the [Building Workflows documentation](/platform/workflow/overview).
 
 ## Workflow identifier
 
@@ -191,217 +159,20 @@ Instead of editing workflows directly in production, it's best practice to desig
 
 Every workflow in Novu is initiated by a trigger, which can be an external event or action that starts the notification flow. Triggers connect real-world events, such as a comment being posted or an order being placed, to a specific workflow using a unique identifier, the `workflowId`.
 
-The trigger event is the only mechanism for launching workflows and delivering notifications. When triggered, it carries all necessary context, including subscriber details, payload data, and optional overrides.
+When you trigger a workflow, you send event data, including subscriber information, payload details, and optional overrides, to Novu’s API. Novu then validates the event, processes it, and orchestrates notification delivery across your defined channels.
 
-Here's an example of an API call to trigger an event:
 
-<Tabs items={['cURL', 'JavaScript', 'TypeScript', 'PHP', 'Go', 'Python']}>
-  <Tab>
-  ```
-  curl -X POST https://api.novu.co/v1/events/trigger \
-  -H "Authorization: ApiKey <NOVU_SECRET_KEY>" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "<WORKFLOW_TRIGGER_IDENTIFIER>",
-    "to": {
-      "subscriberId": "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-    },
-    "payload": {}
-  }'
-  ```
-  </Tab>
-  <Tab>
-  ```js
-  fetch("https://api.novu.co/v1/events/trigger", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Authorization": "ApiKey <NOVU_SECRET_KEY>",
-    "idempotency-key": "example-key"
-  },
-  body: JSON.stringify({
-    name: "<WORKFLOW_TRIGGER_IDENTIFIER>",
-    to: {
-      subscriberId: "<UNIQUE_SUBSCRIBER_IDENTIFIER>"
-    },
-    payload: {}
-  })
-});
-  ```
-  </Tab>
-  <Tab>
-  ```ts
-  import { Novu } from "@novu/api";
+Behind the scenes, Novu manages the full lifecycle: subscriber validation, workflow matching, Attachment uploads (if applicable), queuing, job execution, retries, and status tracking.
 
-const novu = new Novu({
-  secretKey: "<NOVU_SECRET_KEY>",
-});
-
-async function run() {
-  const result = await novu.trigger({
-    workflowId: "<WORKFLOW_TRIGGER_IDENTIFIER>",
-    to: {
-      subscriberId: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-    },
-    payload: {},
-  });
-
-  console.log(result);
-}
-
-run();
-  ```
-  </Tab>
-  <Tab>
-  ```php
-  declare(strict_types=1);
-
-require 'vendor/autoload.php';
-
-use novu;
-use novu\Models\Components;
-
-$sdk = novu\Novu::builder()
-    ->setSecurity('<NOVU_SECRET_KEY>')
-    ->build();
-
-$triggerEventRequestDto = new Components\TriggerEventRequestDto(
-    workflowId: '<WORKFLOW_TRIGGER_IDENTIFIER>',
-    payload: [],
-    to: new Components\SubscriberPayloadDto(
-        subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
-    ),
-);
-
-$response = $sdk->trigger(
-    triggerEventRequestDto: $triggerEventRequestDto,
-    idempotencyKey: 'example-key'
-);
-
-if ($response->triggerEventResponseDto !== null) {
-    // handle response
-}
-  ```
-  </Tab>
-  <Tab>
-  ```go
-  package main
-
-import (
-  "context"
-  novugo "github.com/novuhq/novu-go"
-  "github.com/novuhq/novu-go/models/components"
-  "log"
-)
-
-func main() {
-  ctx := context.Background()
-
-  s := novugo.New(
-    novugo.WithSecurity("<NOVU_SECRET_KEY>"),
-  )
-
-  res, err := s.Trigger(ctx, components.TriggerEventRequestDto{
-    WorkflowID: "<WORKFLOW_TRIGGER_IDENTIFIER>",
-    Payload: map[string]any{},
-    To: components.CreateToSubscriberPayloadDto(
-      components.SubscriberPayloadDto{
-        SubscriberID: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-      },
-    ),
-  }, nil)
-
-  if err != nil {
-    log.Fatal(err)
-  }
-
-  if res.TriggerEventResponseDto != nil {
-    // handle response
-  }
-}
-  ```
-  </Tab>
-  <Tab>
-  ```py
-  import novu_py
-from novu_py import Novu
-
-with Novu(
-    secret_key="<NOVU_SECRET_KEY>",
-) as novu:
-    res = novu.trigger(trigger_event_request_dto=novu_py.TriggerEventRequestDto(
-        workflow_id="<WORKFLOW_TRIGGER_IDENTIFIER>",
-        payload={},
-        to=novu_py.SubscriberPayloadDto(
-            subscriber_id="<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-        ),
-    ))
-
-    print(res)
-  ```
-  </Tab>
-</Tabs>
-
-### Trigger the request lifecycle
-
-When a trigger event is sent to the `/events/trigger` endpoint, the following steps occur:
-
-1. **Subscriber mapping and validation**: Subscribers are identified and validated to ensure they’re eligible to receive the notification.
-2. **Workflow validation**: The system checks that the associated workflow is active and valid.
-3. **Attachment upload** (*if applicable*): Any included attachments are uploaded to storage.
-4. **Event queuing**: The validated event is added to a queue for efficient processing.
-
-### Processing the trigger event
-
-Once queued, the event is picked up by a worker which handles:
-
-- **Subscriber upsert**: Creates or updates the subscriber using data from the to object.
-- **Notification entity creation**: Stores key data about the organization, template, subscriber, and payload.
-- **Job creation**: Generates jobs based on the workflow’s steps. Each job defines what action to take and on which channel.
-
-### Job status lifecycle
-
-Jobs created during workflow processing transition through several statuses:
-
-| Status     | Description                                                                 |
-|------------|-----------------------------------------------------------------------------|
-| `PENDING`  | Job is created but not yet added to the queue.                             |
-| `QUEUED`   | Job is ready and waiting in the queue.                                     |
-| `RUNNING`  | Job is actively being processed.                                           |
-| `COMPLETED`| Job finished successfully.                                                 |
-| `FAILED`   | Job encountered an error and couldn’t be completed.                        |
-| `DELAYED`  | Job is intentionally delayed (e.g., for digests or time-based delays).     |
-| `CANCELED` | Job has been manually or programmatically canceled.                        |
-| `MERGED`   | Event was merged into another digesting event.                             |
-| `SKIPPED`  | Event digesting was skipped, often in backoff scenarios.                   |
+To learn more about triggering workflows via API, handling payloads, and understanding the request lifecycle, refer to the Triggering Workflows documentation.
 
 ## Workflow activity feed
 
-Once a workflow is triggered, Novu tracks the full execution lifecycle, from trigger to delivery inside the Activity Feed. This gives you a transparent view into every step of the process, allowing you to debug, trace failures, and understand how your notification logic behaves in production. Each environment has its own workflow activity feed.
+After a workflow is triggered, Novu tracks the full execution process in the Activity Feed. The feed gives you real-time visibility into each step, helping you debug issues, trace delivery problems, and understand how notifications behave in production. Each environment has its separate feed.
 
-### Filtering workflow executions
+You can filter the Activity Feed by workflow name, channel type, time period, or transaction ID to easily find and inspect specific executions.
 
-To make tracking specific executions easier, the Activity Feed allows you to filter by:
-
-- **Workflow name**: Useful when testing or observing a specific flow across multiple subscribers.
-- **Channel type**: See only executions that include Email, SMS, In-App, etc.
-- **Time period**: Narrow the view to the last 24 hours, 7 days, 30 days, or a custom range.
-- **Transaction ID**: If you're logging the `transactionId` returned during a trigger, you can look it up directly for an exact match.
-
-When a workflow is triggered, the activity feed logs show the following information:
-
-- The workflow identifier (which workflow was triggered).
-- The subscriber ID (who it was triggered for).
-- A unique transaction ID.
-- Execution status (for example, completed, failed).
-- The time it was triggered.
-
-### Step-level execution logs
-
-Clicking into an execution opens a detailed view that shows exactly what happened in each step:
-- When the step was created and queued.
-- Provider responses.
-- Errors or reasons for failure.
+To learn more about using the Activity Feed, step logs, and error tracing, refer to the Workflow Activity Feed documentation.
 
 ## Workflow channel preferences
 
