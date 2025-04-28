@@ -86,6 +86,52 @@ To keep the setup simple, we made some choices that may not be optimal for produ
 
 We strongly recommend that you decouple your database before deploying.
 
+## Setting Up the Inbox Component
+
+This section explains how to integrate the Novu Inbox component into your application when using a self-hosted Novu deployment.
+
+### Install the required packages
+
+```bash
+npm install @novu/react react-router-dom
+```
+
+### Create the Inbox component
+
+Create a component file (e.g., `notification-center.tsx`) in your project:
+
+```tsx
+import React from 'react';
+import { Inbox } from '@novu/react';
+import { useNavigate } from 'react-router';
+ 
+export function NotificationCenter() {
+  const navigate = useNavigate();
+ 
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      backendUrl="http://<your-docker-host>:3000" // Docker host address where Novu API is running
+      socketUrl="http://<your-docker-host>:3002" // Docker host address where Novu socket is running
+      routerPush={(path: string) => navigate(path)}
+    />
+  );
+}
+```
+
+### Configure the environment URLs
+
+Adjust the `backendUrl` and `socketUrl` based on your deployment:
+
+### Testing the connection
+
+Once your application is running, you should see the bell icon in your navbar. Clicking it will open the notification inbox UI.
+
+To test notifications, create and trigger a workflow from your self-hosted Novu dashboard, selecting In-App as the channel.
+
+For more information on customizing the Inbox component, refer to the [Inbox documentation](/inbox/overview).
+
 ### Setting Up local studio and bridge application
 
 #### Setting Up the bridge application
