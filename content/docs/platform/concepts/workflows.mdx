@@ -15,17 +15,12 @@ You can think of a workflow as a CI/CD pipeline for notifications or an assembly
 
 
 Workflows can be simple:
-* When a user signs up, send them a welcome email.
+- When a user signs up, send them a welcome email.
 
 Or complex:
-* When a payment fails, wait 30 minutes, check the user type, then send an email and an in-app message. If no response in 24 hours, follow up with an SMS message.
-
-* • When a payment fails, wait 30 minutes, check the user type, send an email and an in-app message. If there’s no response in 24 hours, follow up with an SMS.
-
-
+- When a payment fails, wait 30 minutes, check the user type, then send an email and an in-app message. If no response in 24 hours, follow up with an SMS message.
 
 It can also be extended further than these depending on your use case.
-
 
 ## Workflow steps
 
@@ -69,10 +64,10 @@ Common action steps include:
 ### Designing multi-channel sequences
 
 Because steps are chainable, you can build complex notification sequences such as:
-- Send an in-App message.
-- Wait 24 hours (Delay).
-- If the message is unread, send an email.
-- If the subscriber is a premium user, then follow up with an SMS message.
+1. Send an in-App message.
+2. Wait 24 hours (Delay).
+3. If the message is unread, send an email.
+4. If the subscriber is a premium user, then follow up with an SMS message.
 
 This allows Novu workflows to adapt to user behavior and preferences while keeping the configuration visual and testable.
 
