@@ -139,7 +139,7 @@ npx novu@latest dev -d http://localhost:4200 -p 4000 -t http://host.docker.inter
 <Callout type="info">
   In Windows OS, there are some additional steps:
   - stop the running docker compose process using `ctrl + c`
-  - update the `docker-compose.yml` file and add below config with each service (api, web, worker and ws)
+  - update the `docker-compose.yml` file and add below config with each service (api, dashboard, worker and ws)
 ```bash
 extra_hosts:
     - "host.docker.internal:host-gateway"
@@ -222,15 +222,15 @@ Currently, we are caching data in the most heavily loaded areas of the system: t
 
 ### Reverse-Proxy / Load Balancers
 
-To implement a reverse-proxy or load balancer in front of Novu, you need to set the GLOBAL_CONTEXT_PATH for the base path of the application. This is the path that the application will be served from after the domain. For example: - company.com/novu This is used to set the base path for the application, and is used to set the base path for the API, web, and websocket connections.
+To implement a reverse-proxy or load balancer in front of Novu, you need to set the GLOBAL_CONTEXT_PATH for the base path of the application. This is the path that the application will be served from after the domain. For example: - company.com/novu This is used to set the base path for the application, and is used to set the base path for the API, Dashboard, and WebSocket connections.
 
-The following environment variables are used to set the context path for each public service that Novu provides: API_CONTEXT_PATH WIDGET_CONTEXT_PATH WS_CONTEXT_PATH WEB_CONTEXT_PATH
+The following environment variables are used to set the context path for each public service that Novu provides: API_CONTEXT_PATH WIDGET_CONTEXT_PATH WS_CONTEXT_PATH DASHBOARD_CONTEXT_PATH
 
 These allow you to set the context path for each service independently or dependently of the GLOBAL_CONTEXT_PATH.
 
-For example, if I was using a reverse proxy to serve Novu from company.com/novu, I would set the GLOBAL_CONTEXT_PATH to novu, and then set the API_CONTEXT_PATH to api, the WIDGET_CONTEXT_PATH to widget, the WS_CONTEXT_PATH to ws, and the WEB_CONTEXT_PATH to web.
+For example, if I was using a reverse proxy to serve Novu from company.com/novu, I would set the GLOBAL_CONTEXT_PATH to novu, and then set the API_CONTEXT_PATH to api, the WIDGET_CONTEXT_PATH to widget, the WS_CONTEXT_PATH to ws, and the DASHBOARD_CONTEXT_PATH to Dashboard.
 
-This would produce the following urls: - API: company.com/novu/api - WIDGET: company.com/novu/widget - WS: company.com/novu/ws - WEB: company.com/novu/web
+This would produce the following urls: - API: company.com/novu/api - WIDGET: company.com/novu/widget - WS: company.com/novu/ws - DASHBOARD: company.com/novu/dashboard
 
 However the Service context path can be used entirely independently of the GLOBAL_CONTEXT_PATH.
 

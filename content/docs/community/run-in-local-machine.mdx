@@ -50,7 +50,7 @@ npm run start
 The `npm run start` will start the Jarvis CLI tool which allows you to run the whole project with ease. If you only want to run parts of the platform, you can use the following run commands from the root project:
 
 - **start:dev** - Synonym to `npm run start`
-- **start:web** - Only starts the web management platform
+- **start:dashboard** - Only starts the dashboard management platform
 - **start:ws** - Only starts the WebSocket service for notification center updates
 - **start:widget** - Starts the widget wrapper project that hosts the notification center inside an iframe
 - **start:api** - Runs the API in watch mode
@@ -185,14 +185,14 @@ npm run start:e2e:api
 
 The tests create a new instance of Novu and a test db and run the tests against it. The test db is removed after all tests have finished running.
 
-### Web
+### Dashboard
 
-To run the front end tests for the web project using cypress you need to install localstack. The cypress tests perform E2E tests. To be able to perform E2E tests, you need to run the API service in the appropriate test environment.
+To run the front end tests for the dashboard project using cypress you need to install localstack. The cypress tests perform E2E tests. To be able to perform E2E tests, you need to run the API service in the appropriate test environment.
 
 Run the services in test env with the following commands:
 
 ```shell
-npm run start:web
+npm run start:dashboard
 npm run start:api:test
 npm run start:worker:test
 npm run start:ws:test
@@ -201,13 +201,13 @@ npm run start:ws:test
 Run the cypress test suite with the following command:
 
 ```shell
-cd apps/web && npm run cypress:run
+cd apps/dashboard && npm run cypress:run
 ```
 
 To open the cypress management window to debug tests, run the following commands:
 
 ```shell
-cd apps/web && npm run cypress:open
+cd apps/dashboard && npm run cypress:open
 ```
 
 ### Different ports used by the services
@@ -216,7 +216,7 @@ cd apps/web && npm run cypress:open
 - **3002** - WebSocket Service
 - **3003** - Webhook Service
 - **3004** - Worker Service
-- **4200** - Web Management UI
+- **4200** - Dashboard Management UI
 - **4701** - Iframe embed for notification center
 - **4500** - Widget Service
 
