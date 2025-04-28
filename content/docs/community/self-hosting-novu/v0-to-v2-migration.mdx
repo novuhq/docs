@@ -1,0 +1,43 @@
+---
+title: "Migrating from v0 to v2"
+description: "A guide to help you migrate from Novu self-hosted v0 to v2"
+---
+
+# Migrating from Novu Self-Hosted v0 to v2
+
+This guide will help you migrate your existing Novu self-hosted v0 instance to v2. Due to significant architectural changes between versions, some manual steps are required, particularly for workflow migration.
+
+## Prerequisites
+
+- Access to your existing v0 instance
+- New v2 instance ready for deployment
+- Temporary ability to run both instances simultaneously for migration purposes
+
+## Migrating Workflows
+
+The most important part of migration is preserving your notification workflows. Here's how to transfer them:
+
+1. **Run both instances temporarily**: Deploy v2 alongside your v0 installation
+2. **Access both dashboards**: Open the admin dashboards for both versions
+3. **Copy workflow configurations**: For each workflow in v0:
+   - Note all steps, templates, and trigger configurations
+   - Manually recreate them in v2 with the same structure
+   - Verify variables, conditions, and integrations are properly configured
+
+### Workflow Migration Checklist
+
+For each workflow, ensure you migrate:
+
+- ✓ Workflow name and identifier
+- ✓ Step configurations (email, SMS, push, etc.)
+- ✓ Content templates with variables
+- ✓ Delivery conditions
+
+
+## Need Help?
+
+If you encounter challenges during migration, our community is here to help:
+
+- Join our [Discord community](https://discord.gg/novu)
+- Open issues on [GitHub](https://github.com/novuhq/novu)
+- Check the [documentation](https://docs.novu.co) for the latest updates 
