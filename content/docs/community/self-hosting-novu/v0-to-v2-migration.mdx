@@ -13,6 +13,26 @@ This guide will help you migrate your existing Novu self-hosted v0 instance to v
 - New v2 instance ready for deployment
 - Temporary ability to run both instances simultaneously for migration purposes
 
+## API Changes in v2
+
+The v2 API introduces several new endpoints and improvements. Here are the key changes:
+
+### New v2 Routes
+
+1. **Subscribers** (`/v2/subscribers`)
+   - Enhanced subscriber management with new endpoints:
+     - `GET /` - Search subscribers with advanced filtering
+     - `GET /:subscriberId` - Retrieve specific subscriber
+     - `POST /` - Create new subscriber
+     - `PATCH /:subscriberId` - Update subscriber details
+     - `DELETE /:subscriberId` - Remove subscriber
+   - New preferences management:
+     - `GET /:subscriberId/preferences` - Get subscriber preferences
+     - `PATCH /:subscriberId/preferences` - Update preferences
+
+2. **Environments** (`/v2/environments`)
+   - New tags management endpoint (`/:environmentId/tags`)
+
 ## Migrating Workflows
 
 The most important part of migration is preserving your notification workflows. Here's how to transfer them:
@@ -33,11 +53,10 @@ For each workflow, ensure you migrate:
 - ✓ Content templates with variables
 - ✓ Delivery conditions
 
-
 ## Need Help?
 
 If you encounter challenges during migration, our community is here to help:
 
 - Join our [Discord community](https://discord.gg/novu)
 - Open issues on [GitHub](https://github.com/novuhq/novu)
-- Check the [documentation](https://docs.novu.co) for the latest updates 
+- Check the [documentation](https://docs.novu.co) for the latest updates
