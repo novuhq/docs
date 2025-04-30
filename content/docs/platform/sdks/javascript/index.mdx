@@ -270,7 +270,7 @@ await novu.notifications.revertSecondary({ notificationId: 'NOTIFICATION_ID' });
 
 #### list
 
-Fetches the subscriber's notification preferences.
+Fetches the subscriber's workflow channel preferences.
 
 ```typescript
 const preferences = await novu.preferences.list();
@@ -300,6 +300,24 @@ The response will be of type:
     "type": "Workflow"
   }
 }} />
+
+#### update
+
+Updates the subscriber's workflow channel preferences
+
+```typescript
+// Fetch all preferences
+const preferenes = await novu.preferences.list();
+
+// List all preference and use preference.update to update individual workflow's preference
+preferenes.data?.forEach((preference) => {
+  preference.update({
+    channels: {
+      in_app: true,
+    },
+  });
+});
+```
 
 ## Events
 
