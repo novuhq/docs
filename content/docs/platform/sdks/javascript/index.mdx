@@ -15,11 +15,19 @@ The Novu client provides methods to interact with notifications, preferences, an
 <TypeTable name="NovuOptions" type={{
   "applicationIdentifier": {
     "description": "",
-    "type": "string"
+    "type": "string",
+    "required":"true"
+  },
+  "subscriber": {
+    "description": "",
+    "type": "Subscriber | string",
+    "required":"true",
+    "typeDescriptionLink": "/platform/sdks/javascript#subscriber"
   },
   "subscriberId": {
-    "description": "",
-    "type": "string"
+    "description": "Deprecated: Please use the subscriber prop instead",
+    "type": "string",
+    "deprecated": "true",
   },
   "subscriberHash": {
     "description": "",
@@ -482,11 +490,16 @@ novu.on('notifications.unread_count_changed', (data) => {
 }} />
 
 ### Subscriber
-
 <TypeTable name="Subscriber" type={{
   "id": {
     "description": "",
-    "type": "string"
+    "type": "string",
+    "required":"true"
+  },  
+  "subscriberId": {
+    "description": "",
+    "type": "string",
+    "required":"true"
   },
   "firstName": {
     "description": "",
@@ -496,11 +509,27 @@ novu.on('notifications.unread_count_changed', (data) => {
     "description": "",
     "type": "string"
   },
+  "email": {
+    "description": "",
+    "type": "string"
+  },
+  "phone": {
+    "description": "",
+    "type": "string"
+  },
   "avatar": {
     "description": "",
     "type": "string"
   },
-  "subscriberId": {
+  "locale": {
+    "description": "",
+    "type": "string"
+  },
+  "data": {
+    "description": "",
+    "type": "string"
+  },
+  "timezone": {
     "description": "",
     "type": "string"
   }

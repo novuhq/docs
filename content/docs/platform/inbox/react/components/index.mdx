@@ -52,7 +52,7 @@ A trigger button usually located at the top right corner of the screen, which tr
 import { Inbox } from '@novu/react';
 
 function Novu() {
-  return <Inbox subscriberId="1" applicationIdentifier="1" />;
+  return <Inbox subscriber="1" applicationIdentifier="1" />;
 }
 ```
 
@@ -65,7 +65,7 @@ import { BellIcon } from './icons';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID">
       <Bell
         renderBell={(unreadCount) => (
           <div>
@@ -91,7 +91,7 @@ import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID">
       {showSideMenu && <Notifications />}
     </Inbox>
   );
@@ -107,7 +107,7 @@ import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID">
       <Notifications />
     </Inbox>
   );
@@ -122,7 +122,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 export default function CustomPopoverPage() {
   return (
-    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID">
       <Popover>
         <PopoverTrigger>
           <Bell />
