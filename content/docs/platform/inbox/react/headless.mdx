@@ -22,8 +22,9 @@ npm i @novu/js
 ```typescript
 import { Novu } from "@novu/js";
 
-const novu = new Novu({
-  apiKey: 'YOUR_API_KEY',
+export const novu = new Novu({
+  applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
+  subscriberId: 'YOUR_SUBSCRIBER_ID',
 });
 ```
 
