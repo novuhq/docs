@@ -11,12 +11,7 @@ The headless version of Novu’s notification library package provides users wit
     ### Install the SDK
 
 ```package-install
-import { Novu } from "@novu/js";
-
-export const novu = new Novu({
-  applicationIdentifier: '',
-  subscriberId: '',
-});
+npm i @novu/js
 ```
 
 </Step>
@@ -27,8 +22,9 @@ export const novu = new Novu({
 ```typescript
 import { Novu } from "@novu/js";
 
-const novu = new Novu({
-  apiKey: 'YOUR_API_KEY',
+export const novu = new Novu({
+  applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
+  subscriberId: 'YOUR_SUBSCRIBER_ID',
 });
 ```
 
