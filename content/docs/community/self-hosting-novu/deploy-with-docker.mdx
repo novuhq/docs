@@ -77,6 +77,32 @@ Update the `.env` file with your own secrets.
   - To run in VPS: Your server's IP address (e.g., `http://<vps-ip-address>`) or domain name
 - `REDIS_CACHE_SERVICE_HOST` and `REDIS_HOST` can have same value for small deployments. For larger deployments, it is recommended to use separate Redis instances for caching and queue management.
 
+### Additional Security for Public APIs
+
+When deploying Novu in a setup where the API needs to be publicly accessible (e.g., for Inbox clients) while the Dashboard runs in a secure network, you can implement an additional security layer using a shared token:
+
+1. Set the same token value in both services:
+   - In the Dashboard's environment: `VITE_SELF_HOSTED_TOKEN`.
+   - In the API's environment: `SELF_HOSTED_TOKEN`.
+
+2. This token acts as a shared secret between the Dashboard and API:
+   - The Dashboard uses this token to authenticate its connection to the API.
+   - If the tokens don't match, the connection will be rejected.
+
+3. Example configuration:
+```bash
+# In Dashboard's .env
+VITE_SELF_HOSTED_TOKEN=your-secure-token-here
+
+# In API's .env
+SELF_HOSTED_TOKEN=your-secure-token-here
+```
+
+This security model ensures that:
+- Only authorized Dashboard instances can connect to the API.
+- The API remains accessible to Inbox clients while maintaining security with HMAC configuration.
+- The Dashboard must be running in a secure network with the correct token.
+
 ## Configuration
 
 To keep the setup simple, we made some choices that may not be optimal for production:
