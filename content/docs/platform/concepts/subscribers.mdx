@@ -9,7 +9,7 @@ In Novu, a subscriber represents a user or system entity that is intended to rec
 
 Each subscriber is uniquely identified in Novu by a `subscriberId`. This ID is defined by your application and serves as the reference point for all subscriber-related operations whether sending messages, retrieving preferences, or managing user data. 
 
-Unlike email addresses or phone numbers, which might change or be shared across users, the `subscriberId` must remain stable and unique within your system. It acts as the anchor that connects a subscriber’s profile, activity history, and delivery settings across all channels and workflows.
+Unlike email addresses or phone numbers, which may change or be shared across users, the `subscriberId` must remain stable and unique within your system. It acts as the anchor that connects a subscriber’s profile, activity history, and delivery settings across all channels and workflows.
 
 <Callout>Use your application's internal user ID as the `subscriberId` to ensure consistency across your systems.</Callout>
 
@@ -19,11 +19,11 @@ A subscriber’s profile holds all relevant data Novu uses to personalize, deliv
 
 All metadata tied to a subscriber is centralized and accessible via API or dashboard. This structure ensures that when notifications are triggered, Novu references the most up-to-date context for delivery and personalization.
 
-These data include:
+These data includes:
 
 ### User data
 
-Data stored in the subscriber object that you can easily access in your notification templates. This contains basic info such as `email`, `phone`, `firstName`, `locale` and others. These data are fixed and structured.
+Data stored in the subscriber object that you can easily access in your notification templates. This contains basic info such as `email`, `phone`, `firstName`, `locale` and others. This data is fixed and structured.
 
 ### Custom data
 
@@ -33,7 +33,7 @@ Apart from the above fixed structured user data, any unstructured custom data su
 
 To deliver messages through push or chat-based channels, Novu also supports storing delivery credentials on the subscriber profile:
 - `deviceTokens`: Used to target mobile devices via push notifications.
-- `webhookUrl`: Used by chat providers such as Slack and Discord to reach the subscriber.
+- `webhookUrl`: Used by chat providers such as, Slack, Discord to reach the subscriber.
 
 These fields ensure Novu can deliver messages reliably to all supported destinations, even when the channel requires platform-specific configuration.
 
@@ -41,9 +41,9 @@ These fields ensure Novu can deliver messages reliably to all supported destinat
 
 Before you can send notifications, a subscriber must exist in Novu. Asides from manually creating a subscriber via the Novu dashboard, Novu supports multiple approaches to subscriber creation depending on your application’s architecture and user lifecycle.
 
-### Just-in-time
+### Just in time
 
-Novu allows you to create a subscriber automatically at the moment a notification is triggered. If the subscriber doesn't already exist, then Novu uses the information provided in the workflow trigger to create the subscriber on the fly. If the subscriber exists, then Novu updates the stored data with the latest values.
+Novu allows you to create a subscriber automatically at the moment a notification is triggered. If the subscriber doesn't already exist, Novu uses the information provided in the workflow trigger to create the subscriber on the fly. If the subscriber exists, Novu updates the stored data with the latest values.
 
 This approach is useful when:
 - Your system does not store subscriber profiles ahead of time.
@@ -59,7 +59,7 @@ This is recommended when:
 - You rely on persistent user data or prefer strict validation before delivery.
 - You plan to use advanced segmentation or preference-based delivery.
 
-### Bulk import
+### Bulk Import
 
 For scenarios like data migration, syncing large lists, or preloading subscribers, Novu supports bulk creation. This is especially useful when integrating with existing systems or importing subscriber data from external sources.
 
@@ -75,7 +75,7 @@ The Novu Dashboard provides a visual interface for exploring and editing subscri
 - Inspecting user profiles, including structured fields, custom data, and channel credentials
 - Performing manual updates or troubleshooting delivery issues
 
-This is ideal for non-technical team members responsible for managing subscribers or teams that want to audit or manage subscriber data without relying on code.
+This is ideal for non technical team members responsible for managing subscribers or teams that want to audit or manage subscriber data without relying on code.
 
 ### API
 
@@ -89,14 +89,14 @@ Use the API when managing subscribers is part of your backend workflows or when 
 
 ## Subscriber preferences and personalization
 
-Novu allows each subscriber to define how they want to receive notifications. These preferences influence both the delivery channels and the types of messages a subscriber receives.
+Novu allows each subscriber to define how they want to receive notifications. These preferences influence both the delivery channels and the types of messages a subscriber will receive.
 
 ### Global preferences
 
 Subscribers can configure preferences that apply across all workflows. These include:
 
-- Opting in or out of specific channels (for example, email, SMS, in-app)
-- Turning off notifications altogether
+- Opting in or out of specific channels, for example, email, SMS, push, or in-app
+- Disabling notifications altogether
 
 These global settings act as a default and are respected unless explicitly overridden in specific workflows.
 
