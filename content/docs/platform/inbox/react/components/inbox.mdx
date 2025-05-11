@@ -258,6 +258,45 @@ function Novu() {
 }
 ```
 
+### Rendering HTML
+
+To render HTML tags in inbox, user renderBody props and render the notification body as a `dangerouslySetInnerHTML` element.
+```tsx
+import { Inbox } from '@novu/react';
+
+function NovuInbox() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderBody={(notification) => (
+        <div>
+          <p dangerouslySetInnerHTML={{ __html: notification.body }} />
+        </div>
+      )}
+    />
+  );
+}
+```
+
+#### Steps: 
+1. Create a workflow with in-app step.
+2. Toggle on the `Disable content sanitization` option on the top right corner of the in-app step.
+3. Use html tags in in-app step body as shown in the image below 
+
+<img
+  src="/images/inbox/render-html.png"
+  alt="Render HTML in Inbox"
+/>
+
+HTML Content:
+```html html tags with dynamic values
+{{subscriber.firstName}}, A <b>Good news!</b> We've just launched the <i>advanced 
+analytics dashboard</i> you asked for. Check it out <a href="{{payload.analyticsPage}}" 
+target="_blank">here</a> and gain deeper insights into your usage.
+```
+
+
 ### Custom Bell
 
 ```tsx
