@@ -180,6 +180,8 @@ This logic is built into the component and does not require any additional confi
 If you’re using custom tabs in the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, you can configure a dedicated "Snoozed" or "Reminders" tab by adding a `snoozed: true` filter to your tabs configuration. This helps users navigate more easily and focus on the reminders they’ve scheduled.
 
 ```tsx
+import { Inbox } from '@novu/nextjs';
+
 <Inbox
   tabs={[
     { label: 'All', filter: {} },
