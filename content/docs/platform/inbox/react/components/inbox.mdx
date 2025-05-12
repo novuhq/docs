@@ -123,7 +123,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
 
 ## Snooze
 
-The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes built-in support for snoozing notifications, which let's users delay reminders and resurface them at a more convenient time. 
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes built-in support for snoozing notifications, which lets users delay reminders and resurface them at a more convenient time. 
 
 When a user snoozes a notification, it is temporarily removed from the active list and automatically redelivered at the specified time. This helps reduce noise while keeping important updates accessible.
 
@@ -137,7 +137,7 @@ All dates and times are interpreted in the user’s local timezone. Users can sn
   - An hour from now
   - Tomorrow
 - Custom date and time:
-  - A built-in date and time picker allows users to select a specific future moment.
+  - A built-in date and time picker allows users to select a specific future time.
 
 <img
   src="/images/inbox/snooze-a-notification.png"
@@ -148,25 +148,25 @@ All dates and times are interpreted in the user’s local timezone. Users can sn
 
 Once snoozed:
 - The notification leaves the All tab and appears in the Snoozed tab.
-- It cannot be marked as read/unread or archived until it returns.
+- It cannot be marked as read or unread or archived until it returns.
 
 All of these behaviors are handled automatically by the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component.
 
-Developers can also configure how the snooze options are presented by customizing styles, localization keys, or using snooze-related actions exposed on the notification object. For instance, each notification instance includes `.snooze()` and `.unsnooze()` methods in the client-side SDKs, making it easy to control reminders when needed.
+Developers can also configure how the snooze options are presented by customizing styles, localization keys, or using snooze-related actions exposed on the notification object. For instance, each notification instance includes `.snooze()` and `.unsnooze()` methods in the client-side SDKs, allowing you to control reminders when needed.
 
 <Callout type="info">
 Snoozing is available on all plans for Cloud workspaces:
 - Free – Up to 24 hours per notification
-- Trial – Matches Pro limits during the 14-day trial (up to 90 days)
+- Trial – Up to 90 days during the 14-day trial, same as Pro
 - Pro / Team – Up to 90 days
-- Enterprise – Marketed as “Unlimited,” but defaults to 90 days (extendable on request)
+- Enterprise – Defaults to 90 days, extendable on request
 </Callout>
 
 ### Managing snoozed notifications
 
 The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes a dedicated Snoozed tab that automatically displays notifications scheduled to reappear later. From this tab, users can review all snoozed notifications and take further actions as needed.
 
-Users can unsnooze a notification at any time, which immediately returns it to the All tab. Once unsnoozed, the notification regains its standard behavior, it can be marked as read, unread, or archived like any other item.
+Users can unsnooze a notification at any time, which immediately returns it to the All tab. Once unsnoozed, the notification regains its standard behavior. It can be marked as read, unread, or archived like any other item.
 
 | Action             |  Result  |
 | ------------------ | --------------------------------------------------------------------------- |
@@ -191,7 +191,6 @@ import { Inbox } from '@novu/nextjs';
 ```
 
 This customization is optional, the built-in behavior already handles snoozed notifications. However, adding an explicit tab can help reinforce the distinction between active and pending reminders in your UI.
-
 
 ## Event Handling
 
