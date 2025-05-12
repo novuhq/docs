@@ -15,7 +15,7 @@ import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID" />
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID" />
   );
 }
 ```
@@ -38,7 +38,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
         />
       );
     }
@@ -56,7 +56,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
           routerPush={(path: string) => navigate(path)}
         />
       );
@@ -75,7 +75,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
           routerPush={(path: string) => navigate(path)}
         />
       );
@@ -92,7 +92,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
           routerPush={(path: string) => navigate(path)}
         />
       );
@@ -111,7 +111,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
           routerPush={(path: string) => navigate(path)}
         />
       );
@@ -137,7 +137,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onNotificationClick={(notification) => {
         // your logic to handle notification click
       }}
@@ -157,7 +157,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onPrimaryActionClick={(notification) => {
         // your logic to handle primary action click
       }}
@@ -184,7 +184,7 @@ function Novu() {
     <>
       <Inbox
         applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-        subscriberId="YOUR_SUBSCRIBER_ID"
+        subscriber="YOUR_SUBSCRIBER_ID"
         open={open}
       />
       <button onClick={() => setOpen(!open)}>Toggle Inbox</button>
@@ -202,7 +202,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => (
         <div>
           <h3>{notification.subject}</h3>
@@ -225,7 +225,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderSubject={(notification) => (
         <div>
           <p>{notification.subject}</p>
@@ -247,7 +247,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderBody={(notification) => (
         <div>
           <p>{notification.body}</p>
@@ -258,6 +258,45 @@ function Novu() {
 }
 ```
 
+### Rendering HTML
+
+To render HTML tags in inbox, user renderBody props and render the notification body as a `dangerouslySetInnerHTML` element.
+```tsx
+import { Inbox } from '@novu/react';
+
+function NovuInbox() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderBody={(notification) => (
+        <div>
+          <p dangerouslySetInnerHTML={{ __html: notification.body }} />
+        </div>
+      )}
+    />
+  );
+}
+```
+
+#### Steps: 
+1. Create a workflow with in-app step.
+2. Toggle on the `Disable content sanitization` option on the top right corner of the in-app step.
+3. Use html tags in in-app step body as shown in the image below 
+
+<img
+  src="/images/inbox/render-html.png"
+  alt="Render HTML in Inbox"
+/>
+
+HTML Content:
+```html html tags with dynamic values
+{{subscriber.firstName}}, A <b>Good news!</b> We've just launched the <i>advanced 
+analytics dashboard</i> you asked for. Check it out <a href="{{payload.analyticsPage}}" 
+target="_blank">here</a> and gain deeper insights into your usage.
+```
+
+
 ### Custom Bell
 
 ```tsx
@@ -267,7 +306,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderBell={(unreadCount) => (
         <div>
           <span>{unreadCount}</span>
@@ -293,18 +332,47 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       preferencesFilter={{ tags: ['general', 'admin', 'security'] }}
     />
   );
 }
 ```
 
+### Subscriber Data Upsert
+
+The `<Inbox />` component supports real-time subscriber data updates when properly configured with HMAC authentication. This allows you to update subscriber information directly through the component without making separate API calls:
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberHash="GENERATED_HMAC_HASH" // Generated on your backend
+      subscriber={{
+        subscriberId: "YOUR_SUBSCRIBER_ID",
+        firstName: "John",
+        lastName: "Doe",
+        email: "john@example.com"
+      }}
+    />
+  );
+}
+```
+
+<Callout type="info">
+  To enable real-time subscriber data updates, make sure to provide the `subscriberHash` for secure HMAC authentication. This allows you to update subscriber data directly through the component while maintaining security.
+</Callout>
+
+Learn more about setting up HMAC authentication in the [Enabling HMAC Encryption](/platform/inbox/react/production#hmac-encryption) guide.
+
 ### Data object
 
 The `data` object is a key-value store within each notification, used to extend <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> notifications by embedding step-specific metadata. It provides flexible notification handling, supporting both static and dynamic values:
 
-- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don’t change based on the recipient or context.
+- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don't change based on the recipient or context.
 - **Dynamic Values**: These values are derived from subscriber or payload data. For instance, they can reference `subscriber.firstName` or `payload.issueId` to tailor notifications for individual users.
 
 You can pass data such as:
@@ -324,7 +392,7 @@ import { Inbox } from '@novu/react';
 
 <Inbox
   applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-  subscriberId="YOUR_SUBSCRIBER_ID"
+  subscriber="YOUR_SUBSCRIBER_ID"
   renderNotification={(notification) => (
     <div>
       <p>{notification.data?.customKey}</p>
@@ -348,5 +416,4 @@ declare global {
 }
 ```
 
-This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage. 
-
+This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage.

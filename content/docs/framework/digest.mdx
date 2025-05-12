@@ -45,6 +45,46 @@ await step.email('send-email', async () => {
 });
 ```
 
+## Cron based digest
+
+You can use cron based digest to digest events based on a cron expression.
+
+```tsx
+const digestedEvents = await step.digest('cron-digest', async () => {
+  return {
+    cron: '0 0 * * *', // every day at midnight
+  };
+});
+```
+
+## Custom Digest Key
+
+You can use a custom digest key to digest events based on a custom key. By default, events are digested based on the `subscriberId`. With a custom digest key, events are digested based on the combination of the `subscriberId` and the `digestKey` value.
+
+```tsx
+export const customDigestKey = workflow(
+  "custom-digest-key",
+  async ({ step, payload }) => {
+    const { events } = await step.digest("digest-step", async () => {
+      return {
+        unit: "hours",
+        amount: 1,
+        digestKey: payload.ticket_id,
+      };
+    });
+
+    console.log("events ==>", events);
+
+    // use above events to send email / in-app notification
+  },
+  {
+    payloadSchema: z.object({
+      ticket_id: z.string(),
+    }),
+  }
+);
+```
+
 <Callout type="info">
   Step controls: At the moment, it is not possible to use digest information in step controls. You
   can only use it from the code, by creating a custom component for handling digested data.
@@ -60,3 +100,11 @@ The digest step returns an object with events array. Each event in the array has
   Changing the step content after triggering the workflow with digest step will not affect the
   existing digested events.
 </Callout>
+
+## Next Steps
+
+- [Learn more about the Digest Engine](/framework/typescript/steps/digest)
+## Frequently Asked Questions
+
+### If digest step fails, will the workflow continue to the next step?
+No, workflow execution will stop immediately if the digest step fails due to an error.

@@ -31,11 +31,10 @@ import { NovuProvider } from "@novu/react-native";
 function Layout() {
   return (
     <NovuProvider
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
     >
       {/* Your app components where you want to use the hooks */}
-      <YourCustomInbox />
     </NovuProvider>
   );
 }
@@ -49,7 +48,7 @@ import { NovuProvider } from "@novu/react-native";
 function Layout() {
   return (
     <NovuProvider
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       backendUrl="https://api.eu.novu.co"
       socketUrl="https://ws.eu.novu.co"
@@ -72,7 +71,7 @@ function Layout() {
     function App() {
       return (
         <NovuProvider
-          subscriberId="SUBSCRIBER_ID"
+          subscriber="SUBSCRIBER_ID"
           applicationIdentifier="APPLICATION_IDENTIFIER"
           subscriberHash="SUBSCRIBER_HASH_HMAC_ENCRYPTION"
         >

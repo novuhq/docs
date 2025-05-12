@@ -15,13 +15,25 @@ The Novu client provides methods to interact with notifications, preferences, an
 <TypeTable name="NovuOptions" type={{
   "applicationIdentifier": {
     "description": "",
-    "type": "string"
+    "type": "string",
+    "required":"true"
+  },
+  "subscriber": {
+    "description": "",
+    "type": "Subscriber | string",
+    "required":"true",
+    "typeDescriptionLink": "/platform/sdks/javascript#subscriber"
   },
   "subscriberId": {
+    "description": "Deprecated: Please use the subscriber prop instead",
+    "type": "string",
+    "deprecated": "true",
+  },
+  "subscriberHash": {
     "description": "",
     "type": "string"
   },
-  "subscriberHash": {
+  "backendUrl": {
     "description": "",
     "type": "string"
   },
@@ -266,7 +278,7 @@ await novu.notifications.revertSecondary({ notificationId: 'NOTIFICATION_ID' });
 
 #### list
 
-Fetches the subscriber's notification preferences.
+Fetches the subscriber's workflow channel preferences.
 
 ```typescript
 const preferences = await novu.preferences.list();
@@ -296,6 +308,24 @@ The response will be of type:
     "type": "Workflow"
   }
 }} />
+
+#### update
+
+Updates the subscriber's workflow channel preferences
+
+```typescript
+// Fetch all preferences
+const preferenes = await novu.preferences.list();
+
+// List all preference and use preference.update to update individual workflow's preference
+preferenes.data?.forEach((preference) => {
+  preference.update({
+    channels: {
+      in_app: true,
+    },
+  });
+});
+```
 
 ## Events
 
@@ -460,11 +490,16 @@ novu.on('notifications.unread_count_changed', (data) => {
 }} />
 
 ### Subscriber
-
 <TypeTable name="Subscriber" type={{
   "id": {
     "description": "",
-    "type": "string"
+    "type": "string",
+    "required":"true"
+  },  
+  "subscriberId": {
+    "description": "",
+    "type": "string",
+    "required":"true"
   },
   "firstName": {
     "description": "",
@@ -474,11 +509,27 @@ novu.on('notifications.unread_count_changed', (data) => {
     "description": "",
     "type": "string"
   },
+  "email": {
+    "description": "",
+    "type": "string"
+  },
+  "phone": {
+    "description": "",
+    "type": "string"
+  },
   "avatar": {
     "description": "",
     "type": "string"
   },
-  "subscriberId": {
+  "locale": {
+    "description": "",
+    "type": "string"
+  },
+  "data": {
+    "description": "",
+    "type": "string"
+  },
+  "timezone": {
     "description": "",
     "type": "string"
   }
