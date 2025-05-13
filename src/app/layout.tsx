@@ -5,6 +5,7 @@ import { source } from '@/lib/source';
 import { ClerkProvider } from '@clerk/nextjs';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
+// import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Viewport } from 'next';
@@ -14,6 +15,7 @@ import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
+import { LargeSearchToggle, SearchToggle } from 'fumadocs-ui/components/layout/search-toggle';
 
 export const metadata = createMetadata({
   title: {
@@ -134,13 +136,22 @@ export default function Layout({ children }: { children: ReactNode }) {
                 sidebar={{
                   collapsible: true,
                   tabs: false,
+                  // enabled: true,
+                  // component: <CustomSidebar />,
+                  banner: <LargeSearchToggle className="hidden md:flex mt-2 rounded-lg" />,
                   footer: (
-                    <div className="flex gap-2 justify-start w-full">
-                      <div className="ml-auto">
-                        <ThemeToggle />
-                      </div>
+                    <div className="flex gap-2 justify-between w-full items-center">
+                      <span className="text-sm text-[#666666] dark:text-[#999999]">Theme</span>
+                      <ThemeToggle />
                     </div>
                   ),
+                }}
+                searchToggle={{
+                  enabled: true,
+                  components: {
+                    sm: <SearchToggle className="md:hidden" />,
+                    lg: null,
+                  },
                 }}
               >
                 <AnalyticsProvider />
