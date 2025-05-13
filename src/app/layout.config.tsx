@@ -5,6 +5,8 @@ import Image from 'next/image';
 import { Button, buttonVariants } from '../components/ui/button';
 import { cn } from '../lib/utils';
 
+import LogoTextIcon from '@/components/icons/home-page/logo';
+
 export const logo = (
   <>
     <Image
@@ -27,12 +29,16 @@ export const logo = (
 export const baseOptions: BaseLayoutProps = {
   nav: {
     title: (
-      <>
+      <div className="flex items-center gap-2.5">
         {logo}
-        <span className="font-medium [.uwu_&]:hidden [header_&]:text-[15px]">Documentation</span>
-      </>
+        <LogoTextIcon />
+        <span className="h-5 w-px bg-[#E6E6E6] dark:bg-[#333333] " aria-hidden />
+        <span className="font-light text-[#666666] dark:text-[#999999] text-base/none tracking-[-0.02em] [.uwu_&]:hidden">
+          Docs
+        </span>
+      </div>
     ),
-    transparentMode: 'top',
+    transparentMode: 'none',
   },
   disableThemeSwitch: true,
   links: [
@@ -69,7 +75,7 @@ export const baseOptions: BaseLayoutProps = {
     {
       type: 'custom',
       children: (
-        <div className="flex items-center gap-2 justify-end ml-auto custom-nav">
+        <div className="flex items-center gap-2 mt-2 lg:mt-0 ml-auto custom-nav shrink-0 grow">
           <SignedOut>
             <a
               href="https://dashboard.novu.co/auth/sign-in"
@@ -94,7 +100,9 @@ export const baseOptions: BaseLayoutProps = {
     },
     {
       type: 'custom',
-      children: <GithubInfo owner="novuhq" repo="novu" className="lg:-mx-2" />,
+      children: (
+        <GithubInfo owner="novuhq" repo="novu" className="flex mt-2 lg:mt-0 lg:hidden xl:flex" />
+      ),
     },
   ],
 };

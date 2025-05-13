@@ -12,8 +12,10 @@ export const buttonVariants = cva(
         ghost: 'hover:bg-fd-accent hover:text-fd-accent-foreground',
         secondary:
           'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent hover:text-fd-accent-foreground',
-        black: 'bg-black text-white',
-        white: 'bg-white text-black border border-[#cccccc]',
+        black:
+          'bg-black text-white dark:bg-white dark:text-black hover:bg-[#333333] dark:hover:bg-[#CCCCCC]',
+        white:
+          'bg-transparent text-black border border-[#cccccc] dark:text-white dark:border-[#333333] hover:bg-[#FAFAFA] hover:border-[#999999] dark:hover:bg-[#0D0D0D] dark:hover:border-[#4D4D4D]',
       },
       size: {
         sm: 'gap-1 p-0.5 text-xs',
