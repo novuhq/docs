@@ -173,9 +173,9 @@ export const sendNotification = inngest.createFunction(
 
 ## Add a New Subscriber to Novu
 
-Before triggering notifications, Novu needs to know *who* to notify. That's where subscribers come in. A **subscriber** in Novu represents a user (or entity) that can receive notifications through one or more channels (in-app, email, SMS, etc.).
+Before sending notifications, Novu needs to know *who* to notify. That's where subscribers come in. A **subscriber** in Novu represents a user (or entity) that can receive notifications through one or more channels (in-app, email, SMS, etc.).
 
-You can create a new subscriber programmatically from a Trigger.dev task using Novu's SDK.
+You can create a new subscriber programmatically from a Inngest's task using Novu's SDK.
 
 ---
 
@@ -195,7 +195,7 @@ If you trigger a workflow with a `subscriberId` that doesn't exist, Novu will au
 
 ### Create a Subscriber in a Task
 
-Below is a task that creates a Novu subscriber using a Trigger.dev task. It also supports optional fields like `phone` and `avatar`.
+Below is a task that creates a Novu subscriber using a Inngest task. It also supports optional fields like `phone` and `avatar`.
 
 ```typescript
 import { inngest } from "./client";
