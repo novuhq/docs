@@ -233,7 +233,7 @@ const communityCards = [
 export function IndexPage() {
   return (
     <div className={`min-h-screen home bg-background not-prose ${inter.className}`}>
-      <div className="container mx-auto px-[9px] flex flex-col lg:gap-y-16 md:gap-y-14 gap-y-12">
+      <div className="container mx-auto px-px flex flex-col lg:gap-y-16 md:gap-y-14 gap-y-12">
         <section>
           <div className="relative size-14">
             <Image
@@ -419,6 +419,7 @@ export function IndexPage() {
                 title={card.title}
                 description={card.description}
                 link={card.link}
+                target="_blank"
               />
             ))}
           </div>

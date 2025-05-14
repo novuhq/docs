@@ -75,7 +75,7 @@ export const baseOptions: BaseLayoutProps = {
     {
       type: 'custom',
       children: (
-        <div className="flex items-center gap-2 mt-2 lg:mt-0 ml-auto custom-nav shrink-0 grow">
+        <div className="flex items-center gap-2 mt-2 ml-auto shrink-0 grow lg:justify-end lg:mt-0">
           <SignedOut>
             <a
               href="https://dashboard.novu.co/auth/sign-in"
