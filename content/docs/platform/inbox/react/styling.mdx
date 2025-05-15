@@ -144,104 +144,110 @@ Each icon is identified by a unique key, and you can provide a custom renderer f
 
 #### Available icon keys
 
-<TypeTable
-  type={{
-    bell: {
-      type: 'IconRenderer',
-      description: 'The notification bell icon in the header.',
-    },
-    clock: {
-      type: 'IconRenderer',
-      description: 'Used in the date/time display for notifications.',
-    },
-    arrowDropDown: {
-      type: 'IconRenderer',
-      description: 'Dropdown arrow in various menus and selectors.',
-    },
-    dots: {
-      type: 'IconRenderer',
-      description: 'More options menu (three dots) in notification items.',
-    },
-    markAsRead: {
-      type: 'IconRenderer',
-      description: 'Icon for marking notifications as read.',
-    },
-    cogs: {
-      type: 'IconRenderer',
-      description: 'Settings/preferences icon in the header.',
-    },
-    trash: {
-      type: 'IconRenderer',
-      description: 'Delete/remove icon for notifications.',
-    },
-    markAsArchived: {
-      type: 'IconRenderer',
-      description: 'Icon for archiving notifications.',
-    },
-    markAsArchivedRead: {
-      type: 'IconRenderer',
-      description: 'Icon for marking notifications as archived and read.',
-    },
-    markAsUnread: {
-      type: 'IconRenderer',
-      description: 'Icon for marking notifications as unread.',
-    },
-    markAsUnarchived: {
-      type: 'IconRenderer',
-      description: 'Icon for unarchiving notifications.',
-    },
-    unsnooze: {
-      type: 'IconRenderer',
-      description: 'Icon for unsnoozed notifications.',
-    },
-    arrowRight: {
-      type: 'IconRenderer',
-      description: 'Right arrow used in pagination and navigation.',
-    },
-    arrowLeft: {
-      type: 'IconRenderer',
-      description: 'Left arrow used in pagination and navigation.',
-    },
-    unread: {
-      type: 'IconRenderer',
-      description: 'Indicator for unread notifications.',
-    },
-    sms: {
-      type: 'IconRenderer',
-      description: 'SMS channel icon in notification preferences.',
-    },
-    inApp: {
-      type: 'IconRenderer',
-      description: 'In-app channel icon in notification preferences.',
-    },
-    email: {
-      type: 'IconRenderer',
-      description: 'Email channel icon in notification preferences.',
-    },
-    push: {
-      type: 'IconRenderer',
-      description: 'Push notification channel icon in preferences.',
-    },
-    chat: {
-      type: 'IconRenderer',
-      description: 'Chat channel icon in notification preferences.',
-    },
-    check: {
-      type: 'IconRenderer',
-      description: 'Checkmark icon used for selected items.',
-    },
-    arrowDown: {
-      type: 'IconRenderer',
-      description: 'Down arrow used in dropdowns and expandable sections.',
-    },
-  }}
-/>
+<Accordion title="Click to view all available icon keys">
+  <table>
+    <thead>
+      <tr>
+        <th>Icon Key</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>bell</code></td>
+        <td>The notification bell icon in the header</td>
+      </tr>
+      <tr>
+        <td><code>clock</code></td>
+        <td>Used in the date/time display for notifications</td>
+      </tr>
+      <tr>
+        <td><code>arrowDropDown</code></td>
+        <td>Dropdown arrow in various menus and selectors</td>
+      </tr>
+      <tr>
+        <td><code>dots</code></td>
+        <td>More options menu (three dots) in notification items</td>
+      </tr>
+      <tr>
+        <td><code>markAsRead</code></td>
+        <td>Icon for marking notifications as read</td>
+      </tr>
+      <tr>
+        <td><code>cogs</code></td>
+        <td>Settings/preferences icon in the header</td>
+      </tr>
+      <tr>
+        <td><code>trash</code></td>
+        <td>Delete/remove icon for notifications</td>
+      </tr>
+      <tr>
+        <td><code>markAsArchived</code></td>
+        <td>Icon for archiving notifications</td>
+      </tr>
+      <tr>
+        <td><code>markAsArchivedRead</code></td>
+        <td>Icon for marking notifications as archived and read</td>
+      </tr>
+      <tr>
+        <td><code>markAsUnread</code></td>
+        <td>Icon for marking notifications as unread</td>
+      </tr>
+      <tr>
+        <td><code>markAsUnarchived</code></td>
+        <td>Icon for unarchiving notifications</td>
+      </tr>
+      <tr>
+        <td><code>unsnooze</code></td>
+        <td>Icon for unsnoozed notifications</td>
+      </tr>
+      <tr>
+        <td><code>arrowRight</code></td>
+        <td>Right arrow used in pagination and navigation</td>
+      </tr>
+      <tr>
+        <td><code>arrowLeft</code></td>
+        <td>Left arrow used in pagination and navigation</td>
+      </tr>
+      <tr>
+        <td><code>unread</code></td>
+        <td>Indicator for unread notifications</td>
+      </tr>
+      <tr>
+        <td><code>sms</code></td>
+        <td>SMS channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>inApp</code></td>
+        <td>In-app channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>email</code></td>
+        <td>Email channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>push</code></td>
+        <td>Push notification channel icon in preferences</td>
+      </tr>
+      <tr>
+        <td><code>chat</code></td>
+        <td>Chat channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>check</code></td>
+        <td>Checkmark icon used for selected items</td>
+      </tr>
+      <tr>
+        <td><code>arrowDown</code></td>
+        <td>Down arrow used in dropdowns and expandable sections</td>
+      </tr>
+    </tbody>
+  </table>
+</Accordion>
 
 #### Finding icon keys
 
 You can inspect the elements you want to customize using the browser's dev tools. Icon elements have a class name with a 🖼️ emoji followed by a class similar to `nv-cogs`. The part after `nv-` is the icon key that you can use to override that icon.
-
-<img src="/images/inbox/styling_02@2x.png" alt="Finding Icon Keys" />
 
 <Callout type="info">
   Any selector that starts with `nv-` and has a 🖼️ emoji can be customized using the corresponding icon key in the `appearance.icons` property.
@@ -260,33 +266,6 @@ const appearance = {
     cogs: () => <RiCogs />,
     arrowDown: () => <RiArrowDown />,
     bell: () => <RiBellFill />
-  },
-};
-
-export function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      appearance={appearance}
-    />
-  );
-}
-```
-
-#### Handling icon props
-
-Your custom icon renderer function can also accept and use the props passed to it, such as className:
-
-```tsx
-import { Inbox } from '@novu/react';
-import { RiCogs, RiArrowDown, RiBellFill } from 'react-icons/ri';
-
-const appearance = {
-  icons: {
-    cogs: (props) => <RiCogs className={props.class} />,
-    arrowDown: (props) => <RiArrowDown className={props.class} />,
-    bell: (props) => <RiBellFill className={props.class} />
   },
 };
 
