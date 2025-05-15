@@ -133,6 +133,154 @@ const appearance = {
   available elements.
 </Callout>
 
+### Customizing Icons
+
+The `icons` property in the `appearance` prop allows you to customize any icon used within the Inbox component. This is useful when you want to:
+- Match the Bell icon with your host app's navbar icon set
+- Use your own icon library to maintain a consistent design system
+- Modify all icons to fit your application's visual style
+
+Each icon is identified by a unique key, and you can provide a custom renderer function for each icon you want to override.
+
+#### Available icon keys
+
+<details>
+  <summary>Click to view all available icon keys</summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Icon Key</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>bell</code></td>
+        <td>The notification bell icon in the header</td>
+      </tr>
+      <tr>
+        <td><code>clock</code></td>
+        <td>Used in the date/time display for notifications</td>
+      </tr>
+      <tr>
+        <td><code>arrowDropDown</code></td>
+        <td>Dropdown arrow in various menus and selectors</td>
+      </tr>
+      <tr>
+        <td><code>dots</code></td>
+        <td>More options menu (three dots) in notification items</td>
+      </tr>
+      <tr>
+        <td><code>markAsRead</code></td>
+        <td>Icon for marking notifications as read</td>
+      </tr>
+      <tr>
+        <td><code>cogs</code></td>
+        <td>Settings/preferences icon in the header</td>
+      </tr>
+      <tr>
+        <td><code>trash</code></td>
+        <td>Delete/remove icon for notifications</td>
+      </tr>
+      <tr>
+        <td><code>markAsArchived</code></td>
+        <td>Icon for archiving notifications</td>
+      </tr>
+      <tr>
+        <td><code>markAsArchivedRead</code></td>
+        <td>Icon for marking notifications as archived and read</td>
+      </tr>
+      <tr>
+        <td><code>markAsUnread</code></td>
+        <td>Icon for marking notifications as unread</td>
+      </tr>
+      <tr>
+        <td><code>markAsUnarchived</code></td>
+        <td>Icon for unarchiving notifications</td>
+      </tr>
+      <tr>
+        <td><code>unsnooze</code></td>
+        <td>Icon for unsnoozed notifications</td>
+      </tr>
+      <tr>
+        <td><code>arrowRight</code></td>
+        <td>Right arrow used in pagination and navigation</td>
+      </tr>
+      <tr>
+        <td><code>arrowLeft</code></td>
+        <td>Left arrow used in pagination and navigation</td>
+      </tr>
+      <tr>
+        <td><code>unread</code></td>
+        <td>Indicator for unread notifications</td>
+      </tr>
+      <tr>
+        <td><code>sms</code></td>
+        <td>SMS channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>inApp</code></td>
+        <td>In-app channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>email</code></td>
+        <td>Email channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>push</code></td>
+        <td>Push notification channel icon in preferences</td>
+      </tr>
+      <tr>
+        <td><code>chat</code></td>
+        <td>Chat channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>check</code></td>
+        <td>Checkmark icon used for selected items</td>
+      </tr>
+      <tr>
+        <td><code>arrowDown</code></td>
+        <td>Down arrow used in dropdowns and expandable sections</td>
+      </tr>
+    </tbody>
+  </table>
+</details>
+
+#### Finding icon keys
+
+You can inspect the elements you want to customize using the browser's dev tools. Icon elements have a class name with a 🖼️ emoji followed by a class similar to `nv-cogs`. The part after `nv-` is the icon key that you can use to override that icon.
+
+<Callout type="info">
+  Any selector that starts with `nv-` and has a 🖼️ emoji can be customized using the corresponding icon key in the `appearance.icons` property.
+</Callout>
+
+#### Customizing icons with React components
+
+The simplest way to customize icons is to provide a function that returns a React component for each icon you want to override:
+
+```tsx
+import { Inbox } from '@novu/react';
+import { RiCogs, RiArrowDown, RiBellFill } from 'react-icons/ri';
+
+const appearance = {
+  icons: {
+    cogs: () => <RiCogs />,
+    arrowDown: () => <RiArrowDown />,
+    bell: () => <RiBellFill />
+  },
+};
+
+export function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+
 ### Dark theme
 
 No need to implement a custom dark theme. Just import our premade `dark` theme and use it via the `baseTheme` option in `appearance`.
