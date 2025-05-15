@@ -133,6 +133,107 @@ const appearance = {
   available elements.
 </Callout>
 
+### Customizing Icons
+
+The `icons` property in the `appearance` prop allows you to customize any icon used within the Inbox component. This is useful when you want to:
+- Match the Bell icon with your host app's navbar icon set
+- Use your own icon library to maintain a consistent design system
+- Modify all icons to fit your application's visual style
+
+Each icon is identified by a unique key, and you can provide a custom renderer function for each icon you want to override.
+
+#### Available icon keys
+
+```tsx
+export type IconKey =
+  | 'bell'
+  | 'clock'
+  | 'arrowDropDown'
+  | 'dots'
+  | 'markAsRead'
+  | 'cogs'
+  | 'trash'
+  | 'markAsArchived'
+  | 'markAsArchivedRead'
+  | 'markAsUnread'
+  | 'markAsUnarchived'
+  | 'unsnooze'
+  | 'arrowRight'
+  | 'arrowLeft'
+  | 'unread'
+  | 'sms'
+  | 'inApp'
+  | 'email'
+  | 'push'
+  | 'chat'
+  | 'check'
+  | 'arrowDown';
+```
+
+#### Finding icon keys
+
+You can inspect the elements you want to customize using the browser's dev tools. Icon elements have a class name with a 🖼️ emoji followed by a class similar to `nv-cogs`. The part after `nv-` is the icon key that you can use to override that icon.
+
+<img src="/images/inbox/styling_02@2x.png" alt="Finding Icon Keys" />
+
+<Callout type="info">
+  Any selector that starts with `nv-` and has a 🖼️ emoji can be customized using the corresponding icon key in the `appearance.icons` property.
+</Callout>
+
+#### Customizing icons with React components
+
+The simplest way to customize icons is to provide a function that returns a React component for each icon you want to override:
+
+```tsx
+import { Inbox } from '@novu/react';
+import { RiCogs, RiArrowDown, RiBellFill } from 'react-icons/ri';
+
+const appearance = {
+  icons: {
+    cogs: () => <RiCogs />,
+    arrowDown: () => <RiArrowDown />,
+    bell: () => <RiBellFill />
+  },
+};
+
+export function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+
+#### Handling icon props
+
+Your custom icon renderer function can also accept and use the props passed to it, such as className:
+
+```tsx
+import { Inbox } from '@novu/react';
+import { RiCogs, RiArrowDown, RiBellFill } from 'react-icons/ri';
+
+const appearance = {
+  icons: {
+    cogs: (props) => <RiCogs className={props.class} />,
+    arrowDown: (props) => <RiArrowDown className={props.class} />,
+    bell: (props) => <RiBellFill className={props.class} />
+  },
+};
+
+export function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+
 ### Dark theme
 
 No need to implement a custom dark theme. Just import our premade `dark` theme and use it via the `baseTheme` option in `appearance`.
