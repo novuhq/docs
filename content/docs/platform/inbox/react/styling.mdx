@@ -144,31 +144,98 @@ Each icon is identified by a unique key, and you can provide a custom renderer f
 
 #### Available icon keys
 
-```tsx
-export type IconKey =
-  | 'bell'
-  | 'clock'
-  | 'arrowDropDown'
-  | 'dots'
-  | 'markAsRead'
-  | 'cogs'
-  | 'trash'
-  | 'markAsArchived'
-  | 'markAsArchivedRead'
-  | 'markAsUnread'
-  | 'markAsUnarchived'
-  | 'unsnooze'
-  | 'arrowRight'
-  | 'arrowLeft'
-  | 'unread'
-  | 'sms'
-  | 'inApp'
-  | 'email'
-  | 'push'
-  | 'chat'
-  | 'check'
-  | 'arrowDown';
-```
+<TypeTable
+  type={{
+    bell: {
+      type: 'IconRenderer',
+      description: 'The notification bell icon in the header.',
+    },
+    clock: {
+      type: 'IconRenderer',
+      description: 'Used in the date/time display for notifications.',
+    },
+    arrowDropDown: {
+      type: 'IconRenderer',
+      description: 'Dropdown arrow in various menus and selectors.',
+    },
+    dots: {
+      type: 'IconRenderer',
+      description: 'More options menu (three dots) in notification items.',
+    },
+    markAsRead: {
+      type: 'IconRenderer',
+      description: 'Icon for marking notifications as read.',
+    },
+    cogs: {
+      type: 'IconRenderer',
+      description: 'Settings/preferences icon in the header.',
+    },
+    trash: {
+      type: 'IconRenderer',
+      description: 'Delete/remove icon for notifications.',
+    },
+    markAsArchived: {
+      type: 'IconRenderer',
+      description: 'Icon for archiving notifications.',
+    },
+    markAsArchivedRead: {
+      type: 'IconRenderer',
+      description: 'Icon for marking notifications as archived and read.',
+    },
+    markAsUnread: {
+      type: 'IconRenderer',
+      description: 'Icon for marking notifications as unread.',
+    },
+    markAsUnarchived: {
+      type: 'IconRenderer',
+      description: 'Icon for unarchiving notifications.',
+    },
+    unsnooze: {
+      type: 'IconRenderer',
+      description: 'Icon for unsnoozed notifications.',
+    },
+    arrowRight: {
+      type: 'IconRenderer',
+      description: 'Right arrow used in pagination and navigation.',
+    },
+    arrowLeft: {
+      type: 'IconRenderer',
+      description: 'Left arrow used in pagination and navigation.',
+    },
+    unread: {
+      type: 'IconRenderer',
+      description: 'Indicator for unread notifications.',
+    },
+    sms: {
+      type: 'IconRenderer',
+      description: 'SMS channel icon in notification preferences.',
+    },
+    inApp: {
+      type: 'IconRenderer',
+      description: 'In-app channel icon in notification preferences.',
+    },
+    email: {
+      type: 'IconRenderer',
+      description: 'Email channel icon in notification preferences.',
+    },
+    push: {
+      type: 'IconRenderer',
+      description: 'Push notification channel icon in preferences.',
+    },
+    chat: {
+      type: 'IconRenderer',
+      description: 'Chat channel icon in notification preferences.',
+    },
+    check: {
+      type: 'IconRenderer',
+      description: 'Checkmark icon used for selected items.',
+    },
+    arrowDown: {
+      type: 'IconRenderer',
+      description: 'Down arrow used in dropdowns and expandable sections.',
+    },
+  }}
+/>
 
 #### Finding icon keys
 
