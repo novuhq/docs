@@ -1,0 +1,61 @@
+---
+pageTitle: 'Grouping Preferences'
+title: 'Preference Groups'
+---
+
+Preference Grouping allows consolidation of subscriber inbox preferences, streamlining extensive lists of workflows into well-organized, meaningful groups. This functionality enhances efficiency and simplifies the management of subscriber preferences. It enables control over the preferences displayed in the Inbox component.
+
+<img src="/images/inbox/preference-groups.png" alt="Preference Groups" style={{ margin: '0 auto' }} />
+
+## Defining Groups
+
+Define the `preferenceGroups` prop to display multiple groups in the Inbox component.
+
+Each group object should include a `name` and `filter` properties. The `name` property represents the text displayed on the specific group. The `filter` property is an object or a function that serves as the "filter criteria" for the preferences displayed in the list.
+
+The example below demonstrates how to define multiple groups in the Inbox component.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function InboxNovu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceGroups={[
+          // group by tags
+          { name: 'General', filter: { tags: ['account'] } },
+
+          // group by tags and workflow ids
+          { name: 'Marketing', filter: { tags: ['marketing'], workflowIds: ['some-workflow-identifier'] } },
+
+          // group all workflows even the ones that are in the other groups
+          { name: 'All Workflows', filter: ({ preferences }) => preferences },
+
+          // group preferences by custom logic
+          // the preferences arg is an array excluding global
+          {
+            name: 'All Other Workflows',
+            filter: ({ preferences }) => {
+              const alreadyUsedTags = ['account', 'marketing'];
+              const alreadyUsedWorkflowIds = ['some-workflow-identifier'];
+
+              // filter preferences that doesnt have any of used tags and used workflow identifiers
+              return preferences.filter((preference) => {
+                const tagsAreNotUsed = preference.workflow?.tags?.every((el) => !alreadyUsedTags.includes(el));
+                const identifierIsNotUsed = !alreadyUsedWorkflowIds.includes(preference.workflow?.identifier ?? '');
+
+                return tagsAreNotUsed && identifierIsNotUsed;
+              });
+            },
+          },
+        ]}
+    />
+  );
+}
+```
+
+<Callout type="info">
+  The Global Preferences are always visible and cannot be removed from the list.
+</Callout>
