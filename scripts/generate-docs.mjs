@@ -75,6 +75,7 @@ async function main() {
 
       await mkdir(path.dirname(absoluteFilePath), { recursive: true });
       await writeFile(absoluteFilePath, page.content);
+      console.log(`Generated MDX: ${absoluteFilePath}`);
     }
   }
 }
