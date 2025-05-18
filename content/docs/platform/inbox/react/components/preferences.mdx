@@ -53,8 +53,6 @@ Global subscriber preferences are shown by default. To hide them, add the follow
 
 Preference Grouping allows you to organize extensive lists of workflows into well-organized, meaningful groups. This enhances efficiency and simplifies the management of subscriber preferences.
 
-<img src="/images/inbox/preference-groups.png" alt="Preference Groups" style={{ margin: '0 auto' }} />
-
 To implement preference grouping, use the `preferenceGroups` prop on the `Inbox` component. Each group requires:
 
 - `name`: The text displayed for the group
@@ -80,10 +78,26 @@ Here are the key ways to filter preferences:
 4. **Custom filtering logic**:
    You can implement custom filtering logic using a function that receives the preferences array (excluding global preferences) and returns filtered preferences based on your criteria.
 
+Example implementation:
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function InboxWithGroups() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceGroups={[
+        { name: 'General', filter: { tags: ['account'] } },
+        { name: 'Marketing', filter: { tags: ['marketing'], workflowIds: ['some-workflow-id'] } },
+        { name: 'All Workflows', filter: ({ preferences }) => preferences }
+      ]}
+    />
+  );
+}
+```
+
 <Callout type="info">
   The Global Preferences are always visible and cannot be removed from the list.
 </Callout>
-
-## Shadow DOM Support
-
-When the Inbox component is rendered within a shadow DOM, it automatically detects it and ensures style isolation at the shadow root level with no extra configuration required.
