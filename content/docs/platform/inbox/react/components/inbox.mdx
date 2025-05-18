@@ -285,6 +285,53 @@ function Novu() {
 }
 ```
 
+### Custom notification based on condition
+
+Conditions could be:
+  - workflow tags
+  - worklfow name or idenfier(workflow id)
+  - [data object](#data-object)
+  
+```tsx
+import { Inbox } from '@novu/react';
+
+function CutomInbox() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderNotification={(notification) => {
+        // filter based on tags
+        if (notification.tags?.includes("custom")) {
+          return (
+            <div>
+              <h3>Custom Notification Subject</h3>
+              <p>Custom Notification Body</p>
+            </div>
+          );
+        }
+        // filter based on data object key
+        if (notification.data?.shouldUseRedBackground) {
+          return (
+            <div style={{ backgroundColor: "red" }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
 ### Custom Notification Subject
 
 Render a custom subject for the notification, while keeping the default notification component.
