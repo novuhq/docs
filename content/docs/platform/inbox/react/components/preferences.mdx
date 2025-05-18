@@ -48,3 +48,56 @@ Global subscriber preferences are shown by default. To hide them, add the follow
   display: none;
 }
 ```
+
+### Grouping Preferences
+
+Preference Grouping allows you to organize extensive lists of workflows into well-organized, meaningful groups. This ensures that your end-users get a better experience when managing their preferences.
+
+To implement preference grouping, use the `preferenceGroups` prop on the `Inbox` component. Each group requires:
+
+- `name`: The text displayed for the group
+- `filter`: Criteria for which preferences appear in the group (object or function)
+
+Here are the key ways to filter preferences:
+
+1. **Filter by tags**:
+   ```tsx
+   const groupConfig = { name: 'General', filter: { tags: ['account'] } };
+   ```
+
+2. **Filter by tags and workflow IDs**:
+   ```tsx
+   const groupConfig = { name: 'Marketing', filter: { tags: ['marketing'], workflowIds: ['workflow-id'] } };
+   ```
+
+3. **Include all workflows** (even those in other groups):
+   ```tsx
+   const groupConfig = { name: 'All Workflows', filter: ({ preferences }) => preferences };
+   ```
+
+4. **Custom filtering logic**:
+   You can implement custom filtering logic using a function that receives the preferences array (excluding global preferences) and returns filtered preferences based on your criteria.
+
+Example implementation:
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function InboxWithGroups() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceGroups={[
+        { name: 'General', filter: { tags: ['account'] } },
+        { name: 'Marketing', filter: { tags: ['marketing'], workflowIds: ['some-workflow-id'] } },
+        { name: 'All Workflows', filter: ({ preferences }) => preferences }
+      ]}
+    />
+  );
+}
+```
+
+<Callout type="info">
+  The Global Preferences are always visible and cannot be removed from the list.
+</Callout>
