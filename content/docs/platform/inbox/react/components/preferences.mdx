@@ -64,25 +64,57 @@ To implement preference grouping, use the `preferenceGroups` prop on the `Inbox`
 
 Here are the key ways to filter preferences:
 
-- **Filter by tags**:
+#### Filter by tags
+Use this approach to group preferences that share specific tags.
+
    ```tsx
-   const groupConfig = { name: 'General', filter: { tags: ['account'] } };
+   const preferenceGroups = [
+  {
+    name: 'General',
+    filter: {
+      tags: ['account'],
+    },
+  },
+];
    ```
 
-- **Filter by tags and workflow IDs**:
+#### Filter by tags and workflow IDs:
+Combine tags and workflow IDs to define a more targeted group of preferences.
+
    ```tsx
-   const groupConfig = { name: 'Marketing', filter: { tags: ['marketing'], workflowIds: ['workflow-id'] } };
+   const preferenceGroups = [
+  {
+    name: 'Marketing',
+    filter: {
+      tags: ['marketing'],
+      workflowIds: ['workflow-id'],
+    },
+  },
+];
+
    ```
 
-- **Include all workflows** (even those in other groups):
-   ```tsx
-   const groupConfig = { name: 'All Workflows', filter: ({ preferences }) => preferences };
-   ```
+#### Include all workflows
+Include every available workflow, regardless of its tag or grouping, by returning the full preferences list.
 
-- **Custom filtering logic**:
+   ```tsx
+   const preferenceGroups = [
+  {
+    name: 'All Workflows',
+    filter: ({ preferences }) => preferences,
+  },
+];
+  ```
+
+
+#### Custom filtering logic
    You can implement custom filtering logic using a function that receives the preferences array (excluding global preferences) and returns filtered preferences based on your criteria.
 
-Example implementation:
+<Callout type="info">
+  The Global Preferences are always visible and cannot be removed from the list.
+</Callout>
+
+Here’s how the `preferenceGroups` prop fits into the full <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component:
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -93,20 +125,26 @@ function InboxWithGroups() {
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriber="YOUR_SUBSCRIBER_ID"
       preferenceGroups={[
-        { name: 'General', filter: { tags: ['account'] } },
-        { name: 'Marketing', filter: { tags: ['marketing'], workflowIds: ['some-workflow-id'] } },
-        { name: 'All Workflows', filter: ({ preferences }) => preferences }
+        {
+          name: 'General',
+          filter: { tags: ['account'] },
+        },
+        {
+          name: 'Marketing',
+          filter: { tags: ['marketing'], workflowIds: ['workflow-id'] },
+        },
+        {
+          name: 'All Workflows',
+          filter: ({ preferences }) => preferences,
+        },
       ]}
     />
   );
 }
 ```
+
 <img
   src="/images/inbox/preference-groups.png"
   alt="Grouping preferences"
   className="rounded-lg border w-[800px]"
 />
-
-<Callout type="info">
-  The Global Preferences are always visible and cannot be removed from the list.
-</Callout>
