@@ -56,12 +56,13 @@ SendGrid allows you to authenticate your sender identity using one of the follow
 Novu has its own email editor for writing email template. To send pre-made template in SendGrid, `customData` filed of email overrides can be used to send template details. Make sure sendgrid `Api Key` has enough permission to read and process the template. This `customData` field can be used to send custom args and extra data in the form of key-value pairs.
 
 <Callout type="info">
-  sending `customData` field in overrides to send sendgrid template will work
-  only in following cases: - if workflow is triggered to only one subscriber -
-  if workflow is triggered to multiple subscribers or topic but sendgrid
+  Sending `customData` field in overrides to send sendgrid template will work
+  only in following cases: 
+  - if workflow is triggered to only one subscriber 
+  - if workflow is triggered to multiple subscribers or topic but sendgrid
   template does not have any dynamic variables related to subscriber attributes
   like `firstName`, `lastName`, `email`, etc as same overrides will be applied
-  to all subscribers or topic
+  to all subscribers.
 </Callout>
 
 ```typescript
