@@ -13,7 +13,7 @@ Users can enable/disable any active channel in the workflow using subscriber pre
   alt="Novu Preferences Component"
 />
 
-## Basic Usage
+## Basic usage
 
 The `Preferences` component is used to display the subscriber preferences. Use it when you want to render preferences in another part of your application or create a custom layout for the Inbox.
 
@@ -29,9 +29,9 @@ function Novu() {
 }
 ```
 
-## Customization Options
+## Customization options
 
-### Filtering Preferences
+### Filtering preferences
 
 <Callout type="info">
   You can filter the preferences visible by the user by specifying the `preferenceFilter` on the
@@ -39,7 +39,7 @@ function Novu() {
   [here](/platform/inbox/react/components/inbox#filter-visible-preferences).
 </Callout>
 
-### Hiding Global Preferences
+### Hiding global preferences
 
 Global subscriber preferences are shown by default. To hide them, add the following code to your global CSS file:
 
@@ -49,9 +49,13 @@ Global subscriber preferences are shown by default. To hide them, add the follow
 }
 ```
 
-### Grouping Preferences
+### Grouping preferences
 
 Preference grouping lets you organize extensive lists of workflows into well-organized, meaningful groups. This ensures that your end-users get a better experience when managing their preferences.
+ 
+<Callout type="info">
+  Note: Grouping preference is supported in client-side SDKs starting from version 3.4.0.
+</Callout>
 
 To implement preference grouping, use the `preferenceGroups` prop on the `Inbox` component. Each group requires:
 
@@ -99,7 +103,7 @@ function InboxWithGroups() {
 ```
 <img
   src="/images/inbox/preference-groups.png"
-  alt="Notification lifecycle"
+  alt="Grouping preferences"
   className="rounded-lg border w-[800px]"
 />
 
