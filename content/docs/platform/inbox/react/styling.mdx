@@ -305,6 +305,8 @@ import { CustomNotification } from './CustomNotification';
 
 ## The Inbox styles placement
 
-The Inbox component's styles by default are placed under the head tag of the page. However, when the Inbox component is rendered within a shadow DOM, it automatically detects it, ensuring style isolation at the shadow root level with no extra configuration required.
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component automatically injects its styles into the `<head>` tag of the HTML document when rendered in the standard DOM. 
+
+However, when rendered inside a shadow DOM, it detects the shadow context and injects styles into the shadow root instead. This ensures proper style encapsulation and prevents leakage or conflicts with global styles without any additional configuration.
 
 
