@@ -107,7 +107,7 @@ const appearance = {
 
 ### Elements
 
-The `elements` object allows you to define styles for these components. Each key corresponds to an component, and the value is an object containing `style properties` or you can also pass your `css classes`. Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
+The `elements` object allows you to define styles for these components. Each key corresponds to a component, and the value is an object containing `style properties` or you can also pass your `css classes`. Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
 
 #### Finding element selectors
 
@@ -128,19 +128,50 @@ const appearance = {
 <img src="/images/inbox/styling_02@2x.png" alt="Finding Element Selectors" />
 
 <Callout type="info">
-  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in
-  Appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the
+  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in the appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the
   available elements.
 </Callout>
 
-### Customizing Icons
+### Customizing icons
 
-The `icons` property in the `appearance` prop allows you to customize any icon used within the Inbox component. This is useful when you want to:
-- Match the Bell icon with your host app's navbar icon set
-- Use your own icon library to maintain a consistent design system
+The `icons` property in the `appearance` prop lets you customize any icon used in the Inbox component. This is useful when you want to:
+- Match the bell icon with your host app's navbar icon set
+- Use your own icon library, such as <a href="https://react-icons.github.io/react-icons/">react-icons</a> or <a href="https://mui.com/material-ui/material-icons/">Material Icons</a> to maintain a consistent design system
 - Modify all icons to fit your application's visual style
 
-Each icon is identified by a unique key, and you can provide a custom renderer function for each icon you want to override.
+
+#### Finding icon keys
+Each icon in the Inbox component is identified by a unique key. To find the key for a specific icon, inspect the element in your browser’s developer tools. Icon elements include a class name that starts with `nv-` and often feature a 🖼️ emoji for easier identification. 
+
+The portion of the class name following `nv-` is the icon key. For example, an element with the class `nv-cogs` has the icon key `cogs`, which you can use in the `appearance.icons` property to override that icon with a custom renderer.
+
+Once you’ve identified the key, provide a function that returns a React component to replace the default icon:
+
+```tsx
+import { Inbox } from '@novu/react';
+import { RiSettings3Fill, RiArrowDownLine, RiNotification3Fill} from 'react-icons/ri';
+
+const appearance = {
+    icons: {
+      cogs: () => <RiSettings3Fill />,
+      arrowDown: () => <RiArrowDownLine />,
+      bell: () => <RiNotification3Fill />,
+    },
+  };
+
+export function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+
+This lets you fully customize the visual presentation of the Inbox component’s icons using your preferred design system.
+
 
 #### Available icon keys
 
@@ -246,40 +277,6 @@ Each icon is identified by a unique key, and you can provide a custom renderer f
   </table>
 </details>
 
-#### Finding icon keys
-
-You can inspect the elements you want to customize using the browser's dev tools. Icon elements have a class name with a 🖼️ emoji followed by a class similar to `nv-cogs`. The part after `nv-` is the icon key that you can use to override that icon.
-
-<Callout type="info">
-  Any selector that starts with `nv-` and has a 🖼️ emoji can be customized using the corresponding icon key in the `appearance.icons` property.
-</Callout>
-
-#### Customizing icons with React components
-
-The simplest way to customize icons is to provide a function that returns a React component for each icon you want to override:
-
-```tsx
-import { Inbox } from '@novu/react';
-import { RiCogs, RiArrowDown, RiBellFill } from 'react-icons/ri';
-
-const appearance = {
-  icons: {
-    cogs: () => <RiCogs />,
-    arrowDown: () => <RiArrowDown />,
-    bell: () => <RiBellFill />
-  },
-};
-
-export function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      appearance={appearance}
-    />
-  );
-}
-```
 
 ### Dark theme
 
