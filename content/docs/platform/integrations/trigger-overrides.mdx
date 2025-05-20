@@ -1,0 +1,153 @@
+---
+title: 'Trigger Overrides'
+description: 'Learn how to customize provider behavior using Trigger Overrides in Novu'
+---
+
+Trigger overrides allow you to modify the default behavior of specific aspects of a notification trigger, giving you granular control over how messages are delivered across different channels and providers.
+
+## Provider overrides
+
+Provider overrides give you fine-grained control over how messages are delivered by allowing direct configuration of the underlying provider SDKs during the workflow's trigger phase.
+
+This feature is designed for advanced use cases where Novu's default message editor or UI does not expose specific provider capabilities.
+
+Use provider overrides to:
+- Access native provider features not surfaced by Novu’s abstraction layer. For example, custom headers in SendGrid, topic messaging in FCM, or Slack blocks.
+- Adapt to provider-specific options by injecting parameters that Novu doesn’t yet officially support.
+- Configure shared or unique settings across steps without altering templates or workflow logic.
+
+This mechanism acts as a flexible escape hatch, allowing you to pass deeply nested payloads that align directly with your provider’s native API. It helps decouple workflow behavior from provider-specific implementation details, essential when working across multiple channels like email, push, or chat.
+
+<Callout type="info">Because overrides interact directly with provider SDKs, it won’t work if it’s misconfigured. Make sure you understand the supported options for each provider before using this feature. </Callout>
+
+### Override structure
+
+Overrides are defined in the `overrides` property of a trigger payload. You can specify configuration values at two levels:
+Step-level: Targets a specific step in the workflow.
+- Provider-level: Applies to all steps using a specific provider.
+- Each level serves different use cases and follows a clear order of precedence.
+
+#### Step-level overrides
+
+Step-level overrides apply configuration to a specific workflow step. This is the most granular level of control and always takes precedence over provider-level settings and values defined in the workflow editor.
+Use step-level overrides when:
+
+- You want different configurations for steps using the same provider.
+- You need to adjust message content or metadata for a single step only.
+
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>" });
+
+async function run() {
+  const result = await novu.trigger({
+    to: {
+      subscriberId: "subscriber_unique_identifier",
+      firstName: "Albert",
+      lastName: "Einstein",
+      email: "albert@einstein.com",
+      phone: "+1234567890",
+    },
+    workflowId: "workflow_identifier",
+    payload: {
+      comment_id: "string",
+      post: {
+        text: "string",
+      },
+    },
+    overrides: {
+      steps: {
+        'push-step': {
+          providers: {
+            fcm: {
+              notification: {
+                title: 'New Comment',
+                body: 'Someone replied to your post!',
+                sound: 'default', // Play default system sound
+              },
+              android: {
+                notification: {
+                  sound: 'sound_bell' // matches res/raw/sound_bell.mp3
+                }
+              },
+              apns: {
+                payload: {
+                  aps: {
+                    sound: 'notification_bell.caf' // For iOS
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+}
+
+run();
+
+```
+In this example, only the `push-step` is affected, and only the FCM `title` is overridden for that step.
+
+#### Provider-level overrides
+
+Provider-level overrides apply configuration to all steps that use a given provider in the workflow. They’re useful for applying shared logic across multiple steps, without repeating the same settings in each one.
+
+Use provider-level overrides when:
+- You need to define common metadata like headers, personalization, or layout settings.
+- You want consistent behavior across all steps for a given provider.
+
+If both step-level and provider-level overrides define the same field, then the step-level value takes precedence.
+
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu("<YOUR_SECRET_KEY_HERE>");
+
+async function run() {
+  const result = await novu.trigger({
+    to: {
+      subscriberId: "subscriber_unique_identifier",
+      firstName: "Albert",
+      lastName: "Einstein",
+      email: "albert@einstein.com",
+      phone: "+1234567890",
+    },
+    workflowId: "workflow_identifier",
+    payload: {
+      comment_id: "string",
+      post: {
+        text: "string",
+      },
+    },
+    overrides: {
+      providers: {
+        sendgrid: {
+          template_id: "xxxxxxxx", // Make sure this is a string
+          trackingSettings: {
+            clickTracking: {
+              enable: true,
+              enableText: false,
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+run();
+
+```
+
+This configuration affects every step in the workflow that uses SendGrid, unless a step-level override provides a more specific value.
+
+## Next steps
+
+Learn how to override specific settings for each provider in our provider-specific override guides:
+- SendGrid overrides
+- SES overrides
+- FCM overrides
+- Slack overrides
