@@ -43,7 +43,7 @@ docker-compose up
 docker compose up
 ```
 
-Now visit [http://localhost:4200](http://localhost:4200/) to start using Novu.
+Now visit [http://localhost:4000](http://localhost:4000/) to start using Novu.
 
 #### VPS Deployment
 
@@ -60,7 +60,7 @@ Start Novu on your VPS:
 docker-compose -f docker-compose.yml up
 ```
 
-Access your dashboard at [http://vps-ip-address:4200](http://vps-ip-address:4200/).
+Access your dashboard at [http://vps-ip-address:4000](http://vps-ip-address:4000/).
 
 ## Securing Your Setup
 
@@ -209,24 +209,24 @@ Nextjs based bridge application having one test workflow written using `@novu/fr
 if novu is run using above docker compose command in local machine, use below commmand
 
 ```bash
-npx novu@latest dev -d http://localhost:4200 -p <bridge_application_port>
+npx novu@latest dev -d http://localhost:4000 -p <bridge_application_port>
 ```
 
 Following actions will occur:
 
 - Novu local studio will be started on default port 2002,
 - Novu will generate a tunnel url that will forward the request to bridge application running on `<bridge_application_port>`
-- Studio will use `http://localhost:4200` as dashboard url
+- Studio will use `http://localhost:4000` as dashboard url
 
 **Using bridge application url as bridge url**
 
 To use bridge application url as bridge url, use below command:
 
 ```bash
-npx novu@latest dev -d http://localhost:4200 -p <bridge_application_port> -t http://host.docker.internal:<bridge_application_port>
+npx novu@latest dev -d http://localhost:4000 -p <bridge_application_port> -t http://host.docker.internal:<bridge_application_port>
 
 # example:
-npx novu@latest dev -d http://localhost:4200 -p 4000 -t http://host.docker.internal:4000
+npx novu@latest dev -d http://localhost:4000 -p 4000 -t http://host.docker.internal:4000
 ```
 
 <Callout type="info">
@@ -248,7 +248,7 @@ extra_hosts:
 NOVU_API_URL=http://<vps-ip-address>:3000
 
 # Start Novu Studio with your VPS dashboard URL and bridge application URL
-npx novu@latest dev -d http://<vps-ip-address>:4200
+npx novu@latest dev -d http://<vps-ip-address>:4000
 ```
 
 Check all [available flags](/framework/studio#novu-cli-flags) with `npx novu dev` command
