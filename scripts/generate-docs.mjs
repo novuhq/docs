@@ -34,7 +34,7 @@ async function main() {
   });
 
   const docsOutputPath = out; // './content/docs/api-reference'
-  const openApiInput = ['http://localhost:3000/openapi.json']; // Or your actual input
+  const openApiInput = ['https://spec.speakeasy.com/novu/novu/json-development-with-code-samples']; // Or your actual input
 
   const pages = await OpenAPI.generatePages(openApiInput[0], {
     includeDescription: true,
