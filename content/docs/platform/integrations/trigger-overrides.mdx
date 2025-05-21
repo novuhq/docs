@@ -23,19 +23,16 @@ This mechanism acts as a flexible escape hatch, allowing you to pass deeply nest
 ### Override structure
 
 Overrides are defined in the `overrides` property of a trigger payload. You can specify configuration values at two levels:
-- Global-level: Applies to all steps using a specific provider.
-- Step-level: Targets a specific step in the workflow.
-Each level serves different use cases and follows a clear order of precedence.
+- Workflow-level: Applies to all steps using a specific provider and takes precedence over the default workfflow provider settings.
+- Step-level: Targets a specific step in the workflow and it takes precedence over both workflow-level overrides and the default workflow provider settings.
 
-#### Global-level provider overrides
+#### Workflow-level provider overrides
 
-Provider-level overrides apply configuration to all steps that use a given provider in the workflow. They’re useful for applying shared logic across multiple steps, without repeating the same settings in each one.
+Workflow-level provider overrides apply configuration to all steps that use a given provider in the workflow. They’re useful for applying shared logic across multiple steps, without repeating the same settings in each one.
 
-Use provider-level overrides when:
+Use workflow-level overrides when:
 - You need to define common metadata like headers, personalization, or layout settings.
 - You want consistent behavior across all steps for a given provider.
-
-If both step-level and provider-level overrides define the same field, then the step-level value takes precedence.
 
 ```typescript
 import { Novu } from "@novu/api";
@@ -82,11 +79,11 @@ This configuration affects every step in the workflow that uses SendGrid, unless
 
 #### Step-level provider overrides
 
-Step-level overrides apply configuration to a specific workflow step. This is the most granular level of control and always takes precedence over provider-level settings and values defined in the workflow editor.
-Use step-level overrides when:
+Step-level overrides let you apply provider-specific settings directly to an individual step in your workflow.
 
-- You want different configurations for steps using the same provider.
-- You need to adjust message content or metadata for a single step only.
+Use step-level overrides when:
+- You want to send messages through the same provider, but with different settings for each step. For example, two steps use SendGrid, but each uses a different template ID.
+- You need to customize settings or payload only for a specific step, without affecting others in the workflow. For example, adding custom headers or overriding sender details for one Slack message step.
 
 ```typescript
 import { Novu } from "@novu/api";
