@@ -23,11 +23,64 @@ This mechanism acts as a flexible escape hatch, allowing you to pass deeply nest
 ### Override structure
 
 Overrides are defined in the `overrides` property of a trigger payload. You can specify configuration values at two levels:
+- Global-level: Applies to all steps using a specific provider.
 - Step-level: Targets a specific step in the workflow.
-- Provider-level: Applies to all steps using a specific provider.
 Each level serves different use cases and follows a clear order of precedence.
 
-#### Step-level overrides
+#### Global-level provider overrides
+
+Provider-level overrides apply configuration to all steps that use a given provider in the workflow. They’re useful for applying shared logic across multiple steps, without repeating the same settings in each one.
+
+Use provider-level overrides when:
+- You need to define common metadata like headers, personalization, or layout settings.
+- You want consistent behavior across all steps for a given provider.
+
+If both step-level and provider-level overrides define the same field, then the step-level value takes precedence.
+
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu("<YOUR_SECRET_KEY_HERE>");
+
+async function run() {
+  const result = await novu.trigger({
+    to: {
+      subscriberId: "subscriber_unique_identifier",
+      firstName: "Albert",
+      lastName: "Einstein",
+      email: "albert@einstein.com",
+      phone: "+1234567890",
+    },
+    workflowId: "workflow_identifier",
+    payload: {
+      comment_id: "string",
+      post: {
+        text: "string",
+      },
+    },
+    overrides: {
+      providers: {
+        sendgrid: {
+          template_id: "xxxxxxxx", // Make sure this is a string
+          trackingSettings: {
+            clickTracking: {
+              enable: true,
+              enableText: false,
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
+run();
+
+```
+
+This configuration affects every step in the workflow that uses SendGrid, unless a step-level override provides a more specific value.
+
+#### Step-level provider overrides
 
 Step-level overrides apply configuration to a specific workflow step. This is the most granular level of control and always takes precedence over provider-level settings and values defined in the workflow editor.
 Use step-level overrides when:
@@ -90,56 +143,3 @@ run();
 
 ```
 In this example, only the `push-step` is affected, and only the FCM `title` is overridden for that step.
-
-#### Provider-level overrides
-
-Provider-level overrides apply configuration to all steps that use a given provider in the workflow. They’re useful for applying shared logic across multiple steps, without repeating the same settings in each one.
-
-Use provider-level overrides when:
-- You need to define common metadata like headers, personalization, or layout settings.
-- You want consistent behavior across all steps for a given provider.
-
-If both step-level and provider-level overrides define the same field, then the step-level value takes precedence.
-
-```typescript
-import { Novu } from "@novu/api";
-
-const novu = new Novu("<YOUR_SECRET_KEY_HERE>");
-
-async function run() {
-  const result = await novu.trigger({
-    to: {
-      subscriberId: "subscriber_unique_identifier",
-      firstName: "Albert",
-      lastName: "Einstein",
-      email: "albert@einstein.com",
-      phone: "+1234567890",
-    },
-    workflowId: "workflow_identifier",
-    payload: {
-      comment_id: "string",
-      post: {
-        text: "string",
-      },
-    },
-    overrides: {
-      providers: {
-        sendgrid: {
-          template_id: "xxxxxxxx", // Make sure this is a string
-          trackingSettings: {
-            clickTracking: {
-              enable: true,
-              enableText: false,
-            },
-          },
-        },
-      },
-    },
-  });
-}
-
-run();
-
-```
-
-This configuration affects every step in the workflow that uses SendGrid, unless a step-level override provides a more specific value.
