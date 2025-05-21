@@ -4,40 +4,71 @@ description: 'Common errors and how to resolve them'
 icon: 'alert-circle'
 ---
 
-## Introduction
 
-Activity feed page displays all the events that have occurred This page is useful for debugging and monitoring triggered events and notification delivery. Each event has steps and logs with each step. These logs can have errors which can be useful for debugging.
+The Activity Feed page in the Novu dashboard displays all the events that occur when a workflow is triggered. Each triggered workflow includes a log for every step, showing whether a notification failed and why. Below are some common errors you may encounter.
 
-## Common errors
+## Webhook URL for the chat channel is missing
 
-### Webhook URL for the chat channel is missing
+This happens when the subscriber is missing the required chat channel provider credentials, specifically, the webhook URL. Chat providers require a valid webhook URL to receive notifications.
 
-This error occurs when subscriber is missing chat channel provider credentials. Chat providers requires a webhook url to which notifications will be sent. Read more about [updating webhook url](/platform/integrations/chat#update-credential-webhookurl).
+**Solution:**
+
+Ensure that the correct webhook URL is configured for the subscriber’s chat provider. [Read more about updating webhook URLs](/platform/integrations/chat#update-credential-webhookurl).
 
 
-### All chat channels failed to send the message
+## All chat channels failed to send the message
 
-Our workflow engine sends chat messages to all active chat providers. This error occurs when all chat providers have failed to send the message to all active chat providers
+When the workflow engine attempts to send a chat message, it tries all active chat providers. This error occurs when every configured provider fails to deliver the message.
 
-### Subscriber is missing a phone number
+**Solution:**
 
-To send a sms message to user (subscriber), `phone` field is required. Above error occurs when subscriber is missing a phone number. Similar error could be `Subscriber missing recipient details` Read on [subscribers page](/platform/concepts/subscribers) on how to create and update subscriber attributes.
+Check the individual chat provider configurations and logs to identify why each failed. Verify credentials, webhook URLs, and provider availability.
 
-### Message content could not be generated
+## Subscriber is missing a phone number
 
-This error occurs when there are some invalid characters in the step editor content. If it is an email step, error could be **Message content could not be generated due to syntax error in email editor**. To resolve this error, please ensure that the content is valid and does not contain any invalid characters.
+To send an SMS, the subscriber must have a valid phone number. If this field is missing, the system cannot deliver the message.
 
-### Subscriber does not have an active integration
+**Solution:**
 
-This error occurs when push or chat providers are not configured in integration store and hence subscriber is missing credentials for chat or push channel providers. 
+Update the subscriber profile with a valid phone number. Similar errors may include missing recipient details. [Learn how to create and update subscriber attributes](/platform/concepts/subscribers).
 
-### Subscriber does not have a configured channel
+## Subscriber does not have an active integration
 
-This error occurs subscriber is missing credentials for chat or push channel providers. Read more on how to use [chat channel](/platform/integrations/chat) and [push channel](/platform/integrations/push)
+The system couldn't send the message because the required chat or push providers are not configured in the integration store. As a result, the subscriber lacks the credentials needed to use these channels.
 
-### Novu's provider limit has been reached
+**Solution:**
 
-Novu creates demo providers in email and sms channel for each environment. These providers have a limit of 300 emails and 20 sms per month. These providers should be used only for testing purposes. Above error occurs when these demo provider's limit has been reached.
+Configure the appropriate chat or push provider in the integration store. This allows the subscriber to inherit the necessary credentials.
 
-### Bridge execution failed
-If bridge url is invalid or not reachable, this error occurs.
+## Subscriber does not have a configured channel
+
+This error indicates that the subscriber is not associated with any configured credentials for chat or push channels.
+
+**Solution:**
+
+Ensure the subscriber is mapped to an integration that supports the desired channel. [Read more on configuring chat and push channels](/platform/integrations/push).
+
+
+## Message content could not be generated
+
+This usually happens due to invalid characters in the step editor content. For example, if it’s an email step, it could be caused by a syntax error in the email editor.
+
+**Solution:**
+
+Review the content in the step editor and ensure it contains valid syntax and characters. Correct any formatting or special character issues.
+
+## Novu's provider limit has been reached
+
+Each environment in Novu is provisioned with demo providers for email and SMS channels. These demo providers are limited to 300 emails and 20 SMS per month.
+
+**Solution:**
+
+Upgrade to a production provider or reset the limit for testing. Avoid using demo providers for production use cases.
+
+## Bridge execution failed
+
+This error occurs when the bridge URL is invalid or unreachable during the execution of a workflow step.
+
+**Solution:**
+
+Verify that the bridge URL is correctly set, publicly accessible (if needed), and responds within a reasonable timeout.
