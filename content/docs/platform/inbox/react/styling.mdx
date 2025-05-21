@@ -428,15 +428,14 @@ await step.inApp('inbox', async () => {
 ```
 
 <Callout type="info">
-  Please note, that when you are rendering the custom notification component you will need to parse
-  the text and apply the bold styling accordingly.
+  Note: When rendering the custom notification component, you will need to parse the text and apply the bold styling accordingly.
 </Callout>
 
-Currently we only support bold text. We are working on adding more text formatting options in the future. You can learn more about the Novu Framework in-app step [here](/framework/typescript/steps/inApp).
+Currently, the Inbox component only support bold text. Other text formatting options will be available in the future. To learn, refer to the [Novu Framework in-app step documentation](/framework/typescript/steps/inApp).
 
-## Render Notification Component
+## Render notification component
 
-You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component, this will allow you to style and render more complex notification items.
+You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component. This lets you style and render more complex notification items.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -448,3 +447,11 @@ import { CustomNotification } from './CustomNotification';
   }}
 />;
 ```
+
+## The Inbox styles placement
+
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component automatically injects its styles into the `<head>` tag of the HTML document when rendered in the standard DOM. 
+
+However, when rendered inside a shadow DOM, it detects the shadow context and injects styles into the shadow root instead. This ensures proper style encapsulation and prevents leakage or conflicts with global styles without any additional configuration.
+
+
