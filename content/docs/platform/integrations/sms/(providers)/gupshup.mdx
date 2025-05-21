@@ -30,7 +30,7 @@ Now it is possible to send SMS notifications using Gupshup in Novu.
 
 ## Using Gupshup templateId
 
-Novu has its own SMS editor for writing SMS template. To use premade Gupshup templates, customData field of sms overrides can be used to send templateId.
+Novu has its own SMS editor for writing SMS template. To use premade Gupshup templates, providers overrides can be used.
 
 <Callout type="info">
   Sending `customData` field in overrides to send Gupshup template will work
@@ -57,8 +57,8 @@ await novu.trigger({
     key: "value",
   },
   overrides: {
-    sms: {
-      customData: {
+    providers: {
+      gupshup: {
         principalEntityId: "principal-entity-id",
         dltTemplateId: "dlt-template-id",
       },
@@ -78,10 +78,10 @@ curl --location 'https://api.novu.co/v1/events/trigger' \
     "to":  ["subscriberId"],
     "payload": {},
     "overrides": {
-        "sms": {
-            "customData": {
-                "principalEntityId": "principal-entity-id",
-                "dltTemplateId": "dlt-template-id"
+        "providers": {
+            "gupshup": {
+              "principalEntityId": "principal-entity-id",
+              "dltTemplateId": "dlt-template-id"
             }
         }
     }
