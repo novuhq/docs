@@ -16,7 +16,7 @@ Use provider overrides to:
 - Adapt to provider-specific options by injecting parameters that Novu doesn’t yet officially support.
 - Configure shared or unique settings across steps without altering templates or workflow logic.
 
-This mechanism acts as a flexible escape hatch, allowing you to pass deeply nested payloads that align directly with your provider’s native API. It helps decouple workflow behavior from provider-specific implementation details, essential when working across multiple channels like email, push, or chat.
+This mechanism offers a flexible customization layer that lets you pass deeply nested payloads that align directly with your provider’s native API. It helps decouple workflow behavior from provider-specific implementation details, which is essential when working across multiple channels like email, push, or chat.
 
 <Callout type="info">Because overrides interact directly with provider SDKs, they won’t work if they're misconfigured. Make sure you understand the supported options for each provider before using this feature. </Callout>
 
