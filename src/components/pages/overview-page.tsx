@@ -1,4 +1,4 @@
-import { Bell, Blocks, Book, Layers } from 'lucide-react';
+import { Bell, Blocks, Book, Layers, Braces } from 'lucide-react';
 import Link from 'next/link';
 
 import { DotnetIcon } from '@/components/icons/dotnet';
@@ -86,7 +86,7 @@ export function OverviewPage() {
               {
                 title: 'REST API',
                 package: 'https://api.novu.co/v1',
-                icon: RestApiIcon,
+                icon: Braces,
                 color: 'text-foreground dark:text-foreground',
                 href: '/api-reference/overview',
               },
