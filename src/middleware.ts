@@ -107,7 +107,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
         }
         const pageMap: Record<string, string> = {
           'components/overview': 'components',
-          'multiple-tabs': 'multiple-tabs',
+          'multiple-tabs': 'tabs',
           styling: 'styling',
           'api-reference': 'api-reference',
         };
