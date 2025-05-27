@@ -13,6 +13,11 @@ The `filter` property supports two filtering options:
 - **Tags**: Filter based on the `tags` assigned to a workflow in the workflow editor.
 - **Data attributes**: Filter based on values in the notification payload (`data`).
 
+<img
+  alt="Filtering tabs by tags and data attributes"
+  src="/images/inbox/filter-tabs-by-tags-and-data-attributes.png"
+/>
+
 ## Filter tabs by tags
 
 Each notification is associated with a workflow, and workflows can be tagged in the workflow editor. These tags can then be used to group notifications from one or more workflows under a single tab by referencing shared tag names.
@@ -55,7 +60,7 @@ Each notification can include a `data` payload that contains custom metadata suc
 
 To use data attributes effectively in tab filters, make sure your notification payloads are consistently structured and contain clearly defined fields. For example, you might include `priority: "high"` to identify urgent alerts or `type: "login"` to track user sign-ins.
 
-The data `object` supports up to two levels of nesting and must include only scalar values: strings, numbers, booleans, or null. String values are limited to 256 characters.
+The data `object` supports only scalar values: strings, numbers, booleans, or null. String values are limited to 256 characters.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -72,10 +77,7 @@ export default function InboxWithFilters() {
     {
       label: 'User Activity',
       filter: {
-        data: {
-          category: 'user',
-          details: { type: 'login' },
-        },
+        data: { type: 'login' },
       },
     },
   ];
