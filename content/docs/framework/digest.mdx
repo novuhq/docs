@@ -117,9 +117,7 @@ const secondDigestWorkflow = workflow(
     });
 
     await step.email("send-llm-summary", async () => {
-      const allRequests = events?.map((event) => {
-        event.payload.requests;
-      });
+      const allRequests = events?.map((event) => event.payload.requests);
       // categorized: { bugs: 2, features: 4, praise: 5 }
       const categorized = await categorizeUsingLLM(allRequests);
       const { bugs, features, praise } = categorized;
