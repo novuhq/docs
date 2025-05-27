@@ -230,7 +230,6 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     // Community
     '/community/machine-setup': '/community/run-in-local-machine',
     '/community/monorepo-structure': '/community/code-structure',
-    '/community/add-a-new-provider': '/community/create-provider',
   };
 
   if (pathname in redirectMap) {

@@ -1,6 +1,7 @@
 ---
 title: 'Tabs'
 description: 'Learn what tabs are and how to filter multiple tabs in the Novu Inbox component.'
+icon: 'Folders'
 ---
 
 Tabs in the Novu Inbox enable you to organize and display different sets of notifications within distinct UI tabs. This creates a structured, filterable interface for end users to easily navigate their in-app notification feed.
@@ -13,10 +14,7 @@ The `filter` property supports two filtering options:
 - **Tags**: Filter based on the `tags` assigned to a workflow in the workflow editor.
 - **Data attributes**: Filter based on values in the notification payload (`data`).
 
-<img
-  alt="Filtering tabs by tags and data attributes"
-  src="/images/inbox/filter-tabs-by-tags-and-data-attributes.png"
-/>
+![Filtering tabs by tags and data attributes](/images/inbox/filter-tabs-by-tags-and-data-attributes.png)
 
 ## Filter tabs by tags
 
@@ -60,7 +58,7 @@ Each notification can include a `data` payload that contains custom metadata suc
 
 To use data attributes effectively in tab filters, make sure your notification payloads are consistently structured and contain clearly defined fields. For example, you might include `priority: "high"` to identify urgent alerts or `type: "login"` to track user sign-ins.
 
-The data `object` supports only scalar values: strings, numbers, booleans, or null. String values are limited to 256 characters.
+The data `object` supports up to two levels of nesting and must include only scalar values: strings, numbers, booleans, or null. String values are limited to 256 characters.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -92,6 +90,10 @@ export default function InboxWithFilters() {
   );
 }
 ```
+
+<Callout type="info">
+  Currently, one level of nesting like `{ data: { type: 'login' } }` is supported for the `data` object filter. Deep nesting like `{ data: { details: { type: 'login' } }}` is not supported.
+</Callout>
 
 ## Combining tags and data
 
