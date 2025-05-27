@@ -1,0 +1,51 @@
+---
+title: 'Roles and permissions'
+description: 'Learn how roles and permissions are managed within Novu organizations'
+icon: user-lock
+
+---
+Novu uses a role-based access control (RBAC) model at the [organization level](/platform/how-novu-works#organization-and-environments). Each member in the organization is assigned a role that determines the actions they can perform within the Novu dashboard. Every user can belong to more than one organization, each with separate configurations and permissions.
+
+When you invite a team member to your organization, you can assign them a role that determines the actions they can perform within that organization. You can later update their role from the [Team section](https://dashboard.novu.co/settings/team) in your organization settings.
+
+<Callout type="info">
+  This feature is available to users on the Team and Enterprise pricing plans, and it is supported on both the new dashboard and the legacy dashboard.
+</Callout>
+
+Below is an overview of the four roles available in Novu:
+- **Owner**. For your primary account administrator. This role has full access across the platform, including organization-level settings, billing, API keys, environment management, and user administration. Each Novu organization must have at least one owner.
+
+- **Admin**. For users who manage configuration and operational aspects of Novu. Admins can manage workflows, integrations, subscribers, environments, and message logs. They do not have access to billing.
+
+- **Author**. For users who design and update notification workflows. Authors can create and modify workflows, preview steps, manage topics, and trigger events. They do not have access to organization-level settings, billing, or member management.
+
+- **Viewer**. For read-only users. Viewers can view workflows, environments, logs, and messages, but cannot create, update, or delete resources.
+
+## Roles and permissions table
+
+Below is a detailed table showing which permissions are associated with each role.
+
+Legend:
+- 📖 - Read access
+- ✏️ - Write (full access: read, write, delete)
+- ❌ - No access
+
+| Permission                      | **Viewer** | **Author** | **Admin** | **Owner** |
+| ------------------------------ | ---------- | ---------- | --------- | --------- |
+| Create and manage environments | ❌         | ❌         | ✏️         | ✏️         |
+| Create and manage messages     | 📖         | ✏️         | ✏️         | ✏️         |
+| Create and manage topics       | 📖         | ✏️         | ✏️         | ✏️         |
+| Create and manage webhooks     | 📖         | 📖         | ✏️         | ✏️         |
+| Create and manage workflows    | 📖         | ✏️         | ✏️         | ✏️         |
+| Manage API keys                | 📖         | ❌         | ✏️         | ✏️         |
+| Manage billing                 | ❌         | ❌         | ❌         | ✏️         |
+| Manage bridges                 | ❌         | ❌         | ✏️         | ✏️         |
+| Manage custom domains          | 📖         | 📖         | ✏️         | ✏️         |
+| Manage integrations            | 📖         | 📖         | ✏️         | ✏️         |
+| Manage organization metadata   | ❌         | ❌         | ❌         | ✏️         |
+| Manage organization profile    | ❌         | ❌         | ❌         | ✏️         |
+| Manage partner integrations    | 📖         | 📖         | ✏️         | ✏️         |
+| Manage subscribers             | 📖         | ✏️         | ✏️         | ✏️         |
+| Trigger events                 | ❌         | ✏️         | ✏️         | ✏️         |
+| View and manage team members   | 📖         | 📖         | 📖         | ✏️         |
+| View notifications             | 📖         | 📖         | 📖         | 📖         |
