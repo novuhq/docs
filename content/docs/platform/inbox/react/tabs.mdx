@@ -10,8 +10,8 @@ Each tab is defined using the `tabs` prop of the <Method href="/platform/inbox/r
 - **`filter`**: An object defining the filter criteria for notifications displayed in that tab.
 
 The `filter` property supports two filtering options:
-- Tags: Filter based on the `tags` assigned to a workflow in the workflow editor.
-- Data attributes: Filter based on values in the notification payload (`data`).
+- **Tags**: Filter based on the `tags` assigned to a workflow in the workflow editor.
+- **Data attributes**: Filter based on values in the notification payload (`data`).
 
 ## Filter tabs by tags
 
@@ -51,11 +51,11 @@ export default function InboxWithFilters() {
 
 ## Filter tabs by data attributes
 
-Each notification can include a `data` payload that contains custom metadata such as priority, category, or activity type. You can use these data attributes to group notifications under a single tab by filtering based on specific values in the payload.
+Each notification can include a `data` payload that contains custom metadata such as priority, category, or activity type. This method is most useful when you want to segment notifications by metadata embedded in the payload rather than by workflow configuration. You can use these [data attributes](/platform/inbox/react/components/inbox#data-object) to group notifications under a single tab by filtering based on specific values in the payload.
 
 To use data attributes effectively in tab filters, make sure your notification payloads are consistently structured and contain clearly defined fields. For example, you might include `priority: "high"` to identify urgent alerts or `type: "login"` to track user sign-ins.
 
-The data `object` supports up to two levels of nesting and must include only scalar values such as strings, numbers, booleans, or null. String values are limited to 256 characters.
+The data `object` supports up to two levels of nesting and must include only scalar values: strings, numbers, booleans, or null. String values are limited to 256 characters.
 
 ```tsx
 import { Inbox } from '@novu/react';
