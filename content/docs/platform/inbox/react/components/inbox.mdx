@@ -285,53 +285,6 @@ function Novu() {
 }
 ```
 
-### Custom notification based on condition
-
-Conditions could be:
-  - workflow tags
-  - worklfow name or idenfier(workflow id)
-  - [data object](#data-object)
-  
-```tsx
-import { Inbox } from '@novu/react';
-
-function CutomInbox() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      renderNotification={(notification) => {
-        // filter based on tags
-        if (notification.tags?.includes("custom")) {
-          return (
-            <div>
-              <h3>Custom Notification Subject</h3>
-              <p>Custom Notification Body</p>
-            </div>
-          );
-        }
-        // filter based on data object key
-        if (notification.data?.shouldUseRedBackground) {
-          return (
-            <div style={{ backgroundColor: "red" }}>
-              <h3>{notification.subject}</h3>
-              <p>{notification.body}</p>
-            </div>
-          );
-        }
-        // default
-        return (
-          <div>
-            <h3>{notification.subject}</h3>
-            <p>{notification.body}</p>
-          </div>
-        );
-      }}
-    />
-  );
-}
-```
-
 ### Custom Notification Subject
 
 Render a custom subject for the notification, while keeping the default notification component.
@@ -375,6 +328,129 @@ function Novu() {
   );
 }
 ```
+
+### Custom notification based on condition
+
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component supports conditional rendering of notifications using the renderNotification prop. This function receives a `notification` object and returns a custom React element. 
+
+You can use workflow tags, workflow identifiers, or values from the data object to customize how each notification is displayed. You can also combine multiple conditions to create dynamic and tailored notification displays.
+
+#### Workflow tags condition
+
+You can conditionally render customized notification based on [workflow tags](/platform/concepts/workflows#workflow-tags). These tags are defined in your workflow and are accessible via `notification.tags` property.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+        // filter based on tags
+        if (notification.tags?.includes('custom')) {
+          return (
+            <div>
+              <h3>Custom Notification Subject</h3>
+              <p>Custom Notification Body</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Workflow identifier or name condition
+
+Each workflow has a [name and a unique identifier](/platform/concepts/workflows#workflow-identifier), accessible through `notification.workflow.name` and `notification.workflow.identifier`, respectively. Either property can be used to conditionally render notifications.
+
+```tsx
+import { Inbox } from '@novu/react';
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+        // filter based on workflow identifier
+        if (notification.workflow?.identifier === 'demo') {
+          return (
+            <div style={{ backgroundColor: 'blue' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // filter based on workflow name
+        if (notification.workflow?.name === 'Custom') {
+          return (
+            <div style={{ backgroundColor: 'blue' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Data object condition
+
+You can also use values from the notification [data object](/platform/inbox/react/components/inbox#data-object) to render notifications conditionally. These values are accessible via `notification.data` and typically contain custom payload fields
+
+```tsx
+import { Inbox } from '@novu/react';
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+       // filter based on data object key
+       if (notification.data?.priority) {
+        return (
+          <div style={{ backgroundColor: 'red' }}>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+
 
 ### Rendering HTML
 
