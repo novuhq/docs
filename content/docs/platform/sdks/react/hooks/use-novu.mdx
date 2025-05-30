@@ -1,0 +1,187 @@
+---
+title: "useNovu"
+description: "Learn how to use the useNovu hook to access the Novu client instance in your React application"
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+The `useNovu` hook provides direct access to the [Novu client instance](/platform/inbox/headless/api-reference#novu) from anywhere in your application. This hook must be used within a component that is wrapped by the `NovuProvider`.
+
+## Return Value
+
+<TypeTable
+  type={{
+    novu: {
+      type: "Novu",
+      description:
+        "The Novu client instance that provides access to all Novu API methods",
+    },
+  }}
+/>
+
+## Example Usage
+
+Here's how to use the `useNovu` hook to interact with the Novu client:
+
+```tsx
+import { useNovu } from "@novu/react";
+
+function NotificationActions() {
+  const novu = useNovu();
+
+  const markAllAsRead = async () => {
+    try {
+      await novu.notifications.readAll();
+      console.log("All notifications marked as read");
+    } catch (error) {
+      console.error("Failed to mark all as read:", error);
+    }
+  };
+
+  const archiveAllRead = async () => {
+    try {
+      await novu.notifications.archiveAllRead();
+      console.log("All read notifications archived");
+    } catch (error) {
+      console.error("Failed to archive read notifications:", error);
+    }
+  };
+
+  return (
+    <div className="flex gap-2">
+      <button
+        onClick={markAllAsRead}
+        className="px-3 py-1 bg-blue-500 text-white rounded-md"
+      >
+        Mark All as Read
+      </button>
+      <button
+        onClick={archiveAllRead}
+        className="px-3 py-1 bg-gray-500 text-white rounded-md"
+      >
+        Archive All Read
+      </button>
+    </div>
+  );
+}
+```
+
+### Managing Individual Notifications
+
+The Novu client provides methods for managing individual notifications:
+
+```tsx
+import type { Notification } from "@novu/js";
+import { useNovu } from "@novu/react";
+
+function NotificationItem({ notification }: { notification: Notification }) {
+  const novu = useNovu();
+
+  const markAsRead = async () => {
+    try {
+      await novu.notifications.read({ notificationId: notification.id });
+      console.log("Notification marked as read");
+    } catch (error) {
+      console.error("Failed to mark as read:", error);
+    }
+  };
+
+  const markAsUnread = async () => {
+    try {
+      await novu.notifications.unread({ notificationId: notification.id });
+      console.log("Notification marked as unread");
+    } catch (error) {
+      console.error("Failed to mark as unread:", error);
+    }
+  };
+
+  const archive = async () => {
+    try {
+      await novu.notifications.archive({ notificationId: notification.id });
+      console.log("Notification archived");
+    } catch (error) {
+      console.error("Failed to archive:", error);
+    }
+  };
+
+  return (
+    <div className="p-4 border rounded-lg">
+      <h3 className="font-medium">{notification.subject}</h3>
+      <p>{notification.body}</p>
+      <div className="flex gap-2 mt-2">
+        <button
+          onClick={markAsRead}
+          className="px-2 py-1 text-sm bg-blue-50 text-blue-600 rounded"
+          disabled={notification.isRead}
+        >
+          Mark as Read
+        </button>
+        <button
+          onClick={markAsUnread}
+          className="px-2 py-1 text-sm bg-blue-50 text-blue-600 rounded"
+          disabled={!notification.isRead}
+        >
+          Mark as Unread
+        </button>
+        <button
+          onClick={archive}
+          className="px-2 py-1 text-sm bg-gray-50 text-gray-600 rounded"
+          disabled={notification.isArchived}
+        >
+          Archive
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+### Listening to Real-time Events
+
+The Novu client allows you to listen for real-time events:
+
+```tsx
+import { useNovu } from "@novu/react";
+import { useEffect } from "react";
+import type { Notification } from "@novu/js";
+
+function NotificationListener() {
+  const novu = useNovu();
+
+  useEffect(() => {
+    // Handler for new notifications
+    const handleNewNotification = ({ result }: { result: Notification }) => {
+      console.log("New notification:", result.subject);
+      // You can use a toast library to show notifications
+      // toast({
+      //   title: result.subject,
+      //   description: result.body,
+      // });
+    };
+
+    // Handler for unread count changes
+    const handleUnreadCountChanged = ({ result }: { result: number }) => {
+      // Update favicon or title to show unread count
+      document.title = result > 0 ? `(${result}) My App` : "My App";
+    };
+
+    // Subscribe to events
+    novu.on("notifications.notification_received", handleNewNotification);
+    novu.on("notifications.unread_count_changed", handleUnreadCountChanged);
+
+    // Cleanup function
+    return () => {
+      novu.off("notifications.notification_received", handleNewNotification);
+      novu.off("notifications.unread_count_changed", handleUnreadCountChanged);
+    };
+  }, [novu]);
+
+  return null; // This component doesn't render anything
+}
+```
+
+<Callout type="info">
+  The Novu client instance provides access to all the functionality available in
+  the [Headless API](/platform/inbox/headless/api-reference). For a complete
+  list of methods and events, refer to the API documentation.
+</Callout>

@@ -1,0 +1,79 @@
+---
+title: 'Writing Email Template'
+sidebarTitle: 'Writing Email Template'
+description: 'Learn how to write an email template in Novu. This document will guide you through the process of creating an email template using the Novu email editor, all supported blocks and how to use them'
+icon: 'file-pen'
+---
+
+## Email Editor
+
+The Email Editor is a `WYSIWYG` editor that allows you to create and edit email templates. It has two fields: `Subject` and `Body`.
+
+<img
+  src="/images/channels-and-providers/email/writing-email-template/email-editor.png"
+  alt="Email editor"
+/>
+
+- **Subject** - Title of the email. It supports variables and can be customized based on the subscriber properties and payload variables.
+- **Body** - Main content of the email. It is made of blocks.
+
+## Email Editor Blocks
+
+Email editor body is made of blocks. A block can be added by clicking on the plus icon on the top left corner of the editor or by adding a forward slash `/`. In both the cases, a popover will appear with the list of supported blocks. Click on the desired block to add it to the editor. Menu option besides plus (+) icon can be used to **duplicate** or **delete** the block.
+
+<img
+  src="/images/channels-and-providers/email/writing-email-template/email-blocks.gif"
+  alt="Email blocks"
+/>
+
+The Email Editor supports the following blocks:
+
+- **Text** - Regular text
+- **Heading 1** - Large heading (H1)
+- **Heading 2** - Medium heading (H2)
+- **Heading 3** - Small heading (H3)
+- **Bullet List** - Bullet list (bullet points like •)
+- **Numbered List** - Numbered list (numeric digits like 1,2,3)
+- **Image** - Full widh image with absolute url, image position can be customized
+- **Section** - Create a section to group content together
+- **Column** - Creates columns to group content together, useful for responsive design
+- **Divider** - Separates the content, adds a line to highlight the separation
+- **Spacer** - Spacer to add space between two blocks (available in sm, lg and xl sizes)
+- **Button** - Call to action button to link to a page or url (can be customised with text, url, color and size and background color)
+- **Hard Break** - Adds a line break
+- **Blockquote** - Adds a blockquote
+- **Repeat** - Can be used for interation on array of data
+- **Show** - Can be used to conditionally show content based on a condition, use eye icon to toggle the visibility of the content
+
+### Repeat Block
+
+`Repeat` block is synonym with the javascript language `for` loop. It can be used to iterate over an array of data and render a block for each item in the array. Use + icon or / to add a `Repeat` block. Checkout the below video on how to use `Repeat` block
+
+<iframe
+  width="100%"
+  height="400"
+  src="https://www.youtube.com/embed/yC--z0mQ3Bg"
+  title="Learn how to use Novu email editor Repeat block"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+  allowFullScreen></iframe>
+
+In above video:
+
+- `{{payload.order.items}}` is array of items in the order and can be used to iterate over the items
+
+then each item in the iteration has following properties:
+
+- `{{payload.order.items.name}}` is the name of the item
+- `{{payload.order.items.price}}` is the price of the item
+
+### Show Block
+
+Show block can be used to conditionally show content based on a condition. Use the eye icon to toggle the visibility of the content. Few components supports eye icon. Conditions could be based on subscribr properties, payload variables.
+
+<img
+  src="/images/channels-and-providers/email/writing-email-template/show-block.gif"
+  alt="Show block"
+/>
+
+In above example, if subscriber has `showTracking` field set to `true` in custom `data` attribute, then the `Track your order` button will be shown in the email sent to the subscriber. Similarly, paylaod variables can be used to conditionally show the content.

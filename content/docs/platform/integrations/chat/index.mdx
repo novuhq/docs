@@ -1,0 +1,90 @@
+---
+pageTitle: 'Chat Providers Integration'
+title: 'Chat'
+description: "Learn how to configure and use chat providers like Slack, Microsoft Teams, WhatsApp, and Discord with Novu's notification infrastructure."
+icon: 'circle-info'
+---
+
+Novu brings chat notifications into your development workflow, giving you a unified way to manage messaging across platforms and apps. Whether you're working with tools like Slack or Microsoft Teams or apps like WhatsApp, Telegram, and Discord, Novu lets you integrate, manage, and scale chat notifications without unnecessary complexity.
+
+The Chat channel provides:
+
+- **Cross-Platform Integration**: A single system to handle messaging platforms (e.g., Slack, Teams) and apps (e.g., WhatsApp, Telegram, Discord)
+- **Scalability at Its Core**: Designed to handle high-frequency messaging without breaking a sweat
+- **Effortless Configuration**: Minimal setup, maximum control over your chat notification workflows
+
+## Key Features
+
+- **Platform and App Agnostic**: Supports workplace messaging platforms (Slack, Teams) and consumer apps (Discord, WhatsApp, Telegram) without additional overhead
+- **Dynamic Content Handling**: Inject real-time, user-specific data into messages with simple APIs
+- **Provider Independence**: Easily switch between chat providers or use multiple simultaneously
+- **Delivery Monitoring**: Full visibility into delivery status, failures, and message engagement
+- **Fallback Logic**: Automate retries and backup providers to ensure messages are delivered
+- **Reusable Message Templates**: Standardize message structure across your channels
+- **Developer-Centric APIs**: Clean, intuitive endpoints to plug notifications directly into your backend
+
+## Messaging Platforms vs. Messaging Apps
+
+- **Messaging Platforms** (e.g., Slack, Teams): Ideal for structured, workplace communication. Use these to notify teams or users in collaborative environments
+- **Messaging Apps** (e.g., WhatsApp, Telegram, Discord): Best for consumer-facing messaging. Engage users directly through personal or group chats
+
+## Common Use Cases
+
+- **Team Notifications**: Deliver updates to Slack channels or Teams users without needing complex integrations
+- **Customer Engagement**: Notify users on apps like Telegram or WhatsApp with real-time updates or alerts
+- **System Alerts**: Push critical system or workflow notifications to technical teams via chat platforms
+- **Event Reminders**: Send timely reminders for meetings, webinars, or deadlines
+- **Community Notifications**: Manage announcements, updates, or discussions in platforms like Discord
+
+
+## Update credential webhookUrl
+
+<Tabs items={['Node.js', 'cURL']}>
+<Tab value="Node.js">
+```javascript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, { webhookUrl: "<WEBHOOK_URL>", });
+
+```
+</Tab>
+<Tab value="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+  "providerId": "slack",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "slack-MnGLxp8uy"
+}'
+```
+</Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+
+<Callout type="info">
+  Integration identifier is similar to Provider identifier but it is different than Provider Id. It
+  is unique for each integration. You can find the `integrationIdentifier` in the integration store
+  page.
+</Callout>
+
+## Common errors
+
+Common erros and reason of those errors while sending chat messages using Novu.
+
+- Subscriber does not have a configured channel
+  - if the subscriber does not have credentials set up for any of the chat provider
+- Webhook URL for the chat channel is missing
+  - `webhookUrl` field is null, undefined or not set. Check using [get subscriber api](/api-reference/subscribers/subscribers-controller_get-subscriber)
+- Subscriber does not have an active integration
+  - if subscriber have credentials set but integration is either not active or deleted for this credential

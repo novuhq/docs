@@ -1,15 +1,44 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:mdx/recommended"
-  ],
-  // optional, if you want to lint code blocks at the same time
+  "extends": ["next/core-web-vitals", "next/typescript", "plugin:mdx/recommended", "prettier"],
+  "plugins": ["mdx", "prettier", "@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
   "settings": {
-    "mdx/code-blocks": false
+    "mdx/code-blocks": true,
+    "react": {
+      "version": "detect"
+    }
   },
+  "overrides": [
+    {
+      "files": ["content/docs/**/*.mdx", "content/docs/**/*.md", "src/**/*.mdx"],
+      "extends": ["plugin:mdx/recommended", "prettier"],
+      "rules": {
+        "react/jsx-no-undef": "off",
+        "no-unused-expressions": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "react/no-unescaped-entities": "off",
+        "@next/next/no-img-element": "off",
+        "mdx/mdast-util-mdx-jsx": "off",
+        "no-undef": "off",
+        "no-console": "off",
+        "@next/next/no-html-link-for-pages": "off"
+      },
+      "settings": {
+        "mdx/code-blocks": true
+      }
+    }
+  ],
+  "ignorePatterns": ["content/docs/api-reference/**/*.mdx"],
   "rules": {
-    "no-undef": "off",
-    "no-unused-expressions": "off",
-    "no-unused-vars": "off"
+    "prettier/prettier": "error",
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".mdx"] }],
+    "mdx/mdast-util-mdx-jsx": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@next/next/no-html-link-for-pages": "off",
+    "@next/next/no-img-element": "off",
+    "no-console": "off"
   }
 }

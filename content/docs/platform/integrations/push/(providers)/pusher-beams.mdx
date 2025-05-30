@@ -1,0 +1,72 @@
+---
+title: 'Pusher Beams'
+description: 'Learn how to use the Pusher Beams provider to send push notifications using Novu'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+[Pusher Beams](https://pusher.com/beams/) is a cross-platform push notification API service provided by Pusher.
+
+To enable Pusher Beams integration, you need to create a Pusher Beams Instance and use both `Instance ID` and `Secret Key` from the Instance [dashboard](https://dashboard.pusher.com/beams/).
+
+## Setting the Device Token
+
+Once Pusher Beams instance has been created, and the Pusher Beams SDK has been [set up and configured](https://pusher.com/docs/beams/reference/all-libraries/) for your application, you can associate users with their devices using [Authenticated Users](https://pusher.com/docs/beams/guides/publish-to-specific-user/web/).
+
+This identifier allows targeting your user when sending push notifications without having to retrieve the specific Web, Android or iOS device tokens - which are managed by Pusher Beams.
+
+In order to target the Pusher Beams user from Novu, you must register the Pusher Beams Authenticated Users with their `userId` as the `deviceToken` for your Novu subscriber. This value can be retrieved via [getUserId()](https://pusher.com/docs/beams/reference/web/#getuserid) method from the SDK for your platform.
+
+Once you have the user's `userId` value, the `deviceToken` for your Novu subscriber can be set via:
+
+<Tabs items={['Node.js', 'cURL']}>
+<Tab value="Node.js">
+```javascript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.PusherBeams, {
+  // Your user's unique 'userId' from Pusher Beams
+  deviceTokens: ['userId-from-pusher-beams'],
+});
+
+````
+</Tab>
+<Tab value="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+  "providerId": "pusher-beams",
+  "deviceTokens": ['userId-from-pusher-beams'],
+  "integrationIdentifier": "pusher-beams-MnGLxp8uy"
+}'
+````
+
+</Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+
+## SDK Trigger Example
+
+```typescript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_SECRET_KEY>');
+
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  payload: {
+    custom_data: 'custom_data', // the payload will be sent as notification data object. Cannot contain the key "pusher"
+  },
+});
+```

@@ -1,0 +1,131 @@
+---
+pageTitle: 'Typescript SDK'
+title: 'Typescript'
+description: 'Connect a TS/JS application to Novu'
+icon: 'node'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+Novu's Typescript SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code. It integrates seamlessly with your Node.js, Bun, Deno, and Cloudflare Workers applications.
+
+[Explore the source code on GitHub](https://github.com/novuhq/novu-ts)
+
+## Installation
+
+<Tabs items={['NPM', 'PNPM', 'Yarn', 'Bun']}>
+<Tab value="NPM">
+
+```bash
+npm add @novu/api
+```
+
+</Tab>
+<Tab value="PNPM">
+
+```bash
+pnpm add @novu/api
+```
+
+</Tab>
+<Tab value="Yarn">
+
+```bash
+yarn add @novu/api zod
+
+## Note that Yarn does not install peer dependencies automatically. You will need
+
+## to install zod as shown above.
+
+```
+
+</Tab>
+<Tab value="Bun">
+
+```bash
+bun add @novu/api
+```
+
+</Tab>
+</Tabs>
+
+## Usage
+
+<Tabs items={['US Region', 'EU Region']}>
+<Tab value="US Region">
+
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+async function run() {
+  const result = await novu.trigger({
+    to: {
+      subscriberId: "subscriber_unique_identifier",
+      firstName: "Albert",
+      lastName: "Einstein",
+      email: "albert@einstein.com",
+      phone: "+1234567890",
+    },
+    workflowId: "workflow_identifier",
+    payload: {
+      comment_id: "string",
+      post: {
+        text: "string",
+      },
+    },
+    overrides: {
+      email: {
+        bcc: "no-reply@novu.co",
+      },
+    },
+  });
+}
+
+run();
+```
+
+</Tab>
+<Tab value="EU Region">
+
+```javascript
+import { Novu } from "@novu/api";
+
+const novu = new Novu({
+  secretKey: "<YOUR_SECRET_KEY_HERE>",
+  serverUrl: "https://eu.api.novu.co",
+});
+
+async function run() {
+  const result = await novu.trigger({
+    to: {
+      "subscriberId": "subscriber_unique_identifier",
+      "firstName": "Albert",
+      "lastName": "Einstein",
+      "email": "albert@einstein.com",
+      "phone": "+1234567890",
+    },
+    workflowId: "workflow_identifier",
+    payload: {
+      "comment_id": "string",
+      "post": {
+        "text": "string",
+      },
+    },
+    overrides: {
+      "email": {
+        "bcc": "no-reply@novu.co"
+      },
+    },
+  });
+
+  // Handle the result
+  console.log(result);
+}
+
+run();
+```
+
+</Tab>
+</Tabs>

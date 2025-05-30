@@ -1,0 +1,98 @@
+---
+title: 'Build a Workflow'
+description: 'Learn how to build a Novu Workflow'
+icon: 'Wrench'
+---
+
+<Steps>
+  <Step title="Navigate to the workflows tab in the Novu Dashboard">
+    This is where you can find and manage your existing workflows.
+  </Step>
+  <Step title="Click on the **'Create Workflow button'**">
+    This will open the initial workflow creation screen.
+    Here you define:
+    - Name of the workflow
+        - This is also referred to as the workflow `Identifier`
+    - Tags (optional)
+    - Description of the workflow (optional)
+
+    Once you've filled in the required fields, click on the **"Create Workflow"** button.
+
+  </Step>
+  <Step title="Add a workflow step">
+    This is where you can start adding steps to your workflow. **The first step will always be the **"Workflow Trigger"**.
+
+    You can add the following steps by clicking on the **"Add Step"** (+) button:
+
+    **Channels**
+        - Email
+        - In-app
+        - Push
+            - Web push
+            - Mobile push
+        - Chat
+            - Enterprise messaging platforms (e.g. Slack, Microsoft Teams, etc.)
+            - Consumer messaging tools (e.g. WhatsApp, Telegram, Discord, etc.)
+        - SMS
+
+    <Callout type="info">
+      If a channel step you've added is not configured in your Novu account, you'll see an Error.
+    </Callout>
+
+    **Actions**
+        - Digest
+        - Delay
+        - Custom (Coming soon, currently only available in the [Novu Framework](/framework/custom))
+
+    </Step>
+    <Step title="Configure a template">
+    Each step in the workflow requires a template that defines the notification or message content and payload. The editor enables you to preview the rendered output of your content.
+
+    **Content creation and templates**
+
+    - Each channel step has its own template configuration options, tailored to the limitations and requirements of the specific channel.
+    - The editor provides a live preview to show how the final message will appear.
+    - You can use system variables for personalization, including:
+        - Subscriber variables: firstName, lastName, email, phone, avatar.
+        - Actor variables: for details about the event initiator.
+        - Step variables: for data specific to the workflow execution.
+        - Brand variables: for aligning with your organization's visual identity.
+        - Tenant variables: for organization-specific data.
+
+**Dynamic content**
+
+    - Inject dynamic data into your templates using payload variables.
+    - These variables can be utilized in message content, subjects, and sender names for enhanced personalization.
+
+**Important:** When using dynamic content with payload variables, ensure that the required payload is passed when triggering the workflow.
+
+    <Callout type="warn">
+      Once you've finished configuring your template, don't forget to click the `Save step` button to apply your changes.
+    </Callout>
+
+  </Step>
+  
+<Step title="Trigger the workflow">
+  There are three main ways to trigger a workflow:
+
+- **Via the Novu Dashboard**  
+   This method is ideal for conducting quick tests directly from the Dashboard. It's a simple and convenient way to verify basic functionality.
+- **Using the trigger code snippet**  
+  Copy the code snippet and execute it in your local environment or an online sandbox. This approach allows for more thorough testing, enabling you to integrate the trigger with your application logic and live data for a realistic evaluation.
+- **Integrating the trigger in your application**  
+   Once all tests are complete, you can implement the trigger method directly in your application. This allows you to test the workflow in a real-world scenario, ensuring it functions seamlessly with your app's actual environment and users.
+
+</Step>
+
+<Step title="Promote a workflow to the production environment">
+Novu operates in a multi environment setup, with the currently available environments:
+
+- **Development**: Acts as a staging and test environment, where your non-technical peers can view and modify controls.
+- **Production**: For triggering workflows to your customers.
+
+After you've tested your workflow in the **Development** environment, you can promote it to **Production**.
+
+[Learn more about promoting workflows to production](/framework/deployment/production)
+
+</Step>
+</Steps>

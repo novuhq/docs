@@ -1,0 +1,6 @@
+Now that you have your first workflow running, you can:
+
+- Learn about [Workflow Controls](/framework/controls) to expose no-code editing capabilities
+- Explore different [Channel Steps](/framework/email-channel) like Email, SMS, Push, and more
+- Set up [Action Steps](/framework/digest) like Delay and Digest
+- Check out our [React Email integration](/framework/content/react-email) for building beautiful email templates

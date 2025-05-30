@@ -1,0 +1,46 @@
+---
+pageTitle: 'Novu Framework Overview'
+title: 'Introduction'
+description: "Learn how to extend Novu's capabilities by building custom notification workflows with code using the Novu Framework."
+---
+
+import { ExpressjsIcon } from '@/components/icons/expressjs';
+import { H3Icon } from '@/components/icons/h3';
+import { LambdaIcon } from '@/components/icons/lambda';
+import { NestjsIcon } from '@/components/icons/nestjs';
+import { NextjsIcon } from '@/components/icons/nextjs';
+import { NuxtIcon } from '@/components/icons/nuxt';
+import { RemixIcon } from '@/components/icons/remix';
+import { SvelteIcon } from '@/components/icons/svelte';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+
+Novu Framework enables you to run a part of the core Novu workflow engine from within your network boundary. This also opens up a powerful new capability: **you can create Novu workflows entirely in code**. This is important because:
+
+- You can inject custom code that does nearly anything you can imagine as part of a Novu workflow
+- Your code-based workflow lives alongside your application code in source control
+- You can hydrate notification content using local data-sources, reducing what you need to sync outside of your IT boundary
+
+### What it is and how it works
+
+Novu Framework is an application and SDK that you run locally, and communicates natively with the Novu Cloud Worker Engine via the Novu API.
+
+Novu Framework requires a single HTTP webhook-like endpoint (/api/novu or similar) to be exposed by your application. This endpoint is called a **Bridge Endpoint** and is used to receive events from our Worker Engine through an encrypted client-initiated tunnel.
+
+When enabled, Novu Cloud will call the Bridge Endpoint when it needs to retrieve contextual information for a given subscriber and notification.
+
+Use the `npx novu init` command to create a sample Bridge application with a built-in Bridge Endpoint.
+
+## Quickstart
+
+To get started with Novu Framework, pick your preferred technology from the list below:
+
+<Cards>
+  <Card title="Next.js" icon={<NextjsIcon />} href="/framework/quickstart/nextjs" />
+  <Card title="Express.js" icon={<ExpressjsIcon />} href="/framework/quickstart/express" />
+  <Card title="Remix" icon={<RemixIcon />} href="/framework/quickstart/remix" />
+  <Card title="NestJS" icon={<NestjsIcon />} href="/framework/quickstart/nestjs" />
+  <Card title="Svelte" icon={<SvelteIcon />} href="/framework/quickstart/svelte" />
+  <Card title="Nuxt" icon={<NuxtIcon />} href="/framework/quickstart/nuxt" />
+  <Card title="H3" icon={<H3Icon />} href="/framework/quickstart/h3" />
+  <Card title="Lambda" icon={<LambdaIcon />} href="/framework/quickstart/lambda" />
+</Cards>

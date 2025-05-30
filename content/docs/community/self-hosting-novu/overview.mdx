@@ -1,0 +1,55 @@
+---
+pageTitle: 'Overview'
+title: 'Overview'
+description: 'Self-hosting Novu provides full control and flexibility over your notification infrastructure, with specific system requirements for optimal performance across VMs, Redis, MongoDB, and S3 storage.'
+---
+
+When self-hosting Novu, you take full control over your communication infrastructure by deploying it on your own servers. While this setup allows for customization and greater flexibility, it is important to note that some features exclusive to Novu's cloud-managed solution will not be available in a self-hosted environment.
+
+## System requirements overview
+
+### Hosting Novu services on separate VMs
+
+For optimal performance, we recommend hosting Novu's core services across multiple virtual machines (VMs).
+
+- **Novu services:**
+  - 3 VMs per service
+  - Each VM: 2 vCPUs and 4GB of RAM
+- **Redis:**
+  - 2 Redis clusters (one dedicated to queues with Append-Only Log (AOL) enabled)
+  - Minimum: 8GB RAM per cluster
+- **MongoDB:**
+  - 1 MongoDB cluster (M20 or higher on MongoDB Atlas)
+- **Storage:**
+  - 10GB of S3 storage
+
+### Hosting all Novu services on a single VM
+
+If resources are limited or simplicity is a priority, Novu services can be hosted on a single VM.
+
+- **All services:** 36 vCPUs and 64GB of RAM
+- **Storage:** 10GB of S3 storage
+
+### Redis requirements
+
+- **Redis Clusters:** 2 (one for queues with AOL enabled)
+- **Memory:** 8GB RAM per cluster
+- **AOL:** Active Append-Only Log (AOL) for data persistence and to prevent job loss during outages.
+
+### MongoDB requirements
+
+- **MongoDB cluster:** M20 or higher (recommended) on MongoDB Atlas.
+
+### Storage requirements
+
+- **S3 storage:** Minimum 10GB for file storage.
+
+<Callout type="info">
+  The above specifications are general recommendations. Adjust them based on your system load, usage
+  patterns, and scale of operations.
+</Callout>
+
+<Callout type="warn">
+  Self-hosting Novu does not support GitHub login. To access your account, please use the email and
+  password associated with your Novu account.
+</Callout>

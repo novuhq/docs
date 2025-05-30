@@ -1,0 +1,1055 @@
+---
+title: "@novu/react"
+pageTitle: "API reference for the @novu/react package"
+---
+
+## Components
+
+The @novu/react package provides React components for building notification UIs.
+
+## Inbox
+
+The main component for displaying notifications.
+
+### Props
+
+<TypeTable name="InboxProps" type={{
+  "applicationIdentifier": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriberHash": {
+    "description": "",
+    "type": "string"
+  },
+  "backendUrl": {
+    "description": "",
+    "type": "string"
+  },
+  "socketUrl": {
+    "description": "",
+    "type": "string"
+  },
+  "appearance": {
+    "description": "",
+    "type": "Appearance"
+  },
+  "localization": {
+    "description": "",
+    "type": "Localization"
+  },
+  "tabs": {
+    "description": "",
+    "type": "Tab[]"
+  },
+  "preferencesFilter": {
+    "description": "",
+    "type": "PreferencesFilter"
+  },
+  "routerPush": {
+    "description": "",
+    "type": "RouterPush"
+  },
+  "subscriberId": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriber": {
+    "description": "",
+    "type": "string | Subscriber"
+  }
+}} />
+
+### Usage
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function NotificationCenter() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriber="USER_ID"
+      backendUrl="https://api.novu.co"
+      socketUrl="https://ws.novu.co"
+      placement="right"
+      placementOffset={10}
+      onNotificationClick={(notification) => {
+        // Handle notification click
+        console.log(notification);
+      }}
+    />
+  );
+}
+```
+
+### Appearance Configuration
+
+<TypeTable name="InboxAppearanceProps" type={{
+  "variables": {
+    "description": "",
+    "type": "Variables"
+  },
+  "animations": {
+    "description": "",
+    "type": "boolean"
+  },
+  "baseTheme": {
+    "description": "",
+    "type": "Theme | Theme[]"
+  }
+}} />
+
+#### Variables
+
+<TypeTable name="InboxAppearanceVariables" type={{
+  "colorBackground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorForeground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorPrimary": {
+    "description": "",
+    "type": "string"
+  },
+  "colorPrimaryForeground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorSecondary": {
+    "description": "",
+    "type": "string"
+  },
+  "colorSecondaryForeground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorCounter": {
+    "description": "",
+    "type": "string"
+  },
+  "colorCounterForeground": {
+    "description": "",
+    "type": "string"
+  },
+  "colorNeutral": {
+    "description": "",
+    "type": "string"
+  },
+  "colorShadow": {
+    "description": "",
+    "type": "string"
+  },
+  "colorRing": {
+    "description": "",
+    "type": "string"
+  },
+  "fontSize": {
+    "description": "",
+    "type": "string"
+  },
+  "borderRadius": {
+    "description": "",
+    "type": "string"
+  },
+  "colorStripes": {
+    "description": "",
+    "type": "string"
+  }
+}} />
+
+#### Elements
+
+<TypeTable name="InboxAppearanceElements" type={{
+  "button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "input": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "badge": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "popoverContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "popoverTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "popoverClose": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItemLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItemLeft__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItemRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItem__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "collapsible": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tooltipContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tooltipTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePicker": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGrid": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGridRow": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGridCell": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGridCellTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGridHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControl": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControlPrevTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControlNextTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControlPrevTrigger__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControlNextTrigger__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerCalendar": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerHeaderMonth": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerCalendarDay__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker__hourSelect": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker__minuteSelect": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker__periodSelect": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker__separator": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePickerHour__input": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePickerMinute__input": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePicker": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePicker__actions": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePickerCancel__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePickerApply__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePicker__timePickerContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePicker__timePickerLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "back__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "skeletonText": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "skeletonAvatar": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "skeletonSwitch": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "skeletonSwitchThumb": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tabsRoot": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tabsList": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tabsContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tabsTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dots": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "root": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "bellIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "bellContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "bellDot": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferences__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "loading": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inbox__popoverTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inbox__popoverContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListEmptyNoticeContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListEmptyNoticeOverlay": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListEmptyNoticeIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListEmptyNotice": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeleton": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeletonContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeletonItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeletonAvatar": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeletonText": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListNewNotificationsNotice__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notification": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationTextContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDot": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSubject": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSubject__strong": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationBody": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationBody__strong": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationBodyContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationImage": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationImageLoadingFallback": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDate": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDateActionsContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDefaultActions": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationCustomActions": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationPrimaryAction__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSecondaryAction__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationRead__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnread__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationArchive__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnarchive__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnsnooze__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationRead__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnread__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationArchive__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnarchive__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnsnooze__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabs__tabsRoot": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabs__tabsList": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabs__tabsContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabs__tabsTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabsTriggerLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationsTabsTriggerCount": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__title": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemLeft__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItem__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemCheck__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActionsContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dropdownItemLeft__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreActions__dots": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "moreTabs__dropdownItemRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabelHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowContainerDisabledNotice": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabelDisabled__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowContainerRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowArrow__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowDescription": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelIconContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channel__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelsContainerCollapsible": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelsContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelName": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelSwitchContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelSwitch": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelSwitchThumb": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesHeader__back__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesHeader__back__button__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesHeader__title": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesHeader__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesListEmptyNoticeContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesListEmptyNotice": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeleton": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonSwitch": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonSwitchThumb": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonText": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__dropdownItem__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnoozeCustomTime_popoverContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDeliveredAt__badge": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDeliveredAt__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnoozedUntil__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "strong": {
+    "description": "",
+    "type": "ElementStyles"
+  }
+}} />
+
+## Bell
+
+A customizable notification bell component.
+
+### Props
+
+<TypeTable name="BellProps" type={{
+  "renderBell": {
+    "description": "",
+    "type": "BellRenderer"
+  }
+}} />
+
+### Usage
+
+```tsx
+import { Bell } from "@novu/react";
+import { BellIcon } from "lucide-react";
+
+function NotificationBell() {
+  return (
+    <Bell
+      renderBell={(unreadCount) => (
+        <div className="relative">
+          <BellIcon className="h-6 w-6" />
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
+              {unreadCount}
+            </span>
+          )}
+        </div>
+      )}
+    />
+  );
+}
+```
+
+## Notifications
+
+A component for rendering a list of notifications.
+
+### Props
+
+<TypeTable name="NotificationProps" type={{
+  "onNotificationClick": {
+    "description": "",
+    "type": "NotificationClickHandler"
+  },
+  "onPrimaryActionClick": {
+    "description": "",
+    "type": "NotificationActionClickHandler"
+  },
+  "onSecondaryActionClick": {
+    "description": "",
+    "type": "NotificationActionClickHandler"
+  },
+  "renderNotification": {
+    "description": "",
+    "type": "NotificationsRenderer"
+  },
+  "renderSubject": {
+    "description": "",
+    "type": "SubjectRenderer"
+  },
+  "renderBody": {
+    "description": "",
+    "type": "BodyRenderer"
+  }
+}} />
+
+### Usage
+
+```tsx
+import { Notifications } from "@novu/react";
+
+function NotificationList() {
+  return (
+    <Notifications
+      onNotificationClick={(notification) => {
+        // Handle notification click
+        console.log(notification);
+      }}
+      renderNotification={({ body, createdAt }) => (
+        <div className="flex gap-2 p-2">
+          <div className="flex-1">
+            <p>{body}</p>
+            <time className="text-sm text-gray-500">
+              {new Date(createdAt).toLocaleDateString()}
+            </time>
+          </div>
+        </div>
+      )}
+    />
+  );
+}
+```
+
+## InboxContent
+
+A component for building custom notification inboxes.
+
+### Props
+
+<TypeTable name="InboxContentProps" type={{
+  "onNotificationClick": {
+    "description": "",
+    "type": "NotificationClickHandler"
+  },
+  "onPrimaryActionClick": {
+    "description": "",
+    "type": "NotificationActionClickHandler"
+  },
+  "onSecondaryActionClick": {
+    "description": "",
+    "type": "NotificationActionClickHandler"
+  },
+  "initialPage": {
+    "description": "",
+    "type": "InboxPage"
+  },
+  "hideNav": {
+    "description": "",
+    "type": "boolean"
+  },
+  "renderNotification": {
+    "description": "",
+    "type": "NotificationsRenderer"
+  },
+  "renderSubject": {
+    "description": "",
+    "type": "SubjectRenderer"
+  },
+  "renderBody": {
+    "description": "",
+    "type": "BodyRenderer"
+  }
+}} />
+
+### Usage
+
+```tsx
+import { InboxContent } from "@novu/react";
+
+function CustomInbox() {
+  return (
+    <div className="custom-inbox-wrapper">
+      <InboxContent
+        onNotificationClick={(notification) => {
+          // Handle notification click
+          console.log(notification);
+        }}
+        onPrimaryActionClick={(notification) => {
+          // Handle primary action click
+          console.log(notification);
+        }}
+        hideNav={false}
+        renderNotification={({ body, createdAt }) => (
+          <div className="notification-item">
+            <p>{body}</p>
+            <time>{new Date(createdAt).toLocaleDateString()}</time>
+          </div>
+        )}
+      />
+    </div>
+  );
+}
+```

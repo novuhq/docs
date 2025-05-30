@@ -1,0 +1,160 @@
+---
+title: 'Step Conditions'
+description: 'Create dynamic notification workflows using rule-based conditions. Control message delivery based on subscriber data, payload information, and workflow outcomes.'
+icon: 'ListFilter'
+---
+
+The Step Condition feature in Novu enables you to define conditional logic for each workflow step (node), ensuring a precise and tailored notification experience. This feature adds flexibility and control by allowing you to determine whether a step should execute based on subscriber data, payload data, or conditions stemming from previous workflow steps.
+
+## What Are Workflow Step Conditions?
+
+When adding a workflow step (node) in Novu, it can either be:
+
+1. **Channel Step**: In-App, Email, SMS, Push, or Chat.
+2. **Action Step**: Digest or Delay.
+
+Each step includes the ability to configure **step conditions** that define whether the step is executed. The conditions can combine multiple logical rules using **AND** and **OR** operators.
+
+## Areas for Configuring Step Conditions
+
+### 1. **Subscriber Variables**
+
+Conditions can leverage subscriber-related fields to tailor notifications based on user-specific data. Examples of subscriber variables include:
+
+- `subscriber.firstName`
+- `subscriber.lastName`
+- `subscriber.email`
+- `subscriber.phone`
+- `subscriber.avatar`
+- `subscriber.locale`
+- `subscriber.data`
+- `subscriber.subscriberId`
+- `subscriber.isOnline`
+- `subscriber.lastOnlineAt`
+
+<Callout type="info">
+  For instance, you might want to send an SMS only to users whose `subscriber.isOnline` is `false`.
+</Callout>
+
+### 2. **Payload Data**
+
+Conditions can also depend on custom payload data passed during the workflow trigger call to the Novu API. This allows you to define dynamic rules based on the data unique to each workflow execution.
+
+Example payload data:
+
+```json
+{
+  "orderId": "12345",
+  "totalAmount": 150,
+  "orderStatus": "completed"
+}
+```
+
+You can configure conditions such as:
+
+- `payload.orderStatus = "completed"`
+- `payload.totalAmount > 100`
+
+This makes it possible to create dynamic notifications based on context-specific information.
+
+### 3. **Previous Step Conditions**
+
+For workflows involving sequential steps, conditions can also depend on the **outcome of a previous step**. For example, if the prior step was an **In-App Notification**, the condition could check:
+
+- `steps.in-app-step.seen`
+- `steps.in-app-step.read`
+- `steps.in-app-step.lastSeenDate`
+- `steps.in-app-step.lastReadDate`
+
+This is especially useful for tailoring follow-up notifications. For instance, send an email only if the In-App notification was not read within 24 hours.
+
+### 4. **Advanced Application State Calculations**
+
+For more complex scenarios where you need to perform advanced calculations based on your application state, you can use the [Novu Framework ](/framework/typescript/steps).
+
+This approach allows you to:
+
+- Access your application's database or external services
+- Perform complex business logic calculations
+- Make API calls to external services
+- Execute custom validation rules
+
+The skip step gives you full programmatic control over whether a notification step should be executed, going beyond the built-in condition builder capabilities.
+
+## Query Builder Options
+
+The query builder enables you to construct powerful logical expressions for your step conditions. Supported operators include:
+
+| Operator              | Description                             | Example                                         |
+| --------------------- | --------------------------------------- | ----------------------------------------------- |
+| `=`                   | Equal to                                | `subscriber.locale = "en-US"`                   |
+| `!=`                  | Not equal to                            | `subscriber.isOnline != true`                   |
+| `<`                   | Less than                               | `payload.totalAmount < 100`                     |
+| `>`                   | Greater than                            | `payload.totalAmount > 100`                     |
+| `<=`                  | Less than or equal to                   | `payload.totalAmount <= 200`                    |
+| `>=`                  | Greater than or equal to                | `payload.totalAmount >= 200`                    |
+| `contains`            | Contains a substring                    | `payload.orderId contains "123"`                |
+| `begins with`         | Starts with                             | `subscriber.firstName begins with "J"`          |
+| `ends with`           | Ends with                               | `subscriber.email ends with "@xyz.com"`         |
+| `does not contain`    | Does not contain a substring            | `payload.orderId does not contain "456"`        |
+| `does not begin with` | Does not start with                     | `subscriber.firstName does not begin with "M"`  |
+| `does not end with`   | Does not end with                       | `subscriber.lastName does not end with "Smith"` |
+| `is null`             | Is null                                 | `subscriber.phone is null`                      |
+| `is not null`         | Is not null                             | `subscriber.email is not null`                  |
+| `in`                  | Matches one of several values           | `subscriber.locale in ["en-US", "es-ES"]`       |
+| `not in`              | Does not match any of the listed values | `subscriber.locale not in ["fr-FR", "de-DE"]`   |
+| `between`             | Within a range                          | `payload.totalAmount between [50, 200]`         |
+| `not between`         | Outside of a range                      | `payload.totalAmount not between [0, 50]`       |
+
+## Using Dynamic Data Fields for Comparison
+
+The **value** field in a condition can also be a dynamic data field. This allows you to compare two data points dynamically rather than using static values.
+
+For example:
+
+```json
+{
+  "operator": "AND",
+  "conditions": [
+    {
+      "field": "payload.foo",
+      "operator": "=",
+      "value": "{{payload.bar}}"
+    }
+  ]
+}
+```
+
+<img src="/workflow/media-assets/step-conditions.png" alt="Step Conditions" />
+
+In this case, the step will execute only if `payload.foo` is equal to `payload.bar` at runtime.
+
+You can also use subscriber variables in the same way:
+
+```json
+{
+  "operator": "AND",
+  "conditions": [
+    {
+      "field": "subscriber.firstName",
+      "operator": "=",
+      "value": "{{payload.firstName}}"
+    }
+  ]
+}
+```
+
+<img src="/workflow/media-assets/step-conditions1.png" alt="Step Conditions" />
+
+This enables flexible condition logic based on real-time data comparisons.
+
+## Building Condition Groups
+
+Novu allows you to group multiple conditions using **AND** and **OR** operators to create complex logic. For instance:
+
+- **AND Group**: All conditions in the group must be true for the step to execute.
+- **OR Group**: At least one condition in the group must be true.
+
+Condition groups can also be nested for advanced use cases.
+
+Novu's Step Condition feature empowers you to build intelligent and dynamic workflows tailored to your specific use cases. By leveraging subscriber data, payload information, and step outcomes, you can ensure that each notification reaches the right audience at the right time with the appropriate content.

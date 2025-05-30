@@ -1,0 +1,60 @@
+---
+title: 'Channel Steps'
+icon: 'Waypoints'
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Bell, Mail, MessageSquare, MessagesSquare, Smartphone } from 'lucide-react';
+
+A **channel step** within a workflow is the core building block for creating and delivering notifications to subscribers (End users). Each channel step is linked to a specific notification template and represents a notification to be sent through a single channel type (e.g., email, push, SMS, in-app, etc.).
+
+### Channel Step Execution
+
+When a channel step is executed, Novu performs the following actions:
+
+1. **Evaluates Step Conditions:** Novu checks any conditions defined for the step to determine if it should be executed. This allows for dynamic notification workflows.
+
+2. **Verifies Subscriber's Information:**  
+   Novu ensures the subscriber has the required information to receive notifications via this channel.
+
+   For example:
+
+   - For email, the recipient must have a valid email address.
+   - For push notifications, the required channel data (device token) must be configured.
+
+3. **Checks Subscriber's Preferences:**  
+   Novu respects the recipient's notification preferences, verifying whether they've opted out of receiving notifications from this channel or workflow.
+
+### Rendering and Delivering Notifications
+
+If the step is valid and all conditions are met, Novu renders the associated template for the step and queues the message for delivery. The message is then sent to the selected provider using the credentials configured for the channel.
+
+### Available Channels
+
+<Cards>
+  <Card
+    title="Email"
+    icon={<Mail className="h-4 w-4" />}
+    href="/platform/integrations/email"
+  />
+  <Card
+    title="In-App"
+    icon={<Bell className="h-4 w-4" />}
+    href="/platform/inbox/overview"
+  />
+  <Card
+    title="Push"
+    icon={<Smartphone className="h-4 w-4" />}
+    href="/platform/integrations/push"
+  />
+  <Card
+    title="SMS"
+    icon={<MessageSquare className="h-4 w-4" />}
+    href="/platform/integrations/sms"
+  />
+  <Card
+    title="Chat"
+    icon={<MessagesSquare className="h-4 w-4" />}
+    href="/platform/integrations/chat"
+  />
+</Cards>

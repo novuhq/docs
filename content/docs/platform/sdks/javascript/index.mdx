@@ -1,0 +1,536 @@
+---
+title: '@novu/js'
+pageTitle: 'API reference for the @novu/js package'
+description: 'Complete API reference for the Novu JavaScript package'
+icon: 'Braces'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+## Novu
+
+The Novu client provides methods to interact with notifications, preferences, and real-time events.
+
+### Constructor Options
+
+<TypeTable name="NovuOptions" type={{
+  "backendUrl": {
+    "description": "",
+    "type": "string"
+  },
+  "applicationIdentifier": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriberHash": {
+    "description": "",
+    "type": "string"
+  },
+  "apiUrl": {
+    "description": "",
+    "type": "string"
+  },
+  "socketUrl": {
+    "description": "",
+    "type": "string"
+  },
+  "useCache": {
+    "description": "",
+    "type": "boolean"
+  },
+  "subscriberId": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriber": {
+    "description": "",
+    "type": "string | Subscriber"
+  }
+}} />
+
+### Usage
+
+<Tabs items={['US', 'EU', 'HMAC Encryption']}>
+  <Tab value="US">
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+    });
+    ```
+  </Tab>
+  <Tab value="EU">
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+      apiUrl: "https://eu.api.novu.co",
+      socketUrl: "https://eu.ws.novu.co",
+    });
+    ```
+  </Tab>
+  <Tab value="HMAC Encryption">
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+      subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
+    });
+    ```
+  </Tab>
+</Tabs>
+
+## Notifications
+
+### Methods
+
+#### list
+
+Fetches a list of notifications based on provided filters.
+
+<TypeTable name="NotificationFilter" type={{
+  "tags": {
+    "description": "",
+    "type": "string[]"
+  },
+  "read": {
+    "description": "",
+    "type": "boolean"
+  },
+  "archived": {
+    "description": "",
+    "type": "boolean"
+  },
+  "snoozed": {
+    "description": "",
+    "type": "boolean"
+  }
+}} />
+
+```typescript
+const notifications = await novu.notifications.list({
+  limit: 30,
+  read: false,
+  archived: false,
+  tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
+  offset: 0,
+});
+```
+
+The response will be of type:
+
+<TypeTable name="NotificationsResponse" type={{
+  "notifications": {
+    "description": "",
+    "type": "Notification[]"
+  },
+  "hasMore": {
+    "description": "",
+    "type": "boolean"
+  },
+  "filter": {
+    "description": "",
+    "type": "NotificationFilter"
+  }
+}} />
+
+#### count
+
+Fetches the count of notifications based on filters.
+
+<TypeTable name="NotificationFilter" type={{
+  "tags": {
+    "description": "",
+    "type": "string[]"
+  },
+  "read": {
+    "description": "",
+    "type": "boolean"
+  },
+  "archived": {
+    "description": "",
+    "type": "boolean"
+  },
+  "snoozed": {
+    "description": "",
+    "type": "boolean"
+  }
+}} />
+
+<Tabs items={['Single Filter', 'Multiple Filters']}>
+  <Tab value="Single Filter">
+    ```typescript
+    // Single filter
+    const count = await novu.notifications.count({
+      read: false,
+      archived: false,
+       // data attributes
+      data: {
+        type: 'login',
+      },
+    });
+    ```
+  </Tab>
+  <Tab value="Multiple Filters">
+    ```typescript
+    // Multiple filters
+    const counts = await novu.notifications.count({
+      filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
+    });
+    ```
+  </Tab>
+</Tabs>
+
+#### read
+
+Marks a notification as read.
+
+```typescript
+await novu.notifications.read({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### unread
+
+Marks a notification as unread.
+
+```typescript
+await novu.notifications.unread({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### archive
+
+Archives a notification.
+
+```typescript
+await novu.notifications.archive({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### unarchive
+
+Unarchives a notification.
+
+```typescript
+await novu.notifications.unarchive({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### readAll
+
+Marks all notifications as read. Can be filtered by tags.
+
+```typescript
+await novu.notifications.readAll({
+  tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
+});
+```
+
+#### archiveAll
+
+Archives all notifications. Can be filtered by tags.
+
+```typescript
+await novu.notifications.archiveAll({
+  tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
+});
+```
+
+#### archiveAllRead
+
+Archives all read notifications. Can be filtered by tags.
+
+```typescript
+await novu.notifications.archiveAllRead({
+  tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
+});
+```
+
+#### completePrimary
+
+Marks primary action of a notification as completed.
+
+```typescript
+await novu.notifications.completePrimary({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### completeSecondary
+
+Marks secondary action of a notification as completed.
+
+```typescript
+await novu.notifications.completeSecondary({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### revertPrimary
+
+Reverts primary action of a notification to pending.
+
+```typescript
+await novu.notifications.revertPrimary({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### revertSecondary
+
+Reverts secondary action of a notification to pending.
+
+```typescript
+await novu.notifications.revertSecondary({ notificationId: 'NOTIFICATION_ID' });
+```
+
+## Preferences
+
+### Methods
+
+#### list
+
+Fetches the subscriber's notification preferences.
+
+```typescript
+const preferences = await novu.preferences.list();
+```
+
+The response will be of type:
+
+<TypeTable name="PreferenceResponse" type={{
+  "level": {
+    "description": "",
+    "type": "PreferenceLevel"
+  },
+  "enabled": {
+    "description": "",
+    "type": "boolean"
+  },
+  "channels": {
+    "description": "",
+    "type": "ChannelPreference"
+  },
+  "overrides": {
+    "description": "",
+    "type": "IPreferenceOverride[]"
+  },
+  "workflow": {
+    "description": "",
+    "type": "Workflow"
+  }
+}} />
+
+## Events
+
+The Novu client provides real-time event handling through WebSocket connections.
+
+### Available Events
+
+- `notifications.notification_received`: Triggered when a new notification is received
+- `notifications.unread_count_changed`: Triggered when the unread count changes
+
+### Usage
+
+```typescript
+novu.on('notifications.notification_received', (data) => {
+  console.log('New notification:', data);
+});
+
+novu.on('notifications.unread_count_changed', (data) => {
+  console.log('Unread count:', data);
+});
+```
+
+## Types
+
+### Notification
+
+<TypeTable name="Notification" type={{
+  "id": {
+    "description": "",
+    "type": "string"
+  },
+  "subject": {
+    "description": "",
+    "type": "string"
+  },
+  "body": {
+    "description": "",
+    "type": "string"
+  },
+  "to": {
+    "description": "",
+    "type": "Subscriber"
+  },
+  "isRead": {
+    "description": "",
+    "type": "boolean"
+  },
+  "isArchived": {
+    "description": "",
+    "type": "boolean"
+  },
+  "isSnoozed": {
+    "description": "",
+    "type": "boolean"
+  },
+  "snoozedUntil": {
+    "description": "",
+    "type": "string | null"
+  },
+  "deliveredAt": {
+    "description": "",
+    "type": "string[]"
+  },
+  "createdAt": {
+    "description": "",
+    "type": "string"
+  },
+  "readAt": {
+    "description": "",
+    "type": "string | null"
+  },
+  "archivedAt": {
+    "description": "",
+    "type": "string | null"
+  },
+  "avatar": {
+    "description": "",
+    "type": "string"
+  },
+  "primaryAction": {
+    "description": "",
+    "type": "Action"
+  },
+  "secondaryAction": {
+    "description": "",
+    "type": "Action"
+  },
+  "channelType": {
+    "description": "",
+    "type": "ChannelType"
+  },
+  "tags": {
+    "description": "",
+    "type": "string[] | undefined"
+  },
+  "redirect": {
+    "description": "",
+    "type": "Redirect | undefined"
+  },
+  "data": {
+    "description": "",
+    "type": "NotificationData"
+  },
+  "workflow": {
+    "description": "",
+    "type": "Workflow"
+  },
+  "read": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "unread": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "archive": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "unarchive": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "snooze": {
+    "description": "",
+    "type": "(snoozeUntil: string) => Result<Notification, NovuError>"
+  },
+  "unsnooze": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "completePrimary": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "completeSecondary": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "revertPrimary": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "revertSecondary": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "on": {
+    "description": "",
+    "type": "<Key extends EventNames>(eventName: Key, listener: EventHandler<Events[Key]>) => () => void"
+  },
+  "off": {
+    "description": "",
+    "type": "<Key extends EventNames>(eventName: Key, listener: EventHandler<Events[Key]>) => void"
+  }
+}} />
+
+### Subscriber
+
+<TypeTable name="Subscriber" type={{
+  "id": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriberId": {
+    "description": "",
+    "type": "string"
+  },
+  "firstName": {
+    "description": "",
+    "type": "string"
+  },
+  "lastName": {
+    "description": "",
+    "type": "string"
+  },
+  "email": {
+    "description": "",
+    "type": "string"
+  },
+  "phone": {
+    "description": "",
+    "type": "string"
+  },
+  "avatar": {
+    "description": "",
+    "type": "string"
+  },
+  "locale": {
+    "description": "",
+    "type": "string"
+  },
+  "data": {
+    "description": "",
+    "type": "Record<string, unknown>"
+  },
+  "timezone": {
+    "description": "",
+    "type": "string"
+  }
+}} />

@@ -1,0 +1,118 @@
+---
+title: 'Next.js'
+pageTitle: 'Novu Next.js Quickstart'
+description: 'Create an account and learn how to start using Novu notification Inbox in your Next.js application.'
+---
+
+import { Accordion, Accordions } from '@/components/accordion';
+import { CodeBlock } from '@/components/codeblock';
+import {
+    BuildWorkflowStep,
+    CreateAccountStep,
+    CreateSubscriberStep,
+    TriggerNotificationStep,
+} from '@/components/quickstart/common-steps';
+import { InboxCodeBlock } from '@/components/quickstart/inbox-code';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { SignedIn, SignedOut, SignInButton } from '@clerk/nextjs';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import {
+  Code2,
+  Library,
+  Palette,
+  Workflow
+} from 'lucide-react';
+
+Learn how to integrate Novu’s Inbox for real-time in-app notifications in your Next.js application. By the end of this guide, you’ll have a working notification inbox that displays messages triggered from the Novu dashboard.
+
+<Steps>
+  <Step>
+  ### Create a Novu account
+    [Create a Novu account](https://dashboard.novu.co/auth/sign-up) or [sign in](https://dashboard.novu.co/auth/sign-in) to access the Novu dashboard.
+  </Step>
+
+  <Step>
+  ### Install `@novu/nextjs`
+  In your Next.js project, run the following command to install the Novu Inbox SDK:
+  
+  ```package-install
+  npm install @novu/nextjs
+  ```
+
+  </Step>
+
+  <Step>
+  ### Add the notification Inbox to your app
+    Import Novu’s built-in <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component into your layout file and place it in the navbar:
+
+    <InboxCodeBlock />
+
+    If you are signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's ID in your database."} will be automatically populated. Otherwise, retrieve them from:
+    * `applicationIdentifier`: On the Novu dashboard, click **API Keys**, and copy your unique Application Identifier.
+    * `subscriberId`: This represents a user in your system, usually the user ID from your database. For testing, you can use the auto-generated subscriberId from your Novu dashboard. You can locate it under the Subscribers tab on the Novu dashboard.
+
+    <Callout type="info">
+      **Note:** If you pass a `subscriberId` that does not exist yet, Novu will automatically create a new subscriber with that ID.
+    </Callout>
+    </Step>
+  <Step>
+  ### Run your application
+    Start your development server:
+
+    ```package-install
+    npm run dev
+    ```
+    Once your application is running, you would see a **bell icon** in the navbar. Click on it, to open the notification Inbox UI.
+
+    There are no notifications yet, so let’s trigger one!
+
+  </Step>
+
+  <Step>
+  ### Trigger your first notification
+    In this step, you'll create a simple workflow to send your first notification via the Inbox component. Follow these steps to set up and trigger a workflow from your Novu dashboard.
+    1. Go to your [Novu dashboard](https://dashboard.novu.co/auth/sign-in).
+    2. Click **Workflows**.
+    3. Click **Create Workflow** and then enter a name (e.g., "Welcome Notification").
+    4. Click **Create Workflow** to save it.
+    5. Click the **Add Step** icon in the workflow editor and then select **In-App** as the step type.
+    6. In the **In-App template editor**, enter:
+        - **Subject**: "Welcome to Novu"
+        - **Body**: "Hello, world!"
+    7. Once you’ve added the subject and body, close the editor.
+    8. Click **Trigger**.
+    9. Click **Test Workflow**.
+
+  </Step>
+
+  <Step>
+  ###  View the notification in your app
+    Go back to your Next.js app, then click the bell icon.
+
+    You should see the notification you just sent from Novu! 🎉
+
+  </Step>
+
+</Steps>
+
+## Next steps
+
+<Cards cols={2}>
+  <Card title="Styling" icon={<Palette />} href="/inbox/react/styling">
+    Customize the look and feel of your Inbox to match your application's design.
+  </Card>
+  <Card
+    title="Inbox and preferences UI components"
+    icon={<Library />}
+    href="/platform/inbox/overview"
+  >
+    Explore our full-stack UI components libraries for building in-app notifications.
+  </Card>
+  <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow/overview">
+     Design and manage advanced notification workflows.
+  </Card>
+  <Card title="Multi Tenancy" icon={<Code2 />} href="/platform/concepts/tenants">
+    Manage multiple tenants within an organization.
+  </Card>
+</Cards>

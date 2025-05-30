@@ -1,0 +1,139 @@
+---
+title: 'Push Webhook'
+description: 'Learn how to use the Push Webhook provider to send  notifications using Novu'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+Push Webhook provider is a bit different different from other push providers as it does not depend on other third party services.
+Users can use their own api url as webhook url and novu will make a post request on that webhook url.
+
+## Steps To Configure
+
+1. Go to [integration store](https://dashboard.novu.co/integrations?utm_campaign=docs-push-webhook) and click on `Add a provider` button. Choose `Push` channel and then `Push Webhook` provider.
+2. Enter your Webhook URL. For quick testing use [this](https://webhook.site/) website.
+3. Enter Secret Hmac Key. Novu will use this secret hmac key to encrypt the data using `HMAC SHA256` algorithm and send the hash as value of `x-novu-signature` header. User can use `x-novu-signature` header to test authenticity of the request. Read more [here](#checking-authenticity)
+4. Click on the update button.
+5. Update the subscriber credentials using SDK or API. Read more [here](#set-device-token)
+
+<Callout>Your webhook url should accept `POST` request.</Callout>
+
+## Set Device Token
+
+This step is a mandatory step. Other push providers have third party dependencies where a device token can be generated. But in case of push webhook provider, there is no any way to generate device token. Any random string can be used as device token.
+
+<Tabs items={['Node.js', 'cURL']}>
+  <Tab value="Node.js">
+```javascript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+// PushProviderIdEnum.PushWebhook = push-webhook
+await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.PushWebhook, {
+  deviceTokens: ['ANY_RANDOM_STRING'],
+});
+
+````
+  </Tab>
+  <Tab title="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+  "providerId": "push-webhook",
+  "deviceTokens": ['ANY_RANDOM_STRING'],
+  "integrationIdentifier": "push-webhook-MnGLxp8uy"
+}'
+```
+  </Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+
+## Example paylod sent by novu to webhook url
+
+```json
+{
+  "target": ["subscriber-token-for-push-webhook-provider"],
+  "title": "Push Webhook message title",
+  "content": "push Webhook content body",
+  "overrides": {
+    "data": {
+      "custom_message": "this is custom message from payload push webhook demo"
+    }
+  },
+  "payload": {
+    "custom_message": "this is custom message from payload push webhook demo",
+    "__source": "test-workflow",
+    "subscriber": {
+      // subscriber fields
+      "_id": "65c0d71c0959a38e8857b131",
+      "_organizationId": "organizationId",
+      "_environmentId": "environmentId",
+      "firstName": "Pawan",
+      "lastName": "Jain",
+      "phone": "+123456789",
+      "subscriberId": "push-webhook-demo-subscriber-id",
+      "email": "pawan+push+web+hook+demo@domain.com",
+      "channels": [
+        {
+          "credentials": {
+            "deviceTokens": ["subscriber-token-for-push-webhook-provider"]
+          },
+          "_integrationId": "integrationId",
+          "providerId": "push-webhook"
+        }
+      ],
+      "data": {
+        // custom data field of subscriber
+        "isDeveloper": "true"
+      },
+      "deleted": false,
+      "createdAt": "2024-02-05T12:39:56.379Z",
+      "updatedAt": "2024-02-05T12:54:08.684Z",
+      "__v": 0,
+      "id": "65c0d71c0959a38e8857b131"
+    },
+    "step": {
+      // digest variables
+      "digest": false,
+      "events": [],
+      "total_count": 0
+    }
+  }
+}
+```
+
+## Checking Authenticity
+
+```typescript
+import crypto from 'crypto';
+
+// secret key added in step 3
+const secretKey = 'YOUR_HMAC_SECRET_KEY';
+
+// function to handle webhook url route request
+async function acceptNovuPushWebHookRequest(request, response) {
+  const payloadSentByNovu = request.body;
+  const hmacHashSentByNovu = request.headers['x-novu-signature'];
+
+  const actualHashValue = crypto
+    .createHmac('sha256', secretKey)
+    .update(payloadSentByNovu, 'utf-8')
+    .digest('hex');
+
+  if (hmacHashSentByNovu === actualHashValue) {
+    // handle the notification
+    console.log('Request sent by Novu');
+  } else {
+    throw new Error('Not a valid request');
+  }
+}
+```
+````

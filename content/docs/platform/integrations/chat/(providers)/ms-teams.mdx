@@ -1,0 +1,61 @@
+---
+title: 'MS Teams'
+description: 'Learn about how to use MS Teams provider for chat notifications'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+MS Teams does not need any `API Key` or `Client ID` to send notifications. Our current implementation is based on the [Incoming Webhook URL](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cjavascript). It is a URL that you can use to send messages to a specific channel. This URL needs to be stored on the subscriber entity
+
+Similar to [Discord](/platform/integrations/chat/discord), the credential for this provider needs to be stored in the [subscriber entity](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel).
+
+## Creating incoming webhook URL
+
+Checkout step by step instructions on microsoft team's documentation on how to [create an incoming webhook url](https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cjavascript).
+
+![Steps to create incoming webhook url](/images/channels-and-providers/chat/msteams/create-incoming-webhook.gif)
+
+## Storing webhook url on subscriber entity
+
+The URL generated above will be the target channel of a subscriber that you want to integrate with. To make this connection, you have to:
+
+1. Copy the URL that you generated above
+2. Update the subscriber credentials with this URL using the MS Teams provider id. You can do this step by using the `@novu/node` library, as shown below:
+
+<Tabs items={['Node.js', 'cURL']}>
+<Tab value="Node.js">
+```javascript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.MsTeams, {
+  webhookUrl: "<WEBHOOK_URL>"
+}, 'msteams-MnGLxp8uy');
+```
+</Tab>
+<Tab value="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+  "providerId": "msteams",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "msteams-MnGLxp8uy"
+}'
+```
+</Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+
+- `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
+- `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum to specify the provider.
+- The third parameter is the credentials object, in this case, we use the `webhookUrl` property to specify the MS Teams channel webhook URL or by calling the `Update Subscriber Credentials` endpoint on Novu API. Check endpoint details [here](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel).

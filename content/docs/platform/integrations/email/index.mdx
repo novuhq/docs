@@ -1,0 +1,182 @@
+---
+pageTitle: 'E-mail Providers Integration'
+title: 'E-mail'
+description: 'Learn how to configure the Email channel'
+icon: 'info'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+The Email Channel is a critical component for delivering notifications reliably. Whether it's a password reset, an onboarding email, or an alert about account activity, email remains a trusted medium for reaching users.
+Novu simplifies this process, allowing you to focus on implementation rather than infrastructure.
+
+## Key Features
+
+- **Multi-Provider Support**: Integrate any major provider like SendGrid, SES, or Mailgun
+- **Failover Mechanisms**: Automatically retry with a backup provider to ensure reliability
+- **Customizable Templates**: Leverage templates with dynamic placeholders to personalize messages
+- **Delivery Insights (Coming Soon)**: Track delivery status, open rates, and more in the Novu dashboard
+
+## Common Use Cases
+
+- **Transactional Emails**: Password resets, account verification, purchase confirmations
+- **System Alerts**: Security notifications, system updates
+- **Engagement Emails**: Onboarding, reminders, promotional updates
+
+Novu can be used to deliver email messages to your subscribers using a unified delivery API. You can easily integrate your favorite email provider using the built-in integration store.
+
+## Configuring email providers
+
+When creating an email provider integration you will be asked to provide additional fields alongside the provider-specific credentials:
+
+- **Sender name** - Will be displayed as the sender of the message
+- **From email address** - Emails sent using Novu will be sent using this address
+
+For some email providers including SendGrid you will have to authenticate the **From email address** to make sure you will send email messages using an authorized address.
+
+## Sending Email Overrides
+
+The overrides field supports an email property. The email overrides field have properties like `to`, `from`, `senderName` etc
+
+<Tabs items={['Node.js']}>
+<Tab value="Node.js">
+```javascript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_SECRET_KEY>');
+
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  overrides: {
+    email: {
+      to: ['to@novu.co'],
+      from: 'from@novu.co',
+      senderName: 'Novu Team',
+      text: 'text version of email using overrides',
+      replyTo: 'no-reply@novu.co',
+      cc: ['1@novu.co'],
+      bcc: ['2@novu.co'],
+    },
+  },
+});
+```
+</Tab>
+</Tabs>
+
+<Callout type="info">
+It's very important to know that Novu merges the `to` field in the email overrides with the subscriber email. It DOES NOT REPLACE IT.
+</Callout>
+
+## Sending Email attachments
+
+You can easily send attachments with the Novu API by passing the attachments array when triggering an Email based workflow. Attachment file can either be in the `buffer` or `base64` format.
+
+<Tabs items={['Node.js', 'cURL']}>
+<Tab value="Node.js">
+```javascript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_SECRET_KEY>');
+
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  payload: {
+    attachments: [
+      {
+        // buffer format
+        file: fs.readFileSync(__dirname + '/data/novu.jpeg'),
+        name: 'novu.jpeg',
+        mime: 'image/jpeg',
+      },
+      {
+        // base64 format
+        file: 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPhfz0AEYBxVSF+FAP5FDvcfRYWgAAAAAElFTkSuQmCC',
+        name: 'blue.png',
+        mime: 'image/png',
+      }
+    ],
+  },
+});
+````
+
+</Tab>
+<Tab value="cURL">
+Use https://eu.api.novu.co/v1/events/trigger api endpoint for the EU region.
+```bash
+curl -L -X POST 'https://api.novu.co/v1/events/trigger' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <SECRET_KEY>' \
+--data-raw '{
+    "name": "workflow_trigger_identifier",
+    "to": [
+        {
+            "subscriberId": "subscriber_id",
+            "email": "email_address"
+        }
+    ],
+    "payload": {
+        "attachments": [
+            {
+                "file": "iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAQMAAAD+wSzIAAAABlBMVEX///+/v7+jQ3Y5AAAADklEQVQI12P4AIX8EAgALgAD/aNpbtEAAAAASUVORK5CYII",
+                "name": "transparent.png",
+                "mime": "image/png"
+            },
+            {
+                "file": "iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPhfz0AEYBxVSF+FAP5FDvcfRYWgAAAAAElFTkSuQmCC",
+                "name": "blue.png",
+                "mime": "image/png"
+            }
+        ]
+    }
+}'
+```
+</Tab>
+</Tabs>
+
+## Using different email integration
+
+In Novu integration store, multiple email channel type provider integrations can be active at the same time. But only one provider integration can be primary at a time. This primary integration will be used as a provider to deliver the email by default. If you want to use a different active provider integration then you can use the `integrationIdentifier` email overrides field.
+
+If there are 4 active email integrations with these identifiers:
+
+1. sendgrid-abcdef
+2. sendgrid-ghijkl
+3. brevo-abcdef
+4. mailersend-abcdef
+
+Here, if `sendgrid-abcdef` is primary integration and you want to use `brevo-abcdef` with this trigger then you can use `integrationIdentifier` email overrides field as below:
+
+<Tabs items={['Node.js']}>
+<Tab value="Node.js">
+```javascript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_SECRET_KEY>');
+
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  overrides: {
+    email: {
+      integrationIdentifier: "brevo-abcdef"
+    },
+  },
+});
+```
+</Tab>
+</Tabs>
+
+<Callout type="info">
+Integration identifier is similar to Provider identifier but it is different than Provider Id. It is unique for each integration. You can find the `integrationIdentifier` in the integration store page.
+</Callout>
+
+<Callout type="info">
+Looking to integrate an email provider? Check out our [provider integrations](/platform/integrations/email).
+</Callout>
+```

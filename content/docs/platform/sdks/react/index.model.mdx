@@ -1,0 +1,170 @@
+---
+title: "@novu/react"
+pageTitle: "API reference for the @novu/react package"
+---
+
+## Components
+
+The @novu/react package provides React components for building notification UIs.
+
+## Inbox
+
+The main component for displaying notifications.
+
+### Props
+
+---type-table---
+../types/react-types.ts#InboxProps
+---end---
+
+### Usage
+
+```tsx
+import { Inbox } from "@novu/react";
+
+function NotificationCenter() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APP_ID"
+      subscriber="USER_ID"
+      backendUrl="https://api.novu.co"
+      socketUrl="https://ws.novu.co"
+      placement="right"
+      placementOffset={10}
+      onNotificationClick={(notification) => {
+        // Handle notification click
+        console.log(notification);
+      }}
+    />
+  );
+}
+```
+
+### Appearance Configuration
+
+---type-table---
+../types/react-types.ts#InboxAppearanceProps
+---end---
+
+#### Variables
+
+---type-table---
+../types/react-types.ts#InboxAppearanceVariables
+---end---
+
+#### Elements
+
+---type-table---
+../types/react-types.ts#InboxAppearanceElements
+---end---
+
+## Bell
+
+A customizable notification bell component.
+
+### Props
+
+---type-table---
+../types/react-types.ts#BellProps
+---end---
+
+### Usage
+
+```tsx
+import { Bell } from "@novu/react";
+import { BellIcon } from "lucide-react";
+
+function NotificationBell() {
+  return (
+    <Bell
+      renderBell={(unreadCount) => (
+        <div className="relative">
+          <BellIcon className="h-6 w-6" />
+          {unreadCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">
+              {unreadCount}
+            </span>
+          )}
+        </div>
+      )}
+    />
+  );
+}
+```
+
+## Notifications
+
+A component for rendering a list of notifications.
+
+### Props
+
+---type-table---
+../types/react-types.ts#NotificationProps
+---end---
+
+### Usage
+
+```tsx
+import { Notifications } from "@novu/react";
+
+function NotificationList() {
+  return (
+    <Notifications
+      onNotificationClick={(notification) => {
+        // Handle notification click
+        console.log(notification);
+      }}
+      renderNotification={({ body, createdAt }) => (
+        <div className="flex gap-2 p-2">
+          <div className="flex-1">
+            <p>{body}</p>
+            <time className="text-sm text-gray-500">
+              {new Date(createdAt).toLocaleDateString()}
+            </time>
+          </div>
+        </div>
+      )}
+    />
+  );
+}
+```
+
+## InboxContent
+
+A component for building custom notification inboxes.
+
+### Props
+
+---type-table---
+../types/react-types.ts#InboxContentProps
+---end---
+
+### Usage
+
+```tsx
+import { InboxContent } from "@novu/react";
+
+function CustomInbox() {
+  return (
+    <div className="custom-inbox-wrapper">
+      <InboxContent
+        onNotificationClick={(notification) => {
+          // Handle notification click
+          console.log(notification);
+        }}
+        onPrimaryActionClick={(notification) => {
+          // Handle primary action click
+          console.log(notification);
+        }}
+        hideNav={false}
+        renderNotification={({ body, createdAt }) => (
+          <div className="notification-item">
+            <p>{body}</p>
+            <time>{new Date(createdAt).toLocaleDateString()}</time>
+          </div>
+        )}
+      />
+    </div>
+  );
+}
+```

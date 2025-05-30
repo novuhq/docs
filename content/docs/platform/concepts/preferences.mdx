@@ -1,0 +1,47 @@
+---
+title: 'Preferences'
+description: 'Learn how to manage subscriber preferences in Novu.'
+icon: 'UserCog'
+---
+
+Novu provides a way to store subscriber preferences. This allows subscribers, your users, to specify and manage their preferences and customize their notifications experience.
+
+**Levels of preferences:**
+
+- Workflow channel preferences
+- Subscriber channel preferences per workflow
+- Subscriber global preferences
+
+## Workflow channel preferences
+
+When creating a new workflow, you can specify default preferences for your subscribers via code or in the Dashboard. These preferences will be used during notification delivery unless the subscriber overrides via the preferences page in `<Inbox/>`.
+
+<img src="/images/preferences/preferences.png" alt="Preferences" className="rounded-lg border" />
+
+## Subscriber channel preferences per workflow
+
+`<Inbox/>` displays the available preferences per workflow, allowing subscribers to modify them for each channel. Critical workflows will be excluded from the list.
+
+<img
+  src="/images/preferences/inbox-workflow-preferences.png"
+  alt="Inbox Workflow Preferences"
+  className="rounded-lg border w-[400px]"
+/>
+
+<Callout type="info">Inbox displays only channels used by the current workflow.</Callout>
+
+## Subscriber global preferences
+
+Subscribers can set global channel preferences, which override individual settings. For instance, if there are 10 workflows, and a subscriber wants to disable SMS notifications for all of them, they can do so with via global preferences.
+
+<img
+  src="/images/preferences/inbox-global-preferences.png"
+  alt="Inbox Global Preferences"
+  className="rounded-lg border w-[400px]"
+/>
+
+## Critical workflows
+
+In some cases, you don't want the subscriber to be able to unsubscribe from mandatory notifications such as Account Verification, Password Reset, etc...
+
+In those cases you can mark a workflow as `critical` in the Dashboard. Critical workflow are not displayed in the subscriber preferences page.

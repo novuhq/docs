@@ -1,0 +1,183 @@
+---
+title: 'Slack'
+description: 'Learn about how to use Slack provider for chat notifications'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+When using Slack you will have to save the integration credentials in the subscriber entity.
+
+This guide will walk you through the steps needed to obtain the `webhookUrl` that Novu requires to send chat messages to your customers.
+
+We will provide the basic flow that the user needs to perform, to successfully send notifications via the Slack integration.
+
+## Creating application
+
+This step is optional, if you already have a Slack application you can reuse it.
+
+<Steps>
+  <Step title="Create a new Slack app">
+    Go to Slack's developer dashboard https://api.slack.com/apps and create a new application.
+  </Step>
+</Steps>
+
+## Integrating Novu with Slack
+
+### Manually managed
+
+To use the manually managed option, you need to generate a `webhookUrl` and plug it into your backend.
+
+<Steps>
+  <Step title="Enable Incoming Webhooks">
+    Goto 'Incoming Webhooks' in your Slack app settings and turn it on.
+
+    ![Turn on Incoming Webhooks](/images/guides/slack-guide/on.png)
+
+  </Step>
+
+  <Step title="Add New Webhook">
+    Click on the 'Add New Webhook to Workspace':
+
+    ![Add New Webhook to Workspace](/images/guides/slack-guide/add.png)
+
+  </Step>
+
+  <Step title="Select Channel">
+    Now, go ahead and select the channel in which you want to send notifications and click 'allow'.
+
+    ![Select channel](/images/guides/slack-guide/install.png)
+
+  </Step>
+
+  <Step title="Copy Webhook URL">
+    Copy the 'webhookUrl' from Slack.
+
+    ![Copy webhookUrl](/images/guides/slack-guide/hook.png)
+
+  </Step>
+
+  <Step title="Save Webhook URL">
+    Now, you need to save the `webhookUrl` on the relevant subscriber entity in Novu. Here's an example to do the same using our Node SDK:
+  </Step>
+</Steps>
+
+## Writing Slack content (Blocks API)
+
+Novu Framework supports using [blocks](https://api.slack.com/block-kit) as part of the delivered messages using the provider overrides of the `chat` channel:
+
+You can use the [Blocks Playground](https://app.slack.com/block-kit-builder/T02QYEPHZMM#%7B%22blocks%22:%5B%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22Hello,%20Assistant%20to%20the%20Regional%20Manager%20Dwight!%20*Michael%20Scott*%20wants%20to%20know%20where%20you'd%20like%20to%20take%20the%20Paper%20Company%20investors%20to%20dinner%20tonight.%5Cn%5Cn%20*Please%20select%20a%20restaurant:*%22%7D%7D,%7B%22type%22:%22divider%22%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22*Farmhouse%20Thai%20Cuisine*%5Cn:star::star::star::star:%201528%20reviews%5Cn%20They%20do%20have%20some%20vegan%20options,%20like%20the%20roti%20and%20curry,%20plus%20they%20have%20a%20ton%20of%20salad%20stuff%20and%20noodles%20can%20be%20ordered%20without%20meat!!%20They%20have%20something%20for%20everyone%20here%22%7D,%22accessory%22:%7B%22type%22:%22image%22,%22image_url%22:%22https://s3-media3.fl.yelpcdn.com/bphoto/c7ed05m9lC2EmA3Aruue7A/o.jpg%22,%22alt_text%22:%22alt%20text%20for%20image%22%7D%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22*Kin%20Khao*%5Cn:star::star::star::star:%201638%20reviews%5Cn%20The%20sticky%20rice%20also%20goes%20wonderfully%20with%20the%20caramelized%20pork%20belly,%20which%20is%20absolutely%20melt-in-your-mouth%20and%20so%20soft.%22%7D,%22accessory%22:%7B%22type%22:%22image%22,%22image_url%22:%22https://s3-media2.fl.yelpcdn.com/bphoto/korel-1YjNtFtJlMTaC26A/o.jpg%22,%22alt_text%22:%22alt%20text%20for%20image%22%7D%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22*Ler%20Ros*%5Cn:star::star::star::star:%202082%20reviews%5Cn%20I%20would%20really%20recommend%20the%20%20Yum%20Koh%20Moo%20Yang%20-%20Spicy%20lime%20dressing%20and%20roasted%20quick%20marinated%20pork%20shoulder,%20basil%20leaves,%20chili%20&%20rice%20powder.%22%7D,%22accessory%22:%7B%22type%22:%22image%22,%22image_url%22:%22https://s3-media2.fl.yelpcdn.com/bphoto/DawwNigKJ2ckPeDeDM7jAg/o.jpg%22,%22alt_text%22:%22alt%20text%20for%20image%22%7D%7D,%7B%22type%22:%22divider%22%7D,%7B%22type%22:%22actions%22,%22elements%22:%5B%7B%22type%22:%22button%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Farmhouse%22,%22emoji%22:true%7D,%22value%22:%22click_me_123%22%7D,%7B%22type%22:%22button%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Kin%20Khao%22,%22emoji%22:true%7D,%22value%22:%22click_me_123%22,%22url%22:%22https://google.com%22%7D,%7B%22type%22:%22button%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Ler%20Ros%22,%22emoji%22:true%7D,%22value%22:%22click_me_123%22,%22url%22:%22https://google.com%22%7D%5D%7D%5D%7D) from Slack to learn more about the diffrent blocks available.
+
+```typescript
+await step.chat(
+  'send-chat',
+  async () => {
+    return {
+      // This will be used as a fallback for the chat provider if other than Slack provider is used
+      body: 'A new post has been created',
+    };
+  },
+  {
+    providers: {
+      slack: async ({ inputs }) => ({
+        text: 'A new post has been created',
+        blocks: [
+          {
+            type: 'section',
+            text: {
+              type: 'mrkdwn',
+              text: 'A new post has been created',
+            },
+          },
+        ],
+      }),
+    },
+  }
+);
+```
+
+## Update credential webhookUrl
+
+<Tabs items={['Node.js', 'cURL']}>
+<Tab value="Node.js">
+```javascript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, { webhookUrl: "<WEBHOOK_URL>", });
+
+````
+</Tab>
+<Tab value="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+  "providerId": "slack",
+  "credentials": {
+      "webhookUrl": "<WEBHOOK_URL>"
+  },
+  "integrationIdentifier": "slack-MnGLxp8uy"
+}'
+```
+</Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+
+- `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
+- `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum.Slack if you're using Node, else string of Slack to specify the provider.
+- The third parameter is the credentials object. In this case, we use the `webhookUrl` property to specify the webhook URL generated in the previous step.
+
+6. You are all set up and ready to send your first chat message via our @novu/node package or directly using the REST API.
+
+## Configuring Slack application
+
+<Steps>
+  <Step title="Configure OAuth & Permissions">
+    Go to OAuth & Permissions on Slack's Developer Dashboard and add your REDIRECT_URL in Redirect URLs.
+    - If you use a manual Management solution, add the API endpoint you created in Step 1.
+  </Step>
+
+<Step title="Enable Incoming Webhooks">
+  Go to Incoming Webhooks from the left menu and Activate Incoming Webhooks.
+</Step>
+
+  <Step title="Configure Distribution Settings">
+    Go to Manage Distribution and at the bottom of the page, tick Remove Hard Coded Information and Activate Public Distribution.
+  </Step>
+</Steps>
+
+### Enabling HMAC Encryption
+
+To enable Hash-Based Message Authentication Codes, you need to do the following steps:
+
+<Steps>
+  <Step title="Enable HMAC encryption">
+    Visit the integration store page and enable HMAC encryption under your chat provider.
+  </Step>
+
+  <Step title="Generate HMAC hash">
+    The next step would be to generate an HMAC encrypted subscriberId on your backend:
+
+```jsx
+import { createHmac } from 'crypto';
+
+const hmacHash = createHmac('sha256', process.env.NOVU_SECRET_KEY)
+  .update(subscriberId)
+  .digest('hex');
+```
+
+</Step>
+
+<Step title="Add HMAC to URL">
+  Add the newly created hash HMAC to the Sharable URL as a query.
+</Step>
+</Steps>
+
+This concludes the Slack provider guide.

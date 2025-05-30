@@ -1,0 +1,279 @@
+---
+title: '@novu/js'
+pageTitle: 'API reference for the @novu/js package'
+description: 'Complete API reference for the Novu JavaScript package'
+icon: 'Braces'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+## Novu
+
+The Novu client provides methods to interact with notifications, preferences, and real-time events.
+
+### Constructor Options
+
+---type-table---
+../types/js-types.ts#NovuOptions
+---end---
+
+### Usage
+
+<Tabs items={['US', 'EU', 'HMAC Encryption']}>
+  <Tab value="US">
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+    });
+    ```
+  </Tab>
+  <Tab value="EU">
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+      apiUrl: "https://eu.api.novu.co",
+      socketUrl: "https://eu.ws.novu.co",
+    });
+    ```
+  </Tab>
+  <Tab value="HMAC Encryption">
+    ```typescript
+    import { Novu } from "@novu/js";
+
+    const novu = new Novu({
+      subscriberId: "SUBSCRIBER_ID",
+      applicationIdentifier: "APPLICATION_IDENTIFIER",
+      subscriberHash: "SUBSCRIBER_HASH_HMAC_ENCRYPTION",
+    });
+    ```
+  </Tab>
+</Tabs>
+
+## Notifications
+
+### Methods
+
+#### list
+
+Fetches a list of notifications based on provided filters.
+
+---type-table---
+../types/js-types.ts#NotificationFilter
+---end---
+
+```typescript
+const notifications = await novu.notifications.list({
+  limit: 30,
+  read: false,
+  archived: false,
+  tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
+  offset: 0,
+});
+```
+
+The response will be of type:
+
+---type-table---
+../types/js-types.ts#NotificationsResponse
+---end---
+
+#### count
+
+Fetches the count of notifications based on filters.
+
+---type-table---
+../types/js-types.ts#NotificationFilter
+---end---
+
+<Tabs items={['Single Filter', 'Multiple Filters']}>
+  <Tab value="Single Filter">
+    ```typescript
+    // Single filter
+    const count = await novu.notifications.count({
+      read: false,
+      archived: false,
+       // data attributes
+      data: {
+        type: 'login',
+      },
+    });
+    ```
+  </Tab>
+  <Tab value="Multiple Filters">
+    ```typescript
+    // Multiple filters
+    const counts = await novu.notifications.count({
+      filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
+    });
+    ```
+  </Tab>
+</Tabs>
+
+#### read
+
+Marks a notification as read.
+
+```typescript
+await novu.notifications.read({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### unread
+
+Marks a notification as unread.
+
+```typescript
+await novu.notifications.unread({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### archive
+
+Archives a notification.
+
+```typescript
+await novu.notifications.archive({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### unarchive
+
+Unarchives a notification.
+
+```typescript
+await novu.notifications.unarchive({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### readAll
+
+Marks all notifications as read. Can be filtered by tags.
+
+```typescript
+await novu.notifications.readAll({
+  tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
+});
+```
+
+#### archiveAll
+
+Archives all notifications. Can be filtered by tags.
+
+```typescript
+await novu.notifications.archiveAll({
+  tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
+});
+```
+
+#### archiveAllRead
+
+Archives all read notifications. Can be filtered by tags.
+
+```typescript
+await novu.notifications.archiveAllRead({
+  tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
+});
+```
+
+#### completePrimary
+
+Marks primary action of a notification as completed.
+
+```typescript
+await novu.notifications.completePrimary({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### completeSecondary
+
+Marks secondary action of a notification as completed.
+
+```typescript
+await novu.notifications.completeSecondary({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### revertPrimary
+
+Reverts primary action of a notification to pending.
+
+```typescript
+await novu.notifications.revertPrimary({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### revertSecondary
+
+Reverts secondary action of a notification to pending.
+
+```typescript
+await novu.notifications.revertSecondary({ notificationId: 'NOTIFICATION_ID' });
+```
+
+## Preferences
+
+### Methods
+
+#### list
+
+Fetches the subscriber's notification preferences.
+
+```typescript
+const preferences = await novu.preferences.list();
+```
+
+The response will be of type:
+
+---type-table---
+../types/js-types.ts#PreferenceResponse
+---end---
+
+## Events
+
+The Novu client provides real-time event handling through WebSocket connections.
+
+### Available Events
+
+- `notifications.notification_received`: Triggered when a new notification is received
+- `notifications.unread_count_changed`: Triggered when the unread count changes
+
+### Usage
+
+```typescript
+novu.on('notifications.notification_received', (data) => {
+  console.log('New notification:', data);
+});
+
+novu.on('notifications.unread_count_changed', (data) => {
+  console.log('Unread count:', data);
+});
+```
+
+## Types
+
+### Notification
+
+---type-table---
+../types/js-types.ts#Notification
+---end---
+
+### Subscriber
+
+---type-table---
+../types/js-types.ts#Subscriber
+---end---

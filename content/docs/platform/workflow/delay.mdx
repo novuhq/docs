@@ -1,0 +1,30 @@
+---
+pageTitle: 'Delay Steps in Workflows'
+title: 'Delay'
+description: 'Learn how to use delay steps to control timing and pacing in your notification workflows.'
+icon: 'Timer'
+---
+
+The delay action awaits a specified amount of time before moving on to trigger the following steps of the workflow.
+
+## Common usecases
+
+- Waiting for X amount of time before sending the message
+- Wait for a short period of time before sending a push message in case the user seen the notification in the Inbox Component
+- Allow the user some time to cancel an action that generated a notification
+
+## Adding a delay step
+
+Delay steps can be inserted at any stage of your workflow execution, they can happen after or before any action. The workflow execution will be halted for the given amount of time and then resumed to the next step in the flow.
+
+The action can also be skipped using the `skip` parameter conditionally to allow more complex usecases of when to wait and when to send an email immediately.
+
+<Callout type="info">
+  Changing the step content after triggering the workflow with delay step will not affect the
+  existing pending delayed notification content.
+</Callout>
+
+## Frequently Asked Questions
+
+### If delay step fails, will the workflow continue to the next step?
+No, workflow execution will stop immediately if the delay step fails due to an error.

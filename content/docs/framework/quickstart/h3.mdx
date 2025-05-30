@@ -1,0 +1,72 @@
+---
+pageTitle: 'H3 Quickstart'
+title: 'H3'
+description: 'Get started with Novu Framework in an H3 application'
+---
+
+import DeployApp from '@/snippets/quickstart/deploy.mdx';
+import NextStepsStep from '@/snippets/quickstart/next-steps.mdx';
+import { PackagesStep } from '@/snippets/quickstart/packages.tsx';
+import { SecretStep } from '@/snippets/quickstart/secret.tsx';
+import { StudioStep } from '@/snippets/quickstart/studio.tsx';
+import { TestStep } from '@/snippets/quickstart/test.tsx';
+import { WorkflowStep } from '@/snippets/quickstart/workflow.tsx';
+
+In this guide, we will add a Novu [Bridge Endpoint](/platform/concepts/endpoint) to a H3 application and send our first test workflow.
+
+<Steps>
+    <Step>
+         ### Set up your local environment
+        <StudioStep />
+    </Step>
+   <Step>
+         ### Install packages
+        <PackagesStep />
+    </Step>
+   <Step>
+         ### Add a Novu API Endpoint
+        ```typescript app/server/api/novu.ts
+        import { createApp, eventHandler, toNodeListener } from "h3";
+        import { serve } from "@novu/framework/h3";
+        import { createServer } from "node:http";
+        import { testWorkflow } from "./novu/workflows";
+
+        const app = createApp();
+
+        app.use("/api/novu", eventHandler(serve({ workflows: [testWorkflow] }) ));
+
+        createServer(toNodeListener(app)).listen(4000);
+        ```
+    </Step>
+    <Step>
+        ### Configure your secret key
+        <SecretStep />
+    </Step>
+    <Step>
+        ### Create your workflow definition
+        Add a `novu` folder in your app folder as such ```novu/workflows.ts``` that will contain your workflow definitions.
+
+        <WorkflowStep />
+    </Step>
+    <Step>
+        ### Start your application
+        Start your H3 server with the Novu Endpoint configured.
+
+        If your H3 application is running on other than `4000` port, restart the `npx novu dev` command with the port:
+
+        ```tsx
+        npx novu@latest dev --port <YOUR_H3_APPLICATION_PORT>
+        ```
+    </Step>
+    <Step>
+        ### Test your endpoint
+        <TestStep framework="H3" />
+    </Step>
+    <Step>
+        ### Deploy your application
+        <DeployApp />
+    </Step>
+
+</Steps>
+
+<NextStepsStep />

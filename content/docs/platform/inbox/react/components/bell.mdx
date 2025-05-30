@@ -1,0 +1,78 @@
+---
+title: '<Bell />'
+description: 'The Bell component displays the notification bell icon and unread notification count'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+The `Bell` component displays the notification bell icon. It can also be used to show the number of unread notifications.
+
+## Custom Bell
+
+You can pass any custom components to the `renderBell` prop to use with your own bell icon and unread count UI.
+
+```tsx
+import { Inbox, Bell } from '@novu/react';
+import { BellIcon } from './icons';
+
+function Novu() {
+  return (
+    <Inbox 
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" 
+      subscriber="YOUR_SUBSCRIBER_ID" 
+      renderBell={(unreadCount) => {
+          return (
+            <div className="bg-purple-300 p-4 inline-flex">
+              New ${unreadCount} notifications
+            </div>
+          );
+      }} 
+    />
+  );
+}
+```
+
+## Custom Popover Integration
+
+<Callout type="info">
+  `<Inbox />` can be mounted in your own popover component. For further customization, you can also
+  use the `renderBell` and `renderNotification` render props.
+</Callout>
+
+Below is an example of how to use `<Inbox />` with [Radix UI](https://www.radix-ui.com/):
+
+```tsx
+import React from 'react';
+import * as Popover from '@radix-ui/react-popover';
+import { BellIcon, Cross2Icon } from '@radix-ui/react-icons';
+import { Inbox, Bell, Notifications } from '@novu/react';
+import './styles.css';
+
+const PopoverDemo = () => (
+  <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID">
+    <Popover.Root>
+      <Popover.Trigger asChild>
+        <Bell
+          renderBell={(unreadCount) => (
+            <div>
+              <span>{unreadCount}</span>
+              <BellIcon />
+            </div>
+          )}
+        />
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content className="PopoverContent" sideOffset={5}>
+          <Notifications />
+          <Popover.Close className="PopoverClose" aria-label="Close">
+            <Cross2Icon />
+          </Popover.Close>
+          <Popover.Arrow className="PopoverArrow" />
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
+  </Inbox>
+);
+
+export default PopoverDemo;
+```

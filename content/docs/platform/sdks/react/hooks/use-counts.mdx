@@ -1,0 +1,72 @@
+---
+title: "useCounts"
+description: "Learn how to use the useCounts hook to fetch notification counts in your React application"
+---
+
+import { Tab, Tabs } from "fumadocs-ui/components/tabs";
+
+The `useCounts` hook provides a way to fetch various notification counts, including unread, unseen, and total counts. This hook is useful for displaying notification badges and indicators in your application.
+
+## Hook Parameters
+
+<TypeTable
+  type={{
+    filters: {
+      type: "NotificationFilter[]",
+      description: "Array of filters to apply when fetching counts",
+      typeDescription: "Required",
+      required: true,
+    },
+    onSuccess: {
+      type: "(data: Count[]) => void",
+      description:
+        "Callback function called when counts are successfully fetched",
+    },
+    onError: {
+      type: "(error: NovuError) => void",
+      description: "Callback function called when an error occurs",
+    },
+  }}
+/>
+
+## Return Value
+
+```typescript
+type Count = {
+  count: number;
+  filter: NotificationFilter;
+};
+
+type UseCountsResult = {
+  counts?: Count[];
+  error?: NovuError;
+  isLoading: boolean;
+  isFetching: boolean;
+  refetch: () => Promise<void>;
+};
+```
+
+## Example Usage
+
+Here's how to use the `useCounts` hook to fetch and display notification counts:
+
+```tsx
+import { useCounts } from "@novu/react";
+
+function BellButton() {
+  const { counts } = useCounts({ filters: [{ read: false }] });
+  const unreadCount = counts?.[0].count ?? 0;
+
+  return (
+    <button>
+      <BellIcon />
+      {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
+    </button>
+  );
+}
+```
+
+<Callout type="info">
+  The counts are automatically updated in real-time when notifications are
+  marked as read/unread or when new notifications arrive.
+</Callout>

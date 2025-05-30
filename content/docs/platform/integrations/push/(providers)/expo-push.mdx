@@ -1,0 +1,62 @@
+---
+title: 'Expo Push'
+description: 'Learn how to use the Expo push provider to send push notifications using Novu'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+[Expo Push](https://docs.expo.dev/push-notifications/overview/) is a notification delivery service provided by Expo.
+
+To enable Expo Push integration, you need to create an [Expo Application Services (EAS)](https://expo.dev/)account and generate an access token in the EAS dashboard.
+
+The overrides field supports all [Message Request](https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format) values. An example of the same follows:
+
+```typescript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_SECRET_KEY>');
+
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  payload: {
+    abc: 'def',
+  },
+});
+```
+
+Before triggering the notification to a subscriber(user) with push as a step in the workflow, make sure you have added the subscriber's device token as follows:
+
+<Tabs items={['Node.js', 'cURL']}>
+<Tab value="Node.js">
+```javascript
+import {
+  Novu,PushProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.EXPO, {
+  deviceTokens: ['token1', 'token2'],
+});
+
+````
+</Tab>
+<Tab value="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+  "providerId": "expo",
+  "deviceTokens": ["token1", "token2"],
+  "integrationIdentifier": "expo-MnGLxp8uy"
+}'
+```
+
+</Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.

@@ -1,0 +1,70 @@
+---
+pageTitle: 'SvelteKit Quickstart'
+title: 'SvelteKit'
+description: 'Get started with Novu Framework in a SvelteKit application'
+---
+
+import DeployApp from '@/snippets/quickstart/deploy.mdx';
+import NextStepsStep from '@/snippets/quickstart/next-steps.mdx';
+import { PackagesStep } from '@/snippets/quickstart/packages.tsx';
+import { SecretStep } from '@/snippets/quickstart/secret.tsx';
+import { StudioStep } from '@/snippets/quickstart/studio.tsx';
+import { TestStep } from '@/snippets/quickstart/test.tsx';
+import { WorkflowStep } from '@/snippets/quickstart/workflow.tsx';
+
+In this guide, we will add a Novu [Bridge Endpoint](/platform/concepts/endpoint) to a Svelte application and send our first test workflow.
+
+<Steps>
+    <Step>
+         ### Set up your local environment
+        <StudioStep />
+    </Step>
+   <Step>
+         ### Install packages
+        <PackagesStep />
+    </Step>
+   <Step>
+         ### Add a Novu API Endpoint
+        ```typescript src/routes/api/novu/+server.ts
+        import { testWorkflow } from '$lib/novu/workflows';
+        import { serve } from '@novu/framework/sveltekit';
+
+        export const { GET, POST, OPTIONS } = serve({ workflows: [testWorkflow] });
+        ```
+    </Step>
+    <Step>
+        ### Configure your secret key
+        <SecretStep />
+    </Step>
+    <Step>
+        ### Create your workflow definition
+        Add a `novu` folder in your lib folder as such ```src/lib/novu/workflows.ts``` that will contain your workflow definitions.
+
+        <WorkflowStep />
+    </Step>
+    <Step>
+        ### Start your application
+        To start your Svelte server with the Novu Endpoint configured, run the following command:
+
+        ```tsx
+        cd my-novu-app && npm run dev
+        ```
+
+        Svelte application default port is 5173. For that to work, restart Novu Studio and point it to the right port:
+
+        ```tsx
+        npx novu@latest dev --port <YOUR_SVELTE_APPLICATION_PORT>
+        ```
+    </Step>
+    <Step>
+        ### Test your endpoint
+        <TestStep framework="Svelte" />
+    </Step>
+    <Step>
+        ### Deploy your application
+        <DeployApp />
+    </Step>
+
+</Steps>
+
+<NextStepsStep />

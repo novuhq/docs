@@ -1,0 +1,64 @@
+---
+title: 'Environments'
+description: 'Understanding and managing environments in Novu'
+icon: 'GitFork'
+---
+
+Novu uses environments to separate your development and production workflows. When you create an account, you'll get two default environments: `Development` and `Production`.
+
+## Development Environment
+
+Use the development environment to test new notification workflows, validate changes before deploying to production, and experiment with different configurations.
+
+## Production Environment
+
+The production environment is your live environment where notifications are sent to real users.
+
+## Custom Environments
+
+<Callout type="info">Custom environments are available in Business and Enterprise plans</Callout>
+
+Create custom environments to match your development workflow:
+
+1. Go to the Environments page in your dashboard
+2. Create environments like `Staging` or `QA`
+3. Assign unique colors to easily distinguish between environments
+4. Sync changes between environments just like with development and production
+
+The sync process works the same way as between development and production environments.
+
+## What's Unique to Each Environment?
+
+Each environment maintains its own separate:
+
+- Subscriber list
+- Notification workflows
+- Message history
+- Activity feed
+- Integration settings
+- Notification feeds
+- Brand assets and settings
+
+## Environment Credentials
+
+Each environment has two unique identifiers:
+
+1. **Application Identifier**
+
+   - Public ID for client-side apps
+   - Unique per environment
+   - Safe to expose in frontend code
+
+2. **API Secret Key**
+   - Used for backend API authentication
+   - Keep this secure and never expose publicly
+   - Different for each environment
+
+**Best Practice**: Configure these credentials in your application based on the active environment, similar to how you manage other service credentials.
+
+## Promoting Changes to Production
+
+You can move changes from development to production in two ways:
+
+1. Using the Dashboard's sync interface
+2. Using the Sync API in your CI/CD pipeline

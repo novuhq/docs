@@ -1,0 +1,70 @@
+---
+title: 'Pushpad'
+description: 'Learn how to use the Pushpad provider to send web push notifications using Novu'
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+[Pushpad](https://pushpad.xyz) is a web push service that supports sending notifications to all major browsers (Chrome, Firefox, Edge, Safari, etc.) via FCM, Mozilla autopush, Windows Push Notification Services and Apple Push Notification service, with just one simple API.
+
+To configure the Pushpad integration, you will need an active account and you need to have a `Pushpad Auth Token` (from the [account settings](https://pushpad.xyz/access_tokens)) and the `Pushpad Project ID` (from the project settings).
+
+## Setting the Device Token
+
+Once Pushpad has been configured with your credentials and the Pushpad SDK has been [set up and installed](https://pushpad.xyz/docs/pushpad_pro_getting_started) on your website, you can [assign a user ID (uid)](https://pushpad.xyz/docs/identifying_users) to the push subscriptions.
+
+This identifier (`uid` or `user ID`) allows targeting a specific browser when sending push notifications.
+
+In order to target the Pushpad user from Novu, you must register the Pushpad `uid` as the `deviceToken` for your Novu subscriber. For example, if you invoked the [Pushpad JavaScript SDK](https://pushpad.xyz/docs/javascript_sdk_reference) with `pushpad('uid', 'user123')`, then `user123` is the user ID for that browser.
+
+Once you have the `uid` value, the `deviceToken` for your Novu subscriber can be set using this code:
+
+<Tabs items={['Node.js', 'cURL']}>
+<Tab value="Node.js">
+```javascript
+import {
+  Novu,
+  ChatProviderIdEnum
+} from '@novu/node';
+
+const novu = new Novu("<NOVU_SECRET_KEY>");
+
+await novu.subscribers.setCredentials('subscriberId', PushProviderIdEnum.Pushpad, {
+  // the user ID (uid) that you used for Pushpad
+  deviceTokens: ['user123'],
+});
+
+````
+</Tab>
+<Tab value="cURL">
+```bash
+curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+  "providerId": "pushpad",
+  "deviceTokens": ['user123'],
+  "integrationIdentifier": "pushpad-MnGLxp8uy"
+}'
+```
+
+</Tab>
+</Tabs>
+
+Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+
+## SDK Trigger Example
+
+```typescript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('<NOVU_SECRET_KEY>');
+
+novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  payload: {},
+});
+```

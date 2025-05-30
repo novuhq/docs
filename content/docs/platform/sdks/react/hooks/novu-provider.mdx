@@ -1,0 +1,105 @@
+---
+title: "NovuProvider"
+description: "Learn how to use the NovuProvider component to set up the Novu context in your React application"
+---
+
+The `NovuProvider` is the top-level component that provides the [Novu instance](/platform/inbox/headless/api-reference#novu) to the rest of the hooks through the context.
+Usually, it's placed somewhere in the root of your application, which makes the hooks accessible throughout the application.
+
+## Props
+
+<TypeTable
+  type={{
+    subscriberId: {
+      type: "string",
+      description: "The unique identifier of the subscriber",
+      typeDescription: "Required",
+    },
+    applicationIdentifier: {
+      type: "string",
+      description: "Your application identifier from Novu",
+      typeDescription: "Required",
+    },
+    subscriberHash: {
+      type: "string",
+      description: "HMAC encryption hash for the subscriber",
+    },
+    apiUrl: {
+      type: "string",
+      description: "Custom backend URL for self-hosted instances",
+    },
+    socketUrl: {
+      type: "string",
+      description: "Custom socket URL for self-hosted instances",
+    },
+    children: {
+      type: "ReactNode",
+      description:
+        "The child components that will have access to the Novu context",
+      typeDescription: "Required",
+    },
+  }}
+/>
+
+## Example Usage
+
+<Tabs items={['US', 'EU', 'HMAC Encryption']}>
+  <Tab value="US">
+    ```tsx
+    import { NovuProvider } from '@novu/react';
+
+    function App() {
+      return (
+        <NovuProvider
+          subscriber="SUBSCRIBER_ID"
+          applicationIdentifier="APPLICATION_IDENTIFIER"
+        >
+          {/* Your app components */}
+        </NovuProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab value="EU">
+    ```tsx
+    import { NovuProvider } from '@novu/react';
+
+    function App() {
+      return (
+        <NovuProvider
+          subscriber="SUBSCRIBER_ID"
+          applicationIdentifier="APPLICATION_IDENTIFIER"
+          backendUrl="https://eu.api.novu.co"
+          socketUrl="https://eu.ws.novu.co"
+        >
+          {/* Your app components */}
+        </NovuProvider>
+      );
+    }
+    ```
+
+  </Tab>
+  <Tab value="HMAC Encryption">
+    <Callout type="info">
+      Read more about [HMAC Encryption](/platform/inbox/react/production#hmac-encryption).
+    </Callout>
+
+    ```tsx
+    import { NovuProvider } from '@novu/react';
+
+    function App() {
+      return (
+        <NovuProvider
+          subscriber="SUBSCRIBER_ID"
+          applicationIdentifier="APPLICATION_IDENTIFIER"
+          subscriberHash="SUBSCRIBER_HASH_HMAC_ENCRYPTION"
+        >
+          {/* Your app components */}
+        </NovuProvider>
+      );
+    }
+    ```
+
+  </Tab>
+</Tabs>
