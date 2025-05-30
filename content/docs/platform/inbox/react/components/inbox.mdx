@@ -1,12 +1,32 @@
 ---
 title: '<Inbox />'
-description: 'Learn how to use and customize the Inbox component in your React application'
+description: 'Learn how to use and customize the Inbox component in your application'
 ---
 
 import { Card, Cards } from 'fumadocs-ui/components/card';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 By default, the `<Inbox />` renders a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
+
+## Try it without keys (Keyless Mode)
+
+Try Novu Inbox instantly - no setup required. With Keyless mode, you can integrate and test the `<Inbox />` right in your app. It’s ideal for exploring features and sending test notifications.
+
+```tsx
+import React from 'react';
+import { Inbox } from '@novu/react';
+ 
+export function KeylessInbox() {
+ 
+  return (
+    <Inbox />
+  );
+}
+```
+
+<Callout type="info" title="Ready for the Full Experience?">
+  Keyless mode is designed for quick exploration. To save your configuration, identify users, and unlock all of Novu's powerful features, you'll need to sign up for a free account and configure your environment. <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Sign up on Novu Cloud</a>
+</Callout>
 
 ## Basic Usage
 
@@ -15,7 +35,7 @@ import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID" />
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID" />
   );
 }
 ```
@@ -38,7 +58,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
         />
       );
     }
@@ -56,7 +76,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
           routerPush={(path: string) => navigate(path)}
         />
       );
@@ -75,7 +95,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
           routerPush={(path: string) => navigate(path)}
         />
       );
@@ -92,7 +112,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
           routerPush={(path: string) => navigate(path)}
         />
       );
@@ -111,7 +131,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
       return (
         <Inbox
           applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriberId="YOUR_SUBSCRIBER_ID"
+          subscriber="YOUR_SUBSCRIBER_ID"
           routerPush={(path: string) => navigate(path)}
         />
       );
@@ -120,6 +140,77 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
 
   </Tab>
 </Tabs>
+
+## Snooze
+
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes built-in support for snoozing notifications, which lets users delay reminders and resurface them at a more convenient time. 
+
+When a user snoozes a notification, it is temporarily removed from the active list and automatically redelivered at the specified time. This helps reduce noise while keeping important updates accessible.
+
+<Callout type="info">Snooze is supported in client-side SDKs starting from version 3.3.0 and is only available for Cloud workspaces.</Callout>
+
+### Snoozing a notification
+
+All dates and times are interpreted in the user's local timezone. Users can snooze a notification directly from the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> using one of the following options:
+
+- Preset options:
+  - An hour from now
+  - Tomorrow
+- Custom date and time:
+  - A built-in date and time picker allows users to select a specific future time.
+
+<img
+  src="/images/inbox/snooze-a-notification.png"
+  alt="Render HTML in Inbox"
+/>
+
+<Callout type="info">The selected snooze time must be at least 3 minutes in the future.</Callout>
+
+Once snoozed:
+- The notification leaves the All tab and appears in the Snoozed tab.
+- It cannot be marked as read or unread or archived until it returns.
+
+All of these behaviors are handled automatically by the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component.
+
+Developers can also configure how the snooze options are presented by customizing styles, localization keys, or using snooze-related actions exposed on the notification object. For instance, each notification instance includes `.snooze()` and `.unsnooze()` methods in the client-side SDKs, allowing you to control reminders when needed.
+
+<Callout type="info">
+Snoozing is available on all plans for Cloud workspaces:
+- Free – Up to 24 hours per notification
+- Trial – Up to 90 days during the 14-day trial, same as Pro
+- Pro / Team – Up to 90 days
+- Enterprise – Defaults to 90 days, extendable on request
+</Callout>
+
+### Managing snoozed notifications
+
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes a dedicated Snoozed tab that automatically displays notifications scheduled to reappear later. From this tab, users can review all snoozed notifications and take further actions as needed.
+
+Users can unsnooze a notification at any time, which immediately returns it to the All tab. Once unsnoozed, the notification regains its standard behavior. It can be marked as read, unread, or archived like any other item.
+
+| Action             |  Result  |
+| ------------------ | --------------------------------------------------------------------------- |
+| Manual unsnooze    | Restores the notification exactly as it was: same tab, same read/unread state. If it was read before snoozing, it re-enters the All tab still marked read. |
+| Automatic unsnooze (timer expires) | Re-delivers the notification to All as a new, unread item with an updated delivery timestamp.|
+
+This logic is built into the component and does not require any additional configuration. Notifications automatically reappear in the All tab once their snooze duration elapses.
+
+### Using custom tabs
+
+If you're using custom tabs in the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, you can configure a dedicated "Snoozed" or "Reminders" tab by adding a `snoozed: true` filter to your tabs configuration. This helps users navigate more easily and focus on the reminders they've scheduled.
+
+```tsx
+import { Inbox } from '@novu/nextjs';
+
+<Inbox
+  tabs={[
+    { label: 'All', filter: {} },
+    { label: 'Reminders', filter: { snoozed: true } },
+  ]}
+/>
+```
+
+This customization is optional, the built-in behavior already handles snoozed notifications. However, adding an explicit tab can help reinforce the distinction between active and pending reminders in your UI.
 
 ## Event Handling
 
@@ -137,7 +228,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onNotificationClick={(notification) => {
         // your logic to handle notification click
       }}
@@ -157,7 +248,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onPrimaryActionClick={(notification) => {
         // your logic to handle primary action click
       }}
@@ -184,7 +275,7 @@ function Novu() {
     <>
       <Inbox
         applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-        subscriberId="YOUR_SUBSCRIBER_ID"
+        subscriber="YOUR_SUBSCRIBER_ID"
         open={open}
       />
       <button onClick={() => setOpen(!open)}>Toggle Inbox</button>
@@ -202,7 +293,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => (
         <div>
           <h3>{notification.subject}</h3>
@@ -225,7 +316,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderSubject={(notification) => (
         <div>
           <p>{notification.subject}</p>
@@ -247,7 +338,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderBody={(notification) => (
         <div>
           <p>{notification.body}</p>
@@ -258,6 +349,168 @@ function Novu() {
 }
 ```
 
+### Custom notification based on condition
+
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component supports conditional rendering of notifications using the renderNotification prop. This function receives a `notification` object and returns a custom React element. 
+
+You can use workflow tags, workflow identifiers, or values from the data object to customize how each notification is displayed. You can also combine multiple conditions to create dynamic and tailored notification displays.
+
+#### Workflow tags condition
+
+You can conditionally render customized notification based on [workflow tags](/platform/concepts/workflows#workflow-tags). These tags are defined in your workflow and are accessible via `notification.tags` property.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function CustomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+        // filter based on tags
+        if (notification.tags?.includes('custom')) {
+          return (
+            <div>
+              <h3>Custom Notification Subject</h3>
+              <p>Custom Notification Body</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Workflow identifier or name condition
+
+Each workflow has a [name and a unique identifier](/platform/concepts/workflows#workflow-identifier), accessible through `notification.workflow.name` and `notification.workflow.identifier`, respectively. Either property can be used to conditionally render notifications.
+
+```tsx
+import { Inbox } from '@novu/react';
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+        // filter based on workflow identifier
+        if (notification.workflow?.identifier === 'demo') {
+          return (
+            <div style={{ backgroundColor: 'blue' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // filter based on workflow name
+        if (notification.workflow?.name === 'Custom') {
+          return (
+            <div style={{ backgroundColor: 'blue' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Data object condition
+
+You can also use values from the notification [data object](/platform/inbox/react/components/inbox#data-object) to render notifications conditionally. These values are accessible via `notification.data` and typically contain custom payload fields
+
+```tsx
+import { Inbox } from '@novu/react';
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+       // filter based on data object key
+       if (notification.data?.priority) {
+        return (
+          <div style={{ backgroundColor: 'red' }}>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+
+
+### Rendering HTML
+
+To render HTML tags in inbox, user renderBody props and render the notification body as a `dangerouslySetInnerHTML` element.
+```tsx
+import { Inbox } from '@novu/react';
+
+function NovuInbox() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderBody={(notification) => (
+        <div>
+          <p dangerouslySetInnerHTML={{ __html: notification.body }} />
+        </div>
+      )}
+    />
+  );
+}
+```
+
+#### Steps: 
+1. Create a workflow with in-app step.
+2. Toggle on the `Disable content sanitization` option on the top right corner of the in-app step.
+3. Use html tags in in-app step body as shown in the image below 
+
+<img
+  src="/images/inbox/render-html.png"
+  alt="Render HTML in Inbox"
+/>
+
+HTML Content:
+```html html tags with dynamic values
+{{subscriber.firstName}}, A <b>Good news!</b> We've just launched the <i>advanced 
+analytics dashboard</i> you asked for. Check it out <a href="{{payload.analyticsPage}}" 
+target="_blank">here</a> and gain deeper insights into your usage.
+```
+
+
 ### Custom Bell
 
 ```tsx
@@ -267,7 +520,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderBell={(unreadCount) => (
         <div>
           <span>{unreadCount}</span>
@@ -293,18 +546,47 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       preferencesFilter={{ tags: ['general', 'admin', 'security'] }}
     />
   );
 }
 ```
 
+### Subscriber Data Upsert
+
+The `<Inbox />` component supports real-time subscriber data updates when properly configured with HMAC authentication. This allows you to update subscriber information directly through the component without making separate API calls:
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriberHash="GENERATED_HMAC_HASH" // Generated on your backend
+      subscriber={{
+        subscriberId: "YOUR_SUBSCRIBER_ID",
+        firstName: "John",
+        lastName: "Doe",
+        email: "john@example.com"
+      }}
+    />
+  );
+}
+```
+
+<Callout type="info">
+  To enable real-time subscriber data updates, make sure to provide the `subscriberHash` for secure HMAC authentication. This allows you to update subscriber data directly through the component while maintaining security.
+</Callout>
+
+Learn more about setting up HMAC authentication in the [Enabling HMAC Encryption](/platform/inbox/react/production#hmac-encryption) guide.
+
 ### Data object
 
 The `data` object is a key-value store within each notification, used to extend <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> notifications by embedding step-specific metadata. It provides flexible notification handling, supporting both static and dynamic values:
 
-- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don’t change based on the recipient or context.
+- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don't change based on the recipient or context.
 - **Dynamic Values**: These values are derived from subscriber or payload data. For instance, they can reference `subscriber.firstName` or `payload.issueId` to tailor notifications for individual users.
 
 You can pass data such as:
@@ -324,7 +606,7 @@ import { Inbox } from '@novu/react';
 
 <Inbox
   applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-  subscriberId="YOUR_SUBSCRIBER_ID"
+  subscriber="YOUR_SUBSCRIBER_ID"
   renderNotification={(notification) => (
     <div>
       <p>{notification.data?.customKey}</p>
@@ -348,5 +630,4 @@ declare global {
 }
 ```
 
-This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage. 
-
+This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage.

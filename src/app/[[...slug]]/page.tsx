@@ -1,4 +1,5 @@
 import { openapi, source } from '@/lib/source';
+import { APIPage } from 'fumadocs-openapi/ui';
 import { Popup, PopupContent, PopupTrigger } from 'fumadocs-twoslash/ui';
 import { TypeTable } from 'fumadocs-ui/components/type-table';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
@@ -8,7 +9,6 @@ import { notFound } from 'next/navigation';
 import { Accordion, Accordions } from '../../components/accordion';
 import { Callout } from '../../components/callout';
 import { CodeBlock, Pre } from '../../components/codeblock';
-import { ImageZoom } from '../../components/image-zoom';
 import { Step, Steps } from '../../components/steps';
 import { Tab, Tabs } from '../../components/tabs';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../components/ui/hover-card';
@@ -19,6 +19,7 @@ import {
   TooltipTrigger,
 } from '../../components/ui/tooltip';
 import { metadataImage } from '../../lib/metadata-image';
+import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -93,7 +94,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
             Callout: Callout,
             APIPage: (props) => (
               <div id="api-page">
-                <openapi.APIPage {...props} />
+                <APIPage {...openapi.getAPIPageProps(props)} />
               </div>
             ),
             Accordions: Accordions,
@@ -128,7 +129,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
                 </span>
               </Link>
             ),
-            img: (props) => <ImageZoom {...props} />,
+            img: (props) => <ImageZoom {...props} alt={props.alt || ''} />,
           }}
         />
       </DocsBody>

@@ -1,6 +1,7 @@
 ---
 title: 'Migration Guide'
 description: 'This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest version.'
+icon: 'RefreshCcwDot'
 ---
 
 <Callout type="info">
@@ -120,7 +121,7 @@ import {
 
 function Novu() {
   return (
-    <NovuProvider subscriberId="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
+    <NovuProvider subscriber="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
       <PopoverNotificationCenter>
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
@@ -137,7 +138,7 @@ import { Inbox } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID" />
+    <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID" />
   );
 }
 
@@ -155,7 +156,7 @@ import { NovuProvider, NotificationCenter } from '@novu/notification-center';
 
 function Novu() {
   return (
-    <NovuProvider subscriberId="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
+    <NovuProvider subscriber="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
       <NotificationCenter colorScheme="dark" />
     </NovuProvider>
   );
@@ -171,7 +172,7 @@ import { Inbox, Notifications } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APP_ID" subscriberId="YOUR_SUBSCRIBER_ID">
+    <Inbox applicationIdentifier="YOUR_APP_ID" subscriber="YOUR_SUBSCRIBER_ID">
       <Notifications />
     </Inbox>
   );
@@ -192,7 +193,7 @@ import CustomBell from './CustomBell'; // Your custom bell icon component
 
 function Novu() {
   return (
-    <NovuProvider subscriberId="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
+    <NovuProvider subscriber="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
       <PopoverNotificationCenter colorScheme="dark">
         {({ unseenCount }) => (
           <CustomBell
@@ -220,7 +221,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderBell={(unreadCount) => <CustomBell unreadCount={unreadCount} />}
     />
   );
@@ -256,7 +257,7 @@ function Novu() {
   }
 
   return (
-    <NovuProvider subscriberId="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
+    <NovuProvider subscriber="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
       <PopoverNotificationCenter colorScheme="dark" onNotificationClick={handleOnNotificationClick}>
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
@@ -281,7 +282,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onNotificationClick={handleNotificationClick}
     />
   );
@@ -338,7 +339,7 @@ function Novu() {
   };
 
   return (
-    <NovuProvider subscriberId="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
+    <NovuProvider subscriber="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
       <CustomNotificationCenter />
     </NovuProvider>
   );
@@ -366,7 +367,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onPrimaryActionClick={handlePrimaryActionClick}
       onSecondaryActionClick={handleSecondaryActionClick}
     />
@@ -407,7 +408,7 @@ import {
 
 function Novu() {
   return (
-    <NovuProvider subscriberId="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
+    <NovuProvider subscriber="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
       <PopoverNotificationCenter position="left-start" offset={20}>
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
       </PopoverNotificationCenter>
@@ -427,7 +428,7 @@ import { Inbox, Bell, Notifications } from '@novu/react';
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APP_ID" subscriberId="YOUR_SUBSCRIBER_ID">
+    <Inbox applicationIdentifier="YOUR_APP_ID" subscriber="YOUR_SUBSCRIBER_ID">
       <RadixPopover.Root>
         <RadixPopover.Trigger asChild>
           <Bell />
@@ -461,7 +462,7 @@ import {
 
 function Novu() {
   return (
-    <NovuProvider subscriberId="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
+    <NovuProvider subscriber="YOUR_SUBSCRIBER_ID" applicationIdentifier="YOUR_APP_ID">
       <PopoverNotificationCenter
         colorScheme={colorScheme}
         onNotificationClick={handlerOnNotificationClick}
@@ -510,7 +511,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={renderCustomNotificationItem}
     />
   );
@@ -536,7 +537,7 @@ function Novu() {
   return (
     <NovuProvider
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       styles={{ notifications: { listItem: { layout: { color: '#E3554D' } } } }}>
       <PopoverNotificationCenter>
         {({ unseenCount }) => <NotificationBell unseenCount={unseenCount} />}
@@ -557,7 +558,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       appearance={{
         baseTheme: {
           variables: {
@@ -621,7 +622,7 @@ function Novu() {
           query: { feedIdentifier: 'user-activity' },
         },
       ]}
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       applicationIdentifier="YOUR_APP_ID">
       <PopoverNotificationCenter
         tabs={[
@@ -685,7 +686,7 @@ const tabs = [
 
 function Novu() {
   return (
-    <Inbox applicationIdentifier="YOUR_APP_ID" subscriberId="YOUR_SUBSCRIBER_ID" tabs={tabs} />
+    <Inbox applicationIdentifier="YOUR_APP_ID" subscriber="YOUR_SUBSCRIBER_ID" tabs={tabs} />
   );
 }
 
@@ -703,7 +704,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       localization={{
         'inbox.title': 'Notificaciones',
         'notifications.emptyNotice': 'No tienes nuevas notificaciones',
@@ -740,7 +741,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onNotificationClick={handleNotificationClick}
     />
   );
@@ -764,7 +765,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onNotificationClick={handleNotificationClick}
     />
   );
@@ -788,7 +789,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onNotificationClick={handleNotificationClick}
     />
   );
@@ -812,7 +813,7 @@ function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APP_ID"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       onNotificationClick={handleNotificationClick}
     />
   );

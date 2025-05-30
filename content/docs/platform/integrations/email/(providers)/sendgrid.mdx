@@ -53,54 +53,17 @@ SendGrid allows you to authenticate your sender identity using one of the follow
 
 ### Using SendGrid template
 
-Novu has its own email editor for writing email template. To send pre-made template in SendGrid, `customData` filed of email overrides can be used to send template details. Make sure sendgrid `Api Key` has enough permission to read and process the template. This `customData` field can be used to send custom args and extra data in the form of key-value pairs.
+Novu has its own email editor for writing email template. To send pre-made template in SendGrid, providers overrides can be used to send template details. Make sure sendgrid `Api Key` has enough permission to read and process the template.
 
 <Callout type="info">
-  sending `customData` field in overrides to send sendgrid template will work
-  only in following cases: - if workflow is triggered to only one subscriber -
-  if workflow is triggered to multiple subscribers or topic but sendgrid
+  Sending `customData` field in overrides to send sendgrid template will work
+  only in following cases: 
+  - if workflow is triggered to only one subscriber 
+  - if workflow is triggered to multiple subscribers or topic but sendgrid
   template does not have any dynamic variables related to subscriber attributes
   like `firstName`, `lastName`, `email`, etc as same overrides will be applied
-  to all subscribers or topic
+  to all subscribers.
 </Callout>
-
-```typescript
-import {
-  Novu
-} from "@novu/node";
-
-const novu = new Novu("<NOVU_SECRET_KEY>");
-
-await novu.subscribers.trigger("workflowIdentifier", {
-  to: "subscriberId",
-  payload: {},
-  overrides: {
-    email: {
-      customData: {
-        dynamicTemplateData: {
-          total: "$ 239.85",
-          items: [{
-            text: "New Line Sneakers",
-            image: "https://marketing-image-production.s3.amazonaws.com/uploads/8dda1131320a6d978b515cc04ed479df259a458d5d45d58b6b381cae0bf9588113e80ef912f69e8c4cc1ef1a0297e8eefdb7b270064cc046b79a44e21b811802.png",
-            price: "$ 79.95",
-          }, {
-            text: "Old Line Sneakers rlfjrjrh4hr4rh4",
-            image: "https://marketing-image-production.s3.amazonaws.com/uploads/3629f54390ead663d4eb7c53702e492de63299d7c5f7239efdc693b09b9b28c82c924225dcd8dcb65732d5ca7b7b753c5f17e056405bbd4596e4e63a96ae5018.png",
-            price: "$ 79.95",
-          }, ],
-          receipt: true,
-          name: "Sample Name",
-          address01: "1234 Fake St.",
-          address02: "Apt. 123",
-          city: "Place",
-          state: "CO",
-          zip: "80202",
-        },
-      },
-    },
-  },
-});
-```
 
 <Tabs items={['Node.js', 'cURL', 'Novu Framework']}>
 <Tab value="Node.js">
@@ -115,8 +78,9 @@ await novu.subscribers.trigger("workflowIdentifier", {
   to: "subscriberId",
   payload: {},
   overrides: {
-    email: {
-      customData: {
+    providers: {
+      sendgrid: {
+        templateId: "d-d965b02b1b5d4856bf332a5e98c7470c",
         dynamicTemplateData: {
           total: "$ 239.85",
           items: [{
@@ -153,9 +117,9 @@ curl --location 'https://api.novu.co/v1/events/trigger' \
     "to":  ["subscriberId"],
     "payload": {},
     "overrides": {
-        "email": {
-            "customData": {
-                "templateId": "sendgrid-template-id",
+        "providers": {
+            "sendgrid": {
+                "templateId": "d-d965b02b1b5d4856bf332a5e98c7470c",
                 "dynamicTemplateData": {
                     "total": "$ 239.85",
                     "items": [

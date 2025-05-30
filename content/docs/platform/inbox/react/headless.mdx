@@ -2,6 +2,7 @@
 title: 'Headless'
 pageTitle: 'Headless notification Inbox for JavaScript applications'
 description: 'Learn how to use the Novu Inbox API to build your own inbox'
+icon: 'Braces'
 ---
 
 The headless version of Novu’s notification library package provides users with a lightweight solution for integrating notification functionality into their web applications. With just the essential API methods, users can easily incorporate our notification system into any framework or vanilla JavaScript project, without being constrained by our default UI or dependencies. The SDK includes real-time notifications through a WebSocket connection and can be safely used across web browsers.
@@ -22,8 +23,9 @@ npm i @novu/js
 ```typescript
 import { Novu } from "@novu/js";
 
-const novu = new Novu({
-  apiKey: 'YOUR_API_KEY',
+export const novu = new Novu({
+  applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
+  subscriberId: 'YOUR_SUBSCRIBER_ID',
 });
 ```
 

@@ -19,7 +19,7 @@ function Novu() {
   return (
     <Inbox 
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" 
-      subscriberId="YOUR_SUBSCRIBER_ID" 
+      subscriber="YOUR_SUBSCRIBER_ID" 
       renderBell={(unreadCount) => {
           return (
             <div className="bg-purple-300 p-4 inline-flex">
@@ -49,7 +49,7 @@ import { Inbox, Bell, Notifications } from '@novu/react';
 import './styles.css';
 
 const PopoverDemo = () => (
-  <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriberId="YOUR_SUBSCRIBER_ID">
+  <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID">
     <Popover.Root>
       <Popover.Trigger asChild>
         <Bell

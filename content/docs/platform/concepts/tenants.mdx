@@ -1,6 +1,7 @@
 ---
 title: 'Multi-tenancy'
 description: 'Learn about how to implement multi-tenant notifications in Novu'
+icon: 'Layers'
 ---
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -40,7 +41,7 @@ When using the Inbox feature, you can use the tenant identifier to group notific
 import { Inbox } from "@novu/react";
 
 function InboxComponent({ tenantId, userId }) {
-  return <Inbox subscriberId={`${tenantId}:${userId}`} />;
+  return <Inbox subscriber={`${tenantId}:${userId}`} />;
 }
 ```
 

@@ -14,7 +14,7 @@ import {
 This guide walks you through integrating Novu’s Inbox into your Angular application for real time in-app notifications, from setup to triggering your first notification. By the end, you'll have a working notification inbox.
 
 <Callout type="info">
-  This guide uses @novu/js headless library to build the Inbox component in Angular. Novu currently does not support native Angular Inbox component.
+  This guide uses @novu/js javascript sdk to build the Inbox component in Angular. Novu currently does not support native Angular Inbox component.
 </Callout>
 
 <Steps>
@@ -40,9 +40,9 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
 
   <Step>
   ### Install the required package
-  Run the command below to install [Novu headless SDK](/platform/sdks/headless), which provides required component for Inbox UI:
+  Run the command below to install [Novu Javascript SDK](/platform/sdks/javascript), which provides required component for Inbox UI:
 
-    ```bash
+    ```package-install
     npm install @novu/js
     ```
   </Step>
@@ -111,7 +111,7 @@ export class AppComponent implements AfterViewInit {
   ### Run Your Application
   Start your development server:
 
-  ```bash
+  ```package-install
   npm run start
   ```
   Once the application is running, a bell icon will appear on the top left side of the screen. Clicking it opens the notification inbox UI.
@@ -155,11 +155,11 @@ export class AppComponent implements AfterViewInit {
 
 <Cards cols={2}>
   <Card
-    title="Headless SDK API Reference"
+    title="Javascript SDK API Reference"
     icon={<Library />}
-    href="/platform/sdks/headless"
+    href="/platform/sdks/javascript"
   >
-    Explore headless sdk API reference for more advanced use cases.
+    Explore JavaScript SDK API reference for more advanced use cases.
   </Card>
   <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow/overview">
      Design and manage advanced notification workflows.

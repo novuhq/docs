@@ -107,7 +107,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
         }
         const pageMap: Record<string, string> = {
           'components/overview': 'components',
-          'multiple-tabs': 'multiple-tabs',
+          'multiple-tabs': 'tabs',
           styling: 'styling',
           'api-reference': 'api-reference',
         };
@@ -134,12 +134,6 @@ export default async function middleware(request: NextRequest, event: NextFetchE
         };
         return pageMap[page] || `/platform/${page}`;
       },
-    },
-
-    // Redirects from how-novu-works to what-is-novu
-    {
-      pattern: /^\/platform\/how-novu-works$/,
-      handler: () => '/platform/what-is-novu',
     },
     // Self hosting pattern
     {
@@ -236,7 +230,6 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     // Community
     '/community/machine-setup': '/community/run-in-local-machine',
     '/community/monorepo-structure': '/community/code-structure',
-    '/community/add-a-new-provider': '/community/create-provider',
   };
 
   if (pathname in redirectMap) {

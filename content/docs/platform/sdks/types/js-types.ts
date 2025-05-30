@@ -1,9 +1,7 @@
 import type {
-  Action,
   ChannelPreference,
   ListNotificationsResponse,
   Notification,
-  NotificationButton as NotificationButtonType,
   NotificationFilter,
   NovuOptions,
   PreferencesResponse,
@@ -11,7 +9,6 @@ import type {
 } from '@novu/js';
 
 export type {
-  Action,
   ChannelPreference,
   Notification,
   NotificationFilter,
@@ -20,5 +17,3 @@ export type {
   PreferencesResponse as PreferenceResponse,
   Subscriber,
 };
-
-export type NotificationButton = typeof NotificationButtonType;

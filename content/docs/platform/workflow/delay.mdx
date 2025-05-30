@@ -2,6 +2,7 @@
 pageTitle: 'Delay Steps in Workflows'
 title: 'Delay'
 description: 'Learn how to use delay steps to control timing and pacing in your notification workflows.'
+icon: 'Timer'
 ---
 
 The delay action awaits a specified amount of time before moving on to trigger the following steps of the workflow.
@@ -22,3 +23,8 @@ The action can also be skipped using the `skip` parameter conditionally to allow
   Changing the step content after triggering the workflow with delay step will not affect the
   existing pending delayed notification content.
 </Callout>
+
+## Frequently Asked Questions
+
+### If delay step fails, will the workflow continue to the next step?
+No, workflow execution will stop immediately if the delay step fails due to an error.

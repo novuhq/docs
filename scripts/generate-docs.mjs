@@ -22,6 +22,7 @@ async function main() {
     output: out,
     groupBy: 'tag',
     per: 'operation',
+    includeDescription: true,
   });
 }
 

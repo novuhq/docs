@@ -1,4 +1,4 @@
-import {
+import type {
   BellProps,
   InboxContentProps,
   InboxProps as InboxPropsInternal,

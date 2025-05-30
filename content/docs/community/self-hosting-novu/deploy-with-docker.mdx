@@ -43,7 +43,7 @@ docker-compose up
 docker compose up
 ```
 
-Now visit [http://localhost:4200](http://localhost:4200/) to start using Novu.
+Now visit [http://localhost:4000](http://localhost:4000/) to start using Novu.
 
 #### VPS Deployment
 
@@ -60,7 +60,7 @@ Start Novu on your VPS:
 docker-compose -f docker-compose.yml up
 ```
 
-Access your dashboard at [http://vps-ip-address:4200](http://vps-ip-address:4200/).
+Access your dashboard at [http://vps-ip-address:4000](http://vps-ip-address:4000/).
 
 ## Securing Your Setup
 
@@ -85,6 +85,99 @@ To keep the setup simple, we made some choices that may not be optimal for produ
 - the storage uses localstack instead of S3
 
 We strongly recommend that you decouple your database before deploying.
+
+## Setting Up the Inbox Component
+
+This section explains how to integrate the Novu Inbox component into your application when using a self-hosted Novu deployment.
+
+### Install the required packages
+
+```bash
+npm install @novu/react react-router-dom
+```
+
+### Create the Inbox component
+
+Create a component file (e.g., `notification-center.tsx`) in your project:
+
+```tsx
+import React from 'react';
+import { Inbox } from '@novu/react';
+import { useNavigate } from 'react-router';
+ 
+export function NotificationCenter() {
+  const navigate = useNavigate();
+ 
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      backendUrl="http://<your-docker-host>:3000" // Docker host address where Novu API is running
+      socketUrl="http://<your-docker-host>:3002" // Docker host address where Novu socket is running
+      routerPush={(path: string) => navigate(path)}
+    />
+  );
+}
+```
+
+### Configure the environment URLs
+
+Adjust the `backendUrl` and `socketUrl` based on your deployment:
+
+### Testing the connection
+
+Once your application is running, you should see the bell icon in your navbar. Clicking it will open the notification inbox UI.
+
+To test notifications, create and trigger a workflow from your self-hosted Novu dashboard, selecting In-App as the channel.
+
+For more information on customizing the Inbox component, refer to the [Inbox documentation](/inbox/overview).
+
+## Initializing the Node SDK
+
+When using a self-hosted Novu deployment with your backend services, you need to configure the Node SDK to connect to your Docker-hosted Novu instance.
+
+### Install the package
+
+```bash
+npm install @novu/node
+```
+
+### Initialize the SDK
+
+Configure the SDK with your self-hosted backend URL:
+
+```typescript
+import { Novu } from '@novu/node';
+
+const novu = new Novu({
+      secretKey: "<YOUR_SECRET_KEY_HERE>", // Your Novu API key from the dashboard
+      serverURL: "http://<your-docker-host>:3000", // URL of your self-hosted Novu API instance
+    });
+```
+
+### Configure for different environments
+
+Adjust the `backendUrl` based on your deployment:
+
+### Triggering events
+
+Once initialized, you can trigger notification events:
+
+```typescript
+await novu.trigger({ 
+  name : '<WORKFLOW_TRIGGER_IDENTIFIER>', 
+  to: {
+    subscriberId: '<SUBSCRIBER_ID>',
+  },
+  payload: {
+    // Your custom payload data
+    name: 'John Doe',
+    orderId: 'ORDER_ID_123',
+  },
+});
+```
+
+For more information on using the Node SDK, refer to the [Server-Side SDKs documentation](/sdks/overview).
 
 ### Setting Up local studio and bridge application
 
@@ -116,30 +209,30 @@ Nextjs based bridge application having one test workflow written using `@novu/fr
 if novu is run using above docker compose command in local machine, use below commmand
 
 ```bash
-npx novu@latest dev -d http://localhost:4200 -p <bridge_application_port>
+npx novu@latest dev -d http://localhost:4000 -p <bridge_application_port>
 ```
 
 Following actions will occur:
 
 - Novu local studio will be started on default port 2002,
 - Novu will generate a tunnel url that will forward the request to bridge application running on `<bridge_application_port>`
-- Studio will use `http://localhost:4200` as dashboard url
+- Studio will use `http://localhost:4000` as dashboard url
 
 **Using bridge application url as bridge url**
 
 To use bridge application url as bridge url, use below command:
 
 ```bash
-npx novu@latest dev -d http://localhost:4200 -p <bridge_application_port> -t http://host.docker.internal:<bridge_application_port>
+npx novu@latest dev -d http://localhost:4000 -p <bridge_application_port> -t http://host.docker.internal:<bridge_application_port>
 
 # example:
-npx novu@latest dev -d http://localhost:4200 -p 4000 -t http://host.docker.internal:4000
+npx novu@latest dev -d http://localhost:4000 -p 4000 -t http://host.docker.internal:4000
 ```
 
 <Callout type="info">
   In Windows OS, there are some additional steps:
   - stop the running docker compose process using `ctrl + c`
-  - update the `docker-compose.yml` file and add below config with each service (api, web, worker and ws)
+  - update the `docker-compose.yml` file and add below config with each service (api, dashboard, worker and ws)
 ```bash
 extra_hosts:
     - "host.docker.internal:host-gateway"
@@ -155,7 +248,7 @@ extra_hosts:
 NOVU_API_URL=http://<vps-ip-address>:3000
 
 # Start Novu Studio with your VPS dashboard URL and bridge application URL
-npx novu@latest dev -d http://<vps-ip-address>:4200
+npx novu@latest dev -d http://<vps-ip-address>:4000
 ```
 
 Check all [available flags](/framework/studio#novu-cli-flags) with `npx novu dev` command
@@ -222,15 +315,15 @@ Currently, we are caching data in the most heavily loaded areas of the system: t
 
 ### Reverse-Proxy / Load Balancers
 
-To implement a reverse-proxy or load balancer in front of Novu, you need to set the GLOBAL_CONTEXT_PATH for the base path of the application. This is the path that the application will be served from after the domain. For example: - company.com/novu This is used to set the base path for the application, and is used to set the base path for the API, web, and websocket connections.
+To implement a reverse-proxy or load balancer in front of Novu, you need to set the GLOBAL_CONTEXT_PATH for the base path of the application. This is the path that the application will be served from after the domain. For example: - company.com/novu This is used to set the base path for the application, and is used to set the base path for the API, Dashboard, and WebSocket connections.
 
-The following environment variables are used to set the context path for each public service that Novu provides: API_CONTEXT_PATH WIDGET_CONTEXT_PATH WS_CONTEXT_PATH WEB_CONTEXT_PATH
+The following environment variables are used to set the context path for each public service that Novu provides: API_CONTEXT_PATH WIDGET_CONTEXT_PATH WS_CONTEXT_PATH DASHBOARD_CONTEXT_PATH
 
 These allow you to set the context path for each service independently or dependently of the GLOBAL_CONTEXT_PATH.
 
-For example, if I was using a reverse proxy to serve Novu from company.com/novu, I would set the GLOBAL_CONTEXT_PATH to novu, and then set the API_CONTEXT_PATH to api, the WIDGET_CONTEXT_PATH to widget, the WS_CONTEXT_PATH to ws, and the WEB_CONTEXT_PATH to web.
+For example, if I was using a reverse proxy to serve Novu from company.com/novu, I would set the GLOBAL_CONTEXT_PATH to novu, and then set the API_CONTEXT_PATH to api, the WIDGET_CONTEXT_PATH to widget, the WS_CONTEXT_PATH to ws, and the DASHBOARD_CONTEXT_PATH to Dashboard.
 
-This would produce the following urls: - API: company.com/novu/api - WIDGET: company.com/novu/widget - WS: company.com/novu/ws - WEB: company.com/novu/web
+This would produce the following urls: - API: company.com/novu/api - WIDGET: company.com/novu/widget - WS: company.com/novu/ws - DASHBOARD: company.com/novu/dashboard
 
 However the Service context path can be used entirely independently of the GLOBAL_CONTEXT_PATH.
 

@@ -2,6 +2,7 @@
 pageTitle: 'Styling the Inbox component'
 title: 'Styling'
 description: 'Learn how to style the pre built Inbox component'
+icon: 'Palette'
 ---
 
 import { TypeTable } from 'fumadocs-ui/components/type-table';
@@ -107,7 +108,7 @@ const appearance = {
 
 ### Elements
 
-The `elements` object allows you to define styles for these components. Each key corresponds to an component, and the value is an object containing `style properties` or you can also pass your `css classes`. Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
+The `elements` object allows you to define styles for these components. Each key corresponds to a component, and the value is an object containing `style properties` or you can also pass your `css classes`. Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
 
 #### Finding element selectors
 
@@ -128,10 +129,155 @@ const appearance = {
 <img src="/images/inbox/styling_02@2x.png" alt="Finding Element Selectors" />
 
 <Callout type="info">
-  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in
-  Appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the
+  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in the appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the
   available elements.
 </Callout>
+
+### Customizing icons
+
+The `icons` property in the `appearance` prop lets you customize any icon used in the Inbox component. This is useful when you want to:
+- Match the bell icon with your host app's navbar icon set
+- Use your own icon library, such as <a href="https://react-icons.github.io/react-icons/">react-icons</a> or <a href="https://mui.com/material-ui/material-icons/">Material Icons</a> to maintain a consistent design system
+- Modify all icons to fit your application's visual style
+
+
+#### Finding icon keys
+Each icon in the Inbox component is identified by a unique key. To find the key for a specific icon, inspect the element in your browser’s developer tools. Icon elements include a class name that starts with `nv-` and often feature a 🖼️ emoji for easier identification. 
+
+The portion of the class name following `nv-` is the icon key. For example, an element with the class `nv-cogs` has the icon key `cogs`, which you can use in the `appearance.icons` property to override that icon with a custom renderer.
+
+Once you’ve identified the key, provide a function that returns a React component to replace the default icon:
+
+```tsx
+import { Inbox } from '@novu/react';
+import { RiSettings3Fill, RiArrowDownLine, RiNotification3Fill} from 'react-icons/ri';
+
+const appearance = {
+    icons: {
+      cogs: () => <RiSettings3Fill />,
+      arrowDown: () => <RiArrowDownLine />,
+      bell: () => <RiNotification3Fill />,
+    },
+  };
+
+export function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+
+This lets you fully customize the visual presentation of the Inbox component’s icons using your preferred design system.
+
+
+#### Available icon keys
+
+<details>
+  <summary>Click to view all available icon keys</summary>
+  <table>
+    <thead>
+      <tr>
+        <th>Icon Key</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>bell</code></td>
+        <td>The notification bell icon in the header</td>
+      </tr>
+      <tr>
+        <td><code>clock</code></td>
+        <td>Used in the date/time display for notifications</td>
+      </tr>
+      <tr>
+        <td><code>arrowDropDown</code></td>
+        <td>Dropdown arrow in various menus and selectors</td>
+      </tr>
+      <tr>
+        <td><code>dots</code></td>
+        <td>More options menu (three dots) in notification items</td>
+      </tr>
+      <tr>
+        <td><code>markAsRead</code></td>
+        <td>Icon for marking notifications as read</td>
+      </tr>
+      <tr>
+        <td><code>cogs</code></td>
+        <td>Settings/preferences icon in the header</td>
+      </tr>
+      <tr>
+        <td><code>trash</code></td>
+        <td>Delete/remove icon for notifications</td>
+      </tr>
+      <tr>
+        <td><code>markAsArchived</code></td>
+        <td>Icon for archiving notifications</td>
+      </tr>
+      <tr>
+        <td><code>markAsArchivedRead</code></td>
+        <td>Icon for marking notifications as archived and read</td>
+      </tr>
+      <tr>
+        <td><code>markAsUnread</code></td>
+        <td>Icon for marking notifications as unread</td>
+      </tr>
+      <tr>
+        <td><code>markAsUnarchived</code></td>
+        <td>Icon for unarchiving notifications</td>
+      </tr>
+      <tr>
+        <td><code>unsnooze</code></td>
+        <td>Icon for unsnoozed notifications</td>
+      </tr>
+      <tr>
+        <td><code>arrowRight</code></td>
+        <td>Right arrow used in pagination and navigation</td>
+      </tr>
+      <tr>
+        <td><code>arrowLeft</code></td>
+        <td>Left arrow used in pagination and navigation</td>
+      </tr>
+      <tr>
+        <td><code>unread</code></td>
+        <td>Indicator for unread notifications</td>
+      </tr>
+      <tr>
+        <td><code>sms</code></td>
+        <td>SMS channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>inApp</code></td>
+        <td>In-app channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>email</code></td>
+        <td>Email channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>push</code></td>
+        <td>Push notification channel icon in preferences</td>
+      </tr>
+      <tr>
+        <td><code>chat</code></td>
+        <td>Chat channel icon in notification preferences</td>
+      </tr>
+      <tr>
+        <td><code>check</code></td>
+        <td>Checkmark icon used for selected items</td>
+      </tr>
+      <tr>
+        <td><code>arrowDown</code></td>
+        <td>Down arrow used in dropdowns and expandable sections</td>
+      </tr>
+    </tbody>
+  </table>
+</details>
+
 
 ### Dark theme
 
@@ -148,7 +294,7 @@ export function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       appearance={{ baseTheme: resolvedTheme === 'dark' ? dark : undefined }}
     />
   );
@@ -177,7 +323,7 @@ export function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       appearance={appearance}
     />
   );
@@ -229,7 +375,7 @@ export function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       appearance={appearance}
     />
   );
@@ -262,7 +408,7 @@ export function Novu() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriberId="YOUR_SUBSCRIBER_ID"
+      subscriber="YOUR_SUBSCRIBER_ID"
       appearance={appearance}
     />
   );
@@ -283,15 +429,14 @@ await step.inApp('inbox', async () => {
 ```
 
 <Callout type="info">
-  Please note, that when you are rendering the custom notification component you will need to parse
-  the text and apply the bold styling accordingly.
+  Note: When rendering the custom notification component, you will need to parse the text and apply the bold styling accordingly.
 </Callout>
 
-Currently we only support bold text. We are working on adding more text formatting options in the future. You can learn more about the Novu Framework in-app step [here](/framework/typescript/steps/inApp).
+Currently, the Inbox component only support bold text. Other text formatting options will be available in the future. To learn, refer to the [Novu Framework in-app step documentation](/framework/typescript/steps/inApp).
 
-## Render Notification Component
+## Render notification component
 
-You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component, this will allow you to style and render more complex notification items.
+You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component. This lets you style and render more complex notification items.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -303,3 +448,11 @@ import { CustomNotification } from './CustomNotification';
   }}
 />;
 ```
+
+## The Inbox styles placement
+
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component automatically injects its styles into the `<head>` tag of the HTML document when rendered in the standard DOM. 
+
+However, when rendered inside a shadow DOM, it detects the shadow context and injects styles into the shadow root instead. This ensures proper style encapsulation and prevents leakage or conflicts with global styles without any additional configuration.
+
+

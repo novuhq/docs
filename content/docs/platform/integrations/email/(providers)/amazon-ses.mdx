@@ -14,7 +14,7 @@ To use the Amazon SES provider in the email channel, you will need to create an 
 
 ## Setting up SES in AWS?
 
-- Either use a root AWS account or create a new IAM account with appropriate permission policies.
+- Create a new IAM account with appropriate permission policies.
   <Callout type="info">Example policy rule `arn:aws:ses:<REGION>:<ACCOUNT>:identity/*`</Callout>
 - Create a new access key and save generated `ACCESS_KEY_ID` and `ACCESS_SECRET_KEY` carefully
 - Choose Amazon Simple Email Service.
@@ -43,13 +43,16 @@ To use the Amazon SES provider in the email channel, you will need to create an 
 
 ## FAQs
 
-<Accordions>
-  <Accordion title="Trigger from novu is successful but the subscriber is not receiving email">
-    Possible reasons: 1. You have not verified the subscriber's email address in SES (if you are in
-    a sandbox environment). 2. Your daily sending limit has been reached (if you are in a sandbox
-    environment). 3. You have entered the wrong aws region in the integration form.
-  </Accordion>
-</Accordions>
+### Trigger from novu is successful but the subscriber is not receiving email
+Possible reasons: 
+- Subscriber's email address is not verified in SES if SES account is in sandbox environment. 
+- SES account daily sending limit has been reached if SES account is in sandbox environment.
+- Incorrect credentials have been used while creating SES integration.
+
+### SignatureDoesNotMatch error with SES
+
+- Ensure that the `ACCESS_KEY_ID` and `ACCESS_SECRET_KEY` values are correct and have the necessary permissions. If using SMTP credentials, change it with IAM role credentials.
+- If the issue persists, regenerate the credentials and update the integration with new credentials.
 
 ## Next Steps
 
