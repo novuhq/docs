@@ -8,6 +8,26 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 By default, the `<Inbox />` renders a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
 
+## Try it without keys (Keyless Mode)
+
+Try Novu Inbox instantly - no setup required. With Keyless mode, you can integrate and test the `<Inbox />` right in your app. It’s ideal for exploring features and sending test notifications.
+
+```tsx
+import React from 'react';
+import { Inbox } from '@novu/react';
+ 
+export function KeylessInbox() {
+ 
+  return (
+    <Inbox />
+  );
+}
+```
+
+<Callout type="info" title="Ready for the Full Experience?">
+  Keyless mode is designed for quick exploration. To save your configuration, identify users, and unlock all of Novu's powerful features, you'll need to sign up for a free account and configure your environment. <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Sign up on Novu Cloud</a>
+</Callout>
+
 ## Basic Usage
 
 ```tsx
@@ -131,7 +151,7 @@ When a user snoozes a notification, it is temporarily removed from the active li
 
 ### Snoozing a notification
 
-All dates and times are interpreted in the user’s local timezone. Users can snooze a notification directly from the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> using one of the following options:
+All dates and times are interpreted in the user's local timezone. Users can snooze a notification directly from the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> using one of the following options:
 
 - Preset options:
   - An hour from now
@@ -177,7 +197,7 @@ This logic is built into the component and does not require any additional confi
 
 ### Using custom tabs
 
-If you’re using custom tabs in the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, you can configure a dedicated "Snoozed" or "Reminders" tab by adding a `snoozed: true` filter to your tabs configuration. This helps users navigate more easily and focus on the reminders they’ve scheduled.
+If you're using custom tabs in the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, you can configure a dedicated "Snoozed" or "Reminders" tab by adding a `snoozed: true` filter to your tabs configuration. This helps users navigate more easily and focus on the reminders they've scheduled.
 
 ```tsx
 import { Inbox } from '@novu/nextjs';
@@ -328,6 +348,129 @@ function Novu() {
   );
 }
 ```
+
+### Custom notification based on condition
+
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component supports conditional rendering of notifications using the renderNotification prop. This function receives a `notification` object and returns a custom React element. 
+
+You can use workflow tags, workflow identifiers, or values from the data object to customize how each notification is displayed. You can also combine multiple conditions to create dynamic and tailored notification displays.
+
+#### Workflow tags condition
+
+You can conditionally render customized notification based on [workflow tags](/platform/concepts/workflows#workflow-tags). These tags are defined in your workflow and are accessible via `notification.tags` property.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function CustomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+        // filter based on tags
+        if (notification.tags?.includes('custom')) {
+          return (
+            <div>
+              <h3>Custom Notification Subject</h3>
+              <p>Custom Notification Body</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Workflow identifier or name condition
+
+Each workflow has a [name and a unique identifier](/platform/concepts/workflows#workflow-identifier), accessible through `notification.workflow.name` and `notification.workflow.identifier`, respectively. Either property can be used to conditionally render notifications.
+
+```tsx
+import { Inbox } from '@novu/react';
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+        // filter based on workflow identifier
+        if (notification.workflow?.identifier === 'demo') {
+          return (
+            <div style={{ backgroundColor: 'blue' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // filter based on workflow name
+        if (notification.workflow?.name === 'Custom') {
+          return (
+            <div style={{ backgroundColor: 'blue' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Data object condition
+
+You can also use values from the notification [data object](/platform/inbox/react/components/inbox#data-object) to render notifications conditionally. These values are accessible via `notification.data` and typically contain custom payload fields
+
+```tsx
+import { Inbox } from '@novu/react';
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+       // filter based on data object key
+       if (notification.data?.priority) {
+        return (
+          <div style={{ backgroundColor: 'red' }}>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+
 
 ### Rendering HTML
 

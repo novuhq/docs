@@ -96,6 +96,73 @@ The digest step returns an object with events array. Each event in the array has
 - **time** - The time when the event was triggered
 - **payload** - The original payload passed to the event
 
+## Two digest steps in a workflow
+
+Currently, Novu does not support two digest steps in a workflow. However, two digest behaviours can be achieved by creating second workflow with digest step, add all other steps after the digest step and trigger the second workflow from the first workflow in [custom step](/framework/custom).
+
+
+**Use Case: LLM-Powered Feedback Digest**
+
+In this example, customer requests are collected and digested every 15 minutes. An in-app notification alerts the user about the number of new requests. Every 6 hours, those requests are grouped and passed to a second workflow where an LLM (like OpenAI) categorizes the feedback into bugs, feature requests, and praise. A summary email is then sent with the categorized counts. This setup helps reduce noise while still keeping teams informed with meaningful, AI-powered insights.
+
+```typescript
+const secondDigestWorkflow = workflow(
+  "llm-request-summary-workflow",
+  async ({ step, payload }) => {
+    const { events } = await step.digest("digest-llm-summary", async () => {
+      return {
+        unit: "hours",
+        amount: 6,
+      };
+    });
+
+    await step.email("send-llm-summary", async () => {
+      const allRequests = events?.map((event) => event.payload.requests);
+      // categorized: { bugs: 2, features: 4, praise: 5 }
+      const categorized = await categorizeUsingLLM(allRequests);
+      const { bugs, features, praise } = categorized;
+      return {
+        subject: `🧠 LLM Feedback Digest - Last 6 Hours`,
+        body: `
+          🔧 Bugs reported: ${bugs}\n
+          🌟 Feature requests: ${features}\n
+          🙌 Praise received: ${praise}\n\n
+          View full feedback log in your dashboard.
+        `,
+      };
+    });
+  }
+);
+
+const firstDigestWorkflow = workflow(
+  "customer-requests-digest-workflow",
+  async ({ step, subscriber, payload }) => {
+    const { events } = await step.digest("digest-recent-requests", async () => {
+      return {
+        unit: "minutes",
+        amount: 15,
+      };
+    });
+
+    await step.inApp("in-app-summary", async () => {
+      return {
+        subject: `📝 ${events.length} new requests received`,
+        body: `You’ve received ${events.length} customer requests in the last 15 minutes.`,
+      };
+    });
+
+    await step.custom("trigger-llm-categorize-workflow", async () => {
+      return await secondDigestWorkflow.trigger({
+        to: subscriber?.subscriberId as string,
+        payload: {
+          requests: events.map((event) => event.payload),
+        },
+      });
+    });
+  }
+);
+```
+
 <Callout type="info">
   Changing the step content after triggering the workflow with digest step will not affect the
   existing digested events.

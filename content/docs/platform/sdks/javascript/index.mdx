@@ -2,6 +2,7 @@
 title: '@novu/js'
 pageTitle: 'API reference for the @novu/js package'
 description: 'Complete API reference for the Novu JavaScript package'
+icon: 'Braces'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
@@ -118,6 +119,10 @@ const notifications = await novu.notifications.list({
   read: false,
   archived: false,
   tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
   offset: 0,
 });
 ```
@@ -169,6 +174,10 @@ Fetches the count of notifications based on filters.
     const count = await novu.notifications.count({
       read: false,
       archived: false,
+       // data attributes
+      data: {
+        type: 'login',
+      },
     });
     ```
   </Tab>
@@ -176,7 +185,7 @@ Fetches the count of notifications based on filters.
     ```typescript
     // Multiple filters
     const counts = await novu.notifications.count({
-      filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }],
+      filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
     });
     ```
   </Tab>
@@ -221,6 +230,10 @@ Marks all notifications as read. Can be filtered by tags.
 ```typescript
 await novu.notifications.readAll({
   tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
 });
 ```
 
@@ -231,6 +244,10 @@ Archives all notifications. Can be filtered by tags.
 ```typescript
 await novu.notifications.archiveAll({
   tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
 });
 ```
 
@@ -241,6 +258,10 @@ Archives all read notifications. Can be filtered by tags.
 ```typescript
 await novu.notifications.archiveAllRead({
   tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
 });
 ```
 
