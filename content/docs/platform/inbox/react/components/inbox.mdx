@@ -10,21 +10,16 @@ By default, the `<Inbox />` renders a bell button, that opens a popover on click
 
 ## Try it without keys (Keyless Mode)
 
-Experience Novu Inbox instantly without any prior setup. With Keyless mode, you can integrate and test the component directly in your application. This is perfect for exploring features and triggering test notifications.
+Try Novu Inbox instantly - no setup required. With Keyless mode, you can integrate and test the `<Inbox />` right in your app. It’s ideal for exploring features and sending test notifications.
 
 ```tsx
 import React from 'react';
 import { Inbox } from '@novu/react';
-// If you're using a router like React Router, you might need this for navigation
-// import { useNavigate } from 'react-router';
  
-export function NotificationCenter() {
-  // const navigate = useNavigate(); // Uncomment if using routerPush
+export function KeylessInbox() {
  
   return (
     <Inbox />
-    // To enable navigation within notifications later, you can add:
-    // routerPush={(path: string) => navigate(path)} 
   );
 }
 ```
