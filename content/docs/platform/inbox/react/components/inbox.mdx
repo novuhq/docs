@@ -8,6 +8,26 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 By default, the `<Inbox />` renders a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
 
+## Try it without keys (Keyless Mode)
+
+Try Novu Inbox instantly - no setup required. With Keyless mode, you can integrate and test the `<Inbox />` right in your app. It’s ideal for exploring features and sending test notifications.
+
+```tsx
+import React from 'react';
+import { Inbox } from '@novu/react';
+ 
+export function KeylessInbox() {
+ 
+  return (
+    <Inbox />
+  );
+}
+```
+
+<Callout type="info" title="Ready for the Full Experience?">
+  Keyless mode is designed for quick exploration. To save your configuration, identify users, and unlock all of Novu's powerful features, you'll need to sign up for a free account and configure your environment. <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Sign up on Novu Cloud</a>
+</Callout>
+
 ## Basic Usage
 
 ```tsx
@@ -131,7 +151,7 @@ When a user snoozes a notification, it is temporarily removed from the active li
 
 ### Snoozing a notification
 
-All dates and times are interpreted in the user’s local timezone. Users can snooze a notification directly from the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> using one of the following options:
+All dates and times are interpreted in the user's local timezone. Users can snooze a notification directly from the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> using one of the following options:
 
 - Preset options:
   - An hour from now
@@ -177,7 +197,7 @@ This logic is built into the component and does not require any additional confi
 
 ### Using custom tabs
 
-If you’re using custom tabs in the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, you can configure a dedicated "Snoozed" or "Reminders" tab by adding a `snoozed: true` filter to your tabs configuration. This helps users navigate more easily and focus on the reminders they’ve scheduled.
+If you're using custom tabs in the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, you can configure a dedicated "Snoozed" or "Reminders" tab by adding a `snoozed: true` filter to your tabs configuration. This helps users navigate more easily and focus on the reminders they've scheduled.
 
 ```tsx
 import { Inbox } from '@novu/nextjs';
