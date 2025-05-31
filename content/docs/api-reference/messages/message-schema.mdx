@@ -1,0 +1,274 @@
+---
+title: Message schema
+---
+
+### Message
+
+<TypeTable name="Message" type={{
+  "id": {
+    "description": "Unique identifier for the message",
+    "type": "string"
+  },
+  "templateId": {
+    "description": "Template ID associated with the message",
+    "type": "string"
+  },
+  "environmentId": {
+    "description": "Environment ID where the message is sent",
+    "type": "string"
+  },
+  "messageTemplateId": {
+    "description": "Message template ID",
+    "type": "string"
+  },
+  "organizationId": {
+    "description": "Organization ID associated with the message",
+    "type": "string"
+  },
+  "notificationId": {
+    "description": "Notification ID associated with the message",
+    "type": "string"
+  },
+  "subscriberId": {
+    "description": "Subscriber ID associated with the message",
+    "type": "string"
+  },
+  "subscriber": {
+    "description": "Subscriber details, if available",
+    "type": "SubscriberResponseDto"
+  },
+  "template": {
+    "description": "Workflow template associated with the message",
+    "type": "WorkflowResponse"
+  },
+  "templateIdentifier": {
+    "description": "Identifier for the message template",
+    "type": "string"
+  },
+  "createdAt": {
+    "description": "Creation date of the message",
+    "type": "string"
+  },
+  "deliveredAt": {
+    "description": "Array of delivery dates for the message, if the message has multiple delivery dates, for example after being snoozed",
+    "type": "string[]"
+  },
+  "lastSeenDate": {
+    "description": "Last seen date of the message, if available",
+    "type": "string"
+  },
+  "lastReadDate": {
+    "description": "Last read date of the message, if available",
+    "type": "string"
+  },
+  "content": {
+    "description": "Content of the message, can be an email block or a string",
+    "type": "string | EmailBlock[]"
+  },
+  "transactionId": {
+    "description": "Transaction ID associated with the message",
+    "type": "string"
+  },
+  "subject": {
+    "description": "Subject of the message, if applicable",
+    "type": "string"
+  },
+  "channel": {
+    "description": "Channel type through which the message is sent",
+    "type": "ChannelTypeEnum"
+  },
+  "read": {
+    "description": "Indicates if the message has been read",
+    "type": "boolean"
+  },
+  "seen": {
+    "description": "Indicates if the message has been seen",
+    "type": "boolean"
+  },
+  "snoozedUntil": {
+    "description": "Date when the message will be unsnoozed",
+    "type": "string"
+  },
+  "email": {
+    "description": "Email address associated with the message, if applicable",
+    "type": "string"
+  },
+  "phone": {
+    "description": "Phone number associated with the message, if applicable",
+    "type": "string"
+  },
+  "directWebhookUrl": {
+    "description": "Direct webhook URL for the message, if applicable",
+    "type": "string"
+  },
+  "providerId": {
+    "description": "Provider ID associated with the message, if applicable",
+    "type": "string"
+  },
+  "deviceTokens": {
+    "description": "Device tokens associated with the message, if applicable",
+    "type": "string[]"
+  },
+  "title": {
+    "description": "Title of the message, if applicable",
+    "type": "string"
+  },
+  "cta": {
+    "description": "Call to action associated with the message",
+    "type": "MessageCTA"
+  },
+  "feedId": {
+    "description": "Feed ID associated with the message, if applicable",
+    "type": "string | null"
+  },
+  "status": {
+    "description": "Status of the message",
+    "type": "MessageStatusEnum"
+  },
+  "errorId": {
+    "description": "Error ID if the message has an error",
+    "type": "string"
+  },
+  "errorText": {
+    "description": "Error text if the message has an error",
+    "type": "string"
+  },
+  "payload": {
+    "description": "The payload that was used to send the notification trigger",
+    "type": "MessageResponseDtoPayload"
+  },
+  "overrides": {
+    "description": "Provider specific overrides used when triggering the notification",
+    "type": "MessageResponseDtoOverrides"
+  }
+}} />
+
+### ChannelTypeEnum
+```typescript
+ChannelTypeEnum {
+  IN_APP = "in_app",
+  EMAIL = "email",
+  SMS = "sms",
+  CHAT = "chat",
+  PUSH = "push"
+}
+```
+
+### Workflow
+
+<TypeTable name="Workflow" type={{
+  "id": {
+    "description": "",
+    "type": "string"
+  },
+  "name": {
+    "description": "",
+    "type": "string"
+  },
+  "description": {
+    "description": "",
+    "type": "string"
+  },
+  "active": {
+    "description": "",
+    "type": "boolean"
+  },
+  "draft": {
+    "description": "",
+    "type": "boolean"
+  },
+  "preferenceSettings": {
+    "description": "",
+    "type": "SubscriberPreferenceChannels"
+  },
+  "critical": {
+    "description": "",
+    "type": "boolean"
+  },
+  "tags": {
+    "description": "",
+    "type": "string[]"
+  },
+  "steps": {
+    "description": "",
+    "type": "NotificationStepDto[]"
+  },
+  "organizationId": {
+    "description": "",
+    "type": "string"
+  },
+  "creatorId": {
+    "description": "",
+    "type": "string"
+  },
+  "environmentId": {
+    "description": "",
+    "type": "string"
+  },
+  "triggers": {
+    "description": "",
+    "type": "NotificationTrigger[]"
+  },
+  "notificationGroupId": {
+    "description": "",
+    "type": "string"
+  },
+  "parentId": {
+    "description": "",
+    "type": "string"
+  },
+  "deleted": {
+    "description": "",
+    "type": "boolean"
+  },
+  "deletedAt": {
+    "description": "",
+    "type": "string"
+  },
+  "deletedBy": {
+    "description": "",
+    "type": "string"
+  },
+  "notificationGroup": {
+    "description": "",
+    "type": "NotificationGroup"
+  },
+  "data": {
+    "description": "",
+    "type": "WorkflowResponseData"
+  },
+  "workflowIntegrationStatus": {
+    "description": "",
+    "type": "WorkflowIntegrationStatus"
+  }
+}} />
+
+### Actor
+
+<TypeTable name="Actor" type={{
+  "toString": {
+    "description": "",
+    "type": "(() => string) | (() => string)"
+  },
+  "valueOf": {
+    "description": "",
+    "type": "(() => string) | (() => Object)"
+  }
+}} />
+
+### MessageCTA
+
+<TypeTable name="MessageCTA" type={{
+  "type": {
+    "description": "Type of call to action",
+    "type": "\"redirect\""
+  },
+  "data": {
+    "description": "Data associated with the call to action",
+    "type": "MessageCTAData"
+  },
+  "action": {
+    "description": "Action associated with the call to action",
+    "type": "MessageAction"
+  }
+}} />

@@ -1,36 +1,38 @@
 import {
-  ISubscriber,
-  IChannelSettings,
-  TopicDto,
-  IMessage,
-  IIntegration,
-  ICredentials,
-  IPreviousStepFilterPart,
-  INotificationTemplate,
-  IActor,
-  IMessageCTA,
-  IActivity,
-  IActivityJob,
-} from '@novu/shared';
+  SubscriberResponseDto,
+  ChannelSettingsDto,
+  TopicResponseDto,
+  MessageResponseDto,
+  WorkflowResponse,
+  MessageCTA as MessageCTAType,
+  ActivityNotificationResponseDto,
+  ActivityNotificationJobResponseDto,
+  IntegrationResponseDto,
+  CredentialsDto,
+  StepFilterDto,
+  TopicSubscriptionResponseDto,
+  SubscriberPayloadDto,
+} from '@novu/api/models/components';
 
 // subscriber
-export type Subscriber = ISubscriber;
-export type ChannelSettings = IChannelSettings;
+export type Subscriber = SubscriberResponseDto;
+export type ChannelSettings = ChannelSettingsDto;
 
 // topic
-export type Topic = TopicDto;
+export type Topic = TopicResponseDto;
+export type TopicSubscription = TopicSubscriptionResponseDto;
 
 // message
-export type Message = IMessage;
-export type NotificationTemplate = INotificationTemplate;
-export type Actor = IActor;
-export type MessageCTA = IMessageCTA;
+export type Message = MessageResponseDto;
+export type Workflow = WorkflowResponse;
+export type Actor = SubscriberPayloadDto | string;
+export type MessageCTA = MessageCTAType;
 
 // notification
-export type Notification = IActivity;
-export type ActivityJob = IActivityJob;
+export type Notification = ActivityNotificationResponseDto;
+export type ActivityJob = ActivityNotificationJobResponseDto;
 
 // integration
-export type Integration = IIntegration;
-export type Credentials = ICredentials;
-export type PreviousStepFilterPart = IPreviousStepFilterPart;
+export type Integration = IntegrationResponseDto;
+export type Credentials = CredentialsDto;
+export type StepFilter = StepFilterDto;
