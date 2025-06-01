@@ -20,7 +20,7 @@ A notification doesn't exist in isolation, it’s the result of a sequence of in
 
 ### Event
 
-Something meaningful happens in your application, such as a user signing up, a password reset being requested, or a comment being posted. You emit this event to Novu using the [Event Trigger API](/api-reference/events/trigger/post).
+Something meaningful happens in your application, such as a user signing up, a password reset being requested, or a comment being posted. You emit this event to Novu using the [Event Trigger API](/api-reference/events/trigger-event).
 
 Each event contains:
 - A name that maps to a specific workflow (user_signed_up)
@@ -65,7 +65,7 @@ Messages are live entities, tracked in real-time, with full visibility into:
 - Delivery status
 - Provider responses or errors
 
-<Callout>Each message has its own ID and status, and you can query it via the [Message API](/api-reference/messages/messages/get).</Callout>
+<Callout>Each message has its own ID and status, and you can query it via the [Message API](/api-reference/messages/list-all-messages).</Callout>
 
 ## Notification structure
 
@@ -85,4 +85,4 @@ Each notification encapsulates a set of properties that describe its creation, c
 | `messages`      | The individual messages generated for each channel. Contains delivery status, content, and provider response.                               |
 | `status`        | The current execution state of the notification (`pending`, `completed`, `failed`, and so on).                                                   |
 
-These fields are accessible via the [Notifications API](/api-reference/notifications/notifications/get) and are also displayed in the Novu dashboard’s Activity Feed for visual traceability.
+These fields are accessible via the [Notifications API](/api-reference/notifications/list-all-events) and are also displayed in the Novu dashboard’s Activity Feed for visual traceability.
