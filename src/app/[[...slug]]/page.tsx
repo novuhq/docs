@@ -36,6 +36,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       full={page.data.full}
       tableOfContent={{
         single: false,
+        style: 'clerk',
       }}
       editOnGithub={{
         repo: 'docs',
