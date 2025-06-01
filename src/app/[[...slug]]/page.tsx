@@ -20,6 +20,8 @@ import {
 } from '../../components/ui/tooltip';
 import { metadataImage } from '../../lib/metadata-image';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+import { PageActions } from '../../components/page-actions';
+import { getRawMarkdownContent } from '../../lib/get-markdown-content';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -30,6 +32,11 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   const MDX = page.data.body;
   const path = `content/docs/${page.file.path}`;
 
+  const rawMarkdownContent = getRawMarkdownContent(page.file.path);
+
+  // GitHub URL for editing this page
+  const githubUrl = `https://github.com/novuhq/docs/edit/main/content/docs/${page.file.path}`;
+
   return (
     <DocsPage
       toc={page.data.toc}
@@ -37,12 +44,14 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       tableOfContent={{
         single: false,
         style: 'clerk',
-      }}
-      editOnGithub={{
-        repo: 'docs',
-        owner: 'novuhq',
-        sha: 'main',
-        path,
+        footer: (
+          <PageActions
+            pageContent={rawMarkdownContent}
+            title={page.data.pageTitle ?? page.data.title}
+            githubUrl={githubUrl}
+            path={page.file.path}
+          />
+        ),
       }}
       article={{
         className: 'max-sm:pb-16 max-w-[770px] !px-0',
