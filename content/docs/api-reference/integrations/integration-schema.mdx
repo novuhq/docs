@@ -4,6 +4,8 @@ title: Integration schema
 
 ### Integration
 
+Integration is third party service used by Novu to send notification for a specific channel. For example, [sengrid](/platform/integrations/email/sendgrid) is a email integration and [twilio](/platform/integrations/sms/twilio) is a sms integration. Read more about integrations on [integrations concept page](/platform/concepts/integrations). 
+
 <TypeTable name="Integration" type={{
   "id": {
     "description": "The unique identifier of the integration record in the database. This is automatically generated.",
@@ -64,6 +66,8 @@ title: Integration schema
 }} />
 
 ### Credentials
+
+Each integration has a set of credentials that are used to authenticate with the third party service. Checkout the provider documentation for more details on what credentials are required for each integration.
 
 <TypeTable name="Credentials" type={{
   "apiKey": {
@@ -237,6 +241,8 @@ title: Integration schema
 }} />
 
 ### ChannelTypeEnum
+
+ChannelTypeEnum is used to specify the type of channel that the integration is used for. For example, if the integration is used for email, the channel type will be `email`.
 
 ```typescript
 ChannelTypeEnum {

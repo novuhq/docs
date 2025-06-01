@@ -4,6 +4,8 @@ title: Message schema
 
 ### Message
 
+Message is a single notification that is sent to a subscriber. Each channel step in the workflow generates a message.
+
 <TypeTable name="Message" type={{
   "id": {
     "description": "Unique identifier for the message",
@@ -156,6 +158,8 @@ ChannelTypeEnum {
 
 ### Workflow
 
+Workflow is a collection of steps that are executed in order to send a notification.
+
 <TypeTable name="Workflow" type={{
   "id": {
     "description": "",
@@ -245,6 +249,8 @@ ChannelTypeEnum {
 
 ### Actor
 
+Actor is the user who is skipped from sending the notification when workflow is triggered to a [topic](/platform/concepts/topics).
+
 <TypeTable name="Actor" type={{
   "toString": {
     "description": "",
@@ -257,6 +263,8 @@ ChannelTypeEnum {
 }} />
 
 ### MessageCTA
+
+MessageCTA is a call to action that is displayed in the [Inbox](/platform/inbox/overview) message. It can be used to redirect the user to a specific URL when the message is clicked.
 
 <TypeTable name="MessageCTA" type={{
   "type": {

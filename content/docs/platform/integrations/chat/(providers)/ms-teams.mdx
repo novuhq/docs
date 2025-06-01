@@ -7,7 +7,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 MS Teams does not need any `API Key` or `Client ID` to send notifications. Our current implementation is based on the [Incoming Webhook URL](https://learn.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook?tabs=newteams%2Cjavascript). It is a URL that you can use to send messages to a specific channel. This URL needs to be stored on the subscriber entity
 
-Similar to [Discord](/platform/integrations/chat/discord), the credential for this provider needs to be stored in the [subscriber entity](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel).
+Similar to [Discord](/platform/integrations/chat/discord), the credential for this provider needs to be stored in the [subscriber entity](/api-reference/subscribers/update-provider-credentials).
 
 ## Creating incoming webhook URL
 
@@ -54,8 +54,8 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 </Tab>
 </Tabs>
 
-Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
 
 - `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
 - `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum to specify the provider.
-- The third parameter is the credentials object, in this case, we use the `webhookUrl` property to specify the MS Teams channel webhook URL or by calling the `Update Subscriber Credentials` endpoint on Novu API. Check endpoint details [here](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel).
+- The third parameter is the credentials object, in this case, we use the `webhookUrl` property to specify the MS Teams channel webhook URL or by calling the `Update Subscriber Credentials` endpoint on Novu API. Check endpoint details [here](/api-reference/subscribers/update-provider-credentials).
