@@ -4,6 +4,8 @@ title: Message schema
 
 ### Message
 
+Message is a single notification that is sent to a subscriber. Each channel step in the workflow generates a message.
+
 ---type-table---
 ../api-types.ts#Message
 ---end---
@@ -21,17 +23,23 @@ ChannelTypeEnum {
 
 ### Workflow
 
+Workflow is a collection of steps that are executed in order to send a notification.
+
 ---type-table---
 ../api-types.ts#Workflow
 ---end---
 
 ### Actor
 
+Actor is the user who is skipped from sending the notification when workflow is triggered to a [topic](/platform/concepts/topics).
+
 ---type-table---
 ../api-types.ts#Actor
 ---end---
 
 ### MessageCTA
+
+MessageCTA is a call to action that is displayed in the [Inbox](/platform/inbox/overview) message. It can be used to redirect the user to a specific URL when the message is clicked.
 
 ---type-table---
 ../api-types.ts#MessageCTA
