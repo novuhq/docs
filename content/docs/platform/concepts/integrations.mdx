@@ -1,20 +1,53 @@
 ---
 title: 'Integrations'
-description: 'Learn about what Novu Integrations are'
+description: 'Learn how Novu integrations connect you to third-party providers'
 icon: 'Blocks'
 ---
 
-## Integrations
+In Novu, integrations are configured connections to third-party services that deliver notifications across supported channels which are Email, SMS, Push, and Chat.
 
-Integrations are what allow Novu to handle message delivery over multiple channels. Of the five notification channels that Novu currently supports, each channel except the 'in-app' channel has multiple providers.
+Each integration connects Novu to a specific provider and workflows use these integrations to route notifications to the appropriate provider.
 
-### Integraton Store
+For example:
 
-You can configure your own integrations by visiting the [Integration Store](https://dashboard.novu.co/integrations). When connecting the integration you will be asked to provide the `credentials` and other optional configurations for the integration. All secret keys are encrypted before persisted to the database.
+- An Email step in a workflow might use your configured SendGrid integration.
+- An SMS notification could be delivered via Twilio.
 
-### Available Integrations
+<Callout type='info'>The In-App channel is handled internally by Novu and does not require a third-party integration.</Callout>
 
-You can find the list of available integrations for each channel:
+## Primary and active integrations
+
+Each channel can support multiple providers, and you can configure one or more integrations per channel as needed. But only one integration per channel can be set as the primary. The primary integration is used by default whenever a workflow sends a message for that channel.
+
+You can:
+- Set or change the primary integration via the dashboard or API.
+- Temporarily disable an integration, which will prevent Novu from using it for message delivery.
+
+<Callout>Disabling an integration does not delete it—but any messages relying on it will no longer be sent until it's re-enabled or replaced.</Callout>
+
+## Integration credentials
+Each integration requires a set of credentials, such as API keys or tokens, to authenticate with the third-party provider. Novu encrypts these credentials before storing them securely in the database.
+
+When setting up an integration, you may also need to provide:
+- Sender information (for example, from address or phone number)
+- Webhook support details (if applicable)
+- Optional configuration settings depending on the provider
+
+Refer to the specific provider documentation for credential formats and required fields.
+
+## Integraton store
+
+You can manage integrations directly from the [Integration Store](https://dashboard.novu.co/integrations) in the Novu dashboard. From there, you can:
+
+- Add new integrations by providing credentials and configuration values
+- Set a primary integration per channel
+- Enable or disable integrations as needed
+
+All changes apply at the environment level, which lets you use different providers for each environment level.
+
+## Available integrations
+
+Novu supports a wide range of providers across different channels:
 
 <Cards>
   <Card
@@ -37,9 +70,8 @@ You can find the list of available integrations for each channel:
     description="Integrate with chat platforms"
     href="/platform/integrations/chat"
   />
-  <Card
-    title="In-App"
-    description="Manage in-app notification center"
-    href="/platform/inbox/overview"
-  />
 </Cards>
+
+## Explore the integration API
+
+For implementation details and usage examples, refer to  the [Integration API reference](/api-reference/integrations/integration-schema) documentation.
