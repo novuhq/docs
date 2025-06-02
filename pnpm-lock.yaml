@@ -14,6 +14,9 @@ importers:
       '@next/third-parties':
         specifier: ^15.2.1
         version: 15.2.3(next@15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+      '@novu/api':
+        specifier: ^1.2.0
+        version: 1.2.0(zod@3.24.2)
       '@novu/framework':
         specifier: ^2.6.6
         version: 2.6.6(next@15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(zod-to-json-schema@3.24.5(zod@3.24.2))(zod@3.24.2)
@@ -880,6 +883,16 @@ packages:
   '@nolyfill/is-core-module@1.0.39':
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
+
+  '@novu/api@1.2.0':
+    resolution: {integrity: sha512-jqXXd4SnDZaO76Aw8XLxmUvr34e/XopuOuhq7/y0EW88I2ihctkLXxKbV9ompz5iMxd7lSpKp8pexZl8ydmJ1g==}
+    hasBin: true
+    peerDependencies:
+      '@modelcontextprotocol/sdk': '>=1.5.0 <1.10.0'
+      zod: '>= 3'
+    peerDependenciesMeta:
+      '@modelcontextprotocol/sdk':
+        optional: true
 
   '@novu/framework@2.6.6':
     resolution: {integrity: sha512-L0i6osx7oFMIy71UVcMtR4alitb1MqhwdXaDoQjtddIuD/pD8E+F9KYC11IS9U1ZKn2MJh7dOTxhyI0ITN3WyA==}
@@ -6253,6 +6266,10 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
+  '@novu/api@1.2.0(zod@3.24.2)':
+    dependencies:
+      zod: 3.24.2
+
   '@novu/framework@2.6.6(next@15.1.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(zod-to-json-schema@3.24.5(zod@3.24.2))(zod@3.24.2)':
     dependencies:
       ajv: 8.17.1
@@ -8736,7 +8753,7 @@ snapshots:
       - bluebird
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0)(eslint@8.57.1))(eslint@8.57.1):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0)(eslint@8.57.1):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -8758,7 +8775,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.1
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0(eslint-plugin-import@2.31.0)(eslint@8.57.1))(eslint@8.57.1)
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.8.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.7.0)(eslint@8.57.1)
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3

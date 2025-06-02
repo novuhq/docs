@@ -1,0 +1,187 @@
+---
+title: Notification event schema
+---
+
+### Notification event
+
+Notification event is the event that is generated when a workflow is triggered to subscribers. It contains workflow details, subscriber details payload sent during trigger, execution details of each step in the workflow and the result of the execution of each step.
+
+<TypeTable name="Notification" type={{
+  "id": {
+    "description": "Unique identifier of the notification",
+    "type": "string"
+  },
+  "environmentId": {
+    "description": "Environment ID of the notification",
+    "type": "string"
+  },
+  "organizationId": {
+    "description": "Organization ID of the notification",
+    "type": "string"
+  },
+  "subscriberId": {
+    "description": "Subscriber ID of the notification",
+    "type": "string"
+  },
+  "transactionId": {
+    "description": "Transaction ID of the notification",
+    "type": "string"
+  },
+  "templateId": {
+    "description": "Template ID of the notification",
+    "type": "string"
+  },
+  "digestedNotificationId": {
+    "description": "Digested Notification ID",
+    "type": "string"
+  },
+  "createdAt": {
+    "description": "Creation time of the notification",
+    "type": "string"
+  },
+  "updatedAt": {
+    "description": "Last updated time of the notification",
+    "type": "string"
+  },
+  "channels": {
+    "description": "",
+    "type": "StepTypeEnum[]"
+  },
+  "subscriber": {
+    "description": "Subscriber of the notification",
+    "type": "ActivityNotificationSubscriberResponseDto"
+  },
+  "template": {
+    "description": "Template of the notification",
+    "type": "ActivityNotificationTemplateResponseDto"
+  },
+  "jobs": {
+    "description": "Jobs of the notification",
+    "type": "ActivityNotificationJobResponseDto[]"
+  },
+  "payload": {
+    "description": "Payload of the notification",
+    "type": "ActivityNotificationResponseDtoPayload"
+  },
+  "tags": {
+    "description": "Tags associated with the notification",
+    "type": "string[]"
+  },
+  "controls": {
+    "description": "Controls associated with the notification",
+    "type": "Controls"
+  },
+  "to": {
+    "description": "To field for subscriber definition",
+    "type": "ActivityNotificationResponseDtoTo"
+  },
+  "topics": {
+    "description": "Topics of the notification",
+    "type": "ActivityTopicDto[]"
+  }
+}} />
+
+### Workflow
+
+Workflow contains the details of the workflow that was triggered.
+
+<TypeTable name="Workflow" type={{
+  "id": {
+    "description": "",
+    "type": "string"
+  },
+  "name": {
+    "description": "",
+    "type": "string"
+  },
+  "description": {
+    "description": "",
+    "type": "string"
+  },
+  "active": {
+    "description": "",
+    "type": "boolean"
+  },
+  "draft": {
+    "description": "",
+    "type": "boolean"
+  },
+  "preferenceSettings": {
+    "description": "",
+    "type": "SubscriberPreferenceChannels"
+  },
+  "critical": {
+    "description": "",
+    "type": "boolean"
+  },
+  "tags": {
+    "description": "",
+    "type": "string[]"
+  },
+  "steps": {
+    "description": "",
+    "type": "NotificationStepDto[]"
+  },
+  "organizationId": {
+    "description": "",
+    "type": "string"
+  },
+  "creatorId": {
+    "description": "",
+    "type": "string"
+  },
+  "environmentId": {
+    "description": "",
+    "type": "string"
+  },
+  "triggers": {
+    "description": "",
+    "type": "NotificationTrigger[]"
+  },
+  "notificationGroupId": {
+    "description": "",
+    "type": "string"
+  },
+  "parentId": {
+    "description": "",
+    "type": "string"
+  },
+  "deleted": {
+    "description": "",
+    "type": "boolean"
+  },
+  "deletedAt": {
+    "description": "",
+    "type": "string"
+  },
+  "deletedBy": {
+    "description": "",
+    "type": "string"
+  },
+  "notificationGroup": {
+    "description": "",
+    "type": "NotificationGroup"
+  },
+  "data": {
+    "description": "",
+    "type": "WorkflowResponseData"
+  },
+  "workflowIntegrationStatus": {
+    "description": "",
+    "type": "WorkflowIntegrationStatus"
+  }
+}} />
+
+### ChannelTypeEnum
+
+ChannelTypeEnum is the type of the channel that the notification was sent to.
+
+```typescript
+ChannelTypeEnum {
+  IN_APP = "in_app",
+  EMAIL = "email",
+  SMS = "sms",
+  CHAT = "chat",
+  PUSH = "push"
+}
+```

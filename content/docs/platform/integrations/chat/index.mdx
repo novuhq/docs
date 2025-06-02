@@ -70,7 +70,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 </Tab>
 </Tabs>
 
-Checkout the [API reference](/api-reference/subscribers/subscribers-v1-controller_update-subscriber-channel) for more details.
+Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
 
 <Callout type="info">
   Integration identifier is similar to Provider identifier but it is different than Provider Id. It
@@ -85,6 +85,6 @@ Common erros and reason of those errors while sending chat messages using Novu.
 - Subscriber does not have a configured channel
   - if the subscriber does not have credentials set up for any of the chat provider
 - Webhook URL for the chat channel is missing
-  - `webhookUrl` field is null, undefined or not set. Check using [get subscriber api](/api-reference/subscribers/subscribers-controller_get-subscriber)
+  - `webhookUrl` field is null, undefined or not set. Check using [get subscriber api](/api-reference/subscribers/retrieve-a-subscriber)
 - Subscriber does not have an active integration
   - if subscriber have credentials set but integration is either not active or deleted for this credential
