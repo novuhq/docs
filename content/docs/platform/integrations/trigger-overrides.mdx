@@ -1,13 +1,14 @@
 ---
 title: 'Trigger Overrides'
 description: 'Learn how to customize provider behavior using Trigger Overrides in Novu'
+icon: 'SlidersVertical'
 ---
 
-Trigger overrides allow you to modify the default behavior of specific aspects of a workflow trigger (event), giving you granular control over how messages are delivered across different channels and providers.
+Trigger overrides let's you to modify the default behavior of specific aspects of a workflow trigger (event), giving you fine-tuned control over how messages are delivered across different channels and providers.
 
 ## Provider overrides
 
-Provider overrides give you fine-grained control over how messages are delivered by allowing direct configuration of the underlying provider SDKs during the workflow's trigger phase.
+Provider overrides give you fine-tuned control over how messages are delivered by allowing direct configuration of the underlying provider SDKs during the workflow's trigger phase.
 
 This feature is designed for advanced use cases where Novu's default message editor or UI does not expose specific provider capabilities.
 
@@ -82,8 +83,8 @@ This configuration affects every step in the workflow that uses SendGrid, unless
 Step-level overrides let you apply provider-specific settings directly to an individual step in your workflow.
 
 Use step-level overrides when:
-- You want to send messages through the same provider, but with different settings for each step. For example, two steps use SendGrid, but each uses a different template ID.
-- You need to customize settings or payload only for a specific step, without affecting others in the workflow. For example, adding custom headers or overriding sender details for one Slack message step.
+- You want to send push notifications through the same provider, but with different settings for each step. For example, two steps use FCM, but each sends a different sound or title.
+- You need to customize the payload for a specific push step, such as platform-specific settings for Android and iOS, without affecting other steps.
 
 ```typescript
 import { Novu } from "@novu/api";
@@ -139,4 +140,7 @@ async function run() {
 run();
 
 ```
-In this example, only the `push-step` is affected, and only the FCM `title` is overridden for that step.
+
+<Callout>The `push-step` refers to the step identifier, which you can copy directly from your workflow in the Novu dashboard. Use this identifier to target the specific step you want to override. </Callout>
+
+In this example, only the `push-step` is affected, and multiple FCM-specific settings are overridden for that step, which are the notification title, body, and sound configurations for both Android and iOS platforms. 
