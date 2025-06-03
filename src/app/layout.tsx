@@ -14,6 +14,7 @@ import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
+import { InkeepScript } from '@/components/inkeep/inkeep-script';
 
 export const metadata = createMetadata({
   title: {
@@ -126,6 +127,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         )}
 
         <body className="flex flex-col min-h-screen">
+          <InkeepScript />
           <Provider>
             <TooltipProvider delayDuration={50}>
               <DocsLayout
