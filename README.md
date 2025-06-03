@@ -33,4 +33,55 @@ The notification platform that turns complex multi-channel delivery into a singl
 
 # Documentation
 
-Novu Docs
+## 🚀 Quick Start
+
+Built with [Fumadocs](https://fumadocs.vercel.app/) and [pnpm](https://pnpm.io/).
+
+**Prerequisites:** [Node.js](https://nodejs.org/) 20+ and [pnpm](https://pnpm.io/installation)
+
+```bash
+# Clone and setup
+git clone https://github.com/YOUR_USERNAME/docs.git
+cd docs
+pnpm install
+pnpm dev
+```
+
+Open [http://localhost:3010](http://localhost:3010) to view locally.
+
+**Scripts:**
+
+- `pnpm dev` - Development server
+- `pnpm build` - Production build
+- `pnpm lint` - Lint code
+
+## 🤝 Contributing
+
+1. **Make Changes**
+
+   ```bash
+   git checkout -b feature/your-fix
+   # Edit files
+   pnpm dev  # Test locally
+   git commit -m "docs: your changes"
+   git push origin feature/your-fix
+   ```
+
+2. **Create Pull Request**
+   - Go to [GitHub repo](https://github.com/novuhq/docs)
+   - Click "New Pull Request"
+   - Use descriptive title with `docs:`, `fix:`, or `feat:` prefix
+   - Include screenshots for visual changes
+
+**Guidelines:**
+
+- Write clear, concise documentation
+- Test code examples before submitting
+- Follow existing file structure
+- Is something missing in docs? create a new [github issue](https://github.com/novuhq/docs/issues)
+
+  **Need Help?** conatct us at support@novu.co or join [Discord](https://discord.novu.co).
+
+---
+
+Thank you for contributing! 🙏
