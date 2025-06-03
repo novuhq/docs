@@ -875,7 +875,7 @@ export const processTranscriptionRequest = task({
 // Type declaration for database operations (mock)
 const db = {
   transcriptions: {
-    create: async (id: string, results: any) => {
+    create: async (id: string, results: unknown) => {
       console.log(`Storing transcription results for ${id} in database`);
       return { id, created: new Date() };
     }
