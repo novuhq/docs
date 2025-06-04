@@ -4,46 +4,58 @@ description: 'Learn how Novu integrations connect you to third-party providers'
 icon: 'Blocks'
 ---
 
-In Novu, integrations are configured connections to third-party services that deliver notifications across supported channels which are Email, SMS, Push, and Chat.
+In Novu, integrations are configured connections to third-party services that deliver notifications across supported channels, which are email, SMS, push, and chat. The In-App channel is handled internally by Novu and does not require a third-party integration.
 
-Each integration connects Novu to a specific provider and workflows use these integrations to route notifications to the appropriate provider.
+Each integration links Novu to a provider, and workflows use these integrations to route notifications to the correct service.
 
-For example:
+<Callout type='info'>Each integration is scoped to a specific environment. You must create and configure separate integrations for each environment (for example, development, staging, production).</Callout>
 
-- An Email step in a workflow might use your configured SendGrid integration.
-- An SMS notification could be delivered via Twilio.
+## Providers vs. Integrations
 
-<Callout type='info'>The In-App channel is handled internally by Novu and does not require a third-party integration.</Callout>
+A provider is the third-party service (for example, SendGrid for email or Twilio for SMS), and an integration is a configured instance of that provider within Novu.
+
+- One provider can have multiple integrations.
+- Each integration has:
+  - A unique, editable identifier.
+  - An optional name, which is useful when you have multiple integrations from the same provider.
+
+Refer to this resource to see the full list of [provider IDs used in Novu](https://github.com/novuhq/novu/blob/26684f331c9c3ecf884f89f9e9b7fcb97d9ee2fb/packages/framework/src/shared.ts#L103).
+
+<Callout type='info'>Novu also lets you use [Trigger Overrides](/platform/workflows/trigger-overrides) to modify the default behavior of a message during workflow trigger, such as overriding the message title or payload. This works alongside integrations to fine-tune delivery behavior. </Callout>
 
 ## Primary and active integrations
 
-Each channel can support multiple providers, and you can configure one or more integrations per channel as needed. But only one integration per channel can be set as the primary. The primary integration is used by default whenever a workflow sends a message for that channel.
+Each environment can support multiple active integrations per channel, but only one can be marked as the primary integration for email and SMS channels. However, for push and chat channels, all active integrations are used in parallel to deliver messages. 
+
+The primary integration is used by default whenever a workflow sends a message for that channel.
 
 You can:
 - Set or change the primary integration via the dashboard or API.
-- Temporarily disable an integration, which will prevent Novu from using it for message delivery.
+- Disable an integration, which makes it inactive, meaning Novu will not use it for sending messages until it's re-enabled or replaced.
 
-<Callout>Disabling an integration does not delete it—but any messages relying on it will no longer be sent until it's re-enabled or replaced.</Callout>
+<Callout>If no active integration is available for a channel, Novu cannot send notifications for that channel. The corresponding workflow step will fail.</Callout>
 
 ## Integration credentials
-Each integration requires a set of credentials, such as API keys or tokens, to authenticate with the third-party provider. Novu encrypts these credentials before storing them securely in the database.
+
+Each integration requires a set of credentials, to authenticate with the third-party provider. Secret credentials such as API keys or tokens are encrypted at rest while non-secret fields such as sender name or from address are stored as plain text.
 
 When setting up an integration, you may also need to provide:
-- Sender information (for example, from address or phone number)
-- Webhook support details (if applicable)
-- Optional configuration settings depending on the provider
-
-Refer to the specific provider documentation for credential formats and required fields.
+- Sender information (for example, from address or phone number).
+- Webhook support details (if applicable).
+- Optional configuration settings depending on the provider.
 
 ## Integration store
 
-You can manage integrations directly from the [Integration Store](https://dashboard.novu.co/integrations) in the Novu dashboard. From there, you can:
+You can manage integrations directly from the [Integration Store](https://dashboard.novu.co/integrations) in the Novu dashboard. 
 
-- Add new integrations by providing credentials and configuration values
-- Set a primary integration per channel
-- Enable or disable integrations as needed
+From there, you can:
 
-All changes apply at the environment level, which lets you use different providers for each environment level.
+- Add new integrations by providing credentials and configuration values.
+- Set a primary integration per channel.
+- Enable or disable integrations as needed.
+- Delete an integration (this action is permanent).
+
+<Callout type='warn'>Workflow delivery will fail if you delete an integration that's still in use.</Callout>
 
 ## Available integrations
 
@@ -71,6 +83,8 @@ Novu supports a wide range of providers across different channels:
     href="/platform/integrations/chat"
   />
 </Cards>
+
+---
 
 ## Explore the integration API
 
