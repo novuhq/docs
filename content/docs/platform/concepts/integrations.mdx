@@ -6,7 +6,7 @@ icon: 'Blocks'
 
 In Novu, integrations are configured connections to third-party services that deliver notifications across supported channels, which are email, SMS, push, and chat. The In-App channel is handled internally by Novu and does not require a third-party integration.
 
-Each integration links Novu to a provider, and workflows use these integrations to route notifications to the correct service.
+Each integration connects Novu to a specific provider, which workflows use to deliver notifications over the selected channel.
 
 <Callout type='info'>Each integration is scoped to a specific environment. You must create and configure separate integrations for each environment (for example, development, staging, production).</Callout>
 
@@ -27,11 +27,11 @@ Refer to this resource to see the full list of [provider IDs used in Novu](https
 
 Each environment can support multiple active integrations per channel, but only one can be marked as the primary integration for email and SMS channels. However, for push and chat channels, all active integrations are used in parallel to deliver messages. 
 
-The primary integration is used by default whenever a workflow sends a message for that channel.
+The primary integration is used by default whenever a workflow sends a message for that channel .
 
 You can:
 - Set or change the primary integration via the dashboard or API.
-- Disable an integration, which makes it inactive, meaning Novu will not use it for sending messages until it's re-enabled or replaced.
+- Mark an integration as inactive, which means Novu will no longer use it to send messages until it is marked active again or replaced.
 
 <Callout>If no active integration is available for a channel, Novu cannot send notifications for that channel. The corresponding workflow step will fail.</Callout>
 
@@ -52,10 +52,8 @@ From there, you can:
 
 - Add new integrations by providing credentials and configuration values.
 - Set a primary integration per channel.
-- Enable or disable integrations as needed.
-- Delete an integration (this action is permanent).
-
-<Callout type='warn'>Workflow delivery will fail if you delete an integration that's still in use.</Callout>
+- Mark integrations as active or inactive as needed.
+- Delete an integration, but if it’s currently set as the primary integration, you’ll be prompted to select another active integration to take its place.
 
 ## Available integrations
 
