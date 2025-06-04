@@ -1,19 +1,23 @@
 'use client';
 
 import type { SharedProps } from 'fumadocs-ui/components/dialog/search';
-import { InkeepModalSearchAndChat, type InkeepModalSearchAndChatProps } from '@inkeep/cxkit-react';
-import { useEffect, useState } from 'react';
+import { InkeepSearchBarProps, InkeepModalSearch, InkeepSearchBar } from '@inkeep/cxkit-react';
+import { useCallback, useEffect, useState } from 'react';
 import { inkeepConfig } from './common';
 
-export default function CustomDialog(props: SharedProps) {
+export default function InkeepSearch() {
   const [syncTarget, setSyncTarget] = useState<HTMLElement | null>(null);
-  const { open, onOpenChange } = props;
+  const [open, setOpen] = useState(false);
   // We do this because document is not available in the server
   useEffect(() => {
     setSyncTarget(document.documentElement);
   }, []);
 
-  const config: InkeepModalSearchAndChatProps = {
+  const handleOpenChange = useCallback((newOpen: boolean) => {
+    setOpen(newOpen);
+  }, []);
+
+  const config: InkeepSearchBarProps = {
     baseSettings: {
       apiKey: process.env.NEXT_PUBLIC_INKEEP_API_KEY,
       primaryBrandColor: '#DD2450',
@@ -28,15 +32,18 @@ export default function CustomDialog(props: SharedProps) {
     },
     modalSettings: {
       isOpen: open,
-      onOpenChange,
+      onOpenChange: setOpen,
       ...inkeepConfig.modalSettings,
     },
     searchSettings: {
       ...inkeepConfig.searchSettings,
+      placeholder: 'Search anything',
     },
     aiChatSettings: {
       ...inkeepConfig.aiChatSettings,
     },
+    canToggleView: false,
+    defaultView: 'search',
   };
-  return <InkeepModalSearchAndChat {...config} />;
+  return <InkeepSearchBar {...config} />;
 }

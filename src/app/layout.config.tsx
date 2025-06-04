@@ -4,6 +4,8 @@ import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
 import { Button, buttonVariants } from '../components/ui/button';
 import { cn } from '../lib/utils';
+import InkeepSearch from '@/components/inkeep/search';
+import { InkeepAskAI } from '@/components/inkeep/chat';
 
 export const logo = (
   <>
@@ -29,7 +31,9 @@ export const baseOptions: BaseLayoutProps = {
     title: (
       <>
         {logo}
-        <span className="font-medium [.uwu_&]:hidden [header_&]:text-[15px]">Documentation</span>
+        <span className="font-medium [.uwu_&]:hidden [header_&]:text-[15px]">
+          Novu Documentation
+        </span>
       </>
     ),
     transparentMode: 'top',
@@ -65,6 +69,19 @@ export const baseOptions: BaseLayoutProps = {
       type: 'button',
       text: 'API Reference',
       active: 'nested-url',
+    },
+    {
+      type: 'custom',
+      children: (
+        <div className="flex items-center justify-center ml-20 gap-2">
+          <div className="w-100">
+            <InkeepSearch />
+          </div>
+          <div className="">
+            <InkeepAskAI />
+          </div>
+        </div>
+      ),
     },
     {
       type: 'custom',
