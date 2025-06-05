@@ -16,6 +16,7 @@ import Messages from '@/components/icons/footer/messages';
 import Sparkls from '@/components/icons/footer/sparkls';
 import Journey from '@/components/icons/footer/journey';
 import Docs from '@/components/icons/footer/docs';
+import Certificates from '@/components/footer/certificates';
 
 const CERTIFICATES = [
   {
@@ -115,25 +116,11 @@ const FOOTER_LINKS = [
 export const Footer = () => {
   return (
     <footer className="w-full border-t border-gray-10">
-      <div className="max-w-[1216px] container px-5 sm:px-11 sm:gap-x-5 flex flex-col-reverse sm:flex-row justify-between gap-y-10 mx-auto py-10">
+      <div className="max-w-[1216px] xl:px-0 container px-5 md:px-8 sm:gap-x-5 flex flex-col-reverse sm:flex-row justify-between gap-y-2 sm:gap-y-10 mx-auto py-10">
         <div className="flex flex-col justify-between gap-y-[66px]">
           <LogoLink className="hidden sm:flex" />
           <div>
-            <ul className="flex gap-[18px] flex-wrap">
-              {CERTIFICATES.map((certificate) => (
-                <li key={certificate.alt}>
-                  <Link href="https://trust.novu.co>">
-                    <Image
-                      className=""
-                      src={certificate.src}
-                      alt={certificate.alt}
-                      width={certificate.width}
-                      height={28}
-                    />
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <Certificates certs={CERTIFICATES} className="hidden sm:flex" />
             <div className="flex items-center gap-1.5 mt-10">
               <div className="w-1.5 h-1.5 bg-[#22C358] rounded-full" />
               <p className="text-sm leading-snug tracking-[-0.02em] text-gray-4">
@@ -150,7 +137,7 @@ export const Footer = () => {
         </div>
         <div className="flex flex-col gap-10">
           <LogoLink className="flex sm:hidden" />
-          <Socials socials={SOCIALS} className="flex sm:hidden" />
+          <Certificates certs={CERTIFICATES} className="sm:hidden flex" />
           <ul className="min-w-72 flex flex-col gap-y-5">
             {FOOTER_LINKS.map(({ icon: Icon, link, mainText }) => {
               return (
@@ -170,7 +157,7 @@ export const Footer = () => {
               );
             })}
           </ul>
-          <Socials socials={SOCIALS} className="hidden sm:flex" />
+          <Socials socials={SOCIALS} className="flex" />
         </div>
       </div>
     </footer>
