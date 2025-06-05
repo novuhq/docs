@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { InkeepChatButton, type InkeepChatButtonProps } from '@inkeep/cxkit-react';
+import { InkeepModalChat, type InkeepModalChatProps } from '@inkeep/cxkit-react';
 import { inkeepConfig } from './common';
 
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,7 @@ export function InkeepAskAI() {
     setOpen(newOpen);
   }, []);
 
-  const config: InkeepChatButtonProps = {
+  const config: InkeepModalChatProps = {
     baseSettings: {
       ...inkeepConfig.baseSettings,
       apiKey: process.env.NEXT_PUBLIC_INKEEP_API_KEY,
@@ -55,17 +55,14 @@ export function InkeepAskAI() {
         },
       ],
     },
-    canToggleView: false,
-    defaultView: 'chat',
   };
 
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="m-0.5">
       <Button onClick={() => handleOpenChange(true)}>
-        Ask AI <SparklesIcon className="w-4 h-4" />
+        <SparklesIcon className="w-6 h-6" />
       </Button>
-
-      <InkeepChatButton {...config} />
+      <InkeepModalChat {...config} />
     </div>
   );
 }

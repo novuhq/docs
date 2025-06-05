@@ -14,7 +14,8 @@ import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
-// import { InkeepScript } from '@/components/inkeep/inkeep-script';
+import { InkeepAskAI } from '@/components/inkeep/chat';
+import InkeepSearch from '@/components/inkeep/search';
 
 export const metadata = createMetadata({
   title: {
@@ -127,15 +128,21 @@ export default function Layout({ children }: { children: ReactNode }) {
         )}
 
         <body className="flex flex-col min-h-screen">
-          {/* <InkeepScript /> */}
           <Provider>
             <TooltipProvider delayDuration={50}>
               <DocsLayout
+                tabMode="sidebar"
                 tree={source.pageTree}
                 {...baseOptions}
                 sidebar={{
                   collapsible: true,
                   tabs: false,
+                  banner: (
+                    <div className="flex gap-2 items-stretch mt-2 mb-2">
+                      <InkeepSearch />
+                      <InkeepAskAI />
+                    </div>
+                  ),
                   footer: (
                     <div className="flex gap-2 justify-start w-full">
                       <div className="ml-auto">

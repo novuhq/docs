@@ -37,13 +37,17 @@ export default function InkeepSearch() {
     },
     searchSettings: {
       ...inkeepConfig.searchSettings,
-      placeholder: 'Search anything',
+      placeholder: 'Search docs',
     },
     aiChatSettings: {
       ...inkeepConfig.aiChatSettings,
     },
-    canToggleView: false,
+    canToggleView: true,
     defaultView: 'search',
   };
-  return <InkeepSearchBar {...config} />;
+  return (
+    <div className="h-8 align-self-stretch flex-1">
+      <InkeepSearchBar {...config} />
+    </div>
+  );
 }
