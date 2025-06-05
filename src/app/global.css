@@ -13,11 +13,19 @@
     @apply !px-5 md:!px-8;
   }
 
-  @media (max-width: 768px) {
-    aside {
-      background-color: var(--color-fd-background) !important;
-    }
+  aside {
+    background-color: var(--sidebar) !important;
   }
+
+  header {
+    background-color: var(--sidebar) !important;
+  }
+
+  /* @media (max-width: 768px) {
+      aside {
+        background-color: var(--color-fd-background) !important;
+      }
+    } */
 
   header div[data-theme-toggle] {
     display: none !important;
@@ -122,6 +130,7 @@
   --ring: 222.2 84% 4.9%;
 
   --radius: 0.5rem;
+  --sidebar: hsl(0, 0%, 100%);
 }
 
 .dark {
@@ -155,6 +164,7 @@
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 212.7 26.8% 83.9%;
+  --sidebar: hsl(222.2 84% 4.9%);
 }
 
 .uwu {

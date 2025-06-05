@@ -13,7 +13,7 @@ const CardWithImage = ({
   link: string;
 }) => {
   return (
-    <Link className="flex flex-col w-full gap-4 group" href={link} target="_blank">
+    <Link className="flex flex-col w-full gap-4 group" href={link}>
       <div className="relative rounded-lg overflow-hidden">
         <Image
           className="object-cover object-center rounded-lg w-full h-auto"

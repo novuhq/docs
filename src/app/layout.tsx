@@ -10,13 +10,14 @@ import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
-import { ThemeToggle } from '../components/theme-toggle';
+// import { ThemeToggle } from '../components/theme-toggle';
 import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
 import { LargeSearchToggle, SearchToggle } from 'fumadocs-ui/components/layout/search-toggle';
 import { Footer } from '@/components/footer/footer';
+// import { CustomSidebar } from '@/components/ui/custom-sidebar';
 
 export const metadata = createMetadata({
   title: {
@@ -141,12 +142,12 @@ export default function Layout({ children }: { children: ReactNode }) {
                     // enabled: true,
                     // component: <CustomSidebar />,
                     banner: <LargeSearchToggle className="hidden md:flex mt-2 rounded-lg" />,
-                    footer: (
-                      <div className="flex gap-2 justify-between w-full items-center">
-                        <span className="text-sm text-[#666666] dark:text-[#999999]">Theme</span>
-                        <ThemeToggle />
-                      </div>
-                    ),
+                    // footer: (
+                    //   <div className="flex gap-2 justify-between w-full items-center">
+                    //     <span className="text-sm text-[#666666] dark:text-[#999999]">Theme</span>
+                    //     <ThemeToggle />
+                    //   </div>
+                    // ),
                   }}
                   searchToggle={{
                     enabled: true,

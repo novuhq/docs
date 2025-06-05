@@ -24,8 +24,10 @@ import { Inter } from 'next/font/google';
 import mainIcon from '@/images/pages/home-page/main-icon.png';
 import mainIconDark from '@/images/pages/home-page/main-icon-dark.png';
 import { ArrowRightIcon } from '@/components/icons/home-page/arrow-right';
-import authImage from '@/images/pages/home-page/concepts/auth.jpg';
-import organizationsImage from '@/images/pages/home-page/concepts/organizations.jpg';
+import workflowsImage from '@/images/pages/home-page/concepts/workflows.jpg';
+import notificationsImage from '@/images/pages/home-page/concepts/notification.jpg';
+import topicsImage from '@/images/pages/home-page/concepts/topics.jpg';
+import subscribersImage from '@/images/pages/home-page/concepts/subscribers.jpg';
 
 import authorFirstImage from '@/images/pages/home-page/guides/author-1.jpg';
 import authorSecondImage from '@/images/pages/home-page/guides/author-2.jpg';
@@ -70,32 +72,31 @@ const getStartedCards = [
 
 const concepts = [
   {
-    image: authImage,
-    title: 'What is Novu authorization?',
-    description:
-      'Novu supports multiple authentication strategies so that you can implement the strategy that makes sense for your users.',
-    link: '/',
+    image: workflowsImage,
+    title: 'Workflows',
+    description: 'Learn what workflows are and how they work in Novu',
+    link: '/platform/concepts/workflows',
   },
   {
-    image: organizationsImage,
-    title: 'How do organizations work?',
+    image: notificationsImage,
+    title: 'Notifications',
     description:
-      'Novu is an open-source Inbox infrastructure, that allows you to easily add numerous Notification capabilities to your application across multiple channels.',
-    link: '/',
+      'Learn about the Novu notifications lifecycle and the key entities that make up a notification.',
+    link: '/platform/concepts/notifications',
   },
   {
-    image: organizationsImage,
-    title: 'How do organizations work?',
+    image: subscribersImage,
+    title: 'Subscribers',
     description:
-      'Novu is an open-source Inbox infrastructure, that allows you to easily add numerous Notification capabilities to your application across multiple channels.',
-    link: '/',
+      'Learn what a subscriber is in Novu, how they’re identified, and how they fit into the notification system.',
+    link: '/platform/concepts/subscribers',
   },
   {
-    image: authImage,
-    title: 'What is Novu authorization?',
+    image: topicsImage,
+    title: 'Topics',
     description:
-      'Novu supports multiple authentication strategies so that you can implement the strategy that makes sense for your users.',
-    link: '/',
+      'Learn how topics work in Novu and how they help you organize and target groups of subscribers efficiently.',
+    link: '/platform/concepts/topics',
   },
 ];
 
@@ -301,10 +302,10 @@ export function IndexPage() {
             <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
               Learn the concepts
             </h2>
-            <Link href="/" target="_blank">
+            {/* <Link href="/" target="_blank">
               See all concepts
               <ArrowRightIcon className="w-4 h-4" />
-            </Link>
+            </Link> */}
           </header>
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-8 md:mt-7 md:grid-cols-2 md:gap-y-7">
             {concepts.map((concept, index) => (
@@ -355,7 +356,7 @@ export function IndexPage() {
                         {title}
                       </h3>
                     </div>
-                    {authors && (
+                    {/* {authors && (
                       <div className="flex items-center">
                         {authors.map(({ image, alt }, index) => (
                           <Image
@@ -375,7 +376,7 @@ export function IndexPage() {
                           />
                         ))}
                       </div>
-                    )}
+                    )} */}
                   </NextLink>
                 </li>
               );
