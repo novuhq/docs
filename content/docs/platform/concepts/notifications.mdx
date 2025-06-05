@@ -13,7 +13,7 @@ Notifications represent the complete journey of a message triggered by an event 
 A notification doesn't exist in isolation, it’s the result of a sequence of interconnected entities working together. Here’s how it works in Novu:
 
 <img
-  src="/images/notification-life-cycle.png"
+  src="/images/concepts/notifications/notification-life-cycle.png"
   alt="Notification lifecycle"
   className="rounded-lg border w-[800px]"
 />
@@ -43,20 +43,24 @@ The workflow is where message personalization, conditional logic, and multi-chan
 
 ### Notification
 
-Once the workflow starts executing, Novu creates a notification for each subscriber involved. This notification acts as the central entity tracking everything that happens—every job, every message, every delivery status. It includes:
+Once the workflow starts executing, Novu creates a notification for each subscriber involved. This notification acts as the central entity tracking everything that happens - every job, message, and delivery status. It includes:
 
 - The subscriber details
-- The workflow run and template used
+- The workflow (template) used
 - The event payload
 - Jobs executed
 - Messages generated
-- Status updates and errors
+- Delivery status updates and errors
 
 Think of it as the container for all activity triggered by a single event for a single user.
 
+<Callout>
+  In simpler terms, when a workflow is triggered to a subscriber, it creates an event. One event is one notification.
+</Callout>
+
 ### Message
 
-Each step in the workflow results in one or more messages. These are the actual pieces of content sent to users' emails, push notifications, SMS, and in-app alerts.
+Each channel step in the workflow results in one or more messages. These are the actual pieces of content sent to users' emails, push notifications, SMS, and in-app alerts.
 
 Messages are live entities, tracked in real-time, with full visibility into:
 
@@ -65,7 +69,7 @@ Messages are live entities, tracked in real-time, with full visibility into:
 - Delivery status
 - Provider responses or errors
 
-<Callout>Each message has its own ID and status, and you can query it via the [Message API](/api-reference/messages/list-all-messages).</Callout>
+<Callout>Each message has a unique ID and status, learn more about this in the [Messages API](/api-reference/messages/message-schema).</Callout>
 
 ## Notification structure
 
@@ -85,4 +89,14 @@ Each notification encapsulates a set of properties that describe its creation, c
 | `messages`      | The individual messages generated for each channel. Contains delivery status, content, and provider response.                               |
 | `status`        | The current execution state of the notification (`pending`, `completed`, `failed`, and so on).                                                   |
 
-These fields are accessible via the [Notifications API](/api-reference/notifications/list-all-events) and are also displayed in the Novu dashboard’s Activity Feed for visual traceability.
+These fields are accessible via the [Notifications API](/api-reference/notifications/list-all-events) and are also displayed in the Novu dashboard’s [Activity Feed](https://dashboard.novu.co/activity-feed) for visual traceability.
+
+
+## Frequently asked questions
+
+### What is the difference between a notification and an event?
+
+A notification is the result of an event. An event is the trigger of a workflow to a subscriber that causes a notification to be created.
+
+### What is the difference between a notification and a message?
+One notification event can have multiple messages as per the workflow configuration. Messages are the actual "notification message" to the end user.
