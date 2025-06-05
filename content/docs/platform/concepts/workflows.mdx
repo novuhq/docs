@@ -159,21 +159,19 @@ When you trigger a workflow, you send event data, including subscriber informati
 
 Behind the scenes, Novu manages the full lifecycle: subscriber validation, workflow matching, attachment uploads (if applicable), queuing, job execution, retries, and status tracking.
 
-To learn more about triggering workflows via API, handling payloads, and understanding the request lifecycle, refer to the [Triggering Workflows documentation](/platform/concepts/trigger).
+To learn more about triggering workflows via API, handling payloads, and understanding the request lifecycle, refer to [Triggering Workflows](/platform/concepts/trigger).
 
 ## Workflow activity feed
 
 After a workflow is triggered, Novu tracks the full execution process in the [Activity Feed](https://dashboard.novu.co/activity-feed). The feed gives you real-time visibility into each step, helping you debug issues, trace delivery problems, and understand how notifications behave in production. Each environment has its separate feed.
 
-You can filter the **Activity Feed** by workflow name, channel type, time period, or transaction ID to easily find and inspect specific executions.
-
-To learn more about using the Activity Feed, step logs, and error tracing, refer to the Activity Feed documentation.
+You can filter the Activity Feed by workflow name, channel type, time period, or transaction ID to easily find and inspect specific workflow executions.
 
 ## Workflow channel preferences
 
 When setting up a workflow, you can define channel preferences that determine how notifications are delivered to subscribers. In the Novu dashboard, you can set default preferences for each workflow, specifying which channels, such as email, in-app, SMS, or push, should be used by default during notification delivery.
 
-These defaults ensure that subscribers receive messages through the most appropriate channels, even if they haven’t customized their own preferences. Read more about [channel preferences](/platform/concepts/preferences).
+These defaults ensure that subscribers receive messages through the most appropriate channels, even if they haven’t customized their own preferences. To learn more about channel preferences, refer to [preferences](/platform/concepts/preferences).
 
 ## Workflow step conditions
 
@@ -184,6 +182,7 @@ Conditions can be based on subscriber fields, payload data, or the results of pr
 To learn more about all supported condition types, operators, and usage example, refer to the [Step Conditions documentation](/platform/workflow/step-conditions).
 
 ## Frequently asked questions
+These are some of the most frequently asked questions about workflows in Novu.
 
 ### Do I have to create a workflow to send notifications?
 
@@ -195,7 +194,7 @@ No, without workflows, notification messages cannot be sent.
 
 ### Can workflows be created and managed via code?
 
-Yes, workflows can be managed via code. If you are using Node.js, then you can use the [Novu Framework](/framework/quickstart/nextjs).
+Yes, workflows can be managed via code, if you are using Node.js, you can use the [Novu Framework](/framework/introduction)
 
 ### Can all workflows be synced at once to another environment?
 
