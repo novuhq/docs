@@ -107,7 +107,7 @@ export const Footer = () => {
                     {mainText}{' '}
                     <Link
                       href={link.href}
-                      className="text-blue-600 dark:text-[#00D5FF] hover:opacity-90"
+                      className="text-[#4B73EC] dark:text-[#00D5FF] hover:text-[#809FFF] dark:hover:text-[#80EAFF]"
                       target={link.target || '_blank'}
                     >
                       {link.text}

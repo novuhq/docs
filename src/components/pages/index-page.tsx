@@ -102,9 +102,9 @@ const concepts = [
 
 const guides = [
   {
-    category: 'Get started',
+    category: 'Integration',
     timeToRead: 8,
-    title: 'Sign-up & sign-in overview',
+    title: 'Novu and Clerk integration guide',
     authors: [
       {
         image: authorFirstImage,
@@ -115,21 +115,24 @@ const guides = [
         alt: 'Author name',
       },
     ],
+    link: '/guides/webhooks/clerk',
   },
   {
-    category: 'Routing',
+    category: 'Integration',
     timeToRead: 12,
-    title: 'Enable organizations in your application',
+    title: 'Novu and Stripe integration guide',
+    link: '/guides/webhooks/stripe',
   },
   {
-    category: 'API reference',
+    category: 'Integration',
     timeToRead: 5,
-    title: 'Connect with databases',
+    title: 'Integrate Segment with Novu',
+    link: '/guides/webhooks/segment',
   },
   {
-    category: 'Architecture',
+    category: 'Integration',
     timeToRead: 9,
-    title: 'Manage users in your app',
+    title: 'Novu and Inngest integration guide',
     authors: [
       {
         image: authorThirdImage,
@@ -140,6 +143,7 @@ const guides = [
         alt: 'Author name',
       },
     ],
+    link: 'https://docs.novu.co/guides/inngest',
   },
 ];
 
@@ -325,19 +329,18 @@ export function IndexPage() {
             <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
               Explore guides
             </h2>
-            <Link href="/" target="_blank">
+            <Link href="/guides/overview">
               See all guides
               <ArrowRightIcon className="w-4 h-4" />
             </Link>
           </header>
           <ul className="flex flex-col mt-6 border border-[#E6E6E6] rounded-lg divide-y divide-[#E6E6E6] dark:border-[#262626] dark:divide-[#262626] transition-colors md:mt-7">
-            {guides.map(({ category, timeToRead, authors, title }, index) => {
+            {guides.map(({ category, timeToRead, authors, title, link }, index) => {
               return (
                 <li className="transition-colors group" key={index}>
                   <NextLink
                     className="relative w-full flex justify-between gap-x-6 p-4 hover:bg-[#FAFAFA] dark:hover:bg-[#0D0D0D] transition-colors group-first:rounded-t-lg group-last:rounded-b-lg"
-                    href="/"
-                    target="_blank"
+                    href={link}
                   >
                     <div>
                       <div className="flex items-center gap-x-2">
