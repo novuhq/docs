@@ -6,6 +6,7 @@ import { inkeepConfig } from './common';
 
 import { Button } from '@/components/ui/button';
 import { Sparkles as SparklesIcon } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip';
 
 export function InkeepAskAI() {
   const [open, setOpen] = useState(false);
@@ -58,11 +59,16 @@ export function InkeepAskAI() {
   };
 
   return (
-    <div className="m-0.5">
-      <Button onClick={() => handleOpenChange(true)}>
-        <SparklesIcon className="w-6 h-6" />
-      </Button>
-      <InkeepModalChat {...config} />
-    </div>
+    <Tooltip>
+      <TooltipTrigger>
+        <div className="mt-1 border-2 p-2 rounded-md">
+          <SparklesIcon className="w-4 h-4" onClick={() => handleOpenChange(true)} />
+          <InkeepModalChat {...config} />
+        </div>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>Ask AI assistant to help you find what you need</p>
+      </TooltipContent>
+    </Tooltip>
   );
 }

@@ -138,7 +138,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                   collapsible: true,
                   tabs: false,
                   banner: (
-                    <div className="flex gap-2 items-stretch mt-2 mb-2">
+                    <div className="flex gap-2 items-center mt-2 mb-2 w-full">
                       <InkeepSearch />
                       <InkeepAskAI />
                     </div>
