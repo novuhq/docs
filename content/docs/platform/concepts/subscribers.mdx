@@ -183,13 +183,13 @@ Subscriber preferences and metadata personalization ensure that each subscriber 
 
 ### Can two subscribers have the same email address?
 
-Yes, two subscribers can have the same email address, phone number, or any other attributes. However, they must have a different and unique `subscriberId`.
+Yes, two subscribers can have the same email address, phone number, or any other attributes. However, each subscriber must have a unique subscriberId
 
 ### Is it necessary to use subscriberId as same as system userId?
 
-No, it is not necessary to use `subscriberId` as same as system userId. You can use any unique id as subscriberId. We recommend using userId as subscriberId to avoid any confusion. Some of our customers use a pattern like `auth0|userId` as a value for `subscriberId`. 
+No, not necessary to use the same subscriberId as the system userId. You can use any unique id as subscriberId. We recommend using userId as subscriberId to avoid any confusion. Some of our customers use a pattern like `auth0|userId` as a value for `subscriberId`. 
 
-### Can notification be sent without adding a Subscriber?
+### Can a notification be sent without adding a Subscriber?
 
 No, a notification cannot be sent without adding a subscriber. A subscriber is an entity to which notification messages are sent. You need to add a subscriber to Novu ahead of triggering the workflow just in time.
 
@@ -198,5 +198,5 @@ No, a notification cannot be sent without adding a subscriber. A subscriber is a
 To migrate millions of users to Novu, we recommend using the [Bulk Create Subscribers](/api-reference/subscribers/bulk-create-subscribers) API endpoint. This endpoint allows you to create multiple subscribers in bulk.
 
 
-### Can Subscriber credentials for chat and push channels be added while creating a new Subscriber?
+### Can subscriber credentials for chat and push channels be added when creating a new subscriber?
 Subscriber credentials for Push and Chat channel providers can be added while creating a new subscriber using `channels` field in [create subscriber](/api-reference/subscribers/create-subscriber) request paylaod.
