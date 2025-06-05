@@ -13,7 +13,7 @@ const Certificates = ({
     <ul className={clsx('gap-[18px] flex-wrap', className)}>
       {certs.map((certificate) => (
         <li key={certificate.alt}>
-          <Link href="https://trust.novu.co>">
+          <Link href="https://trust.novu.co" target="_blank">
             <Image
               src={certificate.src}
               alt={certificate.alt}
