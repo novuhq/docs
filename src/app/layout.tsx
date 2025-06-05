@@ -16,6 +16,7 @@ import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
 import { LargeSearchToggle, SearchToggle } from 'fumadocs-ui/components/layout/search-toggle';
+import { Footer } from '@/components/footer/footer';
 
 export const metadata = createMetadata({
   title: {
@@ -130,33 +131,36 @@ export default function Layout({ children }: { children: ReactNode }) {
         <body className="flex flex-col min-h-screen">
           <Provider>
             <TooltipProvider delayDuration={50}>
-              <DocsLayout
-                tree={source.pageTree}
-                {...baseOptions}
-                sidebar={{
-                  collapsible: true,
-                  tabs: false,
-                  // enabled: true,
-                  // component: <CustomSidebar />,
-                  banner: <LargeSearchToggle className="hidden md:flex mt-2 rounded-lg" />,
-                  footer: (
-                    <div className="flex gap-2 justify-between w-full items-center">
-                      <span className="text-sm text-[#666666] dark:text-[#999999]">Theme</span>
-                      <ThemeToggle />
-                    </div>
-                  ),
-                }}
-                searchToggle={{
-                  enabled: true,
-                  components: {
-                    sm: <SearchToggle className="md:hidden" />,
-                    lg: null,
-                  },
-                }}
-              >
-                <AnalyticsProvider />
-                {children}
-              </DocsLayout>
+              <div className="flex-grow flex flex-col">
+                <DocsLayout
+                  tree={source.pageTree}
+                  {...baseOptions}
+                  sidebar={{
+                    collapsible: true,
+                    tabs: false,
+                    // enabled: true,
+                    // component: <CustomSidebar />,
+                    banner: <LargeSearchToggle className="hidden md:flex mt-2 rounded-lg" />,
+                    footer: (
+                      <div className="flex gap-2 justify-between w-full items-center">
+                        <span className="text-sm text-[#666666] dark:text-[#999999]">Theme</span>
+                        <ThemeToggle />
+                      </div>
+                    ),
+                  }}
+                  searchToggle={{
+                    enabled: true,
+                    components: {
+                      sm: <SearchToggle className="md:hidden" />,
+                      lg: null,
+                    },
+                  }}
+                >
+                  <AnalyticsProvider />
+                  {children}
+                </DocsLayout>
+              </div>
+              <Footer />
             </TooltipProvider>
           </Provider>
         </body>
