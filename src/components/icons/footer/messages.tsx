@@ -6,12 +6,14 @@ const Messages = () => {
         stroke="#333333"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
       <path
         d="M14.9987 5.00781V11.0078C14.9987 11.7445 14.402 12.3411 13.6654 12.3411H12.9987V15.0078L9.66536 12.3411H8.33203"
         stroke="#333333"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
     </svg>
   );

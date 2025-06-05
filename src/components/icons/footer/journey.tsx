@@ -7,6 +7,7 @@ const Journey = () => {
         stroke-width="0.970149"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
       <path
         d="M13.054 5.38139C14.033 5.38139 14.8267 4.58772 14.8267 3.60866C14.8267 2.62961 14.033 1.83594 13.054 1.83594C12.0749 1.83594 11.2812 2.62961 11.2812 3.60866C11.2812 4.58772 12.0749 5.38139 13.054 5.38139Z"
@@ -14,6 +15,7 @@ const Journey = () => {
         stroke-width="0.970149"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
       <path
         d="M3.59695 14.8345C4.576 14.8345 5.36967 14.0408 5.36967 13.0618C5.36967 12.0827 4.576 11.2891 3.59695 11.2891C2.6179 11.2891 1.82422 12.0827 1.82422 13.0618C1.82422 14.0408 2.6179 14.8345 3.59695 14.8345Z"
@@ -21,6 +23,7 @@ const Journey = () => {
         stroke-width="0.970149"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
     </svg>
   );

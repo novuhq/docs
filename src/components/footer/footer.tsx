@@ -1,14 +1,4 @@
-import Image from 'next/image';
-import certificateAicpa from '@/components/icons/footer/certificate-aicpa.svg';
-import certificateGDPR from '@/components/icons/footer/certificate-gdpr.svg';
-import certificateHIPAA from '@/components/icons/footer/certificate-hipaa.svg';
-import certificateISO from '@/components/icons/footer/certificate-iso.svg';
-import certificateOSS from '@/components/icons/footer/certificate-oss.svg';
 import Link from 'next/link';
-import githubIcon from '@/components/icons/footer/gh.svg';
-// import vscodeIcon from '@/components/icons/footer/vscode.svg';
-import xIcon from '@/components/icons/footer/x.svg';
-import discordIcon from '@/components/icons/footer/discord.svg';
 import Socials from '@/components/footer/socials';
 import LogoLink from '@/components/footer/logo-link';
 import Circle from '@/components/icons/footer/circle';
@@ -17,56 +7,26 @@ import Sparkls from '@/components/icons/footer/sparkls';
 import Journey from '@/components/icons/footer/journey';
 import Docs from '@/components/icons/footer/docs';
 import Certificates from '@/components/footer/certificates';
-
-const CERTIFICATES = [
-  {
-    src: certificateISO,
-    alt: 'Certificate ISO27001',
-    width: 24,
-  },
-  {
-    src: certificateAicpa,
-    alt: 'Certificate Aicpa',
-    width: 28,
-  },
-  {
-    src: certificateGDPR,
-    alt: 'Certificate GDPR',
-    width: 28,
-  },
-  {
-    src: certificateHIPAA,
-    alt: 'Certificate HIPAA',
-    width: 51,
-  },
-  {
-    src: certificateOSS,
-    alt: 'Certificate OSS',
-    width: 49,
-  },
-];
+import GhIcon from '@/components/icons/footer/gh';
+import XIcon from '@/components/icons/footer/x';
+import DiscordIcon from '@/components/icons/footer/discord';
 
 const SOCIALS = [
   {
     name: 'Twitter',
     href: 'https://x.com/novuhq',
-    icon: xIcon,
+    icon: XIcon,
   },
   {
     name: 'GitHub',
     href: 'https://github.com/novuhq/novu',
-    icon: githubIcon,
+    icon: GhIcon,
   },
   {
     name: 'Discord',
     href: 'https://discord.gg/novu',
-    icon: discordIcon,
+    icon: DiscordIcon,
   },
-  // {
-  //   name: 'VSCode',
-  //   href: 'https://www.linkedin.com/company/novu',
-  //   icon: vscodeIcon,
-  // },
 ];
 
 const FOOTER_LINKS = [
@@ -105,7 +65,7 @@ const FOOTER_LINKS = [
   {
     icon: Sparkls,
     link: {
-      href: '/',
+      href: 'https://docs.novu.co/llms.txt',
       text: 'Read llms.txt',
       target: '_self',
     },
@@ -115,19 +75,19 @@ const FOOTER_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="w-full border-t border-gray-10">
+    <footer className="w-full border-t border-[#E6E6E6] dark:border-[#1A1A1A] dark:bg-[#0D0D0D33]">
       <div className="max-w-[1216px] xl:px-0 container px-5 md:px-8 sm:gap-x-5 flex flex-col-reverse sm:flex-row justify-between gap-y-2 sm:gap-y-10 mx-auto py-10">
         <div className="flex flex-col justify-between gap-y-[66px]">
           <LogoLink className="hidden sm:flex" />
           <div>
-            <Certificates certs={CERTIFICATES} className="hidden sm:flex" />
+            <Certificates className="hidden sm:flex" />
             <div className="flex items-center gap-1.5 mt-10">
               <div className="w-1.5 h-1.5 bg-[#22C358] rounded-full" />
-              <p className="text-sm leading-snug tracking-[-0.02em] text-gray-4">
+              <p className="text-sm leading-snug tracking-[-0.02em] text-[#333333] dark:text-[#E6E6E6]">
                 All systems operational
               </p>
             </div>
-            <div className="mt-3.5 text-gray-4 flex items-center gap-1.5">
+            <div className="mt-3.5 text-[#333333] dark:text-[#cccccc] flex items-center gap-1.5">
               <span className="text-[16px]">Ⓒ</span>
               <span className="text-[14px] leading-snug tracking-[-0.02em]">
                 {new Date().getFullYear()} Novu
@@ -137,17 +97,17 @@ export const Footer = () => {
         </div>
         <div className="flex flex-col gap-10">
           <LogoLink className="flex sm:hidden" />
-          <Certificates certs={CERTIFICATES} className="sm:hidden flex" />
+          <Certificates className="sm:hidden flex" />
           <ul className="min-w-72 flex flex-col gap-y-5">
             {FOOTER_LINKS.map(({ icon: Icon, link, mainText }) => {
               return (
                 <li key={link.href} className="flex items-start gap-x-2">
                   <Icon />
-                  <span className="text-[15px] leading-none tracking-[-0.02em]">
+                  <span className="text-[15px] text-[#333333] dark:text-[#E6E6E6] leading-none tracking-[-0.02em]">
                     {mainText}{' '}
                     <Link
                       href={link.href}
-                      className="text-blue-600 hover:opacity-90"
+                      className="text-blue-600 dark:text-[#00D5FF] hover:opacity-90"
                       target={link.target || '_blank'}
                     >
                       {link.text}

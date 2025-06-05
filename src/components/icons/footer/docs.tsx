@@ -6,24 +6,28 @@ const Docs = () => {
         stroke="#333333"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
       <path
         d="M3 6.33854H7.66667V1.67188"
         stroke="#333333"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
       <path
         d="M5.66797 11.6719H11.0013"
         stroke="#333333"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
       <path
         d="M5.66797 9.00781H7.66797"
         stroke="#333333"
         stroke-linecap="round"
         stroke-linejoin="round"
+        className="dark:stroke-[#E6E6E6]"
       />
     </svg>
   );

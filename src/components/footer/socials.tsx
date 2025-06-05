@@ -1,11 +1,10 @@
 import Link from 'next/link';
 import clsx from 'clsx';
-import Image from 'next/image';
 
 type Social = {
   name: string;
   href: string;
-  icon: string;
+  icon: React.ComponentType<{ className: string }>;
 };
 
 const Socials = ({
@@ -17,7 +16,7 @@ const Socials = ({
 }) => {
   return (
     <ul className={clsx('items-center gap-x-5', className)}>
-      {socials.map(({ name, href, icon }, index) => (
+      {socials.map(({ name, href, icon: Icon }, index) => (
         <li key={index}>
           <Link
             className="flex items-center justify-center"
@@ -27,13 +26,7 @@ const Socials = ({
             rel="noopener noreferrer"
           >
             <span className="sr-only">{name}</span>
-            <Image
-              className="shrink-0 transition-opacity duration-200"
-              src={icon}
-              alt={name}
-              width={20}
-              height={20}
-            />
+            <Icon className="w-5" />
           </Link>
         </li>
       ))}
