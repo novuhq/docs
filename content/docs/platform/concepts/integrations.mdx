@@ -19,7 +19,7 @@ A provider is the third-party service (for example, SendGrid for email or Twilio
   - A unique, editable identifier.
   - An optional name, which is useful when you have multiple integrations from the same provider. Novu uses the provider ID as the default name. it is recommended to change the default name if you have multiple integrations from the same provider.
 
-Refer to this resource to see the full list of [provider IDs used in Novu](https://github.com/novuhq/novu/blob/26684f331c9c3ecf884f89f9e9b7fcb97d9ee2fb/packages/framework/src/shared.ts#L103).
+Refer to this resource to see the full list of [provider IDs used in Novu](https://github.com/novuhq/novu/blob/next/packages/framework/src/shared.ts#L103).
 
 <Callout type='info'>Novu also lets you use [Trigger Overrides](/platform/workflows/trigger-overrides) to modify the default behavior of a message during workflow trigger, such as overriding the notification title or content, using different integration that primary integration. This works alongside integrations to fine-tune delivery behavior. </Callout>
 
@@ -33,11 +33,11 @@ You can:
 - Set or change the primary integration via the dashboard or API.
 - Mark an integration as inactive, which means Novu will no longer use it to send messages until it is marked active again.
 
-<Callout>If no active integration is available for a sms or email channel, Novu cannot send notifications for email and sms channels. The corresponding workflow channel step will fail.</Callout>
+<Callout type="warning">If no active integration is available for a sms or email channel, Novu cannot send notifications for email and sms channels. The corresponding workflow channel step will fail.</Callout>
 
 ## Integration credentials
 
-Each integration requires a set of credentials, to authenticate with the third-party provider. Secret credentials such as API keys or tokens are encrypted at rest while non-secret fields such as sender name or from address are stored as plain text.
+Each integration requires a set of credentials to authenticate with the third-party provider. Secret credentials, such as API keys or tokens, are encrypted at rest, while non-secret fields, such as the sender name or from address, are stored as plain text.
 
 When setting up an integration, you may need to provide:
 - Sender information (for example, from email address, sender name).
@@ -83,8 +83,6 @@ Novu supports a wide range of providers across different channels:
     href="/platform/integrations/chat"
   />
 </Cards>
-
----
 
 ## Explore the integration API
 
