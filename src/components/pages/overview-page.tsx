@@ -184,32 +184,32 @@ const sdks = {
     {
       title: 'PHP',
       icon: PhpIcon,
-      href: '/platform/sdks/server/go',
+      href: '/platform/sdks/server/php',
     },
     {
       title: '.NET',
       icon: DotnetIcon,
-      href: '/platform/sdks/server/go',
+      href: '/platform/sdks/server/dotnet',
     },
     {
       title: 'Java',
       icon: JavaIcon,
-      href: '/platform/sdks/server/go',
+      href: '/platform/sdks/server/java',
     },
     {
       title: 'Kotlin',
       icon: KotlinIcon,
-      href: '/platform/sdks/server/go',
+      href: '/platform/sdks/server/kotlin',
     },
     {
       title: 'Laravel',
       icon: LaravelIcon,
-      href: '/platform/sdks/server/go',
+      href: '/platform/sdks/server/laravel',
     },
     {
       title: 'Ruby',
       icon: RubyIcon,
-      href: '/platform/sdks/server/go',
+      href: '/platform/sdks/server/ruby',
     },
   ],
 };
