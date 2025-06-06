@@ -14,6 +14,13 @@ export const config = {
 export default async function middleware(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
 
+  // Root redirects
+  if (pathname === '/') {
+    return NextResponse.redirect(new URL('/platform/overview', request.url), {
+      status: 308,
+    });
+  }
+
   // Section root redirects
   const sectionRedirects: Record<string, string> = {
     '/overview/introduction': '/platform/overview',
