@@ -40,7 +40,7 @@ To deliver messages through push or chat-based channels, Novu also supports stor
 
 These fields ensure Novu can deliver messages reliably to all supported destinations, even when the channel requires platform-specific configuration.
 
-Learn more about subscriber attributes and schema in the [Subscriber API](/api-reference/subscribers/subscriber-schema).
+Learn more about subscriber attributes and schema in the [Subscribers API](/api-reference/subscribers/subscriber-schema).
 
 
 ## Subscriber creation in Novu
@@ -185,7 +185,7 @@ These are some of the most frequently asked questions about subscribers in Novu.
 
 Yes, two subscribers can have the same email address, phone number, or any other attributes. However, each subscriber must have a unique subscriberId.
 
-### Do I have to use subscriberId as same as system userId?
+### Do I have to use subscriberId as same as the system userId?
 
 No, you don't need to use the same subscriberId as the system userId. You can use any unique ID as subscriberId. Novu recommends using userId as subscriberId to avoid any confusion. Some of our customers use a pattern like `auth0|userId` as a value for `subscriberId`. 
 
