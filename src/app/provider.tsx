@@ -10,7 +10,7 @@ export function Provider({ children }: { children: ReactNode }) {
   return (
     <RootProvider
       search={{
-        SearchDialog,
+        enabled: false,
       }}
     >
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
