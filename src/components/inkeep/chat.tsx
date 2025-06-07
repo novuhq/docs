@@ -61,7 +61,7 @@ export function InkeepAskAI() {
   return (
     <Tooltip>
       <TooltipTrigger>
-        <div className="mt-1 border-2 p-2 rounded-md">
+        <div className="mt-1 border border-border p-2 rounded-md border-gray-300 dark:border-gray-600 transition-colors">
           <SparklesIcon className="w-4 h-4" onClick={() => handleOpenChange(true)} />
           <InkeepModalChat {...config} />
         </div>

@@ -29,6 +29,19 @@ export default function InkeepSearch() {
           isDarkMode: (attributes) => !!attributes.class?.includes('dark'),
         },
       },
+      theme: {
+        styles: [
+          {
+            key: '3',
+            type: 'style',
+            value: `
+              .ikp-search-bar__button {
+                border-radius: 8px;
+              }
+            `,
+          },
+        ],
+      },
     },
     modalSettings: {
       isOpen: open,
