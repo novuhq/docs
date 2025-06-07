@@ -4,6 +4,8 @@ description: "Learn what a subscriber is in Novu, how they’re identified, and 
 icon: 'Users'
 ---
 
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
 In Novu, a subscriber represents a user or system entity that is intended to receive notifications. Subscribers are central to Novu’s delivery model: workflows are triggered with one or more targeted subscribers, and all delivery logic, such as channel routing, preferences, and personalization is applied at the subscriber level.
 
 ## How Novu identifies a subscriber
@@ -38,6 +40,9 @@ To deliver messages through push or chat-based channels, Novu also supports stor
 
 These fields ensure Novu can deliver messages reliably to all supported destinations, even when the channel requires platform-specific configuration.
 
+Learn more about subscriber attributes and schema in the [Subscribers API](/api-reference/subscribers/subscriber-schema).
+
+
 ## Subscriber creation in Novu
 
 Before you can send notifications, a subscriber must exist in Novu. Asides from manually creating a subscriber via the Novu dashboard, Novu supports multiple approaches to subscriber creation depending on your application’s architecture and user lifecycle.
@@ -50,6 +55,28 @@ This approach is useful when:
 - Your system does not store subscriber profiles ahead of time.
 - Notifications are sent during real-time events like sign-ups or transactions.
 - You want to keep the creation and delivery logic tightly coupled.
+
+
+<Tabs items={['Node.js']}>
+  <Tab value="Node.js">
+```typescript
+import { Novu } from "@novu/api";
+ 
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+ 
+await novu.trigger({
+  to: {
+    subscriberId: "subscriber_unique_identifier",
+    firstName: "Albert",
+    lastName: "Einstein",
+    email: "albert@einstein.com",
+    phone: "+1234567890",
+  },
+  workflowId: "workflow_identifier",
+});
+```
+  </Tab>
+</Tabs>
 
 ### Ahead of trigger
 
@@ -66,7 +93,7 @@ For scenarios like data migration, syncing large lists, or preloading subscriber
 
 ## Where to manage subscriber data
 
-Subscriber data in Novu can be managed from the Novu dashboard and the API. Both offer full access to view, update, and organize subscriber profiles, but they serve different use cases depending on your workflow.
+Subscriber data in Novu can be managed from the Novu dashboard or using the [Subscribers API](/api-reference/subscribers/subscriber-schema). Both offer full access to view, update, and organize subscriber profiles, but they serve different use cases depending on your requirements.
 
 ### Dashboard
 
@@ -118,3 +145,57 @@ Subscriber data, both structured fields such as `firstName`, `email` and custom 
 
 Subscriber preferences and metadata personalization ensure that each subscriber receives relevant, well-targeted messages through the channels they care about.
 
+### Subscriber API reference
+<Cards>
+  <Card
+    title="Create a subscriber API"
+    href="/api-reference/subscribers/create-subscriber"
+    description="Create a new subscriber in Novu"
+  />
+  <Card
+    title="Update a subscriber API"
+    href="/api-reference/subscribers/update-subscriber"
+    description="Update subscriber attributes for an existing subscriber"
+  />
+  <Card
+    title="Bulk create subscribers API"
+    href="/api-reference/subscribers/bulk-create-subscribers"
+    description="Create bulk subscribers in Novu to migrate large number of users"
+  />
+  <Card
+    title="Retrieve subscriber subscriptions API"
+    href="/api-reference/subscribers/retrieve-subscriber-subscriptions"
+    description="Retrieve all topics a subscriber is subscribed to"
+  />
+  <Card
+    title="Update subscriber credentials API"
+    href="/api-reference/subscribers/update-subscriber-credentials"
+    description="Update chat and push channel credentials for a single subscriber"
+  />
+  <Card
+    title="Update subscriber preferences API"
+    href="/api-reference/subscribers/update-subscriber-preferences"
+    description="Update channel preferences for a single subscriber"
+  />
+</Cards>
+
+## Frequently asked questions
+These are some of the most frequently asked questions about subscribers in Novu.
+### Can two subscribers have the same email address?
+
+Yes, two subscribers can have the same email address, phone number, or any other attributes. However, each subscriber must have a unique subscriberId.
+
+### Do I have to use subscriberId as same as the system userId?
+
+No, you don't need to use the same subscriberId as the system userId. You can use any unique ID as subscriberId. Novu recommends using userId as subscriberId to avoid any confusion. Some of our customers use a pattern like `auth0|userId` as a value for `subscriberId`. 
+
+### Can a notification be sent without adding a subscriber?
+
+No, a notification cannot be sent without adding a subscriber. A subscriber is an entity to which notification messages are sent. You must add a subscriber to Novu before triggering the workflow.
+
+### How do I migrate millions of users to Novu?
+
+To migrate millions of users to Novu, use the [Bulk Create Subscribers](/api-reference/subscribers/bulk-create-subscribers) API endpoint. This endpoint allows you to create multiple subscribers in bulk.
+
+### Can subscriber credentials for chat and push channels be added when creating a new subscriber?
+Subscriber credentials for Push and Chat channel providers can be added while creating a new subscriber using the `channels` field in the [create subscriber](/api-reference/subscribers/create-subscriber) request payload.
