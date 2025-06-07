@@ -29,7 +29,9 @@ export const baseOptions: BaseLayoutProps = {
     title: (
       <>
         {logo}
-        <span className="font-medium [.uwu_&]:hidden [header_&]:text-[15px]">Documentation</span>
+        <span className="font-medium [.uwu_&]:hidden [header_&]:text-[15px]">
+          Novu Documentation
+        </span>
       </>
     ),
     transparentMode: 'top',
