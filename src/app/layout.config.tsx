@@ -101,11 +101,7 @@ export const baseOptions: BaseLayoutProps = {
     {
       type: 'custom',
       children: (
-        <GithubInfo
-          owner="novuhq"
-          repo="novu"
-          className="flex mt-2 lg:mt-0 lg:hidden xl:flex"
-        />
+        <GithubInfo owner="novuhq" repo="novu" className="flex mt-2 lg:mt-0 lg:hidden xl:flex" />
       ),
     },
   ],

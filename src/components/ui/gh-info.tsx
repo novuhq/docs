@@ -49,7 +49,7 @@ export async function GithubInfo({
 }) {
   const { stars } = await getRepoStarsAndForks(owner, repo, token);
   const humanizedStars = humanizeNumber(stars);
-  
+
   return (
     <a
       href={`https://github.com/${owner}/${repo}`}
