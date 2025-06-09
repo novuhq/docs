@@ -1,7 +1,6 @@
 import NextLink from 'next/link';
 import Link from '@/components/ui/link';
 import Image from 'next/image';
-import { clsx } from 'clsx';
 import { GolangIcon } from '@/components/icons/golang';
 import { PythonIcon } from '@/components/icons/python';
 import { TypescriptIcon } from '@/components/icons/typescript';
@@ -105,16 +104,6 @@ const guides = [
     category: 'Integration',
     timeToRead: 8,
     title: 'Novu and Clerk integration guide',
-    authors: [
-      {
-        image: authorFirstImage,
-        alt: 'Author name',
-      },
-      {
-        image: authorSecondImage,
-        alt: 'Author name',
-      },
-    ],
     link: '/guides/webhooks/clerk',
   },
   {
@@ -284,7 +273,8 @@ export function OverviewPage() {
             </Button>
           </div>
         </section>
-        <section>
+
+        <section className="scroll-m-28" id="get-started">
           <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
             Get started
           </h2>
@@ -301,15 +291,11 @@ export function OverviewPage() {
           </div>
         </section>
 
-        <section>
+        <section className="scroll-m-28" id="learn-the-concepts">
           <header className="flex justify-between gap-4 flex-col md:flex-row md:items-end">
             <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
               Learn the concepts
             </h2>
-            {/* <Link href="/" target="_blank">
-              See all concepts
-              <ArrowRightIcon className="w-4 h-4" />
-            </Link> */}
           </header>
           <div className="grid grid-cols-1 gap-x-6 gap-y-10 mt-8 md:mt-7 md:grid-cols-2 md:gap-y-7">
             {concepts.map((concept, index) => (
@@ -324,7 +310,7 @@ export function OverviewPage() {
           </div>
         </section>
 
-        <section>
+        <section className="scroll-m-28" id="explore-guides">
           <header className="flex justify-between gap-4 flex-col md:flex-row md:items-end">
             <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
               Explore guides
@@ -335,7 +321,7 @@ export function OverviewPage() {
             </Link>
           </header>
           <ul className="flex flex-col mt-6 border border-[#E6E6E6] rounded-lg divide-y divide-[#E6E6E6] dark:border-[#262626] dark:divide-[#262626] transition-colors md:mt-7">
-            {guides.map(({ category, timeToRead, authors, title, link }, index) => {
+            {guides.map(({ category, timeToRead, title, link }, index) => {
               return (
                 <li className="transition-colors group" key={index}>
                   <NextLink
@@ -359,27 +345,6 @@ export function OverviewPage() {
                         {title}
                       </h3>
                     </div>
-                    {/* {authors && (
-                      <div className="flex items-center">
-                        {authors.map(({ image, alt }, index) => (
-                          <Image
-                            className={clsx(
-                              'shrink-0 rounded-full size-7 md:size-8',
-                              index > 0 && '-ml-3',
-                              authors.length > 1 &&
-                                'outline outline-0.5 outline-white dark:outline-[#0D0D0D] transition-colors'
-                            )}
-                            src={image}
-                            alt={alt}
-                            width={32}
-                            height={32}
-                            key={index}
-                            style={{ zIndex: index }}
-                            quality={100}
-                          />
-                        ))}
-                      </div>
-                    )} */}
                   </NextLink>
                 </li>
               );
@@ -387,7 +352,7 @@ export function OverviewPage() {
           </ul>
         </section>
 
-        <section>
+        <section className="scroll-m-28" id="sdks">
           <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
             SDKs
           </h2>
@@ -411,7 +376,7 @@ export function OverviewPage() {
           ))}
         </section>
 
-        <section>
+        <section className="scroll-m-28" id="community">
           <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
             Community
           </h2>

@@ -20,6 +20,7 @@ import {
   TooltipTrigger,
 } from '../../components/ui/tooltip';
 import { metadataImage } from '../../lib/metadata-image';
+import { overviewTOC } from '@/components/pages/data/toc';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -29,10 +30,11 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   const MDX = page.data.body;
   const path = `content/docs/${page.file.path}`;
+  const isOverviewPage = page.file.path === 'platform/overview.mdx';
 
   return (
     <DocsPage
-      toc={page.data.toc}
+      toc={isOverviewPage ? overviewTOC : page.data.toc}
       full={page.data.full}
       tableOfContent={{
         single: false,

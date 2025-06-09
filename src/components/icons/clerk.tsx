@@ -1,6 +1,5 @@
 export function ClerkIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <a href="https://clerk.com/docs" target="_blank">
       <svg
         width="800px"
         height="800px"
@@ -23,6 +22,5 @@ export function ClerkIcon(props: React.SVGProps<SVGSVGElement>) {
           fillOpacity="0.5"
         />
       </svg>
-    </a>
   );
 }

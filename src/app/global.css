@@ -13,10 +13,6 @@
     @apply !px-5 md:!px-8;
   }
 
-  main > header:first-of-type {
-    background-color: var(--sidebar-bg) !important;
-  }
-
   header div[data-theme-toggle] {
     display: none !important;
   }
@@ -127,6 +123,13 @@
   --sidebar-item-inactive-text-hover: #000000;
   --sidebar-item-active-text: #4b73ec;
   --sidebar-item-inactive-border: #e6e6e6;
+
+  --navbar-item-inactive-text: #00000099;
+  --navbar-item-inactive-text-hover: #000000;
+  --navbar-item-active-text: #000000;
+  --navbar-item-active-border: #4b73ec;
+
+  --toc-header-text: #000000;
 }
 
 .dark {
@@ -167,6 +170,12 @@
   --sidebar-item-inactive-text-hover: #ffffff;
   --sidebar-item-active-text: #00d5ff;
   --sidebar-item-inactive-border: #262626;
+
+  --navbar-item-inactive-text: #ffffff99;
+  --navbar-item-inactive-text-hover: #ffffff;
+  --navbar-item-active-text: #00d5ff;
+
+  --toc-header-text: #ffffff;
 }
 
 .uwu {
@@ -190,6 +199,11 @@
   --color-fd-accent: hsl(250 20% 38.3%) !important;
   --color-fd-muted-foreground: hsl(230 80% 84%) !important;
   --color-fd-card: hsl(230 40% 26.3%) !important;
+}
+
+/* Navigation active states */
+a[data-active='true'] {
+  color: var(--color-fd-primary);
 }
 
 /* Sidebar states */
@@ -225,5 +239,59 @@ aside {
 
   div[data-state='open'] div.absolute.bg-fd-border {
     background-color: var(--sidebar-item-inactive-border);
+  }
+}
+
+/* Navbar states */
+main > header:first-of-type {
+  background-color: var(--sidebar-bg) !important;
+
+  a[data-active='true'] {
+    color: var(--navbar-item-active-text);
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -22.5px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--navbar-item-active-border);
+    }
+  }
+
+  a[data-active='false'] {
+    color: var(--navbar-item-inactive-text);
+  }
+
+  a[data-active='false']:hover {
+    color: var(--navbar-item-inactive-text-hover);
+  }
+}
+
+/* TOC states */
+div#nd-toc {
+  h3 {
+    color: var(--toc-header-text);
+  }
+
+  a {
+    color: var(--sidebar-item-inactive-text);
+  }
+
+  a:hover {
+    color: var(--sidebar-item-inactive-text-hover);
+  }
+
+  a[data-active='true'] {
+    color: var(--sidebar-item-active-text);
+  }
+
+  div div.border-s {
+    border-color: var(--sidebar-item-inactive-border);
+  }
+
+  div.w-px.absolute {
+    background-color: var(--sidebar-item-active-text);
   }
 }

@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut } from '@clerk/nextjs';
-import { GithubInfo } from 'fumadocs-ui/components/github-info';
+import { GithubInfo } from '@/components/ui/gh-info';
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import Image from 'next/image';
 import { Button, buttonVariants } from '../components/ui/button';
@@ -49,13 +49,13 @@ export const baseOptions: BaseLayoutProps = {
       active: 'nested-url',
     },
     {
-      url: '/guides/overview',
+      url: '/guides',
       type: 'button',
       text: 'Guides',
       active: 'nested-url',
     },
     {
-      url: '/framework/introduction',
+      url: '/framework',
       type: 'button',
       text: 'Framework',
       active: 'nested-url',
@@ -79,19 +79,19 @@ export const baseOptions: BaseLayoutProps = {
           <SignedOut>
             <a
               href="https://dashboard.novu.co/auth/sign-in"
-              className={cn(buttonVariants({ color: 'secondary', size: 'md' }))}
+              className={cn(buttonVariants({ color: 'white', size: 'md' }))}
             >
               Sign In
             </a>
             <a
               href="https://dashboard.novu.co/auth/sign-up"
-              className={cn(buttonVariants({ color: 'primary', size: 'md' }))}
+              className={cn(buttonVariants({ color: 'black', size: 'md' }))}
             >
               Sign Up
             </a>
           </SignedOut>
           <SignedIn>
-            <Button color="secondary" href="https://dashboard.novu.co">
+            <Button color="white" href="https://dashboard.novu.co">
               Visit Dashboard
             </Button>
           </SignedIn>
@@ -101,7 +101,11 @@ export const baseOptions: BaseLayoutProps = {
     {
       type: 'custom',
       children: (
-        <GithubInfo owner="novuhq" repo="novu" className="flex mt-2 lg:mt-0 lg:hidden xl:flex" />
+        <GithubInfo
+          owner="novuhq"
+          repo="novu"
+          className="flex mt-2 lg:mt-0 lg:hidden xl:flex"
+        />
       ),
     },
   ],
