@@ -75,7 +75,7 @@ const FOOTER_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="w-full border-t border-[#E6E6E6] dark:border-[#1A1A1A] dark:bg-[#0D0D0D33]">
+    <footer className="w-full bg-[#ffffff] border-t border-[#E6E6E6] dark:border-[#1A1A1A] dark:bg-[#07070B]">
       <div className="max-w-[1216px] xl:px-0 container px-5 md:px-8 sm:gap-x-5 flex flex-col-reverse sm:flex-row justify-between gap-y-2 sm:gap-y-10 mx-auto py-10">
         <div className="flex flex-col justify-between gap-y-[66px]">
           <LogoLink className="hidden sm:flex" />

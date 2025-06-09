@@ -13,19 +13,9 @@
     @apply !px-5 md:!px-8;
   }
 
-  aside {
-    background-color: var(--sidebar) !important;
-  }
-
   main > header:first-of-type {
-    background-color: var(--sidebar) !important;
+    background-color: var(--sidebar-bg) !important;
   }
-
-  /* @media (max-width: 768px) {
-      aside {
-        background-color: var(--color-fd-background) !important;
-      }
-    } */
 
   header div[data-theme-toggle] {
     display: none !important;
@@ -58,7 +48,7 @@
     font-family: var(--font-sans);
     font-weight: var(--font-weight-normal);
     overscroll-behavior-y: none;
-    background-color: var(--color-fd-background);
+    background-color: var(--page-background) !important;
   }
 
   article:has(#api-page) {
@@ -130,7 +120,13 @@
   --ring: 222.2 84% 4.9%;
 
   --radius: 0.5rem;
-  --sidebar: hsl(0, 0%, 100%);
+
+  --page-background: #ffffff;
+  --sidebar-bg: #ffffff;
+  --sidebar-item-inactive-text: #00000099;
+  --sidebar-item-inactive-text-hover: #000000;
+  --sidebar-item-active-text: #4b73ec;
+  --sidebar-item-inactive-border: #e6e6e6;
 }
 
 .dark {
@@ -164,7 +160,13 @@
   --border: 217.2 32.6% 17.5%;
   --input: 217.2 32.6% 17.5%;
   --ring: 212.7 26.8% 83.9%;
-  --sidebar: hsl(0deg 0% 6.67%);
+
+  --page-background: #05050b;
+  --sidebar-bg: #05050b;
+  --sidebar-item-inactive-text: #ffffff99;
+  --sidebar-item-inactive-text-hover: #ffffff;
+  --sidebar-item-active-text: #00d5ff;
+  --sidebar-item-inactive-border: #262626;
 }
 
 .uwu {
@@ -190,7 +192,38 @@
   --color-fd-card: hsl(230 40% 26.3%) !important;
 }
 
-/* Navigation active states */
-a[data-active='true'] {
-  color: var(--color-fd-primary);
+/* Sidebar states */
+aside {
+  background-color: var(--sidebar-bg) !important;
+
+  a[data-active='false'] {
+    color: var(--sidebar-item-inactive-text);
+    background: transparent;
+  }
+
+  a[data-active='false']:hover {
+    color: var(--sidebar-item-inactive-text-hover);
+    background: transparent;
+  }
+
+  a[data-active='true'] {
+    color: var(--sidebar-item-active-text);
+    background: transparent;
+  }
+
+  a[data-active='true'] > div.absolute.bg-fd-primary {
+    background-color: var(--sidebar-item-active-text);
+  }
+
+  button[data-state] {
+    background: transparent;
+  }
+
+  button[data-state]:hover {
+    color: var(--sidebar-item-inactive-text-hover);
+  }
+
+  div[data-state='open'] div.absolute.bg-fd-border {
+    background-color: var(--sidebar-item-inactive-border);
+  }
 }
