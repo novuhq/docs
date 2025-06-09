@@ -195,23 +195,6 @@ Users can unsnooze a notification at any time, which immediately returns it to t
 
 This logic is built into the component and does not require any additional configuration. Notifications automatically reappear in the All tab once their snooze duration elapses.
 
-### Using custom tabs
-
-If you're using custom tabs in the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, you can configure a dedicated "Snoozed" or "Reminders" tab by adding a `snoozed: true` filter to your tabs configuration. This helps users navigate more easily and focus on the reminders they've scheduled.
-
-```tsx
-import { Inbox } from '@novu/nextjs';
-
-<Inbox
-  tabs={[
-    { label: 'All', filter: {} },
-    { label: 'Reminders', filter: { snoozed: true } },
-  ]}
-/>
-```
-
-This customization is optional, the built-in behavior already handles snoozed notifications. However, adding an explicit tab can help reinforce the distinction between active and pending reminders in your UI.
-
 ## Event Handling
 
 ### Notification Click
