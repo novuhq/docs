@@ -96,3 +96,83 @@ After you've tested your workflow in the **Development** environment, you can pr
 
 </Step>
 </Steps>
+
+## Manage payload schema
+
+The Payload Schema in Novu allows you to define, manage, and validate the structure of incoming data for each workflow. By creating a schema, you ensure that dynamic payloads sent to workflows are predictable, type-safe, and consistent across environments.
+
+<Callout>Novu’s payload schema is based on the [JSON Schema](https://json-schema.org/) standard.</Callout>
+
+With a defined schema in place, you can:
+- Prevent unexpected runtime errors caused by invalid or missing data.
+- Build reliable conditional logic using type-aware operators.
+- Generate accurate previews powered by intelligent mock data.
+- Enable autocomplete suggestions when referencing payload variables.
+
+The schema acts as a contract between your systems and Novu, ensuring that every payload sent into your workflow conforms to expected rules. It provides your team with clear visibility into which variables exist, how they’re structured, and what validations are applied.
+
+Payload schemas are especially useful when building complex workflows that rely on dynamic content, reusable blocks, or strict validation requirements.
+
+### Define workflow schema
+
+You can define the expected payload schema in three ways: manually, by importing a JSON sample, or by creating inline variables. When adding or editing a schema property, you can mark it as required.
+
+<Callout>
+  If a property is marked as required, then it must be included in the payload when triggering the workflow using `novu.trigger()`.
+</Callout>
+
+#### Add Schema properties manually
+
+You can manually define each property in your payload by specifying:
+- Property name (It must be a string)
+- Property type (string, integer, number, boolean, enum, array, object, null)
+
+Each property you define becomes part of the payload schema, and helps Novu suggest accurate variables when configuring channels steps or digest actions.
+
+#### Import from JSON
+
+If you already have a sample payload, then you can quickly define the schema by importing it as a JSON object. Novu infers property names, types, and structures for you.
+
+#### Create an inline variable
+
+When referencing a variable that doesn’t exist in the schema (for example, `payload.title`) while editing a workflow step, follow these steps:
+- Novu will prompt you to create the variable inline.
+- Click Insert to add the variable to your schema with a default type of string.
+- (Optional) After insertion, edit the variable in the manage schema tab. You can:
+  - Changing its type.
+  - Marking it as required.
+  - Adding validation rules.
+
+### Enforce schema validation
+
+Schema validation is enabled on a per-workflow basis. When active, Novu validates incoming payloads against the schema when the workflow is triggered.
+
+This means:
+- Missing required properties will cause the request to fail.
+- Data types must match exactly. For example, a string cannot be passed where a number is expected.
+- Invalid values are rejected before the workflow executes.
+
+This validation is applied at the HTTP trigger level, and prevents invalid data from entering the workflow entirely.
+
+### Schema configuration options
+
+When defining a schema property, the available configuration fields vary depending on the selected type.
+
+#### General fields (for all types)
+
+- Property name
+- Property type
+- Required property checkbox
+- Default value – Optional fallback if no value is provided
+- Min length and max length
+
+#### Type-specific configuration
+
+Depending on the selected type, additional configuration options appear:
+
+- **String**:
+  - **Format**: None, date-time, date, time, duration, email, hostname, ipv4, ipv6, uuid, uri-reference, uri-template, json-pointer, relative-json-pointer, regex
+  - **Pattern**: Regex-based validation
+- **Enum**: Add choices, which are a list of predefined, allowed values. This restricts the field to only those values.
+- **Array**: Select the Array item type, which defines the data type of each array element.
+- **Object**: Add nested properties, each with their own type, required status, and validation options.
