@@ -146,7 +146,7 @@ Schema validation can be enabled per workflow. When active, Novu validates incom
 
 This means:
 - Missing required properties will cause the request to fail.
-- Data types must match exactly (for example, a string cannot be passed where a number is expected).
+- Data types must match exactly. For example, a string cannot be passed where a number is expected.
 - Invalid values are rejected before the workflow executes.
 
 This validation is applied at the HTTP trigger level, and prevents invalid data from entering the workflow entirely.
