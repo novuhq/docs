@@ -102,6 +102,8 @@ After you've tested your workflow in the **Development** environment, you can pr
 
 The Payload Schema in Novu allows you to define, manage, and validate the structure of incoming data for each workflow. By creating a schema, you ensure that dynamic payloads sent to workflows are predictable, type-safe, and consistent across environments.
 
+<Callout>Novu’s payload schema is based on the [JSON Schema](https://json-schema.org/) standard.</Callout>
+
 With a defined schema in place, you can:
 - Prevent unexpected runtime errors caused by invalid or missing data.
 - Build reliable conditional logic using type-aware operators.
@@ -114,7 +116,7 @@ Payload schemas are especially useful when building complex workflows that rely 
 
 ### Define workflow schema
 
-You can define the expected payload in two ways, manually or by importing a sample. When adding or editing a schema property, you can also mark it as required.
+You can define the expected payload in three ways, manually, by importing a sample or incline. When adding or editing a schema property, you can also mark it as required.
 
 <Callout>
   If a property is marked as required, then it must be included in the payload when triggering the workflow using `novu.trigger()`.
@@ -123,7 +125,7 @@ You can define the expected payload in two ways, manually or by importing a samp
 #### Add Schema properties manually
 
 You can manually define each property in your payload by specifying:
-- Property name
+- Property name (It must be a string)
 - Property type (string, integer, number, boolean, enum, array, object, null)
 
 Each property you define becomes part of the payload schema, and helps Novu suggest accurate variables when configuring channels steps or digest actions.
@@ -134,15 +136,17 @@ If you already have a sample payload, then you can quickly define the schema by 
 
 #### Create an inline variable
 
-While editing a workflow step content, if you reference a variable (for example, `payload.title`) that doesn’t exist in the schema, Novu will prompt you to create it inline. Clicking insert, adds the variable to your schema with a default type of `string`. You can then refine its type, mark it as required, and add validation rules.
-
-This inline flow helps you stay in context and gradually build your schema without switching tabs or losing progress.
+When referencing a variable that doesn’t exist in the schema (for example, `payload.title`) while editing a workflow step, follow these steps:
+- Novu will prompt you to create the variable inline.
+- Click Insert to add the variable to your schema with a default type of string.
+- (Optional) After insertion, edit the variable in the manage schema tab. You can:
+  - Changing its type.
+  - Marking it as required.
+  - Adding validation rules.
 
 ### Enforce schema validation
 
-You can optionally enforce schema validation for any workflow. When this is enabled, Novu will validate incoming payloads against your defined schema when the workflow is triggered.
-
-Schema validation can be enabled per workflow. When active, Novu validates incoming payloads against the schema when the workflow is triggered.
+Schema validation is enabled on a per-workflow basis. When active, Novu validates incoming payloads against the schema when the workflow is triggered.
 
 This means:
 - Missing required properties will cause the request to fail.
@@ -167,9 +171,9 @@ When defining a schema property, the available configuration fields vary dependi
 
 Depending on the selected type, additional configuration options appear:
 
-- String:
-  - Format: None, date-time, date, time, duration, email, hostname, ipv4, ipv6, uuid, uri-reference, uri-template, json-pointer, relative-json-pointer, regex
-  - Pattern: Regex-based validation
-- Enum: Add choices, which are a list of predefined, allowed values. This restricts the field to only those values.
-- Array: Select the Array item type, which defines the data type of each array element.
-- Object: Add nested properties, each with their own type, required status, and validation options.
+- **String**:
+  - **Format**: None, date-time, date, time, duration, email, hostname, ipv4, ipv6, uuid, uri-reference, uri-template, json-pointer, relative-json-pointer, regex
+  - **Pattern**: Regex-based validation
+- **Enum**: Add choices, which are a list of predefined, allowed values. This restricts the field to only those values.
+- **Array**: Select the Array item type, which defines the data type of each array element.
+- **Object**: Add nested properties, each with their own type, required status, and validation options.
