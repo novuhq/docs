@@ -226,7 +226,7 @@ const communityCards = [
 
 export function OverviewPage() {
   return (
-    <div className={`min-h-screen home bg-background not-prose ${inter.className}`}>
+    <div className={`not-prose ${inter.className}`}>
       <div className="container mx-auto px-px flex flex-col lg:gap-y-16 md:gap-y-14 gap-y-12">
         <section>
           <div className="relative size-14">
@@ -274,8 +274,11 @@ export function OverviewPage() {
           </div>
         </section>
 
-        <section className="scroll-m-28" id="get-started">
-          <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
+        <section>
+          <h2
+            className="scroll-m-28 text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors"
+            id="get-started"
+          >
             Get started
           </h2>
           <div className="grid grid-cols-1 gap-4 mt-7 md:grid-cols-2 lg:grid-cols-3">
@@ -291,9 +294,12 @@ export function OverviewPage() {
           </div>
         </section>
 
-        <section className="scroll-m-28" id="learn-the-concepts">
+        <section>
           <header className="flex justify-between gap-4 flex-col md:flex-row md:items-end">
-            <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
+            <h2
+              className="scroll-m-28 text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors"
+              id="learn-the-concepts"
+            >
               Learn the concepts
             </h2>
           </header>
@@ -310,9 +316,12 @@ export function OverviewPage() {
           </div>
         </section>
 
-        <section className="scroll-m-28" id="explore-guides">
+        <section>
           <header className="flex justify-between gap-4 flex-col md:flex-row md:items-end">
-            <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
+            <h2
+              className="text-2xl scroll-m-28  md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors"
+              id="explore-guides"
+            >
               Explore guides
             </h2>
             <Link href="/guides/overview">
@@ -352,8 +361,11 @@ export function OverviewPage() {
           </ul>
         </section>
 
-        <section className="scroll-m-28" id="sdks">
-          <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
+        <section>
+          <h2
+            className="scroll-m-28 text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors"
+            id="sdks"
+          >
             SDKs
           </h2>
           {Object.entries(sdks).map(([key, items], index) => (
@@ -376,8 +388,11 @@ export function OverviewPage() {
           ))}
         </section>
 
-        <section className="scroll-m-28" id="community">
-          <h2 className="text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors">
+        <section>
+          <h2
+            className="scroll-m-28 text-2xl md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors"
+            id="community"
+          >
             Community
           </h2>
           <div className="grid grid-cols-1 gap-4 mt-6 md:mt-7 md:grid-cols-2 lg:grid-cols-3">
