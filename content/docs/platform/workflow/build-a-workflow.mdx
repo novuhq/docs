@@ -97,7 +97,6 @@ After you've tested your workflow in the **Development** environment, you can pr
 </Step>
 </Steps>
 
-
 ## Manage payload schema
 
 The Payload Schema in Novu allows you to define, manage, and validate the structure of incoming data for each workflow. By creating a schema, you ensure that dynamic payloads sent to workflows are predictable, type-safe, and consistent across environments.
@@ -150,7 +149,7 @@ Schema validation is enabled on a per-workflow basis. When active, Novu validate
 
 This means:
 - Missing required properties will cause the request to fail.
-- Data types must match exactly (for example, a string cannot be passed where a number is expected).
+- Data types must match exactly. For example, a string cannot be passed where a number is expected.
 - Invalid values are rejected before the workflow executes.
 
 This validation is applied at the HTTP trigger level, and prevents invalid data from entering the workflow entirely.
