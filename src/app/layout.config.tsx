@@ -5,8 +5,6 @@ import Image from 'next/image';
 import { Button, buttonVariants } from '../components/ui/button';
 import { cn } from '../lib/utils';
 
-import LogoTextIcon from '@/components/icons/home-page/logo';
-
 export const logo = (
   <>
     <Image
@@ -34,7 +32,7 @@ export const baseOptions: BaseLayoutProps = {
         <span className="font-medium [.uwu_&]:hidden [header_&]:text-[15px]">
           Novu Documentation
         </span>
-      </>
+      </div>
     ),
     transparentMode: 'none',
   },

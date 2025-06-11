@@ -14,7 +14,7 @@ import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
-import { LargeSearchToggle, SearchToggle } from 'fumadocs-ui/components/layout/search-toggle';
+import { SearchToggle } from 'fumadocs-ui/components/layout/search-toggle';
 import { Footer } from '@/components/footer/footer';
 import { InkeepAskAI } from '@/components/inkeep/chat';
 import InkeepSearch from '@/components/inkeep/search';
@@ -128,42 +128,39 @@ export default function Layout({ children }: { children: ReactNode }) {
         {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
           <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID} />
         )}
-
         <body className="flex flex-col min-h-screen">
           <Provider>
             <TooltipProvider delayDuration={50}>
-              <div className="flex-grow flex flex-col">
-                <DocsLayout
-                  tabMode="sidebar"
-                  tree={source.pageTree}
-                  {...baseOptions}
-                  sidebar={{
-                    collapsible: true,
-                    tabs: false,
-                    banner: (
+              <DocsLayout
+                tabMode="sidebar"
+                tree={source.pageTree}
+                {...baseOptions}
+                sidebar={{
+                  collapsible: true,
+                  tabs: false,
+                  banner: (
                     <div className="flex gap-2 items-center mt-2 mb-2 w-full">
                       <InkeepSearch />
                       <InkeepAskAI />
                     </div>
                   ),
-                    footer: (
-                      <div className="flex gap-2 justify-end w-full">
-                        <ThemeToggle />
-                      </div>
-                    ),
-                  }}
-                  searchToggle={{
-                    enabled: true,
-                    components: {
-                      sm: <SearchToggle className="md:hidden" />,
-                      lg: null,
-                    },
-                  }}
-                >
-                  <AnalyticsProvider />
-                  {children}
-                </DocsLayout>
-              </div>
+                  footer: (
+                    <div className="flex gap-2 justify-end w-full">
+                      <ThemeToggle />
+                    </div>
+                  ),
+                }}
+                searchToggle={{
+                  enabled: true,
+                  components: {
+                    sm: <SearchToggle className="md:hidden" />,
+                    lg: null,
+                  },
+                }}
+              >
+                <AnalyticsProvider />
+                {children}
+              </DocsLayout>
               <Footer />
             </TooltipProvider>
           </Provider>

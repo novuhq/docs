@@ -292,7 +292,15 @@ div#nd-toc {
     border-color: var(--sidebar-item-inactive-border);
   }
 
-  div.w-px.absolute {
+  a[data-active='false'] div.w-px.absolute {
+    color: var(--sidebar-item-inactive-border);
+  }
+
+  a[data-active='true'] div.w-px.absolute {
+    color: var(--sidebar-item-active-text);
+  }
+
+  div.relative > div.absolute > div.bg-fd-primary {
     background-color: var(--sidebar-item-active-text);
   }
 }
