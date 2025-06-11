@@ -22,10 +22,10 @@ const Card = ({
     >
       <Icon className="h-8 w-8" width={32} height={32} />
       <div className="flex flex-col gap-1.5">
-        <h3 className="text-[18px] tracking-[-0.02em] font-medium text-black dark:text-white transition-colors">
+        <h3 className="text-[18px] -tracking-[0.02em] font-medium text-black dark:text-white transition-colors">
           {title}
         </h3>
-        <p className="text-[16px] mb-0 tracking-[-0.02em] text-[#666666] dark:text-[#999999] transition-colors">
+        <p className="text-[16px] mb-0 -tracking-[0.02em] text-[#666666] dark:text-[#999999] transition-colors">
           {description}
         </p>
       </div>

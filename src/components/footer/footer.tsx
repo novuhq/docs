@@ -85,7 +85,7 @@ export const Footer = () => {
             <Status />
             <div className="mt-1.5 text-[#333333] dark:text-[#cccccc] flex items-center gap-1.5">
               <span className="text-[16px]">Ⓒ</span>
-              <span className="text-[14px] leading-snug tracking-[-0.02em]">
+              <span className="text-[14px] leading-snug -tracking-[0.02em]">
                 {new Date().getFullYear()} Novu
               </span>
             </div>
@@ -99,7 +99,7 @@ export const Footer = () => {
               return (
                 <li key={link.href} className="flex items-start gap-x-2">
                   <Icon />
-                  <span className="text-[15px] text-[#333333] dark:text-[#E6E6E6] leading-none tracking-[-0.02em]">
+                  <span className="text-[15px] text-[#333333] dark:text-[#E6E6E6] leading-none -tracking-[0.02em]">
                     {mainText}{' '}
                     <Link
                       href={link.href}

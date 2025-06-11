@@ -55,8 +55,8 @@ async function Status() {
   return (
     <Link
       className={clsx(
-        'relative font-inter inline-block py-2 mt-8 pl-[12px] pr-3.5 text-sm leading-snug tracking-[-0.02em] text-[#333333] dark:text-[#E6E6E6] transition-opacity duration-200',
-        'before:absolute before:left-0 before:top-3.5 before:h-1.5 before:w-1.5 before:rounded-full',
+        'relative font-inter inline-block py-2 mt-8 pl-[12px] pr-3.5 text-sm leading-snug -tracking-[0.02em] text-[#333333] dark:text-[#E6E6E6] transition-opacity duration-200',
+        'before:absolute before:left-0 before:top-3.5 before:size-1.5 before:rounded-full',
         'hover:opacity-90 focus-visible:opacity-90',
         currentStatus.className
       )}

@@ -28,11 +28,6 @@ import notificationsImage from '@/images/pages/home-page/concepts/notification.j
 import topicsImage from '@/images/pages/home-page/concepts/topics.jpg';
 import subscribersImage from '@/images/pages/home-page/concepts/subscribers.jpg';
 
-import authorFirstImage from '@/images/pages/home-page/guides/author-1.jpg';
-import authorSecondImage from '@/images/pages/home-page/guides/author-2.jpg';
-import authorThirdImage from '@/images/pages/home-page/guides/author-3.jpg';
-import authorFourthImage from '@/images/pages/home-page/guides/author-4.jpg';
-
 import XIcon from '@/components/icons/home-page/x-icon';
 import DiscordIcon from '@/components/icons/home-page/discord-icon';
 import GitHubIcon from '@/components/icons/home-page/github-icon';
@@ -240,7 +235,7 @@ export function OverviewPage() {
           <h1 className="text-[32px] md:text-[40px] lg:text-[44px] mt-[18px] font-medium tracking-[-0.04em] text-black dark:text-white transition-colors leading-[1.125]">
             Novu Documentation
           </h1>
-          <p className="text-base/normal lg:text-lg/normal transition-colors text-black/80 dark:text-white/80 mt-3 mb-0 max-w-[608px] tracking-[-0.02em] opacity-80 font-normal">
+          <p className="text-base/normal lg:text-lg/normal transition-colors text-black/80 dark:text-white/80 mt-3 mb-0 max-w-[608px] -tracking-[0.02em] opacity-80 font-normal">
             Novu is an open-source Inbox infrastructure, that allows you to easily add Notification
             capabilities to your application across multiple channels.
           </p>
@@ -329,7 +324,7 @@ export function OverviewPage() {
                   >
                     <div>
                       <div className="flex items-center gap-x-2">
-                        <span className="text-[13px] font-medium tracking-[-0.02em] text-[#C25CD6] dark:text-[#E18CF2] transition-colors">
+                        <span className="text-[13px] font-medium -tracking-[0.02em] text-[#C25CD6] dark:text-[#E18CF2] transition-colors">
                           {category}
                         </span>
                         <span
@@ -340,7 +335,7 @@ export function OverviewPage() {
                           {timeToRead} min
                         </span>
                       </div>
-                      <h3 className="text-base/snug md:text-xl/snug font-medium tracking-[-0.02em] text-black dark:text-white transition-colors">
+                      <h3 className="text-base/snug md:text-xl/snug font-medium -tracking-[0.02em] text-black dark:text-white transition-colors">
                         {title}
                       </h3>
                     </div>
@@ -360,7 +355,7 @@ export function OverviewPage() {
           </h2>
           {Object.entries(sdks).map(([key, items], index) => (
             <div className="mt-7" key={index}>
-              <h3 className="text-[14px] uppercase text-[#666666] dark:text-[#999999] leading-none tracking-[-0.02em]">
+              <h3 className="text-[14px] uppercase text-[#666666] dark:text-[#999999] leading-none -tracking-[0.02em]">
                 {key}
               </h3>
               <div className="grid grid-cols-1 gap-4 mt-[18px] md:grid-cols-2 lg:grid-cols-3">

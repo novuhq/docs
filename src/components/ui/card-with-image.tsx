@@ -30,10 +30,10 @@ const CardWithImage = ({
         />
       </div>
       <div className="flex flex-col gap-1.5">
-        <h3 className="transition-colors group-hover:text-[#333333] text-[18px] tracking-[-0.02em] leading-snug font-medium text-black line-clamp-1 md:line-clamp-2 lg:line-clamp-1 dark:text-white dark:group-hover:text-[#E6E6E6]">
+        <h3 className="transition-colors group-hover:text-[#333333] text-[18px] -tracking-[0.02em] leading-snug font-medium text-black line-clamp-1 md:line-clamp-2 lg:line-clamp-1 dark:text-white dark:group-hover:text-[#E6E6E6]">
           {title}
         </h3>
-        <p className="text-[16px] mb-0 font-normal tracking-[-0.02em] text-[#666666] line-clamp-2 dark:text-[#999999] transition-colors">
+        <p className="text-[16px] mb-0 font-normal -tracking-[0.02em] text-[#666666] line-clamp-2 dark:text-[#999999] transition-colors">
           {description}
         </p>
       </div>
