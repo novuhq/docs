@@ -30,7 +30,13 @@ const statusThemes = {
 };
 
 async function Status() {
-  const allStatuses = await getSystemsStatus() as SystemStatusType[];
+  let allStatuses: SystemStatusType[] = [];
+  try {
+    allStatuses = await getSystemsStatus();
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('Failed to load system status', err);
+  }
 
   let currentStatus = statusThemes.fetchFailed;
 
@@ -64,4 +70,3 @@ async function Status() {
 }
 
 export default Status;
-
