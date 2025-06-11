@@ -151,7 +151,7 @@ const sdks = {
     {
       title: 'React Native',
       icon: ReactIcon,
-      href: 'platform/sdks/react-native',
+      href: '/platform/sdks/react-native',
     },
   ],
   'server side': [
@@ -258,7 +258,7 @@ export function OverviewPage() {
             <Button
               className="rounded-md"
               color="black"
-              size="medium"
+              size="custom"
               href="https://dashboard.novu.co/auth/sign-up"
             >
               Get Started
@@ -266,7 +266,7 @@ export function OverviewPage() {
             <Button
               className="rounded-md"
               color="white"
-              size="medium"
+              size="custom"
               href="https://dashboard.novu.co/auth/sign-up"
             >
               Browse Examples

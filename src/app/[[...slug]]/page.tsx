@@ -30,7 +30,10 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   const MDX = page.data.body;
   const path = `content/docs/${page.file.path}`;
-  const isOverviewPage = page.file.path === 'platform/overview.mdx';
+
+  const isOverviewPage =
+    page.file.path.endsWith('platform/overview.mdx') ||
+    page.slugs.join('/') === 'platform/overview';
 
   return (
     <DocsPage

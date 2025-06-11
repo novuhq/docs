@@ -18,6 +18,7 @@ const Card = ({
       className="transition-colors flex flex-col gap-3.5 p-3.5 border border-[#e6e6e6] bg-[#fafafa] rounded-lg dark:bg-[#0D0D0D] dark:border-[#262626] hover:bg-[#F5F5F5] hover:border-[#CCCCCC] dark:hover:bg-[#1A1A1A]/60 dark:hover:border-[#333333]"
       href={link}
       target={target}
+      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
     >
       <Icon className="h-8 w-8" width={32} height={32} />
       <div className="flex flex-col gap-1.5">

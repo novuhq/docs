@@ -20,7 +20,7 @@ export const buttonVariants = cva(
       size: {
         sm: 'gap-1 p-0.5 text-xs',
         md: 'gap-1 p-1 px-2 text-sm',
-        medium: 'px-3.5 py-3 text-[16px] leading-none tracking-[-0.01em] h-10',
+        custom: 'px-3.5 py-3 text-[16px] leading-none tracking-[-0.01em] h-10',
         icon: 'p-1.5 [&_svg]:size-5',
       },
     },
@@ -33,7 +33,7 @@ export const buttonVariants = cva(
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'outline' | 'ghost' | 'secondary' | 'black' | 'white';
-  size?: 'sm' | 'md' | 'icon' | 'medium';
+  size?: 'sm' | 'md' | 'icon' | 'custom';
   isLoading?: boolean;
   asChild?: boolean;
   href?: string;

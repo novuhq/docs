@@ -1,4 +1,10 @@
-export const overviewTOC = [
+interface TOCEntry {
+  title: string;
+  url: string;
+  depth: number;
+}
+
+export const overviewTOC: TOCEntry[] = [
   { title: 'Get started', url: '#get-started', depth: 2 },
   { title: 'Learn the concepts', url: '#learn-the-concepts', depth: 2 },
   { title: 'Explore guides', url: '#explore-guides', depth: 2 },
