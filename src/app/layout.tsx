@@ -5,7 +5,6 @@ import { source } from '@/lib/source';
 import { ClerkProvider } from '@clerk/nextjs';
 import { GoogleTagManager } from '@next/third-parties/google';
 import { DocsLayout } from 'fumadocs-ui/layouts/notebook';
-// import { DocsLayout } from 'fumadocs-ui/layouts/docs';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
 import type { Viewport } from 'next';
@@ -17,7 +16,8 @@ import { baseOptions } from './layout.config';
 import { Provider } from './provider';
 import { LargeSearchToggle, SearchToggle } from 'fumadocs-ui/components/layout/search-toggle';
 import { Footer } from '@/components/footer/footer';
-// import { CustomSidebar } from '@/components/ui/custom-sidebar';
+import { InkeepAskAI } from '@/components/inkeep/chat';
+import InkeepSearch from '@/components/inkeep/search';
 
 export const metadata = createMetadata({
   title: {
@@ -134,17 +134,20 @@ export default function Layout({ children }: { children: ReactNode }) {
             <TooltipProvider delayDuration={50}>
               <div className="flex-grow flex flex-col">
                 <DocsLayout
+                  tabMode="sidebar"
                   tree={source.pageTree}
                   {...baseOptions}
                   sidebar={{
                     collapsible: true,
                     tabs: false,
-                    // enabled: true,
-                    // component: <CustomSidebar />,
-                    banner: <LargeSearchToggle className="hidden md:flex mt-2 rounded-lg" />,
+                    banner: (
+                    <div className="flex gap-2 items-center mt-2 mb-2 w-full">
+                      <InkeepSearch />
+                      <InkeepAskAI />
+                    </div>
+                  ),
                     footer: (
                       <div className="flex gap-2 justify-end w-full">
-                        {/* <span className="text-sm text-[#666666] dark:text-[#999999]">Theme</span> */}
                         <ThemeToggle />
                       </div>
                     ),

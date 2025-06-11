@@ -16,19 +16,7 @@ The main component for displaying notifications.
 <TypeTable name="InboxProps" type={{
   "applicationIdentifier": {
     "description": "",
-    "type": "string",
-    "required":"true"
-  },
-  "subscriber": {
-    "description": "",
-    "type": "Subscriber | string",
-    "required":"true",
-    "typeDescriptionLink": "/platform/sdks/javascript#subscriber"
-  },
-  "subscriberId": {
-    "description": "Deprecated: Please use the subscriber prop instead",
-    "type": "string",
-    "deprecated": "true",
+    "type": "string"
   },
   "subscriberHash": {
     "description": "",
@@ -61,11 +49,16 @@ The main component for displaying notifications.
   "routerPush": {
     "description": "",
     "type": "RouterPush"
+  },
+  "subscriberId": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriber": {
+    "description": "",
+    "type": "string | Subscriber"
   }
 }} />
-
-
-
 
 ### Usage
 
@@ -150,11 +143,19 @@ function NotificationCenter() {
     "description": "",
     "type": "string"
   },
+  "colorRing": {
+    "description": "",
+    "type": "string"
+  },
   "fontSize": {
     "description": "",
     "type": "string"
   },
   "borderRadius": {
+    "description": "",
+    "type": "string"
+  },
+  "colorStripes": {
     "description": "",
     "type": "string"
   }
@@ -167,11 +168,27 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
+  "input": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "badge": {
+    "description": "",
+    "type": "ElementStyles"
+  },
   "popoverContent": {
     "description": "",
     "type": "ElementStyles"
   },
   "popoverTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "popoverClose": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -195,11 +212,19 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "dropdownItemLeftIcon": {
+  "dropdownItemLeft__icon": {
     "description": "",
     "type": "ElementStyles"
   },
-  "dropdownItemRightIcon": {
+  "dropdownItemRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dropdownItem__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "collapsible": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -208,6 +233,118 @@ function NotificationCenter() {
     "type": "ElementStyles"
   },
   "tooltipTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePicker": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGrid": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGridRow": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGridCell": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGridCellTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerGridHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControl": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControlPrevTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControlNextTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControlPrevTrigger__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerControlNextTrigger__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerCalendar": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerHeaderMonth": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "datePickerCalendarDay__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker__hourSelect": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker__minuteSelect": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker__periodSelect": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePicker__separator": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePickerHour__input": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timePickerMinute__input": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePicker": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePicker__actions": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePickerCancel__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePickerApply__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePicker__timePickerContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "snoozeDatePicker__timePickerLabel": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -220,6 +357,14 @@ function NotificationCenter() {
     "type": "ElementStyles"
   },
   "skeletonAvatar": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "skeletonSwitch": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "skeletonSwitchThumb": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -299,11 +444,35 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "notificationListEmptyNotice": {
+  "notificationListEmptyNoticeOverlay": {
     "description": "",
     "type": "ElementStyles"
   },
   "notificationListEmptyNoticeIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationListEmptyNotice": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeleton": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeletonContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeletonItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeletonAvatar": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationList__skeletonText": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -312,6 +481,14 @@ function NotificationCenter() {
     "type": "ElementStyles"
   },
   "notification": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationTextContainer": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -343,7 +520,15 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
+  "notificationImageLoadingFallback": {
+    "description": "",
+    "type": "ElementStyles"
+  },
   "notificationDate": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDateActionsContainer": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -376,6 +561,38 @@ function NotificationCenter() {
     "type": "ElementStyles"
   },
   "notificationUnarchive__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnsnooze__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationRead__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnread__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationArchive__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnarchive__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationUnsnooze__icon": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -435,6 +652,14 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
+  "inboxStatus__dropdownItem__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxStatus__dropdownItemCheck__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
   "moreActionsContainer": {
     "description": "",
     "type": "ElementStyles"
@@ -467,7 +692,7 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "moreTabs__dots": {
+  "moreTabs__icon": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -523,7 +748,19 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
+  "workflowDescription": {
+    "description": "",
+    "type": "ElementStyles"
+  },
   "channelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channelIconContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "channel__icon": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -540,10 +777,6 @@ function NotificationCenter() {
     "type": "ElementStyles"
   },
   "channelLabelContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelDescription": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -571,11 +804,79 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
+  "preferencesHeader__back__button__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
   "preferencesHeader__title": {
     "description": "",
     "type": "ElementStyles"
   },
-  "preferencesLoadingContainer": {
+  "preferencesHeader__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesListEmptyNoticeContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesListEmptyNotice": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeleton": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonSwitch": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonSwitchThumb": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesList__skeletonText": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnooze__dropdownItem__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnoozeCustomTime_popoverContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDeliveredAt__badge": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationDeliveredAt__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "notificationSnoozedUntil__icon": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -629,10 +930,6 @@ A component for rendering a list of notifications.
 ### Props
 
 <TypeTable name="NotificationProps" type={{
-  "renderNotification": {
-    "description": "",
-    "type": "NotificationsRenderer"
-  },
   "onNotificationClick": {
     "description": "",
     "type": "NotificationClickHandler"
@@ -644,6 +941,18 @@ A component for rendering a list of notifications.
   "onSecondaryActionClick": {
     "description": "",
     "type": "NotificationActionClickHandler"
+  },
+  "renderNotification": {
+    "description": "",
+    "type": "NotificationsRenderer"
+  },
+  "renderSubject": {
+    "description": "",
+    "type": "SubjectRenderer"
+  },
+  "renderBody": {
+    "description": "",
+    "type": "BodyRenderer"
   }
 }} />
 
@@ -681,10 +990,6 @@ A component for building custom notification inboxes.
 ### Props
 
 <TypeTable name="InboxContentProps" type={{
-  "renderNotification": {
-    "description": "",
-    "type": "NotificationsRenderer"
-  },
   "onNotificationClick": {
     "description": "",
     "type": "NotificationClickHandler"
@@ -704,6 +1009,18 @@ A component for building custom notification inboxes.
   "hideNav": {
     "description": "",
     "type": "boolean"
+  },
+  "renderNotification": {
+    "description": "",
+    "type": "NotificationsRenderer"
+  },
+  "renderSubject": {
+    "description": "",
+    "type": "SubjectRenderer"
+  },
+  "renderBody": {
+    "description": "",
+    "type": "BodyRenderer"
   }
 }} />
 

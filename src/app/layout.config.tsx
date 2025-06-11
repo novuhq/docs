@@ -31,12 +31,10 @@ export const baseOptions: BaseLayoutProps = {
     title: (
       <div className="flex items-center gap-2.5">
         {logo}
-        <LogoTextIcon />
-        <span className="h-5 w-px bg-[#E6E6E6] dark:bg-[#333333] " aria-hidden />
-        <span className="font-light text-[#666666] dark:text-[#999999] text-base/none tracking-[-0.02em] [.uwu_&]:hidden">
-          Docs
+        <span className="font-medium [.uwu_&]:hidden [header_&]:text-[15px]">
+          Novu Documentation
         </span>
-      </div>
+      </>
     ),
     transparentMode: 'none',
   },

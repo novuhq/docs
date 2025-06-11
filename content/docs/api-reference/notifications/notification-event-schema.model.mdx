@@ -1,0 +1,33 @@
+---
+title: Notification event schema
+---
+
+### Notification event
+
+Notification event is the event that is generated when a workflow is triggered to subscribers. It contains workflow details, subscriber details payload sent during trigger, execution details of each step in the workflow and the result of the execution of each step.
+
+---type-table---
+../api-types.ts#Notification
+---end---
+
+### Workflow
+
+Workflow contains the details of the workflow that was triggered.
+
+---type-table---
+../api-types.ts#Workflow
+---end---
+
+### ChannelTypeEnum
+
+ChannelTypeEnum is the type of the channel that the notification was sent to.
+
+```typescript
+ChannelTypeEnum {
+  IN_APP = "in_app",
+  EMAIL = "email",
+  SMS = "sms",
+  CHAT = "chat",
+  PUSH = "push"
+}
+```

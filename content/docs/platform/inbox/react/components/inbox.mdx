@@ -8,6 +8,26 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 By default, the `<Inbox />` renders a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
 
+## Try it without keys (Keyless Mode)
+
+Try Novu Inbox instantly - no setup required. With Keyless mode, you can integrate and test the `<Inbox />` right in your app. It’s ideal for exploring features and sending test notifications.
+
+```tsx
+import React from 'react';
+import { Inbox } from '@novu/react';
+ 
+export function KeylessInbox() {
+ 
+  return (
+    <Inbox />
+  );
+}
+```
+
+<Callout type="info" title="Ready for the Full Experience?">
+  Keyless mode is designed for quick exploration. To save your configuration, identify users, and unlock all of Novu's powerful features, you'll need to sign up for a free account and configure your environment. <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Sign up on Novu Cloud</a>
+</Callout>
+
 ## Basic Usage
 
 ```tsx
@@ -123,7 +143,7 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
 
 ## Snooze
 
-The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes built-in support for snoozing notifications, which let's users delay reminders and resurface them at a more convenient time. 
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes built-in support for snoozing notifications, which lets users delay reminders and resurface them at a more convenient time. 
 
 When a user snoozes a notification, it is temporarily removed from the active list and automatically redelivered at the specified time. This helps reduce noise while keeping important updates accessible.
 
@@ -131,13 +151,13 @@ When a user snoozes a notification, it is temporarily removed from the active li
 
 ### Snoozing a notification
 
-All dates and times are interpreted in the user’s local timezone. Users can snooze a notification directly from the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> using one of the following options:
+All dates and times are interpreted in the user's local timezone. Users can snooze a notification directly from the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> using one of the following options:
 
 - Preset options:
   - An hour from now
   - Tomorrow
 - Custom date and time:
-  - A built-in date and time picker allows users to select a specific future moment.
+  - A built-in date and time picker allows users to select a specific future time.
 
 <img
   src="/images/inbox/snooze-a-notification.png"
@@ -148,25 +168,25 @@ All dates and times are interpreted in the user’s local timezone. Users can sn
 
 Once snoozed:
 - The notification leaves the All tab and appears in the Snoozed tab.
-- It cannot be marked as read/unread or archived until it returns.
+- It cannot be marked as read or unread or archived until it returns.
 
 All of these behaviors are handled automatically by the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component.
 
-Developers can also configure how the snooze options are presented by customizing styles, localization keys, or using snooze-related actions exposed on the notification object. For instance, each notification instance includes `.snooze()` and `.unsnooze()` methods in the client-side SDKs, making it easy to control reminders when needed.
+Developers can also configure how the snooze options are presented by customizing styles, localization keys, or using snooze-related actions exposed on the notification object. For instance, each notification instance includes `.snooze()` and `.unsnooze()` methods in the client-side SDKs, allowing you to control reminders when needed.
 
 <Callout type="info">
 Snoozing is available on all plans for Cloud workspaces:
 - Free – Up to 24 hours per notification
-- Trial – Matches Pro limits during the 14-day trial (up to 90 days)
+- Trial – Up to 90 days during the 14-day trial, same as Pro
 - Pro / Team – Up to 90 days
-- Enterprise – Marketed as “Unlimited,” but defaults to 90 days (extendable on request)
+- Enterprise – Defaults to 90 days, extendable on request
 </Callout>
 
 ### Managing snoozed notifications
 
 The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes a dedicated Snoozed tab that automatically displays notifications scheduled to reappear later. From this tab, users can review all snoozed notifications and take further actions as needed.
 
-Users can unsnooze a notification at any time, which immediately returns it to the All tab. Once unsnoozed, the notification regains its standard behavior, it can be marked as read, unread, or archived like any other item.
+Users can unsnooze a notification at any time, which immediately returns it to the All tab. Once unsnoozed, the notification regains its standard behavior. It can be marked as read, unread, or archived like any other item.
 
 | Action             |  Result  |
 | ------------------ | --------------------------------------------------------------------------- |
@@ -174,24 +194,6 @@ Users can unsnooze a notification at any time, which immediately returns it to t
 | Automatic unsnooze (timer expires) | Re-delivers the notification to All as a new, unread item with an updated delivery timestamp.|
 
 This logic is built into the component and does not require any additional configuration. Notifications automatically reappear in the All tab once their snooze duration elapses.
-
-### Using custom tabs
-
-If you’re using custom tabs in the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, you can configure a dedicated "Snoozed" or "Reminders" tab by adding a `snoozed: true` filter to your tabs configuration. This helps users navigate more easily and focus on the reminders they’ve scheduled.
-
-```tsx
-import { Inbox } from '@novu/nextjs';
-
-<Inbox
-  tabs={[
-    { label: 'All', filter: {} },
-    { label: 'Reminders', filter: { snoozed: true } },
-  ]}
-/>
-```
-
-This customization is optional, the built-in behavior already handles snoozed notifications. However, adding an explicit tab can help reinforce the distinction between active and pending reminders in your UI.
-
 
 ## Event Handling
 
@@ -329,6 +331,129 @@ function Novu() {
   );
 }
 ```
+
+### Custom notification based on condition
+
+The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component supports conditional rendering of notifications using the renderNotification prop. This function receives a `notification` object and returns a custom React element. 
+
+You can use workflow tags, workflow identifiers, or values from the data object to customize how each notification is displayed. You can also combine multiple conditions to create dynamic and tailored notification displays.
+
+#### Workflow tags condition
+
+You can conditionally render customized notification based on [workflow tags](/platform/concepts/workflows#workflow-tags). These tags are defined in your workflow and are accessible via `notification.tags` property.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function CustomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+        // filter based on tags
+        if (notification.tags?.includes('custom')) {
+          return (
+            <div>
+              <h3>Custom Notification Subject</h3>
+              <p>Custom Notification Body</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Workflow identifier or name condition
+
+Each workflow has a [name and a unique identifier](/platform/concepts/workflows#workflow-identifier), accessible through `notification.workflow.name` and `notification.workflow.identifier`, respectively. Either property can be used to conditionally render notifications.
+
+```tsx
+import { Inbox } from '@novu/react';
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+        // filter based on workflow identifier
+        if (notification.workflow?.identifier === 'demo') {
+          return (
+            <div style={{ backgroundColor: 'blue' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // filter based on workflow name
+        if (notification.workflow?.name === 'Custom') {
+          return (
+            <div style={{ backgroundColor: 'blue' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+#### Data object condition
+
+You can also use values from the notification [data object](/platform/inbox/react/components/inbox#data-object) to render notifications conditionally. These values are accessible via `notification.data` and typically contain custom payload fields
+
+```tsx
+import { Inbox } from '@novu/react';
+export default function CutomInbox() {
+  
+  return (
+    <Inbox
+      applicationIdentifier=""
+      subscriber=""
+      renderNotification={(notification) => {
+       // filter based on data object key
+       if (notification.data?.priority) {
+        return (
+          <div style={{ backgroundColor: 'red' }}>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }
+        // default
+        return (
+          <div>
+            <h3>{notification.subject}</h3>
+            <p>{notification.body}</p>
+          </div>
+        );
+      }}
+    />
+  );
+}
+```
+
+
 
 ### Rendering HTML
 

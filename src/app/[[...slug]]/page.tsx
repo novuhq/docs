@@ -9,7 +9,6 @@ import { notFound } from 'next/navigation';
 import { Accordion, Accordions } from '../../components/accordion';
 import { Callout } from '../../components/callout';
 import { CodeBlock, Pre } from '../../components/codeblock';
-import { ImageZoom } from '../../components/image-zoom';
 import { Step, Steps } from '../../components/steps';
 import { Tab, Tabs } from '../../components/tabs';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../components/ui/hover-card';
@@ -21,6 +20,9 @@ import {
 } from '../../components/ui/tooltip';
 import { metadataImage } from '../../lib/metadata-image';
 import { overviewTOC } from '@/components/pages/data/toc';
+import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+import { PageActions } from '../../components/page-actions';
+import { getRawMarkdownContent } from '../../lib/get-markdown-content';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -35,18 +37,26 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
     page.file.path.endsWith('platform/overview.mdx') ||
     page.slugs.join('/') === 'platform/overview';
 
+  const rawMarkdownContent = getRawMarkdownContent(page.file.path);
+
+  // GitHub URL for editing this page
+  const githubUrl = `https://github.com/novuhq/docs/edit/main/content/docs/${page.file.path}`;
+
   return (
     <DocsPage
       toc={isOverviewPage ? overviewTOC : page.data.toc}
       full={page.data.full}
       tableOfContent={{
         single: false,
-      }}
-      editOnGithub={{
-        repo: 'docs',
-        owner: 'novuhq',
-        sha: 'main',
-        path,
+        style: 'clerk',
+        footer: (
+          <PageActions
+            pageContent={rawMarkdownContent}
+            title={page.data.pageTitle ?? page.data.title}
+            githubUrl={githubUrl}
+            path={page.file.path}
+          />
+        ),
       }}
       article={{
         className: 'max-sm:pb-16 max-w-[770px] !px-0',
@@ -134,7 +144,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
                 </span>
               </Link>
             ),
-            img: (props) => <ImageZoom {...props} />,
+            img: (props) => <ImageZoom {...props} alt={props.alt || ''} />,
           }}
         />
       </DocsBody>

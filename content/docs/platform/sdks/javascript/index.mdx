@@ -2,6 +2,7 @@
 title: '@novu/js'
 pageTitle: 'API reference for the @novu/js package'
 description: 'Complete API reference for the Novu JavaScript package'
+icon: 'Braces'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
@@ -13,27 +14,15 @@ The Novu client provides methods to interact with notifications, preferences, an
 ### Constructor Options
 
 <TypeTable name="NovuOptions" type={{
-  "applicationIdentifier": {
-    "description": "",
-    "type": "string",
-    "required":"true"
-  },
-  "subscriber": {
-    "description": "",
-    "type": "Subscriber | string",
-    "required":"true",
-    "typeDescriptionLink": "/platform/sdks/javascript#subscriber"
-  },
-  "subscriberId": {
-    "description": "Deprecated: Please use the subscriber prop instead",
-    "type": "string",
-    "deprecated": "true",
-  },
-  "subscriberHash": {
+  "backendUrl": {
     "description": "",
     "type": "string"
   },
-  "backendUrl": {
+  "applicationIdentifier": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriberHash": {
     "description": "",
     "type": "string"
   },
@@ -48,6 +37,14 @@ The Novu client provides methods to interact with notifications, preferences, an
   "useCache": {
     "description": "",
     "type": "boolean"
+  },
+  "subscriberId": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriber": {
+    "description": "",
+    "type": "string | Subscriber"
   }
 }} />
 
@@ -109,6 +106,10 @@ Fetches a list of notifications based on provided filters.
   "archived": {
     "description": "",
     "type": "boolean"
+  },
+  "snoozed": {
+    "description": "",
+    "type": "boolean"
   }
 }} />
 
@@ -118,6 +119,10 @@ const notifications = await novu.notifications.list({
   read: false,
   archived: false,
   tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
   offset: 0,
 });
 ```
@@ -155,6 +160,10 @@ Fetches the count of notifications based on filters.
   "archived": {
     "description": "",
     "type": "boolean"
+  },
+  "snoozed": {
+    "description": "",
+    "type": "boolean"
   }
 }} />
 
@@ -165,6 +174,10 @@ Fetches the count of notifications based on filters.
     const count = await novu.notifications.count({
       read: false,
       archived: false,
+       // data attributes
+      data: {
+        type: 'login',
+      },
     });
     ```
   </Tab>
@@ -172,7 +185,7 @@ Fetches the count of notifications based on filters.
     ```typescript
     // Multiple filters
     const counts = await novu.notifications.count({
-      filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }],
+      filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
     });
     ```
   </Tab>
@@ -217,6 +230,10 @@ Marks all notifications as read. Can be filtered by tags.
 ```typescript
 await novu.notifications.readAll({
   tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
 });
 ```
 
@@ -227,6 +244,10 @@ Archives all notifications. Can be filtered by tags.
 ```typescript
 await novu.notifications.archiveAll({
   tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
 });
 ```
 
@@ -237,6 +258,10 @@ Archives all read notifications. Can be filtered by tags.
 ```typescript
 await novu.notifications.archiveAllRead({
   tags: ['tag1', 'tag2'],
+  // data attributes
+  data: {
+    type: 'login',
+  },
 });
 ```
 
@@ -278,7 +303,7 @@ await novu.notifications.revertSecondary({ notificationId: 'NOTIFICATION_ID' });
 
 #### list
 
-Fetches the subscriber's workflow channel preferences.
+Fetches the subscriber's notification preferences.
 
 ```typescript
 const preferences = await novu.preferences.list();
@@ -308,24 +333,6 @@ The response will be of type:
     "type": "Workflow"
   }
 }} />
-
-#### update
-
-Updates the subscriber's workflow channel preferences
-
-```typescript
-// Fetch all preferences
-const preferenes = await novu.preferences.list();
-
-// List all preference and use preference.update to update individual workflow's preference
-preferenes.data?.forEach((preference) => {
-  preference.update({
-    channels: {
-      in_app: true,
-    },
-  });
-});
-```
 
 ## Events
 
@@ -377,17 +384,29 @@ novu.on('notifications.unread_count_changed', (data) => {
     "description": "",
     "type": "boolean"
   },
+  "isSnoozed": {
+    "description": "",
+    "type": "boolean"
+  },
+  "snoozedUntil": {
+    "description": "",
+    "type": "string | null"
+  },
+  "deliveredAt": {
+    "description": "",
+    "type": "string[]"
+  },
   "createdAt": {
     "description": "",
     "type": "string"
   },
   "readAt": {
     "description": "",
-    "type": "string"
+    "type": "string | null"
   },
   "archivedAt": {
     "description": "",
-    "type": "string"
+    "type": "string | null"
   },
   "avatar": {
     "description": "",
@@ -407,15 +426,19 @@ novu.on('notifications.unread_count_changed', (data) => {
   },
   "tags": {
     "description": "",
-    "type": "string[]"
+    "type": "string[] | undefined"
   },
   "redirect": {
     "description": "",
-    "type": "Redirect"
+    "type": "Redirect | undefined"
   },
   "data": {
     "description": "",
-    "type": "Record<string, unknown>"
+    "type": "NotificationData"
+  },
+  "workflow": {
+    "description": "",
+    "type": "Workflow"
   },
   "read": {
     "description": "",
@@ -430,6 +453,14 @@ novu.on('notifications.unread_count_changed', (data) => {
     "type": "() => Result<Notification, NovuError>"
   },
   "unarchive": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "snooze": {
+    "description": "",
+    "type": "(snoozeUntil: string) => Result<Notification, NovuError>"
+  },
+  "unsnooze": {
     "description": "",
     "type": "() => Result<Notification, NovuError>"
   },
@@ -459,47 +490,16 @@ novu.on('notifications.unread_count_changed', (data) => {
   }
 }} />
 
-### Action
-
-<TypeTable name="Action" type={{
-  "label": {
-    "description": "",
-    "type": "string"
-  },
-  "isCompleted": {
-    "description": "",
-    "type": "boolean"
-  },
-  "redirect": {
-    "description": "",
-    "type": "Redirect"
-  }
-}} />
-
-### NotificationButton
-
-<TypeTable name="NotificationButton" type={{
-  "PRIMARY": {
-    "description": "",
-    "type": "NotificationButton.PRIMARY"
-  },
-  "SECONDARY": {
-    "description": "",
-    "type": "NotificationButton.SECONDARY"
-  }
-}} />
-
 ### Subscriber
+
 <TypeTable name="Subscriber" type={{
   "id": {
     "description": "",
-    "type": "string",
-    "required":"true"
-  },  
+    "type": "string"
+  },
   "subscriberId": {
     "description": "",
-    "type": "string",
-    "required":"true"
+    "type": "string"
   },
   "firstName": {
     "description": "",
@@ -527,7 +527,7 @@ novu.on('notifications.unread_count_changed', (data) => {
   },
   "data": {
     "description": "",
-    "type": "string"
+    "type": "Record<string, unknown>"
   },
   "timezone": {
     "description": "",
