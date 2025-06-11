@@ -1,6 +1,4 @@
 import { createMDX } from 'fumadocs-mdx/next';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
 const withMDX = createMDX();
 

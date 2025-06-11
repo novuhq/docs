@@ -31,7 +31,6 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   if (!page) notFound();
 
   const MDX = page.data.body;
-  const path = `content/docs/${page.file.path}`;
 
   const isOverviewPage =
     page.file.path.endsWith('platform/overview.mdx') ||
