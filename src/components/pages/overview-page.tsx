@@ -122,17 +122,7 @@ const guides = [
     category: 'Integration',
     timeToRead: 9,
     title: 'Novu and Inngest integration guide',
-    authors: [
-      {
-        image: authorThirdImage,
-        alt: 'Author name',
-      },
-      {
-        image: authorFourthImage,
-        alt: 'Author name',
-      },
-    ],
-    link: 'https://docs.novu.co/guides/inngest',
+    link: '/guides/inngest',
   },
 ];
 
