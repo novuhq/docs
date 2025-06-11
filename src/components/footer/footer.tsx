@@ -10,6 +10,7 @@ import Certificates from '@/components/footer/certificates';
 import GhIcon from '@/components/icons/footer/gh';
 import XIcon from '@/components/icons/footer/x';
 import DiscordIcon from '@/components/icons/footer/discord';
+import Status from '@/components/footer/status';
 
 const SOCIALS = [
   {
@@ -75,19 +76,14 @@ const FOOTER_LINKS = [
 
 export const Footer = () => {
   return (
-    <footer className="w-full bg-[#ffffff] border-t border-[#E6E6E6] dark:border-[#1A1A1A] dark:bg-[#07070B]">
+    <footer className="bg-[#ffffff] border-t border-[#E6E6E6] dark:border-[#1A1A1A] dark:bg-[#07070B]">
       <div className="max-w-[1216px] xl:px-0 container px-5 md:px-8 sm:gap-x-5 flex flex-col-reverse sm:flex-row justify-between gap-y-2 sm:gap-y-10 mx-auto py-10">
         <div className="flex flex-col justify-between gap-y-[66px]">
           <LogoLink className="hidden sm:flex" />
           <div>
             <Certificates className="hidden sm:flex" />
-            <div className="flex items-center gap-1.5 mt-10">
-              <div className="w-1.5 h-1.5 bg-[#22C358] rounded-full" />
-              <p className="text-sm leading-snug tracking-[-0.02em] text-[#333333] dark:text-[#E6E6E6]">
-                All systems operational
-              </p>
-            </div>
-            <div className="mt-3.5 text-[#333333] dark:text-[#cccccc] flex items-center gap-1.5">
+            <Status />
+            <div className="mt-1.5 text-[#333333] dark:text-[#cccccc] flex items-center gap-1.5">
               <span className="text-[16px]">Ⓒ</span>
               <span className="text-[14px] leading-snug tracking-[-0.02em]">
                 {new Date().getFullYear()} Novu
