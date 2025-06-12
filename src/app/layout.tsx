@@ -14,7 +14,6 @@ import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
-import { SearchToggle } from 'fumadocs-ui/components/layout/search-toggle';
 import { Footer } from '@/components/footer/footer';
 import { InkeepAskAI } from '@/components/inkeep/chat';
 import InkeepSearch from '@/components/inkeep/search';
@@ -151,11 +150,7 @@ export default function Layout({ children }: { children: ReactNode }) {
                   ),
                 }}
                 searchToggle={{
-                  enabled: true,
-                  components: {
-                    sm: <SearchToggle className="md:hidden" />,
-                    lg: null,
-                  },
+                  enabled: false,
                 }}
               >
                 <AnalyticsProvider />

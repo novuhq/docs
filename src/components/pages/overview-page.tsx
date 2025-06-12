@@ -14,7 +14,6 @@ import { Button } from '@/components/ui/button';
 import Card from '../ui/card';
 import ReactIcon from '../icons/home-page/react';
 import NextjsIcon from '../icons/home-page/next';
-import ClerkIcon from '../icons/home-page/clerk';
 import RemixIcon from '../icons/home-page/remix';
 import CardWithImage from '../ui/card-with-image';
 import JavaScriptIcon from '../icons/home-page/javascript';
@@ -41,25 +40,19 @@ const getStartedCards = [
   {
     icon: ReactIcon,
     title: 'React Quickstart',
-    description: 'Add Novu to your React project in minutes.',
+    description: 'Integrate Novu Inbox in your React app for notifications.',
     link: '/platform/quickstart/react',
   },
   {
     icon: NextjsIcon,
     title: 'Next.js Quickstart',
-    description: 'Add Novu to your Next.js project in minutes.',
+    description: 'Add Novu Inbox to your Next.js project for real-time alerts.',
     link: '/platform/quickstart/nextjs',
-  },
-  {
-    icon: ClerkIcon,
-    title: 'Clerk Quickstart',
-    description: 'Add Novu to your Clerk project in minutes.',
-    link: '/guides/webhooks/clerk',
   },
   {
     icon: RemixIcon,
     title: 'Remix Quickstart',
-    description: 'Add Novu to your Remix project in minutes.',
+    description: 'Embed Novu Inbox in your Remix app for custom notification feeds.',
     link: '/platform/quickstart/remix',
   },
 ];
@@ -236,7 +229,7 @@ export function OverviewPage() {
             Novu Documentation
           </h1>
           <p className="text-base/normal lg:text-lg/normal transition-colors text-black/80 dark:text-white/80 mt-3 mb-0 max-w-[608px] -tracking-[0.02em] opacity-80 font-normal">
-            Novu is an open-source Inbox infrastructure, that allows you to easily add Notification
+            Novu is an open-source Inbox infrastructure, that allows you to easily add notification
             capabilities to your application across multiple channels.
           </p>
           <div className="flex gap-2.5 mt-7 flex-col md:flex-row">
@@ -244,17 +237,9 @@ export function OverviewPage() {
               className="rounded-md"
               color="black"
               size="custom"
-              href="https://dashboard.novu.co/auth/sign-up"
+              href="https://dashboard.novu.co"
             >
               Get Started
-            </Button>
-            <Button
-              className="rounded-md"
-              color="white"
-              size="custom"
-              href="https://dashboard.novu.co/auth/sign-up"
-            >
-              Browse Examples
             </Button>
           </div>
         </section>
@@ -301,7 +286,8 @@ export function OverviewPage() {
           </div>
         </section>
 
-        <section>
+        {/* TODO: Decide if we want to keep this section */}
+        {/* <section>
           <header className="flex justify-between gap-4 flex-col md:flex-row md:items-end">
             <h2
               className="text-2xl scroll-m-28  md:text-[28px] font-medium text-black leading-tight tracking-[-0.04em] dark:text-white transition-colors"
@@ -344,7 +330,7 @@ export function OverviewPage() {
               );
             })}
           </ul>
-        </section>
+        </section> */}
 
         <section>
           <h2
