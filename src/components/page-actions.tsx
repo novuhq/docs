@@ -32,7 +32,7 @@ ${pageContent}`;
 
   const handleOpenInChatGPT = () => {
     const encodedUrl = encodeURIComponent(`https://docs.novu.co/${path}`);
-    const chatGPTUrl = `https://chatgpt.com/??hints=search&q=Read+${encodedUrl}`;
+    const chatGPTUrl = `https://chatgpt.com/?hints=search&q=Read+${encodedUrl}`;
     window.open(chatGPTUrl, '_blank');
   };
 
