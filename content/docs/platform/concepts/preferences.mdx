@@ -14,16 +14,16 @@ Novu provides a way to store subscriber preferences. This allows subscribers, yo
 
 ## Workflow channel preferences
 
-Each workflow has its own channel preferences. By default all channel preferences are enabled. If disabled, subscriber will not receive notifications for that step channel.
+Each workflow has its own channel preferences. By default, all channel preferences are enabled. If disabled, the subscriber will not receive notifications for that channel step.
 
 Steps to manage workflow channel preferences:
 
 1. Go to the [Workflows page](https://dashboard.novu.co/workflows) in Novu dashboard
 2. Click the workflow you want to manage channel preferences for
-3. A node based editor will appear. On the right side of the editor, Click on the `Configure channel preferences` option
+3. A node-based editor will appear. On the right side of the editor, click the `Configure channel preferences` option
 4. Click on the All Channels checkbox to enable or disable all channels for the workflow
 5. You will be able to change the preferences for only those steps which are present in the workflow. Non existing channel steps will be disabled.
-6. `Mark as critical` toggle will make this worklfow as critical. Read more about [critical workflows](#critical-workflows)
+6. The `Mark as critical` toggle will make this workflow critical. Read more about [critical workflows](#critical-workflows)
 
 <Callout type="info">
   If a workflow has only `in-app` and `email` steps, then it will have only `in-app` and `email` preferences.
@@ -46,11 +46,11 @@ Subscribers can set global channel preferences, which override individual settin
 
 ## Subscriber channel preferences per workflow
 
-For each workflow, subscriber has its own channel preferences. Subscriber can manage this preferences from the <Method href="/platform/inbox/react/components/preferences">{`<Inbox />`}</Method>{" "}Preferences view.
+For each workflow, subscriber has its own channel preferences. Subscriber can manage these preferences from the <Method href="/platform/inbox/react/components/preferences">{`<Inbox />`}</Method>{" "}Preferences view.
 
 ![Subscriber channel preferences](/images/concepts/preferences/subscriber-workflow-preferences.png)
 
-<Callout type="info">Inbox displays onlychannels present in the current workflow.</Callout>
+<Callout type="info">Inbox displays only channels present in the current workflow.</Callout>
 
 ## Priority of preferences
 

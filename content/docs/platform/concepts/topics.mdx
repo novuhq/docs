@@ -11,7 +11,7 @@ In Novu, a _topic_ is a way to group subscribers under a shared label so that yo
 
 Each topic is uniquely identified by a topic key, a permanent, internal reference in your system. You can also assign a name to help describe its purpose, for example, "Task Updates" or "Comment Thread Subscribers".
 
-The `topicKey` must be unique and cannot be changed after creation; Novu enforces this uniqueness behind the scenes.example: `task:taskId` or `post:postId`.
+The `topicKey` must be unique and cannot be changed after creation; Novu enforces this uniqueness behind the scenes. Example: `task:taskId` or `post:postId`.
 
 Common use cases for topics:
 - Notifying all members of a specific team or project
@@ -58,14 +58,14 @@ Topics can be managed from [Novu dashboard](https://dashboard.novu.co/topics) or
 
 ## Trigger workflow
 
-As mentioned above, a workflow can be triggered to a topic as same as it is triggered to subscribers.
+As mentioned above, a workflow can be triggered to a topic in the same way as it is triggered to subscribers.
 
 ### To a single topic
 
 To trigger a workflow to a topic, use `to` field with type `Topic` and topicKey.
 
-<Tabs items={["Nodejs", "cURL"]}>
-  <Tab value="Nodejs">
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
 ```ts
 import { Novu } from "@novu/api"
 
@@ -98,8 +98,8 @@ curl -L -g -X POST 'https://api.novu.co/v1/events/trigger' \
 
 `to` field also accepts array of topics. This is useful when you want to trigger a workflow to multiple topics at once.
 
-<Tabs items={["Nodejs", "cURL"]}>
-  <Tab value="Nodejs">
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
 ```ts
 import { Novu } from "@novu/api"
 
@@ -141,8 +141,8 @@ curl -L -g -X POST 'https://api.novu.co/v1/events/trigger' \
 
 When a workflow is triggered to a topic, notification is sent to all subscribers present in the topic. However, you can exclude a specific subscriber from receiving the notification by using the `actor` field. Here actor is the subscriberId of the subscriber you want to exclude.
 
-<Tabs items={["Nodejs", "cURL"]}>
-  <Tab value="Nodejs">
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
 ```ts
 import { Novu } from "@novu/api"
 
@@ -208,7 +208,7 @@ These are commonly used topics APIs. Explore all topics APIs on topics [api refe
   />
   <Card
     title="Check subscriber subscription API"
-    href="/api-reference/topicscheck-topic-subscriber"
+    href="/api-reference/topics/check-topic-subscriber"
     description="Check if a subscriber is present in a topic"
   />
 </Cards>
@@ -235,4 +235,4 @@ Topic keys must be unique within each [environment](/platform/concepts/environme
 
 ### What happens if I trigger a workflow to a topic with no subscribers?
 
-The workflow are processed, but no notifications are delivered and hence this trigger is not counted for billing.
+The workflow is processed, but no notifications are delivered and, hence, this trigger is not counted for billing.
