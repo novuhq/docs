@@ -41,7 +41,7 @@ export const baseOptions: BaseLayoutProps = {
     {
       url: '/platform',
       type: 'button',
-      text: 'Documentation',
+      text: 'Platform',
       active: 'nested-url',
     },
     {

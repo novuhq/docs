@@ -19,7 +19,6 @@ import {
   TooltipTrigger,
 } from '../../components/ui/tooltip';
 import { metadataImage } from '../../lib/metadata-image';
-import { overviewTOC } from '@/components/pages/data/toc';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import { PageActions } from '../../components/page-actions';
 import { getRawMarkdownContent } from '../../lib/get-markdown-content';
@@ -43,12 +42,13 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   return (
     <DocsPage
-      toc={isOverviewPage ? overviewTOC : page.data.toc}
+      {...(!isOverviewPage && { toc: page.data.toc })}
       full={page.data.full}
       tableOfContent={{
+        enabled: !isOverviewPage,
         single: false,
         style: 'clerk',
-        footer: (
+        footer: isOverviewPage ? null : (
           <PageActions
             pageContent={rawMarkdownContent}
             title={page.data.pageTitle ?? page.data.title}
@@ -62,6 +62,9 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
       }}
       container={{
         className: '[&>article]:gap-4',
+      }}
+      breadcrumb={{
+        enabled: true,
       }}
     >
       <DocsTitle className="max-w-[640px]">{page.data.pageTitle ?? page.data.title}</DocsTitle>
