@@ -14,6 +14,7 @@ import { TooltipProvider } from '../components/ui/tooltip';
 import { baseUrl, createMetadata } from '../lib/metadata';
 import { baseOptions } from './layout.config';
 import { Provider } from './provider';
+import { Footer } from '@/components/footer/footer';
 import { InkeepAskAI } from '@/components/inkeep/chat';
 import InkeepSearch from '@/components/inkeep/search';
 
@@ -126,7 +127,6 @@ export default function Layout({ children }: { children: ReactNode }) {
         {process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID && (
           <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID} />
         )}
-
         <body className="flex flex-col min-h-screen">
           <Provider>
             <TooltipProvider delayDuration={50}>
@@ -144,17 +144,19 @@ export default function Layout({ children }: { children: ReactNode }) {
                     </div>
                   ),
                   footer: (
-                    <div className="flex gap-2 justify-start w-full">
-                      <div className="ml-auto">
-                        <ThemeToggle />
-                      </div>
+                    <div className="flex gap-2 justify-end w-full">
+                      <ThemeToggle />
                     </div>
                   ),
+                }}
+                searchToggle={{
+                  enabled: false,
                 }}
               >
                 <AnalyticsProvider />
                 {children}
               </DocsLayout>
+              <Footer />
             </TooltipProvider>
           </Provider>
         </body>

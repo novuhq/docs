@@ -12,10 +12,15 @@ export const buttonVariants = cva(
         ghost: 'hover:bg-fd-accent hover:text-fd-accent-foreground',
         secondary:
           'border bg-fd-secondary text-fd-secondary-foreground hover:bg-fd-accent hover:text-fd-accent-foreground',
+        black:
+          'bg-black text-white dark:bg-white dark:text-black hover:bg-[#333333] dark:hover:bg-[#CCCCCC]',
+        white:
+          'bg-transparent text-black border border-[#cccccc] dark:text-white dark:border-[#333333] hover:bg-[#FAFAFA] hover:border-[#999999] dark:hover:bg-[#0D0D0D] dark:hover:border-[#4D4D4D]',
       },
       size: {
         sm: 'gap-1 p-0.5 text-xs',
         md: 'gap-1 p-1 px-2 text-sm',
+        custom: 'px-3.5 py-3 text-[16px] leading-none tracking-[-0.01em] h-10',
         icon: 'p-1.5 [&_svg]:size-5',
       },
     },
@@ -27,8 +32,8 @@ export const buttonVariants = cva(
 );
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: 'primary' | 'outline' | 'ghost' | 'secondary';
-  size?: 'sm' | 'md' | 'icon';
+  color?: 'primary' | 'outline' | 'ghost' | 'secondary' | 'black' | 'white';
+  size?: 'sm' | 'md' | 'icon' | 'custom';
   isLoading?: boolean;
   asChild?: boolean;
   href?: string;

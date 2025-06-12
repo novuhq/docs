@@ -32,7 +32,7 @@ ${pageContent}`;
 
   const handleOpenInChatGPT = () => {
     const encodedUrl = encodeURIComponent(`https://docs.novu.co/${path}`);
-    const chatGPTUrl = `https://chatgpt.com/??hints=search&q=Read+${encodedUrl}`;
+    const chatGPTUrl = `https://chatgpt.com/?hints=search&q=Read+${encodedUrl}`;
     window.open(chatGPTUrl, '_blank');
   };
 
@@ -40,7 +40,7 @@ ${pageContent}`;
     <div className="space-y-1 mt-5">
       <button
         onClick={handleCopyMarkdown}
-        className="flex items-center gap-2 w-full text-left px-3 py-1 text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent rounded-md transition-colors"
+        className="flex items-center gap-2 w-full text-left px-3 py-1 text-sm text-[var(--sidebar-item-inactive-text)] hover:text-[var(--sidebar-item-inactive-text-hover)] rounded-md transition-colors"
         disabled={copied}
       >
         {copied ? (
@@ -61,7 +61,7 @@ ${pageContent}`;
           href={githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 w-full text-left px-3 py-1 text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent rounded-md transition-colors"
+          className="flex items-center gap-2 w-full text-left px-3 py-1 text-sm text-[var(--sidebar-item-inactive-text)] hover:text-[var(--sidebar-item-inactive-text-hover)] rounded-md transition-colors"
         >
           <Github className="h-4 w-4" />
           <span className="flex items-center gap-1">
@@ -73,7 +73,7 @@ ${pageContent}`;
 
       <button
         onClick={handleOpenInChatGPT}
-        className="flex items-center gap-2 w-full text-left px-3 py-1 text-sm text-fd-muted-foreground hover:text-fd-foreground hover:bg-fd-accent rounded-md transition-colors"
+        className="flex items-center gap-2 w-full text-left px-3 py-1 text-sm text-[var(--sidebar-item-inactive-text)] hover:text-[var(--sidebar-item-inactive-text-hover)] rounded-md transition-colors"
       >
         <OpenAIIcon className="h-4 w-4" />
         <span className="flex items-center gap-1">

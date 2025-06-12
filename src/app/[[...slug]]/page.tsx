@@ -19,6 +19,7 @@ import {
   TooltipTrigger,
 } from '../../components/ui/tooltip';
 import { metadataImage } from '../../lib/metadata-image';
+import { overviewTOC } from '@/components/pages/data/toc';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import { PageActions } from '../../components/page-actions';
 import { getRawMarkdownContent } from '../../lib/get-markdown-content';
@@ -30,7 +31,10 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   if (!page) notFound();
 
   const MDX = page.data.body;
-  const path = `content/docs/${page.file.path}`;
+
+  const isOverviewPage =
+    page.file.path.endsWith('platform/overview.mdx') ||
+    page.slugs.join('/') === 'platform/overview';
 
   const rawMarkdownContent = getRawMarkdownContent(page.file.path);
 
@@ -39,7 +43,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   return (
     <DocsPage
-      toc={page.data.toc}
+      toc={isOverviewPage ? overviewTOC : page.data.toc}
       full={page.data.full}
       tableOfContent={{
         single: false,
