@@ -14,7 +14,7 @@ The Inbox component is built to allow for multiple layers of styling, which allo
 Depending on the level of customization you need, you can choose to style the inbox using one of the following approaches:
 
 - [Appearance Prop](#appearance-prop)
-  - [Variables](#variables) - Global primitives such as buttons, popovers, dropdowns and etc...
+  - [Variables](#variables) - Global primitives such as buttons, popovers, drop-downs and etc...
   - [Elements](#elements) - Style individual elements
 - [Custom notification rendering](#render-notification-component) - Render a custom notification item with complete control
 - [Custom Composition](/platform/inbox/react/components/overview#composition) - Compose our components for custom layouts
@@ -136,11 +136,11 @@ const appearance = {
 ### Customizing icons
 
 The `icons` property in the `appearance` prop lets you customize any icon used in the Inbox component. This is useful when you want to:
-- Match the bell icon with your host app's navbar icon set
-- Use your own icon library, such as <a href="https://react-icons.github.io/react-icons/">react-icons</a> or <a href="https://mui.com/material-ui/material-icons/">Material Icons</a>
-- Modify all icons to fit your application's visual style
+- Match the bell icon with your host app's navbar icon set.
+- Use your own icon library, such as <a href="https://react-icons.github.io/react-icons/">react-icons</a> or <a href="https://mui.com/material-ui/material-icons/">Material Icons</a>.
+- Modify all icons to fit your application's visual style.
 
-You can customize icons by providing a function that returns a React component for each icon key you want to change.
+For each icon you want to customize, provide a function that returns your custom icon as a React component.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -171,8 +171,8 @@ Use these keys in the `appearance.icons` property to customize specific icons in
 
 | Icon Key             | Description                                          |
 | -------------------- | ---------------------------------------------------- |
-| `arrowDown`          | Down arrow used in dropdowns and expandable sections |
-| `arrowDropDown`      | Dropdown arrow in menus and selectors                |
+| `arrowDown`          | Down arrow used in drop-downs and expandable sections |
+| `arrowDropDown`      | Drop-down arrow in menus and selectors                |
 | `arrowLeft`          | Left arrow used in pagination and navigation         |
 | `arrowRight`         | Right arrow used in pagination and navigation        |
 | `bell`               | Notification bell icon in the header                 |
