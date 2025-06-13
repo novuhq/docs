@@ -1,5 +1,4 @@
 import NextLink from 'next/link';
-import Link from '@/components/ui/link';
 import Image from 'next/image';
 import { GolangIcon } from '@/components/icons/golang';
 import { PythonIcon } from '@/components/icons/python';
@@ -21,7 +20,6 @@ import CardWithIconAndText from '../ui/card-wth-icon-and-text';
 import { Inter } from 'next/font/google';
 import mainIcon from '@/images/pages/home-page/main-icon.png';
 import mainIconDark from '@/images/pages/home-page/main-icon-dark.png';
-import { ArrowRightIcon } from '@/components/icons/home-page/arrow-right';
 import workflowsImage from '@/images/pages/home-page/concepts/workflows.jpg';
 import notificationsImage from '@/images/pages/home-page/concepts/notification.jpg';
 import topicsImage from '@/images/pages/home-page/concepts/topics.jpg';
