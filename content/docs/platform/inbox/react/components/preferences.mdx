@@ -59,9 +59,10 @@ To implement preference grouping, use the `preferenceGroups` prop on the `Inbox`
 - `name`: The text displayed for the group
 - `filter`: Criteria for which preferences appear in the group (object or function)
 
-Here are the key ways to filter preferences:
+Here are the different ways to group preferences:
 
-#### Filter by tags
+#### Group by tags
+
 Use this approach to group preferences that share specific tags.
 
    ```tsx
@@ -75,7 +76,8 @@ Use this approach to group preferences that share specific tags.
 ];
    ```
 
-#### Filter by tags and workflow IDs:
+#### Group by tags and workflow IDs
+
 Combine tags and workflow IDs to define a more targeted group of preferences.
 
    ```tsx
@@ -91,7 +93,8 @@ Combine tags and workflow IDs to define a more targeted group of preferences.
 
    ```
 
-#### Include all workflows
+#### Group all workflows
+
 Include every available workflow, regardless of its tag or grouping, by returning the full preferences list.
 
    ```tsx
@@ -104,7 +107,8 @@ Include every available workflow, regardless of its tag or grouping, by returnin
   ```
 
 
-#### Custom filtering logic
+#### Group using custom logic
+
 You can implement custom filtering logic using a function that receives the preferences array (excluding global preferences) and returns filtered preferences based on your criteria.
 
 <Callout type="info">

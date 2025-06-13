@@ -141,6 +141,56 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
   </Tab>
 </Tabs>
 
+## Data object
+
+The `data` object is a key-value store within each notification, used to extend <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> notifications by embedding step-specific metadata. It provides flexible notification handling, supporting both static and dynamic values:
+
+- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don't change based on the recipient or context.
+- **Dynamic Values**: These values are derived from subscriber or payload data. For instance, they can reference `subscriber.firstName` or `payload.issueId` to tailor notifications for individual users.
+
+You can pass data such as:
+* `reactionType`: To display specific icons such as 👍, ❤️, or a comment bubble.
+* `entityId` (like `pullRequestId` or `issueId`): Create direct links or show relevant badges (e.g., a GitHub logo linking to the PR).
+* `status` or `actionType`: To show visual cues such as colored dots or status icons (e.g., green for 'merged', orange for 'commented').
+
+<img
+  alt="Data object for in-app Inbox step"
+  src="/images/inbox/data-object.png"
+/>
+
+The `data` object is defined within a workflow's in-app step in the Novu dashboard. Each key-value pair, referred to as a property, can be static or dynamic, and you get up to 10 properties per in-app step. These properties are accessible on the frontend via the `notification.data` property.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+<Inbox
+  applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+  subscriber="YOUR_SUBSCRIBER_ID"
+  renderNotification={(notification) => (
+    <div>
+      <p>{notification.data?.customKey}</p>
+      <p>{notification.data?.dataId}</p>
+    </div>
+  )}
+/>
+```
+<Callout type="warn">
+      `notification.data` is included in the client response, so do not store any sensitive data in it.
+</Callout>
+
+By default, `notification.data` is untyped. To ensure type safety, declare the `NotificationData` interface globally.
+
+```ts
+declare global {
+  interface NotificationData {
+    customKey?: string;
+    dataId?: number;
+  }
+}
+```
+
+This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage.
+
 ## Snooze
 
 The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component includes built-in support for snoozing notifications, which lets users delay reminders and resurface them at a more convenient time. 
@@ -267,7 +317,7 @@ function Novu() {
 }
 ```
 
-### Custom Notification Item
+### Custom notification Item
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -288,7 +338,7 @@ function Novu() {
 }
 ```
 
-### Custom Notification Subject
+### Custom notification Subject
 
 Render a custom subject for the notification, while keeping the default notification component.
 
@@ -310,7 +360,7 @@ function Novu() {
 }
 ```
 
-### Custom Notification Body
+### Custom notification Body
 
 Render a custom body for the notification, while keeping the default notification component.
 
@@ -332,13 +382,14 @@ function Novu() {
 }
 ```
 
-### Custom notification based on condition
+## Conditional rendering of notifications
 
 The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component supports conditional rendering of notifications using the renderNotification prop. This function receives a `notification` object and returns a custom React element. 
 
 You can use workflow tags, workflow identifiers, or values from the data object to customize how each notification is displayed. You can also combine multiple conditions to create dynamic and tailored notification displays.
 
-#### Workflow tags condition
+### Render based on workflow tags
+
 
 You can conditionally render customized notification based on [workflow tags](/platform/concepts/workflows#workflow-tags). These tags are defined in your workflow and are accessible via `notification.tags` property.
 
@@ -374,7 +425,7 @@ export default function CustomInbox() {
 }
 ```
 
-#### Workflow identifier or name condition
+### Render based on workflow identifier or name
 
 Each workflow has a [name and a unique identifier](/platform/concepts/workflows#workflow-identifier), accessible through `notification.workflow.name` and `notification.workflow.identifier`, respectively. Either property can be used to conditionally render notifications.
 
@@ -418,7 +469,7 @@ export default function CutomInbox() {
 }
 ```
 
-#### Data object condition
+### Render based on data object
 
 You can also use values from the notification [data object](/platform/inbox/react/components/inbox#data-object) to render notifications conditionally. These values are accessible via `notification.data` and typically contain custom payload fields
 
@@ -453,9 +504,7 @@ export default function CutomInbox() {
 }
 ```
 
-
-
-### Rendering HTML
+## Rendering HTML
 
 To render HTML tags in inbox, user renderBody props and render the notification body as a `dangerouslySetInnerHTML` element.
 ```tsx
@@ -476,7 +525,7 @@ function NovuInbox() {
 }
 ```
 
-#### Steps: 
+**Steps**: 
 1. Create a workflow with in-app step.
 2. Toggle on the `Disable content sanitization` option on the top right corner of the in-app step.
 3. Use html tags in in-app step body as shown in the image below 
@@ -493,28 +542,7 @@ analytics dashboard</i> you asked for. Check it out <a href="{{payload.analytics
 target="_blank">here</a> and gain deeper insights into your usage.
 ```
 
-
-### Custom Bell
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      renderBell={(unreadCount) => (
-        <div>
-          <span>{unreadCount}</span>
-        </div>
-      )}
-    />
-  );
-}
-```
-
-### Filtering Preferences
+## Filtering Preferences
 
 <Callout type="info">
   Customize visible preferences using the `preferencesFilter` prop to display only relevant
@@ -536,7 +564,7 @@ function Novu() {
 }
 ```
 
-### Subscriber Data Upsert
+## Subscriber Data Upsert
 
 The `<Inbox />` component supports real-time subscriber data updates when properly configured with HMAC authentication. This allows you to update subscriber information directly through the component without making separate API calls:
 
@@ -564,53 +592,3 @@ function Novu() {
 </Callout>
 
 Learn more about setting up HMAC authentication in the [Enabling HMAC Encryption](/platform/inbox/react/production#hmac-encryption) guide.
-
-### Data object
-
-The `data` object is a key-value store within each notification, used to extend <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> notifications by embedding step-specific metadata. It provides flexible notification handling, supporting both static and dynamic values:
-
-- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don't change based on the recipient or context.
-- **Dynamic Values**: These values are derived from subscriber or payload data. For instance, they can reference `subscriber.firstName` or `payload.issueId` to tailor notifications for individual users.
-
-You can pass data such as:
-* `reactionType`: To display specific icons such as 👍, ❤️, or a comment bubble.
-* `entityId` (like `pullRequestId` or `issueId`): Create direct links or show relevant badges (e.g., a GitHub logo linking to the PR).
-* `status` or `actionType`: To show visual cues such as colored dots or status icons (e.g., green for 'merged', orange for 'commented').
-
-<img
-  alt="Data object for in-app Inbox step"
-  src="/images/inbox/data-object.png"
-/>
-
-The `data` object is defined within a workflow's in-app step in the Novu dashboard. Each key-value pair, referred to as a property, can be static or dynamic, and you get up to 10 properties per in-app step. These properties are accessible on the frontend via the `notification.data` property.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-<Inbox
-  applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-  subscriber="YOUR_SUBSCRIBER_ID"
-  renderNotification={(notification) => (
-    <div>
-      <p>{notification.data?.customKey}</p>
-      <p>{notification.data?.dataId}</p>
-    </div>
-  )}
-/>
-```
-<Callout type="warn">
-      `notification.data` is included in the client response, so do not store any sensitive data in it.
-</Callout>
-
-By default, `notification.data` is untyped. To ensure type safety, declare the `NotificationData` interface globally.
-
-```ts
-declare global {
-  interface NotificationData {
-    customKey?: string;
-    dataId?: number;
-  }
-}
-```
-
-This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage.
