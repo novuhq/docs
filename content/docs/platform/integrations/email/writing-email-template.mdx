@@ -5,21 +5,51 @@ description: 'Learn how to write an email template in Novu. This document will g
 icon: 'file-pen'
 ---
 
-## Email Editor
+Novu provides two editors for authoring email templates, each of the editor is designed to meet different use cases, from quick visual composition to deeply customized HTML emails integrated with your own design system and logic.
 
-The Email Editor is a `WYSIWYG` editor that allows you to create and edit email templates. It has two fields: `Subject` and `Body`.
+- **Block editor**: A visual drag-and-drop editor ideal for quickly building structured layouts using prebuilt blocks.
+- **Code editor (Custom HTML)**: A full HTML authoring mode that gives you complete control over layout, design, and dynamic rendering using [LiquidJS](https://liquidjs.com/index.html).
 
 <img
-  src="/images/channels-and-providers/email/writing-email-template/email-editor.png"
-  alt="Email editor"
+  src="/images/channels-and-providers/email/writing-email-template/block-and-code-editor.png"
+  alt="Novu block and code editor"
 />
+
+## Dynamic data sources
+
+When authoring email templates, you can bind dynamic data from the following sources:
+
+| Data source          | Description                                             | Available in              |
+| -------------------- | ------------------------------------------------------- | ------------------------- |
+| **Payload Schema**   | Variables defined in your workflow’s payload schema     | Block editor, Code editor |
+| **Subscriber Data**  | Subscriber profile data associated with the recipient   | Block editor, Code editor |
+| **Digest Variables** | Variables that expose the results of the digest step | Block editor, Code editor |
+| **Local Variables**  | Variables declared within Liquid control structures (for loops, if statements)     | Code editor only          |
+
+## Editor autocomplete behavior
+
+The Code Editor provides autocomplete suggestions as you write, helping you reference available variables from your payload schema and subscriber scope.
+
+Autocomplete is available when inserting variables directly inside `{{ ... }}` output expressions. For example, typing `{{ subscriber.` will suggest available fields such as `firstName`, `email`, and any other fields defined in the subscriber object.
+
+<Callout>Autocomplete suggestions are not available inside control statements like `{% if %}` or `{% for %}`.</Callout>
+
+## Editor preview
+
+The editors also has a preview that renders your email using available data:
+
+- If your workflow has a Payload schema, the preview uses that schema to generate data for variable substitution.
+- If no schema is defined, Novu falls back to using sample data from previous executions or default payloads.
+- Inline variables and loop-scoped variables are fully evaluated during preview rendering.
+
+## Blocks editor
+
+The block editor is a `WYSIWYG` editor that allows you to create and edit email templates. It has two fields: `Subject` and `Body`.
 
 - **Subject** - Title of the email. It supports variables and can be customized based on the subscriber properties and payload variables.
 - **Body** - Main content of the email. It is made of blocks.
 
-## Email Editor Blocks
-
-Email editor body is made of blocks. A block can be added by clicking on the plus icon on the top left corner of the editor or by adding a forward slash `/`. In both the cases, a popover will appear with the list of supported blocks. Click on the desired block to add it to the editor. Menu option besides plus (+) icon can be used to **duplicate** or **delete** the block.
+Block editor body is made of blocks. A block can be added by clicking on the plus icon on the top left corner of the editor or by adding a forward slash `/`. In both the cases, a popover will appear with the list of supported blocks. Click on the desired block to add it to the editor. Menu option besides plus (+) icon can be used to **duplicate** or **delete** the block.
 
 <img
   src="/images/channels-and-providers/email/writing-email-template/email-blocks.gif"
@@ -77,3 +107,44 @@ Show block can be used to conditionally show content based on a condition. Use t
 />
 
 In above example, if subscriber has `showTracking` field set to `true` in custom `data` attribute, then the `Track your order` button will be shown in the email sent to the subscriber. Similarly, payload variables can be used to conditionally show the content.
+
+## Code editor (custom HTML)
+
+Novu’s custom HTML for email lets you build fully custom email templates by writing raw HTML combined with full LiquidJS support for dynamic data binding, control flow, and personalization. This gives you full control over layout, structure, and rendering, beyond the capabilities of Novu's block editor.
+
+This feature supports advanced use cases such as:
+- Migrating existing HTML email templates.
+- Implementing full design systems.
+- Executing flow control logic directly inside email templates.
+- Complete layout and styling freedom without editor constraints.
+
+<Callout type='info'>Custom HTML is available for customers on the Pro tier and above.</Callout>
+
+### Authoring custom HTML emails
+
+You can create custom HTML emails using either the Novu dashboard (Code editor) or via API passthrough. Both methods provide full control over email rendering.
+
+#### Using the code editor in Novu dashboard
+
+The Code editor allows you to write raw HTML and embed LiquidJS expressions directly within the Novu dashboard.
+
+To use it:
+1. Open an email step in your workflow.
+2. Select the **Code editor** tab to switch to Custom HTML mode.
+3. Start writing your template using HTML and LiquidJS syntax.
+
+<Callout type='warn'>Once you switch to the Code editor, reverting the template back to the Block editor is not supported as some HTML constructs may not map cleanly to block definitions, so further edits must be made directly in HTML.</Callout>
+
+#### Using the API
+
+You can also submit fully pre-rendered HTML directly via the Novu API. This allows you to control template rendering server-side and submit the complete HTML payload for delivery.
+
+When using API passthrough:
+
+- Novu delivers the submitted HTML exactly as provided.
+- No additional wrappers, headers, or system-injected layout elements are added.
+- LiquidJS is not executed server-side; the HTML you submit must be fully rendered.
+
+API passthrough is commonly used when you maintain your own rendering pipeline and wish to integrate Novu as a delivery mechanism.
+
+
