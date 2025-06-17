@@ -1,0 +1,38 @@
+---
+title: Environment schema
+---
+
+### Environment
+
+Environment is a collection of resources that are used to send notifications. For example, an environment can have a set of integrations, workflows, and subscribers. Read more about environments on [environments concept page](/platform/concepts/environments). 
+
+<TypeTable name="Environment" type={{
+  "id": {
+    "description": "Unique identifier of the environment",
+    "type": "string"
+  },
+  "name": {
+    "description": "Name of the environment",
+    "type": "string"
+  },
+  "organizationId": {
+    "description": "Organization ID associated with the environment",
+    "type": "string"
+  },
+  "identifier": {
+    "description": "Unique identifier for the environment",
+    "type": "string"
+  },
+  "apiKeys": {
+    "description": "List of API keys associated with the environment",
+    "type": "ApiKeyDto[]"
+  },
+  "parentId": {
+    "description": "Parent environment ID",
+    "type": "string"
+  },
+  "slug": {
+    "description": "URL-friendly slug for the environment",
+    "type": "string"
+  }
+}} />

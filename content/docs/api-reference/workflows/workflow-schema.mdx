@@ -1,0 +1,94 @@
+---
+title: Workflow schema
+---
+
+### Workflow
+
+In Novu, a workflow defines the logic for delivering notifications based on specific events. It consists of configurable steps that control timing, conditions, and which channels to use, such as email, SMS, or in-app messages. Workflows can be built visually in the dashboard or programmatically using the Novu Framework. Each workflow has a unique identifier, supports environment syncing, and provides real-time visibility through the Activity Feed for monitoring and debugging.. Read more about workflows on [workflows concept page](/platform/concepts/workflows). 
+
+<TypeTable name="Workflow" type={{
+  "id": {
+    "description": "",
+    "type": "string"
+  },
+  "name": {
+    "description": "",
+    "type": "string"
+  },
+  "description": {
+    "description": "",
+    "type": "string"
+  },
+  "active": {
+    "description": "",
+    "type": "boolean"
+  },
+  "draft": {
+    "description": "",
+    "type": "boolean"
+  },
+  "preferenceSettings": {
+    "description": "",
+    "type": "SubscriberPreferenceChannels"
+  },
+  "critical": {
+    "description": "",
+    "type": "boolean"
+  },
+  "tags": {
+    "description": "",
+    "type": "string[]"
+  },
+  "steps": {
+    "description": "",
+    "type": "NotificationStepDto[]"
+  },
+  "organizationId": {
+    "description": "",
+    "type": "string"
+  },
+  "creatorId": {
+    "description": "",
+    "type": "string"
+  },
+  "environmentId": {
+    "description": "",
+    "type": "string"
+  },
+  "triggers": {
+    "description": "",
+    "type": "NotificationTrigger[]"
+  },
+  "notificationGroupId": {
+    "description": "",
+    "type": "string"
+  },
+  "parentId": {
+    "description": "",
+    "type": "string"
+  },
+  "deleted": {
+    "description": "",
+    "type": "boolean"
+  },
+  "deletedAt": {
+    "description": "",
+    "type": "string"
+  },
+  "deletedBy": {
+    "description": "",
+    "type": "string"
+  },
+  "notificationGroup": {
+    "description": "",
+    "type": "NotificationGroup"
+  },
+  "data": {
+    "description": "",
+    "type": "WorkflowResponseData"
+  },
+  "workflowIntegrationStatus": {
+    "description": "",
+    "type": "WorkflowIntegrationStatus"
+  }
+}} />

@@ -20,7 +20,7 @@ The Novu client provides methods to interact with notifications, preferences, an
   },
   "applicationIdentifier": {
     "description": "",
-    "type": "string"
+    "type": "string | undefined"
   },
   "subscriberHash": {
     "description": "",
@@ -110,6 +110,10 @@ Fetches a list of notifications based on provided filters.
   "snoozed": {
     "description": "",
     "type": "boolean"
+  },
+  "data": {
+    "description": "",
+    "type": "Record<string, unknown>"
   }
 }} />
 
@@ -164,6 +168,10 @@ Fetches the count of notifications based on filters.
   "snoozed": {
     "description": "",
     "type": "boolean"
+  },
+  "data": {
+    "description": "",
+    "type": "Record<string, unknown>"
   }
 }} />
 

@@ -62,27 +62,27 @@ Subscriber is a user who can receive notifications. Read more about subscribers 
   },
   "firstName": {
     "description": "The first name of the subscriber.",
-    "type": "string"
+    "type": "string | null"
   },
   "lastName": {
     "description": "The last name of the subscriber.",
-    "type": "string"
+    "type": "string | null"
   },
   "email": {
     "description": "The email address of the subscriber.",
-    "type": "string"
+    "type": "string | null"
   },
   "phone": {
     "description": "The phone number of the subscriber.",
-    "type": "string"
+    "type": "string | null"
   },
   "avatar": {
     "description": "The URL of the subscriber's avatar image.",
-    "type": "string"
+    "type": "string | null"
   },
   "locale": {
     "description": "The locale setting of the subscriber, indicating their preferred language or region.",
-    "type": "string"
+    "type": "string | null"
   },
   "channels": {
     "description": "An array of channel settings associated with the subscriber.",
@@ -94,11 +94,11 @@ Subscriber is a user who can receive notifications. Read more about subscribers 
   },
   "isOnline": {
     "description": "Indicates whether the subscriber is currently online.",
-    "type": "boolean"
+    "type": "boolean | null"
   },
   "lastOnlineAt": {
     "description": "The timestamp indicating when the subscriber was last online, in ISO 8601 format.",
-    "type": "string"
+    "type": "string | null"
   },
   "v": {
     "description": "The version of the subscriber document.",
@@ -110,7 +110,7 @@ Subscriber is a user who can receive notifications. Read more about subscribers 
   },
   "timezone": {
     "description": "Timezone of the subscriber",
-    "type": "string"
+    "type": "string | null"
   },
   "subscriberId": {
     "description": "The identifier used to create this subscriber, which typically corresponds to the user ID in your system.",
