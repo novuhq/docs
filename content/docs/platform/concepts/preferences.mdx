@@ -35,8 +35,7 @@ Steps to manage workflow channel preferences:
 
 In some cases, you don't want the subscriber to be able to unsubscribe from mandatory notifications such as Account Verification, Password Reset, etc...
 
-In those cases you can mark a workflow as `critical` in workflow channel preferences. Critical workflow are not displayed in the subscriber preferences and hence subscriber will not be able to change the preferences for that workflow.
-
+In those cases, you can mark a workflow as `critical` in the workflow channel preferences. Critical workflows are not displayed in subscriber preferences, so subscribers cannot change preferences for that workflow.
 
 ## Subscriber global preferences
 
@@ -54,15 +53,15 @@ For each workflow, subscriber has its own channel preferences. Subscriber can ma
 
 ## Priority of preferences
 
-Since, there are three type of preferences, there is a priority of preferences. The priority is as follows:
+Since there are three types of preferences, the priority order is as follows:
 
 Workflow channel preferences > Subscriber global preferences > Subscriber channel preferences per workflow
 
 Examples:
 
-1. If `email` channel is disabled in workflow channel preferences then it global and subscriber channel preferences will be ignored and subscriber will not receive email notifications from this workflow.
-2. If `in-app` channel is enabled in the workflow channel preferences but workflow is marked as critical, then subscriber not be able to change the preferences for this workflow and will always receive in-app notifications from this workflow.
-3. If `chat` is enabled and `email` is enabled in the workflow, `chat` is enabled and `email` is disabled in the subscriber global preferences, then subscriber will receive only chat notifications from this workflow
+1. If the `email` channel is disabled in workflow channel preferences, global and subscriber preferences are ignored, and subscribers will not receive email notifications for this workflow.
+2. If the `in-app` channel is enabled in workflow channel preferences but the workflow is marked as critical, subscribers cannot change their preferences and will always receive in-app notifications.
+3. If both `chat` and `email` channels are enabled in the workflow but `email` is disabled in subscriber global preferences, the subscriber will receive only chat notifications for this workflow.
 
 ## Subscriber preferences APIs
 
