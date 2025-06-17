@@ -12,32 +12,32 @@ Use the development environment to test new notification workflows, validate cha
 
 ## Production Environment
 
-The production environment is your live environment where notifications are sent to real users.
+The production environment is your live environment where notifications are sent to real users. Use the production environment for production use cases, and other environments for non-production use cases.
 
 ## Custom Environments
 
-<Callout type="info">Custom environments are available in Business and Enterprise plans</Callout>
+<Callout type="info">Custom environments are available in Team and Enterprise plans.</Callout>
 
 Create custom environments to match your development workflow:
 
-1. Go to the Environments page in your dashboard
-2. Create environments like `Staging` or `QA`
-3. Assign unique colors to easily distinguish between environments
-4. Sync changes between environments just like with development and production
-
-The sync process works the same way as between development and production environments.
+1. Go to the [Environments page](https://dashboard.novu.co/environments) in Novu dashboard
+2. Click on the `Create environment` button on the top right.
+3. A popup will appear. Enter names like `Staging` or `QA`.
+4. Assign unique colors to easily distinguish between environments.
+5. Click on `Create environment` button on the bottom right.
+6. New environment will be created and will be available in the environments list.
 
 ## What's Unique to Each Environment?
 
 Each environment maintains its own separate:
 
-- Subscriber list
-- Notification workflows
-- Message history
+- Subscribers
+- Topics
+- Workflows
+- Webhooks
+- Integrations
+- API keys (application identifier and secret key)
 - Activity feed
-- Integration settings
-- Notification feeds
-- Brand assets and settings
 
 ## Environment Credentials
 
@@ -46,6 +46,7 @@ Each environment has two unique identifiers:
 1. **Application Identifier**
 
    - Public ID for client-side apps
+   - Used with <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>
    - Unique per environment
    - Safe to expose in frontend code
 
@@ -56,9 +57,18 @@ Each environment has two unique identifiers:
 
 **Best Practice**: Configure these credentials in your application based on the active environment, similar to how you manage other service credentials.
 
-## Promoting Changes to Production
+## Promoting workflows between environments
 
-You can move changes from development to production in two ways:
+One workflow can be synced to another environment using the `Sync Workflow` option in workflow actions. While syncing, Novu will give option to which environment to sync the workflow to. If workflow with same identifier is already present in the destination environment, it will be overwritten with the source workflow.
 
-1. Using the Dashboard's sync interface
-2. Using the Sync API in your CI/CD pipeline
+Steps:
+
+1. Go to the [Workflows page](https://dashboard.novu.co/workflows) in Novu dashboard
+2. Click on the three dot menu in the workflow row
+3. If you have more than two environments, hover over the `Sync Workflow` option to see the destination environment, then click it.
+4. If you have only two environments, Click on the `Sync to <Environment Name>` option. Here `Environment Name` is the name of another environment.
+5. The workflow will be synced to the destination environment.
+
+<Callout type="info">
+Currently, a single workflow can be synced to another environment.
+</Callout>
