@@ -15,10 +15,10 @@ You can create email templates in Novu using the following methods:
 
 The block editor is a `WYSIWYG` editor that allows you to create and edit email templates. It has two fields: `Subject` and `Body`.
 
-- **Subject** - Title of the email. It supports variables and can be customized based on the subscriber properties and payload variables.
-- **Body** - Main content of the email. It is made of blocks.
+- **Subject**: Title of the email. It supports variables and can be customized based on the subscriber properties and payload variables.
+- **Body**: Main content of the email. It is made of blocks.
 
-The block editor body is made of blocks. A block can be added by clicking on the plus (+) icon in the top-left corner of the editor or by adding a forward slash (`/`). In both cases, a popover will appear with the list of supported blocks. Click on the desired block to add it to the editor. The menu option next to the plus (+) icon can be used to **duplicate** or **delete** the block.
+The block editor body is made of blocks. A block can be added by clicking on the plus (+) icon in the top-left corner of the editor or by adding a forward slash (`/`). In both cases, a menu will appear with the list of supported blocks. Click on the desired block to add it to the editor. The menu option next to the plus (+) icon can be used to **duplicate** or **delete** the block.
 
 <img
   src="/images/channels-and-providers/email/writing-email-template/email-blocks.gif"
@@ -27,23 +27,23 @@ The block editor body is made of blocks. A block can be added by clicking on the
 
 The Email Editor supports the following blocks:
 
-- **Text** - Regular text
-- **Heading 1** - Large heading (H1)
-- **Heading 2** - Medium heading (H2)
-- **Heading 3** - Small heading (H3)
-- **Bullet List** - Bullet list (bullet points like •)
-- **Numbered List** - Numbered list (numeric digits like 1,2,3)
-- **Image** - Full widh image with absolute url, image position can be customized
-- **Section** - Create a section to group content together
-- **Column** - Creates columns to group content together, useful for responsive design
-- **Divider** - Separates the content, adds a line to highlight the separation
-- **Spacer** - Spacer to add space between two blocks (available in sm, lg and xl sizes)
-- **Button** - Call to action button to link to a page or URL that can be customized with text, URL, color, and size and background color.
-- **Hard Break** - Adds a line break
-- **Blockquote** - Adds a blockquote
-- **Custom HTML code** - Insert raw HTML with variable support
-- **Repeat** - Can be used for interation on array of data
-- **Show** - Can be used to conditionally show content based on a condition, use eye icon to toggle the visibility of the content
+- **Text**: Regular text
+- **Heading 1**: Large heading (H1)
+- **Heading 2**: Medium heading (H2)
+- **Heading 3**: Small heading (H3)
+- **Bullet List**: Bullet list (bullet points like •)
+- **Numbered List**: Numbered list (numeric digits like 1,2,3)
+- **Image**: Full widh image with absolute url, image position can be customized
+- **Section**: Create a section to group content together
+- **Column**: Creates columns to group content together, useful for responsive design
+- **Divider**: Separates the content, adds a line to highlight the separation
+- **Spacer**: Spacer to add space between two blocks (available in sm, lg and xl sizes)
+- **Button**: Call to action button to link to a page or URL that can be customized with text, URL, color, and size and background color.
+- **Hard Break**: Adds a line break
+- **Blockquote**: Adds a blockquote
+- **Custom HTML code**: Insert raw HTML with variable support
+- **Repeat**: Can be used for interation on array of data
+- **Show**: Can be used to conditionally show content based on a condition, use eye icon to toggle the visibility of the content
 
 ### Custom HTML block
 
@@ -86,17 +86,17 @@ Show block can be used to conditionally show content based on a condition. Use t
   alt="Show block"
 />
 
-In above example, if subscriber has `showTracking` field set to `true` in custom `data` attribute, then the `Track your order` button will be shown in the email sent to the subscriber. Similarly, payload variables can be used to conditionally show the content.
+In the above image example, the Track your order button is displayed only if a subscriber has the showTracking field set to true in their custom data attribute. Similarly, you can use payload variables to show content conditionally.
 
 ## Code editor (custom HTML)
 
 The code editor provides a built-in interface for writing raw HTML and embedding Liquid expressions directly inside the Novu dashboard. This gives you full control over layout, structure, and rendering beyond the capabilities of Novu's block editor.
 
 The editor supports advanced use cases such as:
-- Migrating existing HTML email templates.
-- Implementing full design systems.
-- Executing flow control logic directly inside email templates.
-- Complete layout and styling freedom without editor constraints.
+- Migrating existing HTML email templates
+- Implementing full design systems
+- Executing flow control logic directly inside email templates
+- Complete layout and styling freedom without editor constraints
 
 To use it:
 
@@ -126,17 +126,17 @@ When authoring email templates, you can bind dynamic data from the following sou
 
 | Data source          | Description                                             | Available in              |
 | -------------------- | ------------------------------------------------------- | ------------------------- |
-| **Payload Schema**   | Variables defined in your workflow’s payload schema     | Block editor, Code editor and API|
-| **Subscriber Data**  | Subscriber profile data associated with the recipient   | Block editor, Code editor, and API|
-| **Digest Variables** | Variables that expose the results of the digest step | Block editor, Code editor, and API |
-| **Local Variables**  | Variables declared within Liquid control structures (for loops, if statements)     | Code editor and API only |
+| Payload schema   | Variables defined in your workflow’s payload schema     | Block editor, Code editor and API|
+| Subscriber data  | Subscriber profile data associated with the recipient   | Block editor, Code editor, and API|
+| Digest variables | Variables that expose the results of the digest step | Block editor, Code editor, and API |
+| Local variables | Variables declared within Liquid control structures (for loops, if statements)     | Code editor and API only |
 
 ## Editor autocomplete
 
 Both the block and code editors provides autocomplete as you write:
 
-- **Block editor**: Autocompletes variable expressions (`{{ ... }}`) and shows available block types when typing `/`.
-- **Code editor**: Autocompletes HTML, LiquidJS expressions, and available variables inside `{{ ... }}`.
+- **Block editor**: Automatically completes variable expressions (`{{ ... }}`) and shows available block types when typing `/`.
+- **Code editor**: Automatically completes HTML, LiquidJS expressions, and available variables inside `{{ ... }}`.
 
 <Callout>Autocomplete suggestions are not available inside control statements like `{% if %}` or `{% for %}`.</Callout>
 
