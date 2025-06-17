@@ -12,6 +12,7 @@ import {
   StepFilterDto,
   TopicSubscriptionResponseDto,
   SubscriberPayloadDto,
+  EnvironmentResponseDto,
 } from '@novu/api/models/components';
 
 // subscriber
@@ -24,7 +25,6 @@ export type TopicSubscription = TopicSubscriptionResponseDto;
 
 // message
 export type Message = MessageResponseDto;
-export type Workflow = WorkflowResponse;
 export type Actor = SubscriberPayloadDto | string;
 export type MessageCTA = MessageCTAType;
 
@@ -36,3 +36,9 @@ export type ActivityJob = ActivityNotificationJobResponseDto;
 export type Integration = IntegrationResponseDto;
 export type Credentials = CredentialsDto;
 export type StepFilter = StepFilterDto;
+
+// environment
+export type Environment = EnvironmentResponseDto;
+
+// workflow
+export type Workflow = WorkflowResponse;

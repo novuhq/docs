@@ -16,7 +16,7 @@ The main component for displaying notifications.
 <TypeTable name="InboxProps" type={{
   "applicationIdentifier": {
     "description": "",
-    "type": "string"
+    "type": "string | undefined"
   },
   "subscriberHash": {
     "description": "",
@@ -32,7 +32,7 @@ The main component for displaying notifications.
   },
   "appearance": {
     "description": "",
-    "type": "Appearance"
+    "type": "ReactAppearance"
   },
   "localization": {
     "description": "",
@@ -45,6 +45,10 @@ The main component for displaying notifications.
   "preferencesFilter": {
     "description": "",
     "type": "PreferencesFilter"
+  },
+  "preferenceGroups": {
+    "description": "",
+    "type": "PreferenceGroups"
   },
   "routerPush": {
     "description": "",
@@ -93,6 +97,10 @@ function NotificationCenter() {
   "animations": {
     "description": "",
     "type": "boolean"
+  },
+  "icons": {
+    "description": "",
+    "type": "IconOverrides"
   },
   "baseTheme": {
     "description": "",
@@ -393,6 +401,10 @@ function NotificationCenter() {
     "type": "ElementStyles"
   },
   "bellIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "lockIcon": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -728,6 +740,14 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
+  "workflowLabelHeaderContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "workflowLabelIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
   "workflowLabelContainer": {
     "description": "",
     "type": "ElementStyles"
@@ -749,6 +769,54 @@ function NotificationCenter() {
     "type": "ElementStyles"
   },
   "workflowDescription": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupLabelIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupActionsContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupActionsContainerRight__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupBody": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupChannels": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupInfo": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupInfoIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferencesGroupWorkflows": {
     "description": "",
     "type": "ElementStyles"
   },
