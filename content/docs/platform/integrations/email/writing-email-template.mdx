@@ -9,7 +9,7 @@ You can create email templates in Novu using the following methods:
 
 - **Block editor**: A visual drag-and-drop editor using prebuilt content blocks and basic variables.
 - **Code editor (custom HTML)**: Full HTML and [LiquidJS](https://liquidjs.com/index.html) control for layout, logic, styling, and rendering.
-- **API**: Submit raw HTML and Liquid templates via the API.
+- **API**: Submit raw HTML and LiquidJS templates via the API.
 
 ## Blocks editor
 
@@ -53,7 +53,7 @@ The Custom HTML block allows you to insert raw HTML inside a block editor layout
 - Allows injecting variables using `{{ ... }}`.
 - Does not support LiquidJS control structures like `{% for %}` or `{% if %}`.
 
-Use this block when you need inline markup control within a visual layout, but don't require full Liquid logic.
+Use this block when you need inline markup control within a visual layout, but don't require full LiquidJS logic.
 
 ### Repeat block
 
@@ -90,7 +90,7 @@ In the above image example, the Track your order button is displayed only if a s
 
 ## Code editor (custom HTML)
 
-The code editor provides a built-in interface for writing raw HTML and embedding Liquid expressions directly inside the Novu dashboard. This gives you full control over layout, structure, and rendering beyond the capabilities of Novu's block editor.
+The code editor provides a built-in interface for writing raw HTML and embedding LiquidJS expressions directly inside the Novu dashboard. This gives you full control over layout, structure, and rendering beyond the capabilities of Novu's block editor.
 
 The editor supports advanced use cases such as:
 - Migrating existing HTML email templates
@@ -114,7 +114,7 @@ You can also submit custom HTML email templates via the Novu API. This method su
 
 During the sending phase:
 
-- Novu compiles your submitted HTML and Liquid template using the payload and subscriber context.
+- Novu compiles your submitted HTML and LiquidJS template using the payload and subscriber context.
 - The final rendered output is what gets delivered to recipients.
 - LiquidJS is executed on Novu’s servers—there’s no need to pre-render the template yourself.
 
@@ -129,7 +129,7 @@ When authoring email templates, you can bind dynamic data from the following sou
 | Payload schema   | Variables defined in your workflow’s payload schema     | Block editor, Code editor and API|
 | Subscriber data  | Subscriber profile data associated with the recipient   | Block editor, Code editor, and API|
 | Digest variables | Variables that expose the results of the digest step | Block editor, Code editor, and API |
-| Local variables | Variables declared within Liquid control structures (for loops, if statements)     | Code editor and API only |
+| Local variables | Variables declared within LiquidJS control structures (for loops, if statements)     | Code editor and API only |
 
 ## Editor autocomplete
 
