@@ -22,6 +22,7 @@ import { metadataImage } from '../../lib/metadata-image';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import { PageActions } from '../../components/page-actions';
 import { getRawMarkdownContent } from '../../lib/get-markdown-content';
+import { Card, Cards } from '@/components/card';
 
 export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
   const params = await props.params;
@@ -31,9 +32,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   const MDX = page.data.body;
 
-  const isOverviewPage =
-    page.file.path.endsWith('platform/overview.mdx') ||
-    page.slugs.join('/') === 'platform/overview';
+  const hideTOC = (page?.data?._exports?.frontmatter as any)?.hideTOC;
 
   const rawMarkdownContent = getRawMarkdownContent(page.file.path);
 
@@ -42,13 +41,13 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
 
   return (
     <DocsPage
-      {...(!isOverviewPage && { toc: page.data.toc })}
+      toc={page.data.toc}
       full={page.data.full}
       tableOfContent={{
-        enabled: !isOverviewPage,
+        enabled: !hideTOC,
         single: false,
         style: 'clerk',
-        footer: isOverviewPage ? null : (
+        footer: hideTOC ? null : (
           <PageActions
             pageContent={rawMarkdownContent}
             title={page.data.pageTitle ?? page.data.title}
@@ -146,6 +145,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
                 </span>
               </Link>
             ),
+            Cards: Cards,
+            Card: Card,
             img: (props) => <ImageZoom {...props} alt={props.alt || ''} />,
           }}
         />

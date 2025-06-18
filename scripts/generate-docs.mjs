@@ -38,6 +38,13 @@ async function main() {
 
   const pages = await OpenAPI.generatePages(openApiInput[0], {
     includeDescription: true,
+    frontmatter: (title, description, context) => {
+      return {
+        full: true,
+        hideTOC: true,
+        title: title,
+      };
+    },
   });
 
   // Structure to hold metadata for each tag: Map<tagSlug, Record<operationSlug, operationTitle>>
