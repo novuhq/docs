@@ -73,7 +73,9 @@ export type SystemStatusType = {
 
 export async function getSystemsStatus(): Promise<SystemStatusType[]> {
   if (!process.env.BETTERSTACK_API_KEY) {
-    throw new Error('Missing BETTERSTACK_API_KEY environment variable');
+    // eslint-disable-next-line no-console
+    console.error('Missing BETTERSTACK_API_KEY environment variable');
+    return [];
   }
 
   const response = await fetch('https://uptime.betterstack.com/api/v2/monitors', {
