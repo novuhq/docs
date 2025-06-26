@@ -13,29 +13,46 @@ A malicious actor can access the user feed by accessing the API and passing anot
 
 HMAC encryption will make sure that a `subscriberId` is encrypted using the secret API key, and those will prevent malicious actors from impersonating users.
 
-### Enabling HMAC Encryption
+## Using HMAC Encryption
 
-In order to enable Hash-Based Message Authentication Codes, you need to visit the admin panel In-App settings page and enable HMAC encryption for your environment.
+In order to use HMAC encryption in Inbox for enhanced security, follow these steps:
 
-1. Next step would be to generate an HMAC encrypted subscriberId on your backend:
+### 1. Enable HMAC encryption in the In-App provider settings:
+
+- Go to [Novu Dashboard](https://dashboard.novu.co).
+- Navigate to the [Integrations Store](https://dashboard.novu.co/integrations) page.
+- Click on the Novu In-App provider.
+- A side panel will open from the right side of the screen with the provider settings.
+- Enable `Security HMAC encryption` toggle in **Integration Credentials** section.
+- Save the changes and copy the secret key from [Api Keys](https://dashboard.novu.co/api-keys) page.
+
+### 2. Generate HMAC hash on the server side:
+
+Use the `secret key` to generate an HMAC hash of the `subscriberId` on the server side. Keep `NOVU_SECRET_KEY` secure and never expose it to the client.
 
 ```tsx
 import { createHmac } from 'crypto';
 
-const hmacHash = createHmac('sha256', process.env.NOVU_SECRET_KEY)
+export const hmacHash = createHmac('sha256', process.env.NOVU_SECRET_KEY)
   .update(subscriberId)
   .digest('hex');
 ```
 
-2. Then pass the created HMAC to your client side application forward it to the component:
+### 3. Use the HMAC hash in the Inbox component:
+
+Send the `hmacHash` generated in the previous step to the client side application via HTTP request or store it in the user's database record. Use it as the `subscriberHash` prop in the Inbox component. In below example, we are using `currentUser` hook to get the `hmacHash` from the user's database record.
 
 ```tsx
 import { Inbox } from '@novu/react';
 
+const { user } = currentUser();
+
+const hmacHash = user?.novuSubscriberHash;
+
 <Inbox
   applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
   subscriber="YOUR_SUBSCRIBER_ID"
-  subscriberHash="YOUR_SUBSCRIBER_ID_HASH_VALUE"
+  subscriberHash={hmacHash}
 />;
 ```
 
