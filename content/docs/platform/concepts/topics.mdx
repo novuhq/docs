@@ -4,9 +4,9 @@ description: 'Learn how topics work in Novu and how they help you organize and t
 icon: 'Folders'
 ---
 
-In Novu, a topic represents a collection of subscribers. It is used to deliver the same message to many subscribers at once. Instead of triggering a workflow for each individual subscriber, you can trigger it once for a topic. Novu automatically sends the message to every subscriber in that topic.
+In Novu, a topic represents a collection of subscribers. It is used to trigger a workflow to many subscribers at once. Instead of triggering a workflow for each individual subscriber, you can trigger it once for a topic. Novu automatically sends the message to every subscriber in that topic.
 
-Topics make it easier to model shared audiences. They help decouple your notification logic from direct user targeting while preserving per-subscriber preferences and personalization.
+Topics make it easier to model shared audiences. This helps decouple your notification logic from direct user targeting while preserving per-subscriber preferences and personalization.
 
 ## How topics work in Novu
 
@@ -35,7 +35,7 @@ Each topic is uniquely identified by a `topicKey`, a permanent reference defined
 
 Topic keys must be unique within an environment and cannot be changed after creation. You can reuse the same topic keys across different environments like staging and production.
 
-If a topic does not exist when a subscriber is added to it, Novu will automatically create it, simplifying integration with your application logic.
+If a topic does not exist when a subscriber is added to it, Novu will create it on the fly, simplifying integration with your application logic.
 
 ## Topics vs. individual targeting
 
