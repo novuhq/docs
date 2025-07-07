@@ -10,6 +10,8 @@ import {
   Library,
   Workflow
 } from 'lucide-react';
+import { CodeTemplateBlock } from '@/components/quickstart/inbox-code';
+
 
 This guide walks you through integrating Novu’s Inbox into your Angular application for real time in-app notifications, from setup to triggering your first notification. By the end, you'll have a working notification inbox.
 
@@ -20,27 +22,24 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
 <Steps>
   <Step>
   ### Create a Novu account
-    [Create a Novu account](https://dashboard-v2.novu.co/auth/sign-up) or [sign in](https://dashboard-v2.novu.co/auth/sign-in) to an existing account.
+    <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer">Create a Novu account</a> or <a href="https://dashboard.novu.co/auth/sign-in" target="_blank" rel="noopener noreferrer">sign in</a> to access the Novu dashboard.
   </Step>
 
     <Step>
-  ### Create an Angular application
-    Create a new Angular app with [angular cli](https://angular.dev/tools/cli) using the command below. Skip this step if you already have an existing project:
+    ### Create an Angular application
+    Run the following command to create a new Angular app using <a href="https://angular.dev/tools/cli/setup-local#install-the-angular-cli" target="_blank" rel="noopener noreferrer">angular cli</a>:
 
     ```bash
     ng new novu-inbox-angular
-    ```
-
-    Navigate to the newly created project:
-
-    ```bash
     cd novu-inbox-angular
     ```
   </Step>
 
   <Step>
-  ### Install the required package
-  Run the command below to install [Novu Javascript SDK](/platform/sdks/javascript), which provides required component for Inbox UI:
+  ### Install `@novu/js`
+  The [Novu JavaScript SDK](/platform/sdks/javascript) gives you access to the Inbox component.
+
+  Run the following command to install the SDK:
 
     ```package-install
     npm install @novu/js
@@ -50,45 +49,11 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
 
   <Step>
   ### Add the Inbox component
-  Update the `src/app/app.component.ts` file to add the Inbox component passing :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
+  Update the `src/app/app.ts` file to add the Inbox component. You'll need to provide your :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
 
-```ts title="src/app/app.component.ts"
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NovuUI } from '@novu/js/ui';
+  <CodeTemplateBlock templateId="angular-inbox" />
 
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-})
-export class AppComponent implements AfterViewInit {
-  @ViewChild('novuInbox') novuInbox!: ElementRef<HTMLElement>;
-  title = 'inbox-angular';
-
-  ngAfterViewInit() {
-    const novu = new NovuUI({
-      options: {
-        applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
-        subscriberId: 'YOUR_SUBSCRIBER_ID',
-      },
-    });
-
-    novu.mountComponent({
-      name: 'Inbox',
-      props: {},
-      element: this.novuInbox.nativeElement,
-    });
-  }
-}
-```
-    <div className="text-sm text-gray-500 text-center mt-[-12px]">
-      [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
-    </div>
-
-     If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. Otherwise, you can manually retrieve them:
+  If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. Otherwise, you can manually retrieve them:
     * `applicationIdentifier` - In the Novu dashboard, click API Keys, and then locate your unique Application Identifier.
     * `subscriberId` - This represents a user in your system (typically the user's ID in your database). For quick start purposes, an auto-generated subscriberId is provided for your Dashboard user.
 
@@ -100,20 +65,22 @@ export class AppComponent implements AfterViewInit {
 
   <Step>
   ### Add the Inbox component to your application
-  Add a `#novuInbox` reference to your application in the starting of the `src/app/app.component.html` file:
+  Add a `#novuInbox` reference to your application in the starting of the `src/app/app.html` file:
 
-  ```html title="src/app/app.component.html"
+  ```html title="src/app/app.html"
   <div #novuInbox></div>
   ```
   </Step>
 
   <Step>
+
   ### Run Your Application
   Start your development server:
 
   ```package-install
   npm run start
   ```
+
   Once the application is running, a bell icon will appear on the top left side of the screen. Clicking it opens the notification inbox UI.
 
   Currently, there are no notifications. Let’s trigger one!
