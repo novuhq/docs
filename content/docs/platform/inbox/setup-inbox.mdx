@@ -1,38 +1,107 @@
 ---
 title: 'Set up the Inbox'
-description: "Learn how to integrate Novu <Inbox />, a pre-built notification center component for real-time in-app notifications in your application."
-icon: 'LayoutDashboard'
+description: 'Learn how to integrate the Novu Inbox component into your application to display real-time notifications for your users.'
+icon: 'Bell'
 ---
 
-import { Card, Cards } from 'fumadocs-ui/components/card';
-import { MessageSquare, Palette, Zap } from 'lucide-react';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import Link from 'next/link';
 
-The Inbox component enables a rich context-aware in-app notifications center directly in your application, and with minimal effort.
+You can add the Novu Inbox component to your application with few lines of code minimal setup.
 
-Novu provides a pre-built, ready-to-use, and customizable Inbox UI component. It's in React today, and soon will be available in other popular frameworks including Vue, React Native, and full headless.
+## Try Inbox in Keyless Mode
 
-<img src="/images/inbox/overview@2x.png" alt="Fully functional and customizable React Inbox component" />
+Keyless mode lets you test the look and features of the Inbox component instantly in your application, no setup required.
 
-## Getting Started
+<Tabs items = {['Next.js', 'React']}>
+  <Tab value="Next.js">
+    ```tsx
+    import { Inbox } from '@novu/nextjs';
 
-<Cards>
-  <Card
-    title="Next.js"
-    href="/platform/quickstart/nextjs"
-    description="Get started with our pre-built UI component in Next.js"
-  />
-  <Card
-    title="React"
-    href="/platform/quickstart/react"
-    description="Get started with our pre-built UI component in React"
-  />
-  <Card
-    title="Remix"
-    href="/platform/quickstart/remix"
-    description="Get started with our pre-built UI component in Remix"
-  />
-</Cards>
+    export function Novu() {
+      return (
+        <Inbox />
+      );
+    }
+    ```
+  </Tab>
+  <Tab value="React">
+    ```tsx
+    import { Inbox } from '@novu/react';
 
-## Design Files
+    export function Novu() {
+      return (
+        <Inbox />
+      );
+    }
+    ```
+  </Tab>
+</Tabs>
 
-To aide your design process, we provide a free [Figma file](https://www.figma.com/community/file/1425407348374863860) that contains all of the design assets. Make a copy of the file into your own account to get started with customizing your graphical Inbox elements.
+<div style={{ display: 'flex', justifyContent: 'center' }}>
+  <img src="/images/inbox/Inbox.png" alt="Test" width="400" height="400" />
+</div>
+
+## Use Inbox with real subscribers
+
+To display real-time notifications for your users, connect the Inbox component to your Novu environment using your `applicationIdentifier` and a `subscriberId`. You can create or manage subscribers from the <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Novu Dashboard</a>.
+
+### US Region (Default)
+
+<Tabs items = {['Next.js', 'React']}>
+  <Tab value="Next.js">
+    ```tsx
+    import { Inbox } from '@novu/nextjs';
+
+    export function Novu() {
+      return (
+        <Inbox
+          applicationIdentifier="APPLICATION_IDENTIFIER"
+          subscriber="SUBSCRIBER_ID"
+        />
+      );
+    }
+    ```
+  </Tab>
+  <Tab value="React">
+    ```tsx
+    import { Inbox } from '@novu/react';
+
+    export function Novu() {
+      return (
+        <Inbox
+          applicationIdentifier="APPLICATION_IDENTIFIER"
+          subscriber="SUBSCRIBER_ID"
+        />
+      );
+    }
+    ```
+  </Tab>
+</Tabs>
+
+<div className="text-sm text-gray-500 text-center mt-2">
+  <Link href="https://dashboard.novu.co/auth/sign-up">Sign in</Link> to get your own API keys
+</div>
+
+### EU Region
+
+If your Novu account is in the EU region, include the `backendUrl` and `socketUrl` props to connect to EU-specific API endpoints:
+
+<Tabs items = {['EU']}>
+<Tab value= "EU">
+```tsx
+import { Inbox } from '@novu/react';
+
+export function Novu() {
+  return (
+    <Inbox
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
+      backendUrl="https://eu.api.novu.co"
+      socketUrl="https://eu.ws.novu.co"
+    />
+  );
+}
+```
+</Tab>
+</Tabs>
