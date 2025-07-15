@@ -1,0 +1,142 @@
+---
+title: Novu MCP Server
+description: Enable AI agents to securely access and interact with your Novu notification infrastructure using the Model Context Protocol (MCP).
+icon: Network
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# Novu MCP Server
+
+Enable AI agents to securely access and interact with your Novu notification infrastructure using the Model Context Protocol (MCP).
+
+## What is Model Context Protocol?
+
+MCP is a protocol that enables AI tools and applications to connect with external services in a secure, standardized way. With Novu's MCP server, your AI assistants can:
+
+* **Query notification data** - Find subscribers, workflows, and notification history
+* **Manage preferences** - Update subscriber notification settings  
+* **Trigger workflows** - Send notifications through AI interactions
+* **Debug issues** - Investigate delivery problems and analyze performance
+
+## How It Works
+
+Novu hosts a remote MCP server that provides secure access to your notification infrastructure:
+
+1. **Connect** your AI assistant to Novu's MCP server using your API key
+2. **Authenticate** with your workspace permissions and region settings
+3. **Interact** through natural language with your notification system
+4. **Manage** subscribers, workflows, and preferences seamlessly
+
+**Connection Details:**
+- **US Region**: `https://mcp.novu.co/mcp` 
+- **EU Region**: `https://mcp.novu.co/mcp?region=eu`
+
+## Key Benefits
+
+<Cards>
+  <Card title="🔒 Secure Access">
+    All operations authenticated with your Novu API key and workspace permissions
+  </Card>
+  <Card title="🤖 AI-Native">
+    Natural language interface for notification management through AI assistants
+  </Card>
+  <Card title="⚡ Immediate Productivity">
+    Debug issues, manage subscribers, and analyze data without switching tools
+  </Card>
+  <Card title="🌍 Multi-Region">
+    Full support for both US and EU regions with automatic routing
+  </Card>
+</Cards>
+
+## Available Capabilities
+
+The Novu MCP Server provides **11 specialized tools** organized into key functional areas:
+
+### Core Operations
+- **API Key Management** - Verify connection and region status
+- **Environment Management** - Access development and production environments
+- **Workflow Management** - List, inspect, and trigger notification workflows
+
+### Data & Analytics  
+- **Subscriber Search** - Find users by email, phone, name, or ID
+- **Notification Querying** - Retrieve delivery history and execution logs
+- **Preference Management** - View and update subscriber notification settings
+
+## Common Use Cases
+
+<Tabs items={['Customer Support', 'Development', 'Operations']}>
+<Tab value="Customer Support">
+
+**Solve customer issues faster:**
+- Investigate why notifications aren't being delivered
+- Update customer preferences based on support requests  
+- Verify notification history for specific users
+- Debug workflow execution for failed deliveries
+
+</Tab>
+<Tab value="Development">
+
+**Streamline development workflow:**
+- Test notification workflows during development
+- Validate configuration changes across environments
+- Debug payload issues and trigger logic
+- Monitor test subscriber behavior
+
+</Tab>
+<Tab value="Operations">
+
+**Monitor and optimize performance:**
+- Track delivery rates across channels
+- Identify high-failure workflows  
+- Analyze subscriber engagement patterns
+- Monitor system health and usage trends
+
+</Tab>
+</Tabs>
+
+## Getting Started
+
+<Steps>
+<Step title="Get Your API Key">
+Visit the [Novu Dashboard](https://dashboard.novu.co/settings/api-keys) to obtain your API key and identify your region
+</Step>
+
+<Step title="Configure AI Assistant">  
+Add the Novu MCP server to your AI tool with proper authentication headers
+</Step>
+
+<Step title="Test Connection">
+Verify everything works with a simple status check command
+</Step>
+
+<Step title="Explore Your Data">
+Start querying your workflows, subscribers, and notification history
+</Step>
+</Steps>
+
+## Next Steps
+
+<Cards>
+  <Card title="Setup Guide" href="/platform/mcp/getting-started">
+    Complete configuration instructions for all major AI assistants
+  </Card>
+  <Card title="Examples & Use Cases" href="/platform/mcp/examples">
+    Practical examples and real-world scenarios
+  </Card>
+  <Card title="Troubleshooting" href="/platform/mcp/troubleshooting">
+    Resolve common issues and optimize your setup
+  </Card>
+</Cards>
+
+## Supported AI Assistants
+
+- **Claude Desktop** - Full native MCP support
+- **Claude.ai** - Web-based integration  
+- **Cursor** - IDE-integrated assistance
+- **Windsurf** - Development environment integration
+- **Other MCP-compatible tools** - Standard protocol compliance
+
+---
+
+Ready to connect your AI assistant to Novu? Start with our [setup guide](/platform/mcp/getting-started) for step-by-step configuration instructions. 

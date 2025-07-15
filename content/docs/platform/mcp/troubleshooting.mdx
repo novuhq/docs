@@ -1,0 +1,521 @@
+---
+title: Troubleshooting
+description: Resolve common issues when using the Novu MCP Server with AI assistants and tools.
+icon: Wrench
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+# Troubleshooting Guide
+
+This guide helps you resolve common issues when using the Novu MCP Server with AI assistants and tools.
+
+<Callout type="info">
+For initial setup issues, first check the [getting started guide](/platform/mcp/getting-started) for configuration help.
+</Callout>
+
+## Quick Diagnostics
+
+If you're experiencing issues, start with these diagnostic commands:
+
+```
+"Check my Novu API key status"  # Verifies connection and region
+"List my Novu workflows"        # Tests basic data access
+```
+
+If these fail, proceed to the relevant troubleshooting section below.
+
+## Authentication & Connection Issues
+
+### API Key Problems
+
+<Tabs items={['Invalid/Missing Key', 'Permission Errors', 'Key Rotation']}>
+<Tab value="Invalid/Missing Key">
+
+**Error**: "No API key is set" or "API key is invalid"
+
+**Quick Fixes**:
+- Verify key starts with `nk_` and has no extra spaces
+- Check environment variable is properly set: `echo $NOVU_API_KEY`
+- Restart your AI assistant after configuration changes
+
+**Advanced Debugging**:
+```bash
+# Test API key directly
+curl -H "Authorization: Bearer your-api-key" https://mcp.novu.co/mcp
+
+# Check if key works with Novu API
+curl -H "Authorization: ApiKey your-api-key" https://api.novu.co/v1/environments
+```
+
+</Tab>
+<Tab value="Permission Errors">
+
+**Error**: "Unauthorized" or "Access denied"
+
+**Root Causes**:
+- API key belongs to wrong workspace
+- Key has been revoked or expired
+- Insufficient permissions for requested operation
+
+**Solutions**:
+1. Verify API key in [Novu Dashboard](https://dashboard.novu.co/settings/api-keys)
+2. Check workspace context in dashboard
+3. Regenerate API key if necessary
+4. Ensure key has appropriate read/write permissions
+
+</Tab>
+<Tab value="Key Rotation">
+
+**Issue**: Need to update API key without breaking existing connections
+
+**Best Practice**:
+1. Generate new API key in dashboard
+2. Test new key with diagnostic commands
+3. Update configuration with new key
+4. Restart AI assistant
+5. Revoke old key only after confirming new one works
+
+</Tab>
+</Tabs>
+
+### Region & Network Issues
+
+#### Region Mismatch Problems
+
+**Symptoms**: 
+- API calls succeed but return empty/unexpected results
+- Some resources appear missing
+- Inconsistent data between dashboard and MCP
+
+**Diagnosis**:
+```
+"Check my Novu API key status"  # Shows current region connection
+```
+
+**Solutions**:
+<Tabs items={['US to EU', 'EU to US', 'Auto-Detection']}>
+<Tab value="US to EU">
+Change URL from:
+```
+https://mcp.novu.co/mcp
+```
+To:
+```
+https://mcp.novu.co/mcp?region=eu
+```
+</Tab>
+
+<Tab value="EU to US">
+Change URL from:
+```
+https://mcp.novu.co/mcp?region=eu
+```
+To:
+```
+https://mcp.novu.co/mcp?region=us
+```
+Or remove region parameter entirely.
+</Tab>
+
+<Tab value="Auto-Detection">
+**Dashboard URL Method**:
+- `dashboard.novu.co` → Use US region
+- `eu.dashboard.novu.co` → Use EU region
+</Tab>
+</Tabs>
+
+#### Network Connectivity Issues
+
+**Error**: "Failed to connect", "Timeout", or "Server not found"
+
+**Systematic Debugging**:
+
+<Steps>
+<Step title="Test Basic Connectivity">
+```bash
+curl -I https://mcp.novu.co/mcp
+# Should return HTTP 200 or 405
+```
+</Step>
+
+<Step title="Check DNS Resolution">
+```bash
+nslookup mcp.novu.co
+# Should resolve to valid IP addresses
+```
+</Step>
+
+<Step title="Test Firewall">
+```bash
+telnet mcp.novu.co 443
+# Should connect successfully
+```
+</Step>
+
+<Step title="Verify Proxy Settings">
+Check if corporate proxy is blocking HTTPS traffic to external services
+</Step>
+</Steps>
+
+## MCP-Specific Issues
+
+### mcp-remote Proxy Problems
+
+<Tabs items={['Process Management', 'Authentication Cache', 'Version Issues']}>
+<Tab value="Process Management">
+
+**Issue**: Multiple or hung mcp-remote processes
+
+**Diagnosis**:
+```bash
+ps aux | grep mcp-remote | grep -v grep
+```
+
+**Clean Reset**:
+```bash
+# Kill all mcp-remote processes
+pkill -f mcp-remote
+
+# Clear any lingering connections
+lsof -i :8080 | grep mcp-remote | awk '{print $2}' | xargs kill -9
+
+# Restart your AI assistant
+```
+
+</Tab>
+<Tab value="Authentication Cache">
+
+**Issue**: Cached credentials causing authentication problems
+
+**Solution**:
+```bash
+# Clear mcp-remote cache
+rm -rf ~/.mcp-auth
+rm -rf ~/.cache/mcp-remote
+
+# Test connection manually
+npx mcp-remote https://mcp.novu.co/mcp --header "Authorization:Bearer your-api-key"
+```
+
+</Tab>
+<Tab value="Version Issues">
+
+**Issue**: Outdated mcp-remote causing compatibility problems
+
+**Update Process**:
+```bash
+# Check current version
+npx mcp-remote --version
+
+# Update to latest
+npm install -g @modelcontextprotocol/remote@latest
+
+# Clear cache after update
+rm -rf ~/.cache/mcp-remote
+```
+
+</Tab>
+</Tabs>
+
+## Data Access & Query Issues
+
+### Empty Results or Missing Data
+
+**Common Scenarios**:
+
+<Tabs items={['Wrong Environment', 'Pagination Limits', 'Search Parameters']}>
+<Tab value="Wrong Environment">
+
+**Problem**: Querying development instead of production data (or vice versa)
+
+**Verification**:
+```
+"List all my environments"
+"Show me workflows in development environment"
+"Show me workflows in production environment"
+```
+
+**Solution**: Specify environment explicitly in queries when needed
+
+</Tab>
+<Tab value="Pagination Limits">
+
+**Problem**: Results are truncated due to pagination
+
+**Understanding Limits**:
+- Most endpoints return max 50 items
+- Large datasets require multiple queries
+- Use time-based filtering to narrow results
+
+**Better Queries**:
+```
+Instead of: "Show all notifications"
+Use: "Show notifications from the last 24 hours"
+
+Instead of: "Find all subscribers"
+Use: "Find subscribers with 'example.com' in their email"
+```
+
+</Tab>
+<Tab value="Search Parameters">
+
+**Problem**: Search terms don't match expected results
+
+**Debugging Tips**:
+- Use exact email addresses when searching subscribers
+- Check for typos in workflow names
+- Try partial matches: "Find subscribers with 'gmail' in email"
+- Verify data exists: check Novu Dashboard first
+
+</Tab>
+</Tabs>
+
+### Rate Limiting & Performance
+
+**Error**: "Too many requests" (429 status)
+
+**Immediate Solutions**:
+1. **Space out queries**: Wait 10-30 seconds between large requests
+2. **Use specific filters**: Avoid broad queries that return large datasets
+3. **Implement backoff**: Retry with exponential delays
+
+**Long-term Optimization**:
+```
+# Instead of multiple broad queries
+"Show all notifications"
+"Show all subscribers" 
+"Show all workflows"
+
+# Use targeted queries
+"Show failed notifications from today"
+"Find subscribers with recent activity"
+"List active workflows only"
+```
+
+## AI Assistant Specific Issues
+
+### Claude Desktop Problems
+
+<Tabs items={['Configuration Issues', 'Tool Discovery', 'Performance']}>
+<Tab value="Configuration Issues">
+
+**JSON Syntax Errors**:
+- Use a JSON validator to check `claude_desktop_config.json`
+- Common issues: missing commas, extra trailing commas, incorrect quotes
+
+**File Location Issues**:
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- Create directory if it doesn't exist
+
+**Environment Variables**:
+```json
+{
+  "mcpServers": {
+    "novu": {
+      "env": {
+        "NOVU_API_KEY": "your-actual-api-key-here"
+      }
+    }
+  }
+}
+```
+
+</Tab>
+<Tab value="Tool Discovery">
+
+**Tools Not Appearing**:
+1. **Restart Required**: Always restart Claude Desktop after config changes
+2. **Check Logs**: Look for error messages in Claude Desktop console
+3. **Test Connection**: Use MCP Inspector to verify tools are available
+
+**Partial Tool Availability**:
+- Some tools work, others don't: Usually indicates authentication or permission issues
+- Verify API key has full workspace access
+
+</Tab>
+<Tab value="Performance">
+
+**Slow Response Times**:
+- **Network**: Check internet connection stability
+- **Server Load**: Wait and retry during peak times
+- **Query Complexity**: Simplify broad queries
+
+**Memory Issues**:
+- Restart Claude Desktop if it becomes unresponsive
+- Clear application cache if available
+
+</Tab>
+</Tabs>
+
+## Advanced Debugging Techniques
+
+### Using MCP Inspector
+
+**Installation & Setup**:
+```bash
+npx @modelcontextprotocol/inspector
+```
+
+**Connection Testing**:
+<Steps>
+<Step title="Configure Connection">
+- **Transport Type**: Streamable HTTP
+- **URL**: `https://mcp.novu.co/mcp?region=your-region`
+- **Headers**: `Authorization: Bearer your-api-key`
+</Step>
+
+<Step title="Test Individual Tools">
+Test each tool separately to isolate issues:
+- `get_api_key_status`
+- `get_environments`
+- `get_workflows`
+- `find_subscribers`
+</Step>
+
+<Step title="Analyze Responses">
+Look for:
+- Error messages in responses
+- Unexpected data structures
+- Performance timing issues
+</Step>
+</Steps>
+
+### Network-Level Debugging
+
+**Advanced Network Testing**:
+```bash
+# Test with curl for detailed HTTP information
+curl -v -H "Authorization: Bearer your-api-key" \
+  https://mcp.novu.co/mcp
+
+# Test with specific MCP calls
+curl -X POST https://mcp.novu.co/mcp \
+  -H "Authorization: Bearer your-api-key" \
+  -H "Content-Type: application/json" \
+  -d '{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}'
+```
+
+**Proxy/Firewall Testing**:
+```bash
+# Test different protocols
+curl --http1.1 https://mcp.novu.co/mcp
+curl --http2 https://mcp.novu.co/mcp
+
+# Test with specific user agent
+curl -H "User-Agent: MCP-Client/1.0" https://mcp.novu.co/mcp
+```
+
+## Environment-Specific Troubleshooting
+
+### Development vs Production Issues
+
+**Data Inconsistencies**:
+- **Verify Environment**: Always confirm which environment you're querying
+- **Schema Differences**: Development might have different workflow configurations
+- **Test Data**: Development may have limited or outdated test data
+
+**Best Practices**:
+```
+# Always specify environment when debugging
+"Show production workflows vs development workflows"
+"Compare subscriber data between environments"
+```
+
+### Multi-Region Deployments
+
+**Complex Setups**: Organizations using both US and EU regions
+
+**Debugging Strategy**:
+1. **Identify Data Location**: Determine where specific data resides
+2. **Test Both Regions**: Configure connections to both regions
+3. **Cross-Reference**: Compare results between regions
+
+## Performance Optimization
+
+### Query Optimization
+
+**Efficient Patterns**:
+```
+✅ Good: "Find failed email notifications from today"
+❌ Avoid: "Show all notifications and filter for failures"
+
+✅ Good: "Show subscriber john@example.com preferences"
+❌ Avoid: "List all subscribers and find john@example.com"
+```
+
+### Connection Optimization
+
+**Persistent Connections**:
+- Use the same MCP connection for multiple queries
+- Avoid frequently reconnecting
+- Cache workflow IDs and other stable identifiers
+
+## Getting Additional Help
+
+### Before Contacting Support
+
+<Callout type="warning">
+Complete these diagnostic steps to expedite support resolution.
+</Callout>
+
+<Steps>
+<Step title="Gather Error Information">
+- Exact error messages
+- Steps to reproduce
+- Expected vs actual behavior
+</Step>
+
+<Step title="Test with MCP Inspector">
+- Verify tools are discoverable
+- Test individual tool functionality
+- Note any error responses
+</Step>
+
+<Step title="Check System Information">
+- AI assistant version
+- Operating system
+- Network configuration (proxy, firewall)
+- Region (US/EU)
+</Step>
+
+<Step title="Verify Configuration">
+- Double-check API key validity
+- Confirm correct region settings
+- Test with fresh configuration
+</Step>
+</Steps>
+
+### Support Channels & Resources
+
+- **Documentation**: [docs.novu.co](https://docs.novu.co)
+- **Community Discord**: [discord.novu.co](https://discord.novu.co)
+- **GitHub Issues**: For MCP-specific bugs and feature requests
+- **Novu Support**: For API and account-related issues
+- **Status Page**: Check for service outages at [novustatus.com](https://novustatus.com)
+
+### Information to Include When Reporting Issues
+
+1. **Environment Details**:
+   - AI assistant type and version
+   - Operating system
+   - Region (US/EU)
+
+2. **Error Information**:
+   - Complete error messages
+   - Steps to reproduce
+   - Screenshots if relevant
+
+3. **Configuration** (with API key redacted):
+   - MCP server configuration
+   - Network setup (proxy, firewall)
+
+4. **Diagnostic Results**:
+   - Output from `get_api_key_status`
+   - MCP Inspector test results
+   - Network connectivity tests
+
+---
+
+**Still having issues?** Join our [Discord community](https://discord.novu.co) where our team and community members can provide personalized assistance. 
