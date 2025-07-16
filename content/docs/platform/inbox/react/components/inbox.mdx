@@ -8,15 +8,6 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 By default, the `<Inbox />` renders a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
 
-## Seen vs Read Behavior
-
-The Inbox component automatically tracks two distinct notification states:
-
-- **Seen**: Notifications are automatically marked as "seen" when they become visible in the viewport for more than 1 second. This is passive tracking that happens without user interaction.
-- **Read**: Notifications are marked as "read" when the user explicitly interacts with them (clicks, marks as read, etc.). This represents active user engagement.
-
-This distinction allows for more nuanced notification management and better user experience analytics.
-
 ## Try it without keys (Keyless Mode)
 
 Try Novu Inbox instantly - no setup required. With Keyless mode, you can integrate and test the `<Inbox />` right in your app. It’s ideal for exploring features and sending test notifications.
@@ -199,22 +190,6 @@ declare global {
 ```
 
 This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage.
-
-## Automatic Visibility Tracking
-
-The Inbox component includes built-in automatic visibility tracking that marks notifications as "seen" when they become visible to the user. This feature:
-
-- Uses the browser's `IntersectionObserver` API to detect when notifications enter the viewport
-- Automatically marks notifications as seen after they are visible for 1+ seconds
-- Batches seen requests to optimize performance
-- Works seamlessly with infinite scroll and pagination
-- Requires no additional configuration or setup
-
-This automatic tracking helps distinguish between notifications that users have actually seen versus those they have actively engaged with (read).
-
-<Callout type="info">
-  Automatic visibility tracking is enabled by default and works across all supported browsers. The tracking respects user privacy and only marks notifications as seen when they are actually visible in the user's viewport.
-</Callout>
 
 ## Snooze
 

@@ -227,7 +227,11 @@ await novu.notifications.unread({ notificationId: 'NOTIFICATION_ID' });
 
 #### seen
 
-Marks a notification as seen.
+Marks a notification as seen. 
+
+<Callout type="info">
+**Seen vs Read**: Notifications can be "seen" (automatically tracked when visible) or "read" (explicitly marked by user interaction). The Inbox component automatically marks notifications as seen when they're visible for 1+ seconds using the browser's IntersectionObserver API. This automatic tracking batches requests for performance and works seamlessly with infinite scroll and pagination, while read status requires explicit user action.
+</Callout>
 
 ```typescript
 await novu.notifications.seen({ notificationId: 'NOTIFICATION_ID' });
