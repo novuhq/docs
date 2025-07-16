@@ -19,6 +19,10 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
       type: "boolean",
       description: "Filter notifications by read status",
     },
+    seen: {
+      type: "boolean",
+      description: "Filter notifications by seen status",
+    },
     archived: {
       type: "boolean",
       description: "Filter notifications by archived status",
@@ -80,6 +84,10 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
       type: "() => Promise<{ data?: void; error?: NovuError }>",
       description: "Function to mark all notifications as read",
     },
+    seenAll: {
+      type: "() => Promise<{ data?: void; error?: NovuError }>",
+      description: "Function to mark all notifications as seen",
+    },
     archiveAll: {
       type: "() => Promise<{ data?: void; error?: NovuError }>",
       description: "Function to archive all notifications",
@@ -113,6 +121,10 @@ The Notification type from @novu/js includes many properties. Here are the most 
       type: "boolean",
       description: "Whether the notification has been read",
     },
+    isSeen: {
+      type: "boolean",
+      description: "Whether the notification has been seen",
+    },
     isArchived: {
       type: "boolean",
       description: "Whether the notification has been archived",
@@ -124,6 +136,10 @@ The Notification type from @novu/js includes many properties. Here are the most 
     readAt: {
       type: "string",
       description: "ISO timestamp when the notification was read",
+    },
+    firstSeenAt: {
+      type: "string",
+      description: "ISO timestamp when the notification was first seen",
     },
     archivedAt: {
       type: "string",
@@ -189,6 +205,7 @@ import { useNotifications } from "@novu/react";
 function FilteredNotifications() {
   const { notifications, isLoading } = useNotifications({
     read: false, // Only unread notifications
+    seen: false, // Only unseen notifications
     tags: ["important", "urgent"], // Only notifications with these tags
     limit: 20, // Fetch 20 notifications per page
   });
@@ -261,7 +278,7 @@ The hook provides several actions to manage notifications:
 import { useNotifications } from "@novu/react";
 
 function NotificationManager() {
-  const { notifications, readAll, archiveAll, archiveAllRead, isLoading } =
+  const { notifications, readAll, seenAll, archiveAll, archiveAllRead, isLoading } =
     useNotifications();
 
   const handleReadAll = async () => {
@@ -275,6 +292,13 @@ function NotificationManager() {
     const { error } = await archiveAll();
     if (error) {
       console.error("Failed to archive all:", error);
+    }
+  };
+
+  const handleSeenAll = async () => {
+    const { error } = await seenAll();
+    if (error) {
+      console.error("Failed to mark all as seen:", error);
     }
   };
 
@@ -294,6 +318,13 @@ function NotificationManager() {
           disabled={isLoading}
         >
           Mark All as Read
+        </button>
+        <button
+          onClick={handleSeenAll}
+          className="px-3 py-1 bg-green-500 text-white rounded-md"
+          disabled={isLoading}
+        >
+          Mark All as Seen
         </button>
         <button
           onClick={handleArchiveAll}

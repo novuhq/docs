@@ -54,8 +54,15 @@ Here's how to use the `useCounts` hook to fetch and display notification counts:
 import { useCounts } from "@novu/react";
 
 function BellButton() {
-  const { counts } = useCounts({ filters: [{ read: false }] });
-  const unreadCount = counts?.[0].count ?? 0;
+  const { counts } = useCounts({ 
+    filters: [
+      { read: false }, // Unread notifications
+      { seen: false }  // Unseen notifications
+    ] 
+  });
+  
+  const unreadCount = counts?.[0]?.count ?? 0;
+  const unseenCount = counts?.[1]?.count ?? 0;
 
   return (
     <button>
