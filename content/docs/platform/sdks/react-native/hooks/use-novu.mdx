@@ -26,7 +26,7 @@ import { useNovu } from '@novu/react-native';
 import { View, Button, ActivityIndicator } from 'react-native';
 
 function NotificationActions() {
-  const { novu, isLoading } = useNovu();
+  const novu = useNovu();
 
   if (isLoading) return <ActivityIndicator />;
 
@@ -76,28 +76,66 @@ function NotificationItem({ notification }) {
 }
 ```
 
-### Managing Preferences
+### Updating single workflow's channel preferences
 
-You can also manage notification preferences:
+Workflow's channel preferences can be updated using `novu.preferences.update` method.
 
 ```tsx
 import { Button } from 'react-native';
 import { useNovu } from '@novu/react-native';
 
 function PreferencesManager() {
-  const { novu } = useNovu();
+  const novu = useNovu();
 
   const updatePreferences = async () => {
     await novu.preferences.update({
       workflowId: 'workflow_id',
-      channelPreferences: {
+      channels: {
         email: false,
         sms: true,
       },
     });
   };
 
-  return <Button title="Update Preferences" onPress={updatePreferences} />;
+  return <Button title="Update SinglePreferences" onPress={updatePreferences} />;
+}
+```
+
+### Updating multiple workflow's channel preferences
+
+Using `novu.preferences.bulkUpdate` method multiple workflow's channel preferences can be updated at once.
+
+```tsx
+import { Button } from 'react-native';
+import { useNovu } from "@novu/react-native";
+
+function UpdateMultiplePreferences() {
+  const novu = useNovu();
+
+  const updateBulkPreferences = async () => {
+    try {
+      await novu.preferences.bulkUpdate([
+      {
+        workflowId: "workflowId_1",
+        channels: {
+          email: true,
+          in_app: false,
+        },
+      },
+      {
+        workflowId: "workflowId_2",
+        channels: {
+          email: true,
+          in_app: false,
+        },
+      },
+    ]);
+    } catch (error) {
+      console.error("Failed to update preferences:", error);
+    }
+  };
+
+  return <Button title="Update Multiple Preferences" onPress={updateBulkPreferences} />;
 }
 ```
 
