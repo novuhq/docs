@@ -137,6 +137,18 @@ Marks a notification as unread.
 await novu.notifications.unread({ notificationId: 'NOTIFICATION_ID' });
 ```
 
+#### seen
+
+Marks a notification as seen.
+
+```typescript
+await novu.notifications.seen({ notificationId: 'NOTIFICATION_ID' });
+```
+
+<Callout type="info">
+**Why no `unseen` method?** Unlike `read`/`unread` which can be toggled, `seen` is designed as a one-way operation. Once a notification has been seen by a user, it remains seen. This reflects the natural user experience where visibility cannot be "undone". Use filtering with `seen: false` to get unseen notifications instead.
+</Callout>
+
 #### seenAll
 
 Marks notifications as seen. Can be filtered by notification IDs, tags, or data.
