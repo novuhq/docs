@@ -71,6 +71,7 @@ Fetches a list of notifications based on provided filters.
 const notifications = await novu.notifications.list({
   limit: 30,
   read: false,
+  seen: false,
   archived: false,
   tags: ['tag1', 'tag2'],
   // data attributes
@@ -101,6 +102,7 @@ Fetches the count of notifications based on filters.
     // Single filter
     const count = await novu.notifications.count({
       read: false,
+      seen: false,
       archived: false,
        // data attributes
       data: {
@@ -113,7 +115,7 @@ Fetches the count of notifications based on filters.
     ```typescript
     // Multiple filters
     const counts = await novu.notifications.count({
-      filters: [{ read: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
+      filters: [{ read: false }, { seen: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
     });
     ```
   </Tab>
@@ -133,6 +135,30 @@ Marks a notification as unread.
 
 ```typescript
 await novu.notifications.unread({ notificationId: 'NOTIFICATION_ID' });
+```
+
+#### seenAll
+
+Marks notifications as seen. Can be filtered by notification IDs, tags, or data.
+
+```typescript
+// Mark specific notifications as seen
+await novu.notifications.seenAll({
+  notificationIds: ['NOTIFICATION_ID_1', 'NOTIFICATION_ID_2']
+});
+
+// Mark notifications by tags as seen
+await novu.notifications.seenAll({
+  tags: ['tag1', 'tag2']
+});
+
+// Mark notifications by data as seen
+await novu.notifications.seenAll({
+  data: { type: 'login' }
+});
+
+// Mark all notifications as seen (no filters)
+await novu.notifications.seenAll();
 ```
 
 #### archive
@@ -251,6 +277,7 @@ The Novu client provides real-time event handling through WebSocket connections.
 
 - `notifications.notification_received`: Triggered when a new notification is received
 - `notifications.unread_count_changed`: Triggered when the unread count changes
+- `notifications.unseen_count_changed`: Triggered when the unseen count changes
 
 ### Usage
 
@@ -262,7 +289,35 @@ novu.on('notifications.notification_received', (data) => {
 novu.on('notifications.unread_count_changed', (data) => {
   console.log('Unread count:', data);
 });
+
+novu.on('notifications.unseen_count_changed', (data) => {
+  console.log('Unseen count:', data);
+});
 ```
+
+## Individual Notification Methods
+
+Individual notification instances have their own methods for marking as seen, read, archived, etc. These methods are available directly on each notification object:
+
+```typescript
+// Get notifications
+const { data: notifications } = await novu.notifications.list();
+
+// Mark a specific notification as seen using the instance method
+await notifications[0].seen();
+
+// Mark as read using the instance method
+await notifications[0].read();
+
+// Archive using the instance method
+await notifications[0].archive();
+```
+
+<Callout type="info">
+**Seen vs Read**: Notifications can be "seen" (automatically tracked when visible) or "read" (explicitly marked by user interaction). The Inbox component automatically marks notifications as seen when they're visible for 1+ seconds using the browser's IntersectionObserver API. This automatic tracking batches requests for performance and works seamlessly with infinite scroll and pagination, while read status requires explicit user action.
+
+The `seen()` method is only available on individual notification instances, not on the `novu.notifications` object. Use `novu.notifications.seenAll()` for bulk operations.
+</Callout>
 
 ## Types
 
