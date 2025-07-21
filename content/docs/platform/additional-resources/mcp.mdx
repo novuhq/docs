@@ -29,7 +29,7 @@ When an AI tool connects to Novu's MCP server, authentication verifies the user'
 
 ## Available Tools
 
-The Novu MCP Server provides **11 tools** for interacting with the Novu API:
+The Novu MCP Server provides **13 tools** for interacting with the Novu API:
 
 ### Core Operations
 - **get_api_key_status** - Check API key status and region configuration
@@ -39,6 +39,9 @@ The Novu MCP Server provides **11 tools** for interacting with the Novu API:
 - **get_workflows** - List all workflows with names and identifiers
 - **get_workflow** - Get detailed workflow configuration and payload structure
 - **trigger_workflow** - Execute workflows with custom data for specific subscribers
+- **create_workflow** - Create new workflows with comprehensive configuration including steps, channels, and validation
+- **update_workflow** - Update existing workflows with modified steps, preferences, and configuration
+- **delete_workflow** - Delete workflows by their unique identifier (irreversible action)
 
 ### Subscriber Management
 - **find_subscribers** - Search subscribers by email, phone, name, or ID
@@ -156,6 +159,7 @@ In **Settings** → **Extensions** → **MCP Servers**:
 
 After configuration, test with these commands:
 
+### Basic Operations
 ```
 "Check my Novu API key status"
 "Show me all my notification workflows"  
