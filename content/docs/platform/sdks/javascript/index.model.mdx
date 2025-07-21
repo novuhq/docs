@@ -263,6 +263,44 @@ Reverts secondary action of a notification to pending.
 await novu.notifications.revertSecondary({ notificationId: 'NOTIFICATION_ID' });
 ```
 
+## Notification
+
+Individual notification instances have their own methods for marking as seen, read, archived, etc. These methods are available directly on each notification object.
+
+### Methods
+
+- `seen()` - Marks the notification as seen
+- `read()` - Marks the notification as read  
+- `unread()` - Marks the notification as unread
+- `archive()` - Archives the notification
+- `unarchive()` - Unarchives the notification
+- `completePrimary()` - Marks primary action as completed
+- `completeSecondary()` - Marks secondary action as completed
+- `revertPrimary()` - Reverts primary action to pending
+- `revertSecondary()` - Reverts secondary action to pending
+
+### Usage
+
+```typescript
+// Get notifications
+const { data: notifications } = await novu.notifications.list();
+
+// Mark a specific notification as seen using the instance method
+await notifications[0].seen();
+
+// Mark as read using the instance method
+await notifications[0].read();
+
+// Archive using the instance method
+await notifications[0].archive();
+```
+
+<Callout type="info">
+**Seen vs Read**: Notifications can be "seen" (automatically tracked when visible) or "read" (explicitly marked by user interaction). The Inbox component automatically marks notifications as seen when they're visible for 1+ seconds using the browser's IntersectionObserver API. This automatic tracking batches requests for performance and works seamlessly with infinite scroll and pagination, while read status requires explicit user action.
+
+The `seen()` method is only available on individual notification instances, not on the `novu.notifications` object. Use `novu.notifications.seenAll()` for bulk operations.
+</Callout>
+
 ## Preferences
 
 ### Methods
@@ -306,30 +344,6 @@ novu.on('notifications.unseen_count_changed', (data) => {
   console.log('Unseen count:', data);
 });
 ```
-
-## Individual Notification Methods
-
-Individual notification instances have their own methods for marking as seen, read, archived, etc. These methods are available directly on each notification object:
-
-```typescript
-// Get notifications
-const { data: notifications } = await novu.notifications.list();
-
-// Mark a specific notification as seen using the instance method
-await notifications[0].seen();
-
-// Mark as read using the instance method
-await notifications[0].read();
-
-// Archive using the instance method
-await notifications[0].archive();
-```
-
-<Callout type="info">
-**Seen vs Read**: Notifications can be "seen" (automatically tracked when visible) or "read" (explicitly marked by user interaction). The Inbox component automatically marks notifications as seen when they're visible for 1+ seconds using the browser's IntersectionObserver API. This automatic tracking batches requests for performance and works seamlessly with infinite scroll and pagination, while read status requires explicit user action.
-
-The `seen()` method is only available on individual notification instances, not on the `novu.notifications` object. Use `novu.notifications.seenAll()` for bulk operations.
-</Callout>
 
 ## Types
 
