@@ -21,8 +21,8 @@ Novu hosts a remote MCP server that handles requests from AI tools and provides 
 
 **Connection URLs:**
 
-* **US Region**: `https://mcp.novu.co/mcp` (Streamable HTTP - Recommended)
-* **EU Region**: `https://mcp.novu.co/mcp?region=eu` (Streamable HTTP - Recommended)
+* **US Region**: `https://mcp.novu.co/` (Streamable HTTP - Recommended)
+* **EU Region**: `https://mcp.novu.co/?region=eu` (Streamable HTTP - Recommended)
 * **Legacy SSE**: `https://mcp.novu.co/sse` (also supported in both regions but not recommended)
 
 When an AI tool connects to Novu's MCP server, authentication verifies the user's API key and permissions, then the tool can access relevant Novu data and functionality.
@@ -85,7 +85,7 @@ The Novu MCP Server provides **13 tools** for interacting with the Novu API:
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://mcp.novu.co/mcp",
+        "https://mcp.novu.co/",
         "--header",
         "Authorization:Bearer ${NOVU_API_KEY}"
       ],
@@ -105,7 +105,7 @@ For **EU region**:
       "command": "npx",
       "args": [
         "mcp-remote",
-        "https://mcp.novu.co/mcp?region=eu",
+        "https://mcp.novu.co/?region=eu",
         "--header",
         "Authorization:Bearer ${NOVU_API_KEY}"
       ],
@@ -123,7 +123,7 @@ For **EU region**:
 Navigate to **Settings** → **Integrations** → **+ Add Integration**:
 
 - **Name**: `Novu`
-- **URL**: `https://mcp.novu.co/mcp` (US) or `https://mcp.novu.co/mcp?region=eu` (EU)
+- **URL**: `https://mcp.novu.co/` (US) or `https://mcp.novu.co/?region=eu` (EU)
 - **Headers**: `Authorization: Bearer your-novu-api-key`
 
 </Tab>
@@ -135,7 +135,7 @@ In **Settings** → **Extensions** → **MCP Servers**:
 {
   "mcpServers": {
     "novu": {
-      "url": "https://mcp.novu.co/mcp",
+      "url": "https://mcp.novu.co/",
       "headers": {
         "Authorization": "Bearer your-novu-api-key"
       }
@@ -148,7 +148,7 @@ In **Settings** → **Extensions** → **MCP Servers**:
 <Tab value="Other Tools">
 
 **Standard MCP Configuration:**
-- **URL**: `https://mcp.novu.co/mcp` (US) or `https://mcp.novu.co/mcp?region=eu` (EU)
+- **URL**: `https://mcp.novu.co/` (US) or `https://mcp.novu.co/?region=eu` (EU)
 - **Authentication**: Header `Authorization: Bearer your-novu-api-key`
 - **Protocol**: Streamable HTTP (MCP over HTTP)
 
@@ -177,7 +177,7 @@ After configuration, test with these commands:
 ```bash
 npx @modelcontextprotocol/inspector
 ```
-Connect with Transport Type: Streamable HTTP, URL: `https://mcp.novu.co/mcp`, Headers: `Authorization: Bearer your-api-key`
+Connect with Transport Type: Streamable HTTP, URL: `https://mcp.novu.co/`, Headers: `Authorization: Bearer your-api-key`
 
 ---
 
