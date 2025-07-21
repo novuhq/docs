@@ -146,6 +146,8 @@ await novu.notifications.seen({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 <Callout type="info">
+**Seen vs Read**: Notifications can be "seen" (automatically tracked when visible) or "read" (explicitly marked by user interaction). The Inbox component automatically marks notifications as seen when they're visible for 1+ seconds using the browser's IntersectionObserver API. This automatic tracking batches requests for performance and works seamlessly with infinite scroll and pagination, while read status requires explicit user action.
+
 **Why no `unseen` method?** Unlike `read`/`unread` which can be toggled, `seen` is designed as a one-way operation. Once a notification has been seen by a user, it remains seen. This reflects the natural user experience where visibility cannot be "undone". Use filtering with `seen: false` to get unseen notifications instead.
 </Callout>
 
@@ -279,6 +281,8 @@ Individual notification instances have their own methods for marking as seen, re
 - `revertPrimary()` - Reverts primary action to pending
 - `revertSecondary()` - Reverts secondary action to pending
 
+**Note:** The `seen()` method is only available on individual notification instances, not on the `novu.notifications` object. Use `novu.notifications.seenAll()` for bulk operations.
+
 ### Usage
 
 ```typescript
@@ -294,12 +298,6 @@ await notifications[0].read();
 // Archive using the instance method
 await notifications[0].archive();
 ```
-
-<Callout type="info">
-**Seen vs Read**: Notifications can be "seen" (automatically tracked when visible) or "read" (explicitly marked by user interaction). The Inbox component automatically marks notifications as seen when they're visible for 1+ seconds using the browser's IntersectionObserver API. This automatic tracking batches requests for performance and works seamlessly with infinite scroll and pagination, while read status requires explicit user action.
-
-The `seen()` method is only available on individual notification instances, not on the `novu.notifications` object. Use `novu.notifications.seenAll()` for bulk operations.
-</Callout>
 
 ## Preferences
 
