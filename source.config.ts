@@ -17,6 +17,7 @@ export const docs = defineDocs({
        * API routes only
        */
       method: z.string().optional(),
+      hideTOC: z.boolean().default(false),
     }),
   },
   meta: {
