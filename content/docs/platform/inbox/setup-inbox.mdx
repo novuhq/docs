@@ -87,21 +87,42 @@ To display real-time notifications for your users, connect the Inbox component t
 
 If your Novu account is in the EU region, then include the `backendUrl` and `socketUrl` props to connect to EU-specific API endpoints:
 
-<Tabs items = {['EU']}>
-<Tab value= "EU">
-```tsx
-import { Inbox } from '@novu/react';
+<Tabs items = {['Next.js', 'React']}>
+  <Tab value="Next.js">
+    ```tsx
+    import { Inbox } from '@novu/nextjs';
 
-export function Novu() {
-  return (
-    <Inbox
-      subscriber="SUBSCRIBER_ID"
-      applicationIdentifier="APPLICATION_IDENTIFIER"
-      backendUrl="https://eu.api.novu.co"
-      socketUrl="https://eu.ws.novu.co"
-    />
-  );
-}
-```
-</Tab>
+    export function Novu() {
+      return (
+        <Inbox
+          applicationIdentifier="APPLICATION_IDENTIFIER"
+          subscriber="SUBSCRIBER_ID"
+          backendUrl="https://eu.api.novu.co"
+          socketUrl="https://eu.ws.novu.co"
+        />
+      );
+    }
+    ```
+  </Tab>
+  <Tab value="React">
+    ```tsx
+    import { Inbox } from '@novu/react';
+
+    export function Novu() {
+      return (
+        <Inbox
+          applicationIdentifier="APPLICATION_IDENTIFIER"
+          subscriber="SUBSCRIBER_ID"
+          backendUrl="https://eu.api.novu.co"
+          socketUrl="https://eu.ws.novu.co"
+        />
+      );
+    }
+    ```
+  </Tab>
 </Tabs>
+
+<div className="text-sm text-gray-500 text-center mt-2">
+  <Link href="https://dashboard.novu.co/auth/sign-up">Sign in</Link> to get your own API keys
+</div>
+
