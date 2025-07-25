@@ -1,40 +1,85 @@
 ---
 pageTitle: 'Styling the Inbox component'
-title: 'Styling'
+title: 'Styling and theming'
 description: 'Learn how to style the pre built Inbox component'
 icon: 'Palette'
 ---
 
 import { TypeTable } from 'fumadocs-ui/components/type-table';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-## Customization Hierarchy
 
-The Inbox component is built to allow for multiple layers of styling, which allows the specificity required to style the Inbox to meet the requirements of your use case.
+The Novu Inbox component is designed to be fully themeable and adaptable to your application’s visual language. All theming options are exposed through the `appearance` prop, which allows you to apply custom styles at different levels of control from predefined themes to component-level overrides.
 
-Depending on the level of customization you need, you can choose to style the inbox using one of the following approaches:
+The appearance prop supports the following keys:
+- `baseTheme`: Apply a predefined theme (for example, light or dark).
+- `variables`: Define global styling properties (for example, colors, fonts).
+- `elements`: Style individual UI components.
+- `icons`: Replace default icons with custom ones.
 
-- [Appearance Prop](#appearance-prop)
-  - [Variables](#variables) - Global primitives such as buttons, popovers, drop-downs and etc...
-  - [Elements](#elements) - Style individual elements
-- [Custom notification rendering](#render-notification-component) - Render a custom notification item with complete control
-- [Custom Composition](/platform/inbox/react/components/overview#composition) - Compose our components for custom layouts
+<Callout>Check out the [Inbox Playground](https://inbox.novu.co) to see how the Inbox looks with common design presets. It showcases pre-styled variants like Notion and Reddit. helpful for seeing what’s possible before you start customizing.</Callout>
 
-<Callout type="info">
-  You can see Styling in action on the [Inbox Playground](https://inbox.novu.co) with common themes
-  like Notion, Reddit and more!
-</Callout>
+### Understand style injection
 
-## Appearance Prop
+When rendered, the Inbox component automatically injects its styles into the `<head>` of the HTML document. If the component is rendered inside a shadow DOM, styles are scoped and injected into the shadow root instead.
 
-The `appearance` prop can be used to customise the Inbox. It has three main keys: `baseTheme`, `variables` and `elements`.
+This ensures that:
+- Styles remain encapsulated and do not leak into global stylesheets
+- No additional setup is required to manage scoped styling
 
-- **Variables**: Global styling variables that apply to multiple elements within the inbox.
-- **Elements**: Elements are the individual UI components that make up the Inbox.
-- **Base theme**: This is the base theme applied to the `<Inbox />`. It has the same keys as `appearance`. Used for applying base themes like `dark`.
+## Apply base theme
 
-### Variables
+You can apply a predefined visual style to the entire Inbox UI by passing the `baseTheme` object inside the `appearance` prop. This is a quick way to implement a dark mode or any base look and feel without redefining every variable.
 
-Variables are used to define global styling properties that can be reused throughout the inbox. You might want to use variables to the styling of multiple components at once, for example, if you want to change the border radius of all the components at once, you can do so by updating the `colorPrimary` variable, which will modify the CTA buttons, unseen counter and etc...
+Novu currently provides a built-in dark theme, which you can import from `@novu/react/themes`.
+
+```tsx
+import { Inbox } from '@novu/react';
+import { dark } from '@novu/react/themes';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={{ baseTheme: dark }}
+    />
+  );
+}
+
+export default Novu;
+```
+
+## Define global variables
+
+You can override the default styles in the Inbox component by passing a `variables` object inside the `appearance` prop. This is an efficient way to apply broad visual changes with minimal configuration.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+const appearance = {
+  variables: {
+    colorBackground: '#f0f0f0',
+    borderRadius: '8px',
+  },
+};
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+
+export default Novu;
+```
+
+<Callout>When both `baseTheme` and `variables` are provided, variables always take precedence over the base theme.</Callout>
+
+### List of available variables
 
 <TypeTable
   type={{
@@ -89,57 +134,130 @@ Variables are used to define global styling properties that can be reused throug
   }}
 />
 
-<img src="/images/inbox/styling_01@2x.png" alt="Appearance Variables" />
+## Style the Inbox UI elements
 
-#### Styling Variables
-
-You can override the default elements by passing your own styles or CSS classes to the `elements` object.
-
-```tsx
-import { Inbox } from '@novu/react';
-const appearance = {
-  variables: {
-    colorBackground: 'yellow',
-  },
-};
-
-<Inbox appearance={appearance} />;
-```
-
-### Elements
-
-The `elements` object allows you to define styles for these components. Each key corresponds to a component, and the value is an object containing `style properties` or you can also pass your `css classes`. Here's a list of available elements that can be styled using the `elements` object in your appearance configuration:
-
-#### Finding element selectors
-
-You can inspect the elements you want to customize using the browser's dev tools, each element has a unique selector that you can use to style starting with `nv-`.
-
-Strip the `nv-` prefix when and add it to the `elements` object. For example, to style the `nv-notificationPrimaryAction__button` element, you can add the following to the `elements` object:
-
-```tsx
-const appearance = {
-  elements: {
-    notificationPrimaryAction__button: {
-      backgroundColor: 'red',
-    },
-  },
-};
-```
+You can define styles for individual UI components within the Inbox UI by passing the `elements` object inside the appearance prop. Each key corresponds to a specific component, and the value can be either a style object or a set of CSS classes.
 
 <img src="/images/inbox/styling_02@2x.png" alt="Finding Element Selectors" />
+
+Here's a list of available elements that can be styled using the elements object in your appearance configuration:
 
 <Callout type="info">
   Any selector that appears before the 🔔 emoji, can be targeted via the elements property in the appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the
   available elements.
 </Callout>
 
-### Customizing icons
+### Using styles object
 
-The `icons` property in the `appearance` prop lets you customize any icon used in the Inbox component. This is useful when you want to:
-- Match the bell icon with your host app's navbar icon set.
-– Use your own icon library, such as [react-icons](https://react-icons.github.io/react-icons/) or [Material Icons](https://mui.com/material-ui/material-icons/).
+You can pass inline styles to individual elements using the `elements` object in the `appearance` prop. Each element can receive a style object directly.
 
-- Modify all icons to fit your application's visual style.
+```tsx
+import { Inbox } from '@novu/react';
+
+const appearance = {
+  elements: {
+    notificationSubject: {
+      color: '#ff0000',
+    },
+  },
+};
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+
+export default Novu;
+```
+
+### Using Tailwind CSS
+
+You can pass [Tailwind CSS](https://tailwindcss.com/docs/installation/tailwind-cli) classes to specific elements using the elements object within the appearance prop.
+
+```tsx
+import { Inbox } from '@novu/react';
+ 
+const appearance = {
+  elements: {
+    bellIcon: 'p-4 bg-white rounded-full',
+    notification: 'bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-50',
+  },
+};
+ 
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+
+export default Novu;
+```
+
+### Using CSS Modules
+
+You can style the Inbox components using [CSS Modules](https://github.com/css-modules/css-modules). First, define the styles in a `.module.css` file:
+
+```css title="styles.module.css"
+.bellIcon {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 50%;
+}
+ 
+.bellIcon:hover {
+  background-color: #f9fafb;
+}
+ 
+.notification {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+ 
+.notification:hover {
+  background-color: #f9fafb;
+}
+```
+
+Then, import the CSS module into your component and apply the classes using the `elements` object in the `appearance` prop:
+
+```tsx
+import { Inbox } from '@novu/react';
+import styles from './styles.module.css';
+ 
+const appearance = {
+  elements: {
+    bellIcon: styles.bellIcon,
+    notification: styles.notification,
+  },
+};
+ 
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+
+export default Novu;
+```
+
+
+## Replace default icons
+
+You can replace all the default icons in the Inbox UI with custom icons from your preferred library, such as [react-icons](https://react-icons.github.io/react-icons/) or [Material Icons](https://mui.com/material-ui/material-icons/)., to match your visual style using the' icons' key in the `appearance` prop.
 
 For each icon you want to customize, provide a function that returns your custom icon as a React component.
 
@@ -166,7 +284,7 @@ export function Novu() {
 }
 ```
 
-#### List of customizable icon keys
+### List of customizable icons
 
 Use these keys in the `appearance.icons` property to customize specific icons in the Inbox component:
 
@@ -198,181 +316,4 @@ Use these keys in the `appearance.icons` property to customize specific icons in
 <Callout type="info">
 You can inspect the Inbox component using your browser’s developer tools to discover icon keys. Icon elements have class names that start with `nv-` and include a 🖼️ emoji for easier identification. The part following `nv-` is the icon key. For example, an element with the class `nv-cogs` has the icon key `cogs`.
 </Callout>
-
-### Dark theme
-
-No need to implement a custom dark theme. Just import our premade `dark` theme and use it via the `baseTheme` option in `appearance`.
-
-```tsx
-import { Inbox } from '@novu/react';
-import { dark } from '@novu/react/themes';
-import { useTheme } from 'next-themes';
-
-export function Novu() {
-  const { resolvedTheme } = useTheme();
-
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      appearance={{ baseTheme: resolvedTheme === 'dark' ? dark : undefined }}
-    />
-  );
-}
-```
-
-### Bring your own CSS
-
-You can override the default elements by passing your own styles or CSS classes to the `elements` object.
-
-#### Using Tailwind CSS
-
-You can also use Tailwind CSS classes to style the Inbox components. You can pass the classes directly to the `elements` object.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-const appearance = {
-  elements: {
-    bellIcon: 'p-4 bg-white rounded-full',
-    notification: 'bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-50',
-  },
-};
-
-export function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      appearance={appearance}
-    />
-  );
-}
-```
-
-#### Using CSS Modules
-
-You can also use `CSS Modules` to style the Inbox components. Here's how you can do it:
-
-- Create a CSS module file `(e.g. styles.module.css)` with the styles you want to apply to the Inbox components.
-
-```css
-.bellIcon {
-  padding: 1rem;
-  background-color: white;
-  border-radius: 50%;
-}
-
-.bellIcon:hover {
-  background-color: #f9fafb;
-}
-
-.notification {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.notification:hover {
-  background-color: #f9fafb;
-}
-```
-
-- Import the CSS module file and pass the classes to the elements object.
-
-```tsx
-import { Inbox } from '@novu/react';
-import styles from './styles.module.css';
-
-const appearance = {
-  elements: {
-    bellIcon: styles.bellIcon,
-    notification: styles.notification,
-  },
-};
-
-export function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      appearance={appearance}
-    />
-  );
-}
-```
-
-#### Using Styles Object
-
-You can also use a styles object to style the Inbox components. You can pass the styles directly to the `elements` object.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-const appearance = {
-  elements: {
-    bellIcon: {
-      padding: '1rem',
-      backgroundColor: 'white',
-      borderRadius: '50%',
-    },
-    notification: {
-      backgroundColor: 'white',
-      borderRadius: '0.5rem',
-      boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    },
-  },
-};
-
-export function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      appearance={appearance}
-    />
-  );
-}
-```
-
-#### Render subject and body with bold text
-
-By default, the Inbox notification text for the subject and body is rendered in a normal font weight. To highlight important words or phrases within your notification messages, you can wrap the desired subject or body text in double asterisks (\*\*). Here's an example of how you can do this using the Novu Framework:
-
-```js
-await step.inApp('inbox', async () => {
-  return {
-    subject: '**A new member joined the team!**',
-    body: '**John Doe** joined the team! Say hello and help them feel at home',
-  };
-});
-```
-
-<Callout type="info">
-  Note: When rendering the custom notification component, you will need to parse the text and apply the bold styling accordingly.
-</Callout>
-
-Currently, the Inbox component only support bold text. Other text formatting options will be available in the future. To learn, refer to the [Novu Framework in-app step documentation](/framework/typescript/steps/inApp).
-
-## Render notification component
-
-You can render your own custom notification item component by passing a `renderNotification` prop to the `Inbox` or `Notifications` component. This lets you style and render more complex notification items.
-
-```tsx
-import { Inbox } from '@novu/react';
-import { CustomNotification } from './CustomNotification';
-
-<Inbox
-  renderNotification={(notification) => {
-    return <CustomNotification notification={notification} />;
-  }}
-/>;
-```
-
-## The Inbox styles placement
-
-The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component automatically injects its styles into the `<head>` tag of the HTML document when rendered in the standard DOM. 
-
-However, when rendered inside a shadow DOM, it detects the shadow context and injects styles into the shadow root instead. This ensures proper style encapsulation and prevents leakage or conflicts with global styles without any additional configuration.
-
 
