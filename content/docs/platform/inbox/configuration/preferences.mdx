@@ -8,6 +8,16 @@ icon: 'UserCog'
 The Preferences interface in the Inbox component lets subscribers customize how they receive notifications. By default, Novu renders a preferences icon inside the Inbox component, giving users access to global and workflow-specific settings directly from the UI.
 
 <Callout type = "info">A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI.</Callout>
+=======
+pageTitle: 'Managing Subscriber Preferences in React'
+title: 'Preferences'
+description: 'Learn how to manage and customize subscriber notification preferences in your React application.'
+icon: 'UserCog'
+---
+
+By default, Novu will show the subscriber preferences cog icon on the Inbox component.
+
+Users can enable/disable any active channel in the workflow using subscriber preferences or they can update the preference globally for all workflows under the `Global Preferences`.
 
 <img
   style={{ borderRadius: '0.5rem' }}
@@ -26,6 +36,10 @@ Global preferences override individual workflow preferences. If a channel is dis
 ### Hide Global preferences
 
 Global preferences are always shown in the preferences list and cannot be removed but you can hide it from the UI if needed by adding the following rule to your global CSS file:
+=======
+### Hide global preferences
+
+Global preferences can be hidden by using following css style in root css file.
 
 ```css
 .nv-workflowContainer:first-child {
@@ -210,3 +224,4 @@ function Novu() {
 }
 
 ```
+=======
