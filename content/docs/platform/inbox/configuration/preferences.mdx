@@ -1,13 +1,13 @@
 ---
-pageTitle: 'Managing Subscriber Preferences in React'
+pageTitle: 'Managing Subscriber Preferences'
 title: 'Preferences'
-description: 'Learn how to manage and customize subscriber notification preferences in your React application.'
+description: 'Learn how to configure and customize subscriber preferences in your application using the Novu Inbox component.'
 icon: 'UserCog'
 ---
 
-By default, Novu will show the subscriber preferences cog icon on the Inbox component.
+The Preferences interface in the Inbox component lets subscribers customize how they receive notifications. By default, Novu renders a preferences icon inside the Inbox component, giving users access to global and workflow-specific settings directly from the UI.
 
-Users can enable/disable any active channel in the workflow using subscriber preferences or they can update the preference globally for all workflows under the `Global Preferences`.
+<Callout type = "info">A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI.</Callout>
 
 <img
   style={{ borderRadius: '0.5rem' }}
@@ -15,12 +15,196 @@ Users can enable/disable any active channel in the workflow using subscriber pre
   alt="Preferences"
 />
 
-### Hide global preferences
+## Global preferences
 
-Global preferences can be hidden by using following css style in root css file.
+Global preferences apply across all workflows. For instance, a subscriber can disable email or SMS channels globally, ensuring they don’t receive notifications through that channel from any workflow.
+
+
+Global preferences override individual workflow preferences. If a channel is disabled globally, notifications for that channel will not be sent even if it is enabled for a specific workflow.
+
+### Hide Global preferences
+
+Global preferences are always shown in the preferences list and cannot be removed but you can hide it from the UI if needed by adding the following rule to your global CSS file:
 
 ```css
 .nv-workflowContainer:first-child {
   display: none;
 }
+```
+
+## Workflow specific preferences
+
+Each workflow has its own set of channel preferences in the Inbox UI, where your subscribers can control how they receive notifications for that specific workflow. For example, a user might prefer email for account updates but in-app notifications for security alerts.
+
+The Inbox UI only displays the channels step used in a given workflow.
+
+<Callout type ="info">Learn how to configure channel steps in a workflow in the [Building Workflows guide](/platform/workflow/build-a-workflow).</Callout>
+
+You can customize how these workflow-level preferences appear to your subscribers.
+
+### Filtering preferences
+
+Use the `preferenceFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. 
+
+This filtering works by matching the tags you provide in the prop with the tags assigned to the workflows. Only that workflow will be seen by the subscriber on their preferences UI.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferencesFilter={{ tags: ['general', 'admin', 'security'] }} />
+  );
+}
+
+export default Novu;
+```
+### Grouping Preferences
+
+Use the `preferenceGroups` prop on the Inbox component to organize workflows into meaningful sections in the subscriber preferences UI.
+
+Each group requires:
+- **name**: The display name for the group
+- **filter**: The filter logic (object or function) to determine which workflows belong in the group
+
+There are different ways to group preferences, you can use either of them individually or combine different methods.
+
+<Callout type="info">Grouping preference is supported in client-side SDKs starting from version 3.4.0.</Callout>
+
+#### Group by tags
+
+Use an object with a `tags` key to group workflows that share specific tags.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceGroups={[
+        {
+          name: General,
+          filter: { tags: [account] },
+        },
+      ]}
+    />
+  );
+}
+
+export default Novu;
+
+```
+
+#### Group by tags and workflow IDs
+
+Combine `tags` and `workflowIds` for more targeted grouping.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceGroups={[
+        {
+          name: 'Marketing',
+          filter: { tags: ['marketing'], workflowIds: [workflow-ids] },
+        },
+      ]}
+    />
+  );
+}
+
+export default Novu;
+
+```
+
+#### Group all workflows
+
+Display all available workflow in a single group, regardless of its tag or grouping, by returning the full preferences list.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceGroups={[
+        {
+          name: 'All Workflows',
+          filter: ({ preferences }) => preferences
+        },
+      ]}
+    />
+  );
+}
+
+export default Novu;
+
+```
+
+#### Group using custom logic
+
+You can define your own logic to group preferences by passing a function to the `filter` key. This function receives an object containing a `preferences` array, where each item represents a workflow preference, including both subscriber settings and workflow metadata.
+
+Each item in the `preferences` array includes a `workflow` object with properties like `name`, `slug`, and `identifier`. You can use these fields to implement your grouping logic.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function Novu() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceGroups={[
+        {
+          name: 'Alerts',
+          filter: ({ preferences }) =>
+            preferences.filter(({ workflow }) =>
+              workflow?.name?.toLowerCase().includes('alerts')
+            ),
+        },
+      ]}
+    />
+  );
+}
+
+export default Novu;
+```
+
+## Use Preferences outside the Inbox UI
+
+### Using </Preferences>
+Use the Preferences component to display the preferences UI anywhere in your application, such as in a dedicated settings page without showing the full Inbox component. This gives you more control over the layout and placement of the preferences experience in your application.
+
+```tsx
+import { Inbox, Preferences } from '@novu/react';
+
+function Novu() {
+  return (
+    <Inbox 
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID">
+      <Preferences />
+    </Inbox>
+  );
+}
+
+### Using Preferences hook
+
 ```
