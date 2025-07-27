@@ -32,7 +32,7 @@ Translations can be managed on the [translation page](https://dashboard.novu.co/
 
 - Check the **Enable Translations** toggle.
 - Set the default locale (e.g., `en_US`).
-- Add target locales you wish to support (e.g., `fr_FR`, `es_ES`, `jp_JP`, etc.).
+- Add target locales you wish to support (e.g., `fr_FR`, `es_ES`, `ja_JP`, etc.).
 
 2. **While editing an existing workflow**
 
@@ -56,8 +56,7 @@ You can:
 
 ## Translation JSON format
 
-Each locale supports JSON-based translation files. For example, `en_US.json` file contains the default translations for the workflow. Translation json files can be updated using JSON editor on the translation page.
-
+Each locale supports JSON-based translation files. For example, `en_US.json` file contains the default translations for the workflow. Translation JSON files can be updated using the JSON editor on the translation page.
 ```json
 {
   "in-app": {
@@ -93,7 +92,7 @@ You can export and re-upload these JSON files when translation updates are neede
 
 ## Using translation keys in step content editor
 
-In Email or In-App editors, use `{{t.key}}` to insert a translatable string. if key is already added in the locale, it will be in the suggestions list.
+In Email or In-App editors, use `{{t.key}}` to insert a translatable string. If the key already exists for the locale, it appears in the suggestions list.
 
 Clicking **Add to Translations** automatically adds a new key to default locale.
 
@@ -122,7 +121,7 @@ Any edit to the default locale will invalidate others. You’ll see a warning: `
 A translation group can be disabled by clicking on the three dots and selecting **Disable & delete translations**. This action is irreversible and removes all associated translation data.
 
 ## Translation in Layouts
-This feature is currently in work in progress. If you are looking to use translation in email layouts, react out to us at support@novu.co
+This feature is currently a work in progress. If you need translation support in email layouts, reach out to us at support@novu.co
 
 
 ## Best practices
