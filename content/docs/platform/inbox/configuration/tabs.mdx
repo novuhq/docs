@@ -7,7 +7,7 @@ icon: 'Folders'
 
 In the Inbox components, you can use Tabs to organize in-app notifications into separate sections, creating a cleaner, more organized experience for your subscribers. Each tab displays a subset of in-app notifications based on defined rules, making it easier to surface important notifications.
 
-![Filtering tabs by tags and data attributes](/images/inbox/filter-tabs-by-tags-and-data-attributes.png)
+![tabs](/images/inbox/tabs.gif)
 
 
 ## Group notifications into tabs
@@ -18,7 +18,7 @@ Each tab is defined using the `tabs` prop of the Inbox component. Every tab obje
 
 ### Using tags
 
-Tags can be assigned to any workflow in the Novu workflow editor. These tags can then be used in the filter object to group notifications from one or more workflows under the same tab.
+[Tags](/platform/workflow/tags) can be assigned to any workflow in the Novu workflow editor. These tags can then be used in the filter object to group notifications from one or more workflows under the same tab.
 
 For example, assign a 'promotions' tag to marketing workflows or 'security' and 'alert' tags to security workflows to group their notifications under dedicated tabs. To show all notifications in a tab, pass an empty array to the tags property.
 
@@ -26,7 +26,7 @@ For example, assign a 'promotions' tag to marketing workflows or 'security' and 
 ```tsx
 import { Inbox } from '@novu/react';
 
-function Novu() {
+function InboxTabs() {
 
   const tabs = [
     {
@@ -52,19 +52,19 @@ function Novu() {
   );
 }
 
-export default Novu;
+export default InboxTabs;
 ```
 
 ### Using the data object
 
-The data object can be included in every in-app notification in the in-app editor editor. This object holds custom key-value pairs, which you can use to filter notifications into specific tabs.
+The [data object](/platform/inbox/configuration/data-object) can be included in every in-app notification in the in-app editor editor. This object holds custom key-value pairs, which you can use to filter notifications into specific tabs.
 
 For example, use `{ priority: "high" }` to group all high-priority notifications under a dedicated "High Priority" tab.
 
 ```tsx
 import { Inbox } from '@novu/react';
 
-function Novu() {
+function InboxTabs() {
 
   const tabs = [
     {
@@ -84,7 +84,7 @@ function Novu() {
   );
 }
 
-export default Novu;
+export default InboxTabs;
 ```
 
 ### Using tags and data object
@@ -94,7 +94,7 @@ You can combine tags and the data object in the same filter to create more speci
 ```tsx
 import { Inbox } from '@novu/react';
 
-function Novu() {
+function InboxTabs() {
 
   const tabs = [
     {
@@ -115,5 +115,5 @@ function Novu() {
   );
 }
 
-export default Novu;
+export default InboxTabs;
 ```
