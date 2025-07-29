@@ -77,19 +77,42 @@ You can update translations by editing the JSON files in the editor on the trans
 
 ## Exporting and importing translations
 
+If you prefer to create/update translations in a JSON file outside of the Novu dashboard, you can do so by exporting and importing them.
+
 ### Export
 
-- Navigate to the Translations section.
-- Click **Export en_US.json** to download the latest default file.
-- Use this as a base for other translations.
+- Navigate to the translations page.
+- Select the workflow you want to export translations for.
+- Click on the locale, such as `en_US`, now click on the download icon to download the latest default locale translation JSON file.
 
 ### Import
 
-- Click **Import locale(s)**.
-- Upload JSON files (e.g., fr_FR.json, es_ES.json).
-- Novu detects the locale automatically.
+- Navigate to the translations page.
+- Select the workflow you want to import translations for.
+- Click on the locale, such as `en_US`, now click on the **Import Language(s)** button to upload the translation JSON file.
+- Novu detects the locale automatically using the file name
 
-💡 Translation changes in default locale (e.g., en_US) will mark other locales as *Outdated, needs update*
+💡 Translation changes in default locale such as `en_US` will mark other locales as *Outdated, needs update*
+
+### Master JSON file
+
+Master JSON file is a JSON file that contains the default locale' translations keys of all the workflows where translations are enabled. You can import or export this file from the translations page. Below is an example of a master JSON file:
+
+```json
+{
+  "workflows": {
+    "events-publish": {
+      "key": "value"
+    },
+    "events-update": {
+      "subject": "A new update",
+      "content": "{{payload.eventName}} event has been updated"
+    }
+  }
+}
+```
+
+![Master JSON file export and import options](/images/platform/workflow/translations/translations_master_json_file.png)
 
 ## Using translation keys in step content editor
 
@@ -109,7 +132,7 @@ Example:
 
 Use the Preview Context to:
 
-- Simulate subscriber locale (e.g., fr_FR or ru_RU).
+- Simulate subscriber locale such as `fr_FR` or `ru_RU`
 - Preview step content for the selected language.
 - Update or correct missing translations on the fly.
 
