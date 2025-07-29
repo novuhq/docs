@@ -1,25 +1,24 @@
 ---
 title: 'Email Layouts'
-description: 'Email layouts are reusable container used for email content in Novu'
-icon: 'GoContainer'
+description: 'Email layouts are reusable components used with email steps'
+icon: 'Container'
 ---
 
 ## Overview
 
-Layouts are reusable container for email content in Novu, designed to bring consistency, maintainability, and efficiency to your email communications. With layouts, teams can define shared elements (headers, footers, branding) and reuse them across multiple email steps and workflows.
+Layouts are reusable components used with email steps in the workflow, designed to bring consistency, maintainability, and efficiency to your email communications. With layouts, teams can create a component using headers, footers and other branding elements and reuse that component across multiple email steps and workflows.
 
 Each environment includes one default layout, but you can create additional layouts based on your needs — such as transactional, marketing, or newsletter types.
 
-
 **Important**: Every layout must include the `{{content}}` variable. This variable dynamically injects the content of the email step.
 
-## Advantages of using layouts
+## Layouts features
 
-- Reusable across workflows: One layout can be shared across many workflows and steps.
-- Visual (Block) Editor: Drag-and-drop editor for building layout templates.
+- Reusable across workflows: One layout can be shared across many workflows and email steps.
+- Visual (Block) Editor: Block based editor for building layout templates.
 - Code Editor: Use raw HTML for fine-grained control.
 - Environment Scoped: Each environment maintains its own set of layouts.
-- Supports Variables: Use liquid variables like `{{subscriber.firstName}}` and `{{payload.orderId}}`
+- Supports Variables: Use liquid variables like `{{subscriber.firstName}}` and `{{payload.orderId}}`.
 
 ## Managing layouts
 
@@ -31,11 +30,11 @@ Here, you will see a list of existing layouts along with creation and editing op
 
 ### Creating a layout
 
-- Navigate to [Layouts page](https://dashboard.novu.co/layouts) on Novu dashboard.
-- Click **Create layout** button on the top right corner.
+- Navigate to the [layouts page](https://dashboard.novu.co/layouts) on Novu dashboard.
+- Click on the **Create layout** button on the top right corner.
 - Fill in:
-  - Layout Name - Human-readable name (e.g., "Newsletter Layout")
-  - Identifier - Unique ID used internally and in APIs (e.g., newsletter-layout). This will be generated automatically if not provided.
+  - Layout Name - Human-readable name such as **Newsletter Layout**
+  - Identifier - Unique ID used internally and in APIs such as **newsletter-layout**. This will be generated automatically if not provided.
 
 A new layout is created with provider name and identifier.
 
@@ -69,13 +68,11 @@ Example HTML content:
 
 - Navigate to [Layouts page](https://dashboard.novu.co/layouts) on Novu dashboard.
 - Click on a layout from the list.
-- Modify layout name or content using the editors
-- Preview your layout with Preview Context, which allows you to test with mock subscriber data
-- Click on the **Save** button to save your changes.
-- If this layout is already in use, you will see a warning message.
+- Click on the `cog` icon on layout editor to modify layout name or identifier
+- Use the block or code editor to modify the layout content
+- Preview your layout using preview screen, which allows you to test with mock subscriber data
 
-A layout can be deleted or duplicated by clicking on the three dots and selecting the action.
-
+A layout can be deleted or duplicated by clicking on the three dots and selecting the action. If a layout is already in use, you will see a warning message while deleting the layout.
 
 ## Using a layout in workflow email step
 
@@ -88,9 +85,7 @@ The selected layout wraps around the content written in the email editor.
 
 ### Previewing emails with layouts
 
-Use the Test Workflow feature to preview how the email renders with actual subscriber data.
-You can test different subscriber profiles and locales to validate the layout appearance.
-
+Use the Test Workflow feature to preview how the email renders with the layout and actual subscriber data. You can test different subscriber profiles and locales to validate the layout appearance.
 
 ## Tips of using layouts
 - Use layouts for branding elements: logos, consistent colors, company details.
