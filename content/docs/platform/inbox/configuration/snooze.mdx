@@ -33,19 +33,15 @@ All dates and times are interpreted in your subscriber's local timezone. They ca
 
 ![Snooze a notification](/images/inbox/snooze-notification.png)
 
-<Callout type="info">The selected snooze time must be at least 3 minutes in the future.</Callout>
+The minimium snooze time must be at least 3 minutes in the future. While the maximum duration a notification can be snoozed depends on your cloud workspace plan:
+- **Free**: Up to 24 hours per notification
+- **Trial**: Up to 90 days during the 14-day trial, same as Pro
+- **Pro / Team**: Up to 90 days
+- **Enterprise**: Defaults to 90 days, extendable on request
 
 While the Inbox component handles snoozing automatically, the [JavaScript SDK](/platform/sdks/javascript#methods) also exposes `.snooze()` and `.unsnooze()` methods on the notification object to build custom snooze functionality.
 
 This let's you create custom UI elements or workflows that trigger snooze actions outside of the default dropdown menu.
-
-<Callout type="info">
-Snoozing is available on all plans for Cloud workspaces:
-- Free – Up to 24 hours per notification
-- Trial – Up to 90 days during the 14-day trial, same as Pro
-- Pro / Team – Up to 90 days
-- Enterprise – Defaults to 90 days, extendable on request
-</Callout>
 
 ## Managing snoozed notifications
 
