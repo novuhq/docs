@@ -5,22 +5,20 @@ icon: 'Languages'
 ---
 
 ## Workflow translations
-
-Novu supports multi-language translations for workflows, allowing your notifications to dynamically adapt to your users' preferred language. This documentation covers everything you need to know to enable, configure, and manage translations for your workflows.
+Novu supports multi-language translations for workflows, allowing notifications to dynamically adapt to each of your subscriber's preferred language. You can enable, configure, and manage translations across your notification workflows from the Novu dashboard.
 
 <Callout type="info">
-  The translations feature is currently in `beta` and is available for `Team` and `Enterprise` plans.
+  The translations feature is in `beta` and available on `Team` and `Enterprise` [plans](https://novu.co/pricing).
 </Callout>
 
-Workflow translations allow each notification workflow, such as onboarding, password reset, and one time password (OTP), to support multiple locales. When a subscriber receives a notification, Novu selects the appropriate translation based on the subscriber's locale.
+Each workflow can support multiple locales. Novu automatically selects the correct translation based on the subscriber’s locale.
 
-This feature helps teams:
+Benefits:
+- Deliver notifications in the subscriber's preferred language
+- Customize content per workflow or layout
+- Improve communication across geographies
 
-- Reach users in their native language.
-- Customize language per workflow or layout.
-- Reduce friction in communication across geographies.
-
-You can manage translations on the [translation page](https://dashboard.novu.co/translations) in the Novu dashboard. Select the default language and add the target languages that you wish to support.
+Manage translations from the [translation page](https://dashboard.novu.co/translations) in the Novu dashboard. Set a default language and add target languages as needed.
 
 ![Translation page](/images/platform/workflow/translations/translations-page.png)
 
@@ -79,13 +77,13 @@ You can update translations by editing the JSON files in the editor on the trans
 
 If you prefer to create/update translations in a JSON file outside the Novu dashboard, you can do so by exporting and importing them.
 
-### Export
+### How to import translations
 
 - Navigate to the translations page.
 - Select the workflow you want to export translations for.
 - Click on the locale, such as `en_US`, now click on the download icon to download the latest default locale translation JSON file.
 
-### Import
+### How to export translations
 
 - Navigate to the translations page.
 - Select the workflow you want to import translations for.
@@ -142,13 +140,13 @@ Use the Preview Context to:
 
 Any edit to the default locale will invalidate others. You’ll see a warning: `Outdated, needs update`. Re-export the default, update translated files, and re-upload.
 
-## Disabling Translations
+## Disabling translations
 
 A translation group can be disabled by clicking on the three dots and selecting **Disable & delete translations**. This action is irreversible and removes all associated translation data.
 
-## Translation in Layouts
-This feature is currently a work in progress. If you need translation support in email layouts, reach out to us at support@novu.co
+## Translation in email layouts
 
+This feature is currently a work in progress. If you need translation support in email layouts, reach out to us at support@novu.co
 
 ## Best practices
 
