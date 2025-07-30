@@ -1,0 +1,94 @@
+---
+title: 'Email Layouts'
+description: 'Email layouts are reusable components used with email steps'
+icon: 'Container'
+---
+
+## Overview
+
+Layouts are reusable components used with email steps in the workflow, designed to bring consistency, maintainability, and efficiency to your email communications. With layouts, teams can create a component using headers, footers and other branding elements and reuse that component across multiple email steps and workflows.
+
+Each environment includes one default layout, but you can create additional layouts based on your needs — such as transactional, marketing, or newsletter types.
+
+**Important**: Every layout must include the `{{content}}` variable. This variable dynamically injects the content of the email step.
+
+## Layout features
+
+- Reusable across workflows: one layout can be shared across many workflows and email steps.
+- Visual (Block) editor: block-based editor for building layout templates.
+- Code editor: use raw HTML for full control.
+- Environment-scoped: each environment maintains its own set of layouts.
+- Supports variables: use liquid variables like `{{subscriber.firstName}}` and `{{payload.orderId}}`.
+
+## Managing layouts
+
+You can find layouts in the sidebar on Novu dashboard.
+
+Here, you will see a list of existing layouts along with creation and editing options.
+
+![Layouts page](/images/platform/workflow/layouts/layouts-page.gif)
+
+### Creating a layout
+
+- Navigate to the [layouts page](https://dashboard.novu.co/layouts) on Novu dashboard.
+- Click on the **Create layout** button on the top right corner.
+- Fill in:
+  - Layout Name - Human-readable name such as **Newsletter Layout**
+  - Identifier - Unique ID used internally and in APIs such as **newsletter-layout**. This will be generated automatically if not provided.
+
+A new layout is created with the provided name and identifier.
+
+### Writing layout content
+Layout content can be written in two ways:
+
+- Block Editor: Visual interface for building layout components. Add elements like headers, footers, images, and buttons by pressing `/` key.
+- Code Editor: Write your layout using HTML.
+
+Both editors offer the same features and capabilities as the email step editor. Ensure your layout includes `{{content}}`, which acts as a placeholder for actual email content from the workflow.
+
+Example HTML content:
+
+```html
+<html>
+  <body>
+    <header>
+      <h1>Welcome to Acme Inc.</h1>
+    </header>
+
+    {{content}}
+
+    <footer>
+      <p>Visit us at example.com</p>
+    </footer>
+  </body>
+</html>
+```
+
+### Editing the layout
+
+- Navigate to [Layouts page](https://dashboard.novu.co/layouts) on Novu dashboard.
+- Click on a layout from the list.
+- Click the **cog** icon in the layout editor to rename the layout or change its identifier.
+- Edit the layout content in either the **Block** or **Code** editor.
+- Preview the layout in the preview pane, using mock subscriber data if needed.
+
+A layout can be deleted or duplicated by clicking on the three dots and selecting the action. If a layout is already in use, you will see a warning message while deleting the layout.
+
+## Using a layout in workflow email step
+
+- Navigate to [Workflows page](https://dashboard.novu.co/workflows) on Novu dashboard.
+- Select a workflow from the list.
+- Select any email step of the workflow.
+- Choose your layout from the Layout selector.
+
+The selected layout wraps around the content written in the email editor.
+
+### Previewing emails with layouts
+
+Use the Test Workflow feature to preview how the email renders with the layout and actual subscriber data. You can test different subscriber profiles and locales to validate the layout appearance.
+
+## Tips for using layouts
+
+- Use layouts for branding elements: logos, consistent colors, company details.
+- Use the **Block** editor for easier collaboration with non-technical teammates.
+- Use the **Code** editor when replicating an HTML design from Figma or another tool.
