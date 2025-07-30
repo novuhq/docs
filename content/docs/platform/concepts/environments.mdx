@@ -4,42 +4,63 @@ description: 'Understanding and managing environments in Novu'
 icon: 'GitFork'
 ---
 
-Novu uses environments to separate your development and production workflows. When you create an account, you'll get two default environments: `Development` and `Production`.
+Novu uses environments to separate your development and production workflows. When you create an account, you'll get two default environments: **Development** and **Production**.
 
-## Development Environment
+## Development environment
 
 Use the development environment to test new notification workflows, validate changes before deploying to production, and experiment with different configurations.
 
-## Production Environment
+The Development environment is your primary workspace for building and testing. This is the only environment where you should create and modify workflows, layouts, and notification translations.
 
-The production environment is your live environment where notifications are sent to real users. Use the production environment for production use cases, and other environments for non-production use cases.
+Use this environment to:
+- Build new notification workflows.
+- Iterate on email designs using layouts.
+- Add and update language translations.
+- Test changes and experiment with different configurations before they go live.
+
+## Production environment
+
+The Production environment is your live environment, sending notifications to real users. To ensure stability and prevent unintended changes, this environment is view-only for workflows, layouts, and translations. 
+
+Changes are not made here directly but are pushed from the development environment via the publishing process.
 
 ## Custom Environments
 
-<Callout type="info">Custom environments are available in Team and Enterprise plans.</Callout>
+<Callout type="info">Custom environments are available in <a href="https://novu.co/pricing" target="_blank" rel="noopener noreferrer">Team and Enterprise plans</a>.</Callout>
 
 Create custom environments to match your development workflow:
 
 1. Go to the [Environments page](https://dashboard.novu.co/environments) in Novu dashboard
-2. Click on the `Create environment` button on the top right.
-3. A popup will appear. Enter names like `Staging` or `QA`.
+2. Click on the **Create environment** button on the top right.
+3. A menu will appear. Enter your preferred environment name.
 4. Assign unique colors to easily distinguish between environments.
-5. Click on `Create environment` button on the bottom right.
+   ![Publish changes](/images/developer-tools/create-environment.png)
+5. Click on **Create environment** button on the bottom right.
 6. New environment will be created and will be available in the environments list.
 
-## What's Unique to Each Environment?
+## What's unique to each environment?
 
-Each environment maintains its own separate:
+Each environment has a mix of isolated resources and assets that can be published from Development.
+
+### Environment specific resources
+
+These resources are completely separate and unique to each environment. Data in one environment has no connection to data in another. They are:
 
 - Subscribers
 - Topics
-- Workflows
-- Webhooks
-- Integrations
+- Integrations (Provider credentials)
 - API keys (application identifier and secret key)
 - Activity feed
+- Webhooks
 
-## Environment Credentials
+### Publishable assets
+
+These assets are managed centrally in the Development environment and then published to other environments.
+- Workflows
+- Layouts
+- Translations
+
+### Environment Credentials
 
 Each environment has two unique identifiers:
 
@@ -57,18 +78,20 @@ Each environment has two unique identifiers:
 
 **Best Practice**: Configure these credentials in your application based on the active environment, similar to how you manage other service credentials.
 
-## Promoting workflows between environments
+## Publishing changes to other environments
 
-One workflow can be synced to another environment using the `Sync Workflow` option in workflow actions. While syncing, Novu will give option to which environment to sync the workflow to. If workflow with same identifier is already present in the destination environment, it will be overwritten with the source workflow.
+Novu provides a publish mechanism that allows you to promote changes from your dvelopment environment to production or other custom environments. This process ensures that all changes are deliberate, reviewed, and deployed in a controlled manner.
 
-Steps:
+The publishing process bundles all modifications made to workflows, layouts, and translations since the last publish event.
 
-1. Go to the [Workflows page](https://dashboard.novu.co/workflows) in Novu dashboard
-2. Click on the three dot menu in the workflow row
-3. If you have more than two environments, hover over the `Sync Workflow` option to see the destination environment, then click it.
-4. If you have only two environments, Click on the `Sync to <Environment Name>` option. Here `Environment Name` is the name of another environment.
-5. The workflow will be synced to the destination environment.
+### How to publish changes
+After making modifications in your Development environment in the [Novu dashboard](https://dashboard.novu.co), you can promote them to another environment by following these steps:
 
-<Callout type="info">
-Currently, a single workflow can be synced to another environment.
-</Callout>
+1. Ensure you are in the Development environment. All changes must originate from here.
+2. Click the **Publish changes** button in the top right of the screen.
+   ![Publish changes](/images/developer-tools/publish-changes.png)
+3. A list of available environments will appear. Select the environment you want to publish to.
+   ![Publish changes](/images/developer-tools/list-of-environment.png)
+4. A menu will open showing all the availabl workflows. Select the checkboxes next to the workflows you want to publish.
+   ![Publish changes](/images/developer-tools/publish-changes-modal.png)
+5. Click the publish button to publish the selected workflows to the selected environment.
