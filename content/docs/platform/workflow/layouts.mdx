@@ -12,13 +12,13 @@ Each environment includes one default layout, but you can create additional layo
 
 **Important**: Every layout must include the `{{content}}` variable. This variable dynamically injects the content of the email step.
 
-## Layouts features
+## Layout features
 
-- Reusable across workflows: One layout can be shared across many workflows and email steps.
-- Visual (Block) Editor: Block based editor for building layout templates.
-- Code Editor: Use raw HTML for fine-grained control.
-- Environment Scoped: Each environment maintains its own set of layouts.
-- Supports Variables: Use liquid variables like `{{subscriber.firstName}}` and `{{payload.orderId}}`.
+- Reusable across workflows: one layout can be shared across many workflows and email steps.
+- Visual (Block) editor: block-based editor for building layout templates.
+- Code editor: use raw HTML for full control.
+- Environment-scoped: each environment maintains its own set of layouts.
+- Supports variables: use liquid variables like `{{subscriber.firstName}}` and `{{payload.orderId}}`.
 
 ## Managing layouts
 
@@ -36,7 +36,7 @@ Here, you will see a list of existing layouts along with creation and editing op
   - Layout Name - Human-readable name such as **Newsletter Layout**
   - Identifier - Unique ID used internally and in APIs such as **newsletter-layout**. This will be generated automatically if not provided.
 
-A new layout is created with provider name and identifier.
+A new layout is created with the provided name and identifier.
 
 ### Writing layout content
 Layout content can be written in two ways:
@@ -44,7 +44,7 @@ Layout content can be written in two ways:
 - Block Editor: Visual interface for building layout components. Add elements like headers, footers, images, and buttons by pressing `/` key.
 - Code Editor: Write your layout using HTML.
 
-Both the editors are similar in terms of features and capabilities as email step editor. Ensure your layout includes `{{content}}`, which acts as a placeholder for actual email content from the workflow.
+Both editors offer the same features and capabilities as the email step editor. Ensure your layout includes `{{content}}`, which acts as a placeholder for actual email content from the workflow.
 
 Example HTML content:
 
@@ -68,9 +68,9 @@ Example HTML content:
 
 - Navigate to [Layouts page](https://dashboard.novu.co/layouts) on Novu dashboard.
 - Click on a layout from the list.
-- Click on the `cog` icon on layout editor to modify layout name or identifier
-- Use the block or code editor to modify the layout content
-- Preview your layout using preview screen, which allows you to test with mock subscriber data
+- Click the **cog** icon in the layout editor to rename the layout or change its identifier.
+- Edit the layout content in either the **Block** or **Code** editor.
+- Preview the layout in the preview pane, using mock subscriber data if needed.
 
 A layout can be deleted or duplicated by clicking on the three dots and selecting the action. If a layout is already in use, you will see a warning message while deleting the layout.
 
@@ -87,7 +87,8 @@ The selected layout wraps around the content written in the email editor.
 
 Use the Test Workflow feature to preview how the email renders with the layout and actual subscriber data. You can test different subscriber profiles and locales to validate the layout appearance.
 
-## Tips of using layouts
+## Tips for using layouts
+
 - Use layouts for branding elements: logos, consistent colors, company details.
-- Use the Block Editor for easier collaboration with non-technical teammates.
-- Use the Code Editor when replicating an HTML design from Figma or another tool.
+- Use the **Block** editor for easier collaboration with non-technical teammates.
+- Use the **Code** editor when replicating an HTML design from Figma or another tool.
