@@ -20,6 +20,10 @@ Each environment includes one default layout, but you can create additional layo
 - Environment-scoped: each environment maintains its own set of layouts.
 - Supports variables: use liquid variables like `{{subscriber.firstName}}` and `{{payload.orderId}}`.
 
+<Callout type="info">
+  In free plan, only one layout can be created per environment. In pro and higher plans, upto 100 layouts can be created per environment. If you need more than 100 layouts, please contact us at support@novu.co.
+</Callout>
+
 ## Managing layouts
 
 You can find layouts in the sidebar on Novu dashboard.
@@ -83,9 +87,17 @@ A layout can be deleted or duplicated by clicking on the three dots and selectin
 
 The selected layout wraps around the content written in the email editor.
 
+<Callout type="info">
+  Payload variables are not supported in layouts because one layout can be used across multiple workflows and workflows can have strict payload schema validation.
+</Callout>
+
 ### Previewing emails with layouts
 
 Use the Test Workflow feature to preview how the email renders with the layout and actual subscriber data. You can test different subscriber profiles and locales to validate the layout appearance.
+
+### Translation in layouts
+
+[Translations](/docs/platform/workflow/translations) feature is currently not supported in layouts. We are working on it and will update this section when it is available. If you need translations in layouts, please contact us at [support@novu.co](mailto:support@novu.co).
 
 ## Tips for using layouts
 
