@@ -16,7 +16,7 @@ Each entry is a key-value pair, referred to as a property. You can define up to 
 
 ![Data object](/images/inbox/data-object.png)
 
-<Callout>The data object supports only scalar values, such as strings, numbers, booleans, or null. String values are limited to 256 characters.</Callout>
+<Callout>The data object supports only scalar values, such as strings, numbers, booleans, or null. String values are limited to 256 characters. There is a limit of 10 data object properties per in-app step.</Callout>
 
 ## Using the Data Object in the &lt;Inbox /&gt;
 
@@ -43,7 +43,7 @@ function NovuDataObject() {
 export default NovuDataObject;
 ```
 
-<Callout type="warn">The data object is included in the client response. Avoid storing sensitive information, such as API keys or passwords, in `notification.data`.</Callout>
+<Callout type="warn">The data object is included in the client response. Avoid storing sensitive information, such as API keys or passwords, in `notification.data`. Workflow trigger payload may contain sensitive information, so avoid using the complete payload in the data object. Use only required and insensitive payload data in the data object.</Callout>
 
 ### Adding type safety (Optional)
 
@@ -60,3 +60,38 @@ declare global {
 ```
 
 This allows TypeScript to infer the structure of `notification.data`, reducing errors when accessing properties.
+
+## Using data object keys as filter for tabs
+
+You can use data object keys as filter for tabs. Read more on this on [tabs documentation](/platform/inbox/configuration/tabs#filter-tabs-by-data-attributes).
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function InboxWithFilters() {
+
+  const tabs = [
+    {
+      label: 'High Priority',
+      filter: {
+        data: { priority: 'high' },
+      },
+    },
+    {
+      label: 'User Activity',
+      filter: {
+        data: { type: 'login' },
+      },
+    },
+  ];
+
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      tabs={tabs}
+    />
+  );
+}
+```
