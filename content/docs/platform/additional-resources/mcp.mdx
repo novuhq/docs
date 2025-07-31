@@ -1,0 +1,184 @@
+---
+title: Model Context Protocol (MCP)
+description: Enable AI agents to securely access and interact with your Novu notification infrastructure using the Model Context Protocol (MCP).
+icon: Network
+---
+
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+## What is Model Context Protocol?
+
+MCP is a protocol that enables AI tools and applications to connect with Novu's data and services in a secure, standardized way. It provides a structured method for AI models to:
+
+* Find and retrieve Novu data (subscribers, workflows, notifications, etc.)
+* Access specific tools and functionality provided by Novu
+* Maintain context about your Novu workspace when working with AI assistants
+* Trigger workflows and manage notification preferences
+
+## How MCP Works
+
+Novu hosts a remote MCP server that handles requests from AI tools and provides access to Novu data through a secure interface.
+
+**Connection URLs:**
+
+* **US Region**: `https://mcp.novu.co/` (Streamable HTTP - Recommended)
+* **EU Region**: `https://mcp.novu.co/?region=eu` (Streamable HTTP - Recommended)
+* **Legacy SSE**: `https://mcp.novu.co/sse` (also supported in both regions but not recommended)
+
+When an AI tool connects to Novu's MCP server, authentication verifies the user's API key and permissions, then the tool can access relevant Novu data and functionality.
+
+## Available Tools
+
+The Novu MCP Server provides **13 tools** for interacting with the Novu API:
+
+### Core Operations
+- **get_api_key_status** - Check API key status and region configuration
+- **get_environments** - List development and production environments
+
+### Workflow Management
+- **get_workflows** - List all workflows with names and identifiers
+- **get_workflow** - Get detailed workflow configuration and payload structure
+- **trigger_workflow** - Execute workflows with custom data for specific subscribers
+- **create_workflow** - Create new workflows with comprehensive configuration including steps, channels, and validation
+- **update_workflow** - Update existing workflows with modified steps, preferences, and configuration
+- **delete_workflow** - Delete workflows by their unique identifier (irreversible action)
+
+### Subscriber Management
+- **find_subscribers** - Search subscribers by email, phone, name, or ID
+
+### Notification Analytics
+- **get_notifications** - Get notifications with filtering by channels, workflows, dates
+- **get_notification** - Get specific notification details with execution logs
+
+### Preference Management
+- **get_subscriber_preferences** - Get subscriber notification preferences for all channels
+- **update_subscriber_preferences** - Update subscriber channel preferences globally or per workflow
+
+## Setup
+
+### Prerequisites
+
+- Novu API key from [dashboard.novu.co](https://dashboard.novu.co/settings/api-keys)
+- MCP-compatible AI assistant (Claude Desktop, Claude.ai, Cursor, Windsurf)
+- Node.js installed (for Claude Desktop users)
+
+### Authentication
+
+1. Get your API key from the [Novu Dashboard](https://dashboard.novu.co/settings/api-keys)
+2. Identify your region from the dashboard URL:
+   - `dashboard.novu.co` = **US region**
+   - `eu.dashboard.novu.co` = **EU region**
+
+### Configuration
+
+<Tabs items={['Claude Desktop', 'Claude.ai', 'Cursor', 'Other Tools']}>
+<Tab value="Claude Desktop">
+
+**File Location:**
+- **macOS**: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "novu": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.novu.co/",
+        "--header",
+        "Authorization:Bearer ${NOVU_API_KEY}"
+      ],
+      "env": {
+        "NOVU_API_KEY": "your-novu-api-key-here"
+      }
+    }
+  }
+}
+```
+
+For **EU region**:
+```json
+{
+  "mcpServers": {
+    "novu": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.novu.co/?region=eu",
+        "--header",
+        "Authorization:Bearer ${NOVU_API_KEY}"
+      ],
+      "env": {
+        "NOVU_API_KEY": "your-novu-api-key-here"
+      }
+    }
+  }
+}
+```
+
+</Tab>
+<Tab value="Claude.ai">
+
+Navigate to **Settings** → **Integrations** → **+ Add Integration**:
+
+- **Name**: `Novu`
+- **URL**: `https://mcp.novu.co/` (US) or `https://mcp.novu.co/?region=eu` (EU)
+- **Headers**: `Authorization: Bearer your-novu-api-key`
+
+</Tab>
+<Tab value="Cursor">
+
+In **Settings** → **Extensions** → **MCP Servers**:
+
+```json
+{
+  "mcpServers": {
+    "novu": {
+      "url": "https://mcp.novu.co/",
+      "headers": {
+        "Authorization": "Bearer your-novu-api-key"
+      }
+    }
+  }
+}
+```
+
+</Tab>
+<Tab value="Other Tools">
+
+**Standard MCP Configuration:**
+- **URL**: `https://mcp.novu.co/` (US) or `https://mcp.novu.co/?region=eu` (EU)
+- **Authentication**: Header `Authorization: Bearer your-novu-api-key`
+- **Protocol**: Streamable HTTP (MCP over HTTP)
+
+</Tab>
+</Tabs>
+
+## Testing Your Setup
+
+After configuration, test with these commands:
+
+### Basic Operations
+```
+"Check my Novu API key status"
+"Show me all my notification workflows"  
+"Find subscriber with email user@example.com"
+```
+
+## Troubleshooting
+
+**Common Issues:**
+- **Authentication errors**: Verify API key is valid and has no extra spaces
+- **Empty results**: Check you're using the correct region (US/EU)
+- **Connection issues**: Restart your AI assistant after configuration changes
+
+**Test connectivity:**
+```bash
+npx @modelcontextprotocol/inspector
+```
+Connect with Transport Type: Streamable HTTP, URL: `https://mcp.novu.co/`, Headers: `Authorization: Bearer your-api-key`
+
+---
+
+For additional help, check the [Novu documentation](https://docs.novu.co) or join our [Discord community](https://discord.novu.co). 

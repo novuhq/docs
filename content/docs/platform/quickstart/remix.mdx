@@ -21,18 +21,19 @@ import {
   Palette,
   Workflow
 } from 'lucide-react';
+import { CodeTemplateBlock } from '@/components/quickstart/inbox-code';
 
 This guide walks you through integrating Novu’s Inbox into your Remix application for in-app notifications in real-time, from setup to triggering your first notification. By the end, you'll have a working notification inbox.
 
 <Steps>
   <Step>
   ### Create a Novu account
-    [Create a Novu account](https://dashboard.novu.co/auth/sign-up) or [sign in](https://dashboard.novu.co/auth/sign-in) to an existing account
+    <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer">Create a Novu account</a> or <a href="https://dashboard.novu.co/auth/sign-in" target="_blank" rel="noopener noreferrer">sign in</a> to access the Novu dashboard.
   </Step>
 
   <Step>
   ### Create a Remix application
-    Create a new Remix app using the command below. Skip this step if you already have an existing project:
+    Run the following command to create a new Remix app:
 
     ```package-install
     npx create-remix@latest
@@ -41,7 +42,11 @@ This guide walks you through integrating Novu’s Inbox into your Remix applicat
   </Step>
 
   <Step>
-  ### Install Novu’s inbox package
+  ### Install `@novu/react`
+  The [Novu React SDK](/platform/sdks/react) gives you access to the Inbox component.
+
+  Run the following command to install the SDK:
+  
   ```package-install
   npm install @novu/react
   ```
@@ -51,27 +56,7 @@ This guide walks you through integrating Novu’s Inbox into your Remix applicat
   ### Create an Inbox component
   In the `app` directory, create a `components/notification-center.tsx` file and use the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, passing :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
       
-    ```tsx title="app/components/notification-center.tsx"
-    import React from 'react';
-    import { Inbox } from '@novu/react';
-    import { useNavigate } from '@remix-run/react';
-    
-    export function NotificationCenter() {
-      const navigate = useNavigate();
-      
-      return (
-        <Inbox
-          applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-          subscriber="YOUR_SUBSCRIBER_ID"
-          routerPush={(path: string) => navigate(path)}
-        />
-      );
-    }
-    ```
-
-    <div className="text-sm text-gray-500 text-center mt-[-12px]">
-      [Sign in](https://dashboard.novu.co/auth/sign-up) to get your own API keys
-    </div>
+  <CodeTemplateBlock templateId="remix-inbox" />
 
     If you’re signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. Otherwise, you can manually retrieve them:
     * `applicationIdentifier` – In the Novu dashboard, click API Keys, and then locate your unique Application Identifier.

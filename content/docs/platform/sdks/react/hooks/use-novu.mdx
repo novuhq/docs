@@ -19,7 +19,7 @@ The `useNovu` hook provides direct access to the [Novu client instance](/platfor
   }}
 />
 
-## Example Usage
+## Example usage
 
 Here's how to use the `useNovu` hook to interact with the Novu client:
 
@@ -66,7 +66,7 @@ function NotificationActions() {
 }
 ```
 
-### Managing Individual Notifications
+### Managing individual notifications
 
 The Novu client provides methods for managing individual notifications:
 
@@ -136,7 +136,70 @@ function NotificationItem({ notification }: { notification: Notification }) {
 }
 ```
 
-### Listening to Real-time Events
+### Updating single workflow's channel preferences
+
+Workflow's channel preferences can be updated using `novu.preferences.update` method.
+
+```tsx
+import { useNovu } from '@novu/react';
+
+function UpdateSinglePreferences() {
+  const { novu } = useNovu();
+
+  const updatePreferences = async () => {
+    await novu.preferences.update({
+      workflowId: 'workflow_id',
+      channels: {
+        email: false,
+        sms: true,
+      },
+    });
+  };
+
+  return <Button title="Update Single Preferences" onPress={updatePreferences} />;
+}
+```
+
+### Updating multiple workflow's channel preferences
+
+Using `novu.preferences.bulkUpdate` multiple workflow's channel preferences can be updated at once.
+
+```tsx
+import { useNovu } from "@novu/react";
+
+function UpdateMultiplePreferences() {
+  const novu = useNovu();
+
+  const updateBulkPreferences = async () => {
+    try {
+      await novu.preferences.bulkUpdate([
+      {
+        workflowId: "workflowId_1",
+        channels: {
+          email: true,
+          in_app: false,
+        },
+      },
+      {
+        workflowId: "workflowId_2",
+        channels: {
+          email: true,
+          in_app: false,
+        },
+      },
+    ]);
+    } catch (error) {
+      console.error("Failed to update preferences:", error);
+    }
+  };
+
+  return (
+    <button onClick={updateBulkPreferences}>Update Bulk Preferences</button>
+  );
+}
+```
+
+### Listening to real-time events
 
 The Novu client allows you to listen for real-time events:
 
@@ -182,6 +245,6 @@ function NotificationListener() {
 
 <Callout type="info">
   The Novu client instance provides access to all the functionality available in
-  the [Headless API](/platform/inbox/headless/api-reference). For a complete
+  the [Headless API](/platform/sdks/javascript). For a complete
   list of methods and events, refer to the API documentation.
 </Callout>
