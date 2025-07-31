@@ -1,12 +1,97 @@
 ---
 pageTitle: 'Data Object'
 title: 'Data Object'
-description: 'Learn how to style the pre built Inbox component'
-icon: 'Palette'
+description: 'Learn how to use the Data Object to extend in-app notifications with custom metadata.'
+icon: 'Table'
 ---
 
-import { TypeTable } from 'fumadocs-ui/components/type-table';
+The data object is a customizable key-value store available in the in-app step. It can be used to extend each Inbox component notification by embedding custom data. The data can then be used to personalize how messages appear in the Inbox component.
 
-## Customization Hierarchy
+## Defining the data object
 
-The Inbox component is built to allow for multiple layers of styling, which allows the specificity required to style the Inbox to meet the requirements of your use case.
+You define the data object inside an in-app step in your workflow on the Novu dashboard.
+Each entry is a key-value pair, referred to as a property. You can define up to 10 properties per in-app step. Each property can be:
+- Static: Fixed values such as "status": "merged" or "icon": "heart".
+- Dynamic: Values derived from subscriber or payload data, such as `{{subscriber.firstName}}` or `{{payload.issueId}}`.
+
+![Data object](/images/inbox/data-object.png)
+
+<Callout>The data object supports only scalar values, such as strings, numbers, booleans, or null. String values are limited to 256 characters. There is a limit of 10 data object properties per in-app step.</Callout>
+
+## Using the Data Object in the &lt;Inbox /&gt;
+
+The data object is available on the frontend as `notification.data`. You can use it inside the `renderNotification` function to customize how each notification is displayed.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function NovuDataObject() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderNotification={(notification) => (
+       <div>
+        <p>{notification.data?.firstName}</p>            
+        <p>{notification.data?.emoji}</p>
+      </div>
+     )}
+    />
+  );
+}
+
+export default NovuDataObject;
+```
+
+<Callout type="warn">The data object is included in the client response. Avoid storing sensitive information, such as API keys or passwords, in `notification.data`. Workflow trigger payload may contain sensitive information, so avoid using the complete payload in the data object. Use only required and insensitive payload data in the data object.</Callout>
+
+### Adding type safety (Optional)
+
+For TypeScript users, define a NotificationData interface to ensure type safety when accessing `notification.data`.
+
+```tsx
+declare global {
+  interface NotificationData {
+    reactionType?: string;
+    entityId?: string;
+    userName?: string;
+  }
+}
+```
+
+This allows TypeScript to infer the structure of `notification.data`, reducing errors when accessing properties.
+
+## Using data object keys as filter for tabs
+
+You can use data object keys as filter for tabs. Read more on this on [tabs documentation](/platform/inbox/configuration/tabs#filter-tabs-by-data-attributes).
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function InboxWithFilters() {
+
+  const tabs = [
+    {
+      label: 'High Priority',
+      filter: {
+        data: { priority: 'high' },
+      },
+    },
+    {
+      label: 'User Activity',
+      filter: {
+        data: { type: 'login' },
+      },
+    },
+  ];
+
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      tabs={tabs}
+    />
+  );
+}
+```

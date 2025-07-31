@@ -10,6 +10,8 @@ import {
   Library,
   Workflow
 } from 'lucide-react';
+import { CodeTemplateBlock } from '@/components/quickstart/inbox-code';
+
 
 This guide walks you through integrating Novu's Inbox into your Vue application for real time in-app notifications, from setup to triggering your first notification. By the end, you'll have a working notification inbox.
 
@@ -20,110 +22,34 @@ This guide walks you through integrating Novu's Inbox into your Vue application 
 <Steps>
   <Step>
   ### Create a Novu account
-    [Create a Novu account](https://dashboard-v2.novu.co/auth/sign-up) or [sign in](https://dashboard-v2.novu.co/auth/sign-in) to an existing account.
+    <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer">Create a Novu account</a> or <a href="https://dashboard.novu.co/auth/sign-in" target="_blank" rel="noopener noreferrer">sign in</a> to access the Novu dashboard.
   </Step>
 
     <Step>
   ### Create a Vue application
-    Create a new vue app with create-vue package. Skip this step if you already have an existing project:
+    Run the following command to create a new Vue app:
 
     ```package-install
     npm create vue@latest novu-inbox-vue
     ```
-
-    Navigate to the newly created project:
-
-    ```bash
-    cd novu-inbox-vue
-    ```
   </Step>
 
   <Step>
-  ### Install the required package
-  Run the command below to install [Novu Javascript SDK](/platform/sdks/javascript), which provides required component for Inbox UI:
+  ### Install `@novu/js`
+  The [Novu JavaScript SDK](/platform/sdks/javascript) gives you access to the Inbox component.
+
+  Run the following command to install the SDK:
 
     ```package-install
     npm install @novu/js
     ```
   </Step>
 
-
   <Step>
   ### Add the Inbox component
   Create the `src/components/NovuInbox.vue` file to add the Inbox component passing :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
 
-```vue title="src/components/NovuInbox.vue"
-<template>
-  <!-- 
-    This empty div serves as a mounting point for the Novu Inbox.
-    We use Vue's ref attribute to get direct access to this DOM element.
-  -->
-  <div ref="novuInbox"></div>
-</template>
-
-<script setup lang="ts">
-import { ref, onMounted, onUnmounted } from "vue";
-import { NovuUI } from "@novu/js/ui";
-
-interface NovuOptions {
-  options: {
-    applicationIdentifier: string;
-    subscriberId: string;
-  };
-}
-
-// Create a reactive reference to hold the DOM element
-const novuInbox = ref<HTMLElement | null>(null);
-// Store the Novu instance for cleanup during unmount
-let novuInstance: NovuUI | null = null;
-
-onMounted(() => {
-  // Ensure our div reference exists before proceeding
-  if (!novuInbox.value) {
-    console.error("Novu inbox container element not found");
-    return;
-  }
-
-  try {
-    // Initialize the Novu UI instance with required configuration
-    const novu = new NovuUI({
-      options: {
-        applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
-        subscriberId: 'YOUR_SUBSCRIBER_ID',
-      },
-    } as NovuOptions);
-
-    // Mount the Inbox component to our div reference
-    // This is where Novu creates and injects its Inbox UI
-    novu.mountComponent({
-      name: "Inbox",
-      props: {},
-      element: novuInbox.value, // The actual DOM element where Inbox will be mounted
-    });
-
-    // Store the instance for cleanup
-    novuInstance = novu;
-  } catch (error) {
-    console.error("Failed to initialize Novu inbox:", error);
-  }
-});
-
-// Clean up when the component is destroyed
-onUnmounted(() => {
-  if (novuInstance && novuInbox.value) {
-    try {
-      // Properly unmount the Novu component to prevent memory leaks
-      novuInstance.unmountComponent(novuInbox.value);
-    } catch (error) {
-      console.error("Failed to unmount Novu inbox:", error);
-    }
-  }
-});
-</script>
-```
-    <div className="text-sm text-gray-500 text-center mt-[-12px]">
-      [Sign in](https://dashboard-v2.novu.co/auth/sign-up) to get your own API keys
-    </div>
+  <CodeTemplateBlock templateId="vue-inbox" />
 
      If you're signed in to your Novu account, then the :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."} are automatically entered in the code sample above. Otherwise, you can manually retrieve them:
     * `applicationIdentifier` - In the Novu dashboard, click API Keys, and then locate your unique Application Identifier.

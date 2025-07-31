@@ -13,7 +13,7 @@ export function Provider({ children }: { children: ReactNode }) {
         enabled: false,
       }}
     >
-      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
         {children}
       </ThemeProvider>
     </RootProvider>
