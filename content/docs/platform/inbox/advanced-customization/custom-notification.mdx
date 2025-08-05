@@ -1,10 +1,92 @@
 ---
-title: 'Custom Notification'
-description: "Learn how to integrate Novu <Inbox />, a pre-built notification center component for real-time in-app notifications in your application."
-icon: 'LayoutDashboard'
+title: 'Customize Notification UI'
+description: ""
+icon: 'Replace'
 ---
 
-import { Card, Cards } from 'fumadocs-ui/components/card';
-import { MessageSquare, Palette, Zap } from 'lucide-react';
+Novu provides render props that can be used to override specific parts of the default notfication item seen in the Inbox UI such as subject, body and the whole notfication.
 
-The Inbox component enables a rich context-aware in-app notifications center directly in your application, and with minimal effort.
+Each render prop receives the full notification object, giving you access to all the data needed to build a fully custom UI.
+
+## Customize the notification subject
+
+Use the `renderSubject` prop to provide a custom component for the notification's subject line while keeping the rest of the notification style intact.
+
+![Customize notfication subject](/images/inbox/custom-notification-subject.png)
+
+```tsx
+import { Inbox } from '@novu/react';
+ 
+function NovuInbox() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderSubject={(notification) => (
+        <strong>{notification.subject.toUpperCase()}</strong>
+      )}
+    />
+  );
+}
+
+export default NovuInbox;
+```
+
+
+## Customize the notification body
+
+Use `renderBody` if you want to keep the default Inbox UI and only change how the body is rendered. This is useful when you want to customize content formatting or include additional fields from the data object.
+
+![Customize notfication subject](/images/inbox/custom-notification-body.png)
+
+```tsx
+import { Inbox } from '@novu/react';
+ 
+function NovuInbox() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderBody={(notification) => (
+        <div>
+          <p>🔔 New alert: {notification.body}</p>
+        </div>
+      )}
+    />
+  );
+}
+
+export default NovuInbox;
+```
+
+## Customize the entire notification item
+
+Use the `renderNotification` prop to customize the entire notification item in the Inbox UI, including the container, layout, and the content of the subject and body of each notification.
+
+![Customize notfication](/images/inbox/custom-notification.png)
+
+```tsx
+import { Inbox } from '@novu/react';
+ 
+function NovuInbox() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderNotification={(notification) => (
+        <div style={{ padding: '10px', border: '1px solid #ccc', marginBottom: '10px' }}>
+          <h3>{notification.subject}</h3>
+          <p>{notification.body}</p>
+        </div>
+      )}
+    />
+  );
+}
+
+export default NovuInbox;
+```
+
+## Conditionally render notifications
+
+You can combine the renderNotification prop with data from the notification object to display different UIs based on certain conditions. This is useful for creating unique layouts for different types of alerts, such as highlighting priority messages or rendering unique UI based on workflow tags.
+
