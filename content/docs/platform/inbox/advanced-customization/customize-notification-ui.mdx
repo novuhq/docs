@@ -105,8 +105,8 @@ export default function CustomInbox() {
   
   return (
     <Inbox
-      applicationIdentifier=""
-      subscriber=""
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => {
         // filter based on tags
         if (notification.tags?.includes('custom')) {
@@ -140,8 +140,8 @@ export default function CutomInbox() {
   
   return (
     <Inbox
-      applicationIdentifier=""
-      subscriber=""
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => {
         // filter based on workflow identifier
         if (notification.workflow?.identifier === 'demo') {
@@ -184,8 +184,8 @@ export default function CutomInbox() {
   
   return (
     <Inbox
-      applicationIdentifier=""
-      subscriber=""
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => {
        // filter based on data object key
        if (notification.data?.priority) {
@@ -209,3 +209,50 @@ export default function CutomInbox() {
 }
 ```
 
+## Display the standalone notification feed
+
+For situations where you don't need the default popover and bell trigger, you can use the `<Notifications />` or `<InboxContent />` components to display just the list of notifications. This is useful for embedding the notification list directly into a page or a custom popover component.
+
+Both components support the same customization props as `<Inbox />`, except for configuration options (like `applicationIdentifier`, `subscriber`, and `renderBell`).
+
+<Tabs items={['Using <InboxContent />', 'Using <Notifications />']}>
+  <Tab>
+```tsx
+import { Inbox, InboxContent } from '@novu/react';
+
+function NotificationFeed() {
+
+  return (
+      <Inbox
+        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+        subscriber="YOUR_SUBSCRIBER_ID">
+          <InboxContent />
+      </Inbox>
+  );
+}
+
+export default NotificationFeed;
+```
+
+  </Tab>
+  <Tab>
+
+```tsx
+import { Inbox, Notifications } from '@novu/react';
+
+function NotificationFeed() {
+
+  return (
+      <Inbox
+        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+        subscriber="YOUR_SUBSCRIBER_ID">
+          <Notifications />
+      </Inbox>
+  );
+}
+
+export default NotificationFeed;
+```
+
+  </Tab>
+</Tabs>
