@@ -1,0 +1,102 @@
+---
+title: 'Headless Mode'
+pageTitle: 'Headless notification Inbox for JavaScript applications'
+description: 'Learn how to use the Novu Inbox API to build your own custom inbox UI.'
+icon: 'Unplug'
+---
+
+Build a fully custom notification inbox with the headless version of Novu's inbox notification package without being constrained by the default Inbox UI or dependencies.
+
+This lightweight solution gives you full control over the UI and provides all the necessary API methods for fetching, managing, and receiving real-time notifications in your application.
+
+## Getting started
+
+Follow these steps to initialize the SDK and fetch notifications:
+
+<Steps>
+<Step>
+    ### Install the SDK package
+
+```package-install
+npm i @novu/js
+```
+
+</Step>
+
+  <Step>
+    ### Initialize the SDK
+    Initialize the Novu client with your application identifier and the current user's subscriber ID.
+
+```javascript
+import { Novu } from "@novu/js";
+
+export const novu = new Novu({
+  applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
+  subscriberId: 'YOUR_SUBSCRIBER_ID',
+});
+```
+
+  </Step>
+
+  <Step>
+    ### Fetch notifications
+    Use the `novu.notifications.list()` method to retrieve a paginated list of notifications for the subscriber.
+
+    ```javascript
+    const response = await novu.notifications.list({
+      limit: 30,
+    });
+
+    const notifications = response.data.notifications;
+    ```
+
+  </Step>
+
+  <Step>
+   ### Display notifications
+   Use your preferred framework or templating logic to render the notifications. For example, you can loop through the `notifications` array and display relevant fields:
+   ```javascript
+  notifications.forEach(notification => {
+    console.log(`Notification ID: ${notification.id}`);
+    console.log(`Title: ${notification.subject}`);
+    console.log(`Content: ${notification.body}`);
+  });
+  ```
+  </Step>
+</Steps>
+
+## Realtime Notifications
+
+Events are emitted when notifications are received, and when the unread notificatons count changes. `novu.on()` is used to listen to these events.
+
+```tsx
+novu.on("notifications.notification_received", (data) => {
+  console.log("new notification =>", data);
+});
+
+novu.on("notifications.unread_count_changed", (data) => {
+  console.log("new unread notifications count =>", data);
+});
+```
+
+For the full list of methods available, see the [API Reference](/platform/sdks/javascript).
+
+## Available Methods
+
+Here are a few commonly used notification, preferences and events methods you’ll likely need when working headlessly:
+
+| Action                          | Method Example                                                         |
+| --------------------------------| ---------------------------------------------------------------------- |
+| Fetch notifications             | `novu.notifications.list()`                                            |
+| Count notifications             | `novu.notifications.count()`                                           |
+| Mark as read                    | `notification.read()` or `novu.notifications.read({ notificationId })` |
+| Mark all as seen                | `novu.notifications.seenAll()`                                         |
+| Archive notification            | `notification.archive()`                                               |
+| Fetch subscriber's preferences  | `novu.preferences.list();`                                             |
+| Real-time events	              | `novu.on('notifications.notification_received', handler)`
+
+
+You can interact with individual notification instances or perform bulk actions through the `notifications` namespace.
+
+<Callout>See the full list of supported methods and events in the [JavaScript SDK documentation](/platform/sdks/javascript).</Callout>
+
