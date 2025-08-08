@@ -66,7 +66,7 @@ const hmacHash = createHmac('sha256', novuSecretKey)
 
 ### 3. Use the HMAC hash in the Inbox component
 
-Finally, Send the `hmacHash` generated in the previous step to the client side application. You can include it in the initial data payload when a subscriber or user logs in or fetch it from a dedicated API endpoint.
+Send the `hmacHash` generated in the previous step to the client side application. You can include it in the initial data payload when a subscriber or user logs in or fetch it from a dedicated API endpoint.
 
 Pass the hash to the `subscriberHash` prop in your Inbox component.
 
