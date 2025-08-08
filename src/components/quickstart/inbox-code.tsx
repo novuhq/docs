@@ -21,6 +21,12 @@ type EnvironmentsResponse = {
 };
 
 // Define replacement patterns for different values
+// Define user type based on Clerk's User object
+type User = {
+  externalId?: string | null;
+  id?: string;
+} | null;
+
 type CodeTemplate = {
   id: string;
   title: string;
@@ -28,7 +34,7 @@ type CodeTemplate = {
   language: string;
   replacements?: {
     pattern: string;
-    getValue: (environment: Environment | null, user: unknown) => string;
+    getValue: (environment: Environment | null, user: User) => string;
   }[];
 };
 
@@ -264,7 +270,7 @@ onUnmounted(() => {
 function processCodeTemplate(
   template: CodeTemplate,
   environment: Environment | null,
-  user: unknown
+  user: User
 ): string {
   let processedCode = template.code;
 
@@ -325,7 +331,7 @@ export function CodeTemplateBlock({ templateId, customTitle }: CodeTemplateBlock
     return <div>Template not found: {templateId}</div>;
   }
 
-  const processedCode = processCodeTemplate(template, environment, user);
+  const processedCode = processCodeTemplate(template, environment, user || null);
 
   return (
     <>
