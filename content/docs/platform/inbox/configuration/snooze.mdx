@@ -9,14 +9,14 @@ The `<Inbox />` component includes built-in support for snoozing notifications, 
 
 ![Snooze icon on the inbox notification](/images/inbox/snooze.png)
 
-<Callout type="info">Snooze is supported in client-side SDKs starting from version 3.3.0 and is only available for Cloud workspaces.</Callout>
+<Callout type="info">Snooze is supported in client-side SDKs starting from version 3.3.0 and is only available for cloud workspaces.</Callout>
 
 ## How snooze works
 
 When a subscriber snoozes a notification:
 
 - It is temporarily removed from the general list.
-- It appears in the **Snoozed** tab.
+- It appears in the Snoozed tab.
   ![Snooze tab](/images/inbox/snooze-tab.png)
 - It reappears in the general list after the specified time elapses.
 
@@ -42,11 +42,11 @@ The minimium snooze time must be at least 3 minutes in the future. While the max
 
 While the Inbox component handles snoozing automatically, the [JavaScript SDK](/platform/sdks/javascript#methods) also exposes `.snooze()` and `.unsnooze()` methods on the notification object to build custom snooze functionality.
 
-This let's you create custom UI elements or workflows that trigger snooze actions outside of the default dropdown menu.
+This lets you create custom UI elements or workflows that trigger snooze actions outside of the default menu.
 
 ## Managing snoozed notifications
 
-The Inbox component includes a dedicated **Snoozed** tab that automatically displays notifications scheduled to reappear later. From this tab, users can review all snoozed notifications and take further actions as needed.
+The Inbox component includes a dedicated Snoozed tab that automatically displays notifications scheduled to reappear later. From this tab, users can review all snoozed notifications and take further actions as needed.
 
 Users can unsnooze a notification at any time, which immediately returns it to the All tab. Once unsnoozed, the notification regains its standard behavior. It can be marked as read, unread, or archived like any other item.
 
