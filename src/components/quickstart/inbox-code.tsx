@@ -28,7 +28,7 @@ type CodeTemplate = {
   language: string;
   replacements?: {
     pattern: string;
-    getValue: (environment: Environment | null, user: any) => string;
+    getValue: (environment: Environment | null, user: unknown) => string;
   }[];
 };
 
@@ -264,7 +264,7 @@ onUnmounted(() => {
 function processCodeTemplate(
   template: CodeTemplate,
   environment: Environment | null,
-  user: any
+  user: unknown
 ): string {
   let processedCode = template.code;
 
