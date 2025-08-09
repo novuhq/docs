@@ -15,7 +15,7 @@ Usually, it's placed somewhere in the root of your application, which makes the 
 | subscriberId          | string    | Yes      | The unique identifier of the subscriber                        |
 | applicationIdentifier | string    | Yes      | Your application identifier from Novu                          |
 | subscriberHash        | string    | No       | HMAC encryption hash for the subscriber                        |
-| backendUrl            | string    | No       | Custom backend URL for self-hosted instances                   |
+| apiUrl                | string    | No       | Custom api URL for self-hosted instances                       |
 | socketUrl             | string    | No       | Custom socket URL for self-hosted instances                    |
 | children              | ReactNode | Yes      | The child components that will have access to the Novu context |
 
@@ -48,7 +48,7 @@ Usually, it's placed somewhere in the root of your application, which makes the 
         <NovuProvider
           subscriber="SUBSCRIBER_ID"
           applicationIdentifier="APPLICATION_IDENTIFIER"
-          backendUrl="https://eu.api.novu.co"
+          apiUrl="https://eu.api.novu.co"
           socketUrl="https://eu.ws.novu.co"
         >
           {/* Your app components */}
