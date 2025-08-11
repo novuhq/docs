@@ -54,6 +54,8 @@ export default Novu;
 
 You can override the default styles in the Inbox component by passing a `variables` object inside the `appearance` prop. This is an efficient way to apply broad visual changes with minimal configuration.
 
+![Define global variables](/images/inbox/variables.png)
+
 ```tsx
 import { Inbox } from '@novu/react';
 
@@ -138,18 +140,32 @@ export default Novu;
 
 You can define styles for individual UI components within the Inbox UI by passing the `elements` object inside the appearance prop. Each key corresponds to a specific component, and the value can be either a style object or a set of CSS classes.
 
-<img src="/images/inbox/styling_02@2x.png" alt="Finding Element Selectors" />
+![Finding element selectors](/images/inbox/styling_02@2x.png)
 
-Here's a list of available elements that can be styled using the elements object in your appearance configuration:
+Here's a list of some available elements that can be styled using the elements object in your appearance configuration:
 
-<Callout type="info">
-  Any selector that appears before the 🔔 emoji, can be targeted via the elements property in the appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the
-  available elements.
+| Element                      | Key in `appearance.elements`          |
+| ---------------------------- | ------------------------------------- |
+| Primary action button        | `notificationPrimaryAction__button`   |
+| Secondary action button      | `notificationSecondaryAction__button` |
+| Notification container       | `notification`                        |
+| Subject text                 | `notificationSubject`                 |
+| Body text                    | `notificationBody`                    |
+| Notification icon/image      | `notificationImage`                   |
+| Preferences button           | `preferences__button`                 |
+| Date display                 | `notificationDate`                    |
+| Archive button               | `notificationArchive__button`         |
+| Snooze button                | `notificationSnooze__button`          |
+| Unread/read indicator button | `notificationUnread__button`          |
+| Notification list container  | `notificationList`                    |
+
+<Callout type="info" title="How to find other elements?">
+  Any selector that appears before the 🔔 emoji in the Devtools, can be targeted via the elements property in the appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the available elements.
 </Callout>
 
-### Using styles object
+### Using style object
 
-You can pass inline styles to individual elements using the `elements` object in the `appearance` prop. Each element can receive a style object directly.
+You can pass inline styles to individual elements using the `elements` object in the `appearance` prop. Each element accepts a style object.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -202,7 +218,7 @@ function Novu() {
 export default Novu;
 ```
 
-### Using CSS Modules
+### Using CSS modules
 
 You can style the Inbox components using [CSS Modules](https://github.com/css-modules/css-modules). First, define the styles in a `.module.css` file:
 
@@ -257,9 +273,9 @@ export default Novu;
 
 ## Replace default icons
 
-You can replace all the default icons in the Inbox UI with custom icons from your preferred library, such as [react-icons](https://react-icons.github.io/react-icons/) or [Material Icons](https://mui.com/material-ui/material-icons/)., to match your visual style using the' icons' key in the `appearance` prop.
+You can replace all the default icons in the Inbox UI with custom icons from your preferred library, such as [react-icons](https://react-icons.github.io/react-icons/) or [Material Icons](https://mui.com/material-ui/material-icons/), to match your visual style using the' icons' key in the `appearance` prop.
 
-For each icon you want to customize, provide a function that returns your custom icon as a React component.
+For each icon that you want to customize, provide a function that returns your custom icon as a React component.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -316,4 +332,3 @@ Use these keys in the `appearance.icons` property to customize specific icons in
 <Callout type="info">
 You can inspect the Inbox component using your browser’s developer tools to discover icon keys. Icon elements have class names that start with `nv-` and include a 🖼️ emoji for easier identification. The part following `nv-` is the icon key. For example, an element with the class `nv-cogs` has the icon key `cogs`.
 </Callout>
-
