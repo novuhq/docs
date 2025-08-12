@@ -1,20 +1,22 @@
 ---
 title: 'Migrate to the New Inbox'
-description: 'This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest version.'
+description: 'This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package and how to migrate to the latest Inbox version.'
 icon: 'RefreshCcwDot'
 ---
 
 <Callout type="info">
-  - Use [@novu/react](/platform/sdks/react) Inbox react component and
-  [@novu/js](/platform/sdks/javascript) headless package with new dashboard workflows and [@novu/framework](/platform/workflow/overview) based workflows.
+  - Use [@novu/react](/platform/sdks/react) Inbox React component and
+  [@novu/js](/platform/sdks/javascript) headless package with new dashboard workflows and [@novu/framework](/platform/workflow/overview)-based workflows.
   
-   - With old dashboard based workflows, use
+   - With legacy dashboard based workflows, use
   [@novu/notification-center](https://v0.x-docs.novu.co/notification-center/client/react/get-started) package.
 </Callout>
 
-The `@novu/react` package introduces a more flexible and customizable way to display notifications in your application. This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest Inbox version.
+The `@novu/react` package introduces a more flexible and customizable way to display notifications in your application. This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. 
 
-## Why you should upgrade to @novu/react
+Follow the steps below to migrate your application to the latest Inbox version.
+
+## Why you should upgrade to `@novu/react`
 
 - **Customization**: The `@novu/react` package provides more customization options for the appearance and behavior of the notification components.
 - **Flexibility**: The new package offers more flexibility in handling notifications and integrating with third-party libraries.
@@ -162,7 +164,7 @@ export default Novu;
 
 ## Notification center without bell icon
 
-The @novu/react package introduces a flexible way to display notifications as a list without the default bell icon. Utilize the `Inbox` and `Notifications` components to achieve this functionality.
+The @novu/react package introduces a flexible way to display notifications as a list without the default bell icon. Use the `Inbox` and `Notifications` components to achieve this functionality.
 
 - Old Implementation
 
@@ -394,11 +396,11 @@ export default Novu;
 
 ## Avatar icons
 
-In old implementation, you could set the avatar icon for a notification by toggle on the `Add an avatar` option in the workflow UI. Novu will use the avatar field of actor subscriber for avatar icon.
+In old implementation, you could set the avatar icon for a notification by toggle on the `Add an avatar` option in the workflow UI. Novu uses the avatar field of theactor subscriber for avatar icon.
 
 In the new implementation, you can set the avatar icon for a notification by adding the avatar icon in the workflow UI. There are three options to choose from:
 
-- Use a default avatar icon
+- Use a default avatar icon.
 - Use a hard-coded avatar icon URL.
 - Use a payload variable to dynamically set the avatar icon.
 
