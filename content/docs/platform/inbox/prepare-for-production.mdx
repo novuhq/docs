@@ -17,7 +17,11 @@ When preparing for deployment, choose the environment that will serve as your pr
 
 - Use the API keys for your selected production environment from the [API Keys](https://dashboard.novu.co/api-keys) page in your application.
 - Store keys in `.env` file or your server’s environment variables.
-- Confirm your `applicationIdentifier` and `subscriberId` match the configuration for your chosen production environment.
+- Confirm your `applicationIdentifier` and `subscriber` match the configuration for your chosen production environment.
+
+- Add these two props, if using the EU region:
+  -`apiUrl` with value "https://eu.api.novu.co" 
+  -`socketUrl` with value "wss://eu.socket.novu.co"
 
 ## Secure your Inbox with HMAC encryption
 
