@@ -5,6 +5,7 @@ icon: 'Layers'
 ---
 
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Callout } from 'fumadocs-ui/components/callout';
 
 Multi-tenancy is a common use case for a lot of companies that have multiple organizations that use their applications. In some cases, there is a need to separate the behavior of the notification system depending on the individual tenants.
 
@@ -74,7 +75,11 @@ The tenant object will be available to use in the workflow editor as a variable 
 
 - Content (use `{{payload.tenant.name}}` to display the tenant name in an email or any other channel)
 - Step Conditions (use `{{payload.tenant.id}}` to conditionally execute a step based on the tenant)
-- Use the Inbox [data object](/platform/inbox/react/components/inbox#data-object) to filter notifications by tenant.
+- Use the Inbox [data object](/platform/inbox/configuration/data-object) to filter notifications by tenant.
+
+<Callout type="info">
+  To group subscribers in a group, use [Topics](/platform/concepts/topics) instead.
+</Callout>
 
 ## Frequently asked questions
 
