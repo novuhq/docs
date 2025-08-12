@@ -34,15 +34,59 @@ Novu has its own email editor for writing email template. If you want to use pre
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
-```jsx
-import { Novu } from '@novu/node';
+```typescript
+import { Novu } from '@novu/api';
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-await novu.subscribers.trigger("workflowIdentifier", { to: "subscriberId", payload: {}, overrides: { email: { customData: { // mailersend template templateId templateId: 'mailersend-template-id', // mailersend template variables personalization: [{ email: 'recipient@email.com', data: { items: { price: '', product: '', quantity: '', }, order: { date: '', order_number: '', billing_address: '', customer_message: '', }, store: { name: '', }, invoice: { total: '', subtotal: '', pay_method: '', }, customer: { name: '', email: '', phone: '', }, }, }, ], }, } }, });
-
+await novu.trigger({
+  workflowId: "workflowId",
+  to: "subscriberId",
+  payload: {},
+  overrides: {
+    email: {
+      customData: {
+        // mailersend template templateId 
+        templateId: "mailersend-template-id",
+        // mailersend template variables 
+        personalization: [{
+          email: 'recipient@email.com',
+          data: {
+            items: {
+              price: '',
+              product: '',
+              quantity: '',
+            },
+            order: {
+              date: '',
+              order_number: '',
+              billing_address: '',
+              customer_message: '',
+            },
+            store: {
+              name: '',
+            },
+            invoice: {
+              total: '',
+              subtotal: '',
+              pay_method: '',
+            },
+            customer: {
+              name: '',
+              email: '',
+              phone: '',
+            },
+          },
+        }, ],
+      },
+    }
+  },
+});
 ```
-
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -91,8 +135,7 @@ curl --location 'https://api.novu.co/v1/events/trigger' \
         }
     }
 }'
-````
-
+```
 </Tab>
 </Tabs>
 
