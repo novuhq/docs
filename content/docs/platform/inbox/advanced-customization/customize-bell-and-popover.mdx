@@ -1,0 +1,136 @@
+---
+title: 'Customize Bell and Popover'
+description: "Learn how to fully customize the inbox component bell and trigger a custom notification feed using your own components or third-party libraries."
+icon: 'BellRing'
+---
+
+Novu's Inbox component provides a built-in notification bell and popover that displays the notification feed.
+
+This default behavior is suitable for most use cases, but you may want to customize the bell icon or control how and where the notification list is displayed, especially when integrating with your own design system or third-party UI libraries.
+
+## Replace the default bell icon
+
+Use the `renderBell` prop to replace the default bell icon in the inbox component with your own custom component.
+
+![Custom bell](/images/inbox/custom-bell.gif)
+
+<Tabs items={['Custom bell', 'Custom bell with showing unread count']}>
+  <Tab>
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function CustomBell() {
+  return (
+      <Inbox
+        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+        subscriber="YOUR_SUBSCRIBER_ID"
+        renderBell={() => {
+          return (
+            <div className="bg-blue-300 p-4 inline-flex">
+              New notifications
+            </div>
+          );
+        }}
+      />
+  );
+}
+export default CustomBell;
+```
+
+  </Tab>
+  <Tab>
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function CustomBell() {
+  return (
+    <Inbox 
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderBell={(unreadCount) => {
+          return (
+            <div className="bg-blue-300 p-4 inline-flex">New {unreadCount }notifications</div>
+          );
+        }}
+      />
+    </Inbox>
+  );
+}
+export default CustomBell;
+```
+
+  </Tab>
+</Tabs>
+
+
+## Custom popover trigger
+
+By default, the Inbox component displays the notification popover containing the notification list when the bell icon is clicked. However, you can decouple the display logic and mount the notification content inside your own panel or modal component.
+
+Use the `<InboxContent />` and `<Notifications />` component to display just the notification list. This provides a flexible way to customize the inbox display using external UI libraries like [Radix UI](https://www.radix-ui.com/) or [Shadcn](https://ui.shadcn.com/docs/installation) while maintaining all the core notification functionality.
+
+<Tabs items={['Using <InboxContent /> and Radix UI', 'Using <Notifications /> and Radix UI']}>
+  <Tab>
+```tsx
+import { Inbox, InboxContent, Bell } from '@novu/react';
+ import { Popover, PopoverTrigger } from '@radix-ui/react-popover';
+import { PopoverContent } from '@radix-ui/react-popover';
+
+
+function CustomPopoverPage() {
+
+  return (
+      <Inbox
+        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+        subscriber="YOUR_SUBSCRIBER_ID"
+      >
+        <Popover>
+          <PopoverTrigger>
+            <Bell />
+          </PopoverTrigger>
+          <PopoverContent className="h-[600px] w-[400px] p-0">
+            <InboxContent />
+          </PopoverContent>
+        </Popover>
+      </Inbox>
+  );
+}
+
+export default CustomPopoverPage;
+```
+
+  </Tab>
+  <Tab>
+
+```tsx
+import { Inbox, Notifications, Bell } from '@novu/react';
+ import { Popover, PopoverTrigger } from '@radix-ui/react-popover';
+import { PopoverContent } from '@radix-ui/react-popover';
+
+
+function CustomPopoverPage() {
+
+  return (
+      <Inbox
+        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+        subscriber="YOUR_SUBSCRIBER_ID"
+      >
+        <Popover>
+          <PopoverTrigger>
+            <Bell />
+          </PopoverTrigger>
+          <PopoverContent className="h-[600px] w-[400px] p-0">
+            <Notifications />
+          </PopoverContent>
+        </Popover>
+      </Inbox>
+  );
+}
+
+export default CustomPopoverPage;
+```
+
+  </Tab>
+</Tabs>
