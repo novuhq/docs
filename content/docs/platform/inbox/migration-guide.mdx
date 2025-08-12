@@ -5,12 +5,11 @@ icon: 'RefreshCcwDot'
 ---
 
 <Callout type="info">
-  [@novu/react](/platform/sdks/react) Inbox react component and
-  [@novu/js](/platform/inbox/headless/get-started) headless package is compatible with
-  [@novu/framework](/platform/workflow/overview) based workflows only. With old UI based workflows,
-  our old
-  [@novu/notification-center](https://v0.x-docs.novu.co/notification-center/client/react/get-started)
-  component should be used.
+  - Use [@novu/react](/platform/sdks/react) Inbox react component and
+  [@novu/js](/platform/sdks/javascript) headless package with new dashboard workflows and [@novu/framework](/platform/workflow/overview) based workflows.
+  
+   - With old dashboard based workflows, use
+  [@novu/notification-center](https://v0.x-docs.novu.co/notification-center/client/react/get-started) package.
 </Callout>
 
 The `@novu/react` package introduces a more flexible and customizable way to display notifications in your application. This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest Inbox version.
@@ -42,7 +41,7 @@ The `@novu/react` package introduces several breaking changes compared to the `@
 - Removal of `seen` , `lastSeenDate`, `content`, `templateIdentifier`, `payload`, `cta` properties from the Notification object.
 - We have introduced `archive` functionality to the Notification object.
 
-```diff
+```diff title="Notification object"
 type Notification = {
 - _id: string;
 + id: string;
@@ -70,15 +69,31 @@ type Notification = {
 
 + subject?: string;
 + isRead: boolean;
++ isSeen: boolean;
 + isArchived: boolean;
++ isSnoozed: boolean;
 + readAt?: string | null;
 + archivedAt?: string | null;
 + avatar?: string;
 + tags?: string[];
++ avatar?: string;
++ workflow: Workflow;
++ deliveredAt: string | null;
++ firstSeenAt: string | null;
 
+updatedAt: string;
 createdAt: string;
 };
+```
 
+```ts title="Types"
+type Workflow = {
+  critical: boolean;
+  id: string;
+  identifier: string;
+  name: string;
+  tags: string[];
+};
 
 type Subscriber = {
   id: string;
@@ -100,7 +115,7 @@ type Action = {
 };
 ```
 
-## Getting Started
+## Getting started
 
 To begin migrating to `@novu/react`, install the package via npm:
 
@@ -108,7 +123,7 @@ To begin migrating to `@novu/react`, install the package via npm:
 npm install @novu/react
 ```
 
-## Basic Usage
+## Basic usage
 
 - Old Implementation
 
@@ -145,7 +160,7 @@ function Novu() {
 export default Novu;
 ```
 
-## Notification Center without Bell Icon
+## Notification center without bell icon
 
 The @novu/react package introduces a flexible way to display notifications as a list without the default bell icon. Utilize the `Inbox` and `Notifications` components to achieve this functionality.
 
@@ -181,7 +196,7 @@ function Novu() {
 export default Novu;
 ```
 
-## Custom Bell Icon
+## Custom bell icon
 
 Customize the bell icon that triggers the notifications popover using the `renderBell` prop.
 
@@ -230,7 +245,7 @@ function Novu() {
 export default Novu;
 ```
 
-## Notification Actions
+## Notification actions
 
 Handle user interactions with notifications effectively using the action handlers provided by `@novu/react`.
 
@@ -377,23 +392,17 @@ function Novu() {
 export default Novu;
 ```
 
-## Avatar Icons
+## Avatar icons
 
-Customize the avatar displayed alongside notifications by specifying an avatar `URL` at the workflow definition level using `@novu/framework`.
+In old implementation, you could set the avatar icon for a notification by toggle on the `Add an avatar` option in the workflow UI. Novu will use the avatar field of actor subscriber for avatar icon.
 
-```ts
-import { workflow } from '@novu/framework';
+In the new implementation, you can set the avatar icon for a notification by adding the avatar icon in the workflow UI. There are three options to choose from:
 
-workflow('welcome-notification', async (step) => {
-  await step.inApp('inbox', async () => ({
-    subject: 'Welcome to Our Service!',
-    body: 'We are thrilled to have you onboard.',
-    avatar: 'https://example.com/path-to-your-avatar-image.png',
-  }));
-});
-```
+- Use a default avatar icon
+- Use a hard-coded avatar icon URL.
+- Use a payload variable to dynamically set the avatar icon.
 
-## Popover Positioning
+## Popover positioning
 
 For advanced positioning and styling of the notifications popover, integrate third-party popover libraries such as Radix UI.
 
@@ -447,7 +456,7 @@ function Novu() {
 export default Novu;
 ```
 
-## Custom Notification Item
+## Custom notification item
 
 Customize the appearance and structure of individual notification items using the `renderNotification` prop.
 
@@ -520,7 +529,7 @@ function Novu() {
 export default Novu;
 ```
 
-## Styling with appearance Prop
+## Styling with appearance prop
 
 Customize the overall look and feel of the notification components using the appearance prop, which supports both CSS objects and class names (including Tailwind CSS classes).
 
@@ -592,13 +601,13 @@ export default Novu;
 
 For more information on `appearance` customization visit [here](/platform/inbox/react/styling).
 
-## Multiple Tabs Support
+## Multiple tabs support
 
 Organize notifications into different categories using tabs by leveraging the tags property in workflow definitions and the tabs prop in the Inbox component.
 
-### Create Multiple Tabs
+### Create multiple tabs
 
-- Old Implementation
+- Old implementation
 
 After defining the feeds on the workflow UI, you were able to filter notifications based on the feedIdentifier.
 
@@ -647,33 +656,9 @@ export default Novu;
 
 1. Define multiple workflows with relevant tags.
 
-```ts
-import { workflow } from '@novu/framework';
+Add tags on the workflow Tags field. One tag can be used for multiple workflows.
 
-workflow(
-  'security-alerts',
-  async (step) => {
-    await step.inApp('inbox', async () => ({
-      subject: 'Security Alert',
-      body: 'A new login attempt was detected.',
-    }));
-  },
-  { tags: ['security'] }
-);
-
-workflow(
-  'promotional-offers',
-  async (step) => {
-    await step.inApp('inbox', async () => ({
-      subject: 'Exclusive Offer!',
-      body: 'Get 50% off on your next purchase.',
-    }));
-  },
-  { tags: ['promotions'] }
-);
-```
-
-2. Assign relevant tags to each workflow to categorize notifications appropriately.
+2. Use those tags in the `tabs` prop of the `Inbox` component.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -684,13 +669,16 @@ const tabs = [
   { label: 'Promotions', value: ['promotions'] },
 ];
 
-function Novu() {
+function InboxWithTabs() {
   return (
-    <Inbox applicationIdentifier="YOUR_APP_ID" subscriber="YOUR_SUBSCRIBER_ID" tabs={tabs} />
+    <Inbox 
+      applicationIdentifier="YOUR_APP_ID" subscriber="YOUR_SUBSCRIBER_ID" 
+      tabs={tabs} 
+    />
   );
 }
 
-export default Novu;
+export default InboxWithTabs;
 ```
 
 ## Localization
@@ -718,15 +706,15 @@ function Novu() {
 export default Novu;
 ```
 
-## HMAC Encryption
+## HMAC encryption
 
-The process remains the same as before. See the detailed guide [here](/platform/inbox/react/production#hmac-encryption).
+The process remains the same as before. For more information, refer to [Secure your inbox with HMAC encryption](/platform/inbox/prepare-for-production#secure-your-inbox-with-hmac-encryption).
 
-## Handling Notifications
+## Handling notifications
 
 Handle notifications using the methods provided by the notification object.
 
-### Marking Notifications as Read
+### Marking notifications as read
 
 Mark notifications as read using the `read` method provided by the notification object.
 
@@ -750,7 +738,7 @@ function Novu() {
 export default Novu;
 ```
 
-### Marking Notifications as Unread
+### Marking notifications as unread
 
 Mark notifications as unread using the `unread` method provided by the notification object.
 
@@ -774,7 +762,7 @@ function Novu() {
 export default Novu;
 ```
 
-### Marking Notifications as Archive
+### Marking notifications as archive
 
 Mark notifications as archive using the `archive` method provided by the notification object.
 
@@ -798,7 +786,7 @@ function Novu() {
 export default Novu;
 ```
 
-### Marking Notifications as Unarchive
+### Marking notifications as unarchive
 
 Mark notifications as unarchive using the `unarchive` method provided by the notification object.
 
@@ -821,3 +809,5 @@ function Novu() {
 
 export default Novu;
 ```
+
+If you still have questions or need further assistance, please reach out to us at [support@novu.co](mailto:support@novu.co).
