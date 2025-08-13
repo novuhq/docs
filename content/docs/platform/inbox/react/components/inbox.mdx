@@ -6,11 +6,11 @@ description: 'Learn how to use and customize the Inbox component in your applica
 import { Card, Cards } from 'fumadocs-ui/components/card';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-By default, the `<Inbox />` renders a bell button, that opens a popover on click. The popover contains the notifications list and the user preferences.
+By default, the `<Inbox />` renders a bell button that opens a popover on click. The popover contains the notifications list and the user preferences.
 
-## Try it without keys (Keyless Mode)
+## Try it without keys (keyless mode)
 
-Try Novu Inbox instantly - no setup required. With Keyless mode, you can integrate and test the `<Inbox />` right in your app. It’s ideal for exploring features and sending test notifications.
+Try Novu Inbox instantly, no setup required. With keyless mode, you can integrate and test the `<Inbox />` right in your app. It’s ideal for exploring features and sending test notifications.
 
 ```tsx
 import React from 'react';
@@ -25,10 +25,10 @@ export function KeylessInbox() {
 ```
 
 <Callout type="info" title="Ready for the Full Experience?">
-  Keyless mode is designed for quick exploration. To save your configuration, identify users, and unlock all of Novu's powerful features, you'll need to sign up for a free account and configure your environment. <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Sign up on Novu Cloud</a>
+  Keyless mode is designed for quick exploration. To save your configuration, identify users, and unlock all of Novu's powerful features, sign up for a free account and configure your environment. <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Sign up on Novu Cloud</a>
 </Callout>
 
-## Basic Usage
+## Basic usage
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -42,11 +42,10 @@ function Novu() {
 
 ## Navigation
 
-The Inbox component uses the `routerPush` prop to make your notifications navigatable. We will automatically pass the `redirect.url` from your workflow definitions to the `routerPush` prop.
+The Inbox component uses the `routerPush` prop to make your notifications navigatable. Novu automatically passes the `redirect.url` from your workflow definitions to the `routerPush` prop.
 
 <Callout type="info">
-  To make the navigation work, you will need to specify the `routerPush` behaviour depending on your
-  routing library.
+  To make the navigation work, you must specify the `routerPush` behaviour depending on your routing library.
 </Callout>
 
 <Tabs items={['Next.js', 'Remix', 'React Router', 'Gatsby', 'Create React App']}>
@@ -145,20 +144,20 @@ The Inbox component uses the `routerPush` prop to make your notifications naviga
 
 The `data` object is a key-value store within each notification, used to extend <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> notifications by embedding step-specific metadata. It provides flexible notification handling, supporting both static and dynamic values:
 
-- **Static Values**: These are hardcoded into the notification step—for example, a string like "status": "merged" or "icon": "heart". These values don't change based on the recipient or context.
-- **Dynamic Values**: These values are derived from subscriber or payload data. For instance, they can reference `subscriber.firstName` or `payload.issueId` to tailor notifications for individual users.
+- **Static values**: These values are hardcoded into the notification step. For example, a string like `"status": "merged"` or `"icon": "heart"`. These values don't change based on the recipient or context.
+- **Dynamic values**: These values are derived from subscriber or payload data. For instance, they can reference `subscriber.firstName` or `payload.issueId` to tailor notifications for individual users.
 
 You can pass data such as:
-* `reactionType`: To display specific icons such as 👍, ❤️, or a comment bubble.
-* `entityId` (like `pullRequestId` or `issueId`): Create direct links or show relevant badges (e.g., a GitHub logo linking to the PR).
-* `status` or `actionType`: To show visual cues such as colored dots or status icons (e.g., green for 'merged', orange for 'commented').
+- `reactionType`: To display specific icons such as 👍, ❤️, or a comment bubble.
+- `entityId` (like `pullRequestId` or `issueId`): Create direct links or show relevant badges, such as a GitHub logo linking to the PR.
+- `status` or `actionType`: To show visual cues such as colored dots or status icons, such as green for 'merged' or orange for 'commented'.
 
 <img
   alt="Data object for in-app Inbox step"
   src="/images/inbox/data-object.png"
 />
 
-The `data` object is defined within a workflow's in-app step in the Novu dashboard. Each key-value pair, referred to as a property, can be static or dynamic, and you get up to 10 properties per in-app step. These properties are accessible on the frontend via the `notification.data` property.
+The `data` object is defined within a workflow's in-app step in the Novu dashboard. Each key-value pair, referred to as a property, can be static or dynamic. You can add up to 10 properties per in-app step. These properties are accessible on the frontend using the `notification.data` property.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -189,7 +188,7 @@ declare global {
 }
 ```
 
-This lets TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, check properties for existence before usage.
+This allows TypeScript infer the structure of `notification.data`, preventing errors when accessing properties. However, as not all notifications include the same keys, make sure the properties exist before you use them.
 
 ## Snooze
 
@@ -199,7 +198,7 @@ When a user snoozes a notification, it is temporarily removed from the active li
 
 <Callout type="info">Snooze is supported in client-side SDKs starting from version 3.3.0 and is only available for Cloud workspaces.</Callout>
 
-### Snoozing a notification
+### Snoozing notifications
 
 All dates and times are interpreted in the user's local timezone. Users can snooze a notification directly from the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> using one of the following options:
 
@@ -222,7 +221,7 @@ Once snoozed:
 
 All of these behaviors are handled automatically by the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component.
 
-Developers can also configure how the snooze options are presented by customizing styles, localization keys, or using snooze-related actions exposed on the notification object. For instance, each notification instance includes `.snooze()` and `.unsnooze()` methods in the client-side SDKs, allowing you to control reminders when needed.
+You can also configure how the snooze options are presented by customizing styles, localization keys, or using snooze-related actions exposed on the notification object. For example, each notification instance includes `.snooze()` and `.unsnooze()` methods in the client-side SDKs, allowing you to control reminders when needed.
 
 <Callout type="info">
 Snoozing is available on all plans for Cloud workspaces:
@@ -240,19 +239,18 @@ Users can unsnooze a notification at any time, which immediately returns it to t
 
 | Action             |  Result  |
 | ------------------ | --------------------------------------------------------------------------- |
-| Manual unsnooze    | Restores the notification exactly as it was: same tab, same read/unread state. If it was read before snoozing, it re-enters the All tab still marked read. |
+| Manual unsnooze    | Restores the notification exactly as it was: same tab, same read/unread state. If it was read before snoozing, it re-enters the All tab and is marked as read. |
 | Automatic unsnooze (timer expires) | Re-delivers the notification to All as a new, unread item with an updated delivery timestamp.|
 
-This logic is built into the component and does not require any additional configuration. Notifications automatically reappear in the All tab once their snooze duration elapses.
+This logic is built into the component and does not require any additional configuration. Notifications automatically reappear in the All tab once their snooze duration ends.
 
 ## Event Handling
 
+NEED PARAGRAPH HERE, AVOID STACKED HEADINGS!
+
 ### Notification Click
 
-<Callout type="info">
-  You can handle notification clicks without navigation by using the `onNotificationClick` prop.
-  This is useful for opening modals or drawers instead of navigating to a page.
-</Callout>
+You can handle notification clicks without navigation by using the `onNotificationClick` prop. This is useful for opening modals or drawers instead of navigating to a page.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -270,9 +268,9 @@ function Novu() {
 }
 ```
 
-### Action Clicks
+### Action clicks
 
-Handle action button clicks without navigation using the `onPrimaryActionClick` and `onSecondaryActionClick` props:
+Handle action button clicks without navigation using the `onPrimaryActionClick` and `onSecondaryActionClick` props.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -295,7 +293,11 @@ function Novu() {
 
 ## Customization
 
-### Controlled Popover State
+NEED PARAGRAPH HERE, AVOID STACKED HEADINGS!
+
+### Controlled popover state
+
+NEED PARAGRAPH HERE
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -317,7 +319,9 @@ function Novu() {
 }
 ```
 
-### Custom notification Item
+### Custom notification item
+
+NEED PARAGRAPH HERE
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -338,9 +342,9 @@ function Novu() {
 }
 ```
 
-### Custom notification Subject
+### Custom notification subject
 
-Render a custom subject for the notification, while keeping the default notification component.
+Render a custom subject for the notification while keeping the default notification component.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -360,7 +364,7 @@ function Novu() {
 }
 ```
 
-### Custom notification Body
+### Custom notification body
 
 Render a custom body for the notification, while keeping the default notification component.
 
@@ -382,14 +386,13 @@ function Novu() {
 }
 ```
 
-## Conditional rendering of notifications
+## Rendering notifications based on conditions
 
 The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component supports conditional rendering of notifications using the renderNotification prop. This function receives a `notification` object and returns a custom React element. 
 
 You can use workflow tags, workflow identifiers, or values from the data object to customize how each notification is displayed. You can also combine multiple conditions to create dynamic and tailored notification displays.
 
 ### Render based on workflow tags
-
 
 You can conditionally render customized notification based on [workflow tags](/platform/concepts/workflows#workflow-tags). These tags are defined in your workflow and are accessible via `notification.tags` property.
 
@@ -427,7 +430,7 @@ export default function CustomInbox() {
 
 ### Render based on workflow identifier or name
 
-Each workflow has a [name and a unique identifier](/platform/concepts/workflows#workflow-identifier), accessible through `notification.workflow.name` and `notification.workflow.identifier`, respectively. Either property can be used to conditionally render notifications.
+Each workflow has a [name and a unique identifier](/platform/concepts/workflows#workflow-identifier), accessible through `notification.workflow.name` and `notification.workflow.identifier`, respectively. You can use either property to conditionally render notifications.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -471,7 +474,7 @@ export default function CutomInbox() {
 
 ### Render based on data object
 
-You can also use values from the notification [data object](/platform/inbox/react/components/inbox#data-object) to render notifications conditionally. These values are accessible via `notification.data` and typically contain custom payload fields
+You can use values from the notification [data object](/platform/inbox/react/components/inbox#data-object) to render notifications conditionally. These values are accessible via `notification.data` and typically contain custom payload fields.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -504,9 +507,10 @@ export default function CutomInbox() {
 }
 ```
 
-## Rendering HTML
+## Render HTML
 
-To render HTML tags in inbox, user renderBody props and render the notification body as a `dangerouslySetInnerHTML` element.
+To render HTML tags in Inbox, use renderBody props and render the notification body as a `dangerouslySetInnerHTML` element.
+
 ```tsx
 import { Inbox } from '@novu/react';
 
@@ -525,30 +529,27 @@ function NovuInbox() {
 }
 ```
 
-**Steps**: 
+### Steps to render HTML
+
 1. Create a workflow with in-app step.
-2. Toggle on the `Disable content sanitization` option on the top right corner of the in-app step.
-3. Use html tags in in-app step body as shown in the image below 
+2. Turn on the `Disable content sanitization` option on the top right corner of the in-app step.
+3. Use HTML tags in in-app step body as shown in the image below.
 
 <img
   src="/images/inbox/render-html.png"
   alt="Render HTML in Inbox"
 />
 
-HTML Content:
+HTML content:
 ```html html tags with dynamic values
 {{subscriber.firstName}}, A <b>Good news!</b> We've just launched the <i>advanced 
 analytics dashboard</i> you asked for. Check it out <a href="{{payload.analyticsPage}}" 
 target="_blank">here</a> and gain deeper insights into your usage.
 ```
 
-## Filtering Preferences
+## Filter preferences
 
-<Callout type="info">
-  Customize visible preferences using the `preferencesFilter` prop to display only relevant
-  preferences to your users. The filtering works by matching workflow
-  [tags](/platform/workflow/overview#tags) with the specified filter `tags` value.
-</Callout>
+Customize visible preferences using the `preferencesFilter` prop to display only relevant preferences to your users. The filtering works by matching workflow [tags](/platform/workflow/overview#tags) with the specified filter `tags` value.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -564,9 +565,9 @@ function Novu() {
 }
 ```
 
-## Subscriber Data Upsert
+## Subscriber data upsert
 
-The `<Inbox />` component supports real-time subscriber data updates when properly configured with HMAC authentication. This allows you to update subscriber information directly through the component without making separate API calls:
+The `<Inbox />` component supports real-time subscriber data updates when properly configured with HMAC authentication. This allows you to update subscriber information directly through the component without making separate API calls.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -588,7 +589,7 @@ function Novu() {
 ```
 
 <Callout type="info">
-  To enable real-time subscriber data updates, make sure to provide the `subscriberHash` for secure HMAC authentication. This allows you to update subscriber data directly through the component while maintaining security.
+  To enable real-time subscriber data updates, provide the `subscriberHash` for secure HMAC authentication. This allows you to update subscriber data directly through the component while maintaining security.
 </Callout>
 
 Learn more about setting up HMAC authentication in the [Enabling HMAC Encryption](/platform/inbox/react/production#hmac-encryption) guide.
