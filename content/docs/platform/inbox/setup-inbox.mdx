@@ -1,54 +1,36 @@
 ---
 title: 'Set up the Inbox'
-description: "Learn how to integrate Novu <Inbox />, a pre-built notification center component for real-time in-app notifications in your application."
-icon: 'LayoutDashboard'
----
-
-import { Card, Cards } from 'fumadocs-ui/components/card';
-import { MessageSquare, Palette, Zap } from 'lucide-react';
-
-The Inbox component enables a rich context-aware in-app notifications center directly in your application, and with minimal effort.
-
-Novu provides a pre-built, ready-to-use, and customizable Inbox UI component. It's in React today, and soon will be available in other popular frameworks including Vue, React Native, and full headless.
-
-<img src="/images/inbox/overview@2x.png" alt="Fully functional and customizable React Inbox component" />
-
-## Getting Started
-
-<Cards>
-  <Card
-    title="Next.js"
-    href="/platform/quickstart/nextjs"
-    description="Get started with our pre-built UI component in Next.js"
-  />
-  <Card
-    title="React"
-    href="/platform/quickstart/react"
-    description="Get started with our pre-built UI component in React"
-  />
-  <Card
-    title="Remix"
-    href="/platform/quickstart/remix"
-    description="Get started with our pre-built UI component in Remix"
-  />
-</Cards>
-
-## Design Files
-
-To aide your design process, we provide a free [Figma file](https://www.figma.com/community/file/1425407348374863860) that contains all of the design assets. Make a copy of the file into your own account to get started with customizing your graphical Inbox elements.
-=======
-description: 'Learn how to integrate the Novu Inbox component into your application to display real-time notifications for your users.'
+description: "Learn how to integrate the Novu Inbox component into your application to display real-time notifications for your subscribers."
 icon: 'Bell'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 import Link from 'next/link';
 
-You can add the Novu Inbox component to your application with a few lines of code.
+The Inbox component displays a notification bell by default, which opens a menu containing the subscriber's notifications and preferences.
+
+## Installation
+
+To get started, install the Inbox UI:
+
+<Tabs items = {['Next.js', 'React']}>
+  <Tab value="Next.js">
+    ```package-install
+    npm install @novu/nextjs
+    ```
+  </Tab>
+  <Tab value="React">
+    ```package-install
+    npm install @novu/react
+    ```
+  </Tab>
+</Tabs>
 
 ## Try Inbox in keyless mode
 
 Keyless mode lets you test the look and features of the Inbox component instantly in your application, no setup required.
+
+![Inbox keyless](/images/inbox/keyless-inbox.png)
 
 <Tabs items = {['Next.js', 'React']}>
   <Tab value="Next.js">
@@ -75,15 +57,13 @@ Keyless mode lets you test the look and features of the Inbox component instantl
   </Tab>
 </Tabs>
 
-<div style={{ display: 'flex', justifyContent: 'center' }}>
-  <img src="/images/inbox/Inbox.png" alt="Test" width="400" height="400" />
-</div>
+<Callout type="info">This is only for testing, the data is temporary (expires in 24h) and not tied to real subscribers.</Callout>
 
 ## Use Inbox with real subscribers
 
-To display real-time notifications for your users, connect the Inbox component to your Novu environment using your `applicationIdentifier` and a `subscriberId`. You can create or manage subscribers from the <a href="https://dashboard.novu.co/subscribers" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Novu Dashboard</a>.
+To display real-time notifications for your subscribers, connect the Inbox component to your Novu environment using your `applicationIdentifier` and a `subscriberId`. You can create or manage subscribers from the <a href="https://dashboard.novu.co/subscribers" target="_blank" rel="noopener noreferrer" class="nx-text-primary-600 nx-underline">Novu Dashboard</a>.
 
-### US Region (Default)
+### US region (Default)
 
 <Tabs items = {['Next.js', 'React']}>
   <Tab value="Next.js">
