@@ -7,12 +7,9 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 By default, `<InboxContent />` renders the content of the `<Inbox />` popover. This component is meant to be used with a custom popover.
 
-## Basic Usage
+## Basic usage
 
-<Callout type="info">
-  The InboxContent component provides a flexible way to customize the inbox display while
-  maintaining all the core notification functionality.
-</Callout>
+The `<InboxContent />` component provides a flexible way to customize the inbox display while maintaining all the core notification functionality.
 
 ```tsx
 import { Bell, Inbox, InboxContent } from '@novu/react';
@@ -34,9 +31,14 @@ export default function CustomPopoverPage() {
 }
 ```
 
-## Advanced Usage
+## Advanced usage
 
-The `<InboxContent />` component can receive all the props that `<Inbox />` does, besides the configuration and bell specific ones. This allows for extensive customization of notification handling and display.
+The `<InboxContent />` component can receive all the props that `<Inbox />` does, as well as the configuration- and bell-specific props. This allows you to customize how notifications are handled and displayed.
+
+This example demonstrates how to: 
+  - Handle notification clicks.
+  - Customize primary and secondary action behaviors.
+  - Provide custom rendering for notifications.
 
 ```tsx
 import { Bell, Inbox, InboxContent } from '@novu/react';
@@ -73,10 +75,3 @@ export default function CustomPopoverPage() {
   );
 }
 ```
-
-<Callout type="info">
-  The example above demonstrates how to: 
-  - Handle notification clicks 
-  - Customize primary and secondary action behaviors 
-  - Provide custom rendering for notifications
-</Callout>
