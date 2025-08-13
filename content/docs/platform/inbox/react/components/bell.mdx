@@ -5,9 +5,9 @@ description: 'The Bell component displays the notification bell icon and unread 
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-The `Bell` component displays the notification bell icon. It can also be used to show the number of unread notifications.
+The `Bell` component displays the notification bell icon. You can also configure it to show the number of unread notifications.
 
-## Custom Bell
+## Custom bell
 
 You can pass any custom components to the `renderBell` prop to use with your own bell icon and unread count UI.
 
@@ -32,12 +32,9 @@ function Novu() {
 }
 ```
 
-## Custom Popover Integration
+## Custom popover integration
 
-<Callout type="info">
-  `<Inbox />` can be mounted in your own popover component. For further customization, you can also
-  use the `renderBell` and `renderNotification` render props.
-</Callout>
+`<Inbox />` can be mounted in your own popover component. For further customization, you can also use the `renderBell` and `renderNotification` render props.
 
 Below is an example of how to use `<Inbox />` with [Radix UI](https://www.radix-ui.com/):
 
