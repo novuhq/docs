@@ -1,12 +1,12 @@
 ---
 title: '<Preferences />'
-pageTitle: 'React Preferences Component'
-description: 'Learn how to use and customize the Preferences component in React to manage notification settings.'
+pageTitle: 'React Preferences component'
+description: 'Learn how to use and customize the Preferences component in React to manage notification settings'
 ---
 
-By default, Novu will show the subscriber preferences cog icon on the Inbox component.
+By default, Novu shows the subscriber preferences cog icon on the Inbox component.
 
-Users can enable/disable any active channel in the workflow using subscriber preferences or they can update the preference globally for all workflows under the `Global Preferences`.
+Users can enable or disable any active channel in the workflow using subscriber preferences, or they can update the preference globally for all workflows under the `Global Preferences`.
 
 ![Preferences](/images/inbox/preferences@2x.png)
 
@@ -28,15 +28,13 @@ function Novu() {
 
 ## Customization options
 
-### Filtering preferences
+AVOID STACKED HEADINGS, ADD PARAGRAPH HERE
 
-<Callout type="info">
-  You can filter the preferences visible by the user by specifying the `preferenceFilter` on the
-  `Inbox` component. Learn more about it
-  [here](/platform/inbox/react/components/inbox#filter-visible-preferences).
-</Callout>
+### Filter preferences
 
-### Hiding global preferences
+You can filter the preferences visible by the user by specifying the `preferenceFilter` on the `Inbox` component. For more information, refer to [Filter visible preferences](/platform/inbox/react/components/inbox#filter-visible-preferences).
+
+### Hide global preferences
 
 Global subscriber preferences are shown by default. To hide them, add the following code to your global CSS file:
 
@@ -46,9 +44,9 @@ Global subscriber preferences are shown by default. To hide them, add the follow
 }
 ```
 
-### Grouping preferences
+### Group preferences
 
-Preference grouping lets you organize extensive lists of workflows into well-organized, meaningful groups. This ensures that your end-users get a better experience when managing their preferences.
+Preference grouping allows you to organize extensive lists of workflows into well-organized, meaningful groups. This ensures that your end users get a better experience when managing their preferences.
  
 <Callout type="info">
   Note: Grouping preference is supported in client-side SDKs starting from version 3.4.0.
@@ -59,7 +57,7 @@ To implement preference grouping, use the `preferenceGroups` prop on the `Inbox`
 - `name`: The text displayed for the group
 - `filter`: Criteria for which preferences appear in the group (object or function)
 
-Here are the different ways to group preferences:
+There are several ways to group preferences.
 
 #### Group by tags
 
