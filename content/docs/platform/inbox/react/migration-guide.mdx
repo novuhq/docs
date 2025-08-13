@@ -1,6 +1,6 @@
 ---
-title: 'Migration Guide'
-description: 'This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest version.'
+title: 'Migration guide'
+description: 'This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package and provides steps to migrate your application to the latest version.'
 icon: 'RefreshCcwDot'
 ---
 
@@ -13,17 +13,19 @@ icon: 'RefreshCcwDot'
   component should be used.
 </Callout>
 
-The `@novu/react` package introduces a more flexible and customizable way to display notifications in your application. This guide outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package. Follow the steps below to migrate your application to the latest Inbox version.
+The `@novu/react` package introduces a more flexible and customizable way to display notifications in your application. This guide:
+- Outlines the key differences between the `@novu/notification-center` package and the new `@novu/react` package.
+- Provides steps to migrate your application to the latest Inbox version.
 
 ## Why you should upgrade to @novu/react
 
 - **Customization**: The `@novu/react` package provides more customization options for the appearance and behavior of the notification components.
 - **Flexibility**: The new package offers more flexibility in handling notifications and integrating with third-party libraries.
 - **Performance**: It is optimized for performance and provides a smoother user experience.
-- **Bundle Size**: The new package has a smaller bundle size and improved tree-shaking capabilities.
+- **Bundle size**: The new package has a smaller bundle size and improved tree-shaking capabilities.
 - **Compatibility with the `@novu/framework`**: The `@novu/react` package is designed to work seamlessly with the `@novu/framework` package for creating and managing notifications.
 
-## Breaking Changes
+## Breaking changes
 
 The `@novu/react` package introduces several breaking changes compared to the `@novu/notification-center` package. Here are the key differences:
 
@@ -35,12 +37,12 @@ The `@novu/react` package introduces several breaking changes compared to the `@
 
 ### Styling
 
-- The `styles` props is replaced by an enchanced and easy to use `appearance` prop to customize the appearance of the notification components. For more information on `appearance` customization visit [here](/platform/inbox/react/styling).
+The `styles` props is replaced by an enchanced and easy to use `appearance` prop to customize the appearance of the notification components. For more information on `appearance` customization, refer to [Styling the Inbox component](/platform/inbox/react/styling).
 
-### Notification
+### Notifications
 
 - Removal of `seen` , `lastSeenDate`, `content`, `templateIdentifier`, `payload`, `cta` properties from the Notification object.
-- We have introduced `archive` functionality to the Notification object.
+- Introduced `archive` functionality to the Notification object.
 
 ```diff
 type Notification = {
@@ -100,7 +102,7 @@ type Action = {
 };
 ```
 
-## Getting Started
+## Before migrating
 
 To begin migrating to `@novu/react`, install the package via npm:
 
@@ -108,9 +110,9 @@ To begin migrating to `@novu/react`, install the package via npm:
 npm install @novu/react
 ```
 
-## Basic Usage
+## Basic usage
 
-- Old Implementation
+- Old implementation
 
 ```tsx
 import {
@@ -131,7 +133,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+- New implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -145,11 +147,11 @@ function Novu() {
 export default Novu;
 ```
 
-## Notification Center without Bell Icon
+## Notification center without bell icon
 
-The @novu/react package introduces a flexible way to display notifications as a list without the default bell icon. Utilize the `Inbox` and `Notifications` components to achieve this functionality.
+The @novu/react package introduces a flexible way to display notifications as a list without the default bell icon. Use the `Inbox` and `Notifications` components to achieve this functionality.
 
-- Old Implementation
+- Old implementation
 
 ```tsx
 import { NovuProvider, NotificationCenter } from '@novu/notification-center';
@@ -165,7 +167,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+- New implementation with `@novu/react`
 
 ```tsx
 import { Inbox, Notifications } from '@novu/react';
@@ -181,11 +183,11 @@ function Novu() {
 export default Novu;
 ```
 
-## Custom Bell Icon
+## Custom bell icon
 
 Customize the bell icon that triggers the notifications popover using the `renderBell` prop.
 
-- Old Implementation
+- Old implementation
 
 ```tsx
 import { NovuProvider, PopoverNotificationCenter } from '@novu/notification-center';
@@ -211,7 +213,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+- New implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -230,7 +232,7 @@ function Novu() {
 export default Novu;
 ```
 
-## Notification Actions
+## Notification actions
 
 Handle user interactions with notifications effectively using the action handlers provided by `@novu/react`.
 
@@ -238,7 +240,7 @@ Handle user interactions with notifications effectively using the action handler
 
 Trigger a callback function when a user clicks on a notification item.
 
-- Old Implementation
+- Old implementation
 
 ```tsx
 import {
@@ -268,7 +270,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+- New implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -295,7 +297,7 @@ export default Novu;
 
 Handle primary and secondary actions within a notification explicitly.
 
-- Old Implementation
+- Old implementation
 
 ```tsx
 import {
@@ -348,7 +350,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+- New implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -377,7 +379,7 @@ function Novu() {
 export default Novu;
 ```
 
-## Avatar Icons
+## Avatar icons
 
 Customize the avatar displayed alongside notifications by specifying an avatar `URL` at the workflow definition level using `@novu/framework`.
 
@@ -393,11 +395,11 @@ workflow('welcome-notification', async (step) => {
 });
 ```
 
-## Popover Positioning
+## Popover positioning
 
 For advanced positioning and styling of the notifications popover, integrate third-party popover libraries such as Radix UI.
 
-- Old Implementation
+- Old implementation
 
 ```tsx
 import {
@@ -419,7 +421,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react` and Radix UI as an example
+- New implementation with `@novu/react` and Radix UI as an example
 
 ```tsx
 import React from 'react';
@@ -447,11 +449,11 @@ function Novu() {
 export default Novu;
 ```
 
-## Custom Notification Item
+## Custom notification item
 
 Customize the appearance and structure of individual notification items using the `renderNotification` prop.
 
-- Old Implementation
+- Old implementation
 
 ```tsx
 import {
@@ -490,7 +492,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+- New implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -520,11 +522,11 @@ function Novu() {
 export default Novu;
 ```
 
-## Styling with appearance Prop
+## Styling with appearance prop
 
 Customize the overall look and feel of the notification components using the appearance prop, which supports both CSS objects and class names (including Tailwind CSS classes).
 
-- Old Implementation
+- Old implementation
 
 ```tsx
 import {
@@ -549,7 +551,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+- New implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -592,15 +594,15 @@ export default Novu;
 
 For more information on `appearance` customization visit [here](/platform/inbox/react/styling).
 
-## Multiple Tabs Support
+## Set up multiple tabs
 
 Organize notifications into different categories using tabs by leveraging the tags property in workflow definitions and the tabs prop in the Inbox component.
 
-### Create Multiple Tabs
+### Create multiple tabs
 
-- Old Implementation
+- Old implementation
 
-After defining the feeds on the workflow UI, you were able to filter notifications based on the feedIdentifier.
+After defining the feeds on the workflow UI, you can filter notifications based on the feedIdentifier.
 
 ```tsx
 import {
@@ -643,7 +645,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+- New implementation with `@novu/react`
 
 1. Define multiple workflows with relevant tags.
 
@@ -718,15 +720,15 @@ function Novu() {
 export default Novu;
 ```
 
-## HMAC Encryption
+## HMAC encryption
 
-The process remains the same as before. See the detailed guide [here](/platform/inbox/react/production#hmac-encryption).
+The process remains the same as before. For more information, refer to [HMAC encryption](/platform/inbox/react/production#hmac-encryption).
 
-## Handling Notifications
+## Handling notifications
 
 Handle notifications using the methods provided by the notification object.
 
-### Marking Notifications as Read
+### Marking notifications as read
 
 Mark notifications as read using the `read` method provided by the notification object.
 
@@ -750,7 +752,7 @@ function Novu() {
 export default Novu;
 ```
 
-### Marking Notifications as Unread
+### Marking notifications as unread
 
 Mark notifications as unread using the `unread` method provided by the notification object.
 
@@ -774,7 +776,7 @@ function Novu() {
 export default Novu;
 ```
 
-### Marking Notifications as Archive
+### Marking notifications as archive
 
 Mark notifications as archive using the `archive` method provided by the notification object.
 
@@ -798,7 +800,7 @@ function Novu() {
 export default Novu;
 ```
 
-### Marking Notifications as Unarchive
+### Marking notifications as unarchive
 
 Mark notifications as unarchive using the `unarchive` method provided by the notification object.
 
