@@ -5,30 +5,33 @@ description: 'Learn how to prepare your React notification inbox for production 
 icon: 'ShieldCheck'
 ---
 
-## HMAC Encryption
+This page explains how to prepare your React notification inbox for production deployment.
 
-When Novu's user adds the Inbox to their application they are required to pass a `subscriberId` which identifies the user's end-customer, and the application Identifier which is acted as a public key to communicate with the notification feed API.
+## HMAC encryption
+
+When you add the Inbox to your application, you are required to pass a `subscriberId`, which identifies the user's end-customer, and the application Identifier, which is acted as a public key, to communicate with the notification feed API.
 
 A malicious actor can access the user feed by accessing the API and passing another `subscriberId` using the public application identifier.
 
-HMAC encryption will make sure that a `subscriberId` is encrypted using the secret API key, and those will prevent malicious actors from impersonating users.
+Hash-based Message Authentication Code (HMAC) encryption ensures that a `subscriberId` is encrypted using the secret API key, which helps prevent malicious actors from impersonating users.
 
-## Using HMAC Encryption
+## Set up HMAC encryption
 
-In order to use HMAC encryption in Inbox for enhanced security, follow these steps:
+To use HMAC encryption in Inbox for enhanced security, follow these steps:
 
-### 1. Enable HMAC encryption in the In-App provider settings:
+### 1. Enable HMAC encryption in the In-App provider settings
 
-- Go to [Novu Dashboard](https://dashboard.novu.co).
-- Navigate to the [Integrations Store](https://dashboard.novu.co/integrations) page.
-- Click on the Novu In-App provider.
-- A side panel will open from the right side of the screen with the provider settings.
-- Enable `Security HMAC encryption` toggle in **Integration Credentials** section.
-- Save the changes and copy the secret key from [Api Keys](https://dashboard.novu.co/api-keys) page.
+1. Go to [Novu Dashboard](https://dashboard.novu.co).
+2. Navigate to the [Integrations Store](https://dashboard.novu.co/integrations).
+3. Click on the Novu In-App provider.
+   
+   A side panel will open from the right side of the screen with the provider settings.
+4. Enable `Security HMAC encryption` toggle in **Integration Credentials** section.
+5. Save the changes and copy the secret key from [API Keys](https://dashboard.novu.co/api-keys) page.
 
-### 2. Generate HMAC hash on the server side:
+### 2. Generate HMAC hash on the server side
 
-Use the `secret key` to generate an HMAC hash of the `subscriberId` on the server side. Keep `NOVU_SECRET_KEY` secure and never expose it to the client.
+Use the `secret key` to generate an HMAC hash of the `subscriberId` on the server side. Keep `NOVU_SECRET_KEY` secure, and _never_ expose it to the client.
 
 ```tsx
 import { createHmac } from 'crypto';
@@ -38,9 +41,9 @@ export const hmacHash = createHmac('sha256', process.env.NOVU_SECRET_KEY)
   .digest('hex');
 ```
 
-### 3. Use the HMAC hash in the Inbox component:
+### 3. Use the HMAC hash in the Inbox component
 
-Send the `hmacHash` generated in the previous step to the client side application via HTTP request or store it in the user's database record. Use it as the `subscriberHash` prop in the Inbox component. In below example, we are using `currentUser` hook to get the `hmacHash` from the user's database record.
+Send the `hmacHash` generated in the previous step to the client side application via HTTP request or store it in the user's database record. Use it as the `subscriberHash` prop in the Inbox component. This example uses the `currentUser` hook to get the `hmacHash` from the user's database record.
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -56,7 +59,4 @@ const hmacHash = user?.novuSubscriberHash;
 />;
 ```
 
-<Callout type="info">
-  If HMAC encryption is active in In-App provider settings and `subscriberHash` along with
-  `subscriberId` is not provided, then Inbox will not load
-</Callout>
+If HMAC encryption is active in In-App provider settings, and the `subscriberHash` and `subscriberId` are not provided, then Inbox will not load.
