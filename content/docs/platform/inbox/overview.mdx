@@ -1,38 +1,57 @@
 ---
-title: 'Overview'
-description: "Learn how to integrate Novu <Inbox />, a pre-built notification center component for real-time in-app notifications in your application."
-icon: 'LayoutDashboard'
+title: 'Introduction to Inbox'
+description: "Learn how to integrate Novu Inbox component, a pre-built notification center component for real-time in-app notifications in your application."
+icon: 'Inbox'
 ---
 
-import { Card, Cards } from 'fumadocs-ui/components/card';
-import { MessageSquare, Palette, Zap } from 'lucide-react';
+The Novu Inbox is a prebuilt, ready-to-use, and fully customizable UI component for delivering real-time in-app notifications. It gives your subscribers a centralized place to view and manage notifications.
 
-The Inbox component enables a rich context-aware in-app notifications center directly in your application, and with minimal effort.
+With just a few lines of code, you can embed a polished, real-time notification experience directly into your application.
 
-Novu provides a pre-built, ready-to-use, and customizable Inbox UI component. It's in React today, and soon will be available in other popular frameworks including Vue, React Native, and full headless.
+![Introduction to inbox](/images/inbox/intro-to-inbox.png)
 
-<img src="/images/inbox/overview@2x.png" alt="Fully functional and customizable React Inbox component" />
+## Composable architecture
 
-## Getting Started
+The Novu Inbox is built with a composable architecture. It is composed of other sub-components:
 
-<Cards>
-  <Card
-    title="Next.js"
-    href="/platform/quickstart/nextjs"
-    description="Get started with our pre-built UI component in Next.js"
-  />
-  <Card
-    title="React"
-    href="/platform/quickstart/react"
-    description="Get started with our pre-built UI component in React"
-  />
-  <Card
-    title="Remix"
-    href="/platform/quickstart/remix"
-    description="Get started with our pre-built UI component in Remix"
-  />
-</Cards>
+- `<InboxContent />` – Renders the content of the `<Inbox />` popover.
+- `<Preferences />` – Manages subscriber notification preferences.
+- `<Bell />` – Shows an unread counter and opens the inbox.
+- `<Notifications />` – Display the list of notifications.
 
-## Design Files
+![Fully functional and customizable React Inbox component](/images/inbox/overview@2x.png)
 
-To aide your design process, we provide a free [Figma file](https://www.figma.com/community/file/1425407348374863860) that contains all of the design assets. Make a copy of the file into your own account to get started with customizing your graphical Inbox elements.
+By composing these individual components, you can create multiple popular inbox layouts that fit perfectly within your application's design.
+
+<Callout type="info" title="Design files">To aid your design process, we provide a [free Figma file](https://www.figma.com/community/file/1425407348374863860) that contains all of the design assets. Make a copy of the file into your own account to get started with customizing your graphical Inbox elements.</Callout>
+
+## Key feature
+- Full stack integration: The Inbox handles UI, unread states, routing, and preferences all in one place.
+- Highly customizable: Override styles, replace every UI elements and icons.
+- Flexible layouts: Use the default Inbox UI layout or build your own.
+- Built-in support for  Tabs and filters, localization, snoozing, preferences management, and more.
+
+## How it works
+
+At a high level, the Inbox abstracts away the complexity of building a notification center.
+
+1. When you drop the Inbox component into your application, it securely connects to Novu's services.
+2. It automatically fetches user notifications and manages the real-time unread count displayed on the bell icon.
+3. When a user clicks the bell, it presents the list of notifications and user preferences.
+4. All user interactions, such as marking a notification as read or changing a preference, are automatically synchronized with the Novu backend in real-time.
+
+## Ways to implement the Novu Inbox
+
+There are two integration approaches, depending on your needs for speed versus customization.
+
+### The "Plug-and-Play" approach
+
+This is the fastest way to integrate the Novu Inbox. The Inbox component, encapsulate all the UI and logic. You simply drop the component into your application, configure it with the necessary properties, and you're done.
+
+### Build-Your-Own" Approach
+
+For maximum flexibility and complete control over the look and feel, use the [SDKs](/platform/sdks/overview). It provides every methods and hooks required while leaving the UI rendering entirely up to you.
+
+You get the power of Novu's notification engine while building a user interface that perfectly matches your application's design system.
+
+
