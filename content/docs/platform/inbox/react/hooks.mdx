@@ -11,7 +11,7 @@ The `@novu/react` package offers an interface that enables you to build a custom
 
 These hooks are designed for use in both mobile and web applications, offering a flexible approach to building a custom notifications UI tailored to your application's requirements.
 
-## Getting Started
+## Getting started
 
 Follow these steps to get started with building your custom inbox UI:
 
@@ -23,7 +23,7 @@ Follow these steps to get started with building your custom inbox UI:
   </Step>
 
   <Step title="Implement the NovuProvider">
-    To implement the [NovuProvider](/platform/sdks/react/hooks/novu-provider) component, you need to place it in your application&apos;s code at the tree level where you want the hooks to be accessible.
+    To implement the [NovuProvider](/platform/sdks/react/hooks/novu-provider) component, place it in your application&apos;s code at the tree level where you want the hooks to be accessible.
 
     ```tsx
     import { NovuProvider } from '@novu/react';
@@ -42,13 +42,13 @@ Follow these steps to get started with building your custom inbox UI:
 
     <Callout type="info">
       You can find the `applicationIdentifier` in the Novu Dashboard under the [API keys page](https://dashboard.novu.co/api-keys).
-      The `subscriberId` is the unique identifier of the user in your application, learn more about subscribers [here](/platform/concepts/subscribers).
+      The `subscriberId` is the unique identifier of the user in your application. To learn more about subscribers, refer to [Subscribers](/platform/concepts/subscribers).
     </Callout>
 
   </Step>
 
   <Step title="Create the custom Inbox UI">
-    For example, you can create a custom popover UI with a bell icon that shows the unread notifications count and a list of notifications.
+    You can create a custom popover UI with a bell icon that shows the unread notifications count and a list of notifications.
 
     ```tsx
     const YourCustomInbox = () => {
@@ -65,7 +65,7 @@ Follow these steps to get started with building your custom inbox UI:
     };
     ```
 
-    ### Bell Button with Unread Count
+    ## Bell button with unread count
 
     The `BellButton` component fetches the unread notifications count and renders the count value in the indicator:
 
@@ -85,7 +85,7 @@ Follow these steps to get started with building your custom inbox UI:
     }
     ```
 
-    ### Notifications List
+    ## Notifications list
 
     The `NotificationsList` component retrieves and displays the notifications list with infinite scrolling functionality:
 
@@ -122,9 +122,9 @@ Follow these steps to get started with building your custom inbox UI:
     }
     ```
 
-    #### Notification Item
+    ## Notification item
 
-    The `NotificationItem` component renders each notification item. When any action is performed on the `notification` instance (e.g., "read" button is clicked), the SDK will optimistically update the notification, which will trigger a rerender of the `useNotifications` hook.
+    The `NotificationItem` component renders each notification item. When any action is performed on the `notification` instance (for example, "read" button is clicked), the SDK optimistically updates the notification. This triggers a rerender of the `useNotifications` hook.
 
     ```tsx
     const NotificationItem = ({ notification }) => {
