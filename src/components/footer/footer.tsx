@@ -43,7 +43,7 @@ const FOOTER_LINKS = [
     icon: Docs,
     mainText: 'Check out our',
     link: {
-      href: 'https://roadmap.novu.co/changelog',
+      href: 'https://go.novu.co/changelog?utm_source=docs_footer',
       text: 'Changelog',
     },
   },
