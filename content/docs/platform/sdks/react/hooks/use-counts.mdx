@@ -7,6 +7,9 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 The `useCounts` hook provides a way to fetch various notification counts, including unread, unseen, and total counts. This hook is useful for displaying notification badges and indicators in your application.
 
+The `useCounts` hook provides a way to fetch various notification counts, including unread, unseen, total counts, and now counts filtered by severity. This hook is useful for displaying notification badges and indicators in your application.
+
+
 ## Hook Parameters
 
 <TypeTable
@@ -48,7 +51,7 @@ type UseCountsResult = {
 
 ## Example Usage
 
-Here's how to use the `useCounts` hook to fetch and display notification counts:
+Here's how to use the `useCounts` hook to fetch and display various notification counts, including unread, unseen, and counts based on severity.
 
 ```tsx
 import { useCounts } from "@novu/react";
@@ -58,16 +61,24 @@ function BellButton() {
     filters: [
       { read: false }, // Unread notifications
       { seen: false }  // Unseen notifications
+      { severity: SeverityLevelEnum.HIGH } // High severity notifications
     ] 
   });
   
   const unreadCount = counts?.[0]?.count ?? 0;
   const unseenCount = counts?.[1]?.count ?? 0;
+  const highSeverityCount = counts?.[2]?.count ?? 0;
+
 
   return (
     <button>
       <BellIcon />
-      {unreadCount > 0 && <span className="badge">{unreadCount}</span>}
+      {/* Example: Show a badge for high severity, otherwise show the unread count */}
+      {highSeverityCount > 0 ? (
+        <span className="badge-high-severity">{highSeverityCount}</span>
+      ) : unreadCount > 0 ? (
+        <span className="badge">{unreadCount}</span>
+      ) : null}
     </button>
   );
 }

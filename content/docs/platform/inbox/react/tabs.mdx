@@ -10,9 +10,10 @@ Each tab is defined using the `tabs` prop of the <Method href="/platform/inbox/r
 - **`label`**: A string representing the tab's visible title.
 - **`filter`**: An object defining the filter criteria for notifications displayed in that tab.
 
-The `filter` property supports two filtering options:
+The `filter` property supports the following filtering options:
 - **Tags**: Filter based on the `tags` assigned to a workflow in the workflow editor.
 - **Data attributes**: Filter based on values in the notification payload (`data`).
+- **Notification severity**: Filter based on the notification severity level assigned to a workflow in the workflow editor.
 
 ![Filtering tabs by tags and data attributes](/images/inbox/filter-tabs-by-tags-and-data-attributes.png)
 
@@ -81,6 +82,40 @@ export default function InboxWithFilters() {
   ];
   
 
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      tabs={tabs}
+    />
+  );
+}
+```
+
+## Filter tabs by notification severity
+
+You can now use severity to create dedicated tabs in your notification inbox, this lets users easily filter notifications based on their importance.
+
+To achieve this, add the severity key to the filter object for any tab in your Inbox component. The severity property can accept a single severity level or an array of levels.
+
+```tsx
+import { Inbox, SeverityLevelEnum } from '@novu/react';
+
+export default function InboxWithFilters() {
+
+  const tabs = [
+    {
+      label: 'All Notifications',
+      filter: { tags: [] },
+    },
+    {
+      label: 'Security',
+      filter: {
+        severity: SeverityLevelEnum.HIGH,
+      },
+    },
+  ];
+  
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"

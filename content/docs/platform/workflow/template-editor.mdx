@@ -15,20 +15,20 @@ Quality templates are used to create personalized, visually appealing, and effec
 - **Using Liquid syntax for logic and control flow within templates.**
 - **Previewing and testing your notification templates.**
 
-## Personalizing Notifications with Template Variables
+## Personalizing notifications using template variables
 
 To insert a variable into your Novu notification template, use double curly braces: `{{ variable_name }}`.
 
 Novu templates allow you to reference several types of variables:
 
-### Data payload variables
+### Payload variables
 
 These variables originate from the data payload in your workflow trigger.
 For example, if you include `{ "order_id": "12345" }` in your payload, you can reference it in your template as `{{ payload.order_id }}`.
 
-### User properties
+### Subscriber variables
 
-You can access user properties (like `firstName` or custom subscriber properties) using `{{ subscriber.* }}`. For instance:
+You can access subscriber properties (like `firstName` or custom subscriber properties) using `{{ subscriber.* }}`. For instance:
 
 ```liquid
 Hi {{ subscriber.firstName }},
@@ -37,6 +37,16 @@ You've been upgraded to the {{ subscriber.data.plan }} plan.
 
 Thanks,
 The Novu Team
+```
+
+### Workflow variables
+
+You can access metadata about the workflow that is being executed, which you can use directly in your templates editor to personalize message content.
+
+For example, you can use the `{{workflow.severity}}` to display the severity level within the message itself.
+
+```html
+<p>This is a <strong>{{workflow.severity}}</strong> priority message regarding your account.</p>
 ```
 
 ## Variable Popover

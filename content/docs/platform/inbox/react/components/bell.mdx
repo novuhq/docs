@@ -7,13 +7,16 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 The `Bell` component displays the notification bell icon. It can also be used to show the number of unread notifications.
 
-## Custom Bell
+<Callout type="warn" title="Breaking change">
+  The `renderBell` prop now passes an `unreadCounts` object instead of a number. To access the total unread count, use `unreadCounts.total` and `unreadCounts.severity` to access unread counts for each severity level.
+</Callout>
 
-You can pass any custom components to the `renderBell` prop to use with your own bell icon and unread count UI.
+## Custom Bell with Inbox component
+
+You can pass any custom components to the `renderBell` prop when using Inbox component. This gives you access to the full `unreadCounts` object, including severity-based counts.
 
 ```tsx
-import { Inbox, Bell } from '@novu/react';
-import { BellIcon } from './icons';
+import { Inbox, SeverityLevelEnum } from '@novu/react';
 
 function Novu() {
   return (
@@ -21,23 +24,54 @@ function Novu() {
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" 
       subscriber="YOUR_SUBSCRIBER_ID" 
       renderBell={(unreadCount) => {
-          return (
-            <div className="bg-purple-300 p-4 inline-flex">
-              New ${unreadCount} notifications
-            </div>
-          );
+        return (
+          <div>
+            <p className="bg-purple-300 p-4 inline-flex">
+              New ${unreadCount.total} notifications
+            </p>
+            <p className="bg-purple-300 p-4 inline-flex">
+              High severity $
+              {unreadCount.severity[SeverityLevelEnum.HIGH]}{' '}
+              notifications
+            </p>
+          </div>
+        );
       }} 
     />
   );
 }
 ```
 
+## Custom Bell with Bell component
+
+You can also directly customize the Bell component with the renderBell prop:
+
+```tsx
+import { Inbox, Bell } from '@novu/react';
+import { BellIcon } from 'lucide-react';
+
+function Novu() {
+  return (
+    <Inbox 
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" 
+      subscriber="YOUR_SUBSCRIBER_ID" 
+    >
+      <Bell
+        renderBell={(unreadCounts) => (
+          <div>
+            <span>{unreadCounts.total}</span>
+            <BellIcon />
+          </div>
+        )}
+      />
+    </Inbox>
+  );
+}
+```
+
 ## Custom Popover Integration
 
-<Callout type="info">
-  `<Inbox />` can be mounted in your own popover component. For further customization, you can also
-  use the `renderBell` and `renderNotification` render props.
-</Callout>
+`<Inbox />` can be mounted in your own popover component. For further customization, you can also use the `renderBell` and `renderNotification` render props.
 
 Below is an example of how to use `<Inbox />` with [Radix UI](https://www.radix-ui.com/):
 
@@ -53,9 +87,9 @@ const PopoverDemo = () => (
     <Popover.Root>
       <Popover.Trigger asChild>
         <Bell
-          renderBell={(unreadCount) => (
+          renderBell={(unreadCounts) => (
             <div>
-              <span>{unreadCount}</span>
+              <span>{unreadCounts.total}</span>
               <BellIcon />
             </div>
           )}

@@ -133,6 +133,69 @@ const appearance = {
   available elements.
 </Callout>
 
+### Styling notifications by severity
+
+Notification severity comes with default visual styles, but you can fully customize how notifications look for each severity level using the `appearance` prop.
+
+![Notification severity in the inbox](/images/workflows/inbox-notification-severity.png)
+
+<Callout>By default, the bell icon takes the color of the highest severity unread notification.</Callout>
+Each severity level exposes selectors you can target through the `variables` and `elements` objects to apply custom styling.
+
+#### Customizing severity colors
+
+Override the default severity colors by setting new CSS custom properties in the `appearance.variables` object. Updating these variables automatically changes both the notification color and the bell icon color.
+
+| Prop                 | Description                          |
+|----------------------|--------------------------------------|
+| `colorSeverityHigh`  | Color for **High severity**          |
+| `colorSeverityMedium`| Color for **Medium severity**        |
+| `colorSeverityLow`   | Color for **Low severity**           |
+
+```tsx
+const appearance = {
+  variables: {
+    colorSeverityHigh: 'green',
+    colorSeverityMedium: 'blue',
+    colorSeverityLow: 'yellow',
+  }
+};
+```
+
+#### Styling severity elements
+
+You can apply specific styles to individual components using keys in the `appearance.elements` object. This lets you target components conditionally based on their severity state.
+
+```tsx
+const appearance = {
+  elements: {
+    severityHigh__notificationBar: {
+      backgroundColor: 'red',
+    },
+  },
+};
+```
+
+Here are the list of severity elements key
+
+| Elements key                           | Description                                      |
+| -------------------------------------- | ------------------------------------------------ |
+| `severityHigh__bellContainer`          | Styles the bell container for high severity      |
+| `severityMedium__bellContainer`        | Styles the bell container for medium severity    |
+| `severityLow__bellContainer`           | Styles the bell container for low severity       |
+| `bellSeverityGlow`                     | Base style for the severity glow around the bell |
+| `severityGlowHigh__bellSeverityGlow`   | Glow style for high severity                     |
+| `severityGlowMedium__bellSeverityGlow` | Glow style for medium severity                   |
+| `severityGlowLow__bellSeverityGlow`    | Glow style for low severity                      |
+| `severityHigh__notification`           | Styles individual high severity notifications    |
+| `severityMedium__notification`         | Styles individual medium severity notifications  |
+| `severityLow__notification`            | Styles individual low severity notifications     |
+| `notificationBar`                      | Base style for the vertical notification bar on the left of a notification|
+| `severityHigh__notificationBar`        | Styles the notification bar for high severity    |
+| `severityMedium__notificationBar`      | Styles the notification bar for medium severity  |
+| `severityLow__notificationBar`         | Styles the notification bar for low severity     |
+
+
 ### Customizing icons
 
 The `icons` property in the `appearance` prop lets you customize any icon used in the Inbox component. This is useful when you want to:

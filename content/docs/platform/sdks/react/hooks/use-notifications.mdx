@@ -15,6 +15,10 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
       type: "string[]",
       description: "Filter notifications by tags",
     },
+    severity: {
+      type: "SeverityLevelEnum",
+      description: "Filter notifications by severity (HIGH, MEDIUM, LOW)",
+    },
     read: {
       type: "boolean",
       description: "Filter notifications by read status",
@@ -155,6 +159,10 @@ The Notification type from @novu/js includes many properties. Here are the most 
       type: "string[]",
       description: "Tags associated with the notification",
     },
+    severity: {
+      type: "SeverityLevelEnum",
+      description: "Severity of the notification (HIGH, MEDIUM, LOW)",
+    },
     data: {
       type: "Record<string, unknown>",
       description: "Custom data associated with the notification",
@@ -213,6 +221,7 @@ function FilteredNotifications() {
     read: false, // Only unread notifications
     seen: false, // Only unseen notifications
     tags: ["important", "urgent"], // Only notifications with these tags
+    severity: SeverityLevelEnum.HIGH, // Only high severity notifications
     limit: 20, // Fetch 20 notifications per page
   });
 
