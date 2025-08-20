@@ -119,15 +119,15 @@ type Action = {
 
 ## Getting started
 
-To begin migrating to `@novu/react`, install the package via npm:
+To begin, install the `@novu/react` package.
 
-```bash
+```package-install
 npm install @novu/react
 ```
 
 ## Basic usage
 
-- Old Implementation
+### Legacy implementation with `@novu/notification-center`
 
 ```tsx
 import {
@@ -148,7 +148,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+### Current implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -166,7 +166,7 @@ export default Novu;
 
 The @novu/react package introduces a flexible way to display notifications as a list without the default bell icon. Use the `Inbox` and `Notifications` components to achieve this functionality.
 
-- Old Implementation
+### Legacy implementation with `@novu/notification-center`
 
 ```tsx
 import { NovuProvider, NotificationCenter } from '@novu/notification-center';
@@ -182,7 +182,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+### Current implementation with `@novu/react`
 
 ```tsx
 import { Inbox, Notifications } from '@novu/react';
@@ -202,7 +202,7 @@ export default Novu;
 
 Customize the bell icon that triggers the notifications popover using the `renderBell` prop.
 
-- Old Implementation
+### Legacy implementation with `@novu/notification-center`
 
 ```tsx
 import { NovuProvider, PopoverNotificationCenter } from '@novu/notification-center';
@@ -228,7 +228,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+### Current implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -255,7 +255,7 @@ Handle user interactions with notifications effectively using the action handler
 
 Trigger a callback function when a user clicks on a notification item.
 
-- Old Implementation
+#### Legacy implementation with `@novu/notification-center`
 
 ```tsx
 import {
@@ -285,7 +285,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+#### Current implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -312,7 +312,7 @@ export default Novu;
 
 Handle primary and secondary actions within a notification explicitly.
 
-- Old Implementation
+#### Legacy implementation with `@novu/notification-center`
 
 ```tsx
 import {
@@ -365,7 +365,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+#### Current implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -396,7 +396,7 @@ export default Novu;
 
 ## Avatar icons
 
-In old implementation, you could set the avatar icon for a notification by toggle on the `Add an avatar` option in the workflow UI. Novu uses the avatar field of theactor subscriber for avatar icon.
+In the legacy implementation, you could set a notification’s avatar icon by enabling the Add an avatar option in the workflow UI. Novu would then use the avatar field of the actor subscriber as the icon.
 
 In the new implementation, you can set the avatar icon for a notification by adding the avatar icon in the workflow UI. There are three options to choose from:
 
@@ -404,11 +404,13 @@ In the new implementation, you can set the avatar icon for a notification by add
 - Use a hard-coded avatar icon URL.
 - Use a payload variable to dynamically set the avatar icon.
 
+For more information, refer to [Icons](/platform/inbox/configuration/icons#change-or-remove-a-in-app-notification-avatar).
+
 ## Popover positioning
 
 For advanced positioning and styling of the notifications popover, integrate third-party popover libraries such as Radix UI.
 
-- Old Implementation
+### Legacy implementation with `@novu/notification-center`
 
 ```tsx
 import {
@@ -430,7 +432,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react` and Radix UI as an example
+### Current implementation with `@novu/react` and Radix UI as an example
 
 ```tsx
 import React from 'react';
@@ -462,7 +464,7 @@ export default Novu;
 
 Customize the appearance and structure of individual notification items using the `renderNotification` prop.
 
-- Old Implementation
+### Legacy implementation with `@novu/notification-center`
 
 ```tsx
 import {
@@ -501,7 +503,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+### Current implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -535,7 +537,7 @@ export default Novu;
 
 Customize the overall look and feel of the notification components using the appearance prop, which supports both CSS objects and class names (including Tailwind CSS classes).
 
-- Old Implementation
+### Legacy implementation with `@novu/notification-center`
 
 ```tsx
 import {
@@ -560,7 +562,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+### Current implementation with `@novu/react`
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -609,7 +611,7 @@ Organize notifications into different categories using tabs by leveraging the ta
 
 ### Create multiple tabs
 
-- Old implementation
+#### Legacy implementation with `@novu/notification-center`
 
 After defining the feeds on the workflow UI, you were able to filter notifications based on the feedIdentifier.
 
@@ -654,7 +656,7 @@ function Novu() {
 export default Novu;
 ```
 
-- New Implementation with `@novu/react`
+#### Current implementation with `@novu/react`
 
 1. Define multiple workflows with relevant tags.
 
@@ -685,28 +687,7 @@ export default InboxWithTabs;
 
 ## Localization
 
-Customize the language and text content of the notification components using the localization prop.
-
-```tsx
-import { Inbox } from '@novu/react';
-
-function Novu() {
-  return (
-    <Inbox
-      applicationIdentifier="YOUR_APP_ID"
-      subscriber="YOUR_SUBSCRIBER_ID"
-      localization={{
-        'inbox.title': 'Notificaciones',
-        'notifications.emptyNotice': 'No tienes nuevas notificaciones',
-        'notifications.markAllAsRead': 'Marcar todo como leído',
-        locale: 'es-ES',
-      }}
-    />
-  );
-}
-
-export default Novu;
-```
+Customize the language and text content of the notification components using the localization prop. Refer to the [localization documentation](/platform/inbox/advanced-concepts/localization).
 
 ## HMAC encryption
 
