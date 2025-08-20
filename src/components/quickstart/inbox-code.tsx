@@ -42,7 +42,7 @@ type CodeTemplate = {
 const CODE_TEMPLATES: CodeTemplate[] = [
   {
     id: 'nextjs-inbox',
-    title: 'components/inbox.tsx',
+    title: 'app/layout.tsx',
     language: 'tsx',
     code: `import { Inbox } from '@novu/nextjs';
 import './globals.css';
@@ -124,13 +124,12 @@ export class App implements AfterViewInit {
   },
   {
     id: 'react-inbox',
-    title: 'src/components/notification-center.tsx',
+    title: 'src/components/novu-inbox.tsx',
     language: 'tsx',
-    code: `import React from 'react';
-import { Inbox } from '@novu/react';
+    code: `import { Inbox } from '@novu/react';
 import { useNavigate } from 'react-router';
 
-export function NotificationCenter() {
+export function NovuInbox() {
   const navigate = useNavigate();
 
   return (
