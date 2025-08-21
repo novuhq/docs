@@ -7,10 +7,6 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 The `Bell` component displays the notification bell icon. It can also be used to show the number of unread notifications.
 
-<Callout type="warn" title="Breaking change">
-  The `renderBell` prop now passes an `unreadCounts` object instead of a number. To access the total unread count, use `unreadCounts.total` and `unreadCounts.severity` to access unread counts for each severity level.
-</Callout>
-
 ## Custom Bell with Inbox component
 
 You can pass any custom components to the `renderBell` prop when using Inbox component. This gives you access to the full `unreadCounts` object, including severity-based counts.

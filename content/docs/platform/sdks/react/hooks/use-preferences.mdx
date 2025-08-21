@@ -12,8 +12,8 @@ The `usePreferences` hook provides a way to fetch and manage notification prefer
 <TypeTable
   type={{
     filter: {
-      type: "{ tags?: string[] }",
-      description: "Filter preferences by tags",
+      type: "{ tags?: string[]; severity?: SeverityLevelEnum[]}",
+      description: "Filter preferences by tags and severity",
     },
     onSuccess: {
       type: "(data: Preference[]) => void",
@@ -162,36 +162,49 @@ function PreferencesList() {
 
 ### With Filtering
 
-You can filter preferences by tags:
+You can filter preferences by tags or severity:
 
 ```tsx
-import { usePreferences } from "@novu/react";
+import { NovuProvider, usePreferences, SeverityLevelEnum } from "@novu/react";
 
-function FilteredPreferences() {
-  const { preferences, isLoading } = usePreferences({
-    filter: {
-      tags: ["important", "marketing"],
-    },
-  });
+export default function Novu() {
 
-  if (isLoading) return <div>Loading...</div>;
+  function FilteredPreferences() {
+    const { preferences, isLoading } = usePreferences({
+      filter: {
+        tags: ["important", "marketing"],
+        severity: [SeverityLevelEnum.HIGH],
+      },
+    });
+
+    if (isLoading) return <div>Loading...</div>;
+
+    return (
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold">High severity marketing preferences</h2>
+        {preferences?.map((preference) => (
+          <div
+            key={preference.workflow?.id || "global"}
+            className="p-4 border rounded-lg"
+          >
+            <h3 className="font-medium">
+              {preference.workflow?.name || "Global Preferences"}
+            </h3>
+            {/* Preference controls */}
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold">Marketing Preferences</h2>
-      {preferences?.map((preference) => (
-        <div
-          key={preference.workflow?.id || "global"}
-          className="p-4 border rounded-lg"
-        >
-          <h3 className="font-medium">
-            {preference.workflow?.name || "Global Preferences"}
-          </h3>
-          {/* Preference controls */}
-        </div>
-      ))}
-    </div>
-  );
+  <NovuProvider
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+  >
+    <FilteredPreferences />
+  </NovuProvider>
+);
 }
 ```
 
