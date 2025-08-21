@@ -517,16 +517,23 @@ export default function CutomInbox() {
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => {
-      // filter based on severity value
-      if (notification.severity === "high") {
+        // render based on severity value
+        if (notification.severity === SeverityLevelEnum.HIGH) {
+          return (
+            <div style={{ backgroundColor: 'red' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        
         return (
-          <div style={{ backgroundColor: 'red' }}>
-            <h3>{notification.subject}</h3>
-            <p>{notification.body}</p>
-          </div>
+           <div>
+             <h3>{notification.subject}</h3>
+             <p>{notification.body}</p>
+           </div>
         );
-      }
-    }}
+      }}
     />
   );
 }
