@@ -462,7 +462,7 @@ The `session.initialize.resolved` event provides new, structured data for unread
 ```typescript
 novu.on('session.initialize.resolved', ({ data }: { data: Session }) => {
   console.log(data.unreadCount.total);
-  console.log(data.unreadCount.severity.HIGH);
+  console.log(data.unreadCount.severity[SeverityLevelEnum.HIGH]);
 });
 
 novu.on('notifications.notification_received', (data) => {
