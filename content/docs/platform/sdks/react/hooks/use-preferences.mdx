@@ -7,13 +7,13 @@ import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
 The `usePreferences` hook provides a way to fetch and manage notification preferences for the current subscriber. This includes both global preferences and workflow-specific preferences.
 
-## Hook Parameters
+## Hook parameters
 
 <TypeTable
   type={{
     filter: {
-      type: "{ tags?: string[] }",
-      description: "Filter preferences by tags",
+      type: "{ tags?: string[]; severity?: SeverityLevelEnum[]}",
+      description: "Filter preferences by tags and severity",
     },
     onSuccess: {
       type: "(data: Preference[]) => void",
@@ -27,7 +27,7 @@ The `usePreferences` hook provides a way to fetch and manage notification prefer
   }}
 />
 
-## Return Value
+## Return value
 
 <TypeTable
   type={{
@@ -59,7 +59,7 @@ The `usePreferences` hook provides a way to fetch and manage notification prefer
   }}
 />
 
-## Preference Type
+## Preference type
 
 The Preference type from @novu/js includes these properties:
 
@@ -85,7 +85,7 @@ The Preference type from @novu/js includes these properties:
   }}
 />
 
-## Example Usage
+## Example usage
 
 Here's how to use the `usePreferences` hook to display and manage notification preferences:
 
@@ -160,42 +160,55 @@ function PreferencesList() {
 }
 ```
 
-### With Filtering
+### With filtering
 
-You can filter preferences by tags:
+You can filter preferences by tags or severity:
 
 ```tsx
-import { usePreferences } from "@novu/react";
+import { NovuProvider, usePreferences, SeverityLevelEnum } from "@novu/react";
 
-function FilteredPreferences() {
-  const { preferences, isLoading } = usePreferences({
-    filter: {
-      tags: ["important", "marketing"],
-    },
-  });
+export default function Novu() {
 
-  if (isLoading) return <div>Loading...</div>;
+  function FilteredPreferences() {
+    const { preferences, isLoading } = usePreferences({
+      filter: {
+        tags: ["important", "marketing"],
+        severity: [SeverityLevelEnum.HIGH],
+      },
+    });
+
+    if (isLoading) return <div>Loading...</div>;
+
+    return (
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold">High severity marketing preferences</h2>
+        {preferences?.map((preference) => (
+          <div
+            key={preference.workflow?.id || "global"}
+            className="p-4 border rounded-lg"
+          >
+            <h3 className="font-medium">
+              {preference.workflow?.name || "Global Preferences"}
+            </h3>
+            {/* Preference controls */}
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-4">
-      <h2 className="text-xl font-bold">Marketing Preferences</h2>
-      {preferences?.map((preference) => (
-        <div
-          key={preference.workflow?.id || "global"}
-          className="p-4 border rounded-lg"
-        >
-          <h3 className="font-medium">
-            {preference.workflow?.name || "Global Preferences"}
-          </h3>
-          {/* Preference controls */}
-        </div>
-      ))}
-    </div>
-  );
+  <NovuProvider
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+  >
+    <FilteredPreferences />
+  </NovuProvider>
+);
 }
 ```
 
-### With Channel Groups
+### With channel groups
 
 You can organize preferences by channel type:
 

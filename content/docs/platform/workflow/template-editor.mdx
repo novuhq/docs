@@ -11,24 +11,24 @@ Each channel step in a Novu workflow comes with its own notification template. T
 
 Quality templates are used to create personalized, visually appealing, and effective notifications.
 
-- **Injecting variables from your trigger data into your notification template.**
-- **Using Liquid syntax for logic and control flow within templates.**
-- **Previewing and testing your notification templates.**
+- Injecting variables from your trigger data into your notification template.
+- Using Liquid syntax for logic and control flow within templates.
+- Previewing and testing your notification templates.
 
-## Personalizing Notifications with Template Variables
+## Personalizing notifications using template variables
 
 To insert a variable into your Novu notification template, use double curly braces: `{{ variable_name }}`.
 
 Novu templates allow you to reference several types of variables:
 
-### Data payload variables
+### Payload variables
 
 These variables originate from the data payload in your workflow trigger.
 For example, if you include `{ "order_id": "12345" }` in your payload, you can reference it in your template as `{{ payload.order_id }}`.
 
-### User properties
+### Subscriber variables
 
-You can access user properties (like `firstName` or custom subscriber properties) using `{{ subscriber.* }}`. For instance:
+You can access subscriber properties (like `firstName` or custom subscriber properties) using `{{ subscriber.* }}`. For instance:
 
 ```liquid
 Hi {{ subscriber.firstName }},
@@ -39,7 +39,17 @@ Thanks,
 The Novu Team
 ```
 
-## Variable Popover
+### Workflow variables
+
+You can access metadata about the workflow that is being executed, which you can use directly in your templates editor to personalize message content.
+
+For example, you can use the `{{workflow.severity}}` to display the severity level within the message itself.
+
+```html
+<p>This is a <strong>{{workflow.severity}}</strong> priority message regarding your account.</p>
+```
+
+## Variable popover
 
 When clicking on a variable in the template editor, a popover will appear. This popover can be used to easily manipulate the variable formatting by applying default values or Liquid Filters.
 

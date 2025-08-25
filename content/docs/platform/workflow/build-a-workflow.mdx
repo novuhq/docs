@@ -177,3 +177,24 @@ Depending on the selected type, additional configuration options appear:
 - **Enum**: Add choices, which are a list of predefined, allowed values. This restricts the field to only those values.
 - **Array**: Select the Array item type, which defines the data type of each array element.
 - **Object**: Add nested properties, each with their own type, required status, and validation options.
+
+## Notification severity
+
+Notification severity lets you classify worfklows based on their importance level. Each workflow can be assigned one of four severity levels:
+- **High**: Indicates a critical notification. Applies a red hue to the notification and the bell icon.
+- **Medium**: For important, but not critical, notifications. Applies an orange hue.
+- **Low**: For general or informational messages. By default, it has no color, but it can be styled.
+- **None**: The default level for all new and existing workflows.
+
+### Setting a severity level
+You can set the severity for any workflow directly from the Novu dashboard.
+
+1. From the **Workflows** page, open the workflow you want to configure, or create a new one.
+2. In the workflow editor, go to the **Configure workflow** section and then select **Configure channel preferences**.
+   ![](/images/workflows/notification-workflows/configure-notification-severity.png)
+3. Choose the desired severity level option from the **Notification severity** list.
+   ![Notification Severity](/images/workflows/notification-workflows/notification-severity.png)
+
+This classification directly impacts how notifications are displayed in the Novu Inbox, helping your users quickly identify and prioritize messages.
+
+Severity affects visual cues like color-coding, icons, and the appearance of the notification bell. For more information, refer to the [Inbox component](/platform/inbox/overview).

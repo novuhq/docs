@@ -400,8 +400,8 @@ export default function CustomInbox() {
   
   return (
     <Inbox
-      applicationIdentifier=""
-      subscriber=""
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => {
         // filter based on tags
         if (notification.tags?.includes('custom')) {
@@ -435,8 +435,8 @@ export default function CutomInbox() {
   
   return (
     <Inbox
-      applicationIdentifier=""
-      subscriber=""
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => {
         // filter based on workflow identifier
         if (notification.workflow?.identifier === 'demo') {
@@ -479,8 +479,8 @@ export default function CutomInbox() {
   
   return (
     <Inbox
-      applicationIdentifier=""
-      subscriber=""
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
       renderNotification={(notification) => {
        // filter based on data object key
        if (notification.data?.priority) {
@@ -504,9 +504,44 @@ export default function CutomInbox() {
 }
 ```
 
+### Render based on notification severity
+
+You can access the severity field on each notification object. This enables conditional rendering in custom UIs.
+
+```tsx
+import { Inbox, SeverityLevelEnum } from '@novu/react';
+export default function CutomInbox() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      renderNotification={(notification) => {
+        // render based on severity value
+        if (notification.severity === SeverityLevelEnum.HIGH) {
+          return (
+            <div style={{ backgroundColor: 'red' }}>
+              <h3>{notification.subject}</h3>
+              <p>{notification.body}</p>
+            </div>
+          );
+        }
+        
+        return (
+           <div>
+             <h3>{notification.subject}</h3>
+             <p>{notification.body}</p>
+           </div>
+        );
+      }}
+    />
+  );
+}
+```
+
 ## Rendering HTML
 
-To render HTML tags in inbox, user renderBody props and render the notification body as a `dangerouslySetInnerHTML` element.
+To render HTML tags in Inbox, user renderBody props and render the notification body as a `dangerouslySetInnerHTML` element.
 ```tsx
 import { Inbox } from '@novu/react';
 

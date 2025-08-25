@@ -115,6 +115,10 @@ Fetches a list of notifications based on provided filters.
     "description": "",
     "type": "boolean"
   },
+  "severity": {
+    "description": "",
+    "type": "SeverityLevelEnum | SeverityLevelEnum[]"
+  },
   "data": {
     "description": "",
     "type": "Record<string, unknown>"
@@ -122,11 +126,15 @@ Fetches a list of notifications based on provided filters.
 }} />
 
 ```typescript
+
+import { SeverityLevelEnum } from '@novu/js';
+
 const notifications = await novu.notifications.list({
   limit: 30,
   read: false,
   seen: false,
   archived: false,
+  severity: [SeverityLevelEnum.HIGH, SeverityLevelEnum.MEDIUM],
   tags: ['tag1', 'tag2'],
   // data attributes
   data: {
@@ -178,6 +186,10 @@ Fetches the count of notifications based on filters.
     "description": "",
     "type": "boolean"
   },
+  "severity": {
+    "description": "",
+    "type": "SeverityLevelEnum | SeverityLevelEnum[]"
+  },
   "data": {
     "description": "",
     "type": "Record<string, unknown>"
@@ -190,6 +202,7 @@ Fetches the count of notifications based on filters.
     // Single filter
     const count = await novu.notifications.count({
       read: false,
+      severity: SeverityLevelEnum.HIGH,
       seen: false,
       archived: false,
        // data attributes
@@ -203,7 +216,7 @@ Fetches the count of notifications based on filters.
     ```typescript
     // Multiple filters
     const counts = await novu.notifications.count({
-      filters: [{ read: false }, { seen: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
+      filters: [{ read: false }, { severity: SeverityLevelEnum.HIGH }, { seen: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
     });
     ```
   </Tab>
@@ -437,6 +450,11 @@ The Novu client provides real-time event handling through WebSocket connections.
 ### Usage
 
 ```typescript
+novu.on('session.initialize.resolved', ({ data }: { data: Session }) => {
+  console.log(data.unreadCount.total);
+  console.log(data.unreadCount.severity[SeverityLevelEnum.HIGH]);
+});
+
 novu.on('notifications.notification_received', (data) => {
   console.log('New notification:', data);
 });
