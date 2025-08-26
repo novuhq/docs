@@ -22,13 +22,13 @@ The Notifications component renders the core notification experience, which incl
 import { Inbox, Notifications } from '@novu/react';
 
 function NotificationFeed() {
-
   return (
-      <Inbox
-        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-        subscriber="YOUR_SUBSCRIBER_ID">
-          <Notifications />
-      </Inbox>
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+    >
+      <Notifications />
+    </Inbox>
   );
 }
 
@@ -45,13 +45,13 @@ The InboxContent component renders everything the Notifications component does, 
 import { Inbox, InboxContent } from '@novu/react';
 
 function NotificationFeed() {
-
   return (
-      <Inbox
-        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-        subscriber="YOUR_SUBSCRIBER_ID">
-          <InboxContent />
-      </Inbox>
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+    >
+      <InboxContent />
+    </Inbox>
   );
 }
 
