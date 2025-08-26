@@ -3,6 +3,10 @@ title: 'Introduction to Inbox'
 description: "Learn how to integrate Novu Inbox component, a pre-built notification center component for real-time in-app notifications in your application."
 icon: 'Inbox'
 ---
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Bell, Code, Layout, Sliders } from 'lucide-react';
+
 
 The Novu Inbox is a prebuilt, ready-to-use, and fully customizable UI component for delivering real-time in-app notifications. It gives your subscribers a centralized place to view and manage notifications.
 
@@ -14,10 +18,24 @@ With just a few lines of code, you can embed a polished, real-time notification 
 
 The Novu Inbox is built with a composable architecture. It is composed of other sub-components:
 
-- <Method href="/platform/inbox/advanced-customization/customize-notification-ui#display-the-standalone-notification-feed">{`<InboxContent />`}{" "}</Method>: Renders the content of the `<Inbox />` popover.
-- <Method href="/platform/inbox/configuration/preferences#using-the-preferences--component">{`<Preferences />`}{" "}</Method>: Manages subscriber notification preferences.
-- `<Bell />` – Shows an unread counter and opens the inbox.
-- <Method href="/platform/inbox/advanced-customization/customize-notification-ui#display-the-standalone-notification-feed">{`<Notifications />`}{" "}</Method>: Display the list of notifications.
+<Cards>
+  <Card title="Bell" icon={<Bell />} href="/platform/inbox/advanced-customization/customize-bell#bell-component">
+    Used to display the bell icon and trigger the notification component when clicked
+  </Card>
+  <Card title="Notifications" icon={<Code />} href="/platform/inbox/advanced-customization/customize-popover#notifications-component">
+    Displays the notifications list
+  </Card>
+  <Card
+    title="InboxContent"
+    icon={<Layout />}
+    href="/platform/inbox/advanced-customization/customize-popover#inboxcontent-component"
+  >
+    Displays the content of the `<Inbox />` menu
+  </Card>
+  <Card title="Preferences" icon={<Sliders />} href="/platform/inbox/configuration/preferences#using-the-preferences--component">
+    Used to display the preferences modal
+  </Card>
+</Cards>
 
 ![Fully functional and customizable React Inbox component](/images/inbox/overview@2x.png)
 
