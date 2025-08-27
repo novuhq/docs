@@ -21,12 +21,27 @@ Global preferences override individual workflow preferences. If a channel is tur
 
 ### Hide global preferences UI
 
-Global preferences are always shown in the preferences list and cannot be removed, but you can hide it from the UI if necessary by adding the following rule to your global CSS file:
+Global preferences are always shown in the preferences list and cannot be removed, but you can hide it from the UI if necessary by using appearance prop.
 
-```css
-.nv-workflowContainer:first-child {
-  display: none;
+```tsx
+import { Inbox } from '@novu/react';
+
+function InboxWithGlobalPreferencesHidden() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={{
+        elements: {
+          workflowContainer: "[&:first-child]:!hidden",
+        },
+      }}
+    />
+  );
 }
+
+export default InboxWithGlobalPreferencesHidden;
 ```
 
 ## Workflow-specific preferences

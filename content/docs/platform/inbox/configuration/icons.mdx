@@ -1,25 +1,11 @@
 ---
 pageTitle: 'Customize Icons in the Inbox'
 title: 'Icons'
-description: 'Learn how to configure avatar images in the in-app step editor and override the default icons in the Inbox UI using the appearance prop.'
+description: 'Learn how to override the default icons in the Inbox UI using the appearance prop.'
 icon: 'Sparkle'
 ---
 
-Every icon in the Inbox component UI can be customized, allowing you to align its appearance with your application's branding and design system.
-
-## Change or remove a in-app notification avatar
-
-In the in-app step of your workflow editor, you can customize the avatar shown beside a notification by providing an Avatar URL. This can be:
-
-- **A static URL**: For example, to show a brand or team icon.
-- **A dynamic value**: Using templating syntax like `{{subscriber.avatar}}` or `{{payload.avatarUrl}}`, which resolves to values from your subscriber context or trigger payload.
-- Any default avatars provided in the editor.
-
-![In-app avatar](/images/inbox/inbox-avatar.gif)
-
-## Customize default icons in the Inbox component UI
-
-You can replace all the default icons in the Inbox UI with custom icons from your preferred library, such as [react-icons](https://react-icons.github.io/react-icons/) or [Material Icons](https://mui.com/material-ui/material-icons/), to match your visual style using the' icons' key in the `appearance` prop.
+You can customize or replace all the default icons in the Inbox UI with custom icons from your preferred library, such as [react-icons](https://react-icons.github.io/react-icons/) or [Material Icons](https://mui.com/material-ui/material-icons/), to match your visual style using the' icons' key in the `appearance` prop.
 
 For each icon that you want to customize, provide a function that returns your custom icon as a React component.
 

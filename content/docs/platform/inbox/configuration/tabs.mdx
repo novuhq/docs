@@ -4,11 +4,9 @@ description: 'Learn what tabs are and how to filter multiple tabs in the Novu In
 icon: 'Folders'
 ---
 
-
 In the Inbox components, you can use Tabs to organize **Inbox** notifications into separate sections, creating a cleaner, more organized experience for your subscribers. Each tab displays a subset of in-app notifications based on defined rules, making it easier to surface important notifications.
 
 ![tabs](/images/inbox/tabs.gif)
-
 
 ## Group notifications into tabs
 
@@ -117,3 +115,9 @@ function InboxTabs() {
 
 export default InboxTabs;
 ```
+
+## Show notification count for each tab
+
+The `useCounts` hook provides a way to fetch notification counts for each tab, this include the unread, unseen, and total counts. You can use these to display notification count for each tab in the Inbox component.
+
+<Callout>Refer to the [React](/platform/sdks/react/hooks/use-counts) and [React Native SDKs](/platform/sdks/react-native/hooks/use-counts) documentation to learn more about the `useCounts` hook.</Callout>
