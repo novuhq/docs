@@ -31,6 +31,8 @@ This ensures that:
 
 You can apply a predefined visual style to the entire Inbox UI by passing the `baseTheme` object inside the `appearance` prop. This is a quick way to implement a dark mode or any base look and feel without redefining every variable.
 
+### Dark mode
+
 Novu currently provides a built-in dark theme, which you can import from `@novu/react/themes`.
 
 ```tsx
@@ -269,7 +271,104 @@ function Novu() {
 
 export default Novu;
 ```
-## Styling notifications by severity
+
+## Apply styles dynamically using contextual callbacks
+
+You can provide a callback function to any key in the elements object. This function receives contextual information (such as unread counts, notification data, or preference details) and let you apply styles dynamically based on runtime values from your application. For example:
+
+### Style the bell icon based on unread count
+
+You can change the bell icon color gradient based on the total number of unread notifications. The callback receives an unreadCount object, which is then used in the conditional logic.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+  function Novu() {
+    const appearance = {
+    elements: {
+      bellIcon: ({ unreadCount }) => {
+        if (unreadCount.total > 20) {
+          return '[--bell-gradient-start:var(--color-red-500)] [--bell-gradient-end:var(--color-red-500)]';
+        }
+
+        return unreadCount.total > 10
+          ? '[--bell-gradient-start:var(--color-yellow-500)] [--bell-gradient-end:var(--color-yellow-500)]'
+          : '[--bell-gradient-start:var(--color-gray-500)] [--bell-gradient-end:var(--color-gray-500)]';
+      },
+    },
+  };
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+```
+### Style notifications based on payload data
+
+You can style individual notifications based on custom data in their payload. In the example below, the notification's background color is changed if a specific field (foo) exists in the notification's data object.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function Novu() {
+
+    const appearance = {
+    elements: {
+      notification: ({ notification }) => {
+        if (notification.data?.foo) {
+          return 'bg-green-200';
+        }
+
+        return '';
+      },
+    },
+  };
+
+  return (
+  <Inbox
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+    appearance={appearance}
+  />
+);
+}
+```
+
+### Conditionally display preferences
+
+This approach can also be used to show or hide elements. The example below hides the global preferences settings by checking the `preference.level` property.
+
+```tsx
+import { Inbox, PreferenceLevel } from '@novu/react';
+
+export default function Novu() {
+
+  const appearance = {
+    elements: {
+      workflowContainer: ({ preference }) => {
+        if (preference.level === PreferenceLevel.GLOBAL) {
+          return 'hidden';
+        }
+        return '';
+      },
+    },
+  };
+
+  return (
+  <Inbox
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+    appearance={appearance}
+  />
+);
+}
+```
+
+## Style notifications by severity
 
 Notification severity comes with default visual styles, but you can fully customize how notifications look for each severity level using the `appearance` prop.
 
