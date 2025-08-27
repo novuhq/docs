@@ -36,7 +36,7 @@ Replace the default bell icon that comes with the Inbox component with your own 
 
 ![Custom bell](/images/inbox/custom-bell.gif)
 
-<Tabs items={['Custom bell', 'Custom bell with showing unread count']}>
+<Tabs items={['Custom bell', 'Custom bell showing unread count', 'Custom bell showing number of notifications with high severity']}>
   <Tab>
 
 ```tsx
@@ -73,7 +73,9 @@ function CustomBell() {
       subscriber="YOUR_SUBSCRIBER_ID"
       renderBell={(unreadCount) => {
           return (
-            <div className="bg-blue-300 p-4 inline-flex">New {unreadCount.total} notifications</div>
+            <div className="bg-blue-300 p-4 inline-flex">
+            New {unreadCount.total} notifications
+            </div>
           );
         }}
     />
@@ -81,6 +83,30 @@ function CustomBell() {
 }
 export default CustomBell;
 ```
+  </Tab>
+  <Tab>
 
+  ```tsx
+  import { Inbox, SeverityLevelEnum } from '@novu/react';
+
+  function CustomBell() {
+    return (
+      <Inbox 
+        applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+        subscriber="YOUR_SUBSCRIBER_ID"
+        renderBell={(unreadCount) => {
+            return (
+              <div className="bg-blue-300 p-4 inline-flex">
+                High severity $
+                {unreadCount.severity[SeverityLevelEnum.HIGH]}{' '}
+                notifications
+              </div>
+            );
+          }}
+      />
+    );
+  }
+  export default CustomBell;
+  ```
   </Tab>
 </Tabs>
