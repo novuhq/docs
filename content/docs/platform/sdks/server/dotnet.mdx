@@ -5,14 +5,9 @@ description: 'Connect a .NET application to Novu'
 icon: 'microsoft'
 ---
 
-<Callout type="warn">
-  This SDK is community maintained. Feel free to contribute on our [GitHub
-  repository](https://github.com/novuhq/novu-dotnet).
-</Callout>
-
 Novu's .NET SDK provides simple, yet comprehensive notification management, and delivery capabilities through multiple channels that you can implement using code that integrates seamlessly with your C#/.NET application.
 
-[Explore the source code on GitHub](https://github.com/novuhq/novu-dotnet)
+[Explore the source code on GitHub](https://github.com/novuhq/novu-csharp)
 
 ## Installation
 
@@ -22,49 +17,55 @@ dotnet add package Novu
 
 ## Usage
 
+<Tabs items={['US Region', 'EU Region']}>
+  <Tab value="US Region">
 ```csharp
-using Novu.DTO;
-using Novu.Models;
 using Novu;
-...
+using Novu.Models.Components;
+using System.Collections.Generic;
 
-var novuConfiguration = new NovuClientConfiguration
-{
-    // Defaults to https://api.novu.co/v1
-    Url = "https://novu-api.my-domain.com/v1",
-    ApiKey = "12345",
-};
+var sdk = new NovuSDK(secretKey: "YOUR_SECRET_KEY_HERE");
 
-var novu = new NovuClient(novuConfiguration);
-
-// OnboardEventPayload.cs
-public class OnboardEventPayload
-{
-  [JsonProperty("username")]
-  public string Username { get; set; }
-
-  [JsonProperty("welcomeMessage")]
-  public string WelcomeMessage { get; set; }
-}
-
-// MyFile.cs
-var onboardingMessage = new OnboardEventPayload
-{
-  Username = "jdoe",
-  WelcomeMessage = "Welcome to novu-dotnet"
-};
-
-var payload = new EventTriggerDataDto()
-{
-  EventName = "onboarding",
-  To = { SubscriberId = "subscriberId" },
-  Payload = onboardingMessage
-};
-
-var trigger = await novu.Event.Trigger(payload);
-
-if (trigger.TriggerResponsePayloadDto.Acknowledged)
-{
-  Console.WriteLine("Trigger has been created.");
-}
+var res = await sdk.TriggerAsync(triggerEventRequestDto: new TriggerEventRequestDto() {
+    WorkflowId = "workflow_identifier",
+    Payload = new Dictionary<string, object>() {
+        { "comment_id", "string" },
+        { "post", new Dictionary<string, object>() {
+            { "text", "string" },
+        } },
+    },
+    Overrides = new Overrides() {},
+    To = To.CreateStr(
+        "SUBSCRIBER_ID"
+    ),
+});
 ```
+  </Tab>
+  <Tab value="EU Region">
+```csharp
+using Novu;
+using Novu.Models.Components;
+using System.Collections.Generic;
+
+var sdk = new NovuSDK(
+    serverUrl: "https://eu.api.novu.co",
+    secretKey: "YOUR_SECRET_KEY_HERE"
+);
+
+var res = await sdk.TriggerAsync(triggerEventRequestDto: new TriggerEventRequestDto() {
+    WorkflowId = "workflow_identifier",
+    Payload = new Dictionary<string, object>() {
+        { "comment_id", "string" },
+        { "post", new Dictionary<string, object>() {
+            { "text", "string" },
+        } },
+    },
+    Overrides = new Overrides() {},
+    To = To.CreateStr(
+        "SUBSCRIBER_ID"
+    ),
+});
+```
+  </Tab>
+</Tabs>
+

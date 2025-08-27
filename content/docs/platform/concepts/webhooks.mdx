@@ -1,13 +1,9 @@
 ---
-title: 'Webhooks'
-pageTitle: 'Webhooks'
+title: 'Outbound Webhooks'
+pageTitle: 'Outbound Webhooks'
 description: 'Receive notifications when events occur in your Novu account'
 icon: 'Webhook'
 ---
-
-<Callout type="info" title="Beta Feature">
-  Webhooks are currently in beta and available in Team and Enterprise plans. If you encounter any issues, please reach out at support@novu.co.
-</Callout>
 
 ## The Intro
 
@@ -37,9 +33,8 @@ Novu webhooks allow you to receive notifications when specific events occur in y
 
 Novu supports the following webhook event types:
 
-- **Workflow Events** (available): Notifications about workflow creation, updates, and deletions
-- **Subscriber Events**  (upcoming): Notifications about subscriber creation, updates, and preference changes
-- **Message Events** (upcoming): Notifications about message delivery status changes
+- **Workflow Events**: Notifications about workflow creation, updates, and deletions
+- **Message Events**: Notifications about message delivery status changes
 
 Each event includes detailed information about the affected resource and the changes that occurred.
 
@@ -80,9 +75,9 @@ const secret = "YOUR_WEBHOOK_SECRET_KEY";
 
 // These were all sent from the server
 const headers = {
-  "svix-id": "msg_p5jXN8AQM9LWM0D4loKWxJek",
-  "svix-timestamp": "1614265330",
-  "svix-signature": "v1,g0hM9SsE+OTPJTGt/tmIKtSyZlE3uFJELVlNIOLJ1OE=",
+  "webhook-id": "msg_p5jXN8AQM9LWM0D4loKWxJek",
+  "webhook-timestamp": "1614265330",
+  "webhook-signature": "v1,g0hM9SsE+OTPJTGt/tmIKtSyZlE3uFJELVlNIOLJ1OE=",
 };
 const payload = '{"test": 2432232314}';
 
