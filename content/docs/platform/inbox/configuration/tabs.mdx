@@ -116,6 +116,40 @@ function InboxTabs() {
 export default InboxTabs;
 ```
 
+### Using notification severity
+
+After setting [workflow notification severity in the dashboard](/platform/workflow/build-a-workflow#notification-severity), you can use that severity level to create dedicated tabs in your notification inbox. This lets you filter notifications based on their importance.
+
+To achieve this, add the severity key to the filter object for any tab in your Inbox component. The severity property can accept a single severity level or an array of levels.
+
+```tsx
+import { Inbox, SeverityLevelEnum } from '@novu/react';
+
+export default function InboxWithFilters() {
+
+  const tabs = [
+    {
+      label: 'All Notifications',
+      filter: { tags: [] },
+    },
+    {
+      label: 'Security',
+      filter: {
+        severity: SeverityLevelEnum.HIGH,
+      },
+    },
+  ];
+  
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      tabs={tabs}
+    />
+  );
+}
+```
+
 ## Show notification count for each tab
 
 The `useCounts` hook provides a way to fetch notification counts for each tab, this include the unread, unseen, and total counts. You can use these to display notification count for each tab in the Inbox component.
