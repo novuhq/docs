@@ -1,0 +1,332 @@
+---
+pageTitle: 'Styling the Inbox component'
+title: 'Styling and theming'
+description: 'Learn how to style the pre built Inbox component'
+icon: 'Palette'
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+
+The Novu Inbox component is designed to be fully themeable and adaptable to your application’s visual language. All theming options are exposed through the `appearance` prop, which allows you to apply custom styles at different levels of control from predefined themes to component-level overrides.
+
+The appearance prop supports the following keys:
+- `baseTheme`: Apply a predefined theme (for example, light or dark).
+- `variables`: Define global styling properties (for example, colors, fonts).
+- `elements`: Style individual UI components.
+- `icons`: Replace default icons with custom ones.
+
+<Callout>Check out the [Inbox Playground](https://inbox.novu.co) to see how the Inbox looks with common design presets. It showcases pre-styled variants like Notion and Reddit. helpful for seeing what’s possible before you start customizing.</Callout>
+
+### Understand style injection
+
+When rendered, the Inbox component automatically injects its styles into the `<head>` of the HTML document. If the component is rendered inside a shadow DOM, styles are scoped and injected into the shadow root instead.
+
+This ensures that:
+- Styles remain encapsulated and do not leak into global stylesheets
+- No additional setup is required to manage scoped styling
+
+## Apply base theme
+
+You can apply a predefined visual style to the entire Inbox UI by passing the `baseTheme` object inside the `appearance` prop. This is a quick way to implement a dark mode or any base look and feel without redefining every variable.
+
+Novu currently provides a built-in dark theme, which you can import from `@novu/react/themes`.
+
+```tsx
+import { Inbox } from '@novu/react';
+import { dark } from '@novu/react/themes';
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={{ baseTheme: dark }}
+    />
+  );
+}
+
+export default Novu;
+```
+
+## Define global variables
+
+You can override the default styles in the Inbox component by passing a `variables` object inside the `appearance` prop. This is an efficient way to apply broad visual changes with minimal configuration.
+
+![Define global variables](/images/inbox/variables.png)
+
+```tsx
+import { Inbox } from '@novu/react';
+
+const appearance = {
+  variables: {
+    colorBackground: '#f0f0f0',
+    borderRadius: '8px',
+  },
+};
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+
+export default Novu;
+```
+
+<Callout>When both `baseTheme` and `variables` are provided, variables always take precedence over the base theme.</Callout>
+
+### List of available variables
+
+<TypeTable
+  type={{
+    colorBackground: {
+      type: 'string',
+      description: 'The background color of the inbox component.',
+    },
+    colorForeground: {
+      type: 'string',
+      description: 'The primary text color used in the inbox.',
+    },
+    colorPrimary: {
+      type: 'string',
+      description: 'The main accent color for interactive elements.',
+    },
+    colorPrimaryForeground: {
+      type: 'string',
+      description: 'The text color used on primary-colored elements.',
+    },
+    colorSecondary: {
+      type: 'string',
+      description: 'A secondary color for less prominent elements.',
+    },
+    colorSecondaryForeground: {
+      type: 'string',
+      description: 'The text color used on secondary-colored elements.',
+    },
+    colorCounter: {
+      type: 'string',
+      description: 'The background color of notification counters.',
+    },
+    colorCounterForeground: {
+      type: 'string',
+      description: 'The text color used in notification counters.',
+    },
+    colorNeutral: {
+      type: 'string',
+      description: 'A neutral color used for borders or backgrounds.',
+    },
+    colorShadow: {
+      type: 'string',
+      description: 'The color of shadows applied to elements.',
+    },
+    fontSize: {
+      type: 'string',
+      description: 'The base font size for text in the inbox.',
+    },
+    borderRadius: {
+      type: 'string',
+      description: 'The border radius applied to various elements.',
+    },
+  }}
+/>
+
+## Style the Inbox UI elements
+
+You can define styles for individual UI components within the Inbox UI by passing the `elements` object inside the appearance prop. Each key corresponds to a specific component, and the value can be either a style object or a set of CSS classes.
+
+![Finding element selectors](/images/inbox/styling_02@2x.png)
+
+Here's a list of some available elements that can be styled using the elements object in your appearance configuration:
+
+| Element                      | Key in `appearance.elements`          |
+| ---------------------------- | ------------------------------------- |
+| Primary action button        | `notificationPrimaryAction__button`   |
+| Secondary action button      | `notificationSecondaryAction__button` |
+| Notification container       | `notification`                        |
+| Subject text                 | `notificationSubject`                 |
+| Body text                    | `notificationBody`                    |
+| Notification icon/image      | `notificationImage`                   |
+| Preferences button           | `preferences__button`                 |
+| Date display                 | `notificationDate`                    |
+| Archive button               | `notificationArchive__button`         |
+| Snooze button                | `notificationSnooze__button`          |
+| Unread/read indicator button | `notificationUnread__button`          |
+| Notification list container  | `notificationList`                    |
+
+<Callout type="info" title="How to find other elements?">
+  Any selector that appears before the 🔔 emoji in the Devtools, can be targeted via the elements property in the appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the available elements.
+</Callout>
+
+### Using style object
+
+You can pass inline styles to individual elements using the `elements` object in the `appearance` prop. Each element accepts a style object.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+const appearance = {
+  elements: {
+    notificationSubject: {
+      color: '#ff0000',
+    },
+  },
+};
+
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+
+export default Novu;
+```
+
+### Using Tailwind CSS
+
+You can pass [Tailwind CSS](https://tailwindcss.com/docs/installation/tailwind-cli) classes to specific elements using the elements object within the appearance prop.
+
+```tsx
+import { Inbox } from '@novu/react';
+ 
+const appearance = {
+  elements: {
+    bellIcon: 'p-4 bg-white rounded-full',
+    notification: 'bg-white rounded-lg shadow-sm hover:shadow-md hover:bg-gray-50',
+  },
+};
+ 
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+
+export default Novu;
+```
+
+### Using CSS modules
+
+You can style the Inbox components using [CSS Modules](https://github.com/css-modules/css-modules). First, define the styles in a `.module.css` file:
+
+```css title="styles.module.css"
+.bellIcon {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 50%;
+}
+ 
+.bellIcon:hover {
+  background-color: #f9fafb;
+}
+ 
+.notification {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+ 
+.notification:hover {
+  background-color: #f9fafb;
+}
+```
+
+Then, import the CSS module into your component and apply the classes using the `elements` object in the `appearance` prop:
+
+```tsx
+import { Inbox } from '@novu/react';
+import styles from './styles.module.css';
+ 
+const appearance = {
+  elements: {
+    bellIcon: styles.bellIcon,
+    notification: styles.notification,
+  },
+};
+ 
+function Novu() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={appearance}
+    />
+  );
+}
+
+export default Novu;
+```
+## Styling notifications by severity
+
+Notification severity comes with default visual styles, but you can fully customize how notifications look for each severity level using the `appearance` prop.
+
+![Notification severity in the inbox](/images/inbox/inbox-notification-severity.png)
+
+<Callout>By default, the bell icon takes the color of the highest severity unread notification.</Callout>
+Each severity level exposes selectors you can target through the `variables` and `elements` objects to apply custom styling.
+
+### Customizing severity colors
+
+You can override the default severity colors by setting new CSS custom properties in the `appearance.variables` object. Updating these variables automatically changes both the notification color and the bell icon color.
+
+| Prop                 | Description                     |
+|----------------------|---------------------------------|
+| `colorSeverityHigh`  | Color for high severity         |
+| `colorSeverityMedium`| Color for medium severity       |
+| `colorSeverityLow`   | Color for low severity          |
+
+```tsx
+const appearance = {
+  variables: {
+    colorSeverityHigh: 'green',
+    colorSeverityMedium: 'blue',
+    colorSeverityLow: 'yellow',
+  }
+};
+```
+
+### Customizing severity elements
+
+You can apply specific styles to individual components using keys in the `appearance.elements` object. This lets you target components conditionally based on their severity state.
+
+```tsx
+const appearance = {
+  elements: {
+    severityHigh__notificationBar: {
+      backgroundColor: 'red',
+    },
+  },
+};
+```
+
+This table lists severity element keys:
+
+| Elements key                           | Description                                      |
+| -------------------------------------- | ------------------------------------------------ |
+| `severityHigh__bellContainer`          | Styles the bell container for high severity      |
+| `severityMedium__bellContainer`        | Styles the bell container for medium severity    |
+| `severityLow__bellContainer`           | Styles the bell container for low severity       |
+| `bellSeverityGlow`                     | Base style for the severity glow around the bell |
+| `severityGlowHigh__bellSeverityGlow`   | Glow style for high severity                     |
+| `severityGlowMedium__bellSeverityGlow` | Glow style for medium severity                   |
+| `severityGlowLow__bellSeverityGlow`    | Glow style for low severity                      |
+| `severityHigh__notification`           | Styles individual high severity notifications    |
+| `severityMedium__notification`         | Styles individual medium severity notifications  |
+| `severityLow__notification`            | Styles individual low severity notifications     |
+| `notificationBar`                      | Base style for the vertical notification bar on the left of a notification|
+| `severityHigh__notificationBar`        | Styles the notification bar for high severity    |
+| `severityMedium__notificationBar`      | Styles the notification bar for medium severity  |
+| `severityLow__notificationBar`         | Styles the notification bar for low severity     |
