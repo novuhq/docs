@@ -360,8 +360,37 @@ Here are some examples:
 
 ### Style the bell icon based on unread count
 
-You can change the bell icon color gradient based on the total number of unread notifications. The callback receives an unreadCount object, which is then used in the conditional logic.
+You can change the bell icon color gradient based on the total number of unread notifications. The callback receives an `unreadCount` object, which is then used in the conditional logic.
 
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function Novu() {
+
+  const appearance = {
+    elements: {
+      bellIcon: ({ unreadCount }) => {
+        if (unreadCount.total > 1) {
+          return '[--bell-gradient-start:var(--color-red-500)] [--bell-gradient-end:var(--color-red-500)]';
+        }
+        return unreadCount.total > 10
+          ? '[--bell-gradient-start:var(--color-yellow-500)] [--bell-gradient-end:var(--color-yellow-500)]'
+          : '[--bell-gradient-start:var(--color-gray-500)] [--bell-gradient-end:var(--color-gray-500)]';
+      },
+    },
+  };
+
+  return (
+  <Inbox
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+    appearance={appearance}
+  />
+);
+}
+```
+
+### Style notifications based on payload data
 
 You can style individual notifications based on custom data in their payload. In the example below, the notification's background color is changed if a specific field (foo) exists in the notification's data object.
 
