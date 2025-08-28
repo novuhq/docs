@@ -136,31 +136,33 @@ Use the `renderCustomActions` prop to override the primary and secondary actions
 import { Inbox } from '@novu/react';
  
 function NovuInbox() {
+
+  const primaryButtonStyle = {
+    border: 'none',
+    padding: '5px 10px',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '12px',
+    background: '#FB4CA3',
+    color: 'white',
+    boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
+  };
+
+  const secondaryButtonStyle = {
+    border: '1px solid #E0E0E0',
+    padding: '5px 10px',
+    borderRadius: '6px',
+    cursor: 'pointer',
+    fontSize: '12px',
+    background: '#00B698',
+    color: '#ffffff',
+  };
+
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriber="YOUR_SUBSCRIBER_ID"
       renderCustomActions={(notification) => {
-        const primaryButtonStyle = {
-          border: 'none',
-          padding: '5px 10px',
-          borderRadius: '6px',
-          cursor: 'pointer',
-          fontSize: '12px',
-          background: '#FB4CA3',
-          color: 'white',
-          boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
-        };
-
-        const secondaryButtonStyle = {
-          border: '1px solid #E0E0E0',
-          padding: '5px 10px',
-          borderRadius: '6px',
-          cursor: 'pointer',
-          fontSize: '12px',
-          background: '#00B698',
-          color: '#ffffff',
-        };
         return (
           <div style={{ display: 'flex', gap: '10px', marginTop: '12px' }}>
             {notification.secondaryAction && (
