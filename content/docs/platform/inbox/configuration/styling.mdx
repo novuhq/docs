@@ -7,7 +7,7 @@ icon: 'Palette'
 
 import { TypeTable } from 'fumadocs-ui/components/type-table';
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
-
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
 The Novu Inbox component is designed to be fully themeable and adaptable to your application’s visual language. All theming options are exposed through the `appearance` prop, which allows you to apply custom styles at different levels of control from predefined themes to component-level overrides.
 
@@ -30,6 +30,8 @@ This ensures that:
 ## Apply base theme
 
 You can apply a predefined visual style to the entire Inbox UI by passing the `baseTheme` object inside the `appearance` prop. This is a quick way to implement a dark mode or any base look and feel without redefining every variable.
+
+### Dark mode
 
 Novu currently provides a built-in dark theme, which you can import from `@novu/react/themes`.
 
@@ -269,7 +271,187 @@ function Novu() {
 
 export default Novu;
 ```
-## Styling notifications by severity
+
+## Apply styles dynamically using contextual callbacks
+
+You can customize specific parts of the Inbox UI by providing callback functions for certain keys. This function receives contextual information such as unread counts, notification data, or preference details and let you apply styles dynamically based on runtime values from your application.
+
+<Accordions type="single">
+  <Accordion title="List of elemets that can be customize using the callback function">
+  | Key       | Context signature|
+|-----------|------------------|
+| **Bell**  |                  |
+| `bellDot`  | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `bellIcon`                                    | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `bellContainer`                               | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `severityHigh__bellContainer`                 | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `severityMedium__bellContainer`               | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `severityLow__bellContainer`                  | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `bellSeverityGlow`                            | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `severityGlowHigh__bellSeverityGlow`          | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `severityGlowMedium__bellSeverityGlow`        | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| `severityGlowLow__bellSeverityGlow`           | `(context: { unreadCount: { total: number; severity: Record<string, number> } }) => string`                       |
+| **Preferences list (shared)**                 |                                                                                                                   |
+| `preferencesContainer`                        | `(context: { preferences?: Preference[]; groups: Array<{ name: string; preferences: Preference[] }> }) => string` |
+| **Preference**                                |                                                                                                                   |
+| `workflowContainer`                           | `(context: { preference: Preference }) => string`                                                                 |
+| `workflowLabelContainer`                      | `(context: { preference: Preference }) => string`                                                                 |
+| `workflowLabelHeader`                         | `(context: { preference: Preference }) => string`                                                                 |
+| `workflowLabelHeaderContainer`                | `(context: { preference: Preference }) => string`                                                                 |
+| `workflowLabelIcon`                           | `(context: { preference: Preference }) => string`                                                                 |
+| `workflowLabel`                               | `(context: { preference: Preference }) => string`                                                                 |
+| `workflowArrow__icon`                         | `(context: { preference: Preference }) => string`                                                                 |
+| `workflowContainerRight__icon`                | `(context: { preference: Preference }) => string`                                                                 |
+| **Channel**                                   |                                                                                                                   |
+| `channelsContainer`                           | `(context: { preference: Preference }) => string`                                                                 |
+| `channelName`                                 | `(context: { preference: Preference }) => string`                                                                 |
+| **Channel Row (shared)**                      |                                                                                                                   |
+| `channelContainer`                            | `(context: { preference?: Preference; preferenceGroup?: { name: string; preferences: Preference[] } }) => string` |
+| `channelLabelContainer`                       | `(context: { preference?: Preference; preferenceGroup?: { name: string; preferences: Preference[] } }) => string` |
+| `channelIconContainer`                        | `(context: { preference?: Preference; preferenceGroup?: { name: string; preferences: Preference[] } }) => string` |
+| `channelLabel`                                | `(context: { preference?: Preference; preferenceGroup?: { name: string; preferences: Preference[] } }) => string` |
+| `channelSwitchContainer`                      | `(context: { preference?: Preference; preferenceGroup?: { name: string; preferences: Preference[] } }) => string` |
+| `channel__icon`                               | `(context: { preference?: Preference; preferenceGroup?: { name: string; preferences: Preference[] } }) => string` |
+| **Preferences Group**                         |                                                                                                                   |
+| `preferencesGroupContainer`                   | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupHeader`                      | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupLabelContainer`              | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupLabelIcon`                   | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupLabel`                       | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupActionsContainer`            | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupActionsContainerRight__icon` | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupBody`                        | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupChannels`                    | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupInfo`                        | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupInfoIcon`                    | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| `preferencesGroupWorkflows`                   | `(context: { preferenceGroup: { name: string; preferences: Preference[] } }) => string`                           |
+| **Notification list**                         |                                                                                                                   |
+| `notificationList`                            | `(context: { notifications: Notification[] }) => string`                                                          |
+| `notificationListContainer`                   | `(context: { notifications: Notification[] }) => string`                                                          |
+| **Notification**                              |                                                                                                                   |
+| `notification`                                | `(context: { notification: Notification }) => string`                                                             |
+| `severityHigh__notification`                  | `(context: { notification: Notification }) => string`                                                             |
+| `severityMedium__notification`                | `(context: { notification: Notification }) => string`                                                             |
+| `severityLow__notification`                   | `(context: { notification: Notification }) => string`                                                             |
+| `notificationBar`                             | `(context: { notification: Notification }) => string`                                                             |
+| `severityHigh__notificationBar`               | `(context: { notification: Notification }) => string`                                                             |
+| `severityMedium__notificationBar`             | `(context: { notification: Notification }) => string`                                                             |
+| `severityLow__notificationBar`                | `(context: { notification: Notification }) => string`                                                             |
+| `notificationImageLoadingFallback`            | `(context: { notification: Notification }) => string`                                                             |
+| `notificationImage`                           | `(context: { notification: Notification }) => string`                                                             |
+| `notificationContent`                         | `(context: { notification: Notification }) => string`                                                             |
+| `notificationTextContainer`                   | `(context: { notification: Notification }) => string`                                                             |
+| `notificationSubject`                         | `(context: { notification: Notification }) => string`                                                             |
+| `notificationBody`                            | `(context: { notification: Notification }) => string`                                                             |
+| `notificationDefaultActions`                  | `(context: { notification: Notification }) => string`                                                             |
+| `notificationCustomActions`                   | `(context: { notification: Notification }) => string`                                                             |
+| `notificationPrimaryAction__button`           | `(context: { notification: Notification }) => string`                                                             |
+| `notificationSecondaryAction__button`         | `(context: { notification: Notification }) => string`                                                             |
+| `notificationDate`                            | `(context: { notification: Notification }) => string`                                                             |
+| `notificationDeliveredAt__badge`              | `(context: { notification: Notification }) => string`                                                             |
+| `notificationDeliveredAt__icon`               | `(context: { notification: Notification }) => string`                                                             |
+| `notificationSnoozedUntil__icon`              | `(context: { notification: Notification }) => string`                                                             |
+| `notificationDot`                             | `(context: { notification: Notification }) => string`                                                             |
+
+  </Accordion>
+</Accordions>
+
+Here are some examples:
+
+### Style the bell icon based on unread count
+
+You can change the bell icon color gradient based on the total number of unread notifications. The callback receives an `unreadCount` object, which is then used in the conditional logic.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function Novu() {
+
+  const appearance = {
+    elements: {
+      bellIcon: ({ unreadCount }) => {
+        if (unreadCount.total > 1) {
+          return '[--bell-gradient-start:var(--color-red-500)] [--bell-gradient-end:var(--color-red-500)]';
+        }
+        return unreadCount.total > 10
+          ? '[--bell-gradient-start:var(--color-yellow-500)] [--bell-gradient-end:var(--color-yellow-500)]'
+          : '[--bell-gradient-start:var(--color-gray-500)] [--bell-gradient-end:var(--color-gray-500)]';
+      },
+    },
+  };
+
+  return (
+  <Inbox
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+    appearance={appearance}
+  />
+);
+}
+```
+
+### Style notifications based on payload data
+
+You can style individual notifications based on custom data in their payload. In the example below, the notification's background color is changed if a specific field (foo) exists in the notification's data object.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+export default function Novu() {
+
+    const appearance = {
+    elements: {
+      notification: ({ notification }) => {
+        if (notification.data?.foo) {
+          return 'bg-green-200';
+        }
+
+        return '';
+      },
+    },
+  };
+
+  return (
+  <Inbox
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+    appearance={appearance}
+  />
+);
+}
+```
+
+### Conditionally display preferences
+
+This approach can also be used to show or hide elements. The example below hides the global preferences settings by checking the `preference.level` property.
+
+```tsx
+import { Inbox, PreferenceLevel } from '@novu/react';
+
+export default function Novu() {
+
+  const appearance = {
+    elements: {
+      workflowContainer: ({ preference }) => {
+        if (preference.level === PreferenceLevel.GLOBAL) {
+          return 'hidden';
+        }
+        return '';
+      },
+    },
+  };
+
+  return (
+  <Inbox
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+    appearance={appearance}
+  />
+);
+}
+```
+
+## Style notifications by severity
 
 Notification severity comes with default visual styles, but you can fully customize how notifications look for each severity level using the `appearance` prop.
 
