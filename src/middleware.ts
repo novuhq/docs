@@ -57,6 +57,26 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     // Community
     '/community/machine-setup': '/community/run-in-local-machine',
     '/community/monorepo-structure': '/community/code-structure',
+
+    // Inbox section (old → new structure)
+    '/platform/inbox/react/components/preferences': '/platform/inbox/configuration/preferences',
+    '/platform/inbox/react/get-started': '/platform/inbox/setup-inbox',
+    '/platform/inbox/react/styling': '/platform/inbox/configuration/styling',
+    '/platform/inbox/react/components/inbox': '/platform/inbox/overview',
+    '/platform/inbox/react/production': '/platform/inbox/prepare-for-production',
+    '/platform/inbox/react/components': '/platform/inbox/overview#composable-architecture',
+    '/platform/inbox/react/components/overview': '/platform/inbox/overview#composable-architecture',
+    '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
+    '/platform/inbox/react/styling#appearance-prop': '/platform/inbox/configuration/styling',
+    '/platform/inbox/react/components/bell':
+      '/platform/inbox/advanced-customization/customize-bell',
+    '/platform/inbox/react/components/inbox#data-object':
+      '/platform/inbox/configuration/data-object',
+    '/platform/inbox/react/migration-guide': '/platform/inbox/migration-guide',
+    '/platform/inbox/react/components/inbox-content':
+      '/platform/inbox/advanced-customization/customize-popover#inboxcontent-component',
+    '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
+    '/platform/inbox/react/hooks': '/platform/sdks/react',
   };
 
   if (pathname in redirectMap) {
