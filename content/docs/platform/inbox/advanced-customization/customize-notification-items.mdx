@@ -1,10 +1,12 @@
 ---
-title: 'Customize Notification Item'
-description: "Learn how to use render props to change the look of notifications with the Inbox component, customize subjects and bodies, and apply conditional display logic."
+title: 'Customize Notification Items'
+description: "Learn how to use render props in the Inbox component to customize the subject, body, avatar, default and custom actions, or the entire notification item."
 icon: 'Replace'
 ---
 
-Novu provides render props that can be used to customize specific parts of the default notfication item seen in the Inbox UI such as subject, body, and the whole notfication.
+Novu exposes render props to customize parts of the default Inbox notification item—subject, body, avatar, default/custom actions, or the entire notification.
+
+![Notification items](/images/inbox/notification-item.png)
 
 Each render prop receives the full notification object, giving you access to all the data needed to build a fully custom UI.
 
@@ -12,7 +14,7 @@ Each render prop receives the full notification object, giving you access to all
 
 Use the `renderSubject` prop to provide a custom component for the notification's subject line while keeping the rest of the notification style intact.
 
-![Customize notfication subject](/images/inbox/custom-notification-subject.png)
+![Customize notification subject](/images/inbox/custom-notification-subject.png)
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -36,7 +38,7 @@ export default NovuInbox;
 
 Use `renderBody` if you want to keep the default Inbox UI and only change how the body is rendered. This is useful when you want to customize content formatting or include additional fields from the data object.
 
-![Customize notfication subject](/images/inbox/custom-notification-body.png)
+![Customize notification body](/images/inbox/custom-notification-body.png)
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -193,9 +195,9 @@ export default NovuInbox;
 
 Use the `renderNotification` prop to customize the entire notification item in the Inbox UI, including the container, layout, and the content of the subject and body of each notification.
 
-<Callout type="warn"> While `renderNotification` gives you full control over the notification UI, it is **not recommended** for most use cases. Using it means you will have to **re-create the Inbox component built-in actions** like mark as unread, archive snooze, and other interaction tooltips yourself.</Callout>
+<Callout type="warn"> While `renderNotification` gives you full control over the notification UI, it is **not recommended** for most use cases. Using it means you will have to **re-create the Inbox component built-in actions** like mark as read, archive snooze, and other interaction tooltips yourself.</Callout>
 
-![Customize notfication](/images/inbox/custom-notification.png)
+![Customize entire notification item](/images/inbox/custom-notification.png)
 
 ```tsx
 import { Inbox } from '@novu/react';
