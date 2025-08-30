@@ -1,10 +1,10 @@
 ---
 title: 'Customize Notification Items'
-description: "Learn how to use render props to change the look of notifications with the Inbox component."
+description: "Learn how to use render props in the Inbox component to customize the subject, body, avatar, default and custom actions, or the entire notification item."
 icon: 'Replace'
 ---
 
-Novu provides render props that can be used to customize specific parts of the default notification item seen in the Inbox UI, such as the subject, body, avatar, default and custom actions, and the entire notification.
+Novu exposes render props to customize parts of the default Inbox notification item—subject, body, avatar, default/custom actions, or the entire notification.
 
 ![Notification items](/images/inbox/notification-item.png)
 
@@ -195,7 +195,7 @@ export default NovuInbox;
 
 Use the `renderNotification` prop to customize the entire notification item in the Inbox UI, including the container, layout, and the content of the subject and body of each notification.
 
-<Callout type="warn"> While `renderNotification` gives you full control over the notification UI, it is **not recommended** for most use cases. Using it means you will have to **re-create the Inbox component built-in actions** like mark as unread, archive snooze, and other interaction tooltips yourself.</Callout>
+<Callout type="warn"> While `renderNotification` gives you full control over the notification UI, it is **not recommended** for most use cases. Using it means you will have to **re-create the Inbox component built-in actions** like mark as read, archive snooze, and other interaction tooltips yourself.</Callout>
 
 ![Customize entire notification item](/images/inbox/custom-notification.png)
 
