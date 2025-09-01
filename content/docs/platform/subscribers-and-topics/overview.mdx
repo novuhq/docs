@@ -1,0 +1,54 @@
+---
+title: 'Overview'
+description: "Introduction to Subscribers and Topics in Novu"
+icon: 'Users'
+---
+import { Card, Cards } from 'fumadocs-ui/components/card';
+
+Subscribers and topics are the foundation of how Novu delivers notifications at scale. Subscribers represent the individual entities who will receive notifications, while topics provide a way to group multiple subscribers under a shared identifier.
+
+Together, they allow you to deliver notifications both at the individual level and to dynamic groups, ensuring messages are routed and personalized correctly for every recipient.
+
+## Subscriber ID and Topic Key
+
+Each subscriber in Novu is uniquely identified by a `subscriberId`, which serves as the permanent reference for that subscriber across workflows, preferences, and activity history.
+
+Similarly, each topic is uniquely identified by a `topicKey`, an internal, permanent identifier that cannot be changed after creation. A topic key ensures that groups of subscribers can always be referenced consistently, regardless of how the topic is named or described.
+
+## Subscribers, topics and environment
+
+Subscribers and topics are scoped to a specific environment. Novu uses isolated environments, typically Development, Production or Custom environments to separate testing data from live user data.
+
+This means a subscriber created in the Development environment is a completely separate entity from a subscriber with the same `subscriberId` in the Production environment.
+
+This isolation is crucial for safe testing, as it prevents accidental notifications from being sent to real users from your development or staging setups. To target a subscriber in a different environment, they must be created within that environment.
+
+## Next steps
+
+<Cards>
+<Card
+title="Subscriber Attributes"
+href="/platform/subscribers-and-topics/subscriber-attributes"
+description="Explore the complete subscriber data schema, including default fields and custom data."
+/>
+<Card
+title="Managing Subscribers"
+href="/platform/subscribers-and-topics/managing-subscribers"
+description="Learn how to create, update, and delete subscribers using the dashboard and API."
+/>
+<Card
+title="Subscriber Preferences"
+href="/platform/subscribers-and-topics/subscriber-preferences"
+description="Understand how subscribers can manage their notification and channel preferences."
+/>
+<Card
+title="Subscriber Activity Feed"
+href="/platform/subscribers-and-topics/subscriber-activity-feed"
+description="View a complete, real-time log of all notifications and activities for a specific subscriber."
+/>
+<Card
+title="Topics"
+href="/platform/subscribers-and-topics/topics"
+description="Learn how to group subscribers into topics for bulk notifications."
+/>
+</Cards>
