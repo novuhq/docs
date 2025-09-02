@@ -1,0 +1,87 @@
+---
+title: 'Subscriber Attributes'
+description: "Introduction to Subscribers and Topics in Novu"
+icon: 'Users'
+---
+
+import { Card, Cards } from 'fumadocs-ui/components/card';
+
+Subscriber attributes define the data model used by Novu to represent each subscriber. These attributes are stored in the subscriber profile and can be used to personalize content, configure steps conditions, and control which channels a subscriber can receive notifications through.
+
+![Profile](/images/manage-subscribers/subscribers-editor.png)
+
+## Subscriber schema
+
+Each subscriber is represented as a structured object, followung a defined schema. The schema includes, the user attributes, the data field to store any custom attributes in key value pairs and channel credentials for push and chat channel provider's integrations.
+
+All metadata tied to a subscriber is centralized and accessible via API or dashboard. This structure ensures that when notifications are triggered, Novu references the most up-to-date context for delivery and personalization.
+
+<Callout type="info">To learn more about the subscriber schema, refer to the  [Subscribers API reference](/api-reference/subscribers/subscriber-schema) documentation.</Callout>
+
+### User attributes
+
+These are the predefined, top-level fields for storing structured information about a subscriber. This contains basic info such as email, phone, firstName, locale and others. These fields are optional except for `subscriberId`, which is required.
+
+| Field          | Type           | Description                                                                                      |
+| -------------- | -------------- | ------------------------------------------------------------------------------------------------ |
+| `subscriberId` | string         | Unique identifier assigned by your system. Serves as the permanent reference for the subscriber. |
+| `firstName`    | string \| null | First name of the subscriber. Useful for personalization in templates.                           |
+| `lastName`     | string \| null | Last name of the subscriber.                                                                     |
+| `email`        | string \| null | Email address for email channel delivery.                                                        |
+| `phone`        | string \| null | Phone number for SMS delivery.                                                                   |
+| `avatar`       | string \| null | URL to the subscriber’s avatar image, often displayed in in-app or chat notifications.           |
+| `locale`       | string \| null | Language/region setting (e.g., `en-US`) used to localize notifications.                          |
+| `timezone`     | string \| null | Timezone identifier (e.g., `America/New_York`) for scheduling and localized delivery.            |
+
+### Custom data
+
+The `data` field lets you store any arbitrary, unstructured information relevant to your application. It accepts any valid JSON object, making it a powerful tool for deep personalization.
+
+You can use this field to store attributes like a user's role, membership level, plan type, or any other custom property you wish to reference in your notification templates.
+
+```json
+{
+  "data": {
+    "membershipLevel": "Pro",
+    "lastLogin": "2025-09-02T10:00:00Z",
+    "userRole": "admin"
+  }
+}
+```
+
+### Channel credentials
+
+The channels object in the subscriber profile is used to store credentials required for specific delivery providers. This ensures Novu can deliver notifications through channels that need platform-specific tokens or URLs.
+
+Currently, it supports credentials for Push and Chat providers.
+
+- `deviceTokens`: An array of tokens used to target a subscriber's mobile devices for push notifications. Providers like Firebase Cloud Messaging (FCM) or Apple Push Notification service (APNs) use these tokens to route notifications to the correct device. A single subscriber can have multiple devices and thus multiple device tokens.
+- `webhookUrl`: A unique URL used by chat providers, such as Slack or Discord, to reach a specific subscriber or channel.
+
+```json
+{
+  "subscriberId": "user-123",
+  "channels": [
+    {
+      "providerId": "slack",
+      "integrationIdentifier": "team-slack",
+      "credentials": {
+        "webhookUrl": "https://hooks.slack.com/services/T000/B000/XXXX",
+        "channel": "general",
+        "deviceTokens": [
+          "token1",
+          "token2"
+        ]
+      }
+    }
+  ]
+}
+```
+
+Novu uses a `ChannelSettingsDto` object to manage multiple credentials per provider and integration. This makes it possible to support multiple push or chat integrations for the same subscriber.
+
+## Security and compliance considerations
+
+Because subscriber attributes can contain personal data, you may need to align their usage with your organization’s security and regulatory requirements.
+
+For details on GDPR, SOC 2, ISO 27001, data residency, storage duration, and reporting vulnerabilities, see the [Security and Compliance](/platform/additional-resources/security) guide.
