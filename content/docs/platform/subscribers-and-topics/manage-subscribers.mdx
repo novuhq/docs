@@ -1,0 +1,99 @@
+---
+title: 'Manage Subscribers'
+description: ""
+icon: 'Users'
+---
+
+You can manage subscribers from the Novu Dashboard for manual operations or the Novu API for automated, large-scale management.
+
+## Create a subscriber
+
+Before you can send notifications, a subscriber must exist before notifications can be sent. Subscribers can be created in two ways:
+
+### Dashboard
+
+The dashboard can be use add users attributes and custom data for each subscriber. However, you cannot add channel credentials (for example, `deviceTokens` or `webhookUrl`) when creating a subscriber via the dashboard. This must be done using the API.
+
+To create a subscriber in the dashboard:
+- Go to the Novu dashboard.
+- Navigate to **Subscribers** page in the Novu dashboard.
+- Click on the **Add subscriber** or **Create subscriber** button.
+  ![Create a Subscriber](/images/manage-subscribers/create-subscriber.png)
+- Fill in the subscriber details such as `subscriberId` (this is required), first name, last name, email, phone number, and locale.
+  ![Add a Subscriber](/images/manage-subscribers/add-subscriber.png)
+  <Callout type="warn">The `subscriberId` can only the edited during creation and cannot be updated aftwards</Callout>
+- Click on **Create subscriber** button to save the subscriber profile.
+
+### API
+
+The API provides two main approaches for creating subscribers, offering flexibility depending on your application's architecture:
+
+#### Just-in-time
+
+Novu allows you to create a subscriber automatically at the moment a notification is triggered. If the subscriber doesn't already exist, Novu uses the information provided in the workflow trigger to create the subscriber on the fly. If the subscriber exists, Novu updates the stored data with the latest values.
+
+This approach is useful when:
+
+- Your system does not store subscriber profiles ahead of time.
+- Notifications are sent during real-time events like sign-ups or transactions.
+- You want to keep the creation and delivery logic tightly coupled.
+
+```typescript
+import { Novu } from "@novu/api";
+ 
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+ 
+await novu.trigger({
+  to: {
+    subscriberId: "subscriber_unique_identifier",
+    firstName: "Albert",
+    lastName: "Einstein",
+    email: "albert@einstein.com",
+    phone: "+1234567890",
+  },
+  workflowId: "workflow_identifier",
+});
+```
+
+#### Ahead of trigger
+
+You can create and store subscriber profiles ahead of time, typically during onboarding, registration, or data sync events. This approach allows you to manage subscriber preferences, enrich profiles, and inspect delivery readiness before any notification is triggered.
+This is recommended when:
+
+- You want to decouple user creation from notification logic.
+- You rely on persistent user data or prefer strict validation before delivery.
+- You plan to use advanced segmentation or preference-based delivery.
+
+```typescript
+import { Novu } from "@novu/api";
+ 
+const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE", });
+ 
+await novu.subscribers.create({
+  subscriberId: "<id>",
+  firstName: "Albert",
+  lastName: "Einstein",
+  email: "albert@einstein.com",
+  phone: "+1234567890",
+});
+```
+
+For more information about creating subscribers ahead of trigger. Refer to the Create a Subscriber API Reference documentation.
+
+### Bulk creation
+
+For scenarios like data migration, syncing large lists, or preloading subscribers, Novu supports bulk creation. This is especially useful when integrating with existing systems or importing subscriber data from external sources.
+
+
+## Update subscriber profile
+
+
+
+### Dashboard
+
+### API
+
+## Search subscribers
+
+
+
