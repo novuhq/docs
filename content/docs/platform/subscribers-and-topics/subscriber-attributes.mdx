@@ -12,15 +12,18 @@ Subscriber attributes define the data model used by Novu to represent each subsc
 
 ## Subscriber schema
 
-Each subscriber is represented as a structured object, following a defined schema. The schema includes, the user attributes, the data field to store any custom attributes in key value pairs and channel credentials for push and chat channel provider's integrations.
+Each subscriber is represented as a structured object, following a defined schema. The schema includes:
+- The user attributes.
+- The data field to store any custom attributes in key value pairs.
+- Channel credentials for push and chat channel provider's integrations.
 
 All metadata tied to a subscriber is centralized and accessible via API or dashboard. This structure ensures that when notifications are triggered, Novu references the most up-to-date context for delivery and personalization.
 
-<Callout type="info">To learn more about the subscriber schema, refer to the  [Subscribers API reference](/api-reference/subscribers/subscriber-schema).</Callout>
+<Callout type="info">To learn more about the subscriber schema, refer to the  [Subscribers API Reference](/api-reference/subscribers/subscriber-schema).</Callout>
 
 ### User attributes
 
-These are the predefined, top-level fields for storing structured information about a subscriber. This contains basic info such as email, phone, firstName, locale and others. These fields are optional except for `subscriberId`, which is required.
+These are the predefined, top-level fields for storing structured information about a subscriber. This contains basic info such as email, phone, firstName, locale, and others. These fields are optional except for `subscriberId`, which is required.
 
 | Field          | Type           | Description                                                                                      |
 | -------------- | -------------- | ------------------------------------------------------------------------------------------------ |
@@ -30,14 +33,14 @@ These are the predefined, top-level fields for storing structured information ab
 | `email`        | string \| null | Email address for email channel delivery.                                                        |
 | `phone`        | string \| null | Phone number for SMS delivery.                                                                   |
 | `avatar`       | string \| null | URL to the subscriber’s avatar image, often displayed in in-app or chat notifications.           |
-| `locale`       | string \| null | Language/region setting (e.g., `en-US`) used to localize notifications.                          |
-| `timezone`     | string \| null | Timezone identifier (e.g., `America/New_York`) for scheduling and localized delivery.            |
+| `locale`       | string \| null | Language/region setting (`en-US`) used to localize notifications.                          |
+| `timezone`     | string \| null | Timezone identifier (`America/New_York`) for scheduling and localized delivery.            |
 
 ### Custom data
 
 The `data` field lets you store any arbitrary, unstructured information relevant to your application. It accepts any valid JSON object, making it a powerful tool for deep personalization.
 
-You can use this field to store attributes like a user's role, membership level, plan type, or any other custom property you wish to reference in your notification templates.
+You can use this field to store attributes like a membership level, or any other custom property you wish to reference in your notification templates.
 
 ```json
 {
@@ -53,7 +56,7 @@ You can use this field to store attributes like a user's role, membership level,
 
 The channels object in the subscriber profile is used to store credentials required for specific delivery providers. This ensures that Novu can deliver notifications through channels that need platform-specific tokens or URLs.
 
-Currently, it supports credentials for Push and Chat providers.
+Currently, Novu supports credentials for Push and Chat providers.
 
 - `deviceTokens`: An array of tokens used to target a subscriber's mobile devices for push notifications. Providers like Firebase Cloud Messaging (FCM) or Apple Push Notification service (APNs) use these tokens to route notifications to the correct device. A single subscriber can have multiple devices and thus multiple device tokens.
 - `webhookUrl`: A unique URL used by chat providers, such as Slack or Discord, to reach a specific subscriber or channel.
