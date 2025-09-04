@@ -40,12 +40,12 @@ This approach is useful when:
 
 ```typescript
 import { Novu } from "@novu/api";
- 
+
 const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
- 
+
 await novu.trigger({
   to: {
-    subscriberId: "subscriber_unique_identifier",
+    subscriberId: "subscriber_identifier",
     firstName: "Albert",
     lastName: "Einstein",
     email: "albert@einstein.com",
@@ -66,9 +66,9 @@ This is recommended when:
 
 ```typescript
 import { Novu } from "@novu/api";
- 
+
 const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE", });
- 
+
 await novu.subscribers.create({
   subscriberId: "<id>",
   firstName: "Albert",
@@ -80,20 +80,153 @@ await novu.subscribers.create({
 
 For more information about creating subscribers ahead of trigger. Refer to the Create a Subscriber API Reference documentation.
 
-### Bulk creation
+#### Bulk creation
 
 For scenarios like data migration, syncing large lists, or preloading subscribers, Novu supports bulk creation. This is especially useful when integrating with existing systems or importing subscriber data from external sources.
 
-
 ## Update subscriber profile
 
-
+You can manually update a subscriber's profile from the Novu Dashboard or via the API. This is important for keeping subscriber information, such as standard user attributes, custom data, or channel credentials up-to-date.
 
 ### Dashboard
 
+You can manually update a subscriber’s attributes and custom data from the Novu dashboard:
+- Open the **Subscribers** page.
+- Select the subscriber profile you want to update.
+- Edit structured attributes such as name, email, phone, or custom data.
+- Click **Save changes** to apply the updates.
+
+![](/images/manage-subscribers/update-subscriber.gif)
+
+<Callout type="info">Channel credentials (such as device tokens or webhook URLs) cannot be created or updated in the dashboard. These must be managed via the API.</Callout>
+
 ### API
+
+The Novu API lets you update subscriber profiles programmatically, including user attributes, custom data, and channel credentials.
+
+#### Update subscriber profile
+
+To update a subscriber's basic profile attributes like `firstName` or `email`, or to modify their custom `data` object, use the `subscribers.patch` method. This method updates only the fields you specify, leaving others untouched.
+
+```typescript
+import { Novu } from "@novu/api";
+ 
+const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE" });
+ 
+await novu.subscribers.patch("subscriber-id-123", {
+  firstName: "Albert",
+  lastName: "Einstein",
+  data: {
+    membershipLevel: "premium"
+  }
+});
+```
+
+#### Manage subscriber channel credentials
+
+To deliver notifications to channels like push or chat, a subscriber's profile must contain the correct credentials (for example, deviceTokens or webhookUrl). Novu provides two methods to manage these credentials: update and append.
+
+- The `update` method completely replaces the existing credentials for a given provider with the new data you provide. This is useful when you have a definitive, single source of truth for the credentials.
+- The `append` method adds new credentials or updates existing ones without removing others. This is particularly useful for push notifications where a single user may have multiple devices.
+
+```typescript
+import { Novu } from "@novu/api";
+ 
+const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE" });
+ 
+// Example 1: Use `update` to replace existing credentials for a provider like Slack.
+const result = await novu.subscribers.credentials.update(
+  {
+    providerId: "slack",
+    credentials: {
+      webhookUrl: "https://example.com/webhook",
+      channel: "general",
+    },
+  },
+  "<subscriberId>"
+);
+
+// Example 2: Use `append` to add a new device token for a push provider without overwriting existing ones.
+const result = await novu.subscribers.credentials.append(
+  {
+    providerId: "expo",
+    credentials: {
+      deviceTokens: ["token1", "token2", "token3"],
+      webhookUrl: "https://example.com/webhook",
+    },
+  },
+  "<subscriberId>"
+);
+```
+
+For more detailed information on request payloads and supported providers, refer to the Subscribers API Reference.
 
 ## Search subscribers
 
+Novu provides a way to search for subscribers, which is useful for troubleshooting, auditing user data, or verifying profile information. You can search for subscribers using either the Novu Dashboard or the API.
 
+### Dashboard
 
+From the **Subscribers** page in the Novu Dashboard, you can search for a subscriber by Subscriber ID, Email, Phone, or Name.  
+
+![](/images/manage-subscribers/search-subscriber.gif)
+
+### API
+
+You can use the Search Subscribers API to look up subscribers.
+
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE", });
+
+const result = await novu.subscribers.search({
+    email: "albert@einstein.com",
+  });
+```
+
+## Retrieve a subscriber
+
+You can fetch a complete subscriber profile using their unique `subscriberId`. This is done using the `subscribers.get` method. This method takes the `subscriberId` as a single parameter and returns a full JSON object containing all of the subscriber's stored information.
+
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE", });
+
+const result = await novu.subscribers.retrieve("subscriber-123");
+```
+
+To learn more about retrieving a subscriber information, refer to the Subscribers API reference documentation.
+
+## Delete a subscriber
+
+Deleting a subscriber permanently removes their profile and all associated data, including preferences, activity history, and credentials. This action is irreversible.
+
+### Dashboard
+
+You can manually delete a subscriber’s from the Novu dashboard:
+- Open the **Subscribers** page.
+- Select the subscriber profile you want to update.
+- Click **Delete subscriber**.
+- A modal will appear; click **Delete subscriber** again to confirm.
+
+![Delete a subscriber](/images/manage-subscribers/delete-subscriber.gif)
+
+### API
+
+You can delete a subscriber using the `subscribers.delete()` method. The call deletes the subscriber record associated with the given `subscriberId`.
+
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE" });
+
+async function run() {
+  const result = await novu.subscribers.delete("subscriber-123");
+
+  console.log(result);
+}
+
+run();
+```
