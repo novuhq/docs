@@ -1,36 +1,36 @@
 ---
 title: 'Manage Subscribers'
-description: ""
-icon: 'Users'
+description: "Learn how to create, update, search, retrieve, and delete subscriber profiles using both the Dashboard and the API."
+icon: 'UserCog'
 ---
 
 You can manage subscribers from the Novu Dashboard for manual operations or the Novu API for automated, large-scale management.
 
 ## Create a subscriber
 
-Before you can send notifications, a subscriber must exist before notifications can be sent. Subscribers can be created in two ways:
+A subscriber must exist before notifications can be sent. Subscribers can be created in two ways:
 
-### Dashboard
+### Create subscribers via dashboard
 
-The dashboard can be use add users attributes and custom data for each subscriber. However, you cannot add channel credentials (for example, `deviceTokens` or `webhookUrl`) when creating a subscriber via the dashboard. This must be done using the API.
+You can create subscribers from the Novu dashboard and add user attributes or custom data for each subscriber.
 
 To create a subscriber in the dashboard:
-- Go to the Novu dashboard.
-- Navigate to **Subscribers** page in the Novu dashboard.
-- Click on the **Add subscriber** or **Create subscriber** button.
+1. Sign into the Novu dashboard.
+2. Navigate to **Subscribers** page in the Novu dashboard.
+3. Click on the **Add subscriber** or **Create subscriber** button.
   ![Create a Subscriber](/images/manage-subscribers/create-subscriber.png)
-- Fill in the subscriber details such as `subscriberId` (this is required), first name, last name, email, phone number, and locale.
+4. Fill in the subscriber details such as `subscriberId` (this is required), first name, last name, email, phone number, and locale.
   ![Add a Subscriber](/images/manage-subscribers/add-subscriber.png)
   <Callout type="warn">The `subscriberId` can only the edited during creation and cannot be updated aftwards</Callout>
-- Click on **Create subscriber** button to save the subscriber profile.
+5. Click on **Create subscriber** button to save the subscriber profile.
 
-### API
+### Create subscribers via API
 
-The API provides two main approaches for creating subscribers, offering flexibility depending on your application's architecture:
+You can create subscribers with the Novu API in three ways and add user attributes, custom data, and channel credentials.
 
-#### Just-in-time
+#### Create subscribers just in time
 
-Novu allows you to create a subscriber automatically at the moment a notification is triggered. If the subscriber doesn't already exist, Novu uses the information provided in the workflow trigger to create the subscriber on the fly. If the subscriber exists, Novu updates the stored data with the latest values.
+Novu allows you to create a subscriber automatically at the moment a notification is triggered. If the subscriber doesn't already exist, then Novu uses the information provided in the workflow trigger to create the subscriber on the fly. If the subscriber exists, then Novu updates the stored data with the latest values.
 
 This approach is useful when:
 
@@ -43,22 +43,29 @@ import { Novu } from "@novu/api";
 
 const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
 
-await novu.trigger({
-  to: {
-    subscriberId: "subscriber_identifier",
-    firstName: "Albert",
-    lastName: "Einstein",
-    email: "albert@einstein.com",
-    phone: "+1234567890",
-  },
-  workflowId: "workflow_identifier",
-});
+async function run() {
+  const result = await novu.trigger({
+    to: {
+      subscriberId: "subscriber_identifier",
+      firstName: "Albert",
+      lastName: "Einstein",
+      email: "albert@einstein.com",
+      phone: "+1234567890",
+    },
+    workflowId: "workflow_identifier",
+  });
+
+  console.log(result);
+}
+
+run();
 ```
 
-#### Ahead of trigger
+#### Create subscribers ahead of trigger
 
 You can create and store subscriber profiles ahead of time, typically during onboarding, registration, or data sync events. This approach allows you to manage subscriber preferences, enrich profiles, and inspect delivery readiness before any notification is triggered.
-This is recommended when:
+
+This approach is useful when:
 
 - You want to decouple user creation from notification logic.
 - You rely on persistent user data or prefer strict validation before delivery.
@@ -69,38 +76,65 @@ import { Novu } from "@novu/api";
 
 const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE", });
 
-await novu.subscribers.create({
-  subscriberId: "<id>",
-  firstName: "Albert",
-  lastName: "Einstein",
-  email: "albert@einstein.com",
-  phone: "+1234567890",
-});
+async function run() {
+  const result = await novu.subscribers.create({
+    subscriberId: "<id>",
+    firstName: "Albert",
+    lastName: "Einstein",
+    email: "albert@einstein.com",
+    phone: "+1234567890",
+  });
+
+  console.log(result);
+}
+
+run();
 ```
 
-For more information about creating subscribers ahead of trigger. Refer to the Create a Subscriber API Reference documentation.
+For more information about creating subscribers ahead of trigger, refer to the [API Reference](/api-reference/events/trigger-event) documentation.
 
-#### Bulk creation
+#### Create subscribers in bulk
 
 For scenarios like data migration, syncing large lists, or preloading subscribers, Novu supports bulk creation. This is especially useful when integrating with existing systems or importing subscriber data from external sources.
+
+```ts
+import { Novu } from "@novu/api";
+ 
+const novu = new Novu({
+  secretKey: "YOUR_SECRET_KEY_HERE",
+});
+ 
+async function run() {
+  const result = await novu.subscribers.createBulk({
+    subscribers: [],
+  });
+ 
+  console.log(result);
+}
+ 
+run();
+```
+
+For more information about creating subscribers in bulk, refer to the [API Reference](/api-reference/subscribers/bulk-create-subscribers) documentation.
 
 ## Update subscriber profile
 
 You can manually update a subscriber's profile from the Novu Dashboard or via the API. This is important for keeping subscriber information, such as standard user attributes, custom data, or channel credentials up-to-date.
 
-### Dashboard
+### Update subscribers via dashboard
 
 You can manually update a subscriber’s attributes and custom data from the Novu dashboard:
-- Open the **Subscribers** page.
-- Select the subscriber profile you want to update.
-- Edit structured attributes such as name, email, phone, or custom data.
-- Click **Save changes** to apply the updates.
+1. Sign into the Novu dashboard.
+2. Open the **Subscribers** page.
+3. Select the subscriber profile you want to update.
+4. Edit structured attributes such as name, email, phone, or custom data.
+5. Click **Save changes** to apply the updates.
 
 ![](/images/manage-subscribers/update-subscriber.gif)
 
 <Callout type="info">Channel credentials (such as device tokens or webhook URLs) cannot be created or updated in the dashboard. These must be managed via the API.</Callout>
 
-### API
+### Update subscribers via API
 
 The Novu API lets you update subscriber profiles programmatically, including user attributes, custom data, and channel credentials.
 
@@ -112,14 +146,18 @@ To update a subscriber's basic profile attributes like `firstName` or `email`, o
 import { Novu } from "@novu/api";
  
 const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE" });
- 
-await novu.subscribers.patch("subscriber-id-123", {
-  firstName: "Albert",
-  lastName: "Einstein",
-  data: {
-    membershipLevel: "premium"
-  }
-});
+
+async function run() {
+  const result = await novu.subscribers.patch("subscriber-id-123", {
+    firstName: "Albert",
+    lastName: "Einstein",
+    data: {
+      membershipLevel: "premium"
+    }
+  });
+  console.log(result);
+}
+run();
 ```
 
 #### Manage subscriber channel credentials
@@ -159,61 +197,77 @@ const result = await novu.subscribers.credentials.append(
 );
 ```
 
-For more detailed information on request payloads and supported providers, refer to the Subscribers API Reference.
+For more detailed information on request payloads and supported providers, refer to the [Update](/api-reference/subscribers/update-provider-credentials) and [Upsert](/api-reference/subscribers/upsert-provider-credentials) provider credentials API Reference documentation.
 
 ## Search subscribers
 
 Novu provides a way to search for subscribers, which is useful for troubleshooting, auditing user data, or verifying profile information. You can search for subscribers using either the Novu Dashboard or the API.
 
-### Dashboard
+### Search for subscribers via dashboard
 
 From the **Subscribers** page in the Novu Dashboard, you can search for a subscriber by Subscriber ID, Email, Phone, or Name.  
 
 ![](/images/manage-subscribers/search-subscriber.gif)
 
-### API
+### Search for subscribers via API
 
 You can use the Search Subscribers API to look up subscribers.
 
-```typescript
+```ts
 import { Novu } from "@novu/api";
 
 const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE", });
 
-const result = await novu.subscribers.search({
+async function run() {
+  const result = await novu.subscribers.search({
     email: "albert@einstein.com",
   });
+
+  console.log(result);
+}
+
+run();
 ```
+
+To learn more about searching for subscribers, refer to the [Subscribers API reference](/api-reference/subscribers/search-subscribers) documentation.
+
 
 ## Retrieve a subscriber
 
 You can fetch a complete subscriber profile using their unique `subscriberId`. This is done using the `subscribers.get` method. This method takes the `subscriberId` as a single parameter and returns a full JSON object containing all of the subscriber's stored information.
 
-```typescript
+```ts
 import { Novu } from "@novu/api";
 
 const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE", });
 
-const result = await novu.subscribers.retrieve("subscriber-123");
+async function run() {
+  const result = await novu.subscribers.retrieve("subscriber-123");
+
+  console.log(result);
+}
+
+run();
 ```
 
-To learn more about retrieving a subscriber information, refer to the Subscribers API reference documentation.
+To learn more about retrieving a subscriber information, refer to the [Subscribers API reference](/api-reference/subscribers/retrieve-subscriber-subscriptions) documentation.
 
 ## Delete a subscriber
 
 Deleting a subscriber permanently removes their profile and all associated data, including preferences, activity history, and credentials. This action is irreversible.
 
-### Dashboard
+### Delete a subscriber via dashboard
 
 You can manually delete a subscriber’s from the Novu dashboard:
-- Open the **Subscribers** page.
-- Select the subscriber profile you want to update.
-- Click **Delete subscriber**.
-- A modal will appear; click **Delete subscriber** again to confirm.
+1. Sign into the Novu dashboard.
+2. Open the **Subscribers** page.
+3. Select the subscriber profile you want to update.
+4. Click **Delete subscriber**.
+5. A modal will appear; click **Delete subscriber** again to confirm.
 
 ![Delete a subscriber](/images/manage-subscribers/delete-subscriber.gif)
 
-### API
+### Delete a subscriber via API
 
 You can delete a subscriber using the `subscribers.delete()` method. The call deletes the subscriber record associated with the given `subscriberId`.
 
@@ -230,3 +284,5 @@ async function run() {
 
 run();
 ```
+
+To learn more about deleting a subscriber information, refer to the [Subscribers API reference](/api-reference/subscribers/delete-a-subscriber) documentation.
