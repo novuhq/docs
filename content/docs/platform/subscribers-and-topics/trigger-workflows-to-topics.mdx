@@ -1,0 +1,135 @@
+---
+title: 'Trigger workflows to topics'
+description: "Learn how to trigger workflows to one or more topics and how to exclude specific subscribers from a trigger."
+icon: 'Share2'
+---
+
+Once you've created your topics and added subscribers, you're ready to send them notifications. Triggering a workflow to a topic is the core mechanism for broadcasting a message to a large audience with a single API call.
+
+When you trigger a workflow using a topic key, Novu performs a **fan-out**: it identifies all subscribers within that topic and creates an individual workflow run for each one.
+
+This process is handled entirely by Novu, saving you from writing complex loops or sending thousands of separate API requests. The trigger syntax is the same as for individual subscribers; you only need to specify the `type` as `Topic` in the `to` field.
+
+
+### Trigger to a single topic
+
+The most common use case is broadcasting a notification to every subscriber within a single topic. This is ideal for product announcements, incident updates, or other targeted mass communications.
+
+To trigger a workflow to a topic, use the `to` field with `type: "Topic"` and the corresponding `topicKey`.  
+
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
+```ts
+import { Novu } from "@novu/api"
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+await novu.trigger({
+  to: { type: "Topic", topicKey: "topic_key" },
+  workflowId: "workflow_identifier",
+});
+```
+  </Tab>
+  <Tab value="cURL">
+```bash
+curl -L -g -X POST 'https://api.novu.co/v1/events/trigger' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+    "name": "workflow_identifier",
+    "to": {
+        "type": "Topic",
+        "topicKey": "topic_key"
+    }
+}'
+```
+  </Tab>
+</Tabs>
+
+### Trigger to multiple topics
+
+You can also broadcast a notification to several topics at once by passing an array in the to field. This is useful when your audience spans multiple groups, such as notifying both "paying-customers" and "beta-testers" about an important update.
+
+Novu automatically handles de-duplication, so if a subscriber belongs to more than one of the specified topics, they will only receive the notification once. 
+
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
+```ts
+import { Novu } from "@novu/api"
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+await novu.trigger({
+  to: [
+    { type: "Topic", topicKey: "topic_key_1" }, 
+    { type: "Topic", topicKey: "topic_key_2" }
+  ],
+  workflowId: "workflow_identifier",
+});
+```
+  </Tab>
+  <Tab value="cURL">
+```bash
+curl -L -g -X POST 'https://api.novu.co/v1/events/trigger' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+    "name": "workflow_identifier",
+    "to": [
+      {
+          "type": "Topic",
+          "topicKey": "topic_key_1"
+      },
+      {
+          "type": "Topic",
+          "topicKey": "topic_key_2"
+      }
+    ]
+}'
+```
+  </Tab>
+</Tabs>
+
+### Exclude an actor for a notification
+
+When a workflow is triggered to a topic, notification is sent to all subscribers present in the topic. However, you can exclude a specific subscriber (for example, the user who performed the action) by passing their subscriberId in the actor field.
+
+You can achieve this by passing the `subscriberId` of the initiator in the `actor` field. Novu will then exclude this subscriber from that specific trigger event.
+
+
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
+```ts
+import { Novu } from "@novu/api"
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+await novu.trigger({
+  to: [{ type: "Topic", topicKey: "topic_key_1" }],
+  workflowId: "workflow_identifier",
+  actor: "actor_subscriber_Id"
+});
+```
+  </Tab>
+  <Tab value="cURL">
+```bash
+curl -L -g -X POST 'https://api.novu.co/v1/events/trigger' \
+-H 'Content-Type: application/json' \
+-H 'Accept: application/json' \
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+-d '{
+    "name": "workflow_identifier",
+    "to": [
+      {
+          "type": "Topic",
+          "topicKey": "topic_key_1"
+      }
+    ],
+    "actor": "actor_subscriber_Id"
+}'
+```
+  </Tab>
+</Tabs>
+
