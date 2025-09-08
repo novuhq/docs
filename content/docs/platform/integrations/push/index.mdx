@@ -100,25 +100,34 @@ If a user logs in to their device and their device gets registered to their subs
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
 ```ts
-import { Novu, PushProviderIdEnum } from '@novu/node';
+import { Novu } from '@novu/api';
+import { ChatOrPushProviderEnum } from "@novu/api/models/components";
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
 // fetch subscriber details
-const subscriber = await novu.subscribers.get('subscriberId');
+const subscriber = await novu.subscribers.retrieve("subscriberId");
 
 // get current device tokens from subscriber credentials for the provider
-const currentDeviceTokens = subsciber.data.data.channels.find(
-  // \_integrationId can also be checked in place of providerId ;
-  (channel) => channel.providerId === PushProviderIdEnum.FCM,
-).credentials.deviceTokens;
+const currentDeviceTokens = subscriber.result.channels?.find(
+   // \_integrationId can also be checked in place of providerId ;
+  (channel) => channel.providerId === ChatOrPushProviderEnum.Apns
+)?.credentials?.deviceTokens;
 
 // remove all device tokens
-await this.novu.subscribers.setCredentials(
-  'subscriberId',
-  PushProviderIdEnum.FCM, {
-    deviceTokens: []
+await novu.subscribers.credentials.update(
+  {
+    providerId: ChatOrPushProviderEnum.Fcm,
+    credentials: {
+      deviceTokens: [],
+    },
+    integrationIdentifier: "fcm-123",
   },
+  "subscriberId"
 );
 
 // remove the particular token
@@ -127,11 +136,15 @@ const newDeviceTokens = currentDeviceTokens.filter(
 );
 
 // update subscriber credentials with new device tokens
-await this.novu.subscribers.setCredentials(
-  'subscriberId',
-  PushProviderIdEnum.FCM, {
-    deviceTokens: newDeviceTokens
+await novu.subscribers.credentials.update(
+  {
+    providerId: ChatOrPushProviderEnum.Fcm,
+    credentials: {
+      deviceTokens: newDeviceTokens,
+    },
+    integrationIdentifier: "fcm-123",
   },
+  "subscriberId"
 );
 ```
   </Tab>
