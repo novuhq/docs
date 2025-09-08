@@ -36,13 +36,18 @@ With the SMS channel, you can:
 The overrides field supports a `sms` property and `from`, `to`, `content` field overrides. This allows you to send a message to a different recipient, from a different sender, or with a different content.
 
 ```javascript
-import { Novu } from '@novu/node';
+import { Novu } from '@novu/api';  
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger({ 
+  workflowId: "workflowId",
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: "subscriberId",
   },
   overrides: {
     sms: {
@@ -70,11 +75,24 @@ Here, if `twilio-abcdef` is primary integration and you want to use `infobip-abc
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
 ```javascript
-import { Novu } from '@novu/node';
+import { Novu } from '@novu/api';  
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', { to: { subscriberId: '<SUBSCRIBER_ID>', }, overrides: { sms: { integrationIdentifier: 'infobip-abcdef', }, }, });
+
+await novu.trigger({
+  workflowId: "workflowId",
+  to: {
+    subscriberId: "subscriberId",
+  },
+  overrides: {
+    sms: { integrationIdentifier: 'infobip-abcdef', },
+  },
+});
 
 ```
 </Tab>

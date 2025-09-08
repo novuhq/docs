@@ -64,9 +64,18 @@ Checkout the [API reference](/api-reference/subscribers/update-provider-credenti
 ## SDK Trigger Example
 
 ```typescript
-novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: "subscriberId",
   },
   payload: {
     abc: 'def', // If the notification is a data notification, the payload will be sent as the data

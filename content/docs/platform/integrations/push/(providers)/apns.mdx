@@ -37,7 +37,7 @@ const novu = new Novu({
   // serverURL: "https://eu.api.novu.co",
 });
 
-novu.trigger({
+await novu.trigger({
   workflowId: "workflowId",
   to: {
     subscriberId: "subscriberId",

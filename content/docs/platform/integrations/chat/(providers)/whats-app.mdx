@@ -93,9 +93,18 @@ After your template is approved, you can use the `template_name` to send notific
 To send a notification with a template, you will need to add the following to the `overrides` field:
 
 ```typescript
-novu.trigger('workflow-id', {
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
-    subscriberId: 'SUBSCRIBER_ID',
+    subscriberId: "subscriberId",
     phone: '+11111111111',
   },
   payload: {},

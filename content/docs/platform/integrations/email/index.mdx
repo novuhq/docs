@@ -41,13 +41,18 @@ The overrides field supports an email property. The email overrides field have p
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
 ```javascript
-import { Novu } from '@novu/node';
+import { Novu } from '@novu/api';
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger({    
+  workflowId: "workflowId",
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: "subscriberId",
   },
   overrides: {
     email: {
@@ -76,13 +81,18 @@ You can easily send attachments with the Novu API by passing the attachments arr
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
 ```javascript
-import { Novu } from '@novu/node';
+import { Novu } from '@novu/api';  
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: "subscriberId",
   },
   payload: {
     attachments: [
@@ -154,13 +164,18 @@ Here, if `sendgrid-abcdef` is primary integration and you want to use `brevo-abc
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
 ```javascript
-import { Novu } from '@novu/node';
+import { Novu } from '@novu/api';
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: "subscriberId",
   },
   overrides: {
     email: {

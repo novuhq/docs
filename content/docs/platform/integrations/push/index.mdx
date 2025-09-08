@@ -61,15 +61,26 @@ Novu offers to ways of keeping your device tokens in sync with subscriber profil
 When triggering a workflow, you can pass the `channels` array on the subscriber object with the device tokens for the push provider of your choice. Here is an example with fcm:
 
 ```typescript
-novu.trigger('workflow-id', {
+import { Novu } from '@novu/api';
+import { ChatOrPushProviderEnum } from "@novu/api/models/components";
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
-    subscriberId: 'subscriber-id',
+    subscriberId: "subscriberId",
     channels: [
       {
-        providerId: 'fcm',
+        providerId: ChatOrPushProviderEnum.Fcm,
         credentials: {
-          deviceTokens: ['token-1', 'token-2'],
+          deviceTokens: ["token-1", "token-2"],
         },
+        integrationIdentifier: "fcm-123",
       },
     ],
   },
