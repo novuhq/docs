@@ -139,7 +139,7 @@ When using a self-hosted Novu deployment with your backend services, you need to
 ### Install the package
 
 ```bash
-npm install @novu/node
+npm install @novu/api
 ```
 
 ### Initialize the SDK
@@ -147,12 +147,12 @@ npm install @novu/node
 Configure the SDK with your self-hosted backend URL:
 
 ```typescript
-import { Novu } from '@novu/node';
+import { Novu } from '@novu/api';
 
 const novu = new Novu({
-      secretKey: "<YOUR_SECRET_KEY_HERE>", // Your Novu API key from the dashboard
-      serverURL: "http://<your-docker-host>:3000", // URL of your self-hosted Novu API instance
-    });
+  secretKey: "<YOUR_SECRET_KEY_HERE>", // Your Novu API key from the dashboard
+  serverURL: "http://<your-docker-host>:3000", // URL of your self-hosted Novu API instance
+});
 ```
 
 ### Configure for different environments
@@ -165,9 +165,9 @@ Once initialized, you can trigger notification events:
 
 ```typescript
 await novu.trigger({ 
-  name : '<WORKFLOW_TRIGGER_IDENTIFIER>', 
+  workflowId: 'workflowId', 
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: 'subscriberId',
   },
   payload: {
     // Your custom payload data
@@ -288,17 +288,17 @@ When deploying to a VPS, consider these additional security measures:
 When self-hosting Novu, in order to trigger an event you must first create a new `Novu` object and configure it with the proper `backendUrl`.
 
 ```tsx
-import { Novu } from '@novu/node';
+import { Novu } from '@novu/api';  
 
-const config = {
-  backendUrl: '<REPLACE_WITH_SELF_HOSTED_BACKEND_URL>',
-};
+const novu = new Novu({
+  secretKey: '<YOUR_SECRET_KEY_HERE>',
+  serverURL: '<REPLACE_WITH_SELF_HOSTED_BACKEND_URL>',
+});
 
-const novu = new Novu('<API_KEY>', config);
-
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger({
+  workflowId: 'workflowId',
   to: {
-    subscriberId: '<SUBSCRIBER_ID>',
+    subscriberId: 'subscriberId',
   },
   payload: {},
 });
