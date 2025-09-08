@@ -56,13 +56,7 @@ The Inbox UI only displays the channels step used in a given workflow.
 
 ### Filter preferences
 
-Use the `preferenceFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. You can filter by tags, severity, and criticality using the `PreferencesFilter` type:
-
-```typescript
-export type PreferencesFilter = Pick<NotificationFilter, 'tags' | 'severity'> & {
-  criticality?: WorkflowCriticalityEnum;
-};
-``` 
+Use the `preferenceFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. 
 
 This filtering works by matching the tags you provide in the prop with the tags assigned to the workflows. Only that workflow will be seen by the subscriber on their preferences UI.
 
@@ -75,7 +69,7 @@ function InboxPreferences() {
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriber="YOUR_SUBSCRIBER_ID"
-      preferencesFilter={{ tags: ['general', 'admin', 'security'] }} />
+      preferencesFilter={{ tags: ['general', 'admin', 'security'], criticality: WorkflowCriticalityEnum.ALL }} />
   );
 }
 
