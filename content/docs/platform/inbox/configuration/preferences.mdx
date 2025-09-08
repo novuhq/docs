@@ -7,7 +7,7 @@ icon: 'UserCog'
 
 The Preferences interface in the Inbox component lets subscribers customize how they receive notifications. By default, Novu renders a preferences icon inside the Inbox component, giving users access to global and workflow-specific settings directly from the UI.
 
-<Callout type = "info">A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI.</Callout>
+<Callout type = "info">A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI, unless the user has specified WorkflowCriticalityEnum.ALL in the preference they will be filtered out.</Callout>
 
 ![Global preferences](/images/inbox/preferences.gif)
 
@@ -56,7 +56,13 @@ The Inbox UI only displays the channels step used in a given workflow.
 
 ### Filter preferences
 
-Use the `preferenceFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. 
+Use the `preferenceFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. You can filter by tags, severity, and criticality using the `PreferencesFilter` type:
+
+```typescript
+export type PreferencesFilter = Pick<NotificationFilter, 'tags' | 'severity'> & {
+  criticality?: WorkflowCriticalityEnum;
+};
+``` 
 
 This filtering works by matching the tags you provide in the prop with the tags assigned to the workflows. Only that workflow will be seen by the subscriber on their preferences UI.
 
