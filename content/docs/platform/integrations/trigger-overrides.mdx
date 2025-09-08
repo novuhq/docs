@@ -138,9 +138,27 @@ async function run() {
 }
 
 run();
-
 ```
 
 <Callout>The `push-step` refers to the step identifier, which you can copy directly from your workflow in the Novu dashboard. Use this identifier to target the specific step you want to override. </Callout>
 
 In this example, only the `push-step` is affected, and multiple FCM-specific settings are overridden for that step, which are the notification title, body, and sound configurations for both Android and iOS platforms. 
+
+
+#### Sending extra fields supported by provider sdk
+
+You can also send extra fields supported by the provider SDK. For example, if you want to send a headers to the provider SDK, you can do it by using the `_passthrough` field.
+
+```json
+"overrides": {
+  "providers" : {
+    "sendgrid": {
+      "_passthrough": {
+        "headers": {
+          "Authorization": "Bearer my-api-key"
+        }
+      }
+    },
+  },
+},
+```
