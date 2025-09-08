@@ -19,45 +19,37 @@ To integrate Mattermost with your application using the Mattermost Webhook integ
 Once you have the webhook URL, you can store it in the subscriber entity in your application. This will allow you to send notifications to Mattermost using the following code:
 
 ```typescript
-import { Novu, ChatProviderIdEnum } from '@novu/node';
+import { Novu } from '@novu/api';
+import { ChatOrPushProviderEnum } from "@novu/api/models/components";
 
-const novu = new Novu('<NOVU_SECRET_KEY>');
-
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Mattermost, {
-  webhookUrl: '<enter-mattermost-webhook-url>',
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
 });
 
-// Send a notification to Mattermost using the subscriber ID and payload.
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
-  to: {
-    subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
+await novu.subscribers.credentials.update(
+  {
+    providerId: ChatOrPushProviderEnum.Mattermost,
+    credentials: {
+      webhookUrl: "<WEBHOOK_URL>",
+    },
+    integrationIdentifier: "mattermost-MnGLxp8uy",
   },
-  payload: {
-    message: 'This is a notification from my application!',
-  },
-});
+  "subscriberId"
+);
 ```
 
-### Mattermost Bot Integration
 
-To integrate Mattermost with your application using the Mattermost Bot integration, you will need to create a Mattermost bot account and generate an API token for the bot. Once you have the API token, you can store it in the subscriber entity in your application.
+## SDK trigger example
 
-Once you have stored the API token in the subscriber entity, you can send notifications to Mattermost using the following code:
+Send a notification to mattermost using the subscriber ID and workflow ID via `@novu/api` sdk
 
 ```typescript
-import { Novu, ChatProviderIdEnum } from '@novu/node';
-
-const novu = new Novu('<NOVU_SECRET_KEY>');
-
-// Get the Mattermost bot API token for the subscriber.
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Mattermost, {
-  botApiToken: '<enter-mattermost-bot-api-token>',
-});
-
-// Send a notification to Mattermost using the bot API token.
-await novu.trigger('<WORKFLOW_TRIGGER_IDENTIFIER>', {
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
-    subscriberId: '<UNIQUE_SUBSCRIBER_IDENTIFIER>',
+    subscriberId: 'subscriberId',
   },
   payload: {
     message: 'This is a notification from my application!',

@@ -35,23 +35,32 @@ The URL generated above will be the target channel of a subscriber that you want
 
 1. Copy the URL that you generated above
 
-2. Update the subscriber credentials with this URL using the Zulip provider id. You can do this step by using the `@novu/node` library, as shown below:
+2. Update the subscriber credentials with this URL using the Zulip provider id. You can do this step by using the `@novu/api` library, as shown below:
 
 ## Update credential webhookUrl
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
-```javascript
-import {
-  Novu,
-  ChatProviderIdEnum
-} from '@novu/node';
+```typescript
+import { Novu } from '@novu/api';
+import { ChatOrPushProviderEnum } from "@novu/api/models/components";
 
-const novu = new Novu("<NOVU_SECRET_KEY>");
-
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Zulip, {
-webhookUrl: "<WEBHOOK_URL>",
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
 });
+
+await novu.subscribers.credentials.update(
+  {
+    providerId: ChatOrPushProviderEnum.Zulip,
+    credentials: {
+      webhookUrl: "<WEBHOOK_URL>",
+    },
+    integrationIdentifier: "zulip-MnGLxp8uy",
+  },
+  "subscriberId"
+);
 
 ```
 </Tab>
@@ -73,7 +82,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 </Tabs>
 
 - `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
-- `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum to specify the provider.
+- `providerId` is a unique provider identifier. We recommend using our ChatOrPushProviderEnum to specify the provider.
 - The third parameter is the credentials object, in this case, we use the `webhookUrl` property to specify the Zulip channel webhook URL or by calling the `Update Subscriber Credentials` endpoint on Novu API. Check endpoint details [here](/api-reference/subscribers/update-provider-credentials).
 
-3. You are all set up and ready to send your first chat message via our `@novu/node` package or directly using the REST API.
+3. You are all set up and ready to send your first chat message via our `@novu/api package or directly using the REST API.

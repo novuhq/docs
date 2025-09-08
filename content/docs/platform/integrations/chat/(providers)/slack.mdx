@@ -99,17 +99,27 @@ await step.chat(
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
-```javascript
-import {
-  Novu,
-  ChatProviderIdEnum
-} from '@novu/node';
+```typescript
+import { Novu } from '@novu/api';
+import { ChatOrPushProviderEnum } from "@novu/api/models/components";
 
-const novu = new Novu("<NOVU_SECRET_KEY>");
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, { webhookUrl: "<WEBHOOK_URL>", });
-
-````
+await novu.subscribers.credentials.update(
+  {
+    providerId: ChatOrPushProviderEnum.Slack,
+    credentials: {
+      webhookUrl: "<WEBHOOK_URL>",
+    },
+    integrationIdentifier: "slack-MnGLxp8uy",
+  },
+  "subscriberId"
+);
+```
 </Tab>
 <Tab value="cURL">
 ```bash
@@ -131,10 +141,10 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
 
 - `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
-- `providerId` is a unique provider identifier. We recommend using our ChatProviderIdEnum.Slack if you're using Node, else string of Slack to specify the provider.
+- `providerId` is a unique provider identifier. We recommend using our ChatOrPushProviderEnum.Slack if you're using Node, else string of Slack to specify the provider.
 - The third parameter is the credentials object. In this case, we use the `webhookUrl` property to specify the webhook URL generated in the previous step.
 
-6. You are all set up and ready to send your first chat message via our @novu/node package or directly using the REST API.
+6. You are all set up and ready to send your first chat message via our @novu/api package or directly using the REST API.
 
 ## Configuring Slack application
 

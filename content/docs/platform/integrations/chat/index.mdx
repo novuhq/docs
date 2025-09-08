@@ -41,16 +41,26 @@ The Chat channel provides:
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
-```javascript
-import {
-  Novu,
-  ChatProviderIdEnum
-} from '@novu/node';
+```typescript
+import { Novu } from '@novu/api';
+import { ChatOrPushProviderEnum } from "@novu/api/models/components";
 
-const novu = new Novu("<NOVU_SECRET_KEY>");
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-await novu.subscribers.setCredentials('subscriberId', ChatProviderIdEnum.Slack, { webhookUrl: "<WEBHOOK_URL>", });
-
+await novu.subscribers.credentials.update(
+  {
+    providerId: ChatOrPushProviderEnum.Discord,
+    credentials: {
+      webhookUrl: "<WEBHOOK_URL>",
+    },
+    integrationIdentifier: "discord-MnGLxp8uy",
+  },
+  "subscriberId"
+);
 ```
 </Tab>
 <Tab value="cURL">
