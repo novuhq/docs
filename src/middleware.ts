@@ -60,7 +60,8 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
     // Inbox section (old → new structure)
     '/platform/inbox/react/get-started': '/platform/inbox/setup-inbox',
-    '/platform/inbox/react/production': '/platform/inbox/prepare-for-production',
+    '/platform/inbox/prepare-for-production#secure-your-inbox-with-hmac-encryption':
+      '/platform/inbox/prepare-for-production',
     '/platform/inbox/react/migration-guide': '/platform/inbox/migration-guide',
     '/platform/inbox/react/hooks': '/platform/sdks/react/hooks/novu-provider',
     '/platform/inbox/react/components': '/platform/inbox/overview#composable-architecture',
