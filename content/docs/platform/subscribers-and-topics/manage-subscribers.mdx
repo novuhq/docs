@@ -91,7 +91,7 @@ async function run() {
 run();
 ```
 
-For more information about creating subscribers ahead of trigger, refer to the [API Reference](/api-reference/events/trigger-event) documentation.
+For more information about creating subscribers ahead of trigger, refer to the [Trigger Events](/api-reference/events/trigger-event) endpoint.
 
 #### Create subscribers in bulk
 
@@ -130,7 +130,7 @@ You can manually update a subscriber’s attributes and custom data from the Nov
 4. Edit structured attributes such as name, email, phone, or custom data.
 5. Click **Save changes** to apply the updates.
 
-![](/images/manage-subscribers/update-subscriber.gif)
+![Update subscriber](/images/manage-subscribers/update-subscriber.gif)
 
 <Callout type="info">Channel credentials (such as device tokens or webhook URLs) cannot be created or updated in the dashboard. These must be managed via the API.</Callout>
 
@@ -197,7 +197,7 @@ const result = await novu.subscribers.credentials.append(
 );
 ```
 
-For more detailed information on request payloads and supported providers, refer to the [Update](/api-reference/subscribers/update-provider-credentials) and [Upsert](/api-reference/subscribers/upsert-provider-credentials) provider credentials API Reference documentation.
+For more detailed information on request payloads and supported providers, refer to the [Update](/api-reference/subscribers/update-provider-credentials) and [Upsert](/api-reference/subscribers/upsert-provider-credentials) provider credentials endpoints in the API Reference documentation.
 
 ## Search subscribers
 
@@ -229,7 +229,7 @@ async function run() {
 run();
 ```
 
-To learn more about searching for subscribers, refer to the [Subscribers API reference](/api-reference/subscribers/search-subscribers) documentation.
+To learn more about searching for subscribers, refer to the [Search Subscribers](/api-reference/subscribers/search-subscribers) endpoint.
 
 
 ## Retrieve a subscriber
@@ -254,7 +254,9 @@ To learn more about retrieving a subscriber information, refer to the [Subscribe
 
 ## Delete a subscriber
 
-Deleting a subscriber permanently removes their profile and all associated data, including preferences, activity history, and credentials. This action is irreversible.
+Deleting a subscriber permanently removes their profile and all associated data, including preferences, activity history, and credentials.
+
+<Callout type="warn">This action is irreversible.</Callout>
 
 ### Delete a subscriber via dashboard
 
@@ -286,4 +288,4 @@ async function run() {
 run();
 ```
 
-To learn more about deleting a subscriber information, refer to the [Subscribers API reference](/api-reference/subscribers/delete-a-subscriber) documentation.
+To learn more about deleting a subscriber information, refer to the [Delete a Subscriber](/api-reference/subscribers/delete-a-subscriber) endpoint.
