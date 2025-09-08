@@ -129,3 +129,38 @@ run();
 
 </Tab>
 </Tabs>
+
+
+## Sending custom header
+
+To send custom headers, you can use the `HTTPClient` class. Read more on how to configure custom [http client](https://github.com/novuhq/novu-ts?tab=readme-ov-file#custom-http-client).
+
+```typescript
+import { Novu } from "@novu/api";
+import { HTTPClient } from "@novu/api/lib/http";
+
+const httpClient = new HTTPClient();
+
+httpClient.addHook("beforeRequest", (request) => {
+  const nextRequest = new Request(request);
+  nextRequest.headers.set("x-custom-header", "custom-header-value");
+
+  return nextRequest;
+});
+
+const novu = new Novu({
+  httpClient,
+  secretKey: "SECRET_KEY_VALUE",
+  serverURL: "https://eu.api.novu.co",
+});
+
+novu.trigger({
+  workflowId: "WORKFLOW_ID_VALUE",
+  to: {
+    subscriberId: "subscriberId",
+  },
+  payload: {
+    message: "Hello, world!",
+  },
+});
+```
