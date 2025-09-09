@@ -7,7 +7,7 @@ icon: 'UserCog'
 
 The Preferences interface in the Inbox component lets subscribers customize how they receive notifications. By default, Novu renders a preferences icon inside the Inbox component, giving users access to global and workflow-specific settings directly from the UI.
 
-<Callout type = "info">A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI.</Callout>
+<Callout type = "info">A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI, unless the user has specified WorkflowCriticalityEnum.ALL in the preference they will be filtered out.</Callout>
 
 ![Global preferences](/images/inbox/preferences.gif)
 
@@ -69,7 +69,7 @@ function InboxPreferences() {
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriber="YOUR_SUBSCRIBER_ID"
-      preferencesFilter={{ tags: ['general', 'admin', 'security'] }} />
+      preferencesFilter={{ tags: ['general', 'admin', 'security'], criticality: WorkflowCriticalityEnum.ALL }} />
   );
 }
 
