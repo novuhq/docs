@@ -7,7 +7,10 @@ icon: 'UserCog'
 
 The Preferences interface in the Inbox component lets subscribers customize how they receive notifications. By default, Novu renders a preferences icon inside the Inbox component, giving users access to global and workflow-specific settings directly from the UI.
 
-<Callout type = "info">A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI, unless the user has specified WorkflowCriticalityEnum.ALL in the preference they will be filtered out.</Callout>
+<Callout type="info">
+A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI.  
+You can override this behavior by setting the `criticality` field in the `preferencesFilter` prop.
+</Callout>
 
 ![Global preferences](/images/inbox/preferences.gif)
 
@@ -56,12 +59,63 @@ The Inbox UI only displays the channels step used in a given workflow.
 
 ### Filter preferences
 
-Use the `preferenceFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. 
+Use the `preferenceFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. You can filter workflows based on their assigned tags or their criticality level (critical or non-critical).
 
-This filtering works by matching the tags you provide in the prop with the tags assigned to the workflows. Only that workflow will be seen by the subscriber on their preferences UI.
+#### Filter by tags
+
+This filtering works by matching the tags you provide in the prop with the tags assigned to the workflows. Only workflows with matching tags will be visible to the subscriber in their preferences UI.
 
 ```tsx
 import { Inbox } from '@novu/react';
+
+function InboxPreferences() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferencesFilter={{ tags: ['general', 'admin', 'security'] }} />
+  );
+}
+
+export default InboxPreferences;
+```
+
+#### Filter by workflow criticality
+ 
+You can also filter which workflows are displayed based on whether they are marked as "critical". By default, only non-critical workflows are shown. You can change this behavior using the `criticality` key with `WorkflowCriticalityEnum`.
+
+Possible values are:
+
+- `WorkflowCriticalityEnum.NON_CRITICAL`: (Default) Only shows non-critical workflows.
+- `WorkflowCriticalityEnum.CRITICAL`: Only shows critical workflows.
+- `WorkflowCriticalityEnum.ALL`: Shows all workflows, including critical ones.
+
+For instance, to display all workflows, you would do the following:
+
+```tsx
+import { Inbox, WorkflowCriticalityEnum } from '@novu/react';
+
+function InboxPreferences() {
+
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferencesFilter={{criticality: WorkflowCriticalityEnum.ALL}}
+    />
+  );
+}
+
+export default InboxPreferences;
+```
+
+#### Combining tags and criticality
+
+You can combine tags and criticality filters to create more specific views. For example, the code below will display all workflows (both critical and non-critical) that have the 'general', 'admin', or 'security' tags.
+
+```tsx
+import { Inbox, WorkflowCriticalityEnum } from '@novu/react';
 
 function InboxPreferences() {
 
@@ -75,6 +129,7 @@ function InboxPreferences() {
 
 export default InboxPreferences;
 ```
+
 ### Group preferences
 
 Use the `preferenceGroups` prop on the Inbox component to organize workflows into meaningful sections in the subscriber preferences UI.
