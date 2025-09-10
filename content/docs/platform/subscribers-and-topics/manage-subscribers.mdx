@@ -190,8 +190,9 @@ const result = await novu.subscribers.credentials.append(
     providerId: "expo",
     credentials: {
       deviceTokens: ["token1", "token2", "token3"],
-      webhookUrl: "https://example.com/webhook",
     },
+    // use integrationIdentifier in case of multiple expo integrations
+    integrationIdentifier: "slack-abcd"
   },
   "<subscriberId>"
 );
