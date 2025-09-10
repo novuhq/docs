@@ -5,15 +5,21 @@ icon: 'Users'
 ---
 import { Card, Cards } from 'fumadocs-ui/components/card';
 
-Subscribers and topics are the foundation of how Novu delivers notifications at scale. Subscribers represent the individual entities who will receive notifications, while topics provide a way to group multiple subscribers under a shared identifier.
+Subscribers and topics are the foundation of how Novu delivers notifications. While Subscribers represent the individual entities who will receive notifications, topics provide a way to group subscribers under a shared identifier so that you can broadcast messages to many users with a single workflow trigger.
 
-Together, they allow you to deliver notifications both at the individual level and to dynamic groups, ensuring messages are routed and personalized correctly for every recipient.
+Topics removes the need to target individual subscriber IDs for each notification, making it ideal for scenarios like product announcements, or feature rollouts.
+
+![Subscribers and Topics](/images/manage-subscribers/topics.png)
+
+Together, Subscribers and Topics makes it possible to deliver notifications both at the individual level and to dynamic groups, ensuring messages are routed and personalized correctly for every recipient.
 
 ## Subscriber ID and Topic Key
 
 Each subscriber in Novu is uniquely identified by a `subscriberId`, which serves as the permanent reference for that subscriber across workflows, preferences, and activity history.
 
-Similarly, each topic is uniquely identified by a `topicKey`, an internal, permanent identifier that cannot be changed after creation. A topic key ensures that groups of subscribers can always be referenced consistently, regardless of how the topic is named or described.
+Similarly, each topic is uniquely identified by a `topicKey`, an internal, permanent identifier. A topic key ensures that groups of subscribers can always be referenced consistently, regardless of how the topic is named or described.
+
+Both `subscriberId` and `topicKey` cannot be changed after creation. Subscribers can belong to multiple topics, and topics don’t override [subscriber preferences](/platform/subscribers-and-topics/subscriber-preferences), each subscriber still controls which channels they receive notifications on.
 
 ## Subscribers, topics and environment
 
