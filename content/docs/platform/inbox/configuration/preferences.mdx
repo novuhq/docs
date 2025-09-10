@@ -130,6 +130,67 @@ function InboxPreferences() {
 export default InboxPreferences;
 ```
 
+### Sort preferences
+
+The `preferenceFilter` prop not only controls which workflows are displayed but also determines their rendering order in the preferences UI. The order of preferences returned from the filtering logic will be preserved when rendering the preferences list.
+
+#### Sorting behavior
+
+When you provide a `preferenceFilter` prop:
+- **With filtering**: Only workflows matching your filter criteria will be shown, and they'll appear in the order they're returned from the filter
+- **Without filtering**: If you omit the `preferenceFilter` prop entirely, all available workflows will be displayed in their default order
+
+The key principle is that **the sequence of preferences returned by your filtering logic directly controls the visual order** in the preferences UI.
+
+#### Example: Custom sorting with tags
+
+You can control the order by specifying tags in your preferred sequence. Workflows will appear in the preferences UI following the same order as the tags array:
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function InboxPreferences() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferencesFilter={{ 
+        tags: ['security', 'account', 'marketing', 'general'] 
+      }} 
+    />
+  );
+}
+
+export default InboxPreferences;
+```
+
+In this example, workflows tagged with 'security' will appear first, followed by 'account', then 'marketing', and finally 'general' workflows.
+
+#### Example: Combining sorting with criticality
+
+When combining tags and criticality filters, the sorting behavior remains consistent:
+
+```tsx
+import { Inbox, WorkflowCriticalityEnum } from '@novu/react';
+
+function InboxPreferences() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferencesFilter={{ 
+        tags: ['urgent', 'important', 'general'],
+        criticality: WorkflowCriticalityEnum.ALL 
+      }} 
+    />
+  );
+}
+
+export default InboxPreferences;
+```
+
+This will display workflows in the order: urgent → important → general, including both critical and non-critical workflows for each tag category.
+
 ### Group preferences
 
 Use the `preferenceGroups` prop on the Inbox component to organize workflows into meaningful sections in the subscriber preferences UI.
