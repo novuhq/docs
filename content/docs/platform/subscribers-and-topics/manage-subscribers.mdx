@@ -178,8 +178,9 @@ const result = await novu.subscribers.credentials.update(
     providerId: "slack",
     credentials: {
       webhookUrl: "https://example.com/webhook",
-      channel: "general",
     },
+    // use integrationIdentifier in case of multiple slack integrations
+    integrationIdentifier: "slack-abcd"
   },
   "<subscriberId>"
 );
