@@ -11,7 +11,7 @@ Subscribers can define how they want to receive notifications. These preferences
 Preferences can be managed in three ways:
 
 - By the subscriber, using the [Inbox UI](/platform/inbox/configuration/preferences).
-- By the organization owner, using the Dashboard.
+- By the organization owner, using the dashboard.
 - By developers, programmatically through the API.
 
 Novu supports both global preferences and workflow-specific preferences for each subscriber. However, you can a subscriber preferences from the Novu dashboard.
@@ -24,9 +24,10 @@ For example, if a subscriber disables a channel globally, that channel will also
 
 ### Manage global preferences via dashboard
 
-1. From the **Subscribers** page, click on a subscriber's profile.
-2. Navigate to the **Preferences** tab.
-3. Under the **Global Preferences** section, you can enable or disable channels.
+1. Log into the Novu dashboard.
+2. From the **Subscribers** page, click on a subscriber's profile.
+3. Navigate to the **Preferences** tab.
+4. Under the **Global Preferences** section, you can enable or disable channels.
 
 ![Subscriber global preferences](/images/manage-subscribers/subscriber-global-preferences.gif)
 
@@ -38,14 +39,16 @@ For example, a subscriber can choose to only enable in-app notifications for a p
 
 <Callout>You can mark a workflow as critical in the workflow settings. This ensures the workflow will not appear in the subscriber's preference settings, and they will always receive notifications from it.</Callout>
 
-## Managing Preferences in the Dashboard
-- From the **Subscribers** page, select a subscriber and go to their Preferences tab.
-- In the **Workflow Preferences** section, you will see a list of all workflows the subscriber is associated with.
-- For each workflow, you can toggle individual channel preferences on or off.
+## Managing preferences in the dashboard
+
+1. Log into the Novu dashboard.
+2. From the **Subscribers** page, click on a subscriber's profile and go to their Preferences tab.
+3. In the **Workflow Preferences** section, you will see a list of all workflows the subscriber is associated with.
+4. For each workflow, you can toggle individual channel preferences on or off.
 
 ![Subscriber preferences](/images/manage-subscribers/subscriber-workflow-preferences.gif)
 
-## Managing Preferences via API
+## Managing preferences via API
 
 Developers can use the Novu API to manage a subscriber's preferences. This is useful for building custom preference centers within your application or for automated management based on user behavior.
 
@@ -70,7 +73,7 @@ run();
 
 For full request and response schemas, see the [API Reference documentation](/api-reference/subscribers/retrieve-subscriber-preferences).
 
-### Update Subscriber Preferences
+### Update subscriber preferences
 
 You can use the API to update a subscriber's preferences. You can update global channel preferences or specific workflow preferences using the same endpoint.
 
