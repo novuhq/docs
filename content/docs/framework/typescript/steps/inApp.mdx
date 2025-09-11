@@ -70,7 +70,7 @@ const { seen, read, lastSeenDate, lastReadDate } = await step.inApp('inbox', res
 
 - **Type**: `object`
 - **Required**: No
-- **Description**: The redirect object is used to define the URL to visit when interacting with the notification. This property can be omitted in place of an `onNotificationClick` [handler](/platform/inbox/react/components#handle-notification-click) implemented in the `<Inbox />` component.
+- **Description**: The redirect object is used to define the URL to visit when interacting with the notification. This property can be omitted in place of an `onNotificationClick` [handler](/platform/inbox/advanced-customization/notification-click-behavior#handle-notification-click-events) implemented in the `<Inbox />` component.
 - **Properties**:
   - `url` (string, required): The URL to visit when clicking on the notification.
   - `target` (string): The target attribute specifies where the new window or tab will be opened. Defaults to `_blank`. Supported values: `_self, _blank, _parent, _top, _unfencedTop`.
