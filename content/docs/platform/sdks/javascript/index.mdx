@@ -334,6 +334,25 @@ await novu.notifications.archiveAllRead({
 });
 ```
 
+#### deleteAll
+
+Deletes multiple notifications. Can be filtered by tags or data attributes.
+
+```typescript
+// Delete specific notifications by tags
+await novu.notifications.deleteAll({
+  tags: ['tag1', 'tag2'],
+});
+
+// Delete notifications by data attributes
+await novu.notifications.deleteAll({
+  data: { type: 'login' },
+});
+
+// Delete all notifications (no filters)
+await novu.notifications.deleteAll();
+```
+
 #### completePrimary
 
 Marks primary action of a notification as completed.
@@ -377,6 +396,7 @@ Individual notification instances have their own methods for marking as seen, re
 - `unread()` - Marks the notification as unread
 - `archive()` - Archives the notification
 - `unarchive()` - Unarchives the notification
+- `delete()` - Deletes the notification
 - `completePrimary()` - Marks primary action as completed
 - `completeSecondary()` - Marks secondary action as completed
 - `revertPrimary()` - Reverts primary action to pending
@@ -398,6 +418,9 @@ await notifications[0].read();
 
 // Archive using the instance method
 await notifications[0].archive();
+
+// Delete using the instance method
+await notifications[0].delete();
 ```
 
 ## Preferences
@@ -581,6 +604,10 @@ novu.on('notifications.unseen_count_changed', (data) => {
     "description": "",
     "type": "() => Result<Notification>"
   },
+  "delete": {
+    "description": "",
+    "type": "() => Result<void>"
+  },
   "snooze": {
     "description": "",
     "type": "(snoozeUntil: string) => Result<Notification>"
