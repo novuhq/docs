@@ -59,7 +59,7 @@ The Inbox UI only displays the channels step used in a given workflow.
 
 ### Filter preferences
 
-Use the `preferenceFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. You can filter workflows based on their assigned tags or their criticality level (critical or non-critical).
+Use the `preferencesFilter` prop on the Inbox component to control which workflows are shown in the subscriber preferences list. You can filter workflows based on their assigned tags or their criticality level (critical or non-critical).
 
 #### Filter by tags
 
@@ -258,18 +258,45 @@ export default InboxPreferences;
 
 ### Sort preferences
 
-Use the `preferenceSort` prop on the Inbox component to customize the order in which workflows are displayed in the subscriber preferences list. This prop accepts a comparison function that follows the same pattern as JavaScript's `Array.sort()` method.
+Use the `preferenceSort` prop on the Inbox component to customize the order in which workflows are displayed in the subscriber preferences list. This prop accepts a custom comparison function, similar to JavaScript's `Array.sort()` method.
 
-The comparison function receives two preference objects as arguments and should return:
-- A negative number if the first item should come before the second
-- A positive number if the first item should come after the second  
-- Zero if the items are equal
+The comparison function receives two preference objects (`a`, `b`) as arguments and should return:
 
-Each preference object contains a `workflow` property with metadata including `name`, `tags`, `slug`, and `identifier`.
+- A negative number if `a` should come before `b`.
+- A positive number if `b` should come before `a`.
+- Zero if the order of `a` and `b` doesn't matter.
+
+Each preference object contains a `workflow` property with metadata you can use for sorting, such as `name`, `tags`, `slug`, and `identifier`.
+
+#### Sort alphabetically
+
+You can sort workflows alphabetically by name in the preferences UI
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function InboxWithAlphabeticalSort() {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceSort={(a, b) => {
+        const aName = a.workflow?.name?.toLowerCase() || '';
+        const bName = b.workflow?.name?.toLowerCase() || '';
+        return aName.localeCompare(bName);
+      }}
+    />
+  );
+}
+
+export default InboxWithAlphabeticalSort;
+```
 
 #### Sort by priority tag
 
-This example shows how to prioritize workflows with a "priority" tag, placing them at the top of the preferences list, followed by alphabetical sorting:
+You can implement more complex logic to meet your specific needs. This example prioritizes workflows tagged with "priority", placing them at the top of the list. All other workflows are then sorted alphabetically by name.
+
+
 
 ```tsx
 import { Inbox } from '@novu/react';
@@ -299,18 +326,30 @@ function InboxWithSortedPreferences() {
 export default InboxWithSortedPreferences;
 ```
 
-#### Sort alphabetically
+#### Sorting within groups
 
-For simple alphabetical sorting by workflow name:
+You can use `preferenceSort` together with `preferenceGroups`. In this case, sorting is applied within each group; this lets you both organize workflows into sections and control their order inside those sections.
 
-```tsx
+For example, after grouping workflows by their functions, you can then sort the workflows alphabetically within each of those groups.
+
+```ts
 import { Inbox } from '@novu/react';
 
-function InboxWithAlphabeticalSort() {
+function InboxWithGroupedAndSortedPreferences() {
   return (
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriber="YOUR_SUBSCRIBER_ID"
+      preferenceGroups={[
+        {
+          name: 'Account Notifications',
+          filter: { tags: ['account'] },
+        },
+        {
+          name: 'Marketing Updates',
+          filter: { tags: ['marketing'] },
+        },
+      ]}
       preferenceSort={(a, b) => {
         const aName = a.workflow?.name?.toLowerCase() || '';
         const bName = b.workflow?.name?.toLowerCase() || '';
@@ -320,11 +359,8 @@ function InboxWithAlphabeticalSort() {
   );
 }
 
-export default InboxWithAlphabeticalSort;
+export default InboxWithGroupedAndSortedPreferences;
 ```
-
-<Callout type="info">The `preferenceSort` prop works in combination with `preferenceGroups`. When both are used, sorting is applied within each group.</Callout>
-
 ## Use Preferences outside the Inbox UI
 
 You don’t have to display the Preferences UI inside the default Inbox component. Novu provides two main ways to build a custom preference experience for your subscribers.
