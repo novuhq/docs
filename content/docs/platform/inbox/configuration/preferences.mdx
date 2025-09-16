@@ -258,7 +258,7 @@ export default InboxPreferences;
 
 ### Sort preferences
 
-Use the `preferenceSort` prop on the Inbox component to customize the order in which workflows are displayed in the subscriber preferences list. This prop accepts a custom comparison function, similar to JavaScript's `Array.sort()` method.
+Use the `preferencesSort` prop on the Inbox component to customize the order in which workflows are displayed in the subscriber preferences list. This prop accepts a custom comparison function, similar to JavaScript's `Array.sort()` method.
 
 The comparison function receives two preference objects (`a`, `b`) as arguments and should return:
 
@@ -280,7 +280,7 @@ function InboxWithAlphabeticalSort() {
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriber="YOUR_SUBSCRIBER_ID"
-      preferenceSort={(a, b) => {
+      preferencesSort={(a, b) => {
         const aName = a.workflow?.name?.toLowerCase() || '';
         const bName = b.workflow?.name?.toLowerCase() || '';
         return aName.localeCompare(bName);
@@ -306,7 +306,7 @@ function InboxWithSortedPreferences() {
     <Inbox
       applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
       subscriber="YOUR_SUBSCRIBER_ID"
-      preferenceSort={(a, b) => {
+      preferencesSort={(a, b) => {
         const aName = a.workflow?.name?.toLowerCase() || '';
         const bName = b.workflow?.name?.toLowerCase() || '';
         const aHasPriorityTag = a.workflow?.tags?.includes('priority') || false;
@@ -328,7 +328,7 @@ export default InboxWithSortedPreferences;
 
 #### Sorting within groups
 
-You can use `preferenceSort` together with `preferenceGroups`. In this case, sorting is applied within each group; this lets you both organize workflows into sections and control their order inside those sections.
+You can use `preferencesSort` together with `preferenceGroups`. In this case, sorting is applied within each group; this lets you both organize workflows into sections and control their order inside those sections.
 
 For example, after grouping workflows by their functions, you can then sort the workflows alphabetically within each of those groups.
 
@@ -350,7 +350,7 @@ function InboxWithGroupedAndSortedPreferences() {
           filter: { tags: ['marketing'] },
         },
       ]}
-      preferenceSort={(a, b) => {
+      preferencesSort={(a, b) => {
         const aName = a.workflow?.name?.toLowerCase() || '';
         const bName = b.workflow?.name?.toLowerCase() || '';
         return aName.localeCompare(bName);
