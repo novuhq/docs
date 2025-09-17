@@ -26,50 +26,49 @@ composer require "novuhq/novu"
 <Tab value="US Region">
 ```php
 declare(strict_types=1);
-
+ 
 require 'vendor/autoload.php';
-
+ 
 use novu;
 use novu\Models\Components;
-
+ 
 $sdk = novu\Novu::builder()
-->setSecurity(
-'<YOUR_SECRET_KEY_HERE>'
-)
-->build();
-
+    ->setSecurity(
+        '<YOUR_SECRET_KEY_HERE>'
+    )
+    ->build();
+ 
 $triggerEventRequestDto = new Components\TriggerEventRequestDto(
-workflowId: 'workflow_identifier',
-to: new Components\SubscriberPayloadDto(
-subscriberId: 'subscriber_unique_identifier',
-firstName: 'Albert',
-lastName: 'Einstein',
-email: 'albert@einstein.com',
-),
-payload: [
-'comment_id' => 'string',
-'post' => [
-'text' => 'string',
-],
-],
-overrides: [
-'email' => [
-'bcc' => 'no-reply@novu.co',
-],
-],
+    workflowId: 'workflow_identifier',
+    to: new Components\SubscriberPayloadDto(
+        subscriberId: 'subscriber_unique_identifier',
+        firstName: 'Albert',
+        lastName: 'Einstein',
+        email: 'albert@einstein.com',
+    ),
+    payload: [
+        'comment_id' => 'string',
+        'post' => [
+            'text' => 'string',
+        ],
+    ],
+    overrides: [
+        'email' => [
+            'bcc' => 'no-reply@novu.co',
+        ],
+    ],
 );
-
+ 
 $response = $sdk->trigger(
-triggerEventRequestDto: $triggerEventRequestDto,
-idempotencyKey: '<value>'
-
+    triggerEventRequestDto: $triggerEventRequestDto,
+    idempotencyKey: '<value>'
+ 
 );
-
+ 
 if ($response->triggerEventResponseDto !== null) {
-// handle response
+    // handle response
 }
-
-````
+```
 </Tab>
 <Tab value="EU Region">
 ```php
