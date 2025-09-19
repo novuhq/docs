@@ -1,0 +1,97 @@
+---
+title: 'Schedule'
+description: "Learn how to configure routing and interaction behavior for notifications using routerPush and click handlers."
+icon: 'CalendarCheck'
+---
+
+The **Schedule** feature in the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> lets subscribers control when they want to receive notifications. By defining availability hours, subscribers can pause in-app notifications outside their chosen time range.
+
+![](/images/inbox/schedule.png)
+
+<Callout>Notifications from critical workflows are never paused and will always be delivered, regardless of schedule settings.</Callout>
+
+## How Schedule works
+
+The schedule functionality is based on a clear set of rules controlled by the subscriber within the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>. When a subscriber enables their schedule, they can then manage their availability for each day of the week.
+
+### Daily availability
+For any day that the main schedule is active, there are two possible states:
+
+- **Day is enabled**: If a day is toggled on, the subscriber must set a time range. Notifications will only be delivered within these hours.
+
+- **Day is disabled**: If a day is toggled off, the subscriber will not receive any non-critical notifications for that entire day.
+
+### Automatic timezone handling
+
+The schedule operates in the subscriber's local timezone, detected automatically from their system settings. There is no need for manual configuration.
+
+For example, if a subscriber in Warsaw sets their schedule from 9:00 AM to 5:00 PM, they will receive notifications during those hours in Central European Time (CET).
+
+## Manage Schedule
+
+The schedule UI in the preferences section is designed to be intuitive, giving subscribers several tools to quickly configure their availability.
+
+You can access **Schedule** from the **Preferences** section of the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> UI. By default, scheduling is turned off, and all notifications are delivered normally.
+
+### Enable the main schedule
+
+The entire feature is controlled by a main schedule toggle. When a subscriber turns this on, they can begin configuring individual days. When it's off, all other settings are inactive, and notifications are delivered normally.
+
+### Setting daily availability
+
+For each day of the week, the subscriber can:
+
+- Use the toggle next to the day's name to activate or deactivate it.
+- If activated, use the time-selector dropdowns to set a "from" and "to" time. The time pickers are set to 30-minute increments for ease of use.
+
+### Edit or remove schedules
+
+Existing availability can be adjusted at any time. Subscribers can:
+- Change the start and end times for a day.
+- Re-enable a previously disabled day.
+- Clear a schedule entirely to return to unrestricted delivery.
+
+### Copying times to multiple days
+
+To make setup faster, subscribers can configure the time for one day and apply it to others in a few clicks:
+
+1. Set the desired time range for a single day (e.g., Wednesday from 9:00 AM to 5:00 PM).
+2. Click the "Copy times to..." button associated with that day.
+3. In the menu that appears, select the other days of the week to apply this schedule to.
+4. Click "Apply." The selected days will automatically be enabled and updated with the new time range.
+
+![Copying times to multiple days](/images/inbox/schedule.gif)
+
+### Automatic saving
+
+All changes made in the schedule interface are saved automatically in the background. The UI updates optimistically, providing a seamless experience without requiring the subscriber to click a "Save" button.
+
+## Set default schedule for Subscribers
+
+You can provide a default schedule for your subscribers by passing the `defaultSchedule` prop to the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>. This is useful for pre-configuring a recommended schedule that your subscribers can then customize.
+
+This default schedule will only be applied if a subscriber has not yet configured their own schedule. Once they make any changes, their custom schedule will take precedence.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+function InboxWithDefaultSchedule() {
+  return (
+      <Inbox
+        applicationIdentifier="YOUR_APP_IDENTIFIER"
+        subscriberId="YOUR_SUBSCRIBER_ID"
+        defaultSchedule={{
+          isEnabled: true,
+          weeklySchedule: {
+            tuesday: {
+              isEnabled: true,
+              hours: [{start: '09:00 AM', end: '07:00 PM'}]
+            }
+          }
+        }}
+      />
+  );
+}
+
+export default InboxWithDefaultSchedule;
+```
