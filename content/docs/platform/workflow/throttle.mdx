@@ -1,0 +1,217 @@
+---
+title: 'Throttle Engine'
+description: 'Control notification frequency and prevent subscriber fatigue with the Throttle Engine'
+icon: 'Gauge'
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+The throttle engine controls the rate at which notifications are sent to subscribers, preventing them from being overwhelmed by frequent messages. This becomes essential when multiple events occur in a short period, and you want to limit the frequency of notifications to maintain a positive user experience.
+
+When you use a throttle action step, Novu automatically enforces rate limits based on the `subscriberId` and an **optional** `throttleKey` that can be added to control the throttling logic of the events.
+
+## Throttle action step
+
+After adding a throttle step to a workflow, the system will check if the subscriber has exceeded their rate limit before proceeding to the next step. If the limit is exceeded, the workflow execution stops, and no notification is sent. If within limits, the workflow continues normally.
+
+<img src="/workflow/media-assets/throttle-engine.png" alt="Throttle Engine" />
+
+## Throttle configuration
+
+### Rate limit
+
+The rate limit defines the maximum number of notifications a subscriber can receive within the specified time window. For example, setting a limit of 5 means the subscriber can receive up to 5 notifications before throttling kicks in.
+
+### Time window
+
+The time window determines the period over which the rate limit applies. You can specify:
+- **Amount**: The numeric value (e.g., 1, 5, 24)
+- **Unit**: The time unit - seconds, minutes, hours, days, weeks, or months
+
+In the workflow editor, you might set `5` as the limit amount and `1 hour` as the time window, meaning subscribers can receive maximum 5 notifications per hour.
+
+### Throttle key
+
+If specified, the throttle engine will group the rate limiting based on the `throttleKey` and `subscriberId`. Otherwise, the throttle engine will apply limits based only on the subscriberId.
+
+The throttle key becomes useful when you want to apply different rate limits for different types of notifications. For example, when sending marketing emails vs security alerts, you might want to throttle them separately using different throttle keys like `marketing` or `security`.
+
+## How throttling works
+
+When a workflow with a throttle step is triggered:
+
+1. **Rate Check**: Novu checks if the subscriber has exceeded their rate limit for the current time window
+2. **Decision**: 
+   - If within limits: The workflow continues to the next step, and the notification count is incremented
+   - If limit exceeded: The workflow execution stops immediately, and no notification is sent
+3. **Window Reset**: Rate limits automatically reset when the time window expires
+
+### Example flow
+
+Let's say you configure a throttle step with:
+- **Limit**: 3 notifications
+- **Time window**: 1 hour
+- **Throttle key**: `promotional`
+
+**Timeline:**
+- **9:00 AM**: First promotional email sent ✅ (1/3)
+- **9:15 AM**: Second promotional email sent ✅ (2/3)
+- **9:30 AM**: Third promotional email sent ✅ (3/3)
+- **9:45 AM**: Fourth promotional email blocked ❌ (limit exceeded)
+- **10:00 AM**: Rate limit resets, new promotional email can be sent ✅ (1/3)
+
+## Throttle strategies
+
+### Basic throttling
+
+The standard throttling strategy applies a simple rate limit over a rolling time window. This is the most common approach for general notification management.
+
+### Category-based throttling
+
+Use different throttle keys to apply separate rate limits for different types of notifications:
+- `marketing`: 2 notifications per week
+- `security`: 10 notifications per hour
+- `social`: 5 notifications per day
+
+### Priority-based throttling
+
+Configure different rate limits based on notification priority or subscriber tier:
+- Premium subscribers: Higher rate limits
+- Free subscribers: Lower rate limits
+- Critical alerts: Separate, higher limits
+
+## Workflow positioning
+
+### Before channel steps
+
+Place throttle steps before notification channels (email, SMS, push, etc.) to control the rate of those specific notifications:
+
+```
+Trigger → Throttle → Email → End
+```
+
+### Multiple throttle steps
+
+You can use multiple throttle steps in the same workflow to apply different rate limits:
+
+```
+Trigger → Global Throttle → Category Throttle → Email → End
+```
+
+**Note**: If any throttle step blocks execution, subsequent steps (including other throttle steps) will not run.
+
+### Combined with digest
+
+Throttle works well with digest steps to create sophisticated notification strategies:
+
+```
+Trigger → Digest → Throttle → Email → End
+```
+
+This pattern collects multiple events, then applies rate limiting to the resulting digest notification.
+
+## Configuring throttle in the workflow editor
+
+1. **Add throttle step**: Drag the throttle action from the steps panel into your workflow
+2. **Position correctly**: Place it before the notification steps you want to rate-limit
+3. **Configure settings**:
+   - Set the **rate limit** (maximum notifications)
+   - Choose the **time window** (duration)
+   - Optionally add a **throttle key** for grouping
+4. **Test the flow**: Use the workflow simulator to verify throttling behavior
+
+## Use cases
+
+### Marketing campaigns
+Prevent subscribers from receiving too many promotional emails:
+- **Limit**: 2 emails per week
+- **Throttle key**: `marketing`
+
+### Security alerts
+Control security notification frequency while allowing critical alerts:
+- **Limit**: 5 alerts per hour
+- **Throttle key**: `security`
+
+### Social notifications
+Manage activity notifications from social features:
+- **Limit**: 10 notifications per day
+- **Throttle key**: `social-activity`
+
+### System monitoring
+Rate-limit system alert notifications:
+- **Limit**: 3 alerts per 15 minutes
+- **Throttle key**: `system-monitoring`
+
+## Best practices
+
+### Choose appropriate limits
+- **Consider user expectations**: Don't throttle too aggressively for important notifications
+- **Match content frequency**: High-frequency events need higher limits
+- **Segment by user type**: Different user tiers may need different limits
+
+### Use meaningful throttle keys
+- **Descriptive names**: Use clear, descriptive throttle keys like `newsletter`, `alerts`, `social`
+- **Consistent naming**: Maintain consistent throttle key naming across workflows
+- **Group related notifications**: Use the same throttle key for similar notification types
+
+### Monitor and adjust
+- **Track throttling metrics**: Monitor how often notifications are blocked
+- **Adjust based on feedback**: Modify limits based on user feedback and engagement
+- **A/B test limits**: Test different rate limits to find optimal values
+
+## Throttle variables
+
+When using throttle steps, certain variables become available in subsequent workflow steps:
+
+### steps.throttle-step.allowed
+A boolean indicating whether the current execution was allowed through the throttle.
+
+### steps.throttle-step.remaining
+The number of notifications remaining in the current time window.
+
+### steps.throttle-step.resetTime
+The timestamp when the current throttle window will reset.
+
+These variables can be used in notification templates to provide context to users about their rate limit status.
+
+## Frequently Asked Questions
+
+<Accordions>
+  <Accordion title="What happens when a notification is throttled?">
+    When the rate limit is exceeded, the workflow execution stops at the throttle step. No notification is sent, and subsequent workflow steps are not executed.
+  </Accordion>
+  
+  <Accordion title="Can I reset throttle limits manually?">
+    Throttle limits reset automatically based on the configured time window. Manual resets are not currently supported through the UI.
+  </Accordion>
+  
+  <Accordion title="How does throttling work with multiple subscribers?">
+    Each subscriber has their own independent rate limit tracking. Throttling for one subscriber does not affect others unless using a shared throttle key.
+  </Accordion>
+  
+  <Accordion title="Can I use throttle with all notification channels?">
+    Yes, throttle steps can be placed before any notification channel step (email, SMS, push, in-app, chat) to control the rate of those notifications.
+  </Accordion>
+  
+  <Accordion title="What happens if I change throttle settings after deployment?">
+    Changes to throttle configuration only affect new workflow executions. Existing throttle windows continue with their original settings until they expire.
+  </Accordion>
+  
+  <Accordion title="Can I have multiple throttle steps in one workflow?">
+    Yes, you can use multiple throttle steps with different configurations. However, if any throttle step blocks execution, subsequent steps will not run.
+  </Accordion>
+</Accordions>
+
+## Error handling
+
+If a throttle step encounters configuration errors or system issues:
+- The workflow execution will stop at the throttle step
+- Error details will be logged in the workflow execution history
+- No notification will be sent to avoid potential spam
+
+Common configuration errors:
+- Invalid time window format
+- Negative or zero rate limits
+- Malformed throttle keys
+
+Ensure your throttle configuration is valid before deploying workflows to production.
