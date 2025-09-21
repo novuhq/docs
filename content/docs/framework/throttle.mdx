@@ -1,0 +1,209 @@
+---
+pageTitle: 'Throttle Action for Framework Based Workflows'
+title: 'Throttle Action'
+description: 'Learn how to use the Throttle Engine to control notification rate and prevent subscriber fatigue'
+---
+
+You can use the Throttle Engine to control the rate at which notifications are sent to subscribers, preventing them from being overwhelmed by frequent messages. Learn more about rate limiting and notification management.
+
+## Defining a throttle step
+
+```tsx
+const throttleResult = await step.throttle('throttle', async () => {
+  return {
+    limit: 5, // Maximum number of notifications
+    interval: '1 hour', // Time window for the limit
+  };
+});
+```
+
+## Throttle Configuration
+
+The throttle step accepts the following configuration options:
+
+- **limit** - The maximum number of notifications allowed within the specified time window
+- **interval** - The time window for which the limit applies (e.g., '1 minute', '1 hour', '1 day')
+- **throttleKey** (optional) - Custom key to group throttling by specific criteria
+
+## Basic throttle usage
+
+```tsx
+const throttleResult = await step.throttle('rate-limit', async () => {
+  return {
+    limit: 3, // Maximum 3 notifications
+    interval: '15 minutes', // Within 15 minutes
+  };
+});
+
+// Only proceed if throttle allows
+await step.email('notification-email', async () => {
+  return {
+    subject: 'Important Update',
+    body: 'This is a rate-limited notification',
+  };
+});
+```
+
+## Custom Throttle Key
+
+You can use a custom throttle key to apply rate limiting based on specific criteria. By default, throttling is applied per `subscriberId`. With a custom throttle key, you can group throttling by other attributes.
+
+```tsx
+export const customThrottleKey = workflow(
+  "custom-throttle-workflow",
+  async ({ step, payload }) => {
+    await step.throttle("throttle-by-category", async () => {
+      return {
+        limit: 2,
+        interval: "1 hour",
+        throttleKey: payload.category, // Group by category
+      };
+    });
+
+    await step.email("category-notification", async () => {
+      return {
+        subject: `Update in ${payload.category}`,
+        body: `New activity in ${payload.category} category`,
+      };
+    });
+  },
+  {
+    payloadSchema: z.object({
+      category: z.string(),
+    }),
+  }
+);
+```
+
+## Throttle with Digest
+
+You can combine throttle with digest to create sophisticated notification strategies:
+
+```tsx
+const throttleResult = await step.throttle('hourly-throttle', async () => {
+  return {
+    limit: 1, // Only 1 notification per hour
+    interval: '1 hour',
+  };
+});
+
+// Collect events for digest if throttle allows
+const { events } = await step.digest('collect-events', async () => {
+  return {
+    unit: 'minutes',
+    amount: 30, // Collect events for 30 minutes
+  };
+});
+
+await step.email('digest-email', async () => {
+  const eventCount = events.length;
+  
+  return {
+    subject: `Digest: ${eventCount} new updates`,
+    body: `You have ${eventCount} updates in the last 30 minutes`,
+  };
+});
+```
+
+## Time Interval Formats
+
+The throttle step supports various time interval formats:
+
+- `'30 seconds'` or `'30s'`
+- `'5 minutes'` or `'5m'`
+- `'2 hours'` or `'2h'`
+- `'1 day'` or `'1d'`
+- `'1 week'` or `'1w'`
+- `'1 month'` or `'1M'`
+
+## Handling Throttled Notifications
+
+When a notification is throttled (exceeds the rate limit), the workflow execution stops at the throttle step. The notification is not sent, and subsequent steps are not executed.
+
+```tsx
+// This workflow will only execute if within rate limits
+const workflow = workflow('throttled-workflow', async ({ step }) => {
+  // Check rate limit first
+  await step.throttle('rate-check', async () => {
+    return {
+      limit: 1,
+      interval: '1 hour',
+    };
+  });
+
+  // This will only execute if throttle allows
+  await step.email('allowed-email', async () => {
+    return {
+      subject: 'You are within rate limits',
+      body: 'This email was sent because you haven\'t exceeded the rate limit',
+    };
+  });
+});
+```
+
+<Callout type="info">
+  Throttle controls: Similar to digest, throttle information cannot be used in step controls. You can only use throttle results from the code logic.
+</Callout>
+
+## Use Cases
+
+### 1. Preventing Spam
+Limit promotional emails to prevent subscriber fatigue:
+
+```tsx
+await step.throttle('promo-limit', async () => {
+  return {
+    limit: 2, // Max 2 promotional emails
+    interval: '1 week', // Per week
+    throttleKey: 'promotional', // Group all promo emails
+  };
+});
+```
+
+### 2. Security Alerts
+Ensure critical alerts aren't sent too frequently:
+
+```tsx
+await step.throttle('security-alert-limit', async () => {
+  return {
+    limit: 3, // Max 3 security alerts
+    interval: '1 hour', // Per hour
+  };
+});
+```
+
+### 3. User Activity Notifications
+Control social media-style notifications:
+
+```tsx
+await step.throttle('activity-limit', async () => {
+  return {
+    limit: 10, // Max 10 activity notifications
+    interval: '1 day', // Per day
+    throttleKey: payload.activityType, // Group by activity type
+  };
+});
+```
+
+<Callout type="warn">
+  Changing the throttle configuration after workflow deployment will only affect new workflow executions. Existing throttle windows will continue with their original settings.
+</Callout>
+
+## Next Steps
+
+- [Learn more about the Throttle Engine](/framework/typescript/steps/throttle)
+- [Combine with Digest for advanced strategies](/framework/digest)
+
+## Frequently Asked Questions
+
+### What happens when the throttle limit is exceeded?
+When the throttle limit is exceeded, the workflow execution stops at the throttle step. No subsequent steps are executed, and no notification is sent.
+
+### Can I reset throttle limits manually?
+Throttle limits reset automatically based on the configured time interval. Manual resets are not currently supported.
+
+### How does throttling work with multiple subscribers?
+Throttling is applied per subscriber by default. Each subscriber has their own independent rate limit unless a custom throttle key is used.
+
+### Can I use throttle with all notification channels?
+Yes, throttle can be used before any notification channel step (email, SMS, push, in-app, chat) to control the rate of those notifications.
