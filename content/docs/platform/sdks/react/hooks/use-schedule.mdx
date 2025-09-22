@@ -119,34 +119,27 @@ function ScheduleManager() {
   if (error) return <div>Error: {error.message}</div>;
 
   const handleUpdateSchedule = async () => {
-    try {
-      await schedule?.update({
-        isEnabled: true,
-        weeklySchedule: {
-          monday: {
-            isEnabled: true,
-            hours: [
-              { start: '09:00 AM', end: '12:00 PM' },
-              { start: '02:00 PM', end: '05:00 PM' },
-            ],
-          },
-          tuesday: {
-            isEnabled: true,
-            hours: [{ start: '09:00 AM', end: '05:00 PM' }],
-          },
-          // Other days can be left undefined or explicitly disabled
-          wednesday: {
-            isEnabled: false,
-            hours: [],
-          },
+    await schedule?.update({
+      isEnabled: true,
+      weeklySchedule: {
+        monday: {
+          isEnabled: true,
+          hours: [
+            { start: '09:00 AM', end: '12:00 PM' },
+            { start: '02:00 PM', end: '05:00 PM' },
+          ],
         },
-      });
-
-      // Refresh the schedule data after updating
-      refetch();
-    } catch (e) {
-      console.error("Failed to update schedule:", e);
-    }
+        tuesday: {
+          isEnabled: true,
+          hours: [{ start: '09:00 AM', end: '05:00 PM' }],
+        },
+        // Other days can be left undefined or explicitly disabled
+        wednesday: {
+          isEnabled: false,
+          hours: [],
+        },
+      },
+    });    
   };
 
   return (
