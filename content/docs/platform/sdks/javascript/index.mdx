@@ -466,6 +466,64 @@ The response will be of type:
   }
 }} />
 
+
+### Schedule
+
+The `preferences.schedule` submodule lets you fetch and update a subscriber’s delivery schedule.
+
+#### get
+
+Fetches the subscriber’s schedule.
+
+```tsx
+const novu = new Novu(...);
+
+const { data: { schedule } } = await novu.preferences.schedule.get();
+```
+
+#### update
+
+Updates the subscriber’s schedule. You can update the entire weekly schedule or only specific days.
+
+```tsx
+const novu = new Novu(...);
+
+// Update schedule via preferences
+const { data: { schedule } } = await novu.preferences.schedule.update({
+  weeklySchedule: {
+    monday: {
+      isEnabled: true,
+      hours: [{ start: '09:00 AM', end: '05:00 PM' }],
+    },
+  },
+});
+
+// Or update directly from a Schedule instance
+const { data: { schedule: updatedSchedule } } =
+  await schedule.update({ isEnabled: false });
+```
+
+### Schedule Class
+
+A `Schedule` instance is returned when fetching or updating a schedule.
+
+<TypeTable name="Schedule" type={{
+    "isEnabled": {
+      "description": "Whether the schedule is active",
+      "type": "boolean"
+    },
+    "weeklySchedule": {
+      "description": "A map of days with availability settings",
+      "type": "WeeklySchedule"
+    },
+    "update": {
+      "description": "Update the schedule with partial data",
+      "type": "(schedule: Partial<WeeklySchedule>) => Result<Schedule>"
+    }
+  }}
+/>
+
+
 ## Events
 
 The Novu client provides real-time event handling through WebSocket connections.
@@ -475,6 +533,10 @@ The Novu client provides real-time event handling through WebSocket connections.
 - `notifications.notification_received`: Triggered when a new notification is received
 - `notifications.unread_count_changed`: Triggered when the unread count changes
 - `notifications.unseen_count_changed`: Triggered when the unseen count changes
+- `preferences.schedule.get.pending`: Triggered when fetching a schedule starts
+- `preferences.schedule.get.resolved`: Triggered when fetching a schedule succeeds
+- `preferences.schedule.update.pending`: Triggered when updating a schedule starts
+- `preferences.schedule.update.resolved`: Triggered when updating a schedule succeeds
 
 ### Usage
 
@@ -495,6 +557,10 @@ novu.on('notifications.unread_count_changed', (data) => {
 
 novu.on('notifications.unseen_count_changed', (data) => {
   console.log('Unseen count:', data);
+});
+
+novu.on('preferences.schedule.update.resolved', ({ data }) => {
+  console.log('Schedule updated:', data.schedule);
 });
 ```
 

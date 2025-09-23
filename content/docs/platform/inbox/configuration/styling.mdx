@@ -160,6 +160,14 @@ Here's a list of some available elements that can be styled using the elements o
 | Snooze button                | `notificationSnooze__button`          |
 | Unread/read indicator button | `notificationUnread__button`          |
 | Notification list container  | `notificationList`                    |
+| Schedule container           | `scheduleContainer`                     |
+| Schedule header              | `scheduleHeader`                        |
+| Schedule body                | `scheduleBody`                          |
+| Schedule table               | `scheduleTable`                         |
+| Day schedule copy title      | `dayScheduleCopyTitle`                  |
+| Day schedule copy menu       | `dayScheduleCopy__dropdownContent`      |
+| Time select drop-down list         | `timeSelect__dropdownTrigger`           |
+| Time select list             | `timeSelect__dropdownContent`           |
 
 <Callout type="info" title="How to find other elements?">
   Any selector that appears before the 🔔 emoji in the Devtools, can be targeted via the elements property in the appearance prop (stripping the `nv-` prefix). You can also use TS autocomplete to find the available elements.
@@ -352,6 +360,31 @@ You can customize specific parts of the Inbox UI by providing callback functions
 | `notificationDeliveredAt__icon`               | `(context: { notification: Notification }) => string`                                                             |
 | `notificationSnoozedUntil__icon`              | `(context: { notification: Notification }) => string`                                                             |
 | `notificationDot`                             | `(context: { notification: Notification }) => string`                                                             |
+| **Schedule**                              |                                                                 |
+| `scheduleContainer`                       | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleHeader`                          | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleLabelContainer`                  | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleLabelIcon`                       | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleLabel`                           | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleActionsContainer`                | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleActionsContainerRight`           | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleBody`                            | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleDescription`                     | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleTable`                           | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleTableHeader`                     | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleHeaderColumn`                    | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleTableBody`                       | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleBodyRow`                         | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleBodyColumn`                      | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleInfoContainer`                   | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleInfoIcon`                        | `(context: { schedule?: Schedule }) => string`                  |
+| `scheduleInfo`                            | `(context: { schedule?: Schedule }) => string`                  |
+| **Day Schedule Copy**                      |                                                                 |
+| `dayScheduleCopyTitle`                    | `(context: { schedule?: Schedule }) => string`                  |
+| `dayScheduleCopyIcon`                     | `(context: { schedule?: Schedule }) => string`                  |
+| `dayScheduleCopySelectAll`                | `(context: { schedule?: Schedule }) => string`                  |
+| `dayScheduleCopyDay`                      | `(context: { schedule?: Schedule }) => string`                  |
+| `dayScheduleCopyFooterContainer`          | `(context: { schedule?: Schedule }) => string`                  |
 
   </Accordion>
 </Accordions>
