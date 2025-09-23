@@ -68,12 +68,15 @@ Fetches a list of notifications based on provided filters.
 ---end---
 
 ```typescript
+import { SeverityLevelEnum } from '@novu/js';
+
 const notifications = await novu.notifications.list({
   limit: 30,
   read: false,
   seen: false,
   archived: false,
   tags: ['tag1', 'tag2'],
+  severity: SeverityLevelEnum.HIGH,
   // data attributes
   data: {
     type: 'login',
@@ -104,6 +107,7 @@ Fetches the count of notifications based on filters.
       read: false,
       seen: false,
       archived: false,
+      severity: SeverityLevelEnum.HIGH,
        // data attributes
       data: {
         type: 'login',
@@ -115,7 +119,14 @@ Fetches the count of notifications based on filters.
     ```typescript
     // Multiple filters
     const counts = await novu.notifications.count({
-      filters: [{ read: false }, { seen: false }, { archived: true }, { tags: ['tag1'] }, { data: { type: 'login' } }],
+      filters: [
+        { read: false }, 
+        { seen: false }, 
+        { severity: SeverityLevelEnum.HIGH }
+        { archived: true }, 
+        { tags: ['tag1'] }, 
+        { data: { type: 'login' } }
+      ],
     });
     ```
   </Tab>
@@ -233,6 +244,25 @@ await novu.notifications.archiveAllRead({
 });
 ```
 
+#### deleteAll
+
+Deletes multiple notifications. Can be filtered by tags or data attributes.
+
+```typescript
+// Delete specific notifications by tags
+await novu.notifications.deleteAll({
+  tags: ['tag1', 'tag2'],
+});
+
+// Delete notifications by data attributes
+await novu.notifications.deleteAll({
+  data: { type: 'login' },
+});
+
+// Delete all notifications (no filters)
+await novu.notifications.deleteAll();
+```
+
 #### completePrimary
 
 Marks primary action of a notification as completed.
@@ -276,6 +306,7 @@ Individual notification instances have their own methods for marking as seen, re
 - `unread()` - Marks the notification as unread
 - `archive()` - Archives the notification
 - `unarchive()` - Unarchives the notification
+- `delete()` - Deletes the notification
 - `completePrimary()` - Marks primary action as completed
 - `completeSecondary()` - Marks secondary action as completed
 - `revertPrimary()` - Reverts primary action to pending
@@ -297,6 +328,9 @@ await notifications[0].read();
 
 // Archive using the instance method
 await notifications[0].archive();
+
+// Delete using the instance method
+await notifications[0].delete();
 ```
 
 ## Preferences
@@ -330,6 +364,12 @@ The Novu client provides real-time event handling through WebSocket connections.
 ### Usage
 
 ```typescript
+
+novu.on('session.initialize.resolved', ({ data }: { data: Session }) => {
+  console.log(data.unreadCount.total);
+  console.log(data.unreadCount.severity[SeverityLevelEnum.HIGH]);
+});
+
 novu.on('notifications.notification_received', (data) => {
   console.log('New notification:', data);
 });
