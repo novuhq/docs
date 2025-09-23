@@ -14,15 +14,11 @@ The main component for displaying notifications.
 ### Props
 
 <TypeTable name="InboxProps" type={{
-  "applicationIdentifier": {
-    "description": "",
-    "type": "string | undefined"
-  },
   "subscriberHash": {
     "description": "",
     "type": "string"
   },
-  "apiUrl": {
+  "backendUrl": {
     "description": "",
     "type": "string"
   },
@@ -61,6 +57,10 @@ The main component for displaying notifications.
   "subscriber": {
     "description": "",
     "type": "string | Subscriber"
+  },
+  "applicationIdentifier": {
+    "description": "",
+    "type": "string"
   }
 }} />
 
@@ -164,6 +164,18 @@ function NotificationCenter() {
     "type": "string"
   },
   "colorStripes": {
+    "description": "",
+    "type": "string"
+  },
+  "colorSeverityHigh": {
+    "description": "",
+    "type": "string"
+  },
+  "colorSeverityMedium": {
+    "description": "",
+    "type": "string"
+  },
+  "colorSeverityLow": {
     "description": "",
     "type": "string"
   }
@@ -400,27 +412,11 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "bellIcon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
   "lockIcon": {
     "description": "",
     "type": "ElementStyles"
   },
-  "bellContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "bellDot": {
-    "description": "",
-    "type": "ElementStyles"
-  },
   "preferences__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesContainer": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -441,14 +437,6 @@ function NotificationCenter() {
     "type": "ElementStyles"
   },
   "inbox__popoverContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationListContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationList": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -492,31 +480,7 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "notification": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationTextContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationDot": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSubject": {
-    "description": "",
-    "type": "ElementStyles"
-  },
   "notificationSubject__strong": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationBody": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -528,35 +492,7 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "notificationImage": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationImageLoadingFallback": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationDate": {
-    "description": "",
-    "type": "ElementStyles"
-  },
   "notificationDateActionsContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationDefaultActions": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationCustomActions": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationPrimaryAction__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSecondaryAction__button": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -728,30 +664,6 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "workflowContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowLabelHeader": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowLabelHeaderContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowLabelIcon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowLabelContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
   "workflowContainerDisabledNotice": {
     "description": "",
     "type": "ElementStyles"
@@ -760,99 +672,11 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "workflowContainerRight__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowArrow__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
   "workflowDescription": {
     "description": "",
     "type": "ElementStyles"
   },
-  "preferencesGroupContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupHeader": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupLabelContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupLabelIcon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupActionsContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupActionsContainerRight__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupBody": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupChannels": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupInfo": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupInfoIcon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesGroupWorkflows": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelIconContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channel__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
   "channelsContainerCollapsible": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelsContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelLabelContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelName": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelSwitchContainer": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -936,21 +760,265 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
-  "notificationDeliveredAt__badge": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationDeliveredAt__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSnoozedUntil__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
   "strong": {
     "description": "",
     "type": "ElementStyles"
+  },
+  "bellIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "bellContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "severityHigh__bellContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "severityMedium__bellContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "severityLow__bellContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "bellSeverityGlow": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "severityGlowHigh__bellSeverityGlow": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "severityGlowMedium__bellSeverityGlow": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "severityGlowLow__bellSeverityGlow": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "bellDot": {
+    "description": "",
+    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
+  },
+  "preferencesContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferences?: Preference[] | undefined; groups: { name: string; preferences: Preference[]; }[]; }) => string)"
+  },
+  "notificationListContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notifications: Notification[]; }) => string)"
+  },
+  "notificationList": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notifications: Notification[]; }) => string)"
+  },
+  "notification": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "severityHigh__notification": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "severityMedium__notification": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "severityLow__notification": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationBar": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "severityHigh__notificationBar": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "severityMedium__notificationBar": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "severityLow__notificationBar": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationContent": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationTextContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationDot": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationSubject": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationBody": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationImage": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationImageLoadingFallback": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationDate": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationDefaultActions": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationCustomActions": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationPrimaryAction__button": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationSecondaryAction__button": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "workflowContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "workflowLabel": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "workflowLabelHeader": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "workflowLabelHeaderContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "workflowLabelIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "workflowLabelContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "workflowContainerRight__icon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "workflowArrow__icon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "preferencesGroupContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupHeader": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupLabelContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupLabelIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupLabel": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupActionsContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupActionsContainerRight__icon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupBody": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupChannels": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupInfo": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupInfoIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "preferencesGroupWorkflows": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
+  },
+  "channelContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
+  },
+  "channelIconContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
+  },
+  "channel__icon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
+  },
+  "channelsContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "channelLabel": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
+  },
+  "channelLabelContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
+  },
+  "channelName": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
+  },
+  "channelSwitchContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
+  },
+  "notificationDeliveredAt__badge": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationDeliveredAt__icon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "notificationSnoozedUntil__icon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
   }
 }} />
 
@@ -1014,6 +1082,10 @@ A component for rendering a list of notifications.
     "description": "",
     "type": "NotificationsRenderer"
   },
+  "renderAvatar": {
+    "description": "",
+    "type": "AvatarRenderer"
+  },
   "renderSubject": {
     "description": "",
     "type": "SubjectRenderer"
@@ -1021,6 +1093,14 @@ A component for rendering a list of notifications.
   "renderBody": {
     "description": "",
     "type": "BodyRenderer"
+  },
+  "renderDefaultActions": {
+    "description": "",
+    "type": "DefaultActionsRenderer"
+  },
+  "renderCustomActions": {
+    "description": "",
+    "type": "CustomActionsRenderer"
   }
 }} />
 
@@ -1082,6 +1162,10 @@ A component for building custom notification inboxes.
     "description": "",
     "type": "NotificationsRenderer"
   },
+  "renderAvatar": {
+    "description": "",
+    "type": "AvatarRenderer"
+  },
   "renderSubject": {
     "description": "",
     "type": "SubjectRenderer"
@@ -1089,6 +1173,14 @@ A component for building custom notification inboxes.
   "renderBody": {
     "description": "",
     "type": "BodyRenderer"
+  },
+  "renderDefaultActions": {
+    "description": "",
+    "type": "DefaultActionsRenderer"
+  },
+  "renderCustomActions": {
+    "description": "",
+    "type": "CustomActionsRenderer"
   }
 }} />
 

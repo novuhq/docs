@@ -13,7 +13,7 @@ Message is a single notification that is sent to a subscriber. Each channel step
   },
   "templateId": {
     "description": "Template ID associated with the message",
-    "type": "string"
+    "type": "string | null"
   },
   "environmentId": {
     "description": "Environment ID where the message is sent",
@@ -21,7 +21,7 @@ Message is a single notification that is sent to a subscriber. Each channel step
   },
   "messageTemplateId": {
     "description": "Message template ID",
-    "type": "string"
+    "type": "string | null"
   },
   "organizationId": {
     "description": "Organization ID associated with the message",
@@ -65,7 +65,7 @@ Message is a single notification that is sent to a subscriber. Each channel step
   },
   "content": {
     "description": "Content of the message, can be an email block or a string",
-    "type": "string | EmailBlock[]"
+    "type": "string | EmailBlock[] | null"
   },
   "transactionId": {
     "description": "Transaction ID associated with the message",
