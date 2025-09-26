@@ -50,8 +50,7 @@ In fixed window, the time frame is predefined in the workflow editor. Use this m
 
 Here is an example of how they work together: 
 
-Imagine you want to send a notification for each project a user belongs to, but no more than once a week per project. You can set `Throttle for` to "7 days" and `Group throttling` by to `payload.projectId`. This ensures the user receives one alert for Project A and one for Project B within the same week, instead of just one alert total.
-
+Imagine you want to send a notification for each project a user belongs to, but no more than once a week per project. You can set `Throttle for` to "7 days" and `Group throttling by` to `payload.projectId`. This ensures the user receives one alert for Project A and one for Project B within the same week, instead of just one alert total.
 #### Dynamic window
 
 In dynamic window, the time frame is determined by data sent in the trigger payload. Use this mode when the throttle duration or end time needs to be flexible and defined at the time of the trigger. For example, "throttle billing alerts until the end of the current billing cycle."
