@@ -16,7 +16,7 @@ Some use cases for this include:
 At a high level, the throttle step counts the number of times a workflow is triggered for a specific subscriber.
 
 - If the count is within the defined execution threshold for the time window, then the workflow proceeds as normal.
-- If the count exceeds the threshold, the workflow execution is halted at the throttle step. Any steps placed after the throttle step in your workflow will not be executed. For example, if you have an email step following a throttle step, that email will not be sent once the limit is reached.
+- If the count exceeds the threshold, then the workflow execution is halted at the throttle step. Any steps placed after the throttle step in your workflow will not be run. For example, if you have an email step following a throttle step, then that email will not be sent once the limit is reached.
   ![Throttle feed activity feed](/images/workflows/throttle-step-Activity-feed.png)
 
 Throttling applies consistently across channels, whether the workflow sends email, in-app, SMS, chat or push notifications.
