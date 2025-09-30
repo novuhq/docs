@@ -31,17 +31,21 @@ You can find and edit all the properties for the Throttle step directly within t
 
 - **Navigate to the Workflow Editor**: Go to the **Workflows** page in your Novu dashboard and either create a new workflow or select an existing one.
 - **Add the Throttle Step**: On the workflow canvas, click the `+` icon between steps to open the step library, then select Throttle from the list.
-
+  ![Throttle step](/images/workflows/throttle-step.png)
 - **Access the properties panel**: Click on the newly added **Throttle** step on the canvas. This will open its configuration panel on the right-hand side of the screen.
+  ![Throttle panel](/images/workflows/throttle-panel.png)
+
+This panel contains all properties for the step, including:
 
 - **Name**: A descriptive label for the step in the workflow editor.
 - **Identifier**: A unique key used to reference the step programmatically.
+- **Throttle Window**: The main configuration for setting the time period and execution limits.
 
 ## Throttle window
 
 The throttle window defines the time period in which executions are counted. Within this window, only the specified number of executions are allowed.
 
-It is located inside the Throttle step properties panel, you will find the options to set your Throttle Window. You can choose between two main modes:
+In the Throttle step properties panel, you will find the options to set your Throttle Window. You can choose between two main modes:
 
 - Fixed: Select this option to configure a predefined time window using the Throttle for and Execution threshold fields.
 - Dynamic: Select this option to use a window defined in your trigger payload. You will then configure the Dynamic window key to specify which payload variable to use.
