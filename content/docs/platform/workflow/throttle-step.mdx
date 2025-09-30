@@ -25,20 +25,21 @@ The throttle step applies to all workflows, including those marked as critical. 
 
 To the subscriber, the experience is transparent. They are not aware that any throttling has occurred; they either receive a notification or they don’t. The subscriber is never exposed to information about the throttle itself.
 
-## Configuration options
-
-The Throttle step has several configuration fields that define how throttling is applied.
-
-### Throttle Step properties
+## Throttle Step properties
 
 - **Name**: A descriptive label for the step in the workflow editor.
 - **Identifier**: A unique key used to reference the step programmatically.
 
-### Throttle window
+## Throttle window
 
-The throttle window defines the time period in which executions are counted. Within this window, only the specified number of executions are allowed. You can choose between a fixed or dynamic window.
+The throttle window defines the time period in which executions are counted. Within this window, only the specified number of executions are allowed.
 
-#### Fixed window
+It is located inside the Throttle step properties panel, you will find the options to set your Throttle Window. You can choose between two main modes:
+
+- Fixed: Select this option to configure a predefined time window using the Throttle for and Execution threshold fields.
+- Dynamic: Select this option to use a window defined in your trigger payload. You will then configure the Dynamic window key to specify which payload variable to use.
+
+### Fixed window
 
 In fixed window, the time frame is predefined in the workflow editor. Use this mode when the time window for throttling is constant and known in advance. For example, "allow only one login alert per hour."
 
@@ -51,7 +52,8 @@ In fixed window, the time frame is predefined in the workflow editor. Use this m
 Here is an example of how they work together: 
 
 Imagine you want to send a notification for each project a user belongs to, but no more than once a week per project. You can set `Throttle for` to "7 days" and `Group throttling by` to `payload.projectId`. This ensures the user receives one alert for Project A and one for Project B within the same week, instead of just one alert total.
-#### Dynamic window
+
+### Dynamic window
 
 In dynamic window, the time frame is determined by data sent in the trigger payload. Use this mode when the throttle duration or end time needs to be flexible and defined at the time of the trigger. For example, "throttle billing alerts until the end of the current billing cycle."
 
@@ -76,7 +78,6 @@ In dynamic window, the time frame is determined by data sent in the trigger payl
           }
           ```
 
-- **Execution threshold**: This works the same as in the fixed window mode, defining the maximum number of executions allowed within the dynamically set window.
+- **Execution threshold**: Works the same as in the fixed window mode.
 
-- **Group throttling by**: This also functions identically to the fixed window mode, allowing for an additional grouping key from the payload.
-
+- **Group throttling by**: This also functions identically to the fixed window mode.
