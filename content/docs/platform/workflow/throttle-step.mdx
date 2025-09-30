@@ -15,13 +15,13 @@ Some use cases for this include:
 
 At a high level, the throttle step counts the number of times a workflow is triggered for a specific subscriber.
 
-- If the count is within the defined execution threshold for the time window, the workflow proceeds as normal.
-- If the count exceeds the threshold, the workflow execution is halted at the throttle step. Any steps placed after the throttle step in your workflow will not be executed. For example, if you have an email step following a throttle step, that email will not be sent once the limit is reached.
+- If the count is within the defined execution threshold for the time window, then the workflow proceeds as normal.
+- If the count exceeds the threshold, then the workflow execution is halted at the throttle step. Any steps placed after the throttle step in your workflow will not be run. For example, if you have an email step following a throttle step, then that email will not be sent once the limit is reached.
   ![Throttle feed activity feed](/images/workflows/throttle-step-Activity-feed.png)
 
-Throttling applies consistently across channels, whether the workflow sends email, in-app, SMS, chat or push notifications.
+Throttling applies consistently across channels, whether the workflow sends email, in-app, SMS, chat, or push notifications.
 
-The throttle step applies to all workflows, including those marked as critical. If a critical workflow is triggered more frequently than the throttle limit allows, it will be skipped just like any other workflow. This ensures that even high-priority alerts do not overwhelm a subscriber.
+The throttle step applies to all workflows, including those marked as critical. If a critical workflow is triggered more frequently than the throttle limit allows, then it will be skipped just like any other workflow. This ensures that even high-priority alerts do not overwhelm a subscriber.
 
 To the subscriber, the experience is transparent. They are not aware that any throttling has occurred; they either receive a notification or they don’t. The subscriber is never exposed to information about the throttle itself.
 
