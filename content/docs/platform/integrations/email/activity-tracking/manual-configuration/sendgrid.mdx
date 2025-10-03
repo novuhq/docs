@@ -1,0 +1,54 @@
+---
+pageTitle: 'SendGrid Manual Configuration'
+title: 'SendGrid'
+description: 'A step-by-step guide to manually configure SendGrid event webhooks for Novu activity tracking.'
+---
+
+If the API key used in your Novu SendGrid integration does not have the required permissions, the automatic setup will fail with an `access forbidden` error. This indicates that Novu lacks the permissions needed to configure the webhook on your behalf.
+
+This guide will walk you through resolving this issue.
+
+## Step 1: Update SendGrid API key permissions
+
+First, you need to update your API key in your SendGrid account to grant the necessary permissions.
+
+1. Log in to your SendGrid account
+2. Under **Settings**, click **API Keys**.
+3. Choose whether to edit an existing key or create a new one:
+   - To create a new API key, click **Create API Key**.
+   - To update an existing key, click the settings icon next to it and select **Edit API Key**.
+   ![Edit existing key or creating a new one](/images/channels-and-providers/email/activity-tracking/sendgrid-api.png)
+4. Set the key permissions to either:
+   - **Full Access**, or
+   - Custom Access with at least the following enabled:  
+     - **Mail Send**  
+     - **Mail Settings**
+     ![Custom access](/images/channels-and-providers/email/activity-tracking/custom-access.png)
+5. If you created a new key, return to the Novu dashboard and update your SendGrid integration settings with the new API key.
+
+## Step 2: Enable activity tracking in Novu
+Once your API key has the correct permissions, return to your Novu dashboard to complete the setup.
+
+1.  Navigate to the **Integrations** page and select your **SendGrid** integration.
+2.  Click the **Email Activity Tracking** toggle to enable it.
+
+With the updated permissions, Novu should now successfully auto-configure the webhook for you. You should see a green checkmark indicating that the webhook is active. If you see this, your setup is complete.
+
+![Enable activity tracking in Novu](/images/channels-and-providers/email/activity-tracking/enable-activity-tracking.gif)
+
+## Step 3: Handle configuration error (Optional)
+
+In rare cases, even with the correct permissions, you might still see a `Error configuring SendGrid webhook: access forbidden` or `Error configuring SendGrid webhook: Webhook already exists. Please provide unique URL` error message in the Novu UI after enabling the toggle. However, the webhook may have been successfully created in SendGrid.
+
+If this happens, follow these steps to manually link the webhook:
+
+1. Log in to the SendGrid dashboard.  
+2. Go to **Settings**, and click **Mail Settings**
+3. Under **Webhook Settings**, click **Event Webhook**.
+3. You should see that the webhook was already created successfully in SendGrid despite the error.  
+4. Copy the **Endpoint URL** from this page and return back to the Novu Dashboard 
+   ![Copy the Endpoint URL](/images/channels-and-providers/email/activity-tracking/sendgrid-endpoint-url.png)
+5. Go to your Novu SendGrid integration settings, under **Email Activity Tracking**, paste the Endpoint URL into the **Inbound Webhook Signing Key** field. 
+6. Click **Save**.
+
+This will manually link the existing webhook to your Novu integration and resolve the issue.
