@@ -12,7 +12,7 @@ This guide explains how to manually add new webhooks for specific events directl
 
 First, you need the unique webhook URL from your Novu dashboard that will receive events from Mailgun.
 
-1. Log in to the Novu dashboard
+1. Log in to the Novu dashboard.
 2. Navigate to the **Integration Store** page in Novu and then select your **Mailgun** integration.
 3. Enable the **Email Activity Tracking** toggle.
     This generates an Inbound Webhook URL unique to your integration. 
@@ -24,7 +24,7 @@ First, you need the unique webhook URL from your Novu dashboard that will receiv
 
 Next, log in to your Mailgun account to create a new webhook for the specific event you want to track.
 
-1. Log in to your Mailgun account
+1. Log in to your Mailgun account.
 2. Navigate to **Send** section in the left sidebar, and then select **Webhooks**.
 2. Click **Add webhook**.
   ![Add Mailgun webhook](/images/channels-and-providers/email/activity-tracking/add-mailgun-webhook.png)
@@ -34,15 +34,15 @@ Next, log in to your Mailgun account to create a new webhook for the specific ev
 4. Click **Create Webhook**.
   ![Create Mailgun Webhook](/images/channels-and-providers/email/activity-tracking/create-mailgun-webhook.png)
 
-## Step 3: Add additional events (optional)
+## Step 3: Add additional events (Optional)
 
 Your new webhook for the selected event is now active. To track other events, you must repeat the process in **Step 2** for each one. We recommend adding webhooks for all events that Novu supports:
 
-- Delivered Messages
+- Delivered messages
 - Opens
 - Clicks
 - Unsubscribes
-- Spam Complaints
-- Permanent Failures
+- Spam complaints
+- Permanent failures
 
 Once configured, Mailgun will begin sending real-time data for these events to Novu, which you can monitor in your **Activity Feed**.
