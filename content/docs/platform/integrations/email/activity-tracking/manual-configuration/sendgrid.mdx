@@ -36,19 +36,42 @@ With the updated permissions, Novu should now successfully auto-configure the we
 
 ![Enable activity tracking in Novu](/images/channels-and-providers/email/activity-tracking/enable-activity-tracking.gif)
 
-## Step 3: Handle configuration error (Optional)
+## Step 3: Manual configuration (only if auto-configuration fails)
 
-In rare cases, even with the correct permissions, you might still see a `Error configuring SendGrid webhook: access forbidden` or `Error configuring SendGrid webhook: Webhook already exists. Please provide unique URL` error message in the Novu UI after enabling the toggle. However, the webhook may have been successfully created in SendGrid.
+If the automatic configuration fails for any reason, or if you prefer to set it up manually, follow these steps.
 
-If this happens, follow these steps to manually link the webhook:
+### Part 1: Configure the webhook in SendGrid
 
-1. Log in to the SendGrid dashboard.  
-2. Go to **Settings**, and click **Mail Settings**.
-3. Under **Webhook Settings**, click **Event Webhook**.
-4. You should see that the webhook was already created successfully in SendGrid despite the error.  
-5. Copy the **Endpoint URL** from this page and return back to the Novu dashboard.
-   ![Copy the Endpoint URL](/images/channels-and-providers/email/activity-tracking/sendgrid-endpoint-url.png)
-6. Go to your Novu SendGrid integration settings, under **Email Activity Tracking**, paste the Endpoint URL into the **Inbound Webhook Signing Key** field. 
-7. Click **Save**.
+1.  In your Novu SendGrid integration settings, enable the **Email Activity Tracking** toggle to reveal the **Inbound Webhook URL**
+2. Copy the this Inbound Webhook URL.
+3. Log in to the SendGrid dashboard.
+4. Go to the Settings page, and click **Mail Settings**.
+5. Click on **Event Webhook**.
+6. Click **Create new webhook**
+   ![Create new SendGrid webhook](/images/channels-and-providers/email/activity-tracking/sendgrid-webhook.png)
+7. Give the webhook a friendly name.
+8. Paste the Inbound Webhook URL copied from Novu into the **Post URL** field.
+9.  Under **Actions to be posted**, select the events Novu supports that you want to track
+   ![Add new event webhook](/images/channels-and-providers/email/activity-tracking/add-new-event-webhook.png)
+10. Under Singnature Verification, enable **Enable Signed Event Webhook**
+11. Click **Save**
 
-This will manually link the existing webhook to your Novu integration and resolve the issue.
+
+### Part 2: Add the signing key to Novu (Recommended)
+
+For enhanced security, you should add a signing key to verify that webhooks are coming from SendGrid.
+
+1. Log in to the SendGrid dashboard.
+2. Go to the Settings page, and click **Mail Settings**.
+3. Click the settings icon next to the webhhok a menu will appear.
+4. Click **Edit**.
+   ![Add new event webhook](/images/channels-and-providers/email/activity-tracking/edit-sendgrid-webhook.png)
+5. Enable **Signed Webhook Verification** if is hasn't been enabled. A **Verification Key** will be displayed. 
+6. Copy the verification key.
+   ![Add new event webhook](/images/channels-and-providers/email/activity-tracking/sendgrid-verification-key.png)
+3. Return to your Novu SendGrid integration settings.
+4. Paste the key you just copied from SendGrid into the **Inbound Webhook Signing Key** field.
+   ![Add new event webhook](/images/channels-and-providers/email/activity-tracking/inbound-signing-key-sendgrid.png)
+5. Click **Save**.
+
+Your SendGrid integration is now manually configured to send activity data to Novu.
