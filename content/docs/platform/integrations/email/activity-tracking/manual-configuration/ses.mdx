@@ -72,24 +72,25 @@ Next, you'll set up an SNS (Simple Notification Service) topic to receive events
 4. Click **Create subscription**
 5. In the sidebar, click **Subscriptions** to confirm that the subscription status is “Confirmed.”
   ![Subscription confirmed](/images/channels-and-providers/email/activity-tracking/ses/subscription-confirmed.png)
-## Step 6: Create SES Configuration Set
 
-Create a Configuration Set in SES to tie everything together.
+## Step 6: Create SES Configuration set
+
+Create a Configuration set in SES to tie everything together.
 
 1. In the AWS console, search for SES (Simple Email Service). This opens the Amazon SES dashboard.
-2. In the sidebar, under **Configuration**, click **Configuration sets** 
+2. In the sidebar, under Configuration section, click **Configuration sets** 
 3. Click **Create set**.
   ![Create set](/images/channels-and-providers/email/activity-tracking/ses/create-set.png)
-4.  Enter a **Configuration set name**, then click **Create set**.
+4.  Enter a configuration set name, then click **Create set**.
   ![Set name](/images/channels-and-providers/email/activity-tracking/ses/set-name.png)
-5.  Copy this **Configuration set name**.
-6.  Go back to your **SES integration settings in Novu**. Paste the name into the **Configuration Set Name** field under the **Email Activity Tracking** section.
+5.  Copy the **Configuration set name**.
+6.  Go back to your SES integration settings in Novu. Paste the name into the **Configuration Set Name** field under the **Email Activity Tracking** section.
   ![Set name Novu](/images/channels-and-providers/email/activity-tracking/ses/set-name-novu.png)
 7. Click **Save changes**.
 
 ## Step 7: Add event destination
 
-1. Return to the Configuration Sets page in your **AWS SES dashboard** and click on the set you just created.
+1. Return to the Configuration set page in your **AWS SES dashboard** and click on the set you just created.
 2.  Click the **Event destinations** tab and then **Add event destination**.
   ![Add destination](/images/channels-and-providers/email/activity-tracking/ses/add-destination.png)
 3.  Select all available **Event types** and click **Next**.
