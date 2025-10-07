@@ -8,11 +8,12 @@ icon: 'UserCog'
 The Preferences interface in the Inbox component lets subscribers customize how they receive notifications. By default, Novu renders a preferences icon inside the Inbox component, giving users access to global and workflow-specific settings directly from the UI.
 
 <Callout type="info">
-A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI.  
-You can override this behavior by setting the `criticality` field in the `preferencesFilter` prop.
+A workflow marked as "critical" on the Novu dashboard cannot be disabled by the user and will not appear in their preferences UI. You can override this behavior by setting the `criticality` field in the `preferencesFilter` prop.
 </Callout>
 
 ![Global preferences](/images/inbox/preferences.gif)
+
+<Callout>You can also hide any workflow from appearing in the subscriber preferences UI using the appearance prop. To learn more, refer to the documentation on [styling the Inbox UI elements](/platform/inbox/configuration/styling#style-the-inbox-ui-elements).</Callout>
 
 ## Global preferences
 
@@ -49,11 +50,15 @@ export default InboxWithGlobalPreferencesHidden;
 
 ## Workflow-specific preferences
 
-Each workflow has its own set of channel preferences in the Inbox UI, where your subscribers can control how they receive notifications for that specific workflow. For example, a user might prefer email for account updates but in-app notifications for security alerts.
+Each workflow has its own set of channel preferences in the Inbox UI, where your subscribers can control how they receive notifications for that specific workflow. For example, a subscriber might prefer to receive email notification for an account updates worflow but in-app notifications for security alerts.
+
+<Callout>
+The name given to a workflow in the Novu dashboard is the name your subscribers will see in their preferences UI.
+</Callout>
 
 ![Workflow specific preferences](/images/inbox/workflow-specific-preferences.png)
 
-The Inbox UI only displays the channels step used in a given workflow.
+For each workflow, the Inbox UI only displays the channels step used in a given workflow.
 
 <Callout type ="info">Learn how to configure channel steps in a workflow in the [Building Workflows guide](/platform/workflow/build-a-workflow).</Callout>
 
@@ -361,6 +366,37 @@ function InboxWithGroupedAndSortedPreferences() {
 
 export default InboxWithGroupedAndSortedPreferences;
 ```
+
+## Conditionally display preferences
+
+This approach can also be used to show or hide elements. The example below hides the global preferences settings by checking the `preference.level` property.
+
+```tsx
+import { Inbox, PreferenceLevel } from '@novu/react';
+
+export default function Novu() {
+
+  const appearance = {
+    elements: {
+      workflowContainer: ({ preference }) => {
+        if (preference.level === PreferenceLevel.GLOBAL) {
+          return 'hidden';
+        }
+        return '';
+      },
+    },
+  };
+
+  return (
+  <Inbox
+    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+    subscriber="YOUR_SUBSCRIBER_ID"
+    appearance={appearance}
+  />
+);
+}
+```
+
 ## Use Preferences outside the Inbox UI
 
 You don’t have to display the Preferences UI inside the default Inbox component. Novu provides two main ways to build a custom preference experience for your subscribers.
