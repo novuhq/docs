@@ -37,8 +37,6 @@ jobs:
       - name: Build
         env:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
-          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-          ORAMA_PRIVATE_API_KEY: ${{ secrets.ORAMA_PRIVATE_API_KEY }}
-          NEXT_PUBLIC_ORAMA_API_KEY: ${{ secrets.NEXT_PUBLIC_ORAMA_API_KEY }}
+          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}}
           NEXT_PUBLIC_SEGMENT_WRITE_KEY: ${{ secrets.NEXT_PUBLIC_SEGMENT_WRITE_KEY }}
         run: pnpm run build 
