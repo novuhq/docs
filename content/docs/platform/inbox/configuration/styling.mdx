@@ -454,36 +454,6 @@ export default function Novu() {
 }
 ```
 
-### Conditionally display preferences
-
-This approach can also be used to show or hide elements. The example below hides the global preferences settings by checking the `preference.level` property.
-
-```tsx
-import { Inbox, PreferenceLevel } from '@novu/react';
-
-export default function Novu() {
-
-  const appearance = {
-    elements: {
-      workflowContainer: ({ preference }) => {
-        if (preference.level === PreferenceLevel.GLOBAL) {
-          return 'hidden';
-        }
-        return '';
-      },
-    },
-  };
-
-  return (
-  <Inbox
-    applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
-    subscriber="YOUR_SUBSCRIBER_ID"
-    appearance={appearance}
-  />
-);
-}
-```
-
 ## Style notifications by severity
 
 Notification severity comes with default visual styles, but you can fully customize how notifications look for each severity level using the `appearance` prop.
