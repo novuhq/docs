@@ -515,3 +515,51 @@ This table lists severity element keys:
 | `severityHigh__notificationBar`        | Styles the notification bar for high severity    |
 | `severityMedium__notificationBar`      | Styles the notification bar for medium severity  |
 | `severityLow__notificationBar`         | Styles the notification bar for low severity     |
+
+## Responsive Inbox using CSS media queries
+
+In mobile and smaller device, use `popoverContent` element and apply custom CSS class on it. Specify CSS media queries on this class and add this class in global CSS file so that it takes effect. In below example, we have applied media queries on the `novu-popover-content` class and added it in global CSS file.
+
+```tsx title="ResponsiveInbox.tsx"
+import { Inbox } from '@novu/react';
+
+const ResponsiveInbox = () => {
+  return (
+    <Inbox
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="YOUR_SUBSCRIBER_ID"
+      appearance={{
+        elements: {
+          popoverContent: "novu-popover-content",
+        },
+      }}
+    />
+  );
+};
+
+export default ResponsiveInbox;
+```
+
+```css title="global.css"
+.novu-popover-content {
+  max-width: 500px;
+}
+
+@media (max-width: 768px) {
+  .novu-popover-content {
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .novu-popover-content {
+    max-width: 250px;
+  }
+}
+
+@media (max-width: 320px) {
+  .novu-popover-content {
+    max-width: 200px;
+  }
+}
+```
