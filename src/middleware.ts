@@ -47,6 +47,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/integrations/content/react-email': '/framework/content/react-email',
     '/integrations/overview': '/platform/integrations/overview',
     '/guides/integrations/segment': '/platform/integrations/segment',
+    '/platform/integrations/sms/burst-sms': '/platform/integrations/sms/kudosity',
 
     // Guides
     '/guides/add-digest-to-inapp-notifications': '/platform/workflow/digest',
