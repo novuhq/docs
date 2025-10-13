@@ -74,39 +74,39 @@ Here are some ways context can be used:
 
 Once a context is created, you can access its properties anywhere variables are supported, such as in template editors or condition steps.
 
-    * Accessing context data in templates
+### Accessing context data in templates
 
-        If a context with this data is created:
+If a context with this data is created:
 
-        ```json
-        context: {
-          tenant: {
-            id: 'acme-corp',
-            data: {
-              name: 'Acme Corporation',
-              plan: 'enterprise'
-            }
-          }
-        }
-        ```
+```json
+context: {
+  tenant: {
+    id: 'acme-corp',
+    data: {
+      name: 'Acme Corporation',
+      plan: 'enterprise'
+    }
+  }
+}
+```
 
-        You can access the `name` and `plan` in your in-app email, SMS, or push template like this:
+You can access the `name` and `plan` in your in-app email, SMS, or push template like this:
 
-        ```html
-        <p>Welcome, new user from {{context.tenant.data.name}}!</p>
-        <p>Your account is on the {{context.tenant.data.plan}} plan.</p>
-        ```
-        Or
+```html
+<p>Welcome, new user from {{context.tenant.data.name}}!</p>
+<p>Your account is on the {{context.tenant.data.plan}} plan.</p>
+```
+Or
 
-        ```text
-        Welcome, new user from {{context.tenant.data.name}}!
-        Your account is on the {{context.tenant.data.plan}} plan.
-        ```
+```text
+Welcome, new user from {{context.tenant.data.name}}!
+Your account is on the {{context.tenant.data.plan}} plan.
+```
 
-    * Using context in step conditions
+### Using context in step conditions
 
-        You can use context variables in the **Step conditions** tab of a workflow step to add conditional logic to your notifications. For example, only send a "Feature X is now enabled" email if `context.tenant.data.plan` is `enterprise`.
-        ![Context step conditions](/images/workflows/context-step-conditions.png)
+You can use context variables in the **Step conditions** tab of a workflow step to add conditional logic to your notifications. For example, only send a "Feature X is now enabled" email if `context.tenant.data.plan` is `enterprise`.
+![Context step conditions](/images/workflows/context-step-conditions.png)
 
 ## Viewing and debugging contexts
 
@@ -238,13 +238,13 @@ GET /v2/contexts/tenant/acme-corp
 
 You can list all contexts in your environment or search for specific ones by context type or ID.
 
-#### List or search for contexs via dashboard
+#### List or search for contexts via dashboard
 
 1. Log in to the Novu dashboard
 2. Click **Contexts** on the sidebar to view all contexts.
 3. Use the search bar to filter by context type or ID.
 
-#### List or search for contexs via API
+#### List or search for contexts via API
 
 Novu provides an API that lists or searches available contexts. Use pagination and search parameters to retrieve subsets efficiently.
 
