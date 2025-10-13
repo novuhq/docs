@@ -45,7 +45,7 @@ workflow('skip-email-if-in-app-notification-seen', async ({ payload }) => {
       };
     },
     {
-      // skip the in-app step if the in-app notification has been read
+      // skip the email step if the in-app notification has been read
       skip: () => inAppNotification.read === true,
     }
   );
