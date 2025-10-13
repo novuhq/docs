@@ -50,18 +50,18 @@ Each event includes detailed information about the affected resource and the cha
 
 - **messages.archived**: Triggered when a message is archived.
 - **messages.unarchived**: Triggered when a message is unarchived.
-- **messages.sent**: Triggered when a message is sent.
-- **messages.delivered**: Triggered when a message is delivered.
 - **messages.read**: Triggered when a message is read.
 - **messages.unread**: Triggered when a message is unread.
-- **messages.failed**: Triggered when a message delivery fails.
 - **messages.seen**: Triggered when a message is seen.
 - **messages.snoozed**: Triggered when a message is snoozed.
 - **messages.unsnoozed**: Triggered when a message is unsnoozed.
+- **messages.sent**: Triggered when Novu sends the message to the delivery provider.
+- **messages.delivered**: Triggered when a message delivery provider acknowledged the message delivery to the end receiving client.
+- **messages.failed**: Triggered when Novu tried to send the message to the delivery provider and it got failed.
 
 #### Preference Events
 
-- **preference.updated**: Triggered when a preference is updated
+- **preference.updated**: Triggered when subscriber preference is updated.
 
 ## How to add an endpoint
 
