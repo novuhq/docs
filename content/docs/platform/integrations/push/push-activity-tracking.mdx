@@ -63,9 +63,9 @@ The goal is to capture the event and send a JSON payload to your backend. The tw
 
     await fetch("https://your-api.com/api/notifications/events", {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(eventData),
     });
-  });
   ```
   </Tab>
   <Tab value="fcm">
