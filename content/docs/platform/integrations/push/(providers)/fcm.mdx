@@ -5,44 +5,165 @@ description: 'Learn how to use the Firebase Cloud Messaging (FCM) provider to se
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-[Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) is a free notification delivery service provided by Google Firebase.
+This guide will walk you through the entire process of configuring and using FCM with Novu, from getting your credentials to sending your first notification.
 
-To enable the FCM integration, you need to get your service account key from the [Firebase Console](https://console.firebase.google.com/).
+<Callout> Novu uses FCM version V1</Callout>
 
-## Generating a service account key JSON
+## Step 1: Generate your service account key from Firebase
 
-To acquire the account key JSON file for your service account
+First, you need to get your project's service account credentials from the Firebase Console.
 
-1. Select your project, and click the gear icon on the top of the sidebar.
-2. Head to project settings.
-3. Navigate to the service account tab.
-4. Click **Generate New Private Key,** then confirm by clicking **Generate Key.**
-5. Clicking **Generate Key** downloads the JSON file.
+1. Log in to the [Firebase console](https://console.firebase.google.com/).
+2. Created a new Firebase project or select an existing project.
+![Select Firebase Project](/images/channels-and-providers/push/select-firebase-project.png)
+3. Click the gear icon ⚙️ next to **Project Overview**.
+4. Select **Project settings**.
+![Firebase Project Settings](/images/channels-and-providers/push/firebase-project-settings.png)
+5. Go to the **Service accounts** tab.
+6. Click the **Generate new private key** button. A confirmation menu will appear.
+![Firebase Service Accounts](/images/channels-and-providers/push/firebase-service-accounts.png)
+7. Click **Generate key** to download a JSON file containing your credentials.
+![](/images/channels-and-providers/push/confirmation-menu.png)
+8. Open the downloaded JSON file and ensure it contains these fields
+    ```json
+    {
+      "type": "service_account",
+      "project_id": "PROJECT_ID",
+      "private_key_id": "PRIVATE_KEY_ID",
+      "private_key": "PRIVATE_KEY",
+      "client_email": "FIREBASE_ADMIN_SDK_EMAIL",
+      "client_id": "CLIENT_ID",
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_x509_cert_url": "CLIENT_X509_CERT_URL"
+    }
+    ```
 
-After that, paste the entire JSON file content in the Service Account field of the FCM provider in the integration store on Novu's web dashboard.
+## Step 2: Connect FCM to Novu
 
-Make sure your service account json content contains these fields
+Now, you'll add the credentials to your FCM integration in the Novu dashboard.
 
-```json
-{
-  "type": "service_account",
-  "project_id": "PROJECT_ID",
-  "private_key_id": "PRIVATE_KEY_ID",
-  "private_key": "PRIVATE_KEY",
-  "client_email": "FIREBASE_ADMIN_SDK_EMAIL",
-  "client_id": "CLIENT_ID",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "CLIENT_X509_CERT_URL"
-}
+1. Log in to the Novu dashboard
+2. Navigate to the **Integration Store** page on the Novu dashboard.
+3. Click **Connect provider**.
+4. Under the **Push** tab, select **Firebase Cloud Messaging (FCM)**.
+5. Open the JSON file you downloaded from Firebase in [Step 1](/platform/integrations/push/fcm#step-1-generate-your-service-account-key-from-firebase).
+6.  Copy the entire content of the JSON file and paste it into the **Service Account** field in the FCM integration modal.
+
+5.  Click **Create Integration** to save the integration.
+
+## Step 3: Register a subscriber's device token
+
+Before Novu can send a push notification to your subscriber, you must associate their device's unique push token with their Novu subscriber profile.
+
+You can do this by making an API call to update the subscriber's credentials.
+
+<Tabs items={['Node.js', 'cURL']}>
+  <Tab value="Node.js">
+  ```typescript
+  import { Novu } from "@novu/api";
+  import { ChatOrPushProviderEnum } from "@novu/api/models/components";
+ 
+  const novu = new Novu({ secretKey: "YOUR_SECRET_KEY_HERE",});
+  
+  async function run() {
+    const result = await novu.subscribers.credentials.update({
+      providerId: ChatOrPushProviderEnum.slack,
+      credentials: {
+        deviceTokens: [
+          "token1",
+          "token2",
+        ],
+      },
+    }, "subscriberId");
+  }
+ 
+  run();
+  ```
+  </Tab>
+  <Tab value="cURL">
+  ```bash
+  curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
+  -d '{
+    "providerId": "fcm",
+    "credentials": {
+      "deviceTokens" : [
+        "token1",
+        "token2"
+      ]
+    },
+    "integrationIdentifier": "string"
+  }'
+  ```
+  </Tab>
+</Tabs>
+
+### Using multiple FCM integrations
+
+If you have multiple active FCM integrations, you can specify which integration to associate the tokens with by providing the `integrationIdentifier`.
+
+You can find this identifier in your Novu dashboard on the integration's settings page.
+
+![Integration identifier](/images/channels-and-providers/push/integrationidentifier.png)
+
+```typescript
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+});
+
+await novu.subscribers.credentials.update(
+  {
+    providerId: "fcm",
+    // Use integrationIdentifier to store device tokens for a specific integration
+    integrationIdentifier: "string",
+    credentials: {
+      deviceTokens: [
+        "token1",
+        "token2"
+      ]
+    },
+  },
+  "subscriberId"
+);
 ```
 
-## FCM overrides
+Refer to the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
 
-The overrides field supports apns, android, webpush and fcmOptions overrides
+## Step 4: Send a notification
+
+Now you're ready to send a push notification. You can trigger a notification to a subscriber who has a registered device token.
+
+```typescript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('YOUR_NOVU_API_KEY');
+
+await novu.trigger('your-workflow-id', {
+  to: {
+    subscriberId: 'SUBSCRIBER_ID',
+  },
+  payload: {
+    // Your payload data
+  },
+});
+```
+
+## Using overrides
+
+Novu lets you customize the behavior of push notifications by using the overrides field when triggering workflows. Overrides give you full control over message content and delivery parameters that aren’t configurable from the Novu workflow editor.
+
+To learn more about how overrides work across all channels, see the [Trigger Overrides](/platform/integrations/trigger-overrides) documentation.
+
+### Override FCM field
+
+Overrides lets you to send platform-specific data that is not available in the workflow editor. The overrides field supports `apns`, `android`, `webpush` and `fcmOptions` overrides.
 
 | Override Field | Type / Interface | Link                                                                                         |
 | -------------- | ---------------- | -------------------------------------------------------------------------------------------- |
@@ -51,86 +172,44 @@ The overrides field supports apns, android, webpush and fcmOptions overrides
 | webPush        | WebpushConfig    | https://firebase.google.com/docs/reference/admin/node/firebase-admin.messaging.webpushconfig |
 | fcmOptions     | FcmOptions       | https://firebase.google.com/docs/reference/admin/node/firebase-admin.messaging.fcmoptions    |
 
-## Managing device tokens
+You can use these fields to customize how notifications are sent to Android, iOS (via APNs), or web clients.
 
-Before triggering the notification to a subscriber(user) with push as a step in the workflow, make sure you have added the subscriber's device token as follows:
-
-<Tabs items={['Node.js', 'cURL']}>
-<Tab value="Node.js">
-```typescript
-import { Novu } from '@novu/api';
-import { ChatOrPushProviderEnum } from "@novu/api/models/components";
-
-const novu = new Novu({
-  secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
-  // serverURL: "https://eu.api.novu.co",
-});
-
-await novu.subscribers.credentials.update(
-  {
-    providerId: ChatOrPushProviderEnum.Fcm,
-    credentials: {
-      deviceTokens: ["token1", "token2", "token3"],
+```
+await novu.trigger('your-workflow-id', {
+  to: {
+    subscriberId: 'SUBSCRIBER_ID',
+  },
+  payload: {
+    // Your payload data
+  },
+  overrides: {
+    fcm: {
+      // For a data-only notification (silent push)
+      type: 'data',
+      data: {
+        custom_key: 'custom_value',
+      },
+      // Platform-specific overrides
+      android: {
+        // See FCM AndroidConfig options
+      },
+      apns: {
+        // See FCM ApnsConfig options
+      },
+      webPush: {
+        // See FCM WebpushConfig options
+      },
+      fcmOptions: {
+        // See FCM FcmOptions
+      }
     },
   },
-  "subscriberId"
-);
-```
-</Tab>
-<Tab value="cURL">
-```bash
-curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
--H 'Content-Type: application/json' \
--H 'Accept: application/json' \
--H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
--d '{
-  "providerId": "fcm",
-  "credentials": {
-    "deviceTokens" : [
-      "token1",
-      "token2"
-    ]
-  },
-  "integrationIdentifier": "fcm-MnGLxp8uy"
-}'
-```
-
-</Tab>
-</Tabs>
-
-Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
-
-### Managing device tokens for multiple integrations
-
-Novu supports multiple active integrations per provider for push channel. There can be more than one FCM integration active at a time. By default, device tokens are stored for recently created integration. To store device tokens for a specific integration, you can use the `integrationIdentifier` field. `integrationIdentifier` is the identifier of the integration in the Novu dashboard.
-
-```typescript
-import { Novu } from '@novu/api';
-import { ChatOrPushProviderEnum } from "@novu/api/models/components";
-
-const novu = new Novu({
-  secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
-  // serverURL: "https://eu.api.novu.co",
 });
-
-await novu.subscribers.credentials.update(
-  {
-    providerId: ChatOrPushProviderEnum.Fcm,
-    // Use integrationIdentifier to store device tokens for a specific integration
-    integrationIdentifier: "fcm-MnGLxp8uy",
-    credentials: {
-      deviceTokens: ["token1", "token2", "token3"],
-    },
-  },
-  "subscriberId"
-);
 ```
 
-## SDK trigger example
+### Override FCM notification content
 
-By default, Novu will send the FCM notification content written in the step editor workflow. You can override the notification content by using the `overrides` field. Use type: `data` and `data` to send data type notification.
+By default, Novu will send the FCM notification content written in the step editor workflow. However, you can override the notification content by using the `overrides` field. Use type: `data` and `data` to send data type notification.
 
 ```typescript
 import { Novu } from '@novu/api';
@@ -173,9 +252,40 @@ await novu.trigger({
 });
 ```
 
-<Callout> Novu uses FCM version V1</Callout>
+<Callout>Overrides can be applied at runtime to customize or enrich notifications based on user context, device type, or workflow logic.</Callout>
 
-## Relative link in webpush
+## Sending notifications to FCM topics
+
+[FCM topics](https://firebase.google.com/docs/cloud-messaging/android/topic-messaging) are used to send notifications to multiple devices at once. Use trigger overrides to send notifications to a topic. In this case, subscriber device tokens are not required.
+
+```typescript
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
+  to: {
+    subscriberId: "subscriberId",
+  },
+  payload: {
+    key: "value",
+  },
+  overrides: {
+    providers: {
+      fcm: {
+        topic: "topic-123",
+      },
+    },
+  },
+});
+```
+
+## Web push with relative links
 
 Suppose you're using the Firebase (FCM) provider to send push notifications to web browsers via Novu and want users to be returned to the website after clicking the notification.
 
@@ -239,66 +349,15 @@ curl --location --request POST 'https://url.to.our.selfhosted.novu' \
 </Tab>
 </Tabs>
 
-## Sending notifications to FCM topics
-
-[FCM topics](https://firebase.google.com/docs/cloud-messaging/android/topic-messaging) are used to send notifications to multiple devices at once. Use trigger overrides to send notifications to a topic. In this case, subscriber device tokens are not required.
-
-```typescript
-import { Novu } from '@novu/api';
-
-const novu = new Novu({
-  secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
-  // serverURL: "https://eu.api.novu.co",
-});
-
-await novu.trigger({
-  workflowId: "workflowId",
-  to: {
-    subscriberId: "subscriberId",
-  },
-  payload: {
-    key: "value",
-  },
-  overrides: {
-    providers: {
-      fcm: {
-        topic: "topic-123",
-      },
-    },
-  },
-});
-```
-
-## FCM cost
-
-As per Firebase [pricing](https://firebase.google.com/pricing), **Cloud Messaging** product is free of cost to use. If other Firebase products are used, the cost will be charged as per the product.
-
 ## Frequently asked questions
-While using the FCM provider, you may encounter the following issues.
 
-### The registration token is not a valid FCM registration token
-
-You may come across an error like so:
-
-```
-Sending message failed due to "The registration token is not a valid FCM registration token"
-```
-
-This error happens because of invalid or stale token. The fix for this is to remove old tokens, generate a new token and save it into user subscribers.
-
-### FCM notifications sent successfully with no error but push notification is not received in device
-
-Try to generate a new token after clearing device cache and retry with this fresh token.
-
-### Sending message failed due to 'Requested entity was not found'
-
-This error occurs when your token is no longer valid. To fix this, generate a new token and use it.
-
-### Subscriber does not have a configured channel error
-
-This error occurs if the fcm integration is active but subscriber is missing from the fcm credentials (deviceTokens). The credentials (deviceTokens) for the subscriber needs to be set. 
-
-### How to send desktop notifications using FCM
-
-Desktop notifications for websites can be sent using FCM webpush.
+<Accordions type="multiple">
+  <Accordion title="FCM cost">As per Firebase [pricing](https://firebase.google.com/pricing), **Cloud Messaging** product is free of cost to use. If other Firebase products are used, the cost will be charged as per the product.</Accordion>
+  <Accordion title="The registration token is not a valid FCM registration token">
+  You may come across an error like so: `Sending message failed due to "The registration token is not a valid FCM registration token"`. This error happens because of invalid or stale token. The fix for this is to remove old tokens, generate a new token and save it into user subscribers.
+  </Accordion>
+  <Accordion title="FCM notifications sent successfully with no error but push notification is not received in device">Try to generate a new token after clearing device cache and retry with this fresh token.</Accordion>
+  <Accordion title="Sending message failed due to 'Requested entity was not found'">This error occurs when your token is no longer valid. To fix this, generate a new token and use it.</Accordion>
+  <Accordion title="Subscriber does not have a configured channel error">This error occurs if the fcm integration is active but subscriber is missing from the fcm credentials (deviceTokens). The credentials (deviceTokens) for the subscriber needs to be set.</Accordion>
+  <Accordion title="How to send desktop notifications using FCM">Desktop notifications for websites can be sent using FCM webpush.</Accordion>
+</Accordions>
