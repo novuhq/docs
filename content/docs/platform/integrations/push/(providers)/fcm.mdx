@@ -70,7 +70,7 @@ You can do this by making an API call to update the subscriber's credentials.
   
   async function run() {
     const result = await novu.subscribers.credentials.update({
-      providerId: ChatOrPushProviderEnum.slack,
+      providerId: ChatOrPushProviderEnum.Fcm,
       credentials: {
         deviceTokens: [
           "token1",
@@ -79,7 +79,6 @@ You can do this by making an API call to update the subscriber's credentials.
       },
     }, "subscriberId");
   }
- 
   run();
   ```
   </Tab>
