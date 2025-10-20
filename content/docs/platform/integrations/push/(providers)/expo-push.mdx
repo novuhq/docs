@@ -3,35 +3,47 @@ title: 'Expo Push'
 description: 'Learn how to use the Expo push provider to send push notifications using Novu'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+This guide will walk you through the entire process of configuring and using Expo Push with Novu, from getting your credentials to sending your first notification.
 
-[Expo Push](https://docs.expo.dev/push-notifications/overview/) is a notification delivery service provided by Expo.
+## How to configure Expo with Novu
 
-To enable Expo Push integration, you need to create an [Expo Application Services (EAS)](https://expo.dev/)account and generate an access token in the EAS dashboard.
+Before you can send notifications, you need to connect your Expo project to Novu by generating an access token and adding it to your integration settings.
 
-The overrides field supports all [Message Request](https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format) values. An example of the same follows:
+### Step 1: Generate your access token from Expo Push
 
-```typescript
-import { Novu } from '@novu/api';
+First, you need to generate an access token from your dashboard. This token authorizes Novu to send notifications on behalf of your project.
 
-const novu = new Novu({
-  secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
-  // serverURL: "https://eu.api.novu.co",
-});
+1. Log in to the [Expo console](https://expo.dev/).
+2. Navigate to the **Credentials** section in the project settings sidebar.
+3. Click **[Access Token](https://expo.dev/accounts/victoryakz/settings/access-tokens)**.
+![Create Expo token](/images/channels-and-providers/push/expo-push/create-token.png)
+4. Click **Create Token** and a menu will appear
+5. Give it a descriptive name and then Click **Generate New Token**.
+![Generate Expo token](/images/channels-and-providers/push/expo-push/generate-token.png)
+6. Copy the generated access token, you will need it in the next step.
+![Copy Expo token](/images/channels-and-providers/push/expo-push/copy-token.png)
 
-await novu.trigger({
-  workflowId: "workflowId",
-  to: {
-    subscriberId: "subscriberId",
-  },
-  payload: {
-    key: "value",
-  },
-});
-```
+### Step 2: Connect Expo Push to Novu
 
-Before triggering the notification to a subscriber(user) with push as a step in the workflow, make sure you have added the subscriber's device token as follows:
+Next, add the access token to your Expo integration in the Novu dashboard.
+
+1. Log in to the Novu dashboard
+2. Navigate to the **Integration Store** page on the Novu dashboard.
+3. Click **Connect provider**.
+4. Under the **Push** tab, select **Expo Push**.
+5. In the Expo integration form, paste the **Access Token** you copied from Expo into the **Access Token** field.
+![Expo Integration in Novu](/images/channels-and-providers/push/expo-push/expo-integration.png)
+6. Click **Create Integration**.
+
+## Using Expo with Novu
+
+Once your integration is configured, you can start sending push notifications by registering your subscribers' device tokens and triggering a workflow.
+
+### Step 1: Add subscriber device token
+
+Before Novu can send a push notification to a subscriber(user), you must associate their device's unique push token with their Novu subscriber profile.
+
+You can do this by making an API call to [update the subscriber's credentials](/api-reference/subscribers/update-provider-credentials).
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
@@ -49,9 +61,12 @@ await novu.subscribers.credentials.update(
   {
     providerId: ChatOrPushProviderEnum.Expo,
     // Use integrationIdentifier to store device tokens for a specific integration
-    integrationIdentifier: "expo-MnGLxp8uy",
+    integrationIdentifier: "string",
     credentials: {
-      deviceTokens: ["token1", "token2", "token3"],
+      deviceTokens: [
+        "token1",
+        "token2"
+      ]
     },
   },
   "subscriberId"
@@ -67,11 +82,69 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 -d '{
   "providerId": "expo",
   "deviceTokens": ["token1", "token2"],
-  "integrationIdentifier": "expo-MnGLxp8uy"
+  "integrationIdentifier": "string"
 }'
 ```
-
 </Tab>
 </Tabs>
 
-Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
+
+### Step 2: Send a notification
+
+Now you're ready to send a push notification. Create a workflow with a Push step in the editor and trigger it. Novu will send the notification to all devices associated with the subscriber. 
+
+The example below demonstrates a simple trigger using Novu’s SDK.
+
+```typescript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('YOUR_NOVU_API_KEY');
+
+await novu.trigger('your-workflow-id', {
+  to: {
+    subscriberId: 'SUBSCRIBER_ID',
+  },
+  payload: {
+    // Your payload data
+  },
+});
+```
+
+## Using overrides to customize notifications
+
+Novu provides an verrides fields that let you send additional Expo-specific message fields. You can use this to control how messages are displayed or to attach custom payloads.
+
+The overrides field supports all [Expo Message Request](https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format) values. Here is an example:
+
+```typescript
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
+  to: { subscriberId: "subscriber-id-123" },
+  payload: {
+    orderId: "12345",
+  },
+  overrides: {
+    providers: {
+      expo: {
+        title: "Order Update",
+        body: "Your order #12345 has been shipped!",
+        data: {
+          deepLink: "myapp://orders/12345",
+          orderId: "12345",
+        },
+        sound: "default",
+        priority: "high",
+        ttl: 3600,
+      },
+    },
+  },
+});
+```

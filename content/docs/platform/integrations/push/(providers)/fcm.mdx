@@ -58,7 +58,7 @@ Now, you'll add the credentials to your FCM integration in the Novu dashboard.
 
 Before Novu can send a push notification to your subscriber, you must associate their device's unique push token with their Novu subscriber profile.
 
-You can do this by making an API call to update the subscriber's credentials.
+You can do this by making an API call to [update the subscriber's credentials](/api-reference/subscribers/update-provider-credentials).
 
 <Tabs items={['Node.js', 'cURL']}>
   <Tab value="Node.js">
@@ -133,8 +133,6 @@ await novu.subscribers.credentials.update(
 );
 ```
 
-Refer to the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
-
 ## Step 4: Send a notification
 
 Now you're ready to send a push notification. You can trigger a notification to a subscriber who has a registered device token.
@@ -154,7 +152,7 @@ await novu.trigger('your-workflow-id', {
 });
 ```
 
-## Using overrides
+## Using overrides to customize notifications
 
 Novu lets you customize the behavior of push notifications by using the overrides field when triggering workflows. Overrides give you full control over message content and delivery parameters that aren’t configurable from the Novu workflow editor.
 
