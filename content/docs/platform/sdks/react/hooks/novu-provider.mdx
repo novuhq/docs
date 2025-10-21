@@ -24,6 +24,14 @@ Usually, it's placed somewhere in the root of your application, which makes the 
       type: "string",
       description: "HMAC encryption hash for the subscriber",
     },
+    context: {
+      type: "object",
+      description: "Defines contextual attributes (for example, tenant, app, team) for filtering and personalizing notifications.",
+    },
+    contextHash: {
+      type: "string", 
+      description: "The HMAC-SHA256 hash of the context object. Required if context is provided and HMAC is enabled." 
+    },
     apiUrl: {
       type: "string",
       description: "Custom backend URL for self-hosted instances",
@@ -43,7 +51,7 @@ Usually, it's placed somewhere in the root of your application, which makes the 
 
 ## Example Usage
 
-<Tabs items={['US', 'EU', 'HMAC Encryption']}>
+<Tabs items={['US', 'EU', 'Using Context', 'HMAC Encryption']}>
   <Tab value="US">
     ```tsx
     import { NovuProvider } from '@novu/react';
@@ -79,6 +87,31 @@ Usually, it's placed somewhere in the root of your application, which makes the 
     }
     ```
 
+  </Tab>
+  <Tab value="Using Context">
+    <Callout type="info"> Learn how to use Context for filtering and personalization in the [Inbox withContext](/platform/inbox/configuration/inbox-with-context) guide.</Callout>
+    ```tsx
+    import { NovuProvider, useNovu } from '@novu/react';
+
+    function App() {
+      <NovuProvider
+        applicationIdentifier="APPLICATION_IDENTIFIER"
+        subscriberId="SUBSCRIBER_ID"
+        context={{
+          tenant: { id: "org-123" }
+        }}
+      >
+        <App />
+    </NovuProvider>
+    }
+
+    // In child components
+    const MyComponent() {
+      const novu = useNovu();
+      console.log(novu.context);
+      // Logs: { tenant: { id: "org-123" }
+    };
+    ```
   </Tab>
   <Tab value="HMAC Encryption">
     <Callout type="info">
