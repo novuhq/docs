@@ -94,22 +94,24 @@ Usually, it's placed somewhere in the root of your application, which makes the 
     import { NovuProvider, useNovu } from '@novu/react';
 
     function App() {
+      return (
       <NovuProvider
         applicationIdentifier="APPLICATION_IDENTIFIER"
-        subscriberId="SUBSCRIBER_ID"
+        subscriber="SUBSCRIBER_ID"
         context={{
           tenant: { id: "org-123" }
         }}
       >
         <App />
-    </NovuProvider>
+      </NovuProvider>
+      );
     }
 
     // In child components
-    const MyComponent() {
+    const MyComponent = () => {
       const novu = useNovu();
       console.log(novu.context);
-      // Logs: { tenant: { id: "org-123" }
+      // Logs: { tenant: { id: "org-123" } }
     };
     ```
   </Tab>
