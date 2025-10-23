@@ -3,21 +3,52 @@ title: 'Pushpad'
 description: 'Learn how to use the Pushpad provider to send web push notifications using Novu'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+<a href="https://pushpad.xyz" target="_blank" rel="noopener noreferrer">Pushpad</a> is a web push service that supports sending notifications to all major browsers (Chrome, Firefox, Edge, Safari, etc.) via FCM, Mozilla autopush, Windows Push Notification Services and Apple Push Notification service, with just one simple API.
 
-[Pushpad](https://pushpad.xyz) is a web push service that supports sending notifications to all major browsers (Chrome, Firefox, Edge, Safari, etc.) via FCM, Mozilla autopush, Windows Push Notification Services and Apple Push Notification service, with just one simple API.
+This guide will walk you through the entire process of configuring and using <a href="https://pushpad.xyz" target="_blank" rel="noopener noreferrer">Pushpad</a> with Novu, from getting your credentials to sending your first notification.
 
-To configure the Pushpad integration, you will need an active account and you need to have a `Pushpad Auth Token` (from the [account settings](https://pushpad.xyz/access_tokens)) and the `Pushpad Project ID` (from the project settings).
+## How to configure Pushpad with Novu
 
-## Setting the Device Token
+Before you can send notifications, you need to connect your Pushpad project to Novu by getting your credentials and adding them to your integration settings.
 
-Once Pushpad has been configured with your credentials and the Pushpad SDK has been [set up and installed](https://pushpad.xyz/docs/pushpad_pro_getting_started) on your website, you can [assign a user ID (uid)](https://pushpad.xyz/docs/identifying_users) to the push subscriptions.
+### Step 1: Get your Pushpad credentials
 
-This identifier (`uid` or `user ID`) allows targeting a specific browser when sending push notifications.
+To configure the Pushpad integration, you will need an active account and you need to have a Pushpad auth token (from the [account settings](https://pushpad.xyz/access_tokens)) and your Pushpad project ID (from the project settings).
 
-In order to target the Pushpad user from Novu, you must register the Pushpad `uid` as the `deviceToken` for your Novu subscriber. For example, if you invoked the [Pushpad JavaScript SDK](https://pushpad.xyz/docs/javascript_sdk_reference) with `pushpad('uid', 'user123')`, then `user123` is the user ID for that browser.
+1. Log in to your Pushpad dashboard.
+2. Click **New project** and create a project
+![New project](/images/channels-and-providers/push/pushpad/new-project.png)
+3. Click **Settings** on the project page and copy the **Project ID**, you will need it to connect to Novu.
+![Project ID](/images/channels-and-providers/push/pushpad/project-id.png)
+4. Navigate to the [access token](https://pushpad.xyz/access_tokens) page
+5. Click **Add access token** and then fill in the required fields to create a new access token Or using your existing token if you already have one.
+![Add access token](/images/channels-and-providers/push/pushpad/add-token.png)
+6. Copy the generated token, you will need it to connect to Novu
+![Generate access token](/images/channels-and-providers/push/pushpad/access-token.png)
 
-Once you have the `uid` value, the `deviceToken` for your Novu subscriber can be set using this code:
+### Step 2: Connect Pushpad to Novu
+
+Next, add these credentials to your Pushpad integration in the Novu dashboard.
+
+1.  Log in to the Novu dashboard.
+2.  Navigate to the **Integration Store** page on the Novu dashboard.
+3.  Click **Connect provider**.
+4.  Under the **Push** tab, select **Pushpad**.
+5.  In the Pushpad integration form, paste your Access token and project from [Step 1](/platform/integrations/push/pushpad#step-1-get-your-pushpad-credentials) into the corresponding fields.
+    ![Pushpad Integration in Novu](/images/channels-and-providers/push/pushpad/pushpad-integration.png)
+6.  Click **Create Integration**.
+
+## Using Pushpad with Novu
+
+Once your integration is configured, you can start sending push notifications by registering your subscribers' `uid` and triggering a workflow.
+
+### Step 1: Add subscriber device token
+
+After [setting up the Pushpad SDK](https://pushpad.xyz/docs/pushpad_pro_getting_started) on your website, you must [assign a user ID (uid)](https://pushpad.xyz/docs/identifying_users) to your users' push subscriptions.
+
+This `uid` is the identifier Novu uses to target a specific browser. For example, if you use `pushpad('uid', 'user123')`, then `user123` is the ID you must register in Novu.
+
+You can do this by making an API call to [update the subscriber's credentials](/api-reference/subscribers/update-provider-credentials)
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
@@ -60,9 +91,11 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 </Tab>
 </Tabs>
 
-Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
+### Step 2: Send a notification
 
-## SDK Trigger Example
+Now you're ready to send a push notification. Create a workflow with a Push step in the editor and trigger it. Novu will send the notification to the `uid`'s associated with the subscriber.
+
+The example below demonstrates a simple trigger using Novu’s SDK.
 
 ```typescript
 import { Novu } from '@novu/api';
