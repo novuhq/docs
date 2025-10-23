@@ -13,9 +13,9 @@ Before you can send notifications, you need to connect your Expo project to Novu
 
 First, you need to generate an access token from your dashboard. This token authorizes Novu to send notifications on behalf of your project.
 
-1. Log in to the [Expo console](https://expo.dev/).
+1. Log in to the <a href="https://expo.dev/" target="_blank" rel="noopener noreferrer">Expo console</a>.
 2. Navigate to the **Credentials** section in the project settings sidebar.
-3. Click **[Access Token](https://expo.dev/accounts/victoryakz/settings/access-tokens)**.
+3. Click <a href="https://expo.dev/settings/access-tokens" target="_blank" rel="noopener noreferrer">**Access Token**</a>.
 ![Create Expo token](/images/channels-and-providers/push/expo-push/create-token.png)
 4. Click **Create Token** and a menu will appear
 5. Give it a descriptive name and then Click **Generate New Token**.
@@ -114,7 +114,7 @@ await novu.trigger('your-workflow-id', {
 
 Novu provides an verrides fields that let you send additional Expo-specific message fields. You can use this to control how messages are displayed or to attach custom payloads.
 
-The overrides field supports all [Expo Message Request](https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format) values. Here is an example:
+The overrides field supports all <a href="https://docs.expo.dev/push-notifications/sending-notifications/#message-request-format" target="_blank" rel="noopener noreferrer">Expo Message Request</a> values. Here is an example:
 
 ```typescript
 import { Novu } from '@novu/api';

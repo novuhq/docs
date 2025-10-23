@@ -14,7 +14,7 @@ This guide will walk you through the entire process of configuring and using FCM
 
 First, you need to get your project's service account credentials from the Firebase Console.
 
-1. Log in to the [Firebase console](https://console.firebase.google.com/).
+1. Log in to the <a href="https://console.firebase.google.com/" target="_blank" rel="noopener noreferrer">Firebase console</a>.
 2. Created a new Firebase project or select an existing project.
 ![Select Firebase Project](/images/channels-and-providers/push/select-firebase-project.png)
 3. Click the gear icon ⚙️ next to **Project Overview**.
@@ -253,7 +253,7 @@ await novu.trigger({
 
 ## Sending notifications to FCM topics
 
-[FCM topics](https://firebase.google.com/docs/cloud-messaging/android/topic-messaging) are used to send notifications to multiple devices at once. Use trigger overrides to send notifications to a topic. In this case, subscriber device tokens are not required.
+<a href="https://firebase.google.com/docs/cloud-messaging/android/topic-messaging" target="_blank" rel="noopener noreferrer">FCM topics</a> are used to send notifications to multiple devices at once. Use trigger overrides to send notifications to a topic. In this case, subscriber device tokens are not required.
 
 ```typescript
 import { Novu } from '@novu/api';
@@ -349,7 +349,7 @@ curl --location --request POST 'https://url.to.our.selfhosted.novu' \
 ## Frequently asked questions
 
 <Accordions type="multiple">
-  <Accordion title="FCM cost">As per Firebase [pricing](https://firebase.google.com/pricing), **Cloud Messaging** product is free of cost to use. If other Firebase products are used, the cost will be charged as per the product.</Accordion>
+  <Accordion title="FCM cost">As per Firebase <a href="https://firebase.google.com/pricing" target="_blank" rel="noopener noreferrer">pricing</a>, **Cloud Messaging** product is free of cost to use. If other Firebase products are used, the cost will be charged as per the product.</Accordion>
   <Accordion title="The registration token is not a valid FCM registration token">
   You may come across an error like so: `Sending message failed due to "The registration token is not a valid FCM registration token"`. This error happens because of invalid or stale token. The fix for this is to remove old tokens, generate a new token and save it into user subscribers.
   </Accordion>
