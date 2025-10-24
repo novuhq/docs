@@ -93,9 +93,11 @@ await novu.trigger('welcome-email', {
 });
 ```
 
+If a matching context already exists, Novu reuses it as-is without modifying any stored data. This behavior ensures consistency and avoids accidental changes to shared metadata.
+
 ## Update a context
 
-You can update a context’s data payload at any time. The context `type` and `id` remain immutable.
+You can update a context’s data payload at any time. The context `type` and `id` remain immutable. However, to change an existing context’s data, you must explicitly update it through the dashboard or API.
 
 #### Update a context via dashboard
 
@@ -165,7 +167,7 @@ GET /v2/contexts?search=acme
 
 Delete a context if it’s no longer needed. This action permanently removes the context from your Novu environment. 
 
-<Callout type='warn'>This action cannot be undone, so ensure the context is no longer required by any active or historical workflows you might need to analyze.</Callout>
+<Callout type='warn'> Deleting a context cannot be undone. Ensure the context is no longer required by any active or historical workflows you might need to analyze. </Callout>
 
 ### Delete a context via dashboard
 
