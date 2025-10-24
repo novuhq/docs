@@ -82,7 +82,7 @@ POST /v2/contexts
 
 Contexts can also be created automatically when you trigger a workflow that includes a new context object. If the specified `type:id` doesn’t exist, then Novu automatically creates it before running the workflow.
 
-```
+```jsx
 await novu.trigger('welcome-email', {
   to: 'user@example.com',
   payload: { userName: 'John' },
