@@ -26,6 +26,13 @@ The Novu client provides methods to interact with notifications, preferences, an
     "description": "",
     "type": "string"
   },
+  "context": {
+    "description": "A context object to filter notifications for this session.",
+    "type": "object"
+    },
+  "contextHash": { 
+    "description": "The HMAC-SHA256 hash of the context object. Required if context is provided and HMAC is enabled.", "type": "string"
+    },
   "apiUrl": {
     "description": "",
     "type": "string"
@@ -50,7 +57,7 @@ The Novu client provides methods to interact with notifications, preferences, an
 
 ### Usage
 
-<Tabs items={['US', 'EU', 'HMAC Encryption']}>
+<Tabs items={['US', 'EU', 'Using Context', 'HMAC Encryption']}>
   <Tab value="US">
     ```typescript
     import { Novu } from "@novu/js";
@@ -72,6 +79,30 @@ The Novu client provides methods to interact with notifications, preferences, an
       socketUrl: "wss://eu.socket.novu.co",
     });
     ```
+  </Tab>
+  <Tab value="Using Context">
+  <Callout type="info"> Learn how Context is used to filter Inbox notifications in the [Inbox with Context](/platform/inbox/customization-and-configuration/inbox-with-context) guide. </Callout>
+  ```tsx
+  import { Novu } from '@novu/js';
+
+  const novu = new Novu({
+    applicationIdentifier: 'YOUR_APP_ID',
+    subscriberId: 'user-123',
+    context: {
+      tenant: { id: 'org-123', data: { name: 'Acme Corp' } },
+      team: 'team-456',
+    },
+  });
+
+  // Access the current context
+  console.log(novu.context);
+  // → { tenant: { id: 'org-123', data: { name: 'Acme Corp' } }, team: 'team-456' }
+
+  // Get a stable string key (used internally for caching/filtering)
+  console.log(novu.contextKey);
+  // → "team:team-456,tenant:org-123"
+
+  ```
   </Tab>
   <Tab value="HMAC Encryption">
     ```typescript
