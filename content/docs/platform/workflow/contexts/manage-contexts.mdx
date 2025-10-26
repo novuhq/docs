@@ -135,12 +135,12 @@ You can retrieve a context to verify its data, confirm its creation, or inspect 
 
 Novu provides an API to retrieve a single, specific context by providing its `type` and `id` in the URL.
 
-```
+```bash
 GET /v2/contexts/:type/:id
 ```
 
 Here is an example:
-```
+```bash
 GET /v2/contexts/tenant/acme-corp
 ```
 
@@ -158,7 +158,7 @@ You can list all contexts in your environment or search for specific ones by con
 
 Novu provides an API that lists or searches available contexts. Use pagination and search parameters to retrieve subsets efficiently.
 
-```
+```bash
 GET /v2/contexts
 GET /v2/contexts?search=acme
 ```
@@ -183,12 +183,12 @@ Delete a context if it’s no longer needed. This action permanently removes the
 
 Novu provides an API that you can use to delete a context. Once deleted, the context will no longer be available for use in new workflow executions.
 
-```
+```bash
 DELETE /v2/contexts/:type/:id
 ```
 
 Here is an example:
 
-```
+```bash
 DELETE /v2/contexts/tenant/acme-corp
 ```

@@ -5,7 +5,7 @@ description: 'Learn how to use contexts in the Inbox component to filter and per
 icon: 'Package'
 ---
 
-_Contexts_ let you scope each <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> instance to a specific environment, tenant, or app within your product. When combined with workflow-level contexts, they ensure that each <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> displays only the notifications relevant to that specific context.
+_Contexts_ let you scope each `<Inbox />` instance to a specific environment, tenant, or app within your product. When combined with workflow-level contexts, they ensure that each `<Inbox />` displays only the notifications relevant to that specific context.
 
 <Callout type='info'>If you’re new to contexts, start from the [Contexts](/platform/workflow/contexts) section to understand how contexts are created, managed in Novu and how they used in workflows.</Callout>
 
@@ -32,7 +32,6 @@ However, if a context already exists, its data won’t be updated automatically.
 This is particularly useful for:
 
 - **Dynamic tenants or organizations**: When users join or switch organizations.
-- **Per-environment views**: Isolating notifications for staging, production, or preview.
 - **Feature-specific dashboards**: Where each section of your app has its own notification scope.
 
 You can view all automatically created contexts under the Contexts section of your Novu dashboard.
@@ -43,7 +42,7 @@ You can filter the <Method href="/platform/inbox/configuration/inbox-with-contex
 
 This prop's value defines the filter for that session, and it will only request and show notifications that match this context.
 
-```typescript
+```tsx
 import { Inbox } from '@novu/react';
 
 <Inbox
@@ -51,11 +50,11 @@ import { Inbox } from '@novu/react';
   subscriber="SUBSCRIBER_ID"
   context={{
     tenant: {
-      id: 'acme-corp',
-      data: {
-        name: 'Acme Corporation',
-        plan: 'enterprise',
-      },
+      "id": "acme-corp",
+      "data": {
+        "name": "Acme Corporation",
+        "plan": "enterprise",
+      }
     },
   }}
 />
