@@ -112,7 +112,7 @@ import { Novu } from "@novu/api";
  
 const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
  
-await novu.subscribers.ovu.subscribers.createBulk({
+await novu.subscribers.createBulk({
   subscribers: [
     {
       subscriberId: "subscriber_unique_identifier_1",
