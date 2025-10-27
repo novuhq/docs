@@ -26,10 +26,10 @@ To enable Pusher Beams integration, you need to create a Pusher Beams Instance 
 
 Next, add these credentials to your Pusher Beams integration in the Novu dashboard.
 
-1.  Log in to the Novu dashboard.
-2.  Navigate to the **Integration Store** page on the Novu dashboard.
-3.  Click **Connect Provider**.
-4.  Under the **Push** tab, select **Pusher Beams**.
+1. Log in to the Novu dashboard.
+2. On the Novu dashboard, navigate to the **Integration Store**.
+3. Click **Connect Provider**.
+4. In the **Push** tab, select **Pusher Beams**.
 5.  In the Pusher Beams integration form, paste your **Instance ID** and **Secret Key** into the corresponding fields.
     ![Pusher Beams Integration in Novu](/images/channels-and-providers/push/pusher-beams/pusher-beams-integration.png)
 6.  Click **Create Integration**.
@@ -89,7 +89,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 ### Step 2: Send a notification
 
-Now you're ready to send a push notification. Create a workflow with a Push step in the editor and trigger it. Novu will send the notification to the `userId`'s associated with the subscriber.
+Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu will send the notification to the `userId`'s associated with the subscriber.
 
 The example below demonstrates a simple trigger using Novu’s SDK.
 
