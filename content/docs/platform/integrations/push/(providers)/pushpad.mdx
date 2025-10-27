@@ -3,9 +3,9 @@ title: 'Pushpad'
 description: 'Learn how to use the Pushpad provider to send web push notifications using Novu'
 ---
 
-<a href="https://pushpad.xyz" target="_blank" rel="noopener noreferrer">Pushpad</a> is a web push service that supports sending notifications to all major browsers (Chrome, Firefox, Edge, Safari, etc.) via FCM, Mozilla autopush, Windows Push Notification Services and Apple Push Notification service, with just one simple API.
-
 This guide will walk you through the entire process of configuring and using <a href="https://pushpad.xyz" target="_blank" rel="noopener noreferrer">Pushpad</a> with Novu, from getting your credentials to sending your first notification.
+
+<a href="https://pushpad.xyz" target="_blank" rel="noopener noreferrer">Pushpad</a> is a web push service that supports sending notifications to all major browsers (Chrome, Firefox, Edge, Safari, etc.) via FCM, Mozilla autopush, Windows Push Notification Services and Apple Push Notification service, with just one simple API.
 
 ## How to configure Pushpad with Novu
 
@@ -30,13 +30,13 @@ To configure the Pushpad integration, you will need an active account and you ne
 
 Next, add these credentials to your Pushpad integration in the Novu dashboard.
 
-1.  Log in to the Novu dashboard.
-2.  Navigate to the **Integration Store** page on the Novu dashboard.
-3.  Click **Connect provider**.
-4.  Under the **Push** tab, select **Pushpad**.
-5.  In the Pushpad integration form, paste your Access token and project from [Step 1](/platform/integrations/push/pushpad#step-1-get-your-pushpad-credentials) into the corresponding fields.
-    ![Pushpad Integration in Novu](/images/channels-and-providers/push/pushpad/pushpad-integration.png)
-6.  Click **Create Integration**.
+1. Log in to the Novu dashboard.
+2. On the Novu dashboard, navigate to the **Integration Store**.
+3. Click **Connect provider**.
+4. In the **Push** tab, select **Pushpad**.
+5. In the Pushpad integration form, paste your access token and project ID from [Step 1](/platform/integrations/push/pushpad#step-1-get-your-pushpad-credentials) into the corresponding fields.
+  ![Pushpad Integration in Novu](/images/channels-and-providers/push/pushpad/pushpad-integration.png)
+6. Click **Create Integration**.
 
 ## Using Pushpad with Novu
 
@@ -93,7 +93,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 ### Step 2: Send a notification
 
-Now you're ready to send a push notification. Create a workflow with a Push step in the editor and trigger it. Novu will send the notification to the `uid`'s associated with the subscriber.
+Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu will send the notification to the `uid`'s associated with the subscriber.
 
 The example below demonstrates a simple trigger using Novu’s SDK.
 
