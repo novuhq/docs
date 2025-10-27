@@ -24,14 +24,13 @@ Follow <a href="https://developer.apple.com/help/account/keys/create-a-private-k
 
 Next, add these keys to your OneSignal integration in the Novu dashboard.
 
-1.  Log in to the Novu dashboard.
-2.  Navigate to the **Integration Store** page on the Novu dashboard.
-3.  Click **Connect provider**.
-4.  Under the **Push** tab, select **OneSignal**.
-5.  In the OneSignal integration form, paste your **App ID** and **App API Key** into the corresponding fields.
-    ![Onesignal Integration in Novu](/images/channels-and-providers/push/onesignal/onesignal-integration.png)
-6.  Click **Create Integration**.
-
+1. Log in to the Novu dashboard.
+2. On the Novu dashboard, navigate to the **Integration Store**.
+3. Click **Connect provider**.
+4. In the **Push** tab, select **OneSignal**.
+5. In the OneSignal integration form, paste your **App ID** and **App API Key** into the corresponding fields.
+  ![Onesignal Integration in Novu](/images/channels-and-providers/push/onesignal/onesignal-integration.png)
+6. Click **Create Integration**.
 
 ## Using Onesignal with Novu
 
@@ -92,7 +91,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 ### Step 2: Send a notification
 
-Now you're ready to send a push notification. Create a workflow with a Push step in the editor and trigger it. Novu will send the notification to all devices (player IDs) associated with the subscriber.
+Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu will send the notification to all devices (player IDs) associated with the subscriber.
 
 The example below demonstrates a simple trigger using Novu’s SDK.
 
