@@ -57,8 +57,6 @@ This approach is useful when:
 - You want to keep the creation and delivery logic tightly coupled.
 
 
-<Tabs items={['Node.js']}>
-  <Tab value="Node.js">
 ```typescript
 import { Novu } from "@novu/api";
  
@@ -75,12 +73,30 @@ await novu.trigger({
   workflowId: "workflow_identifier",
 });
 ```
-  </Tab>
-</Tabs>
 
 ### Ahead of trigger
 
 Alternatively, you can create and store subscriber profiles ahead of time — typically during onboarding, registration, or data sync events. This approach allows you to manage subscriber preferences, enrich profiles, and inspect delivery readiness before any notification is triggered.
+
+
+```typescript
+import { Novu } from "@novu/api";
+ 
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+ 
+await novu.subscribers.create({
+  subscriberId: "subscriber_unique_identifier",
+  firstName: "Albert",
+  lastName: "Einstein",
+  email: "albert@einstein.com",
+  phone: "+1234567890",
+  data: {
+    address: "123 Main St, Anytown, USA",
+    membershipLevel: "Gold",
+    preferredTopics: ["News", "Sports"],
+  },
+});
+```
 
 This is recommended when:
 - You want to decouple user creation from notification logic.
@@ -89,7 +105,32 @@ This is recommended when:
 
 ### Bulk Import
 
-For scenarios like data migration, syncing large lists, or preloading subscribers, Novu supports bulk creation. This is especially useful when integrating with existing systems or importing subscriber data from external sources.
+For scenarios like data migration, syncing large lists, or preloading subscribers, Novu supports bulk creation. This is especially useful when integrating with existing systems or importing subscriber data from external sources. Bulk create method supports creating up to 500 subscribers at once.
+
+```typescript
+import { Novu } from "@novu/api";
+ 
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+ 
+await novu.subscribers.ovu.subscribers.createBulk({
+  subscribers: [
+    {
+      subscriberId: "subscriber_unique_identifier_1",
+      firstName: "Albert",
+      lastName: "Einstein",
+      email: "albert@einstein.com",
+      phone: "+1234567890",
+    },
+    {
+      subscriberId: "subscriber_unique_identifier_2",
+      firstName: "Isaac",
+      lastName: "Newton",
+      email: "isaac@newton.com",
+      phone: "+1234567891",
+    },
+  ],
+});
+```
 
 ## Where to manage subscriber data
 
