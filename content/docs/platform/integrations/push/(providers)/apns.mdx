@@ -14,35 +14,33 @@ Before you can send notifications, you must configure your Apple Developer accou
 
 ### Step 1: Get your APNS credentials
 
-You will to download 
+Apple provides two authentication methods to make a secure connection to APNs. The first is a certificate based authentication (using a `.p12` certificate). The second is token based authentication (using a `.p8` key). We'll make use of the `.p8` key.
 
-Apple provides two authentication methods to make a secure connection to APNs. The first is Certificate-Based Authentication (using a .p12 certificate). The second is Token-Based Authentication (using a .p8 key). We'll make use of the **.p8** key.
-
-To enable APNS integration, you need to create an [Apple Developer](https://developer.apple.com/) account with an [Admin role](https://appstoreconnect.apple.com/access/users).
+To enable APNS integration, create an <a href="https://developer.apple.com/" target="_blank" rel="noopener noreferrer">Apple Developer account</a> with an [Admin role](https://appstoreconnect.apple.com/access/users).
 
 Follow <a href="https://developer.apple.com/help/account/keys/create-a-private-key" target="_blank" rel="noopener noreferrer">this Apple’s official guide</a> to generate and download the p8 key for your account.
 
-You also need the following to connect to APNs:
+You also need the following to connect Novu to APNs:
 
-* **Key ID** - This is a 10-character unique identifier for the authentication key. You can find it in the key details section of the newly created key in your Apple developer account.
-* **Team ID** - This is available in your Apple developer account.
-* **Bundle ID** - This is the ID of your app. You can find it in the app info section of your Apple developer account.
+* <a href="https://developer.apple.com/help/account/keys/get-a-key-identifier/" target="_blank" rel="noopener noreferrer">**Key ID**</a>: This is a 10-character unique identifier for the authentication key. You can find it in the key details section of the newly created key in your Apple developer account.
+* **Team ID**: This is available in your Apple developer account.
+* **Bundle ID**: This is the ID of your app. You can find it in the app info section of your Apple developer account.
 
 ### Step 2: Connect APNS to Novu
 
 Next, add these credentials to your APNS integration in the Novu dashboard.
 
-1.  Log in to the Novu dashboard
-2.  Navigate to the **Integration Store** page on the Novu dashboard.
-3.  Click **Connect provider**.
-4.  Under the **Push** tab, select **APNS**.
-5.  In the APNS integration form, fill in the Name and Identifier fields and under the **Delivery Provider Crendetials** section fill in the following fields:
-    * **Private Key**: The content of your `.p8` file.
-    * **Key ID**: Your 10-character Key ID.
-    * **Team ID**: Your 10-character Team ID.
-    * **Bundle ID**: Your app's Bundle ID.
+1. Log in to the Novu dashboard
+2. On the Novu dashboard, navigate to the **Integration Store**.
+3. Click **Connect provider**.
+4. In the **Push** tab, select **APNS**.
+5. In the APNS integration form, fill in the **Name** and **Identifier** fields and in the **Delivery Provider Crendetials** section fill in the following fields:
+  * **Private Key**: The content of your `.p8` file.
+  * **Key ID**: Your 10-character Key ID.
+  * **Team ID**: Your 10-character Team ID.
+  * **Bundle ID**: Your app's Bundle ID.
 ![APNS Integration in Novu](/images/channels-and-providers/push/apns/apns-integration.png)
-6.  Click **Create Integration**.
+6. Click **Create Integration**.
 
 ## Using APNS with Novu
 
@@ -96,7 +94,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 ### Step 2: Send a notification
 
-Now you're ready to send a push notification. Create a workflow with a Push step in the editor and trigger it. Novu will send the notification to all devices associated with the subscriber.
+Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu will send the notification to all devices associated with the subscriber.
 
 The example below demonstrates a simple trigger using Novu’s SDK.
 
