@@ -3,11 +3,9 @@ title: 'Push Webhook'
 description: 'Learn how to use the Push Webhook provider to send  notifications using Novu'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+This guide will walk you through the entire process of configuring and using Push Webhook with Novu.
 
 The Push Webhook provider is different from other push providers as it does not depend on a third-party service. Instead, Novu sends push notifications directly to a webhook URL that you control. This approach is ideal if you want full control over how notifications are processed, routed, or stored in your system.
-
-This guide will walk you through the entire process of configuring and using Push Webhook with Novu.
 
 ## How to configure Push Webhook with Novu
 
@@ -26,15 +24,15 @@ Before connecting to Novu, you need two things:
 
 Next, add these keys to your Push Webhook integration in the Novu dashboard.
 
-1.  Log in to the Novu dashboard.
-2.  Navigate to the **Integration Store** page.
-3.  Click **Connect Provider**.
-4.  Under the **Push** tab, select **Push Webhook**.
-5.  In the integration form, fill in the following fields:
-    * **Webhook URL:** The endpoint URL you prepared in Step 1.
-    * **Secret Hmac Key:** The secret key used to sign webhook calls.
-    ![Push Webhook Integration in Novu](/images/channels-and-providers/push/push-webhook/push-webhook-integration.png)
-6.  Click **Create Integration**.
+1. Log in to the Novu dashboard.
+2. On the Novu dashboard, navigate to the **Integration Store**.
+3. Click **Connect Provider**.
+4. In the **Push** tab, select **Push Webhook**.
+5. In the integration form, fill in the following fields:
+  * **Webhook URL:** The endpoint URL you prepared in Step 1.
+  * **Secret Hmac Key:** The secret key used to sign webhook calls.
+  ![Push Webhook Integration in Novu](/images/channels-and-providers/push/push-webhook/push-webhook-integration.png)
+6. Click **Create Integration**.
 
 ## Using Push Webhook with Novu
 
@@ -88,7 +86,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 ### Step 2: Send a notification
 
-Now you're ready to send a push notification. Create a workflow with a Push step in the editor and trigger it. Novu will send the notification payload to the webhook URL you configured.
+Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu will send the notification payload to the webhook URL you configured.
 
 The example below demonstrates a simple trigger using Novu’s SDK.
 
