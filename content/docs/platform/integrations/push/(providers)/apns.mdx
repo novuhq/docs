@@ -6,7 +6,7 @@ description: 'Learn how to use the Apple Push Notification Service (APNS) provid
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-This guide will walk you through the entire process of configuring and using the <a href="https://docs.expo.dev/push-notifications/overview/" target="_blank" rel="noopener noreferrer">Apple Push Notification Service (APNS)</a> with Novu.
+This guide will walk you through the entire process of configuring and using the <a href="https://developer.apple.com/notifications/" target="_blank" rel="noopener noreferrer">Apple Push Notification Service (APNS)</a> with Novu.
 
 ## How to configure APNS with Novu
 
@@ -59,21 +59,21 @@ import { Novu } from '@novu/api';
 import { ChatOrPushProviderEnum } from "@novu/api/models/components";
 
 const novu = new Novu({
-  secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
-  // serverURL: "[https://eu.api.novu.co](https://eu.api.novu.co)",
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "[https://eu.api.novu.co](https://eu.api.novu.co)",
 });
 
 await novu.subscribers.credentials.update(
-  {
-    providerId: ChatOrPushProviderEnum.Apns,
-    // Use integrationIdentifier to store device tokens for a specific integration
-    integrationIdentifier: "string",
-    credentials: {
-      deviceTokens: ["token1", "token2", "token3"],
-    },
-  },
-  "subscriberId"
+  {
+    providerId: ChatOrPushProviderEnum.Apns,
+    // Use integrationIdentifier to store device tokens for a specific integration
+    integrationIdentifier: "string",
+    credentials: {
+      deviceTokens: ["token1", "token2", "token3"],
+    },
+  },
+  "subscriberId"
 );
 ```
 </Tab>
