@@ -6,6 +6,7 @@ import type {
   NovuOptions,
   PreferencesResponse,
   Subscriber,
+  Schedule,
 } from '@novu/js';
 
 export type {
@@ -16,4 +17,5 @@ export type {
   NovuOptions,
   PreferencesResponse as PreferenceResponse,
   Subscriber,
+  Schedule,
 };
