@@ -18,6 +18,10 @@ The main component for displaying notifications.
     "description": "",
     "type": "string"
   },
+  "contextHash": {
+    "description": "",
+    "type": "string"
+  },
   "backendUrl": {
     "description": "",
     "type": "string"
@@ -46,9 +50,21 @@ The main component for displaying notifications.
     "description": "",
     "type": "PreferenceGroups"
   },
+  "preferencesSort": {
+    "description": "",
+    "type": "PreferencesSort"
+  },
+  "defaultSchedule": {
+    "description": "",
+    "type": "DefaultSchedule"
+  },
   "routerPush": {
     "description": "",
     "type": "RouterPush"
+  },
+  "context": {
+    "description": "",
+    "type": "Partial<Record<string, ContextValue>>"
   },
   "subscriberId": {
     "description": "",
@@ -744,6 +760,42 @@ function NotificationCenter() {
     "description": "",
     "type": "ElementStyles"
   },
+  "dayScheduleCopy__dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "dayScheduleCopy__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timeSelect__dropdownTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timeSelect__time": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timeSelect__dropdownContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timeSelect__dropdownItem": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timeSelect__dropdownItemLabel": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timeSelect__dropdownItemLabelContainer": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "timeSelect__dropdownItemCheck__icon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
   "notificationSnooze__dropdownContent": {
     "description": "",
     "type": "ElementStyles"
@@ -1007,6 +1059,102 @@ function NotificationCenter() {
   "channelSwitchContainer": {
     "description": "",
     "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
+  },
+  "scheduleContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleHeader": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleLabelContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleLabelScheduleIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleLabelInfoIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleLabel": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleActionsContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleActionsContainerRight": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleBody": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleDescription": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleTable": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleTableHeader": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleHeaderColumn": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleTableBody": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleBodyRow": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleBodyColumn": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleInfoContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleInfoIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "scheduleInfo": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "dayScheduleCopyTitle": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "dayScheduleCopyIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "dayScheduleCopySelectAll": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "dayScheduleCopyDay": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
+  },
+  "dayScheduleCopyFooterContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
   },
   "notificationDeliveredAt__badge": {
     "description": "",

@@ -1,0 +1,79 @@
+---
+pageTitle: 'Using contexts for Inbox personalization'
+title: 'Inbox with context'
+description: 'Learn how to use contexts in the Inbox component to filter and personalize notifications for your subscribers.'
+icon: 'Package'
+---
+
+_Contexts_ let you scope each `<Inbox />` instance to a specific environment, tenant, or app within your product. When combined with workflow-level contexts, they ensure that each `<Inbox />` displays only the notifications relevant to that specific context.
+
+<Callout type='info'>If you’re new to contexts, start from the [Contexts](/platform/workflow/contexts) section to understand how contexts are created, managed in Novu and how they used in workflows.</Callout>
+
+## How context works in `<Inbox/>`
+
+The <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> uses exact-match context filtering to determine which notifications to display. This means the context provided to the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> must match all the key-value pairs of the context used when the workflow was triggered.
+
+This creates predictable isolation and ensures notifications can't accidentally leak across boundaries. If the contexts do not match exactly, the notification will not be delivered to that Inbox session.
+
+| Workflow Context                           | Inbox Context            | Displayed? |
+| ------------------------------------------ | ------------------------ | ---------- |
+| `{ "tenant": "acme" }`                     | `{ "tenant": "acme" }`   | ✅ Yes      |
+| `{ "tenant": "acme" }`                     | `{ "tenant": "globex" }` | ❌ No       |
+| `{ "tenant": "acme", "app": "dashboard" }` | `{ "tenant": "acme" }`   | ❌ No       |
+| `{}`                                       | `{}`                     | ✅ Yes      |
+
+
+### Creating context via `<Inbox/>`
+
+If a new context is passed from the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> that doesn’t already exist, Novu will automatically find or create it. This means you don’t have to manually set up contexts before using them, they are created just in time.
+
+However, if a context already exists, its data won’t be updated automatically. This prevents unintentional overwrites of stored context data.
+
+This is particularly useful for:
+
+- **Dynamic tenants or organizations**: When users join or switch organizations.
+- **Feature-specific dashboards**: Where each section of your app has its own notification scope.
+
+You can view all automatically created contexts under the Contexts section of your Novu dashboard.
+
+## Applying context to the Inbox
+
+You can filter the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> notifications to a specific context, by passing a context prop to the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> component.
+
+This prop's value defines the filter for that session, and it will only request and show notifications that match this context.
+
+```tsx
+import { Inbox } from '@novu/react';
+
+<Inbox
+  applicationIdentifier="APPLICATION_IDENTIFIER"
+  subscriber="SUBSCRIBER_ID"
+  context={{
+    tenant: {
+      "id": "acme-corp",
+      "data": {
+        "name": "Acme Corporation",
+        "plan": "enterprise",
+      }
+    },
+  }}
+/>
+```
+
+When a workflow with these exact context is triggered, as seen below
+
+![Context in trigger](/images/inbox/context-trigger.png)
+
+Then, the notifications will be delivered to the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method>.
+
+![Inbox with context](/images/inbox/context.png)
+
+<Callout>To learn how to use context with the Novu SDKs, visit the <Method href="/platform/sdks/javascript">{`Context`}</Method> documentation.</Callout>
+
+## How to secure your context
+
+Because the context prop is set on the client-side, a malicious user could potentially tamper with it to view notifications from a different tenant.
+
+To prevent this, you must validate the session using HMAC encryption. This ensures that the context data comes from your server and has not been altered.
+
+<Callout>Learn how to secure your <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> with HMAC encryption, refer to the [Prepare for Production](/platform/inbox/prepare-for-production) documentation.</Callout>
