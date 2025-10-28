@@ -39,6 +39,10 @@ Integration is third party service used by Novu to send notification for a speci
     "description": "The credentials required for the integration to function, including API keys and other sensitive information.",
     "type": "CredentialsDto"
   },
+  "configurations": {
+    "description": "The configurations required for enabling the additional configurations of the integration.",
+    "type": "ConfigurationsDto"
+  },
   "active": {
     "description": "Indicates whether the integration is currently active. An active integration will process events and messages.",
     "type": "boolean"
@@ -235,6 +239,18 @@ Each integration has a set of credentials that are used to authenticate with the
     "type": "string"
   },
   "accessKey": {
+    "description": "",
+    "type": "string"
+  },
+  "appSid": {
+    "description": "",
+    "type": "string"
+  },
+  "senderId": {
+    "description": "",
+    "type": "string"
+  },
+  "appIOBaseUrl": {
     "description": "",
     "type": "string"
   }

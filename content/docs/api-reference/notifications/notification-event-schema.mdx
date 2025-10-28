@@ -61,7 +61,7 @@ Notification event is the event that is generated when a workflow is triggered t
   },
   "payload": {
     "description": "Payload of the notification",
-    "type": "ActivityNotificationResponseDtoPayload"
+    "type": "{ [k: string]: any; }"
   },
   "tags": {
     "description": "Tags associated with the notification",
@@ -69,15 +69,27 @@ Notification event is the event that is generated when a workflow is triggered t
   },
   "controls": {
     "description": "Controls associated with the notification",
-    "type": "Controls"
+    "type": "{ [k: string]: any; }"
   },
   "to": {
     "description": "To field for subscriber definition",
-    "type": "ActivityNotificationResponseDtoTo"
+    "type": "{ [k: string]: any; }"
   },
   "topics": {
     "description": "Topics of the notification",
     "type": "ActivityTopicDto[]"
+  },
+  "severity": {
+    "description": "Severity of the workflow",
+    "type": "SeverityLevelEnum"
+  },
+  "critical": {
+    "description": "Criticality of the notification",
+    "type": "boolean"
+  },
+  "contextKeys": {
+    "description": "Contexts (keys) in which the notification was sent",
+    "type": "string[]"
   }
 }} />
 
