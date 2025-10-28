@@ -34,5 +34,14 @@ export const GET = metadataImage.createAPI((page): ImageResponse => {
 export function generateStaticParams(): {
   slug: string[];
 }[] {
+  // Disable OG image static generation on Netlify to prevent build hangs
+  // OG images will be generated on-demand instead
+  if (process.env.NETLIFY) {
+    return [];
+  }
   return metadataImage.generateParams();
 }
+
+// Add runtime config to ensure proper behavior
+export const dynamic = 'force-dynamic';
+export const revalidate = 3600; // Cache for 1 hour
