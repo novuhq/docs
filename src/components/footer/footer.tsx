@@ -10,7 +10,7 @@ import Certificates from '@/components/footer/certificates';
 import GhIcon from '@/components/icons/footer/gh';
 import XIcon from '@/components/icons/footer/x';
 import DiscordIcon from '@/components/icons/footer/discord';
-import Status from '@/components/footer/status';
+// import Status from '@/components/footer/status';
 
 const SOCIALS = [
   {
@@ -82,7 +82,7 @@ export const Footer = () => {
           <LogoLink className="hidden sm:flex" />
           <div>
             <Certificates className="hidden sm:flex" />
-            <Status />
+            {/* <Status /> */}
             <div className="mt-1.5 text-[#333333] dark:text-[#cccccc] flex items-center gap-1.5">
               <span className="text-[16px]">Ⓒ</span>
               <span className="text-[14px] leading-snug -tracking-[0.02em]">
