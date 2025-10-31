@@ -1,43 +1,94 @@
 ---
 pageTitle: 'Chat Providers Integration'
 title: 'Chat'
-description: "Learn how to configure and use chat providers like Slack, Microsoft Teams, WhatsApp, and Discord with Novu's notification infrastructure."
+description: "Configure and manage chat providers like Slack, Microsoft Teams, WhatsApp, and Discord with Novu's notification infrastructure."
 icon: 'circle-info'
 ---
 
-Novu brings chat notifications into your development workflow, giving you a unified way to manage messaging across platforms and apps. Whether you're working with tools like Slack or Microsoft Teams or apps like WhatsApp, Telegram, and Discord, Novu lets you integrate, manage, and scale chat notifications without unnecessary complexity.
+The Chat channel delivers messages to your subscribers via their preferred chat platforms and application.
 
-The Chat channel provides:
+## Messaging Platforms vs. Messaging Applications
 
-- **Cross-Platform Integration**: A single system to handle messaging platforms (e.g., Slack, Teams) and apps (e.g., WhatsApp, Telegram, Discord)
-- **Scalability at Its Core**: Designed to handle high-frequency messaging without breaking a sweat
-- **Effortless Configuration**: Minimal setup, maximum control over your chat notification workflows
+- **Messaging Platforms** (such as Slack, Teams): Ideal for structured, workplace communication. Use these to notify teams or users in collaborative environments
+- **Messaging Apps** (such as WhatsApp, Telegram, Discord): Best for consumer-facing messaging. Engage users directly through personal or group chats
 
-## Key Features
+## How Chat delivery works in Novu
 
-- **Platform and App Agnostic**: Supports workplace messaging platforms (Slack, Teams) and consumer apps (Discord, WhatsApp, Telegram) without additional overhead
-- **Dynamic Content Handling**: Inject real-time, user-specific data into messages with simple APIs
-- **Provider Independence**: Easily switch between chat providers or use multiple simultaneously
-- **Delivery Monitoring**: Full visibility into delivery status, failures, and message engagement
-- **Fallback Logic**: Automate retries and backup providers to ensure messages are delivered
-- **Reusable Message Templates**: Standardize message structure across your channels
-- **Developer-Centric APIs**: Clean, intuitive endpoints to plug notifications directly into your backend
+Here’s the typical flow for sending a chat notification through Novu:
 
-## Messaging Platforms vs. Messaging Apps
+<Steps>
+<Step>
 
-- **Messaging Platforms** (e.g., Slack, Teams): Ideal for structured, workplace communication. Use these to notify teams or users in collaborative environments
-- **Messaging Apps** (e.g., WhatsApp, Telegram, Discord): Best for consumer-facing messaging. Engage users directly through personal or group chats
+### Add a chat provider
 
-## Common Use Cases
+Start by adding a chat provider in the **Integration Store** on your Novu dashboard.  
+You can connect one or more integrations for different or even the same providers (for example, multiple Slack workspaces).
 
-- **Team Notifications**: Deliver updates to Slack channels or Teams users without needing complex integrations
-- **Customer Engagement**: Notify users on apps like Telegram or WhatsApp with real-time updates or alerts
-- **System Alerts**: Push critical system or workflow notifications to technical teams via chat platforms
-- **Event Reminders**: Send timely reminders for meetings, webinars, or deadlines
-- **Community Notifications**: Manage announcements, updates, or discussions in platforms like Discord
+To learn how to add a chat provider, refer to the setup guide for that provider.
+
+</Step>
+
+<Step>
+
+### Add the chat channel to your workflow
+
+Next, include a **Chat** step in your workflow.  
+This step defines when and how a chat message should be sent as part of your notification workflow.
+
+</Step>
+
+<Step>
+
+### Define the chat content
+
+Within the Chat step editor, write the message body.  
+The editor supports dynamic data for personalized and contextual messages.
+
+</Step>
+
+<Step>
+
+### Store subscriber credentials
+
+Each subscriber must have valid chat credentials (such as a `webhookUrl` or unique identifier) to receive chat notifications.  
+You can store or update these credentials using the Novu Dashboard, API, or SDKs.
+
+</Step>
+
+<Step>
+
+### Trigger the workflow
+
+Finally, trigger the workflow from your application code.  
+Novu automatically resolves the subscriber, retrieves the correct credentials (for example, the `webhookUrl`), selects the appropriate provider, renders the message, and delivers it to the chat platform.
+
+</Step>
+</Steps>
 
 
-## Update credential webhookUrl
+## Configuring chat providers
+
+When you add a chat provider in the Integration Store, you'll configure credentials specific to that provider.
+
+### Provider authentication
+
+You may need to provide credentials specific to your chat provider, such as an API key, Client ID, or Client Secret. However, some providers, like Discord, may not require any global credentials to be set in the Integration Store.
+
+Each provider has different requirements.
+
+<Callout type="info"> See the supported chat providers list at the end of this page for detailed setup guides for each provider integration.</Callout>
+
+## How to manages Chat credentials
+
+The chat channel works by storing specific credentials for each subscriber. This credential is typically a `webhookUrl` that tells Novu where to send a message for that specific subscriber.
+
+Before triggering a chat notification, you must update the subscriber with this `webhookUrl`.
+
+### Storing subscriber credentials
+
+Use the `subscribers.credentials.update` method to store the `webhookUrl` for a specific subscriber and provider.
+
+Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
@@ -80,21 +131,15 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 </Tab>
 </Tabs>
 
-Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
+## Supported providers
 
-<Callout type="info">
-  Integration identifier is similar to Provider identifier but it is different than Provider Id. It
-  is unique for each integration. You can find the `integrationIdentifier` in the integration store
-  page.
-</Callout>
+Here are the chat providers that are currently supported by Novu. Select any provider to see its detailed setup guide.
 
-## Common errors
-
-Common erros and reason of those errors while sending chat messages using Novu.
-
-- Subscriber does not have a configured channel
-  - if the subscriber does not have credentials set up for any of the chat provider
-- Webhook URL for the chat channel is missing
-  - `webhookUrl` field is null, undefined or not set. Check using [get subscriber api](/api-reference/subscribers/retrieve-a-subscriber)
-- Subscriber does not have an active integration
-  - if subscriber have credentials set but integration is either not active or deleted for this credential
+<Cards>
+<Card title="Discord" href="/platform/integrations/chat/discord"> Learn how to use the Discord provider to send chat notifications using Novu. </Card>
+<Card title="Mattermost" href="/platform/integrations/chat/mattermost"> Learn how to use the Mattermost provider to send chat notifications using Novu.</Card> 
+<Card title="Microsoft Teams" href="/platform/integrations/chat/ms-teams"> Learn how to use the Microsoft Teams provider to send chat notifications using Novu.</Card>
+<Card title="Slack" href="/platform/integrations/chat/slack"> Learn how to use the Slack provider to send chat notifications using Novu.</Card>
+<Card title="WhatsApp Business" href="/platform/integrations/chat/whats-app"> Learn how to use the WhatsApp Business provider to send chat notifications using Novu.</Card> 
+<Card title="Zulip" href="/platform/integrations/chat/zulip"> Learn how to use the Zulip provider to send chat notifications using Novu.</Card>
+</Cards>
