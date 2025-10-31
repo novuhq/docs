@@ -1,93 +1,138 @@
 ---
 title: 'Multi-tenancy'
-description: 'Learn how to implement multi-tenant notifications to support different organizations or workspaces within your application.'
+description: 'Learn how to use context to implement multi-tenant notifications to support different organizations or workspaces within your application.'
 icon: 'Building2'
 ---
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { Callout } from 'fumadocs-ui/components/callout';
-import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+Multi-tenancy in Novu lets you isolate notifications for different organizations, environments, or workspaces within the same Novu project. Instead of creating separate subscribers or workflows for each tenant, you can use [Contexts](/platform/workflow/contexts) to define and manage tenant boundaries.
 
-Multi-tenancy is a common use case for applications that serve multiple tenants which are also called organizations or workspaces. It lets you isolate notification behavior, content, and preferences for each tenant, ensuring your subscribers see only the notifications relevant to their organization.
+<Callout>This guide assumes you already understand what Contexts are. If not, start with the [Contexts](/platform/workflow/contexts) documentation.</Callout>
 
-Some of the common multi-tenancy use cases are:
-- Group subscribers notification feeds by the tenant
-- Adjust the content of the notification depending on the tenant
+## How multi-tenancy works in Novu
+
+Multi-tenancy in Novu is built on top of Contexts, which act as lightweight tags that group notifications by logical boundaries such as tenants, workspaces, or environments.
+
+When a notification is triggered with a tenant context, Novu automatically associates all notifications and preferences with that tenant. The same tenant context passed to the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> filters notifications for that specific organization, ensuring users only see messages relevant to their workspace.
 
 ## How to implement multi-tenancy in Novu
 
-Novu supports multi-tenancy out of the box, the most simple way to implement tenant separation is by prefixing the subscriber identifier with the :tooltip[tenant identifier]{label="The tenant identifier is a unique identifier for the tenant in your application. Usually the tenant id in your database."}
+Implementing a multi-tenant system involves a few key steps:
 
-```typescript
-const subscriberId = `${tenantId}:${userId}`;
+### Define a tenant context
 
-await novu.trigger({
-  workflowId,
-  to: {
-    subscriberId,
-  },
-  payload: {
-    tenantId,
-  },
-});
-```
+A Tenant Context is a JSON object that identifies a specific tenant and can store any related data you need, such as company name, logo, or plan type.
 
-### Tenant in Inbox
+You can create a tenant context using the Novu dashboard, API or from the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method>. if it doesn’t already exist, Novu automatically creates it.
 
-When using the Inbox feature, you can use the tenant identifier to group notifications by tenant.
+Here are ways you can pass context:
 
-```tsx
-import { Inbox } from "@novu/react";
+```jsx
+// Simple tenant ID
 
-function InboxComponent({ tenantId, userId }) {
-  return <Inbox subscriber={`${tenantId}:${userId}`} />;
+context: {
+  tenant: 'acme-corp' 
+}
+
+// Rich tenant object
+
+context: {
+  tenant: {
+    id: 'acme-corp',
+    data: {
+      name: 'Acme Corporation',
+      logo: 'https://cdn.acme.com/logo.png'
+    }
+  }
 }
 ```
 
-Each subscriber in a tenant will have it's own unique inbox feed, including a separate preference configuration set.
+You can also manage all tenant contexts centrally from the Novu dashboard or API.
 
-## Customize notification content based on tenant
+<Callout>To learn more about creating, updating, and deleting contexts, see the [Manage Contexts](/platform/workflow/contexts) guide.</Callout>
 
-When triggering a notification, you can pass a custom tenant object or identifier and use it to manipulate workflows or content.
+### Applying tenant context in workflows
 
-```typescript
-const subscriberId = `${tenantId}:${userId}`;
+Once you’ve defined your tenant context, you can use it when triggering workflows. During workflow trigger, Novu first checks if that context already exists. 
 
-await novu.trigger({
-  workflowId,
+If not, Novu automatically creates it — but if it does exist, Novu reuses the existing record instead of updating it, to prevent accidental overwrites.
+
+```tsx
+import { novu } from './client';
+
+await novu.trigger('payment-success', {
   to: {
-    subscriberId,
+    subscriberId: 'user-123',
   },
   payload: {
+    amount: '$250',
+    plan: 'Pro',
+  },
+  context: {
     tenant: {
-      id: tenantId,
-      name: "Airbnb",
-      logo: "https://airbnb.com/logo.png",
-      primaryColor: "red",
-    }
+      id: 'acme-corp',
+      data: {
+        name: 'Acme Corporation',
+        plan: 'enterprise',
+      },
+    },
   },
 });
 ```
 
-The tenant object will be available to use in the workflow editor as a variable for the following areas:
+In this example:
+- The tenant context identifies the organization (“Acme Corporation”).
+- Notifications triggered with this tenant context will be isolated to that tenant’s workspace.
+- The same tenant ID must be passed to the Inbox to display these notifications.
 
-- Content (use `{{payload.tenant.name}}` to display the tenant name in an email or any other channel)
-- Step Conditions (use `{{payload.tenant.id}}` to conditionally execute a step based on the tenant)
-- Use the Inbox [data object](/platform/inbox/configuration/data-object) to filter notifications by tenant.
+<Callout>Learn more about applying Context in workflows in [Contexts in Workflows](/platform/workflow/contexts/contexts-in-workflows) documentation.</Callout>
 
-<Callout type="info">
-  To group subscribers in a group, use [Topics](/platform/concepts/topics).
-</Callout>
+### Filter the Inbox by tenant
 
-## Frequently asked questions
+Once your workflows are sending tenant-scoped notifications, you can filter the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> so that each subscriber only sees notifications relevant to their tenant.
 
-The following are the frequently asked questions about multi-tenancy in Novu.
+This is done by passing the same tenant context used in your workflow triggers to the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method>.
 
-<Accordions>
-  <Accordion title="Can I use a different delivery provider for each tenant?">
-  Currently, we do not support using a different delivery provider for each tenant. You can reach out to support@novu.co in case this is a feature required for your use case.
-  </Accordion>
-  <Accordion title="Can I specify different workflow preferences for each tenant?">
-  We don't support specifying different workflow preferences for each tenant. You can reach out to support@novu.co in case this is a feature required for your use case.
-  </Accordion>
-</Accordions>
+```tsx
+import { Inbox } from '@novu/react';
+
+<Inbox
+  applicationIdentifier="APPLICATION_IDENTIFIER"
+  subscriber="SUBSCRIBER_ID"
+  context={{
+    tenant: {
+      id: 'acme-corp',
+      data: {
+        name: 'Acme Corporation',
+        plan: 'enterprise',
+      },
+    },
+  }}
+/>
+
+```
+
+In this setup:
+
+- The <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> filters notifications based on an exact context match. 
+- Only notifications triggered with tenant: `{ id: 'acme-corp' }` will appear in the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method>.
+- Notifications from other tenants are automatically excluded.
+
+<Callout>If the tenant context doesn’t already exist in Novu, the Inbox will automatically find or create it. Learn more in [Inbox with Context](/platform/inbox/configuration/inbox-with-context).</Callout>
+
+### Customize notification content based on tenant
+
+With contexts, you can use tenant-level data to dynamically personalize notification content, branding, and workflow logic, all from a single workflow definition.
+
+This eliminates the need to duplicate workflows or templates for each tenant while still keeping the experience distinct and relevant.
+
+#### Using tenant data in templates
+
+Once a tenant context is created, its data becomes accessible in all template editors (email, in-app, SMS, and push) through the `{{context}}` helper.
+
+#### Dynamic logic per tenant
+
+You can also use tenant context data to control conditional logic inside your workflows. For example, you may want to send certain updates only to enterprise tenants.
+
+Refer to the documentation for how to add 
+
+<Callout>To learn more about customizing notification content with context, refer to the [Contexts in Workflows](/platform/workflow/contexts/contexts-in-workflows) documentation.</Callout>
