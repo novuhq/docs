@@ -4,9 +4,7 @@ title: 'Activity Tracking'
 description: 'Learn how to manually forward push notification events from your application to Novu for unified activity tracking.'
 ---
 
-Push notification providers typically do not offer native webhook support that can be used for activity tracking. To enable activity tracking for Push channels notifications, Novu supports a manual integration approach for push notifications. 
-
-Where your application captures and forwards push notification events to the Novu. Once received, Novu processes and displays these events alongside other channels for a unified tracking experience.
+To enable activity tracking for Push channels notifications, Novu supports a manual integration approach for push notifications. Where your application captures and forwards push notification events to Novu. Once received, Novu processes and displays these events on the dashboard for a unified tracking experience.
 
 ## How it works
 
@@ -32,11 +30,11 @@ First, you need to enable the feature in your Novu dashboard and retrieve the ne
 
 Next, when push notifications are delivered or interacted with, your app needs to capture those events and forward them to your backend. The exact code implementation depends on the push provider that you use.
 
-The goal is to capture the event and send a JSON payload to your backend. The two most important fields to send are:
+The goal is to capture the event and send a JSON payload to your backend. You need to send these fields:
 - `eventType`: A string describing the event (for example, `opened`, `clicked`).
 - `eventId`: The unique identifier for the notification, which Novu includes in the push payload as `__nvMessageId`.
 
-<Tabs items={['Expo', 'FCM', 'APNs', 'OneSignal']}>
+<Tabs items={['Expo', 'FCM', 'OneSignal']}>
   <Tab value="expo">
   ```jsx
   import * as Notifications from 'expo-notifications';
@@ -58,7 +56,7 @@ The goal is to capture the event and send a JSON payload to your backend. The tw
       // Optional device context
       deviceId: Constants.sessionId,
       platform: Platform.OS,
-    };
+    }});
 
     await fetch("https://your-api.com/api/notifications/events", {
       method: "POST",
@@ -93,7 +91,6 @@ The goal is to capture the event and send a JSON payload to your backend. The tw
   });
   ```
   </Tab>
-  <Tab value="apns">APNs</Tab>
   <Tab value="onesignal">
   ```js
   import OneSignal from 'react-native-onesignal';
