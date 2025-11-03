@@ -7,7 +7,7 @@ This guide walks you through the entire process of configuring and using <a href
 
 OneSignal supports sending messages via both <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server" target="_blank" rel="noopener noreferrer">Apple Push Notification Service</a> (APNs) and <a href="https://firebase.google.com/docs/cloud-messaging" target="_blank" rel="noopener noreferrer">Firebase Cloud Messaging</a> (FCM).
 
-## How to configure Onesignal with Novu
+## Configure Onesignal with Novu
 
 Before you can send push notifications via OneSignal from Novu, you need to connect your OneSignal credentials.
 
@@ -15,8 +15,8 @@ Before you can send push notifications via OneSignal from Novu, you need to conn
 
 To configure the OneSignal integration, you need an active account that has credentials for APNS, FCM, or both, and have access to two values from OneSignal app's settings:
 
-* **App ID**
-* **App API Key**
+* App ID
+* App API Key
 
 Follow <a href="https://developer.apple.com/help/account/keys/create-a-private-key" target="_blank" rel="noopener noreferrer">this OneSignal guide</a> to see how to access your OneSignal `App ID` and `App API key`.
 
@@ -27,10 +27,11 @@ Next, add these keys to your OneSignal integration in the Novu dashboard.
 1. Log in to the Novu dashboard.
 2. On the Novu dashboard, navigate to the **Integration Store**.
 3. Click **Connect provider**.
-4. In the **Push** tab, select **OneSignal**.
-5. In the OneSignal integration form, paste your **App ID** and **App API Key** into the corresponding fields.
+4. Click **Push** tab.
+5. Select **OneSignal**.
+6. In the OneSignal integration form, paste your **App ID** and **App API Key** into the corresponding fields.
   ![Onesignal Integration in Novu](/images/channels-and-providers/push/onesignal/onesignal-integration.png)
-6. Click **Create Integration**.
+7. Click **Create Integration**.
 
 ## Using Onesignal with Novu
 
@@ -93,7 +94,7 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 
 Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu sends the notification to all devices (player IDs) associated with the subscriber.
 
-The example below demonstrates a simple trigger using Novu’s SDK.
+The example below demonstrates, how to [trigger a workflow](/platform/sdks/server/typescript) using Novu’s SDK.
 
 ```typescript
 import { Novu } from '@novu/node';
@@ -104,6 +105,7 @@ await novu.trigger('your-workflow-id', {
   to: {
     subscriberId: 'SUBSCRIBER_ID',
   },
+  workflowId: "workflow_identifier",
   payload: {
     // Your payload data
   },
