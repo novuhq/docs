@@ -30,7 +30,7 @@ First, you need to enable the feature in your Novu dashboard and retrieve the ne
 
 ## Step 2: Listen for push events in your app
 
-Next, when push notifications are delivered or interacted with, your app needs to capture those events and forward them to your backend. The exact code implementation will depends on the push provider you use.
+Next, when push notifications are delivered or interacted with, your app needs to capture those events and forward them to your backend. The exact code implementation depends on the push provider that you use.
 
 The goal is to capture the event and send a JSON payload to your backend. The two most important fields to send are:
 - `eventType`: A string describing the event (for example, `opened`, `clicked`).
