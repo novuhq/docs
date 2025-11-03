@@ -167,7 +167,7 @@ The payload includes the `title` and `content` from your workflow editor, the `t
 
 ## Checking Authenticity
 
-If you provided a Secret Hmac Key during configuration, Novu will include a `x-novu-signature` header in the request. You can use this header to verify that the request is from Novu and not a malicious third party.
+If you provided a secret HMAC key during configuration, then Novu will include a `x-novu-signature` header in the request. You can use this header to verify that the request is from Novu and not a malicious third party.
 
 Here is an example of how to validate the hash:
 
