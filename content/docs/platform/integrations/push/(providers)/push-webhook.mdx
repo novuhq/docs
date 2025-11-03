@@ -9,20 +9,20 @@ The Push Webhook provider is different from other push providers because it does
 
 ## How to configure Push Webhook with Novu
 
-Configuration involves providing an endpoint URL for Novu to call and a secret Hmac key to verify the request's authenticity.
+To configure Push Webhook, you must provide an endpoint URL for Novu to call and a secret HMAC key to verify the request's authenticity.
 
-### Step 1: Get your Webhook URL and Secret Key
+### Step 1: Get your webhook URL and secret key
 
 Before connecting to Novu, you need two things:
 
 * **Webhook URL**: This is your own API endpoint that will receive the `POST` request from Novu. For quick testing, you can use a service like [webhook.site](https://webhook.site/).
-* **Secret Hmac Key:** This is a self-generated secret string. Novu will use it to encrypt the payload using the `HMAC SHA256` algorithm and send the hash in the `x-novu-signature` header. This lets you verify that the request is genuinely from Novu. See [how to generate a HMAC key](/platform/inbox/prepare-for-production#2-generate-hmac-hash-on-the-server-side).
+* **Secret HMAC Key:** This is a self-generated secret string. Novu will use it to encrypt the payload using the `HMAC SHA256` algorithm and send the hash in the `x-novu-signature` header. This lets you verify that the request is genuinely from Novu. See [how to generate a HMAC key](/platform/inbox/prepare-for-production#2-generate-hmac-hash-on-the-server-side).
 
 <Callout>Your webhook URL endpoint must be able to accept `POST` requests.</Callout>
 
 ### Step 2: Connect Push Webhook to Novu
 
-Next, add these keys to your Push Webhook integration in the Novu dashboard.
+Next, add these keys to your Push Webhook integration in the Novu dashboard:
 
 1. Log in to the Novu dashboard.
 2. On the Novu dashboard, navigate to the **Integration Store**.
@@ -30,7 +30,7 @@ Next, add these keys to your Push Webhook integration in the Novu dashboard.
 4. In the **Push** tab, select **Push Webhook**.
 5. In the integration form, fill in the following fields:
   * **Webhook URL:** The endpoint URL that you prepared in Step 1.
-  * **Secret Hmac Key:** The secret key used to sign webhook calls.
+  * **Secret HMAC Key:** The secret key used to sign webhook calls.
   ![Push Webhook Integration in Novu](/images/channels-and-providers/push/push-webhook/push-webhook-integration.png)
 6. Click **Create Integration**.
 
@@ -40,7 +40,7 @@ Once configured, you must register a device token for your subscriber and trigge
 
 ### Step 1: Add subscriber device token
 
-This step is mandatory. Unlike other push providers that generate a unique token, for the push webhook, you must provide your own identifier.
+This step is mandatory. Unlike other push providers that generate a unique token, for the Push Webhook, you must provide your own identifier.
 
 Any random string can be used as a device token. This token is included in the webhook payload sent to your endpoint, allowing you to identify which user or device the notification is for.
 
@@ -111,7 +111,12 @@ await novu.trigger('your-workflow-id', {
 
 When you trigger a workflow, Novu sends a `POST` request to your webhook URL with a JSON body similar to the one below.
 
-The payload includes the `title` and `content` from your workflow editor, the `target` (the device token you set), your `overrides`, the full payload from your trigger, and the subscriber's profile.
+The payload includes:
+* The `title` and `content` from your workflow editor.
+* The `target` (the device token you set).
+* Your `overrides`.
+* The full payload from your trigger.
+* The subscriber's profile.
 
 ```json
 {
