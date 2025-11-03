@@ -6,51 +6,53 @@ description: 'Learn how to use the Apple Push Notification Service (APNS) provid
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
-This guide walks you through the entire process of configuring and using the <a href="https://developer.apple.com/notifications/" target="_blank" rel="noopener noreferrer">Apple Push Notification Service (APNS)</a> with Novu.
+This guide explains how to configure and use the <a href="https://developer.apple.com/notifications/" target="_blank" rel="noopener noreferrer">Apple Push Notification Service (APNS)</a> with Novu to deliver push notifications to iOS devices. It outlines the required setup in your Apple Developer account, the connection process in Novu, and how to manage device tokens and message payloads.
 
-## Configure APNS with Novu
 
-Before you can send notifications, you must configure your Apple Developer account to get the necessary credentials and add them to your Novu integration.
+## Configuring APNS with Novu
 
-### Step 1: Get your APNS credentials
+Before sending notifications, APNS must be configured with the correct credentials from your Apple Developer account. Novu uses these credentials to securely authenticate with Apple’s servers.
 
-Apple provides two authentication methods to make a secure connection to APNS. The first is a certificate-based authentication using a `.p12` certificate. The second is token based authentication using a `.p8` key. For this guide, you'll use the `.p8` key.
+### Obtain APNS credentials
 
-To enable APNS integration, create an <a href="https://developer.apple.com/" target="_blank" rel="noopener noreferrer">Apple Developer account</a> with an [Admin role](https://appstoreconnect.apple.com/access/users).
+Apple provides two authentication options for connecting to APNS:  
+- A certificate-based `.p12` certificate  
+- A token-based `.p8` key  
 
-Follow <a href="https://developer.apple.com/help/account/keys/create-a-private-key" target="_blank" rel="noopener noreferrer">this Apple’s official guide</a> to generate and download the p8 key for your account.
+Novu supports both, but this guide focuses on the `.p8` token-based approach, which is recommended for most production setups.
 
-You also need the following to connect Novu to APNs:
+To generate the required credentials, use an <a href="https://developer.apple.com/" target="_blank" rel="noopener noreferrer">Apple Developer account</a> with an [Admin role](https://appstoreconnect.apple.com/access/users). Follow <a href="https://developer.apple.com/help/account/keys/create-a-private-key" target="_blank" rel="noopener noreferrer">Apple’s official steps</a> to create and download a private `.p8` key.
 
-* <a href="https://developer.apple.com/help/account/keys/get-a-key-identifier/" target="_blank" rel="noopener noreferrer">**Key ID**</a>: This is a 10-character unique identifier for the authentication key. You can find it in the key details section of the newly-created key in your Apple developer account.
-* **Team ID**: Available in your Apple developer account.
-* **Bundle ID**: The ID of your app. You can find it in the app info section of your Apple developer account.
+The following identifiers are also needed for integration:
 
-### Step 2: Connect APNS to Novu
+- <a href="https://developer.apple.com/help/account/keys/get-a-key-identifier/" target="_blank" rel="noopener noreferrer">**Key ID**</a>: A unique 10-character identifier for the authentication key.  
+- **Team ID**: Found in your Apple Developer account.  
+- **Bundle ID**: The identifier for your app, available in the app info section.
 
-Next, add these credentials to your APNS integration in the Novu dashboard.
+### Add APNS credentials to Novu
 
-1. Log in to the Novu dashboard.
-2. On the Novu dashboard, navigate to the **Integration Store**.
-3. Click **Connect provider**.
-4. In the **Push** tab, select **APNS**.
-5. In the APNS integration form, fill in the **Name** and **Identifier** fields and in the **Delivery Provider Crendetials** section fill in the following fields:
-  * **Private Key**: The content of your `.p8` file.
-  * **Key ID**: Your 10-character Key ID.
-  * **Team ID**: Your 10-character Team ID.
-  * **Bundle ID**: Your app's Bundle ID.
+Once the Apple credentials are available, they can be added to Novu’s Integration Store.
+
+1. Open the **Integration Store** from your Novu dashboard.  
+2. Click **Connect provider**.
+3. Click **Push** tab.
+4. Select **APNS**.
+5. In the APNS integration form, fill in the **Name** and **Identifier** fields.
+6. In the **Delivery Provider Crendetials** section fill in the following fields:
+    * **Private Key**: The content of your `.p8` file.
+    * **Key ID**: Your 10-character Key ID.
+    * **Team ID**: Your 10-character Team ID.
+    * **Bundle ID**: Your app's Bundle ID.
 ![APNS Integration in Novu](/images/channels-and-providers/push/apns/apns-integration.png)
-6. Click **Create Integration**.
+7. Click **Create Integration**.
 
-## Using APNS with Novu
+## Sending Notifications with APNS
 
-Once your integration is configured, you can start sending push notifications by registering your subscribers' device tokens and triggering a workflow.
+After configuration, APNS can be used in any Novu workflow that includes a Push step. The process involves registering device tokens for subscribers and then triggering workflows to deliver messages.
 
-### Step 1: Add subscriber device token
+### Registering subscriber device tokens
 
-Before Novu can send a push notification to a subscriber (user), you must associate their device's unique push token with their Novu subscriber profile.
-
-You can do this by making an API call to [update the subscriber's credentials](/api-reference/subscribers/update-provider-credentials).
+Each subscriber (user) must have one or more device tokens registered to receive push notifications. Tokens can be added or updated through Novu’s API using the [Update Subscriber Credentials](/api-reference/subscribers/update-provider-credentials) endpoint.
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
@@ -92,11 +94,9 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 </Tab>
 </Tabs>
 
-### Step 2: Send a notification
+### Triggering workflows
 
-Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu sends the notification to all devices associated with the subscriber.
-
-The example below demonstrates a simple trigger using Novu’s SDK.
+Once subscribers’ devices are registered, push notifications are delivered through [workflows that include a Push step](/platform/workflow/build-a-workflow). A workflow can be triggered using the Novu SDK or [API](/api-reference/events/trigger-event).
 
 ```typescript
 import { Novu } from '@novu/node';
@@ -113,11 +113,11 @@ await novu.trigger('your-workflow-id', {
 });
 ```
 
-## Using overrides to customize notifications
+## Customizing notifications with overrides
 
-Novu provides an overrides field that lets you send additional APNS-specific payload fields. You can use this to control how messages are displayed or to attach custom data.
+Novu supports an `overrides` field that lets you attach APNS-specific payload parameters when triggering a workflow. This feature is useful for customizing the behavior or presentation of notifications, such as setting titles, bodies, or custom data fields.
 
-The overrides field supports all <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification?language=objc" target="_blank" rel="noopener noreferrer">APNS Notification payload</a> values. Here is an example:
+The `overrides` field supports all <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server/generating_a_remote_notification?language=objc" target="_blank" rel="noopener noreferrer">APNS Notification payload</a> values. Here is an example:
 
 ```typescript
 import { Novu } from '@novu/api';
