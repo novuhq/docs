@@ -17,7 +17,7 @@ The process involves a four-step data flow from your subscriber's device to Novu
 
 ## Step 1: Enable push activity tracking in Novu
 
-First, you need to enable the feature in your Novu dashboard and retrieve the necessary credentials.
+Enable push activity tracking in your Novu dashboard and get the necessary credentials.
 
 1. Log in to the Novu dashboard.
 2. Navigate to the **Integration Store** page and then select your push provider.
@@ -82,8 +82,7 @@ The goal is to capture the event and send a JSON payload to your backend. You ne
   platform: 'android',
   };
 
-  fetch("https://your-api.com/api/notifications/events
-  ", {
+  fetch("https://your-api.com/api/notifications/events", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(eventData),
