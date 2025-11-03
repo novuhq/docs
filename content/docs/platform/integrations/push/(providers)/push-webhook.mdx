@@ -15,7 +15,7 @@ Configuration involves providing an endpoint URL for Novu to call and a secret H
 
 Before connecting to Novu, you need two things:
 
-* **Webhook URL:** This is your own API endpoint that will receive the `POST` request from Novu. For quick testing, you can use a service like [webhook.site](https://webhook.site/).
+* **Webhook URL**: This is your own API endpoint that will receive the `POST` request from Novu. For quick testing, you can use a service like [webhook.site](https://webhook.site/).
 * **Secret Hmac Key:** This is a self-generated secret string. Novu will use it to encrypt the payload using the `HMAC SHA256` algorithm and send the hash in the `x-novu-signature` header. This lets you verify that the request is genuinely from Novu. See [how to generate a HMAC key](/platform/inbox/prepare-for-production#2-generate-hmac-hash-on-the-server-side).
 
 <Callout>Your webhook URL endpoint must be able to accept `POST` requests.</Callout>
