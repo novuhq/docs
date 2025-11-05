@@ -48,7 +48,7 @@ Add the credentials to your FCM integration in the Novu dashboard.
 1. Log in to the Novu dashboard
 2. Navigate to the **Integration Store** page on the Novu dashboard.
 3. Click **Connect provider**.
-4. Under the **Push** tab, select **Firebase Cloud Messaging (FCM)**.
+4. Click the **Push** tab, then select **Firebase Cloud Messaging (FCM)**.
 5. Open the JSON file you downloaded from Firebase in [Step 1](/platform/integrations/push/fcm#step-1-generate-your-service-account-key-from-firebase).
 6.  Copy the entire content of the JSON file and paste it into the **Service Account** field in the FCM integration modal.
 ![FCM integration](/images/channels-and-providers/push/fcm-integration.png)
@@ -160,7 +160,11 @@ To learn more about how overrides work across all channels, see the [Trigger Ove
 
 ### Override FCM field
 
-Overrides let you send platform-specific data that is not available in the workflow editor. The overrides field supports `apns`, `android`, `webpush` and `fcmOptions` overrides.
+Overrides let you send platform-specific data that is not available in the workflow editor. The overrides field supports:
+- `apns` overrides.
+- `android` overrides.
+- `webpush` overrides.
+- `fcmOptions` overrides.
 
 | Override field | Type / Interface | Link                                                                                         |
 | -------------- | ---------------- | -------------------------------------------------------------------------------------------- |
@@ -206,7 +210,7 @@ await novu.trigger('your-workflow-id', {
 
 ### Override FCM notification content
 
-By default, Novu will send the FCM notification content written in the step editor workflow. However, you can override the notification content by using the `overrides` field. Use type: `data` and `data` to send data type notification.
+By default, Novu sends the FCM notification content written in the step editor workflow. However, you can override the notification content by using the `overrides` field.
 
 ```typescript
 import { Novu } from '@novu/api';
@@ -253,7 +257,7 @@ await novu.trigger({
 
 ## Sending notifications to FCM topics
 
-<a href="https://firebase.google.com/docs/cloud-messaging/android/topic-messaging" target="_blank" rel="noopener noreferrer">FCM topics</a> are used to send notifications to multiple devices at once. Use trigger overrides to send notifications to a topic. In this case, subscriber device tokens are not required.
+<a href="https://firebase.google.com/docs/cloud-messaging/android/topic-messaging" target="_blank" rel="noopener noreferrer">FCM topics</a> are used to send notifications to multiple devices at once. In the `overrides`, you need to specify the [topic](/platform/concepts/topics) you want to send the notification to.
 
 ```typescript
 import { Novu } from '@novu/api';
