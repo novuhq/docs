@@ -8,7 +8,7 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 Email providers are the services that deliver notifications to your subscribers’ email. Each provider must be set up individually in the Novu dashboard to enable delivery through the Email channel.
 
-Novu provides a unified integration layer that connects your workflows to these email providers. Once you’ve added your integrations, Novu handles routing and delivery automatically, sending each email through the correct provider without requiring additional setup. This makes it easy to manage multiple email integrations, and switch providers when needed.
+Novu provides a unified integration layer that connects your workflows to these email providers. Once you’ve added your integrations, Novu handles routing and delivery automatically, sending each email through the correct provider without requiring additional setup. This makes it possible to manage multiple email integrations, and switch providers when needed.
 
 ## Key features
 
@@ -39,19 +39,21 @@ Next, include an Email step in a workflow. This step defines when and how an ema
 <Step> 
 ### Define the email content
 
-Within the Email step, you can design your message using the built-in visual editor or code editor (for custom HTML and templating with LiquidJS).
-Novu supports dynamic data from your payload, so each message can be personalized for the subscriber.
+Within the Email step, you can design your message using the built-in visual editor or code editor. Novu supports dynamic data from your payload, so each message can be personalized for the subscriber.
 </Step>
 <Step> 
 ### Store subscriber email addresses
 
-Novu automatically sends the notification to the email address stored on the . You must ensure this field is set for any subscriber who needs to receive emails. You can store or update this using the Novu dashboard, SDK or API.
+Novu automatically sends the notification to the email address stored on the . You must ensure this field is set for any subscriber who needs to receive emails. You can store or subscribers’ email address using the Novu dashboard or API.
 </Step>
 <Step>
 ### Trigger the workflow
 
-Finally, trigger the workflow from your application code by sending an event to Novu.
-Novu automatically resolves the subscriber, selects the correct provider, renders the email template, and delivers the message through the configured email integration.
+[Trigger the workflow](/api-reference/events/trigger-event) from your application code by sending an event to Novu. Novu automatically:
+- Resolves the subscriber.
+- Selects the correct provider.
+- Renders the email template. 
+- Delivers the message through the configured email integration.
 </Step>
 </Steps>
 
@@ -74,14 +76,14 @@ These are the default values used for every email sent via this integration. You
 
 You must provide credentials specific to your email provider, such as an API Key, Secret, or Region. Each provider has different requirements.
 
-<Callout type="info"> See the Supported Providers list at the bottom of this page for detailed setup guides for each integration. </Callout>
+<Callout type="info"> Refer to the [Supported Providers](/platform/integrations/email#supported-providers) list at the bottom of this page for detailed setup guides for each integration. </Callout>
 
 ### Setting up failover
 
 Novu ensures high deliverability with an automatic failover system. You can have multiple active email providers in the same environment.
 
 * Primary integration: You must designate one of your active providers as the primary provider. Novu will always attempt to send the email using this provider first.
-* Failover logic: If the Primary provider fails to send the notification (e.g., its API is down or it returns an error), Novu will automatically retry sending the email through one of your other Active providers.
+* Failover logic: If the primary provider fails to send the notification, then Novu will automatically retries sending the email through one of your other active providers.
 
 This built-in redundancy means you don't have to manage provider downtime yourself.
 
@@ -207,7 +209,7 @@ await novu.trigger({
 
 By default, Novu uses your primary email provider. However, if you want to bypass this and force a specific, active integration for a trigger, use the `integrationIdentifier`.
 
-This is useful if you have multiple active integrations for different purposes (for example, one for transactional emails and one for marketing emails). You can find the `integrationIdentifier` in the integration store page.
+This is useful if you have multiple active integrations for different purposes. For example, you might have one integration for transactional emails and one for marketing emails. You can find the `integrationIdentifier` in the **Integration Store** page.
 
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
