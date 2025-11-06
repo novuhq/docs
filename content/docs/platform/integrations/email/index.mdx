@@ -12,9 +12,9 @@ Novu provides a unified integration layer that connects your workflows to these 
 
 ## Key features
 
-- **Multi-provider support**: Integrate any major provider like SendGrid, SES, or Mailgun
-- **Failover mechanisms**: Automatically retry with a backup provider to ensure reliability
-- **Activity tracking**: Track delivery status, open rates, and more in the Novu dashboard
+- **Multi-provider support**: Integrate any major provider like SendGrid, SES, or Mailgun.
+- **Failover mechanisms**: Automatically retry with a backup provider to ensure reliability.
+- **Activity tracking**: Track delivery status, open rates, and more in the Novu dashboard.
 
 ## How email works in Novu
 
@@ -43,7 +43,7 @@ Within the Email step, you can design your message using the built-in visual edi
 <Step> 
 ### Store subscriber email addresses
 
-Novu automatically sends the notification to the email address stored on the . You must ensure this field is set for any subscriber who needs to receive emails. You can store or subscribers’ email address using the Novu dashboard or API.
+Novu automatically sends the notification to the email address stored on the . You must ensure this field is set for any subscriber who needs to receive emails. You can store email address in each subscribers’ profile using the Novu dashboard or API.
 </Step>
 <Step>
 ### Trigger the workflow
@@ -56,7 +56,7 @@ Novu automatically sends the notification to the email address stored on the . Y
 </Step>
 </Steps>
 
-<Callout type="info"> Looking to build your email template? Learn how to use the block editor, custom HTML, and dynamic variables in our guide.</Callout>
+<Callout type="info">Learn how to [build email template](/platform/workflow/template-editor) using the block editor, custom HTML, and dynamic variables.</Callout>
 
 ## Configuring email providers
 
@@ -69,13 +69,13 @@ Novu asks for two default settings for any email provider you connect:
 - **Sender Name**: The name that appears in the recipient's "From" field.
 - **From Email Address**: The email address the notification will be sent from. For some email providers, including SendGrid, you must authenticate the **From email address** to make sure you're sending an email from an authorized address.
 
-These are the default values used for every email sent via this integration. You can override them at trigger time if needed.
+These are the default values used for every email sent via this integration. You can override them when triggering a workflow if needed.
 
 ### Provider authentication
 
-You must provide credentials specific to your email provider, such as an API Key, Secret, or Region. Each provider has different requirements.
+You must provide credentials specific to your email provider for a successful integration.
 
-<Callout type="info"> Refer to the [Supported Providers](/platform/integrations/email#supported-providers) list at the bottom of this page for detailed setup guides for each integration. </Callout>
+<Callout type="info">For detailed setup guides for each integration, refer to the [Supported Providers](/platform/integrations/email#supported-providers) list at the bottom of this page.</Callout>
 
 ### Setting up failover
 
@@ -168,7 +168,14 @@ curl -L -X POST 'https://api.novu.co/v1/events/trigger' \
 
 ### Sending email overrides
 
-You can override the email settings for a single trigger by passing an `overrides` object. This lets you change the `to` address, `senderName`, `from` address, and more.
+You can override the email settings for a single trigger by passing an `overrides` object. This lets you override the following fields:
+- `to` address, 
+- `senderName`
+- `from` address
+- `text`
+- `replyTo`
+- `cc`
+- `bcc`
 
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
@@ -208,7 +215,7 @@ await novu.trigger({
 
 By default, Novu uses your primary email provider. However, if you want to bypass this and force a specific, active integration for a trigger, use the `integrationIdentifier`.
 
-This is useful if you have multiple active integrations for different purposes. For example, you might have one integration for transactional emails and one for marketing emails. You can find the `integrationIdentifier` in the **Integration Store** page.
+This is useful if you have multiple active integrations for different purposes. For example, you might have one integration for transactional emails and one for marketing emails. You can find the `integrationIdentifier` for each provider in provider page in the **Integration Store**.
 
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
