@@ -102,7 +102,29 @@ You can do this by making an API call to [update the subscriber's credentials](/
   </Tab>
 </Tabs>
 
-### Using multiple FCM integrations
+<Callout type="info">Novu automatically removes invalid device tokens from a subscribers' profile and then sends the failure details to the `MESSAGE_FAILED` webhook.</Callout>
+
+## Step 4: Send a notification
+
+Now you're ready to send a push notification. You can trigger a notification to a subscriber who has a registered device token.
+
+```typescript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('YOUR_NOVU_API_KEY');
+
+await novu.trigger('your-workflow-id', {
+  to: {
+    subscriberId: 'SUBSCRIBER_ID',
+  },
+  payload: {
+    // Your payload data
+  },
+});
+```
+
+
+## Using multiple FCM integrations
 
 If you have multiple active FCM integrations, then you can specify which integration to associate the tokens with by providing the `integrationIdentifier`.
 
@@ -132,26 +154,6 @@ await novu.subscribers.credentials.update(
   "subscriberId"
 );
 ```
-
-## Step 4: Send a notification
-
-Now you're ready to send a push notification. You can trigger a notification to a subscriber who has a registered device token.
-
-```typescript
-import { Novu } from '@novu/node';
-
-const novu = new Novu('YOUR_NOVU_API_KEY');
-
-await novu.trigger('your-workflow-id', {
-  to: {
-    subscriberId: 'SUBSCRIBER_ID',
-  },
-  payload: {
-    // Your payload data
-  },
-});
-```
-
 ## Using overrides to customize notifications
 
 Novu lets you customize the behavior of push notifications by using the overrides field when triggering workflows. Overrides give you full control over message content and delivery parameters that aren’t configurable from the Novu workflow editor.
