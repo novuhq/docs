@@ -1,0 +1,61 @@
+---
+title: 'Demo Integrations'
+description: 'Learn about the default Novu email and sms providers'
+icon: 'Presentation'
+---
+
+Demo integrations are built-in, sandboxed providers for the Email and SMS channels. Their purpose is to allow you to test your notification workflows immediately, without needing to sign up for or connect a real third-party provider.
+
+When you create a Novu account, your environments come pre-configured with two demo email integrations and two demo SMS integrations. All demo integrations are "Active" by default, and you can set any of them as the "Primary" integration for their channel at any time from the **Integration Store**.
+
+<Callout type="info">
+  Demo integrations are only available in Novu cloud. This feature will not work in community self hosted version and local environment.
+</Callout>
+
+##  Limits of the demo integrations
+
+Demo integrations are intended strictly for testing and development. To ensure this, they operate with the following rules:
+
+- Both the demo email and demo SMS integrations are limited to 300 notifications per month each.
+- The demo email integration can only send emails to the address associated with your logged-in Novu account. It will not deliver messages to any other email address.
+
+## How test using a demo integration
+
+Since demo integrations are active by default, you can start testing in just a few steps.
+
+Using the demo integrations is straightforward as they are set as "primary" by default in new Novu environments.
+
+
+1. Log in to the Novu dashboard.
+2. Click **Workflows**.
+3. Click **Create workflow** and create a new workflow.
+4. Add an Email and SMS step to the workflow for content for eahc.
+  ![Add step](/images/channels-and-providers/add-step.png)
+5. Click **Test Workflow**.
+  ![Test workflow](/images/channels-and-providers/test-workflow.png)
+6. Verify the notification. There are two ways to confirm your test was successful:
+    - Check the activity feed or event logs to confirm if they notification was successfully sent to the various channels.
+      ![Event logs](/images/channels-and-providers/event-logs.png)
+    - Check the inbox of the email address and phone number you use for your Novu account. You should receive a real email and sms from the demo integration.
+
+## Next step
+
+Once you have finished testing with the demo integrations, select a channel below to find the list of all supported providers integrations and their detailed setup guides:
+
+<Cards>
+  <Card title="Email" href="/platform/integrations/email">
+    See how to integrate email providers
+  </Card>
+  <Card title="SMS" href="/platform/integrations/sms">
+    See how to integrate SMS providers
+  </Card>
+  <Card title="Push" href="/platform/integrations/push">
+    See how to integrate push providers
+  </Card>
+  <Card title="Chat" href="/platform/integrations/chat">
+    See how to integrate chat providers
+  </Card>
+  <Card title="In-App" href="/platform/inbox/overview">
+    See how to integrate in-app notifications.
+  </Card>
+</Cards>
