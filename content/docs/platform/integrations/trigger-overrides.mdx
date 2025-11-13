@@ -4,7 +4,31 @@ description: 'Learn how to customize the behavior of your workflows at trigger t
 icon: 'SlidersVertical'
 ---
 
+import { Mail, MessageSquare } from 'lucide-react';
+import { Card, Cards } from 'fumadocs-ui/components/card';
+
+
 Trigger overrides let you to modify the default behavior of specific aspects of a workflow trigger (event), giving you fine-tuned control over how messages are delivered across different channels and providers.
+
+## Channel overrides
+
+Channel overrides let you customize specific channel settings and content during workflow trigger. Each channel has its own supported override options, documented in their respective channel guides.
+
+<Callout>Channel overrides is only available for Email and SMS channels.</Callout>
+
+<Cards>
+  <Card
+    title="Email overrides"
+    icon={<Mail className="h-4 w-4" />}
+    href="/platform/integrations/email"
+  />
+  <Card
+    title="SMS overrides"
+    icon={<MessageSquare className="h-4 w-4" />}
+    href="/platform/integrations/sms"
+  />
+</Cards>
+
 
 ## Provider overrides
 
@@ -21,13 +45,13 @@ This mechanism offers a flexible customization layer that lets you pass deeply n
 
 <Callout type="info">Because overrides interact directly with provider SDKs, they won’t work if they're misconfigured. Make sure you understand the supported options for each provider before using this feature. </Callout>
 
-### Override structure
+### Provider override scopes
 
 Overrides are defined in the `overrides` property of a trigger payload. You can specify configuration values at two levels:
 - Workflow-level: Applies to all steps using a specific provider and takes precedence over the default workflow provider settings.
 - Step-level: Targets a specific step in the workflow and it takes precedence over both workflow-level overrides and the default workflow provider settings.
 
-#### Workflow-level provider overrides
+### Workflow-level provider overrides
 
 Workflow-level provider overrides apply configuration to all steps that use a given provider in the workflow. They’re useful for applying shared logic across multiple steps, without repeating the same settings in each one.
 
@@ -78,7 +102,25 @@ run();
 
 This configuration affects every step in the workflow that uses SendGrid, unless a step-level override provides a more specific value.
 
-#### Step-level provider overrides
+#### Sending extra fields supported by provider sdk
+
+You can also send extra fields supported by the provider SDK. For example, if you want to send a headers to the provider SDK, you can do it by using the `_passthrough` field.
+
+```json
+"overrides": {
+  "providers" : {
+    "sendgrid": {
+      "_passthrough": {
+        "headers": {
+          "Authorization": "Bearer my-api-key"
+        }
+      }
+    },
+  },
+},
+```
+
+### Step-level overrides
 
 Step-level overrides let you apply provider-specific settings directly to an individual step in your workflow.
 
@@ -142,23 +184,4 @@ run();
 
 <Callout>The `push-step` refers to the step identifier, which you can copy directly from your workflow in the Novu dashboard. Use this identifier to target the specific step you want to override. </Callout>
 
-In this example, only the `push-step` is affected, and multiple FCM-specific settings are overridden for that step, which are the notification title, body, and sound configurations for both Android and iOS platforms. 
-
-
-#### Sending extra fields supported by provider sdk
-
-You can also send extra fields supported by the provider SDK. For example, if you want to send a headers to the provider SDK, you can do it by using the `_passthrough` field.
-
-```json
-"overrides": {
-  "providers" : {
-    "sendgrid": {
-      "_passthrough": {
-        "headers": {
-          "Authorization": "Bearer my-api-key"
-        }
-      }
-    },
-  },
-},
-```
+In this example, only the `push-step` is affected, and multiple FCM-specific settings are overridden for that step, which are the notification title, body, and sound configurations for both Android and iOS platforms.
