@@ -10,15 +10,15 @@ import { Step, Steps } from 'fumadocs-ui/components/steps';
 
 Push providers are the services that deliver notifications your subscribers' devices, which can be delivered through mobile, desktop, or web. Each provider must be set up individually in the Novu dashboard.
 
-Novu provides a unified integration layer that connects your workflows to these providers. Once you’ve configured your push integrations, Novu automatically handles message delivery, routing each notification through the correct provider without requiring extra setup. 
+Novu provides a unified integration layer that connects your workflows to push providers. Once your push provider is configured, Novu automatically handles message delivery, routing each notification through the correct provider without requiring extra setup.
 
-This lets you manage multiple integrations even for the same provider, all from one place, giving you full flexibility and centralized control over your push notifications.
+You can also manage multiple integrations even for the same provider in one place, giving you full flexibility and centralized control over your push notifications.
 
 ## Key features
 
-- **Multi-Provider Support**: Integrate with providers like Firebase Cloud Messaging (FCM), OneSignal, or Apple Push Notification Service (APNS)
-- **Unified Delivery**: Streamline your push notifications with a single API for mobile and web platforms
-- **Device Management**: Keep subscriber device tokens in sync using just-in-time or manual updates
+- **Multi-Provider Support**: Integrate with providers like Firebase Cloud Messaging (FCM), OneSignal, or Apple Push Notification Service (APNS).
+- **Unified Delivery**: Streamline your push notifications with a single API for mobile and web platforms.
+- **Device Management**: Keep subscriber device tokens in sync using just-in-time or manual updates.
 
 ## How Push works in Novu
 
@@ -35,7 +35,7 @@ You can connect one or more integrations for the same provider, each with its ow
 <Step>
 ### Add the Push channel to your workflow
 
-Next, include a Push step in an existing or new workflow. This step defines when and how a push message should be sent as part of your notification logic.
+Next, add a Push step to a workflow. This step defines when and how a push message should be sent as part of your notification logic.
 
 </Step>
 <Step>
@@ -147,7 +147,7 @@ This method is useful when you manage device registration outside of your workfl
 
 ### Add device tokens for multiple integrations
 
-Novu supports multiple active integrations per provider for the push channel. For example, you can have more than one active FCM integration at a time (for example, one for your customer app and one for your internal app).
+Novu supports multiple active integrations per provider for the push channel. For example, you can have more than one active FCM integration at a time, for example, one for your customer app and one for your internal app.
 
 By default, device tokens are stored for the most recently created integration. To store device tokens for a specific integration, you must use the `integrationIdentifier` field. This is the identifier for the integration, which you can find in the Novu dashboard.
 
@@ -201,16 +201,16 @@ By default, device tokens are stored for the most recently created integration. 
 
 To remove device token(s) from subscriber credentials, follow this process:
 
-When a subscriber logs out of a device, you should remove that device token from the subscriber's credentials in other to prevent another subscriber who may log in to the same device from receiving notifications meant for the previous subscriber.
+When a subscriber logs out of a device, remove that device token from the subscriber's credentials. This prevents another subscriber who may log in to the same device from receiving notifications meant for the previous subscriber.
 
-<Callout>It is recommended to handle token removal server-side, such as during a user logout event, to prevent stale or invalid tokens from causing failed deliveries.</Callout>
+<Callout>Handle token removal, such as during a user logout event on the server-side, to prevent stale or invalid tokens from causing failed deliveries.</Callout>
 
 #### Remove a specific token
 
 To remove device tokens from subscriber credentials, follow this process:
-- Fetch the subscriber's current token list.
-- Filter out the token you want to remove.
-- Update the subscriber with the new, filtered list.
+1. Fetch the subscriber's current token list.
+2. Filter out the token you want to remove.
+3. Update the subscriber with the new, filtered list.
 
 ```ts
 import { Novu } from '@novu/api';
@@ -271,24 +271,24 @@ Novu supports the following providers:
 
 <Cards>
   <Card title="Firebase Cloud Messaging (FCM)" href="/platform/integrations/push/fcm">
-  Learn how to use the FCM provider to send push notifications using Novu
+  Learn how to use the FCM provider to send push notifications using Novu.
   </Card>
   <Card title="Expo Push" href="/platform/integrations/push/expo-push">
-  Learn how to use the Expo Push provider to send push notifications using Novu
+  Learn how to use the Expo Push provider to send push notifications using Novu.
   </Card>
   <Card title="Apple Push Notification Service (APNS)" href="/platform/integrations/push/apns">
-  Learn how to use the APNS provider to send push notifications using Novu
+  Learn how to use the APNS provider to send push notifications using Novu.
   </Card>
   <Card title="OneSignal" href="/platform/integrations/push/onesignal">
-  Learn how to use the OneSignal provider to send push notifications using Novu
+  Learn how to use the OneSignal provider to send push notifications using Novu.
   </Card>
   <Card title="Push Webhook" href="/platform/integrations/push/push-webhook">
-  Learn how to use the Push Webhook provider to send push notifications using Novu
+  Learn how to use the Push Webhook provider to send push notifications using Novu.
   </Card>
   <Card title="Pusher Beams" href="/platform/integrations/push/pusher-beams">
-  Learn how to use the Pusher Beams provider to send push notifications using Novu
+  Learn how to use the Pusher Beams provider to send push notifications using Novu.
   </Card>
   <Card title="Pushpad" href="/platform/integrations/push/pushpad">
-  Learn how to use the Pushpad provider to send push notifications using Novu
+  Learn how to use the Pushpad provider to send push notifications using Novu.
   </Card>
 </Cards>
