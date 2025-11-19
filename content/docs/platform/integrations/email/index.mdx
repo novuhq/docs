@@ -43,16 +43,16 @@ Within the Email step, you can design your message using the built-in visual edi
 <Step> 
 ### Store subscriber email addresses
 
-Novu automatically sends the notification to the email address stored on the . You must ensure this field is set for any subscriber who needs to receive emails. You can store email address in each subscribers’ profile using the Novu dashboard or API.
+Novu automatically sends the notification to the email address stored on the subscriber's profile. This profile is update either using the Novu dashboard or API.
 </Step>
 <Step>
 ### Trigger the workflow
 
 [Trigger the workflow](/api-reference/events/trigger-event) from your application code by sending an event to Novu. Novu automatically:
-- Resolves the subscriber.
-- Selects the correct provider.
-- Renders the email template. 
-- Delivers the message through the configured email integration.
+1. Resolves the subscriber.
+2. Selects the correct provider.
+3. Renders the email template. 
+4. Delivers the message through the configured email integration.
 </Step>
 </Steps>
 
@@ -66,8 +66,8 @@ When you add an email provider in the **Integration Store**, you configure setti
 
 Novu asks for two default settings for any email provider you connect:
 
-- **Sender Name**: The name that appears in the recipient's "From" field.
-- **From Email Address**: The email address the notification will be sent from. For some email providers, including SendGrid, you must authenticate the **From email address** to make sure you're sending an email from an authorized address.
+- **Sender name**: The name that appears in the recipient's "From" field.
+- **From email address**: The email address the notification is sent from. For some email providers, including SendGrid, you must authenticate the **From email address** to make sure you're sending an email from an authorized address.
 
 These are the default values used for every email sent via this integration. You can override them when triggering a workflow if needed.
 
@@ -169,13 +169,13 @@ curl -L -X POST 'https://api.novu.co/v1/events/trigger' \
 ### Sending email overrides
 
 You can override the email settings for a single trigger by passing an `overrides` object. This lets you override the following fields:
-- `to` address, 
-- `senderName`
-- `from` address
-- `text`
-- `replyTo`
-- `cc`
 - `bcc`
+- `cc`
+- `from` address
+- `replyTo`
+- `senderName`
+- `text`
+- `to` address
 
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
