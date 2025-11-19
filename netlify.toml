@@ -1,0 +1,21 @@
+[build]
+  # Increase the build timeout
+  command = "pnpm run build:docs && pnpm run build && pnpm run post:build"
+  publish = ".next"
+
+[build.environment]
+  # Increase Node.js memory limit for the build
+  NODE_OPTIONS = "--max-old-space-size=4096"
+  # Set Netlify environment variable for OG image optimization
+  NETLIFY = "true"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Increase function timeout for API routes and on-demand generation
+[functions]
+  node_bundler = "esbuild"
+  # Increase timeout for serverless functions (for OG image generation)
+  [functions."docs-og/[...slug]"]
+    included_files = ["public/fonts/**"]
+

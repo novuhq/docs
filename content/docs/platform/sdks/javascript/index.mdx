@@ -26,6 +26,10 @@ The Novu client provides methods to interact with notifications, preferences, an
     "description": "",
     "type": "string"
   },
+  "contextHash": {
+    "description": "",
+    "type": "string"
+  },
   "apiUrl": {
     "description": "",
     "type": "string"
@@ -37,6 +41,14 @@ The Novu client provides methods to interact with notifications, preferences, an
   "useCache": {
     "description": "",
     "type": "boolean"
+  },
+  "defaultSchedule": {
+    "description": "",
+    "type": "DefaultSchedule"
+  },
+  "context": {
+    "description": "",
+    "type": "Partial<Record<string, ContextValue>>"
   },
   "subscriberId": {
     "description": "",
@@ -50,7 +62,7 @@ The Novu client provides methods to interact with notifications, preferences, an
 
 ### Usage
 
-<Tabs items={['US', 'EU', 'HMAC Encryption']}>
+<Tabs items={['US', 'EU', 'Using Context', 'HMAC Encryption']}>
   <Tab value="US">
     ```typescript
     import { Novu } from "@novu/js";
@@ -72,6 +84,30 @@ The Novu client provides methods to interact with notifications, preferences, an
       socketUrl: "wss://eu.socket.novu.co",
     });
     ```
+  </Tab>
+  <Tab value="Using Context">
+  <Callout type="info"> Learn how Context is used to filter Inbox notifications in the [Inbox with Context](/platform/inbox/customization-and-configuration/inbox-with-context) guide. </Callout>
+  ```tsx
+  import { Novu } from '@novu/js';
+
+  const novu = new Novu({
+    applicationIdentifier: 'YOUR_APP_ID',
+    subscriberId: 'user-123',
+    context: {
+      tenant: { id: 'org-123', data: { name: 'Acme Corp' } },
+      team: 'team-456',
+    },
+  });
+
+  // Access the current context
+  console.log(novu.context);
+  // → { tenant: { id: 'org-123', data: { name: 'Acme Corp' } }, team: 'team-456' }
+
+  // Get a stable string key (used internally for caching/filtering)
+  console.log(novu.contextKey);
+  // → "team:team-456,tenant:org-123"
+
+  ```
   </Tab>
   <Tab value="HMAC Encryption">
     ```typescript
@@ -463,6 +499,10 @@ The response will be of type:
   "workflow": {
     "description": "",
     "type": "Workflow"
+  },
+  "schedule": {
+    "description": "",
+    "type": "{ isEnabled: boolean; weeklySchedule?: WeeklySchedule | undefined; }"
   }
 }} />
 
@@ -508,21 +548,19 @@ const { data: { schedule: updatedSchedule } } =
 A `Schedule` instance is returned when fetching or updating a schedule.
 
 <TypeTable name="Schedule" type={{
-    "isEnabled": {
-      "description": "Whether the schedule is active",
-      "type": "boolean"
-    },
-    "weeklySchedule": {
-      "description": "A map of days with availability settings",
-      "type": "WeeklySchedule"
-    },
-    "update": {
-      "description": "Update the schedule with partial data",
-      "type": "(schedule: Partial<WeeklySchedule>) => Result<Schedule>"
-    }
-  }}
-/>
-
+  "isEnabled": {
+    "description": "",
+    "type": "boolean | undefined"
+  },
+  "weeklySchedule": {
+    "description": "",
+    "type": "WeeklySchedule | undefined"
+  },
+  "update": {
+    "description": "",
+    "type": "(args: UpdateScheduleArgs) => Result<Schedule>"
+  }
+}} />
 
 ## Events
 
@@ -537,6 +575,7 @@ The Novu client provides real-time event handling through WebSocket connections.
 - `preferences.schedule.get.resolved`: Triggered when fetching a schedule succeeds
 - `preferences.schedule.update.pending`: Triggered when updating a schedule starts
 - `preferences.schedule.update.resolved`: Triggered when updating a schedule succeeds
+
 
 ### Usage
 
@@ -562,6 +601,7 @@ novu.on('notifications.unseen_count_changed', (data) => {
 novu.on('preferences.schedule.update.resolved', ({ data }) => {
   console.log('Schedule updated:', data.schedule);
 });
+
 ```
 
 ## Types
@@ -684,6 +724,10 @@ novu.on('preferences.schedule.update.resolved', ({ data }) => {
   "unarchive": {
     "description": "",
     "type": "() => Result<Notification>"
+  },
+  "delete": {
+    "description": "",
+    "type": "() => Result<void>"
   },
   "snooze": {
     "description": "",
