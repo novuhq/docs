@@ -7,12 +7,12 @@ icon: 'circle-info'
 
 The Chat channel delivers messages to your subscribers via their preferred chat platforms and application.
 
-## Messaging Platforms vs. Messaging Applications
+## Messaging platforms vs. Messaging applications
 
 - **Messaging platforms**: Ideal for structured, workplace communication. Use these to notify teams or users in collaborative environments. Examples: Slack, Teams
 - **Messaging apps**: Best for consumer-facing messaging. Engage users directly through personal or group chats. Examples: WhatsApp, Telegram, Discord
 
-## How Chat delivery works in Novu
+## How chat delivery works in Novu
 
 Here’s the typical flow for sending a chat notification through Novu:
 
@@ -21,10 +21,10 @@ Here’s the typical flow for sending a chat notification through Novu:
 
 ### Add a chat provider
 
-Start by adding a chat provider in the **Integration Store** on your Novu dashboard.  
-You can connect one or more integrations for different or even the same providers (for example, multiple Slack workspaces).
+Start by adding a chat provider in the integration store on your Novu dashboard.  
+You can connect one or more integrations for different or even the same providers, for example, multiple Slack workspaces.
 
-To learn how to add a chat provider, refer to the setup guide for that provider.
+To learn how to add a chat provider, refer to [the setup guide](/platform/integrations/chat#supported-providers) for that provider.
 
 </Step>
 
@@ -32,7 +32,7 @@ To learn how to add a chat provider, refer to the setup guide for that provider.
 
 ### Add the chat channel to your workflow
 
-Next, include a **Chat** step in your workflow.  
+Next, include a Chat step in your workflow.  
 This step defines when and how a chat message should be sent as part of your notification workflow.
 
 </Step>
@@ -59,8 +59,12 @@ You can store or update these credentials using the Novu Dashboard, API, or SDKs
 
 ### Trigger the workflow
 
-Trigger the workflow using your application code.  
-Novu automatically resolves the subscriber, retrieves the correct credentials (for example, the `webhookUrl`), selects the appropriate provider, renders the message, and delivers it to the chat platform.
+Trigger the workflow using your application code. Novu automatically:
+- Resolves the subscriber.
+- Retrieves the correct credentials, for example, the `webhookUrl`.
+- Selects the appropriate provider.
+- Renders the message.
+- Delivers it to the chat platform.
 
 </Step>
 </Steps>
