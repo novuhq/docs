@@ -104,7 +104,7 @@ await novu.trigger({
 
 You can manually store or update device tokens for a subscriber using the [Update provider credentials API](/api-reference/subscribers/update-provider-credentials).
 
-This method is useful when you manage device registration outside of your workflow triggers (for example, after a user logs in).
+This method is useful when you manage device registration outside of your workflow triggers, for example, after a user logs in.
 
 <Tabs items={['Node.js', 'cURL']}>
   <Tab value="Node.js">
@@ -149,7 +149,7 @@ This method is useful when you manage device registration outside of your workfl
 
 ### Add device tokens for multiple integrations
 
-Novu supports multiple active integrations per provider for the push channel. For example, you can have more than one active FCM integration at a time, for example, one for your customer app and one for your internal app.
+Novu supports multiple active integrations per provider for the push channel. For example, you can have more than one active FCM integration at a time, one for your customer app and one for your internal app.
 
 By default, device tokens are stored for the most recently created integration. To store device tokens for a specific integration, you must use the `integrationIdentifier` field. This is the identifier for the integration, which you can find in the Novu dashboard.
 
