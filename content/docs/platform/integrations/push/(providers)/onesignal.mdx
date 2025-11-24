@@ -1,23 +1,49 @@
 ---
-title: 'Onesignal'
-description: 'Learn how to use the Onesignal provider to send push notifications using Novu'
+title: 'OneSignal'
+description: 'Learn how to use the OneSignal provider to send push notifications using Novu'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+This guide walks you through the entire process of configuring and using <a href="https://onesignal.com/" target="_blank" rel="noopener noreferrer">OneSignal</a> with Novu, from getting your credentials to sending your first notification.
 
-[OneSignal](https://onesignal.com/) is a paid push notification service that supports sending messages via both [Apple Push Notification Service](https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server) (APNs) as well as [Firebase Cloud Messaging](https://firebase.google.com/docs/cloud-messaging) (FCM).
+OneSignal supports sending messages via both <a href="https://developer.apple.com/documentation/usernotifications/setting_up_a_remote_notification_server" target="_blank" rel="noopener noreferrer">Apple Push Notification Service</a> (APNs) and <a href="https://firebase.google.com/docs/cloud-messaging" target="_blank" rel="noopener noreferrer">Firebase Cloud Messaging</a> (FCM).
 
-To configure the OneSignal integration, you will need an active account which has credentials for APNs, FCM or both, and have access to the `OneSignal App ID` and `Rest API Key` available via your [application's settings page](https://documentation.onesignal.com/docs/keys-and-ids).
+## Configure Onesignal with Novu
 
-## Setting the Device Token
+Before you can send push notifications via OneSignal from Novu, you need to connect your OneSignal credentials.
 
-Once OneSignal has been configured with your credentials for APNs/FCM, and the OneSignal SDK has been [set up and configured](https://documentation.onesignal.com/docs/onboarding-with-onesignal#step-1-setup-onesignal-sdk) for your application, your users will begin to be automatically assigned a unique OneSignal [player_id](https://documentation.onesignal.com/docs/users#player-id) identifier by the SDK.
+### Step 1: Get your OneSignal credentials
 
-This identifier allows targeting your user when sending push notifications without having to retrieve the specific Android or iOS device tokens - which are managed by OneSignal.
+To configure the OneSignal integration, you need an active account that has credentials for APNS, FCM, or both, and have access to two values from OneSignal app's settings:
 
-In order to target the OneSignal user from Novu, you must register the OneSignal `player_id`as the `deviceToken` for your Novu subscriber. This value can be retrieved via the [OneSignal SDK](https://documentation.onesignal.com/docs/users-and-devices#finding-users) for your platform.
+* App ID
+* App API Key
 
-Once you have the user's `player_id` value, the `deviceToken` for your Novu subscriber can be set via:
+Follow <a href="https://developer.apple.com/help/account/keys/create-a-private-key" target="_blank" rel="noopener noreferrer">this OneSignal guide</a> to see how to access your OneSignal `App ID` and `App API key`.
+
+### Step 2: Connect Onesignal to Novu
+
+Next, add these keys to your OneSignal integration in the Novu dashboard.
+
+1. Log in to the Novu dashboard.
+2. On the Novu dashboard, navigate to the **Integration Store**.
+3. Click **Connect provider**.
+4. Click the **Push** tab.
+5. Select **OneSignal**.
+6. In the OneSignal integration form, paste your **App ID** and **App API Key** into the corresponding fields.
+  ![Onesignal Integration in Novu](/images/channels-and-providers/push/onesignal/onesignal-integration.png)
+7. Click **Create Integration**.
+
+## Using Onesignal with Novu
+
+Once your integration is configured, you can start sending push notifications by registering your subscribers' `player_id` tokens and triggering a workflow.
+
+### Step 1: Add subscriber device token
+
+When you <a href="https://documentation.onesignal.com/docs/onboarding-with-onesignal#step-1-setup-onesignal-sdk" target="_blank" rel="noopener noreferrer">set up the OneSignal SDK</a> in your application, your users are automatically assigned a unique OneSignal <a href="https://documentation.onesignal.com/docs/users#player-id" target="_blank" rel="noopener noreferrer">`player_id`</a>. This ID is used to target the user for push notifications.
+
+To target a OneSignal user from Novu, you must register their `player_id` as the `deviceToken` for their Novu subscriber profile.
+
+You can do this by making an API call to [update the subscriber's credentials](/api-reference/subscribers/update-provider-credentials).
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
@@ -35,9 +61,13 @@ await novu.subscribers.credentials.update(
   {
     providerId: ChatOrPushProviderEnum.OneSignal,
     // Use integrationIdentifier to store device tokens for a specific integration
-    integrationIdentifier: "one-signal-MnGLxp8uy",
+    integrationIdentifier: "string",
     credentials: {
-      deviceTokens: ["token1", "token2", "token3"],
+      deviceTokens: [
+        "token1",
+        "token2",
+        "token3"
+      ],
     },
   },
   "subscriberId"
@@ -52,16 +82,41 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 -H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
 -d '{
   "providerId": "one-signal",
-  "deviceTokens": ["ad0452ca-3ca7-43b5-bf9b-fa93fd322035"],
-  "integrationIdentifier": "one-signal-MnGLxp8uy"
+  "deviceTokens": ["token1", "token2", "token3"],
+  "integrationIdentifier": "string"
 }'
 ```
 </Tab>
 </Tabs>
 
-Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
 
-## SDK Trigger Example
+### Step 2: Send a notification
+
+Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu sends the notification to all devices (player IDs) associated with the subscriber.
+
+The example below demonstrates, how to [trigger a workflow](/platform/sdks/server/typescript) using Novu’s SDK.
+
+```typescript
+import { Novu } from '@novu/node';
+
+const novu = new Novu('YOUR_NOVU_API_KEY');
+
+await novu.trigger('your-workflow-id', {
+  to: {
+    subscriberId: 'SUBSCRIBER_ID',
+  },
+  workflowId: "workflow_identifier",
+  payload: {
+    // Your payload data
+  },
+});
+```
+
+## Using overrides to customize notifications
+
+Novu provides an `overrides` field that lets you send additional OneSignal-specific message fields. You can use this to control how messages are displayed or to attach custom payloads.
+
+The overrides field supports all OneSignal Create Notification parameters. Here is an example:
 
 ```typescript
 import { Novu } from '@novu/api';
@@ -95,11 +150,12 @@ await novu.trigger({
 });
 ```
 
-## Using external user id
+## Using external user ID
 
-By default, Novu uses player id to send notifications, `External ID` option can be selected in the onesignal integration settings. If `External ID` option is selected, `deviceTokens` stored in subscriber credentials for onesignal provider, will be used as external user ids.
+By default, Novu uses `player_id` to send notifications, but you can select the `External ID` option in the OneSignal integration settings in Novu. If `External ID` option is selected, then `deviceTokens` stored in subscriber credentials for the OneSignal provider, are used as external user IDs.
 
-<img
-  src="/images/channels-and-providers/push/onesignal/select-external-id-option.gif"
-  alt="Select external id option"
-/>
+By default, Novu uses player IDs to send notifications. If your OneSignal integration uses external user IDs, then you can switch this behavior in the OneSignal integration settings in Novu.
+
+![Select external id option](/images/channels-and-providers/push/onesignal/select-external-id-option.gif)
+
+Once enabled, the `deviceTokens` stored in subscriber credentials are treated as external user IDs instead of player IDs.

@@ -3,21 +3,48 @@ title: 'Pusher Beams'
 description: 'Learn how to use the Pusher Beams provider to send push notifications using Novu'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+<a href="https://pusher.com/beams/" target="_blank" rel="noopener noreferrer">Pusher Beams</a> is a cross-platform push notification API service provided by Pusher.
 
-[Pusher Beams](https://pusher.com/beams/) is a cross-platform push notification API service provided by Pusher.
+This guide explains the process of configuring and using Pusher Beams with Novu, from getting your credentials to sending your first notification.
+
+## How to configure Pusher Beams with Novu
+
+Before you can send notifications, you must get your credentials from a Pusher Beams instance and add them to your Novu integration settings.
+
+### Step 1: Get your Pusher Beams credentials
 
 To enable Pusher Beams integration, you need to create a Pusher Beams Instance and use both `Instance ID` and `Secret Key` from the Instance [dashboard](https://dashboard.pusher.com/beams/).
 
-## Setting the Device Token
+1. Log in to the Pusher Beams dashboard.
+2. Click **Create instance**.
+3. Enter the instance name, and then click **Create**.
+![Create instance](/images/channels-and-providers/push/pusher-beams/create-instance.png)
+4. In the instance dashboard, click **Keys** from the sidebar, then copy and store your **Instance ID** and **Primary key** you will need them in [Step 2](/platform/integrations/push/pusher-beams#step-2-connect-pusher-beams-to-novu).
+![Instance credentials](/images/channels-and-providers/push/pusher-beams/instance-credentials.png)
 
-Once Pusher Beams instance has been created, and the Pusher Beams SDK has been [set up and configured](https://pusher.com/docs/beams/reference/all-libraries/) for your application, you can associate users with their devices using [Authenticated Users](https://pusher.com/docs/beams/guides/publish-to-specific-user/web/).
+### Step 2: Connect Pusher Beams to Novu
 
-This identifier allows targeting your user when sending push notifications without having to retrieve the specific Web, Android or iOS device tokens - which are managed by Pusher Beams.
+Next, add these credentials to your Pusher Beams integration in the Novu dashboard.
 
-In order to target the Pusher Beams user from Novu, you must register the Pusher Beams Authenticated Users with their `userId` as the `deviceToken` for your Novu subscriber. This value can be retrieved via [getUserId()](https://pusher.com/docs/beams/reference/web/#getuserid) method from the SDK for your platform.
+1. Log in to the Novu dashboard.
+2. On the Novu dashboard, navigate to the **Integration Store**.
+3. Click **Connect Provider**.
+4. Click the **Push** tab, then select **Pusher Beams**.
+5.  In the Pusher Beams integration form, paste your **Instance ID** and **Secret Key** into the corresponding fields.
+    ![Pusher Beams Integration in Novu](/images/channels-and-providers/push/pusher-beams/pusher-beams-integration.png)
+6.  Click **Create Integration**.
 
-Once you have the user's `userId` value, the `deviceToken` for your Novu subscriber can be set via:
+## Using Pusher Beams with Novu
+
+Once your integration is configured, you can start sending push notifications by registering your subscribers' `userId` and triggering a workflow.
+
+### Step 1: Add subscriber device token
+
+After <a href="https://pusher.com/docs/beams/reference/all-libraries/" target="_blank" rel="noopener noreferrer">setting up the Pusher Beams SDK</a> in your application, you must associate users with their devices using Pusher Beams' <a href="https://pusher.com/docs/beams/guides/publish-to-specific-user/web/" target="_blank" rel="noopener noreferrer">Authenticated Users</a> feature. This assigns them a `userId`.
+
+To target a Pusher Beams user from Novu, you must register this `userId` as the `deviceToken` for their Novu subscriber profile. You can retrieve this value using the <a href="https://pusher.com/docs/beams/reference/web/#getuserid" target="_blank" rel="noopener noreferrer">`getUserId()`</a> method from the Pusher Beams SDK.
+
+You can do this by making an API call to [update the subscriber's credentials](/api-reference/subscribers/update-provider-credentials).
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
@@ -60,9 +87,11 @@ curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' 
 </Tab>
 </Tabs>
 
-Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
+### Step 2: Send a notification
 
-## SDK Trigger Example
+Now you're ready to send a push notification. [Create a workflow with a Push step](/platform/workflow/build-a-workflow) and trigger it. Novu sends the notification to the `userId`'s associated with the subscriber.
+
+The example below demonstrates a simple trigger using Novu’s SDK.
 
 ```typescript
 import { Novu } from '@novu/api';
