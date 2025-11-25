@@ -1,101 +1,193 @@
 ---
 title: 'Headless Mode'
-pageTitle: 'Headless notification Inbox for JavaScript applications'
-description: 'Learn how to use the Novu Inbox API to build your own custom inbox UI.'
+pageTitle: 'Headless mode'
+description: 'Learn how to build custom Inbox UI for your application using Novu custom hooks'
 icon: 'Unplug'
 ---
 
-Build a fully custom notification inbox with the headless version of Novu's inbox notification package without being constrained by the default Inbox UI or dependencies.
+Build a fully custom notification inbox with Novu's headless React hooks without being constrained by the default <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> UI or dependencies.
 
-This lightweight solution gives you full control over the UI and provides all the necessary API methods for fetching, managing, and receiving real-time notifications in your application.
+The [**`@novu/react`**](/platform/sdks/react) package provides a set of hooks, such as `useNotifications` and `useCounts`. You handle the layout, styling, and interactions, while Novu provides the notification state, real-time updates, and actions.
 
-## Getting started
+<Callout type="info">
+Not using React? You can access the same data manually using the [JavaScript SDK](/platform/sdks/javascript).
+</Callout>
 
-Follow these steps to initialize the SDK and fetch notifications:
+## Install the React SDK package
 
-<Steps>
-<Step>
-    ### Install the SDK package
+Run the following command in your terminal:
+
 
 ```package-install
-npm i @novu/js
+npm i @novu/react
 ```
 
-</Step>
+## Add the `NovuProvider`
 
-  <Step>
-    ### Initialize the SDK
-    Initialize the Novu client with your application identifier and the current user's subscriber ID.
+Wrap your application or the components that need access to notifications with the `NovuProvider`. This component initializes the Novu client and provides it to all child hooks via [context](/platform/workflow/contexts).
 
-```javascript
-import { Novu } from "@novu/js";
+```jsx
+import { NovuProvider } from '@novu/react';
 
-export const novu = new Novu({
-  applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
-  subscriber: 'YOUR_SUBSCRIBER_ID',
-});
+function App() {
+  return (
+    <NovuProvider
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
+    >
+      {/* Your app components */}
+    </NovuProvider>
+  );
+}
 ```
 
-  </Step>
+<Callout> For more `NovuProvider` options, such as HMAC encryption, see the [Novu provider documentation](/platform/sdks/react/hooks/novu-provider). </Callout>
 
-  <Step>
-    ### Fetch notifications
-    Use the `novu.notifications.list()` method to retrieve a paginated list of notifications for the subscriber.
+## Fetch and display notifications
 
-    ```javascript
-    const response = await novu.notifications.list({
-      limit: 30,
-    });
+Use the `useNotifications` hook to fetch and display a list of notifications. The hook manages loading states, pagination (`hasMore`, `fetchMore`), and real-time updates for you.
 
-    const notifications = response.data.notifications;
-    ```
+```jsx
+import { useNotifications } from "@novu/react";
 
-  </Step>
+function NotificationsList() {
+  const { notifications, isLoading, error } = useNotifications();
 
-  <Step>
-   ### Display notifications
-   Use your preferred framework or templating logic to render the notifications. For example, you can loop through the `notifications` array and display relevant fields:
-   ```javascript
-  notifications.forEach(notification => {
-    console.log(`Notification ID: ${notification.id}`);
-    console.log(`Title: ${notification.subject}`);
-    console.log(`Content: ${notification.body}`);
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  return (
+    <div className="space-y-4">
+      {notifications?.map((notification) => (
+        <div key={notification.id} className="p-4 border rounded-lg">
+          <h3 className="font-medium">{notification.subject}</h3>
+          <p>{notification.body}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
+
+## Show notification counts
+
+A common use case is showing a badge with the unread count on a bell icon. The `useCounts` hook is designed for this. It fetches unread, unseen, or total counts and updates them in real-time.
+
+```jsx
+import { useCounts } from "@novu/react";
+
+function BellButton() {
+  const { counts } = useCounts({ 
+    filters: [
+      { read: false }, // Unread notifications
+    ] 
   });
-  ```
-  </Step>
-</Steps>
+  
+  const unreadCount = counts?.[0]?.count ?? 0;
 
-## Real-time notifications
-
-Events are emitted when notifications are received, and when the unread notificatons count changes. `novu.on()` is used to listen to these events.
-
-```tsx
-novu.on("notifications.notification_received", (data) => {
-  console.log("new notification =>", data);
-});
-
-novu.on("notifications.unread_count_changed", (data) => {
-  console.log("new unread notifications count =>", data);
-});
+  return (
+    <button>
+      <BellIcon />
+      {unreadCount > 0 && (
+        <span className="badge">{unreadCount}</span>
+      )}
+    </button>
+  );
+}
 ```
 
-For the full list of methods available, see the [API Reference](/platform/sdks/javascript).
+## Adding notification actions
 
-## Available methods
+To perform actions on notifications such as marking as read, unread, or archiving, you can use the `useNovu` hook. This hook gives you direct access to the Novu client instance to call its API methods.
 
-Here are a few commonly used notification, preferences and events methods you’ll likely need when working headlessly:
+The hooks `useNotifications` and `useCounts` automatically refetch and update your UI when these actions are performed.
 
-| Action                          | Method Example                                                         |
-| --------------------------------| ---------------------------------------------------------------------- |
-| Fetch notifications             | `novu.notifications.list()`                                            |
-| Count notifications             | `novu.notifications.count()`                                           |
-| Mark as read                    | `notification.read()` or `novu.notifications.read({ notificationId })` |
-| Mark all as seen                | `novu.notifications.seenAll()`                                         |
-| Archive notification            | `notification.archive()`                                               |
-| Fetch subscriber's preferences  | `novu.preferences.list();`                                             |
-| Real-time events	              | `novu.on('notifications.notification_received', handler)`
+```jsx
+import type { Notification as INotification } from "@novu/react";
+import { useNovu } from "@novu/react";
 
-You can interact with individual notification instances or perform bulk actions through the `notifications` namespace.
+function NotificationItem({ notification }: { notification: INotification }) {
+  const novu = useNovu();
 
-<Callout>See the full list of supported methods and events in the [JavaScript SDK documentation](/platform/sdks/javascript).</Callout>
+  const markAsRead = async () => {
+    try {
+      await novu.notifications.readAll({ notificationId: notification.id });
+    } catch (error) {
+      console.error("Failed to mark as read:", error);
+    }
+  };
 
+  const archive = async () => {
+    try {
+      await novu.notifications.archiveAll({ notificationId: notification.id });
+    } catch (error) {
+      console.error("Failed to archive:", error);
+    }
+  };
+
+  return (
+    <div className="p-4 border rounded-lg">
+      <h3 className="font-medium">{notification.subject}</h3>
+      <p>{notification.body}</p>
+      <div className="flex gap-2 mt-2">
+        <button
+          onClick={markAsRead}
+          className="px-2 py-1 text-sm bg-blue-50 text-blue-600 rounded"
+          disabled={notification.isRead}
+        >
+          Mark as read
+        </button>
+        <button
+          onClick={archive}
+          className="px-2 py-1 text-sm bg-gray-50 text-gray-600 rounded"
+          disabled={notification.isArchived}
+        >
+          Archive
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+## Real-time updates
+
+The `useNotifications` and `useCounts` hooks automatically listen for real-time events and update your component state.
+
+If you need to listen for events manually, then you can use the `novu.on()` method from the `useNovu` hook. For example, you might want to show a toast notification when a new message arrives.
+
+```jsx
+import { useNovu } from "@novu/react";
+import { useEffect } from "react";
+import type { Notification as INotification } from "@novu/react";
+
+function NotificationListener() {
+  const novu = useNovu();
+
+  useEffect(() => {
+    // Handler for new notifications
+    const handleNewNotification = ({ result }: { result: INotification }) => {
+      console.log("New notification:", result.subject);
+      // You can use a toast library here
+      // toast.show(result.subject);
+    };
+
+    // Handler for unread count changes
+    const handleUnreadCountChanged = ({ result }: { result: number }) => {
+      document.title = result > 0 ? `(${result}) My App` : "My App";
+    };
+
+    // Subscribe to events
+    novu.on("notifications.notification_received", handleNewNotification);
+    novu.on("notifications.unread_count_changed", handleUnreadCountChanged);
+
+    // Cleanup function
+    return () => {
+      novu.off("notifications.notification_received", handleNewNotification);
+      novu.off("notifications.unread_count_changed", handleUnreadCountChanged);
+    };
+  }, [novu]);
+
+  return null; // This component doesn't render anything
+}
+```
