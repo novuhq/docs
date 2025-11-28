@@ -1,9 +1,53 @@
 ---
-title: 'Slack'
+title: 'Slack Next'
 description: 'Learn about how to use Slack provider for chat notifications'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+
+
+## Configure Slack app
+
+Before integrating Slack chat with Novu, you must create and configure a Slack App. The Slack app manages the OAuth permissions, bot token scopes, and redirect URLs needed for Novu to connect to your users’ workspaces securely.
+
+<Callout>Novu provides a test Slack integration for new organizations. The integration is limited to 300 messages per month and stricter rate limits apply.</Callout>
+
+### Step 1: Create a Slack app
+First, you need to create a Slack app, this will provide you with the credential you need to create a Slack integration in Novu.
+1. Go to the <a href="https://api.slack.com/apps" target="_blank" rel="noopener noreferrer">Slack API dashboard</a>.
+2. Click **Create an App**.
+3. Select **From scratch**.
+4. Enter an App Name
+5. Select a Slack workspace to develop your app in.
+  ![Create app](/images/channels-and-providers/chat/slack/create-app.png)
+6. Click **Create App**
+
+### Step 2: Configure scopes (Permissions)
+Your app needs permission to perform actions like sending messages or reading channel lists.
+
+1. In the sidebar, select **OAuth & Permissions**.
+2. Scroll down to the **Scopes** section.
+3. Under Bot Token Scopes, click the **Add an OAuth Scope** button.
+4. Add the following recommended scopes:
+    - `chat:write`
+    - `chat:write.public`
+    - `channels:read`
+    - `groups:read`
+    - `users:read`
+    - `users:read.email`
+    - (optional) `incoming-webhook` if you want Slack’s built-in channel picker.
+
+These scopes are required for Novu to send messages, read channels and read users (for DMs and pickers). If you remove some of them, certain features (like channel or user selection) may not work.
+
+## Step 2: Configure Slack integration in Novu
+
+## Step 3: Connect a Slack workspace
+
+## Step 4: Choose delivery destinations
+
+## Step 5: Send notifications
+
+
 
 When using Slack you will have to save the integration credentials in the subscriber entity.
 
