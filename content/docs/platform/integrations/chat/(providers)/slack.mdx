@@ -1,33 +1,43 @@
 ---
-title: 'Slack Next'
+title: 'Slack'
 description: 'Learn about how to use Slack provider for chat notifications'
 ---
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
+The Slack chat integration lets your application send notifications directly to your subscribers' Slack workspaces using their own Slack accounts and workspace permissions. With this integration, Novu can deliver messages to Slack channels, direct messages (DMs) to Slack users and incoming webhooks, using Slack’s native channel picker during OAuth.
 
-## Configure Slack app
+Novu handles the full lifecycle of Slack connections and message delivery. You define where notifications should be delivered, and Novu automatically routes each message to the correct Slack workspace, channel, or user.
+
+This guide walks you through setting up Slack chat, connect workspaces, and deliver notifications to the exact Slack destinations your users expect it.
+
+## Step 1: Configure Slack app
 
 Before integrating Slack chat with Novu, you must create and configure a Slack App. The Slack app manages the OAuth permissions, bot token scopes, and redirect URLs needed for Novu to connect to your users’ workspaces securely.
 
 <Callout>Novu provides a test Slack integration for new organizations. The integration is limited to 300 messages per month and stricter rate limits apply.</Callout>
 
-### Step 1: Create a Slack app
+### 1.1: Create a Slack app
 First, you need to create a Slack app, this will provide you with the credential you need to create a Slack integration in Novu.
 1. Go to the <a href="https://api.slack.com/apps" target="_blank" rel="noopener noreferrer">Slack API dashboard</a>.
 2. Click **Create an App**.
 3. Select **From scratch**.
-4. Enter an App Name
-5. Select a Slack workspace to develop your app in.
+4. Enter an app name of your choice in the **App Name** field.
+5. Pick a Slack workspace to develop your app in.
   ![Create app](/images/channels-and-providers/chat/slack/create-app.png)
-6. Click **Create App**
+6. Click **Create App**. You'll be directed to the **Basic Application** for the Slack app which contains the credentials you need for configuring Slack chat inside Novu:
+        - App ID
+        - Client ID
+        - Client Secret
+  ![Basic application](/images/channels-and-providers/chat/slack/basic-information.png)
 
-### Step 2: Configure scopes (Permissions)
+### 1.2: Configure scopes (Permissions)
 Your app needs permission to perform actions like sending messages or reading channel lists.
 
 1. In the sidebar, select **OAuth & Permissions**.
 2. Scroll down to the **Scopes** section.
 3. Under Bot Token Scopes, click the **Add an OAuth Scope** button.
+  ![Add an OAuth Scope](/images/channels-and-providers/chat/slack/scopes.png)
 4. Add the following recommended scopes:
     - `chat:write`
     - `chat:write.public`
@@ -39,199 +49,190 @@ Your app needs permission to perform actions like sending messages or reading ch
 
 These scopes are required for Novu to send messages, read channels and read users (for DMs and pickers). If you remove some of them, certain features (like channel or user selection) may not work.
 
+### 1.3: Set the redirect URL
+
+This tells Slack where to send the user after they successfully authorize your app.
+1. In the sidebar, select **OAuth & Permissions**.
+2. Scroll down to the **Redirect URLs** section.
+4. Click **Add New Redirect URL**.
+  ![Add New Redirect URL](/images/channels-and-providers/chat/slack/redirect-urls.png)
+5. Paste the Novu OAuth callback URL. Add the redirect URL that matches your Novu region:
+    - US region:
+      ```
+      https://api.novu.co/v1/integrations/chat/oauth/callback
+      ```
+    - EU region:
+      ```
+      https://api.eu.novu.co/v1/integrations/chat/oauth/callback
+      ```
+6. Click **Add** to save the URLs. If you use a self-hosted Novu instance, add your instance’s callback URL instead.
+
 ## Step 2: Configure Slack integration in Novu
 
-## Step 3: Connect a Slack workspace
+Once your Slack app is set up, the next step is to configure the Slack Chat integration inside Novu.
+
+1. Log in to the Novu dashboard.
+2. In the sidebar, click **Integrations Store**.
+3. Click **Connect Provider**
+4. Select **Chat** and click **Slack**.
+5. Fill in the required fields using the credentials from your Slack app:
+    - **Application Id**: Past your Slack app App ID.
+    - **Client ID**: Paste your Slack App Client ID.
+    - **Client Secret**: Paste your Slack App Client Secret.
+    - **Redirect URL (Optional)**: Enter the URL where you want users to be redirected to after they successfully connect their workspace. If omitted, Novu closes the tab immedietaly after the OAuth flow completes.
+  ![Connect slack integration in Novu](/images/channels-and-providers/chat/slack/slack-integration.png)
+6. Click **Create Integration** to create the Slack integration. Once saved, Novu is able to:
+    - Generate OAuth (Connect Slack) URLs for your users
+    - Receive Slack’s OAuth callback.
+    - Store workspace tokens as connections.
+
+You are now ready to implement the frontend flow to let users connect their workspaces.
+
+## Step 3: Let users connect their Slack workspace
+To send messages to Slack, your users must first authorize Novu to access one of their Slack workspaces. This authorization happens through Slack’s OAuth flow, which Novu generates and manages for you.
+
+### 3.1: Generate the OAuth URL
+
+When a user clicks "Connect Slack" in your application, your backend should request a unique authorization URL from Novu. 
+
+This URL is specific to the Subscriber or the Context (Tenant) it will be generated for.
+
+<Callout type="warn">The generated OAuth URL is valid for only <strong>5 minutes</strong>. Do not cache this URL; generate it dynamically when the user initiates the flow.</Callout>
+
+```tsx
+import { Novu } from '@novu/api'; 
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+// This function should be called by your API when the user requests to connect
+async function getSlackUrl(user, orgId) {
+  
+  const oauthUrl = await novu.integrations.generateChatOAuthUrl({
+    integrationIdentifier: 'slack',
+    subscriberId: user.id,           // The ID of the user performing the action
+    context: { tenant: orgId },      // The tenant/workspace context
+  });
+
+  return oauthUrl;
+}
+```
+
+Your application can support multiple Slack workspace connections per user or per tenant by triggering separate OAuth flows.
+
+Novu allows one connection per (integration + subscriber + context). To connect multiple workspaces, provide different combinations of subscriber or context.
+
+### 3.2: Redirect the user
+
+Once your backend returns the `oauthUrl`, open it in a new tab or window.
+
+```tsx
+window.open(oauthUrl, '_blank');
+```
+
+Slack then guides the user through:
+
+1. Reviewing your app’s requested permissions
+2. Approving the authorization
+3. Redirecting back to Novu’s callback URL
+
+After the user approves access, Novu handles the rest of the OAuth flow automatically.
+1. Novu exchanges the code for a Slack token.
+2. Novu creates a Slack connection for that workspace, it is referenced by `connectionIdentifier` when creating endpoints.
 
 ## Step 4: Choose delivery destinations
 
+After a workspace is connected, you or users decide where in Slack to send the messages, this can either be a Slack channel, to a user or an incoming webhook URLs. After the delivery location has been selected, a Slack endpoint is then ceeated for that location.
+
+### Send to a Slack channel
+
+This is the typical flow for sending notifications to public or private channels.
+
+1. **Get the channel ID**: First, the channel where the message will be sent to must be selected, one way to do this is by using your Slack app token to list channels in your own UI.
+
+    ```bash
+    curl -X GET "https://slack.com/api/conversations.list" \
+      -H "Authorization: Bearer xoxb-your-bot-token"
+    ```
+
+    To learn more about using <a href="https://docs.slack.dev/apis/web-api/using-the-conversations-api" target="_blank" rel="noopener noreferrer">Slack conversations API</a> to either get public or private channels, refer Slack documentation.
+
+2. **Create the endpoint**: Once the user selects a channel, save it as an endpoint in Novu.
+
+    ```tsx
+    await novu.channelEndpoints.create({
+      subscriberId: 'user-123',
+      integrationIdentifier: 'slack', 
+      connectionIdentifier: 'conn_slack_acme', // The identifier of the connection created in Step 2
+      context: { tenant: 'acme' },
+      type: 'slack_channel',                   // TYPE: Channel
+      endpoint: {
+        channelId: 'C012345'                   // Slack channel ID of the channel selected by the user
+      }
+    });
+    ```
+### Send to a Slack user (Direct messages)
+
+Use this to send personal messages and notifications directly to a specific user.
+
+1. **Get the Slack user ID**: You can use Slack’s users API to get user IDs.
+
+    ```bash
+    curl -X GET "https://slack.com/api/users.list" \
+      -H "Authorization: Bearer xoxb-your-bot-token"
+    ```
+
+    For example, you can look up a Slack user ID by their email address, if you requested the `users:read.email` scope.
+
+    To learn more about using <a href="https://docs.slack.dev/reference/methods/users.list" target="_blank" rel="noopener noreferrer">Slack `users.list` method</a>, refer Slack documentation.
+
+2. Create the endpoint: Save the returned User ID as the endpoint.
+
+    ```tsx
+    await novu.channelEndpoints.create({
+      type: 'slack_user',
+      subscriberId: 'user-123',
+      integrationIdentifier: 'slack',
+      connectionIdentifier: 'conn_slack_acme',
+      context: { tenant: 'acme' },
+      endpoint: {
+        userId: 'U01234567',                  // Slack user ID
+      },
+    });
+    ```
+
+### Incoming webhook URLs
+
+If `incoming-webhook` scope was included when configuring the OAuth and permissions scopes in [Step 1.1](/platform/integrations/chat/slack#12-configure-scopes-permissions). Slack would show its own channel picker during the OAuth flow:
+
+1. The user selects a channel directly in Slack.
+2. Slack returns an `incoming_webhook.url`.
+3. Novu automatically creates a webhook endpoint for that subscriber using that URL.
+
+You don’t need to collect `channelId` yourself in this mode, Slack’s native channel picker handles it.
+
 ## Step 5: Send notifications
 
-
-
-When using Slack you will have to save the integration credentials in the subscriber entity.
-
-This guide will walk you through the steps needed to obtain the `webhookUrl` that Novu requires to send chat messages to your customers.
-
-We will provide the basic flow that the user needs to perform, to successfully send notifications via the Slack integration.
-
-## Creating application
-
-This step is optional, if you already have a Slack application you can reuse it.
-
-<Steps>
-  <Step title="Create a new Slack app">
-    Go to Slack's developer dashboard https://api.slack.com/apps and create a new application.
-  </Step>
-</Steps>
-
-## Integrating Novu with Slack
-
-### Manually managed
-
-To use the manually managed option, you need to generate a `webhookUrl` and plug it into your backend.
-
-<Steps>
-  <Step title="Enable Incoming Webhooks">
-    Goto 'Incoming Webhooks' in your Slack app settings and turn it on.
-
-    ![Turn on Incoming Webhooks](/images/guides/slack-guide/on.png)
-
-  </Step>
-
-  <Step title="Add New Webhook">
-    Click on the 'Add New Webhook to Workspace':
-
-    ![Add New Webhook to Workspace](/images/guides/slack-guide/add.png)
-
-  </Step>
-
-  <Step title="Select Channel">
-    Now, go ahead and select the channel in which you want to send notifications and click 'allow'.
-
-    ![Select channel](/images/guides/slack-guide/install.png)
-
-  </Step>
-
-  <Step title="Copy Webhook URL">
-    Copy the 'webhookUrl' from Slack.
-
-    ![Copy webhookUrl](/images/guides/slack-guide/hook.png)
-
-  </Step>
-
-  <Step title="Save Webhook URL">
-    Now, you need to save the `webhookUrl` on the relevant subscriber entity in Novu. Here's an example to do the same using our Node SDK:
-  </Step>
-</Steps>
-
-## Writing Slack content (Blocks API)
-
-Novu Framework supports using [blocks](https://api.slack.com/block-kit) as part of the delivered messages using the provider overrides of the `chat` channel:
-
-You can use the [Blocks Playground](https://app.slack.com/block-kit-builder/T02QYEPHZMM#%7B%22blocks%22:%5B%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22Hello,%20Assistant%20to%20the%20Regional%20Manager%20Dwight!%20*Michael%20Scott*%20wants%20to%20know%20where%20you'd%20like%20to%20take%20the%20Paper%20Company%20investors%20to%20dinner%20tonight.%5Cn%5Cn%20*Please%20select%20a%20restaurant:*%22%7D%7D,%7B%22type%22:%22divider%22%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22*Farmhouse%20Thai%20Cuisine*%5Cn:star::star::star::star:%201528%20reviews%5Cn%20They%20do%20have%20some%20vegan%20options,%20like%20the%20roti%20and%20curry,%20plus%20they%20have%20a%20ton%20of%20salad%20stuff%20and%20noodles%20can%20be%20ordered%20without%20meat!!%20They%20have%20something%20for%20everyone%20here%22%7D,%22accessory%22:%7B%22type%22:%22image%22,%22image_url%22:%22https://s3-media3.fl.yelpcdn.com/bphoto/c7ed05m9lC2EmA3Aruue7A/o.jpg%22,%22alt_text%22:%22alt%20text%20for%20image%22%7D%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22*Kin%20Khao*%5Cn:star::star::star::star:%201638%20reviews%5Cn%20The%20sticky%20rice%20also%20goes%20wonderfully%20with%20the%20caramelized%20pork%20belly,%20which%20is%20absolutely%20melt-in-your-mouth%20and%20so%20soft.%22%7D,%22accessory%22:%7B%22type%22:%22image%22,%22image_url%22:%22https://s3-media2.fl.yelpcdn.com/bphoto/korel-1YjNtFtJlMTaC26A/o.jpg%22,%22alt_text%22:%22alt%20text%20for%20image%22%7D%7D,%7B%22type%22:%22section%22,%22text%22:%7B%22type%22:%22mrkdwn%22,%22text%22:%22*Ler%20Ros*%5Cn:star::star::star::star:%202082%20reviews%5Cn%20I%20would%20really%20recommend%20the%20%20Yum%20Koh%20Moo%20Yang%20-%20Spicy%20lime%20dressing%20and%20roasted%20quick%20marinated%20pork%20shoulder,%20basil%20leaves,%20chili%20&%20rice%20powder.%22%7D,%22accessory%22:%7B%22type%22:%22image%22,%22image_url%22:%22https://s3-media2.fl.yelpcdn.com/bphoto/DawwNigKJ2ckPeDeDM7jAg/o.jpg%22,%22alt_text%22:%22alt%20text%20for%20image%22%7D%7D,%7B%22type%22:%22divider%22%7D,%7B%22type%22:%22actions%22,%22elements%22:%5B%7B%22type%22:%22button%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Farmhouse%22,%22emoji%22:true%7D,%22value%22:%22click_me_123%22%7D,%7B%22type%22:%22button%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Kin%20Khao%22,%22emoji%22:true%7D,%22value%22:%22click_me_123%22,%22url%22:%22https://google.com%22%7D,%7B%22type%22:%22button%22,%22text%22:%7B%22type%22:%22plain_text%22,%22text%22:%22Ler%20Ros%22,%22emoji%22:true%7D,%22value%22:%22click_me_123%22,%22url%22:%22https://google.com%22%7D%5D%7D%5D%7D) from Slack to learn more about the diffrent blocks available.
-
-```typescript
-await step.chat(
-  'send-chat',
-  async () => {
-    return {
-      // This will be used as a fallback for the chat provider if other than Slack provider is used
-      body: 'A new post has been created',
-    };
-  },
-  {
-    providers: {
-      slack: async ({ inputs }) => ({
-        text: 'A new post has been created',
-        blocks: [
-          {
-            type: 'section',
-            text: {
-              type: 'mrkdwn',
-              text: 'A new post has been created',
-            },
-          },
-        ],
-      }),
-    },
-  }
-);
-```
-
-## Update credential webhookUrl
-
-<Tabs items={['Node.js', 'cURL']}>
-<Tab value="Node.js">
-```typescript
-import { Novu } from '@novu/api';
-import { ChatOrPushProviderEnum } from "@novu/api/models/components";
-
-const novu = new Novu({
-  secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
-  // serverURL: "https://eu.api.novu.co",
-});
-
-await novu.subscribers.credentials.update(
-  {
-    providerId: ChatOrPushProviderEnum.Slack,
-    credentials: {
-      webhookUrl: "<WEBHOOK_URL>",
-    },
-    integrationIdentifier: "slack-MnGLxp8uy",
-  },
-  "subscriberId"
-);
-```
-</Tab>
-<Tab value="cURL">
-```bash
-curl -L -X PUT 'https://api.novu.co/v1/subscribers/<SUBSCRIBER_ID>/credentials' \
--H 'Content-Type: application/json' \
--H 'Accept: application/json' \
--H 'Authorization: ApiKey <NOVU_SECRET_KEY>' \
--d '{
-  "providerId": "slack",
-  "credentials": {
-      "webhookUrl": "<WEBHOOK_URL>"
-  },
-  "integrationIdentifier": "slack-MnGLxp8uy"
-}'
-```
-</Tab>
-</Tabs>
-
-Checkout the [API reference](/api-reference/subscribers/update-provider-credentials) for more details.
-
-- `subscriberId` is a custom identifier used when identifying your users within the Novu platform.
-- `providerId` is a unique provider identifier. We recommend using our ChatOrPushProviderEnum.Slack if you're using Node, else string of Slack to specify the provider.
-- The third parameter is the credentials object. In this case, we use the `webhookUrl` property to specify the webhook URL generated in the previous step.
-
-6. You are all set up and ready to send your first chat message via our @novu/api package or directly using the REST API.
-
-## Configuring Slack application
-
-<Steps>
-  <Step title="Configure OAuth & Permissions">
-    Go to OAuth & Permissions on Slack's Developer Dashboard and add your REDIRECT_URL in Redirect URLs.
-    - If you use a manual Management solution, add the API endpoint you created in Step 1.
-  </Step>
-
-<Step title="Enable Incoming Webhooks">
-  Go to Incoming Webhooks from the left menu and Activate Incoming Webhooks.
-</Step>
-
-  <Step title="Configure Distribution Settings">
-    Go to Manage Distribution and at the bottom of the page, tick Remove Hard Coded Information and Activate Public Distribution.
-  </Step>
-</Steps>
-
-### Enabling HMAC Encryption
-
-To enable Hash-Based Message Authentication Codes, you need to do the following steps:
-
-<Steps>
-  <Step title="Enable HMAC encryption">
-    Visit the integration store page and enable HMAC encryption under your chat provider.
-  </Step>
-
-  <Step title="Generate HMAC hash">
-    The next step would be to generate an HMAC encrypted subscriberId on your backend:
+Once you have at least one Slack connection, and one or more Slack endpoints. You can Trigger the workflow
 
 ```jsx
-import { createHmac } from 'crypto';
+import { Novu } from '@novu/api';
 
-const hmacHash = createHmac('sha256', process.env.NOVU_SECRET_KEY)
-  .update(subscriberId)
-  .digest('hex');
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+await novu.trigger({
+  name: 'order-shipped',
+  to: {
+    subscriberId: 'user-123',
+  },
+  context: { tenant: 'acme' },       // optional routing context
+  payload: {
+    orderNumber: 'ORD-12345',
+    trackingUrl: 'https://acme.com/track/123',
+  },
+});
 ```
 
-</Step>
-
-<Step title="Add HMAC to URL">
-  Add the newly created hash HMAC to the Sharable URL as a query.
-</Step>
-</Steps>
-
-This concludes the Slack provider guide.
+When the workflow is triggered, Novu will:
+1. Find Slack endpoints matching `subscriberId` and `context`.
+2. Use the right Slack workspace connection.
+3. Deliver messages to the configured destinations.
