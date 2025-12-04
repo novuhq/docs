@@ -7,7 +7,7 @@ description: 'Receive notifications when events occur in your Novu account'
 
 Webhooks makes it possible for your external systems to receive real-time notifications when specific events occur within your Novu account. They are POST requests sent to a pre-determined endpoint that you configure.
 
-<Callout>This webhook feature is only have in the <a href="https://novu.co/pricing" target="_blank" rel="noopener noreferrer">Team and Enterprise plans</a>.</Callout>
+<Callout>This webhook feature is only available in the <a href="https://novu.co/pricing" target="_blank" rel="noopener noreferrer">Team and Enterprise plans</a>.</Callout>
 
 ## How it works
 
@@ -121,13 +121,19 @@ This operation causes all failed messages to a particular endpoint to be resent.
 2. Click the (**...**) icon.
  ![Recover all failed messages](/images/developer-tools/recover.png)
 3. Click **Recover failed messages**.
-4. On the menu, select a time window to recover all failed messages from that period. For example, you can recover all fialed messages in the last 8 hours.
+4. On the menu, select a time window to recover all failed messages in the last 8 hours.
   ![Recover all failed messages menu](/images/developer-tools/recover-menu.png)
  
 
 ### Replay missing messages
 
 This operation causes all messages that were never attempted for a particular endpoint to be resent. To do this:
+
+1. Click on the endpoint from the **Endpoints** tab.
+2. Click the (**...**) icon.
+### Replay missing messages
+
+You can replay all messages that were never attempted for a particular endpoint. Follow these steps:
 
 1. Click on the endpoint from the **Endpoints** tab.
 2. Click the (**...**) icon.
