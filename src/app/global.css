@@ -40,6 +40,44 @@
     display: none !important;
   }
 
+  /* Full mode - hide sidebar and header when ?full=true is in URL */
+  body.full-mode aside {
+    display: none !important;
+  }
+
+  body.full-mode main > header:first-of-type {
+    display: none !important;
+  }
+
+  body.full-mode div#nd-toc {
+    display: none !important;
+  }
+
+  body.full-mode #nd-tocnav {
+    display: none !important;
+  }
+
+  body.full-mode #nd-page > .sticky:has(#nd-tocnav) {
+    display: none !important;
+  }
+
+  body.full-mode footer {
+    display: none !important;
+  }
+
+  body.full-mode #nd-page {
+    margin-top: 0 !important;
+  }
+
+  body.full-mode main {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+  }
+
+  body.full-mode [data-wrapper] {
+    padding-left: 0 !important;
+  }
+
   body {
     font-family: var(--font-sans);
     font-weight: var(--font-weight-normal);
