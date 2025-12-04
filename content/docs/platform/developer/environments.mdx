@@ -4,16 +4,14 @@ description: 'Understanding and managing environments in Novu'
 icon: 'GitFork'
 ---
 
-Novu uses environments to separate your workflows and it's data. This lets you safely test changes, like a new workflow, in one environment before moving it to a live production environment.
+Novu uses environments to separate your workflows and its data. This lets you safely test changes, like a new workflow, in one environment before moving it to a live production environment.
 
 ## Types of environments
 
-When you create a Novu account, you are provided with a development and production environment by default. You can also create custom environments (on certain plans) to match your team’s workflow.
+When you create a Novu account, you are provided with a development and production environment by default. On certain plans, you can also create custom environments to match your team’s workflow.
 
 - **Development environment**: Use the development environment to build and test new workflows, layouts, translations, and experiment with different configurations before publishing to other environments.
-
 - **Production environment**: The production environment is used to send notifications to your subscribers. To ensure stability and prevent unintended changes, this environment is view-only for workflows, layouts, and translations. Changes are not made here directly, they are made from other environment and then published to this production environment.
-
 - **Custom environment**: Custom environments are only available on <a href="https://novu.co/pricing" target="_blank" rel="noopener noreferrer">Team and Enterprise plans</a>. You can use them to reflect your release process, for example, staging or QA.
 
 ## Create a custom environment
@@ -71,7 +69,7 @@ Each environment has two unique identifiers:
 
 <Callout>Configure these credentials in your application based on the active environment, similar to how you manage other service credentials.</Callout>
 
-## Publishing changes to other environments
+## Publish changes to other environments
 
 Novu provides a publish mechanism that allows you to promote changes from your development environment to production or other custom environments. This process ensures that all changes are deliberate, reviewed, and deployed in a controlled manner.
 
