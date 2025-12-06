@@ -4,78 +4,97 @@ title: 'E-mail'
 description: 'Learn how to configure the Email channel'
 ---
 
-import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
+import { Step, Steps } from 'fumadocs-ui/components/steps';
 
-The Email Channel is a critical component for delivering notifications reliably. Whether it's a password reset, an onboarding email, or an alert about account activity, email remains a trusted medium for reaching users.
-Novu simplifies this process, allowing you to focus on implementation rather than infrastructure.
+Email providers are the services that deliver notifications to your subscribers’ email. You must set up each provider individually in the Novu dashboard to enable delivery through the Email channel.
 
-## Key Features
+Novu provides a unified integration layer that connects your workflows to these email providers. Once you’ve added your integrations, Novu handles routing and delivery automatically, sending each email through the correct provider without requiring additional setup. This allows you to manage multiple email integrations and switch providers when needed.
 
-- **Multi-Provider Support**: Integrate any major provider like SendGrid, SES, or Mailgun
-- **Failover Mechanisms**: Automatically retry with a backup provider to ensure reliability
-- **Customizable Templates**: Leverage templates with dynamic placeholders to personalize messages
-- **Delivery Insights (Coming Soon)**: Track delivery status, open rates, and more in the Novu dashboard
+## Key features
 
-## Common Use Cases
+- **Multi-provider support**: Integrate any major provider like SendGrid, SES, or Mailgun.
+- **Failover mechanisms**: Automatically retry with a backup provider to ensure reliability.
+- **Activity tracking**: Track delivery status, open rates, and more in the Novu dashboard.
 
-- **Transactional Emails**: Password resets, account verification, purchase confirmations
-- **System Alerts**: Security notifications, system updates
-- **Engagement Emails**: Onboarding, reminders, promotional updates
+## How email works in Novu
 
-Novu can be used to deliver email messages to your subscribers using a unified delivery API. You can easily integrate your favorite email provider using the built-in integration store.
+Here’s the typical flow for sending an email notification through Novu:
+
+<Steps> 
+<Step> 
+
+### Add an email provider
+
+Start by adding an email provider in the **Integration Store** on your Novu dashboard. You can connect one or more integrations for different or the same providers.
+
+To learn how to add an email provider, refer to the guide for the [supported providers](/platform/integrations/email#supported-providers).
+
+</Step>
+<Step> 
+### Add the Email channel to your workflow
+
+Next, include an Email step in a workflow. This step defines when and how an email should be sent as part of your notification workflow.
+</Step>
+<Step> 
+### Define the email content
+
+Within the Email step, you can design your message using the built-in visual editor or code editor. Novu supports dynamic data from your payload, so each message can be personalized for the subscriber.
+</Step>
+<Step> 
+### Store subscriber email addresses
+
+Novu automatically sends the notification to the email address stored on the subscriber's profile. This profile is update either using the Novu dashboard or API.
+</Step>
+<Step>
+### Trigger the workflow
+
+[Trigger the workflow](/api-reference/events/trigger-event) from your application code by sending an event to Novu. Novu automatically:
+1. Resolves the subscriber.
+2. Selects the correct provider.
+3. Renders the email template. 
+4. Delivers the message through the configured email integration.
+</Step>
+</Steps>
+
+<Callout type="info">Learn how to [build email template](/platform/workflow/template-editor) using the block editor, custom HTML, and dynamic variables.</Callout>
 
 ## Configuring email providers
 
-When creating an email provider integration you will be asked to provide additional fields alongside the provider-specific credentials:
+When you add an email provider in the **Integration Store**, you configure settings that are common to all email providers, as well as credentials specific to that provider.
 
-- **Sender name** - Will be displayed as the sender of the message
-- **From email address** - Emails sent using Novu will be sent using this address
+### Default sender settings
 
-For some email providers including SendGrid you will have to authenticate the **From email address** to make sure you will send email messages using an authorized address.
+Novu asks for two default settings for any email provider you connect:
 
-## Sending Email Overrides
+- **Sender name**: The name that appears in the recipient's "From" field.
+- **From email address**: The email address the notification is sent from. For some email providers, including SendGrid, you must authenticate the **From email address** to make sure you're sending an email from an authorized address.
 
-The overrides field supports an email property. The email overrides field have properties like `to`, `from`, `senderName` etc
+These are the default values used for every email sent via this integration. You can override them when triggering a workflow if needed.
 
-<Tabs items={['Node.js']}>
-<Tab value="Node.js">
-```javascript
-import { Novu } from '@novu/api';
+### Provider authentication
 
-const novu = new Novu({
-  secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
-  // serverURL: "https://eu.api.novu.co",
-});
+You must provide credentials specific to your email provider for a successful integration.
 
-await novu.trigger({    
-  workflowId: "workflowId",
-  to: {
-    subscriberId: "subscriberId",
-  },
-  overrides: {
-    email: {
-      to: ['to@novu.co'],
-      from: 'from@novu.co',
-      senderName: 'Novu Team',
-      text: 'text version of email using overrides',
-      replyTo: 'no-reply@novu.co',
-      cc: ['1@novu.co'],
-      bcc: ['2@novu.co'],
-    },
-  },
-});
-```
-</Tab>
-</Tabs>
+<Callout type="info">For detailed setup guides for each integration, refer to the [Supported Providers](/platform/integrations/email#supported-providers) list at the bottom of this page.</Callout>
 
-<Callout type="info">
-It's very important to know that Novu merges the `to` field in the email overrides with the subscriber email. It DOES NOT REPLACE IT.
-</Callout>
+### Setting up failover
 
-## Sending Email attachments
+Novu ensures high deliverability with an automatic failover system. You can have multiple active email providers in the same environment.
 
-You can easily send attachments with the Novu API by passing the attachments array when triggering an Email based workflow. Attachment file can either be in the `buffer` or `base64` format. There is total limit of 20 mb for all attachments included and email size.
+- **Primary integration**: You must designate one of your active providers as the primary provider. Novu always attempts to send the email using this provider first.
+- **Failover logic**: If the primary provider fails to send the notification, then Novu automatically attempts to send the email through one of your other active providers.
+
+This built-in redundancy means you don't have to manage provider downtime yourself.
+
+## Advanced email features
+
+You can control advanced email features at runtime by passing data in your trigger call. This lets you send attachments, override default settings, or target a specific provider for a single notification.
+
+### Sending attachments
+
+You can send attachments by passing an `attachments` array in the `payload` of your trigger. The attachment file can be provided as a `buffer` or a `base64` encoded string.
+
+There is a total limit of 20MB for all attachments included in an email.
 
 <Tabs items={['Node.js', 'cURL']}>
 <Tab value="Node.js">
@@ -93,7 +112,7 @@ await novu.trigger({
   to: {
     subscriberId: "subscriberId",
   },
-  payload: {
+  payload: { // [!code ++:16]
     attachments: [
       {
         // buffer format
@@ -147,18 +166,56 @@ curl -L -X POST 'https://api.novu.co/v1/events/trigger' \
 </Tab>
 </Tabs>
 
-## Using different email integration
+### Sending email overrides
 
-In Novu integration store, multiple email channel type provider integrations can be active at the same time. But only one provider integration can be primary at a time. This primary integration will be used as a provider to deliver the email by default. If you want to use a different active provider integration then you can use the `integrationIdentifier` email overrides field.
+You can override the email settings for a single trigger by passing an `overrides` object. This lets you override the following fields:
+- `bcc`
+- `cc`
+- `from` address
+- `replyTo`
+- `senderName`
+- `text`
+- `to` address
 
-If there are 4 active email integrations with these identifiers:
+<Tabs items={['Node.js']}>
+<Tab value="Node.js">
+```javascript
+import { Novu } from '@novu/api';
 
-1. sendgrid-abcdef
-2. sendgrid-ghijkl
-3. brevo-abcdef
-4. mailersend-abcdef
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Use serverURL for EU region
+  // serverURL: "https://eu.api.novu.co",
+});
 
-Here, if `sendgrid-abcdef` is primary integration and you want to use `brevo-abcdef` with this trigger then you can use `integrationIdentifier` email overrides field as below:
+await novu.trigger({    
+  workflowId: "workflowId",
+  to: {
+    subscriberId: "subscriberId",
+  },
+  overrides: { // [!code ++:11]
+    email: {
+      to: ['to@novu.co'],
+      from: 'from@novu.co',
+      senderName: 'Novu Team',
+      text: 'text version of email using overrides',
+      replyTo: 'no-reply@novu.co',
+      cc: ['1@novu.co'],
+      bcc: ['2@novu.co'],
+    },
+  },
+});
+```
+</Tab>
+</Tabs>
+
+<Callout type="info">Note that Novu merges the `to` field in the email overrides with the subscriber email. It does _not_ replace it.</Callout>
+
+### Targeting a specific provider
+
+By default, Novu uses your primary email provider. However, if you want to bypass this and force a specific, active integration for a trigger, use the `integrationIdentifier`.
+
+This is useful if you have multiple active integrations for different purposes. For example, you might have one integration for transactional emails and one for marketing emails. You can find the `integrationIdentifier` for each provider in provider page in the **Integration Store**.
 
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
@@ -178,7 +235,7 @@ await novu.trigger({
   },
   overrides: {
     email: {
-      integrationIdentifier: "brevo-abcdef"
+      integrationIdentifier: "brevo-abcdef" // [!code ++]
     },
   },
 });
@@ -186,10 +243,28 @@ await novu.trigger({
 </Tab>
 </Tabs>
 
-<Callout type="info">
-Integration identifier is similar to Provider identifier but it is different than Provider Id. It is unique for each integration. You can find the `integrationIdentifier` in the integration store page.
-</Callout>
+## Supported providers
 
-<Callout type="info">
-Looking to integrate an email provider? Check out our [provider integrations](/platform/integrations/email).
-</Callout>
+Here are the email providers that are currently supported by Novu. Select any provider to see its detailed setup guide.
+
+<Cards>
+  <Card title="SendGrid" href="/platform/integrations/email/sendgrid"> Learn how to use the SendGrid provider to send emails using Novu.</Card> 
+  <Card title="Amazon SES" href="/platform/integrations/email/amazon-ses"> Learn how to use the Amazon SES provider to send emails using Novu.</Card> 
+  <Card title="Postmark" href="/platform/integrations/email/postmark"> Learn how to use the Postmark provider to send emails using Novu.</Card>
+  <Card title="Resend" href="/platform/integrations/email/resend"> Learn how to use the Resend provider to send emails using Novu.</Card> 
+  <Card title="Brevo" href="/platform/integrations/email/brevo"> Learn how to use the Brevo provider to send emails using Novu.</Card>
+  <Card title="Mailgun" href="/platform/integrations/email/mailgun"> Learn how to use the Mailgun provider to send emails using Novu.</Card>
+  <Card title="Mailjet" href="/platform/integrations/email/mailjet"> Learn how to use the Mailjet provider to send emails using Novu.</Card>
+  <Card title="Braze" href="/platform/integrations/email/braze"> Learn how to use the Braze provider to send emails using Novu.</Card> 
+  <Card title="Infobip" href="/platform/integrations/email/infobip"> Learn how to use the Infobip provider to send emails using Novu.</Card> 
+  <Card title="MailerSend" href="/platform/integrations/email/mailersend"> Learn how to use the MailerSend provider to send emails using Novu.</Card>
+  <Card title="Mailtrap" href="/platform/integrations/email/mailtrap"> Learn how to use the Mailtrap provider to send emails using Novu.</Card>
+  <Card title="Mandrill" href="/platform/integrations/email/mandrill"> Learn how to use the Mandrill provider to send emails using Novu.</Card> 
+  <Card title="Maqsam" href="/platform/integrations/email/maqsam"> Learn how to use the Maqsam provider to send emails using Novu.</Card> 
+  <Card title="Netcore" href="/platform/integrations/email/netcore"> Learn how to use the Netcore provider to send emails using Novu.</Card>
+  <Card title="Outlook 365" href="/platform/integrations/email/outlook-365"> Learn how to use the Outlook 365 provider to send emails using Novu.</Card> 
+  <Card title="Plunk" href="/platform/integrations/email/plunk"> Learn how to use the Plunk provider to send emails using Novu.</Card>
+  <Card title="Sparkpost" href="/platform/integrations/email/sparkpost"> Learn how to use the Sparkpost provider to send emails using Novu.</Card>
+  <Card title="Email Webhook" href="/platform/integrations/email/email-webhook"> Learn how to use the Email Webhook provider to send emails using Novu.</Card>
+  <Card title="Custom SMTP" href="/platform/integrations/email/custom-smtp"> Learn how to use a Custom SMTP provider to send emails using Novu.</Card>
+</Cards>
