@@ -17,11 +17,10 @@ This creates predictable isolation and ensures notifications can't accidentally 
 
 | Workflow Context                           | Inbox Context            | Displayed? |
 | ------------------------------------------ | ------------------------ | ---------- |
-| `{ "tenant": "acme" }`                     | `{ "tenant": "acme" }`   | ✅ Yes      |
-| `{ "tenant": "acme" }`                     | `{ "tenant": "globex" }` | ❌ No       |
-| `{ "tenant": "acme", "app": "dashboard" }` | `{ "tenant": "acme" }`   | ❌ No       |
-| `{}`                                       | `{}`                     | ✅ Yes      |
-
+| `{ "tenant": "acme" }`                     | `{ "tenant": "acme" }`   | Yes      |
+| `{ "tenant": "acme" }`                     | `{ "tenant": "globex" }` |  No       |
+| `{ "tenant": "acme", "app": "dashboard" }` | `{ "tenant": "acme" }`   | No       |
+| `{}`                                       | `{}`                     | Yes      |
 
 ### Creating context via `<Inbox/>`
 

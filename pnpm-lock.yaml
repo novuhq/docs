@@ -21,8 +21,8 @@ importers:
         specifier: 1.8.0
         version: 1.8.0
       '@novu/framework':
-        specifier: ^2.7.1
-        version: 2.7.1(next@15.3.3(@babel/core@7.27.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(zod-to-json-schema@3.24.5(zod@3.24.2))(zod@3.24.2)
+        specifier: 2.8.0
+        version: 2.8.0(next@15.3.3(@babel/core@7.27.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(zod-to-json-schema@3.24.5(zod@3.24.2))(zod@3.24.2)
       '@novu/js':
         specifier: 3.11.0
         version: 3.11.0
@@ -1506,8 +1506,8 @@ packages:
       '@modelcontextprotocol/sdk':
         optional: true
 
-  '@novu/framework@2.7.1':
-    resolution: {integrity: sha512-AZNZrPiyNKMIRLhfXz7pLGOyskoKUb6oL9ndcfrizcLEF2HbfeInwoLP2et3REOPxveji2zuR0jfHugF75bEwA==}
+  '@novu/framework@2.8.0':
+    resolution: {integrity: sha512-9Eo0Xs+g221Y2M+zw8amBW4ZlzGtxOuyztPGyxlGLhqgM0YaMBJ1e1ZugOM/5aa0FGRV504WxWv/PuIY340w2A==}
     peerDependencies:
       '@nestjs/common': '>=10.0.0'
       '@sveltejs/kit': '>=1.27.3'
@@ -4952,6 +4952,10 @@ packages:
   jsonpointer@5.0.1:
     resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
     engines: {node: '>=0.10.0'}
+
+  jsonrepair@3.13.1:
+    resolution: {integrity: sha512-WJeiE0jGfxYmtLwBTEk8+y/mYcaleyLXWaqp5bJu0/ZTSeG0KQq/wWQ8pmnkKenEdN6pdnn6QtcoSUkbqDHWNw==}
+    hasBin: true
 
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
@@ -8479,7 +8483,7 @@ snapshots:
     dependencies:
       zod: 3.25.76
 
-  '@novu/framework@2.7.1(next@15.3.3(@babel/core@7.27.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(zod-to-json-schema@3.24.5(zod@3.24.2))(zod@3.24.2)':
+  '@novu/framework@2.8.0(next@15.3.3(@babel/core@7.27.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(zod-to-json-schema@3.24.5(zod@3.24.2))(zod@3.24.2)':
     dependencies:
       ajv: 8.17.1
       ajv-formats: 2.1.1(ajv@8.17.1)
@@ -8487,6 +8491,7 @@ snapshots:
       chalk: 4.1.2
       cross-fetch: 4.1.0
       json-schema-to-ts: 3.1.1
+      jsonrepair: 3.13.1
       liquidjs: 10.20.3
       pluralize: 8.0.0
       sanitize-html: 2.14.0
@@ -12666,6 +12671,8 @@ snapshots:
   json5@2.2.3: {}
 
   jsonpointer@5.0.1: {}
+
+  jsonrepair@3.13.1: {}
 
   jsx-ast-utils@3.3.5:
     dependencies:
