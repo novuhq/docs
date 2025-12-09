@@ -23,8 +23,12 @@ import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import { PageActions } from '../../components/page-actions';
 import { getRawMarkdownContent } from '../../lib/get-markdown-content';
 
-export default async function Page(props: { params: Promise<{ slug?: string[] }> }) {
+export default async function Page(props: {
+  params: Promise<{ slug?: string[] }>;
+  searchParams: Promise<{ full?: string }>;
+}) {
   const params = await props.params;
+  const searchParams = await props.searchParams;
   const page = source.getPage(params.slug);
 
   if (!page) notFound();
@@ -35,6 +39,8 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
     page.file.path.endsWith('platform/overview.mdx') ||
     page.slugs.join('/') === 'platform/overview';
 
+  const isFullWidth = page.data.full || searchParams.full === 'true';
+
   const rawMarkdownContent = getRawMarkdownContent(page.file.path);
 
   // GitHub URL for editing this page
@@ -43,7 +49,7 @@ export default async function Page(props: { params: Promise<{ slug?: string[] }>
   return (
     <DocsPage
       {...(!isOverviewPage && { toc: page.data.toc })}
-      full={page.data.full}
+      full={isFullWidth}
       tableOfContent={{
         enabled: !isOverviewPage,
         single: false,
