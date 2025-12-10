@@ -125,7 +125,7 @@ Now you create the Teams “wrapper” around your app registration and bot.
 6. Add a **Bot** and choose “Enter a bot ID”
 7. Set the **Bot ID** to your `BOT_APP_ID`, the same App ID you used for the Azure Bot.
 8. Enable “What can your bot do?” to “Only send notification” as the least option.
-9. Enable scopes based on your usecase:
+9. Enable scopes based on your use case:
       - `team` for channel messages.
       - `personal` for DMs.
 
@@ -191,9 +191,9 @@ window.open(url, '_blank');
 ### What the customer administrator does
 
 1. A Teams/Microsoft 365 Admin from your customer's organization logs into your product.
-2. They clicks your **Connect Microsoft Teams** button.
+2. They click your **Connect Microsoft Teams** button.
 3. They see a Microsoft consent page listing the permissions.
-4. They clicks **Accept**.
+4. They click **Accept**.
 
 Once the user completes this step, Microsoft redirects the user back to Novu. Novu captures the customer's tenant ID and automatically creates a Teams connection for that specific tenant context. You don't need to handle the callback yourself.
 
@@ -247,7 +247,7 @@ GET /v1/channel-connections
   "channel": "chat",
   "subscriberId": "689c4a87c5bdaa96aaef0cfd",
   "workspace": {
-    "id": "e6633b86-ef94-4416-863f-f0f409700ca0" // this
+    "id": "e6633b86-ef94-4416-863f-f0f409700ca0" // the customer's tenant workspace ID
   },
   "auth": {
     "accessToken": "app-only"
