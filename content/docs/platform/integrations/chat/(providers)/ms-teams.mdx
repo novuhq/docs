@@ -41,7 +41,7 @@ First, create a multi-tenant identity for your bot.
 4. Set an expiry date.
 5. Click **Add**.
 ![Client secret](/images/channels-and-providers/chat/msteams/certificates-and-secret.png)
-6. Copy the Value. This value becomes your `BOT_APP_SECRET`, and you’ll paste it into Novu. You can view the secret only once right after you create it, so save it before you leave the page.
+6. Copy the value. This value becomes your `BOT_APP_SECRET`, and you’ll paste it into Novu. You can view the secret only once right after you create it, so save it before you leave the page.
 
 ### Add Novu’s redirect URI
 
@@ -206,14 +206,14 @@ For the bot to send messages, install it in the specific context where notificat
 - **For channel messages**: Install the app in the specific Team.
 - **For direct messages**: Install the app for the specific user in their personal scope.
 
-The customer’s administrator can install your app from the Teams app store or their org catalog, depending on how you published. If you requested the `TeamsAppInstallation.ReadWriteSelfForTeam.All` permission, your backend can programmatically install the app into a specific team using the Microsoft Graph API.
+The customer’s administrator can install your app from the Teams app store or their org catalog, depending on how you published. If you requested the `TeamsAppInstallation.ReadWriteSelfForTeam.All` permission, your backend can programmatically install the app into a specific Team using the Microsoft Graph API.
 
 ## Tell Novu where to send the messages
 
 Your customer decides where notifications should land and gives you the right IDs and then your backend registers them as Channel Endpoints in Novu.
 
 You can choose between two destination types:
-  - **Channels**: Sending a message to a specific channel within a Team.
+  - **Channels**: Send a message to a specific channel within a Team.
   - **Users**: Send a direct message to a specific user.
 
 ### Sending message to channels
@@ -255,14 +255,14 @@ GET /v1/channel-connections
 }
 ```
 
-2. List teams:
+2. List Teams:
 
 ```bash
 GET https://graph.microsoft.com/v1.0/teams
 Authorization: Bearer {ACCESS_TOKEN}
 ```
 
-3. List channels in a team:
+3. List channels in a Team:
 
 ```bash
 GET https://graph.microsoft.com/v1.0/teams/{TEAM_ID}/channels
@@ -316,7 +316,7 @@ Use the <a href="https://learn.microsoft.com/en-us/azure/bot-service/rest-api/bo
     client_secret={BOT_APP_SECRET}&
     scope=https%3A%2F%2Fapi.botframework.com%2F.default
     ```
-3. Call the roster API for that Team, using the team’s `19:...@thread.tacv2` id as `{TEAM_CONVERSATION_ID}`:
+3. Call the roster API for that Team, using the Team’s `19:...@thread.tacv2` id as `{TEAM_CONVERSATION_ID}`:
     ```bash
     GET https://smba.trafficmanager.net/teams/v3/conversations/{TEAM_CONVERSATION_ID}/members
     Authorization: Bearer {BOT_ACCESS_TOKEN}
