@@ -111,7 +111,7 @@ This connects your bot resource to Teams and lets your Teams app install cleanly
 3. Click **Channels**.
 4. In the available channelssection, click **Microsoft Teams**.
 5. In the menu that appears, accept the terms of services.
-6. In the **Messaging** section, choose the appropriate environment (typically **Microsoft Teams Commercial**).
+6. In the **Messaging** section, choose the appropriate environment, typically **Microsoft Teams Commercial**.
 7. Click **Apply**.
 
 ### Create a Teams app
@@ -134,7 +134,7 @@ You don’t need to edit the JSON yourself. The developer portal generates and c
 
 ### Publish the Teams app
 
-Next, publish the app to a Teams store, if you want the app publicly available in the store or publish to org if you want your App to be accessible only inside your organization teams.
+Next, publish the app to a Teams store, if you want the app publicly available in the store. Publish to org if you want it accessible only inside your organization teams.
 
 Refer to the Microsoft Teams documentation to learn how to:
     - <a href="https://learn.microsoft.com/en-us/microsoftteams/teams-custom-app-policies-and-settings" target="_blank" rel="noopener noreferrer">Publish to your org</a>.
@@ -162,7 +162,7 @@ Novu is now authenticated to act as your bot, but it still can't send messages b
 
 Each of your customers has their own Microsoft 365 tenant. Before you can send them messages, they must grant your app a one time administrator consent. This authorizes your bot to act within their environment.
 
-### Generate a "Connect Teams" URL
+### Generate a Connect Teams URL
 
 On your backend, use the Novu SDK to generate the authorization URL. This URL is specific to the customer's tenant context in your system.
 
@@ -190,6 +190,8 @@ window.open(url, '_blank');
 ```
 
 ### What the customer administrator does
+
+Steps the customer administrator would take:
 
 1. A Teams/Microsoft 365 Admin from your customer's organization logs into your product.
 2. They click your **Connect Microsoft Teams** button.
