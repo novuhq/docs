@@ -72,11 +72,17 @@ export const SubscriptionUI = () => {
 By default, the component fetches all workflows associated with the topic. You can decide which workflows to show, rename them, or group them using the `preferences` prop.
 
 ```tsx
-<Subscription
-  topicKey="project-123"
-  identifier="project-updates"
-  preferences={["workflow-identifier-1", "workflow-identifier-2"]}
-/>
+import { Subscription } from '@novu/react';
+
+export const SubscriptionUI = () => {
+  return (
+    <Subscription
+      topicKey="project-123"
+      identifier="project-updates"
+      preferences={["workflow-identifier-1", "workflow-identifier-2"]}
+    />
+  );
+};
 ```
 
-The `<Subscription />` component provides a complete, ready-to-use UI. If you need more control, you can build a [custom subscription](/platform/subscription/customize-the-ui) experience using the subscription components and hooks.
+The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component provides a complete, ready-to-use UI. If you need more control, you can build a [custom subscription](/platform/subscription/customize-the-ui) experience using the subscription components and hooks.
