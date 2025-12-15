@@ -1,11 +1,17 @@
 ---
-pageTitle: 'Render the <Subscription /> UI'
-title: '<Subscription /> UI'
-description: "Learn how to integrate and render the Subscription component in your React application to manage user preferences."
+pageTitle: '<Subscription /> Quickstart'
+title: 'Quickstart'
+description: "Learn how to integrate and render the Subscription component in your React app to manage user preferences."
 icon: 'ToggleRight'
 ---
 
-<Callout>Subscription is avialable from v3.4 for the `@novu/react` and `@novu/js` packages.</Callout>
+import { Step, Steps } from '@/components/steps';
+import {
+  ListFilter,
+  Blocks
+} from 'lucide-react';
+
+<Callout>Subscription is avialable from v3.12.0 for the `@novu/react` and `@novu/js` packages.</Callout>
 
 This quickstart shows how to render the subscription UI in your app. The subscription UI lets users subscribe to topics, define conditions, and manage how they receive notifications.
 
@@ -13,76 +19,84 @@ Refer to the [Manage subscriptions documentation](/platform/subscription/manage-
 
 The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component is designed to work within an existing Novu environment and uses the same provider and session context as the Inbox component.
 
-## Create a topic
+<Steps>
+  <Step>
+    ### Create a topic
 
-Subscriptions are managed at the topic level. Before rendering the subscription UI, make sure the topic already exists. You can create a topic in the Novu Dashboard or via the API.
+    Subscriptions are managed at the topic level. Before rendering the subscription UI, make sure the topic already exists. You can create a topic in the Novu Dashboard or via the API.
 
-Topics can represent any category of notifications, if you haven't created a topic yet, see the [Topics documentation](/platform/concepts/topics).
+    Topics can represent any category of notifications, if you haven't created a topic yet, see the [Topics documentation](/platform/concepts/topics).
+  </Step>
 
-## Install `@novu/react`
+  <Step>
+    ### Install `@novu/react`
 
-Ensure you have the latest version of the `@novu/react` package installed in your project.
+    Ensure you have the latest version of the `@novu/react` package installed in your project.
 
-```bash
-npm install @novu/react
-```
+    ```bash
+    npm install @novu/react
+    ```
 
-## Initialize the Novu client
+  </Step>
 
-Wrap your app or the specific section where the subscription component would live with the `<NovuProvider>`. Configure the provider with your `applicationIdentifier` and the current user's `subscriberId`.
+  <Step>
+    ### Initialize the Novu client
 
-```tsx
-import { NovuProvider } from '@novu/react';
+    Wrap your app or the specific section where the subscription component would live with the `<NovuProvider>`. Configure the provider with your `applicationIdentifier` and the current user's `subscriberId`.
 
-const NOVU_CONFIG = {
-  applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
-  subscriberId: 'user-123',
-};
+    ```tsx
+    import { NovuProvider } from '@novu/react';
 
-function App() {
-  return (
-    <NovuProvider {...NOVU_CONFIG}>
-      {/* Application content */}
-    </NovuProvider>
-  );
-}
-```
+    const NOVU_CONFIG = {
+      applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
+      subscriberId: 'user-123',
+    };
 
-## Add the component
+    function App() {
+      return (
+        <NovuProvider {...NOVU_CONFIG}>
+          {/* Application content */}
+        </NovuProvider>
+      );
+    }
+    ```
+  </Step>
 
-Place the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component inside the provider. You must pass two required props:
-- **topic**: The topic key.
-- **identifier**: A unique identifier for this specific subscription instance.
+  <Step>
+    ### Add the component
 
-```tsx
-import { Subscription } from '@novu/react';
+    Place the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component inside the provider. You must pass two required props:
+    - **topic**: The topic key.
+    - **identifier**: A unique identifier for this specific subscription instance.
 
-export const SubscriptionUI = () => {
-  return (
-    <Subscription
-      topicKey="project-123"
-      identifier="project-updates"
-    />
-  );
-};
-```
+    ```tsx
+    import { Subscription } from '@novu/react';
 
-## Define preferences
+    export const SubscriptionUI = () => {
+      return (
+        <Subscription
+          topicKey="project-123"
+          identifier="project-updates"
+        />
+      );
+    };
+    ```
 
-By default, the component fetches all workflows associated with the topic. You can decide which workflows to show, rename them, or group them using the `preferences` prop.
+  </Step>
 
-```tsx
-import { Subscription } from '@novu/react';
+</Steps>
 
-export const SubscriptionUI = () => {
-  return (
-    <Subscription
-      topicKey="project-123"
-      identifier="project-updates"
-      preferences={["workflow-identifier-1", "workflow-identifier-2"]}
-    />
-  );
-};
-```
+## Next steps
 
-The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component provides a complete, ready-to-use UI. If you need more control, you can build a [custom subscription](/platform/subscription/customize-the-ui) experience using the subscription components and hooks.
+<Cards cols={2}>
+  <Card title="Customize the UI" icon={<Blocks />} href="/inbox/react/styling">
+    Build custom Subscription UI using the Subscription components.
+  </Card>
+  <Card
+    title="Conditional rules"
+    icon={<ListFilter />}
+    href="/platform/inbox/overview"
+  >
+    Decide which workflows to show, rename them, or group using conditional rules.
+  </Card>
+</Cards>
