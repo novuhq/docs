@@ -1,0 +1,167 @@
+---
+pageTitle: 'Subscription UI'
+title: 'Subscription UI'
+description: "Learn how to use the pre-built Subscription components, manage preferences, and customize styling."
+icon: 'Blocks'
+---
+
+The Subscription UI lets users control which notifications they receive and under what conditions. It provides a set of components that you can use together or independently to build subscription and preference management experiences in your app.
+
+The Subscription UI works within the existing Novu environment and uses the same provider, and customization as the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> component.
+
+## Subscription components
+
+You can use the all-in-one component or compose your own interface using sub-components to fit your app's layout.
+
+![Subscription components](/images/subscription-preferences/subscription.png)
+
+### `<Subscription />`
+
+The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component serves as the root provider and the default UI.
+
+It requires the `topic` and `identifier` props to establish the context for the subscription and must be used with the Novu provider as the source of session context.
+
+```tsx
+import {NovuProvider, Subscription } from '@novu/react';
+
+  return (
+    <NovuProvider 
+      applicationIdentifier="your-app-id"
+      subscriberId="test-subscriber">
+      <Subscription
+        topic="product-updates"
+        identifier="user-123"
+      />
+    </NovuProvider>
+  )
+```
+
+### `<SubscriptionButton />`
+
+The `<SubscriptionButton />` component renders only the subscribe or unsubscribe action. This is useful when you want to place a subscription control inline. 
+
+Use this component within the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component.
+
+```tsx
+import {NovuProvider, Subscription, SubscriptionButton } from '@novu/react';
+
+  return (
+    <NovuProvider 
+      applicationIdentifier="your-app-id"
+      subscriberId="test-subscriber">
+      <Subscription
+        topic="product-updates"
+        identifier="user-123"
+      >
+        <SubscriptionButton />
+      </Subscription>
+    </NovuProvider>
+  )
+```
+
+### `<SubscriptionPreferences />`
+
+The `<SubscriptionPreferences />` component renders the list of preferences associated with a subscription. Preferences typically map to workflows or workflow groups within a topic.
+
+Use this component when you want to control where and how preferences appear in your UI. Use it within a <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> context.
+
+```tsx
+import {NovuProvider, Subscription, SubscriptionPreferences } from '@novu/react';
+
+  return (
+    <NovuProvider 
+      applicationIdentifier="your-app-id"
+      subscriberId="test-subscriber">
+      <Subscription
+        topic="product-updates"
+        identifier="user-123"
+      >
+        <SubscriptionPreferences />
+      </Subscription>
+    </NovuProvider>
+  )
+```
+
+## Subscription with preferences
+
+The `preferences` prop controls which workflows the component displays to the user
+
+### Default preferences
+
+If you want to simply filter which workflows are visible without changing their labels, you can pass an array of workflow identifier strings. The component uses the workflow names defined in the Dashboard as the labels.
+
+```tsx
+<Subscription
+  topic="project-123"
+  identifier="project-updates"
+  // Only shows these two workflows
+  preferences={["workflow-identifier-1", "workflow-identifier-2"]}
+/>
+```
+
+### Custom preferences
+
+To customize the labels, descriptions, or default states, pass an array of objects. This is useful for making technical workflow names user-friendly.
+
+```tsx
+<Subscription
+  topic="project-123"
+  identifier="project-updates"
+  preferences={[
+    {
+      workflowId: "comment-on-task",
+      label: "New Comments",
+      enabled: true, // Force enabled by default
+    },
+    {
+      workflowId: "task-assigned",
+      label: "Assignments & Ownership",
+      enabled: true,
+    },
+    {
+      // Group multiple workflows under one label
+      filter: { tags: ['security', 'admin'] },
+      label: 'Security Alerts',
+      enabled: false,
+    }
+  ]}
+/>
+```
+
+## Styling
+
+The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component shares the same styling architecture as the Inbox component. You can use the `appearance` prop to customize elements, variables, icons and themes.
+
+For full styling and theming options, see the [Inbox styling documentation](/platform/inbox/configuration/styling).
+
+### Dark mode
+
+Novu provides `subscriptionDarkTheme` in the `@novu/react/themes` package to apply the built-in dark theme to the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component. You can apply this conditionally based on your app's state.
+
+```tsx
+import { Subscription } from '@novu/react';
+import { subscriptionDarkTheme } from '@novu/react/themes';
+
+<Subscription
+  topic="product-updates"
+  identifier="user-123"
+  appearance={{
+    baseTheme: isDarkMode ? subscriptionDarkTheme : undefined,
+  }}
+/>
+```
+
+### Localization
+
+You can customize the text labels used in the component to support different languages or to match your app's voice. This works identically to Inbox localization. For full localization options, see the [Inbox localization documentation](/platform/inbox/advanced-concepts/localization).
+
+```tsx
+<Subscription
+  topic="product-updates"
+  identifier="user-123"
+  localization={{
+    "subscription.subscribe": "Join",
+    locale: "en-US",
+  }}
+/>
+```
