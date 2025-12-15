@@ -1,8 +1,84 @@
 ---
-pageTitle: 'quickstart'
-title: 'Quickstart'
-description: "Learn what Contexts are in Novu, how they differ from payloads, and how they help you organize and personalize notifications across workflows."
-icon: 'Package'
+pageTitle: 'Render the <Subscription /> UI'
+title: '<Subscription /> UI'
+description: "Learn how to integrate and render the Subscription component in your React application to manage user preferences."
+icon: 'ToggleRight'
 ---
 
-_Contexts_ are flexible, 
+<Callout>Subscription is avialable from v3.4 for the `@novu/react` and `@novu/js` packages.</Callout>
+
+This quickstart shows how to render the subscription UI in your app. The subscription UI lets users subscribe to topics, define conditions, and manage how they receive notifications.
+
+Refer to the [Manage subscriptions documentation](/platform/subscription/manage-subscriptions) to learn how to manage subscriptions without rendering the Subscription UI.
+
+The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component is designed to work within an existing Novu environment and uses the same provider and session context as the Inbox component.
+
+## Create a topic
+
+Subscriptions are managed at the topic level. Before rendering the subscription UI, make sure the topic already exists. You can create a topic in the Novu Dashboard or via the API.
+
+Topics can represent any category of notifications, if you haven't created a topic yet, see the [Topics documentation](/platform/concepts/topics).
+
+## Install `@novu/react`
+
+Ensure you have the latest version of the `@novu/react` package installed in your project.
+
+```bash
+npm install @novu/react
+```
+
+## Initialize the Novu client
+
+Wrap your app or the specific section where the subscription component will live with the `<NovuProvider>`. This must be configured with your `applicationIdentifier` and the current user's `subscriberId`.
+
+```tsx
+import { NovuProvider } from '@novu/react';
+
+const NOVU_CONFIG = {
+  applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
+  subscriberId: 'user-123',
+};
+
+function App() {
+  return (
+    <NovuProvider {...NOVU_CONFIG}>
+      {/* Application content */}
+    </NovuProvider>
+  );
+}
+```
+
+## Add the component
+
+Place the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component inside the provider. You must pass two required props:
+- **topic**: The topic key.
+- **identifier**: A unique identifier for this specific subscription instance.
+
+```tsx
+import { Subscription } from '@novu/react';
+
+export const SubscriptionUI = () => {
+  return (
+    <Subscription
+      topicKey="project-123"
+      identifier="project-updates"
+    />
+  );
+};
+```
+
+## Define preferences
+
+By default, the component fetches all workflows associated with the topic. You can customize which workflows are shown, rename them, or group them using the `preferences` prop.
+
+The example below groups multiple workflows under a single label and sets a default enabled state.
+
+```tsx
+<Subscription
+  topicKey="project-123"
+  identifier="project-updates"
+  preferences={["workflow-identifier-1", "workflow-identifier-2"]}
+/>
+```
+
+The `<Subscription />` component provides a complete, ready-to-use UI. If you need more control, you can build a [custom subscription](/platform/subscription/customize-the-ui) experience using the subscription components and hooks.
