@@ -29,7 +29,7 @@ npm install @novu/react
 
 ## Initialize the Novu client
 
-Wrap your app or the specific section where the subscription component will live with the `<NovuProvider>`. This must be configured with your `applicationIdentifier` and the current user's `subscriberId`.
+Wrap your app or the specific section where the subscription component would live with the `<NovuProvider>`. Configure the provider with your `applicationIdentifier` and the current user's `subscriberId`.
 
 ```tsx
 import { NovuProvider } from '@novu/react';
@@ -69,9 +69,7 @@ export const SubscriptionUI = () => {
 
 ## Define preferences
 
-By default, the component fetches all workflows associated with the topic. You can customize which workflows are shown, rename them, or group them using the `preferences` prop.
-
-The example below groups multiple workflows under a single label and sets a default enabled state.
+By default, the component fetches all workflows associated with the topic. You can decide which workflows to show, rename them, or group them using the `preferences` prop.
 
 ```tsx
 <Subscription
