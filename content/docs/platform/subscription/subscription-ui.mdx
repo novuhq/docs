@@ -145,7 +145,7 @@ export function Novu() {
           },
           {
             // Group multiple workflows under one label and filter using workflow id
-            filter: { workflowIds: ['test-workflow1', 'test-workflow2] },
+            filter: { workflowIds: ['test-workflow1', 'test-workflow2'] },
             label: 'Test Group',
             enabled: false,
           },
@@ -234,21 +234,21 @@ export function Novu() {
         identifier="user-123"
         preferences={["workflow-1", "workflow-2"]}
         renderPreferences={(subscription?: TopicSubscription, loading?: boolean) => (
-          return (
-            <div>
-              {subscription?.preferences.map((preference, idx) => (
-                <div key={`${subscription.identifier}-${idx}`}>
-                  <label htmlFor="input">{preference.label}</label>
-                  <span>{preference.description}</span>
-                  <input 
-                    type="checkbox"
-                    value={preference.enabled}
-                    onChange={(e) => { preference.update({ value: e.target.value }) }} 
-                  />
-                </div>
-              ))}
-            </div>
-          );
+          <div>
+            {subscription?.preferences.map((preference, idx) => (
+              <div key={`${subscription.identifier}-${idx}`}>
+                <label htmlFor="input">{preference.label}</label>
+                <span>{preference.description}</span>
+                <input
+                  type="checkbox"
+                  checked={preference.enabled}
+                  onChange={(e) =>
+                    preference.update({ value: e.target.checked })
+                  }
+                />
+              </div>
+            ))}
+          </div>
         )}
       />
     </NovuProvider>
