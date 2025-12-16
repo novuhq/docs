@@ -5,9 +5,6 @@ description: "Learn how to use the pre-built Subscription components, manage pre
 icon: 'Blocks'
 ---
 
-import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
-
-
 The Subscription UI lets users control which notifications they receive and under what conditions. It provides a set of components that you can use together or independently to build subscription and preference management experiences in your app.
 
 The Subscription UI works within the existing Novu environment and uses the same provider, and customization as the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> component.
@@ -25,7 +22,7 @@ The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Metho
 It requires the `topic` and `identifier` props to establish the context for the subscription, and you must use it with the Novu provider as the source of session context.
 
 ```tsx
-import {NovuProvider, Subscription } from '@novu/react';
+import { NovuProvider, Subscription } from '@novu/react';
 
 export function Novu() {
   return (
@@ -48,7 +45,7 @@ The `<SubscriptionButton />` component renders only the subscribe or unsubscribe
 Use this component within the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component.
 
 ```tsx
-import {NovuProvider, Subscription, SubscriptionButton } from '@novu/react';
+import { NovuProvider, Subscription, SubscriptionButton } from '@novu/react';
 
 export function Novu() {
   return (
@@ -100,7 +97,7 @@ The `preferences` prop controls which workflows the component displays to the us
 If you want to simply filter which workflows are visible without changing their labels, you can pass an array of workflow identifier strings. The component uses the workflow names defined in the Dashboard as the labels.
 
 ```tsx
-import { Subscription } from '@novu/react';
+import { NovuProvider, Subscription } from '@novu/react';
 
 export function Novu() {
   return (
@@ -123,7 +120,7 @@ export function Novu() {
 You can filter using tags, workflow IDs, or both. You can also customize the labels, descriptions, or default states by passing an array of objects.
 
 ```tsx
-import {NovuProvider, Subscription,  } from '@novu/react';
+import { NovuProvider, Subscription,  } from '@novu/react';
 
 export function Novu() {
   return (
@@ -170,7 +167,7 @@ For full styling and theming options, see the [Inbox styling documentation](/pla
 Novu provides `subscriptionDarkTheme` in the `@novu/react/themes` package to apply the built-in dark theme to the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component. You can apply this conditionally based on your app's state.
 
 ```tsx
-import { Subscription } from '@novu/react';
+import { NovuProvider, Subscription } from '@novu/react';
 import { subscriptionDarkTheme } from '@novu/react/themes';
 
 export function Novu() {
@@ -196,7 +193,7 @@ export function Novu() {
 You can customize the text labels used in the component to support different languages or to match your app's voice. This works identically to Inbox localization. For full localization options, see the [Inbox localization documentation](/platform/inbox/advanced-concepts/localization).
 
 ```tsx
-import { Subscription } from '@novu/react';
+import { NovuProvider, Subscription } from '@novu/react';
  
 export function Novu() {
   return (
@@ -224,7 +221,7 @@ The `renderPreferences` prop on the <Method href="/platform/subscription/quickst
 The function receives the current `subscription` object and a `loading` boolean. You can map over the `preferences` array and render your own HTML elements.
 
 ```tsx
-import { Subscription } from '@novu/react';
+import { NovuProvider, Subscription } from '@novu/react';
 
 export function Novu() {
   return (
