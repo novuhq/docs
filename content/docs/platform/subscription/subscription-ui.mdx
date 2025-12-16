@@ -5,6 +5,9 @@ description: "Learn how to use the pre-built Subscription components, manage pre
 icon: 'Blocks'
 ---
 
+import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
+
+
 The Subscription UI lets users control which notifications they receive and under what conditions. It provides a set of components that you can use together or independently to build subscription and preference management experiences in your app.
 
 The Subscription UI works within the existing Novu environment and uses the same provider, and customization as the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> component.
@@ -19,7 +22,7 @@ You can use the all-in-one component or compose your own interface using sub-com
 
 The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component serves as the root provider and the default UI.
 
-It requires the `topic` and `identifier` props to establish the context for the subscription and must be used with the Novu provider as the source of session context.
+It requires the `topic` and `identifier` props to establish the context for the subscription, and you must use it with the Novu provider as the source of session context.
 
 ```tsx
 import {NovuProvider, Subscription } from '@novu/react';
@@ -82,7 +85,7 @@ import {NovuProvider, Subscription, SubscriptionPreferences } from '@novu/react'
   )
 ```
 
-## Subscription with preferences
+## Filter using preferences
 
 The `preferences` prop controls which workflows the component displays to the user
 
@@ -101,31 +104,48 @@ If you want to simply filter which workflows are visible without changing their 
 
 ### Custom preferences
 
-To customize the labels, descriptions, or default states, pass an array of objects. This is useful for making technical workflow names user-friendly.
+You can filter using tags, workflow IDs, or both. You can also customize the labels, descriptions, or default states by passing an array of objects.
 
 ```tsx
-<Subscription
-  topicKey="product-updates"
-  identifier="user-123"
-  preferences={[
-    {
-      workflowId: "comment-on-task",
-      label: "New Comments",
-      enabled: true, // Force enabled by default
-    },
-    {
-      workflowId: "task-assigned",
-      label: "Assignments & Ownership",
-      enabled: true,
-    },
-    {
-      // Group multiple workflows under one label
-      filter: { tags: ['security', 'admin'] },
-      label: 'Security Alerts',
-      enabled: false,
-    }
-  ]}
-/>
+
+import {NovuProvider, Subscription,  } from '@novu/react';
+
+  return (
+    <NovuProvider 
+      applicationIdentifier="your-app-id"
+      subscriberId="test-subscriber"
+    >
+      <Subscription 
+        topicKey="product-updates"
+        identifier="user-123"
+        preferences={[
+          {
+            workflowId: "comment-on-task",
+            label: "New Comments",
+            enabled: true, // Force enabled by default
+          },
+          {
+            workflowId: "task-assigned",
+            label: "Assignments & Ownership",
+            enabled: true,
+          },
+          {
+            // Group multiple workflows under one label and filter using tags
+            filter: { tags: ['security', 'admin'] },
+            label: 'Security Alerts',
+            enabled: false,
+          },
+          {
+            // Group multiple workflows under one label and filter using workflow id
+            filter: { workflowIds: ['test-workflow1', 'test-workflow2] },
+            label: 'Test Group',
+            enabled: false,
+          },
+        ]}
+      />
+
+    </NovuProvider>
+  )
 ```
 
 ## Styling
@@ -168,7 +188,7 @@ You can customize the text labels used in the component to support different lan
 
 ## Custom rendering
 
-The `renderPreferences` prop on the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component lets you to override how the list of workflows is displayed while still relying on the component to handle data fetching and state management.
+The `renderPreferences` prop on the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component lets you override how the component displays the list of workflows while still relying on the component to handle data fetching and state management.
 
 The function receives the current `subscription` object and a `loading` boolean. You can map over the `preferences` array and render your own HTML elements.
 
