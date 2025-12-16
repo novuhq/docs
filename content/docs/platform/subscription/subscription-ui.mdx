@@ -27,6 +27,7 @@ It requires the `topic` and `identifier` props to establish the context for the 
 ```tsx
 import {NovuProvider, Subscription } from '@novu/react';
 
+export function Novu() {
   return (
     <NovuProvider 
       applicationIdentifier="your-app-id"
@@ -37,6 +38,7 @@ import {NovuProvider, Subscription } from '@novu/react';
       />
     </NovuProvider>
   )
+}
 ```
 
 ### `<SubscriptionButton />`
@@ -48,6 +50,7 @@ Use this component within the <Method href="/platform/subscription/quickstart">{
 ```tsx
 import {NovuProvider, Subscription, SubscriptionButton } from '@novu/react';
 
+export function Novu() {
   return (
     <NovuProvider 
       applicationIdentifier="your-app-id"
@@ -60,6 +63,7 @@ import {NovuProvider, Subscription, SubscriptionButton } from '@novu/react';
       </Subscription>
     </NovuProvider>
   )
+}
 ```
 
 ### `<SubscriptionPreferences />`
@@ -71,18 +75,20 @@ Use this component when you want to control where and how preferences appear in 
 ```tsx
 import {NovuProvider, Subscription, SubscriptionPreferences } from '@novu/react';
 
-  return (
-    <NovuProvider 
-      applicationIdentifier="your-app-id"
-      subscriberId="test-subscriber">
-      <Subscription
-        topicKey="product-updates"
-        identifier="user-123"
-      >
-        <SubscriptionPreferences />
-      </Subscription>
-    </NovuProvider>
-  )
+export function Novu() {
+    return (
+      <NovuProvider 
+        applicationIdentifier="your-app-id"
+        subscriberId="test-subscriber">
+        <Subscription
+          topicKey="product-updates"
+          identifier="user-123"
+        >
+          <SubscriptionPreferences />
+        </Subscription>
+      </NovuProvider>
+    )
+}
 ```
 
 ## Filter using preferences
@@ -94,12 +100,22 @@ The `preferences` prop controls which workflows the component displays to the us
 If you want to simply filter which workflows are visible without changing their labels, you can pass an array of workflow identifier strings. The component uses the workflow names defined in the Dashboard as the labels.
 
 ```tsx
-<Subscription
-  topicKey="product-updates"
-  identifier="user-123"
-  // Only shows these two workflows
-  preferences={["workflow-identifier-1", "workflow-identifier-2"]}
-/>
+import { Subscription } from '@novu/react';
+
+export function Novu() {
+  return (
+    <NovuProvider 
+      applicationIdentifier="your-app-id" subscriberId="test-subscriber"
+    >
+      <Subscription
+        topicKey="product-updates"
+        identifier="user-123"
+        // Only shows these two workflows
+        preferences={["workflow-identifier-1", "workflow-identifier-2"]}
+      />
+    </NovuProvider>
+  )
+}
 ```
 
 ### Custom preferences
@@ -107,9 +123,9 @@ If you want to simply filter which workflows are visible without changing their 
 You can filter using tags, workflow IDs, or both. You can also customize the labels, descriptions, or default states by passing an array of objects.
 
 ```tsx
-
 import {NovuProvider, Subscription,  } from '@novu/react';
 
+export function Novu() {
   return (
     <NovuProvider 
       applicationIdentifier="your-app-id"
@@ -125,11 +141,6 @@ import {NovuProvider, Subscription,  } from '@novu/react';
             enabled: true, // Force enabled by default
           },
           {
-            workflowId: "task-assigned",
-            label: "Assignments & Ownership",
-            enabled: true,
-          },
-          {
             // Group multiple workflows under one label and filter using tags
             filter: { tags: ['security', 'admin'] },
             label: 'Security Alerts',
@@ -143,9 +154,9 @@ import {NovuProvider, Subscription,  } from '@novu/react';
           },
         ]}
       />
-
     </NovuProvider>
-  )
+  );
+}
 ```
 
 ## Styling
@@ -162,13 +173,22 @@ Novu provides `subscriptionDarkTheme` in the `@novu/react/themes` package to app
 import { Subscription } from '@novu/react';
 import { subscriptionDarkTheme } from '@novu/react/themes';
 
-<Subscription
-  topicKey="product-updates"
-  identifier="user-123"
-  appearance={{
-    baseTheme: isDarkMode ? subscriptionDarkTheme : undefined,
-  }}
-/>
+export function Novu() {
+  return (
+    <NovuProvider 
+      applicationIdentifier="your-app-id"
+      subscriberId="test-subscriber"
+    >
+      <Subscription
+        topicKey="product-updates"
+        identifier="user-123"
+        appearance={{
+          baseTheme: isDarkMode ? subscriptionDarkTheme : undefined,
+        }}
+      />
+    </NovuProvider>
+  );
+}
 ```
 
 ### Localization
@@ -176,14 +196,25 @@ import { subscriptionDarkTheme } from '@novu/react/themes';
 You can customize the text labels used in the component to support different languages or to match your app's voice. This works identically to Inbox localization. For full localization options, see the [Inbox localization documentation](/platform/inbox/advanced-concepts/localization).
 
 ```tsx
-<Subscription
-  topicKey="product-updates"
-  identifier="user-123"
-  localization={{
-    "subscription.subscribe": "Join",
-    locale: "en-US",
-  }}
-/>
+import { Subscription } from '@novu/react';
+ 
+export function Novu() {
+  return (
+    <NovuProvider 
+      applicationIdentifier="your-app-id"
+      subscriberId="test-subscriber"
+    >
+      <Subscription
+        topicKey="product-updates"
+        identifier="user-123"
+        localization={{
+          "subscription.subscribe": "Join",
+          locale: "en-US",
+        }}
+      />
+    </NovuProvider>
+  );
+}
 ```
 
 ## Custom rendering
@@ -193,26 +224,37 @@ The `renderPreferences` prop on the <Method href="/platform/subscription/quickst
 The function receives the current `subscription` object and a `loading` boolean. You can map over the `preferences` array and render your own HTML elements.
 
 ```tsx
-<Subscription
-  topicKey="product-updates"
-  identifier="user-123"
-  preferences={["workflow-1", "workflow-2"]}
-  renderPreferences={(subscription?: TopicSubscription, loading?: boolean) => (
-	  return (
-		  <div>
-			  {subscription?.preferences.map((preference, idx) => (
-			    <div key={`${subscription.identifier}-${idx}`}>
-			      <label htmlFor="input">{preference.label}</label>
-			      <span>{preference.description}</span>
-			      <input 
-				      type="checkbox"
-				      value={preference.enabled}
-				      onChange={(e) => { preference.update({ value: e.target.value }) }} 
-			      />
-			    </div>
-		    ))}
-		  </div>
-	  );
-  )}
-/>
+import { Subscription } from '@novu/react';
+
+export function Novu() {
+  return (
+    <NovuProvider 
+      applicationIdentifier="your-app-id"
+      subscriberId="test-subscriber"
+    >
+      <Subscription
+        topicKey="product-updates"
+        identifier="user-123"
+        preferences={["workflow-1", "workflow-2"]}
+        renderPreferences={(subscription?: TopicSubscription, loading?: boolean) => (
+          return (
+            <div>
+              {subscription?.preferences.map((preference, idx) => (
+                <div key={`${subscription.identifier}-${idx}`}>
+                  <label htmlFor="input">{preference.label}</label>
+                  <span>{preference.description}</span>
+                  <input 
+                    type="checkbox"
+                    value={preference.enabled}
+                    onChange={(e) => { preference.update({ value: e.target.value }) }} 
+                  />
+                </div>
+              ))}
+            </div>
+          );
+        )}
+      />
+    </NovuProvider>
+  )
+}
 ```
