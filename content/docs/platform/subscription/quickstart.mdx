@@ -15,7 +15,7 @@ import {
 
 This quickstart shows how to render the subscription UI in your app. The subscription UI lets users subscribe to topics, define conditions, and manage how they receive notifications.
 
-Refer to the [Manage subscriptions documentation](/platform/subscription/manage-subscriptions) to learn how to manage subscriptions without rendering the Subscription UI.
+<Callout>To learn how to manage subscriptions without rendering the Subscription UI, refer to the [Headless hooks documentation](/platform/subscription/Headless-hooks).</Callout>
 
 The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component is designed to work within an existing Novu environment and uses the same provider and session context as the Inbox component.
 
@@ -65,23 +65,27 @@ The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Metho
   <Step>
     ### Add the component
 
-    Place the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component inside the provider. You must pass two required props:
-    - **topic**: The topic key.
-    - **identifier**: A unique identifier for this specific subscription instance.
+    Place the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component inside the provider. You must pass the `topicKey` and a unique `identifier` for the specific subscription instance.
 
     ```tsx
-    import { Subscription } from '@novu/react';
+    import { NovuProvider, Subscription } from '@novu/react';
 
-    export const SubscriptionUI = () => {
-      return (
-        <Subscription
-          topicKey="project-123"
-          identifier="project-updates"
-        />
-      );
+    const NOVU_CONFIG = {
+      applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
+      subscriberId: 'user-123',
     };
-    ```
 
+    function App() {
+      return (
+        <NovuProvider {...NOVU_CONFIG}>
+          <Subscription
+            topicKey="project-123"
+            identifier="project-updates"
+          />
+        </NovuProvider>
+      );
+    }
+    ```
   </Step>
 
 </Steps>
