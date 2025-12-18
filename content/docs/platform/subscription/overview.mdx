@@ -7,7 +7,7 @@ icon: 'ToggleRight'
 
 Subscription introduce topic-level settings that allow subscribers to decide exactly which notifications they want to receive or mute.
 
-While standard preferences allow subscribers to toggle specific channels on or off, Subscription provide a more precise control through conditional rules. With Subscription, subscribers can mute topics, subscribe, or unsubscribe to them, and also define filters that determine when Novu should deliver a notification. 
+While standard preferences allow subscribers to toggle specific channels on or off, Subscription provide a more precise control through conditional rules. With Subscription, subscribers can mute topics, subscribe, or unsubscribe to them, and also define conditions that determine when Novu should deliver a notification. 
 
 ## How subscription fits into the notification flow
 
@@ -43,6 +43,88 @@ For example, in a trading app, a subscriber can have three separate alerts set u
 - Notify me when ETH is above $4k.
 
 Novu stores these configurations per subscriber, per topic, and per workflow.
+
+## Subscription components
+
+Novu provides a set of pre-built React components that you can use together or independently to build subscription experiences.
+
+![Subscription components](/images/subscription-preferences/subscription.png)
+
+### `<Subscription />`
+
+The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component serves as the root provider and the default UI.
+
+It requires the `topicKey` prop and optionally an `identifier` prop, and you must wrap it with the Novu provider as the source of session context.
+
+```tsx
+import { NovuProvider, Subscription } from '@novu/react';
+
+export function Novu() {
+  return (
+    <NovuProvider 
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
+    >
+      <Subscription
+        topicKey="product-updates"
+        identifier="user-123"
+      />
+    </NovuProvider>
+  )
+}
+```
+
+### `<SubscriptionButton />`
+
+The `<SubscriptionButton />` component renders only the subscribe or unsubscribe action. This is useful when you want to place a subscription control inline. 
+
+Use this component within the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component.
+
+```tsx
+import { NovuProvider, Subscription, SubscriptionButton } from '@novu/react';
+
+export function Novu() {
+  return (
+    <NovuProvider 
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
+      >
+        <Subscription
+          topicKey="product-updates"
+          identifier="user-123"
+        >
+          <SubscriptionButton />
+        </Subscription>
+    </NovuProvider>
+  )
+}
+```
+
+### `<SubscriptionPreferences />`
+
+The `<SubscriptionPreferences />` component renders the list of preferences associated with a subscription. Preferences typically map to workflows or workflow groups within a topic.
+
+Use this component when you want to control where and how preferences appear in your UI. Use it within a <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> context.
+
+```tsx
+import {NovuProvider, Subscription, SubscriptionPreferences } from '@novu/react';
+
+export function Novu() {
+    return (
+      <NovuProvider 
+        subscriber="SUBSCRIBER_ID"
+        applicationIdentifier="APPLICATION_IDENTIFIER"
+        >
+        <Subscription
+          topicKey="product-updates"
+          identifier="user-123"
+        >
+          <SubscriptionPreferences />
+        </Subscription>
+      </NovuProvider>
+    )
+}
+```
 
 ## How Subscription relate to the Inbox
 

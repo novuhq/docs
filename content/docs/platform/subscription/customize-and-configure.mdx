@@ -1,96 +1,17 @@
 ---
-pageTitle: 'Subscription UI'
-title: 'Subscription UI'
-description: "Learn how to use the pre-built Subscription components, manage preferences, and customize styling."
+pageTitle: 'Customize and configure'
+title: 'Customize and configure'
+description: "Learn how to filter visible preferences, customize styling, and use custom render functions."
 icon: 'Blocks'
 ---
 
-The Subscription UI lets users control which notifications they receive and under what conditions. It provides a set of components that you can use together or independently to build subscription and preference management experiences in your app.
+The Subscription UI works within the existing Novu environment and uses the same provider and styling architecture as the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> component.
 
-The Subscription UI works within the existing Novu environment and uses the same provider, and customization as the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> component.
-
-## Subscription components
-
-You can use the all-in-one component or compose your own interface using sub-components to fit your app's layout.
-
-![Subscription components](/images/subscription-preferences/subscription.png)
-
-### `<Subscription />`
-
-The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component serves as the root provider and the default UI.
-
-It requires the `topic` and `identifier` props to establish the context for the subscription, and you must use it with the Novu provider as the source of session context.
-
-```tsx
-import { NovuProvider, Subscription } from '@novu/react';
-
-export function Novu() {
-  return (
-    <NovuProvider 
-      applicationIdentifier="your-app-id"
-      subscriberId="test-subscriber">
-      <Subscription
-        topicKey="product-updates"
-        identifier="user-123"
-      />
-    </NovuProvider>
-  )
-}
-```
-
-### `<SubscriptionButton />`
-
-The `<SubscriptionButton />` component renders only the subscribe or unsubscribe action. This is useful when you want to place a subscription control inline. 
-
-Use this component within the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component.
-
-```tsx
-import { NovuProvider, Subscription, SubscriptionButton } from '@novu/react';
-
-export function Novu() {
-  return (
-    <NovuProvider 
-      applicationIdentifier="your-app-id"
-      subscriberId="test-subscriber">
-      <Subscription
-        topicKey="product-updates"
-        identifier="user-123"
-      >
-        <SubscriptionButton />
-      </Subscription>
-    </NovuProvider>
-  )
-}
-```
-
-### `<SubscriptionPreferences />`
-
-The `<SubscriptionPreferences />` component renders the list of preferences associated with a subscription. Preferences typically map to workflows or workflow groups within a topic.
-
-Use this component when you want to control where and how preferences appear in your UI. Use it within a <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> context.
-
-```tsx
-import {NovuProvider, Subscription, SubscriptionPreferences } from '@novu/react';
-
-export function Novu() {
-    return (
-      <NovuProvider 
-        applicationIdentifier="your-app-id"
-        subscriberId="test-subscriber">
-        <Subscription
-          topicKey="product-updates"
-          identifier="user-123"
-        >
-          <SubscriptionPreferences />
-        </Subscription>
-      </NovuProvider>
-    )
-}
-```
+You can configure which options are visible to your users, apply your brand's theme, or take full control of the rendering.
 
 ## Filter using preferences
 
-The `preferences` prop controls which workflows the component displays to the user
+The `preferences` prop on the <Method href="/platform/subscription/overview">{`<Subscription />`}</Method> component controls which workflows the component displays to the user.
 
 ### Default preferences
 
@@ -102,7 +23,8 @@ import { NovuProvider, Subscription } from '@novu/react';
 export function Novu() {
   return (
     <NovuProvider 
-      applicationIdentifier="your-app-id" subscriberId="test-subscriber"
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
     >
       <Subscription
         topicKey="product-updates"
@@ -125,8 +47,8 @@ import { NovuProvider, Subscription,  } from '@novu/react';
 export function Novu() {
   return (
     <NovuProvider 
-      applicationIdentifier="your-app-id"
-      subscriberId="test-subscriber"
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
     >
       <Subscription 
         topicKey="product-updates"
@@ -173,8 +95,8 @@ import { subscriptionDarkTheme } from '@novu/react/themes';
 export function Novu() {
   return (
     <NovuProvider 
-      applicationIdentifier="your-app-id"
-      subscriberId="test-subscriber"
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
     >
       <Subscription
         topicKey="product-updates"
@@ -190,16 +112,15 @@ export function Novu() {
 
 ### Localization
 
-You can customize the text labels used in the component to support different languages or to match your app's voice. This works identically to Inbox localization. For full localization options, see the [Inbox localization documentation](/platform/inbox/advanced-concepts/localization).
-
+You can customize the text labels used in the component to support different languages or to match your app's voice. This works identically to Inbox localization.
 ```tsx
 import { NovuProvider, Subscription } from '@novu/react';
  
 export function Novu() {
   return (
     <NovuProvider 
-      applicationIdentifier="your-app-id"
-      subscriberId="test-subscriber"
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
     >
       <Subscription
         topicKey="product-updates"
@@ -214,6 +135,8 @@ export function Novu() {
 }
 ```
 
+For full localization options, see the [Inbox localization documentation](/platform/inbox/advanced-concepts/localization).
+
 ## Custom rendering
 
 The `renderPreferences` prop on the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component lets you override how the component displays the list of workflows while still relying on the component to handle data fetching and state management.
@@ -226,8 +149,8 @@ import { NovuProvider, Subscription } from '@novu/react';
 export function Novu() {
   return (
     <NovuProvider 
-      applicationIdentifier="your-app-id"
-      subscriberId="test-subscriber"
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
     >
       <Subscription
         topicKey="product-updates"
