@@ -108,10 +108,10 @@ Use `useUpdateSubscription` to modify an existing subscription. This is primaril
 ```tsx
 import { useUpdateSubscription } from '@novu/react';
 
-function PreferenceToggle({ subscriptionId, workflowId, isEnabled }) {
+function PreferenceToggle({ subscriptionId, workflowId, }) {
   const { update, isUpdating } = useUpdateSubscription();
 
-  const togglePreference = async () => {
+  const savePreferences = async () => {
     await update({
       topicKey: 'project-123',
       subscriptionId: subscriptionId,
@@ -120,7 +120,7 @@ function PreferenceToggle({ subscriptionId, workflowId, isEnabled }) {
   };
 
   return (
-    <button onClick={save} disabled={isUpdating}>
+    <button onClick={savePreferences} disabled={isUpdating}>
       Save preferences
     </button>
   );
@@ -129,7 +129,7 @@ function PreferenceToggle({ subscriptionId, workflowId, isEnabled }) {
 
 ### Update a single preference
 
-If you need to ud0987 65r4e3wate a single preference, use the dedicated helpers available on the subscription object, such as:
+If you need to update a single preference, use the dedicated helpers available on the subscription object, such as:
 - `subscription.updatePreference(...)`, or
 - mapping over `subscription.preferences` and calling `preference.update(...)`
 
