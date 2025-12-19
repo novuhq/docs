@@ -5,9 +5,9 @@ description: 'Learn what a Subscription is in Novu, how they fit into the notifi
 icon: 'ToggleRight'
 ---
 
-Subscription introduce topic-level settings that allow subscribers to decide exactly which notifications they want to receive or mute.
+Subscriptions introduce topic-level settings that allow subscribers to decide exactly which notifications they want to receive or mute.
 
-While standard preferences allow subscribers to toggle specific channels on or off, Subscription provide a more precise control through conditional rules. With Subscription, subscribers can mute topics, subscribe, or unsubscribe to them, and also define conditions that determine when Novu should deliver a notification. 
+While standard preferences allow subscribers to toggle specific channels on or off, Subscriptions provide more precise control through conditional rules. With Subscriptions, subscribers can mute topics, subscribe or unsubscribe to them, and also define conditions that determine when Novu should deliver a notification.
 
 ## How subscription fits into the notification flow
 
@@ -126,8 +126,8 @@ export function Novu() {
 }
 ```
 
-## How Subscription relate to the Inbox
+## How Subscriptions relate to the Inbox
 
-If you use the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>, then subscriptions determine which notifications appear in a subscriber’s feed. When a subscriber joins a topic, the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> shows notifications from that topic according to the subscriber’s selected conditions. If the subscriber mutes the topic or sets rules that don't match an event, then the Inbox doesn't show those messages to that subscriber.
+If you use the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>, then subscriptions determine which notifications appear in a subscriber's feed. When a subscriber joins a topic, the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> shows notifications from that topic according to the subscriber's selected conditions. If the subscriber mutes the topic or sets rules that don't match an event, then the Inbox doesn't show those messages to that subscriber.
 
-Subscriptions work with or without the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>, and has a standalone <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component.
+Subscriptions work with or without the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>, and have a standalone <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component.
