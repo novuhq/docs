@@ -95,6 +95,8 @@ import { NovuProvider, Subscription } from '@novu/react';
 import { subscriptionDarkTheme } from '@novu/react/themes';
 
 export function Novu() {
+  const isDarkMode = true;
+  
   return (
     <NovuProvider 
       subscriber="SUBSCRIBER_ID"
@@ -146,7 +148,7 @@ The `renderPreferences` prop on the <Method href="/platform/subscription/quickst
 The function receives the current `subscription` object and a `loading` boolean. You can map over the `preferences` array and render your own HTML elements.
 
 ```tsx
-import { NovuProvider, Subscription } from '@novu/react';
+import { NovuProvider, Subscription, TopicSubscription } from '@novu/react';
 
 export function Novu() {
   return (
@@ -162,9 +164,10 @@ export function Novu() {
           <div>
             {subscription?.preferences.map((preference, idx) => (
               <div key={`${subscription.identifier}-${idx}`}>
-                <label htmlFor="input">{preference.label}</label>
+                <label htmlFor={`pref-${idx}`}>{preference.label}</label>
                 <span>{preference.description}</span>
                 <input
+                  id={`pref-${idx}`}
                   type="checkbox"
                   checked={preference.enabled}
                   onChange={(e) =>
