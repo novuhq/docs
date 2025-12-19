@@ -1,7 +1,7 @@
 ---
 pageTitle: 'Headless hooks'
 title: 'Headless hooks'
-description: 'Build a fully custom subscription interface using hooks.'
+description: 'Build a fully custom Subscription interface using hooks.'
 icon: 'Code'
 ---
 
@@ -14,6 +14,8 @@ These hooks allow you to list, create, update, and delete subscriptions while le
 ## Get all subscriptions
 
 The `useSubscriptions` hook retrieves all subscriptions associated with a specific topic for the current subscriber. This is useful for rendering a list of "My Subscriptions," where subscribers can view all the content they've opted into.
+
+The `subscriptions` array contains `TopicSubscription` objects. You can refer to the [TopicSubscription interface](/sdks/javascript/reference/topic-subscription) in the `@novu/js` package for the full type definition.
 
 ```tsx
 import { useSubscriptions } from '@novu/react';
@@ -28,10 +30,10 @@ function SubscriptionList() {
   return (
     <ul>
       {subscriptions.map((subscription) => (
-        <li key={subscription.id}>
-           {/* If name is undefined, fall back to the identifier */}
-           <span>{subscription.name || subscription.identifier}</span>
-        </li>
+        <CustomSubscriptionUI 
+            key={subscription.id} 
+            subscription={subscription} 
+        />
       ))}
     </ul>
   );
@@ -57,8 +59,7 @@ function ProjectSettings() {
 
   return (
     <div>
-      <h3>Subscription: {subscription.identifier}</h3>
-      <pre>{JSON.stringify(subscription.preferences, null, 2)}</pre>
+       <CustomSubscriptionUI subscription={subscription} />
     </div>
   );
 }
@@ -75,17 +76,19 @@ function SubscribeButton() {
   const { create, isCreating } = useCreateSubscription();
 
   const handleSubscribe = async () => {
-    try {
-      await create({ 
-        topicKey: 'project-123', 
-        identifier: 'user-project-alert',
-        // Optional: Set initial preferences
-        preferences: [] 
-      });
-      console.log('Subscribed successfully!');
-    } catch (error) {
-      console.error('Failed to subscribe');
+    const { data, error } = await create({ 
+      topicKey: 'project-123', 
+      identifier: 'user-project-alert',
+      // Optional: Set initial preferences
+      preferences: [] 
+    });
+
+    if (error) {
+        console.error('Failed to subscribe', error);
+        return;
     }
+    
+    console.log('Subscribed successfully!', data);
   };
 
   return (
@@ -97,6 +100,8 @@ function SubscribeButton() {
 ```
 
 ## Update a subscription
+
+Use useUpdateSubscription to update a subscription’s preferences list as a whole. This hook is intended for batch updates
 
 Use `useUpdateSubscription` to modify an existing subscription. This is primarily used to toggle workflow preferences, enabling, or disabling specific notifications within the subscription.
 
@@ -110,22 +115,49 @@ function PreferenceToggle({ subscriptionId, workflowId, isEnabled }) {
     await update({
       topicKey: 'project-123',
       subscriptionId: subscriptionId,
-      preferences: [
-        { 
-          workflowId: workflowId, 
-          enabled: !isEnabled // Toggle the boolean value
-        }
-      ]
+      preferences,
     });
   };
 
   return (
-    <input 
-      type="checkbox" 
-      checked={isEnabled} 
-      onChange={togglePreference}
-      disabled={isUpdating} 
-    />
+    <button onClick={save} disabled={isUpdating}>
+      Save preferences
+    </button>
+  );
+}
+```
+
+### Update a single preference
+
+If you need to ud0987 65r4e3wate a single preference, use the dedicated helpers available on the subscription object, such as:
+- `subscription.updatePreference(...)`, or
+- mapping over `subscription.preferences` and calling `preference.update(...)`
+
+```tsx
+import { useSubscription } from '@novu/react';
+
+function PreferenceList() {
+  const { subscription } = useSubscription({ 
+    topicKey: 'project-123',
+    identifier: 'user-project-alert'
+  });
+
+  if (!subscription) return null;
+
+  return (
+    <div>
+      {subscription.preferences.map((preference) => (
+        <div key={preference.workflowId}>
+          <label>{preference.label}</label>
+          <input 
+            type="checkbox" 
+            checked={preference.enabled} 
+            // Update the preference directly using the instance method
+            onChange={(e) => preference.update({ value: e.target.checked })}
+          />
+        </div>
+      ))}
+    </div>
   );
 }
 ```
@@ -135,22 +167,21 @@ function PreferenceToggle({ subscriptionId, workflowId, isEnabled }) {
 To allow users to opt-out or unsubscribe, use the `useDeleteSubscription` hook.
 
 ```tsx
-import { useDeleteSubscription } from '@novu/react';
+import { useRemoveSubscription } from '@novu/react';
 
 function UnsubscribeButton({ subscriptionId }) {
-  // Alias 'delete' to 'deleteSubscription' to avoid syntax errors
-  const { delete: deleteSubscription, isDeleting } = useDeleteSubscription();
+  const { remove, isRemoving } = useRemoveSubscription();
 
   const handleUnsubscribe = async () => {
-    await deleteSubscription({ 
+    await remove({ 
       subscriptionId: subscriptionId,
       topicKey: 'project-123'
     });
   };
 
   return (
-    <button onClick={handleUnsubscribe} disabled={isDeleting}>
-      {isDeleting ? 'Removing...' : 'Unsubscribe'}
+    <button onClick={handleUnsubscribe} disabled={isRemoving}>
+      {isRemoving ? 'Removing...' : 'Unsubscribe'}
     </button>
   );
 }
