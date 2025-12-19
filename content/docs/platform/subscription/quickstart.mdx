@@ -1,21 +1,21 @@
 ---
 pageTitle: '<Subscription /> Quickstart'
-title: 'Quickstart'
+title: 'Setup the <Subscription />'
 description: "Learn how to integrate and render the Subscription component in your React app to manage user preferences."
 icon: 'Zap'
 ---
 
 import { Step, Steps } from '@/components/steps';
 import {
-  ListFilter,
+  Code,
   Blocks
 } from 'lucide-react';
 
-<Callout>Subscription is avialable from v3.12.0 for the `@novu/react` and `@novu/js` packages.</Callout>
+<Callout>Subscription is avialable from v3.12.0 for the `@novu/nextjs`, `@novu/react` and `@novu/js` packages.</Callout>
 
 This quickstart shows how to render the subscription UI in your app. The subscription UI lets users subscribe to topics, define conditions, and manage how they receive notifications.
 
-<Callout>To learn how to manage subscriptions without rendering the Subscription UI, refer to the [Headless hooks documentation](/platform/subscription/Headless-hooks).</Callout>
+<Callout>To learn how to render custom UI for the Subscription preferences, refer to the [Headless hooks documentation](/platform/subscription/Headless-hooks).</Callout>
 
 The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component is designed to work within an existing Novu environment and uses the same provider and session context as the Inbox component.
 
@@ -23,18 +23,20 @@ The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Metho
   <Step>
     ### Create a topic
 
-    Subscriptions are managed at the topic level. Before rendering the subscription UI, make sure the topic already exists. You can create a topic in the Novu Dashboard or via the API.
+    Subscriptions are managed at the topic level. You can create a topic manually in the Novu Dashboard or via the API.
+    
+    However, you don't have to create it beforehand. If the topic key you provide to the component does not exist, Novu will automatically create it for you.
 
-    Topics can represent any category of notifications, if you haven't created a topic yet, see the [Topics documentation](/platform/concepts/topics).
+    Topics can represent any category of notifications. To learn more, see the [Topics documentation](/platform/concepts/topics).
   </Step>
 
   <Step>
-    ### Install `@novu/react`
+    ### Install `@novu/nextjs`
 
-    Ensure you have the latest version of the `@novu/react` package installed in your project.
+    Ensure you have the latest version of the `@novu/nextjs` package installed in your project.
 
     ```bash
-    npm install @novu/react
+    npm install @novu/nextjs
     ```
 
   </Step>
@@ -45,11 +47,11 @@ The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Metho
     Wrap your app or the specific section where the subscription component would live with the `<NovuProvider>`. Configure the provider with your `applicationIdentifier` and the current user's `subscriberId`.
 
     ```tsx
-    import { NovuProvider } from '@novu/react';
+    import { NovuProvider } from '@novu/nextjs';
 
     const NOVU_CONFIG = {
-      applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
-      subscriberId: 'user-123',
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
     };
 
     function App() {
@@ -65,14 +67,16 @@ The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Metho
   <Step>
     ### Add the component
 
-    Place the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component inside the provider. You must pass the `topicKey` and a unique `identifier` for the specific subscription instance.
-
+    Place the <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Method> component inside the provider. You must pass the `topicKey`. 
+    
+    The `identifier` prop is optional, you only need to provide it if you intend to manage multiple distinct subscriptions for the same topic.
+    
     ```tsx
-    import { NovuProvider, Subscription } from '@novu/react';
+    import { NovuProvider, Subscription } from '@novu/nextjs';
 
     const NOVU_CONFIG = {
-      applicationIdentifier: 'YOUR_APPLICATION_IDENTIFIER',
-      subscriberId: 'user-123',
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
     };
 
     function App() {
@@ -93,14 +97,11 @@ The <Method href="/platform/subscription/quickstart">{`<Subscription />`}</Metho
 ## Next steps
 
 <Cards cols={2}>
-  <Card title="Customize the UI" icon={<Blocks />} href="/inbox/react/styling">
-    Build custom Subscription UI using the Subscription components.
+  <Card title="Subscription UI" icon={<Blocks />} href="/platform/subscription/subscription-ui">
+    Learn how to use the pre-built Subscription components.
   </Card>
   <Card
-    title="Conditional rules"
-    icon={<ListFilter />}
-    href="/platform/inbox/overview"
-  >
-    Decide which workflows to show, rename them, or group using conditional rules.
+    title="Headless hooks" icon={<Code />} href="/platform/subscription/overview">
+    Build a fully custom subscription interface using hooks.
   </Card>
 </Cards>
