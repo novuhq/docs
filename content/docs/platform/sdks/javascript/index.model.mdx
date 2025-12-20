@@ -375,6 +375,17 @@ The response will be of type:
 ../types/js-types.ts#PreferenceResponse
 ---end---
 
+#### bulkUpdate
+
+Updates multiple workflow's channel preferences at once.
+
+```typescript
+await novu.preferences.bulkUpdate([
+  { workflowId: 'workflow_id', channels: { email: false, sms: true } },
+  { workflowId: 'workflow_id_2', channels: { email: true, sms: false, in_app: true } },
+]);
+```
+
 
 ### Schedule
 

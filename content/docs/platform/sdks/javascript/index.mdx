@@ -506,6 +506,17 @@ The response will be of type:
   }
 }} />
 
+#### bulkUpdate
+
+Updates multiple workflow's channel preferences for a subscriber at once. This subscriber is identified by the `subscriberId` or `subscriber` property passed to the Novu constructor while [initializing the client](/platform/sdks/javascript#constructor-options).
+
+```typescript
+await novu.preferences.bulkUpdate([
+  { workflowId: 'workflow_id', channels: { email: false, sms: true } },
+  { workflowId: 'workflow_id_2', channels: { email: true, sms: false, in_app: true } },
+]);
+```
+
 
 ### Schedule
 
