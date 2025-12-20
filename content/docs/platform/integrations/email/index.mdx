@@ -77,15 +77,6 @@ You must provide credentials specific to your email provider for a successful in
 
 <Callout type="info">For detailed setup guides for each integration, refer to the [Supported Providers](/platform/integrations/email#supported-providers) list at the bottom of this page.</Callout>
 
-### Setting up failover
-
-Novu ensures high deliverability with an automatic failover system. You can have multiple active email providers in the same environment.
-
-- **Primary integration**: You must designate one of your active providers as the primary provider. Novu always attempts to send the email using this provider first.
-- **Failover logic**: If the primary provider fails to send the notification, then Novu automatically attempts to send the email through one of your other active providers.
-
-This built-in redundancy means you don't have to manage provider downtime yourself.
-
 ## Advanced email features
 
 You can control advanced email features at runtime by passing data in your trigger call. This lets you send attachments, override default settings, or target a specific provider for a single notification.
@@ -267,7 +258,7 @@ Each Novu environment can have multiple layouts. Each email step in the workflow
 
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
-```javascript
+```typescript
 import { Novu } from '@novu/api';
 
 const novu = new Novu({
@@ -309,6 +300,54 @@ await novu.trigger({
 </Tab>
 </Tabs>
 
+### Sending provider specific extra fields
+
+You can send provider specific extra fields by passing a `_passthrough` object in the `overrides` object. This lets you send extra fields to the provider SDK. Novu internally uses provider's official SDK to send the email. Each provider has its own supported extra fields. Those extra fields are not validated by Novu and are passed directly to the provider SDK. There are three type of fields that you can send: `body`, `headers`, and `query`. Below is an example of sending `tags` supported by [Resend provider](/platform/integrations/email/resend).
+
+<Tabs items={['Node.js']}>
+<Tab value="Node.js">
+```typescript
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Required if using EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
+  to: {
+    subscriberId: "subscriberId",
+  },
+  payload: {},
+  overrides: {
+    // [!code ++:20]
+    providers: {
+      resend: {
+        _passthrough: {
+          body: {
+            tags: [
+              {
+                name: "category",
+                value: "confirm_email"
+              }
+            ] 
+          },
+          headers: {
+            "X-Custom-Header": "custom-header-value"
+          },
+          query: {
+            "queryParam": "queryValue"
+          }
+        }
+      }
+    }
+  }
+});
+```
+</Tab>
+</Tabs>
 
 ## Supported providers
 
