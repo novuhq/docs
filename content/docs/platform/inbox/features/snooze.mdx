@@ -7,8 +7,6 @@ icon: 'Clock'
 
 The `<Inbox />` component includes built-in support for snoozing notifications, which can be used to temporarily dismiss notifications and have them reappear at a more convenient time.
 
-<Callout>If you don't need the Snooze feature, you can hide it from the Inbox component UI using the appearance prop. To learn more, refer to the documentation on [styling the Inbox UI elements](/platform/inbox/configuration/styling#style-the-inbox-ui-elements).</Callout>
-
 ![Snooze icon on the inbox notification](/images/inbox/snooze.png)
 
 <Callout type="info">Snooze is supported in client-side SDKs starting from version 3.3.0 and is only available for cloud workspaces.</Callout>
@@ -58,3 +56,30 @@ Users can unsnooze a notification at any time, which immediately returns it to t
 | Automatic unsnooze (timer expires) | Re-delivers the notification to All as a new, unread item with an updated delivery timestamp.|
 
 This logic is built into the component and does not require any additional configuration. Notifications automatically reappear in the All tab once their snooze duration elapses.
+
+## Hiding snooze button
+
+If you don't need the Snooze feature, you can hide it from the Inbox component UI using the [appearance](/platform/inbox/configuration/styling#style-the-inbox-ui-elements) prop. The example below hides the snooze button and snoozed list item in the dropdown menu.
+
+```tsx 
+import { Inbox } from '@novu/react';
+
+
+export const InboxWithSnoozeHidden = () => {
+  return (
+    <Inbox
+      applicationIdentifier={"APPLICATION_IDENTIFIER"}
+      subscriber={{
+        subscriberId: "SUBSCRIBER_ID"
+      }}
+      appearance={{
+        elements: {
+          notificationSnooze__button: "hidden",
+          inboxStatus__dropdownItem: "[&:nth-child(3)]:hidden",
+        },
+      }}
+    />
+  )
+}
+```
+
