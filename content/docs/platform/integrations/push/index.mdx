@@ -207,7 +207,7 @@ When a subscriber logs out of a device, remove that device token from the subscr
 
 <Callout>Handle token removal, such as during a user logout event on the server-side, to prevent stale or invalid tokens from causing failed deliveries.</Callout>
 
-### Automatic removal of stale device tokens
+#### Automatic removal of stale device tokens
 
 <Callout type="info">
 Novu automatically removes invalid, stale or expired device tokens from a subscribers' profile and then sends the failure details via `message.failed` [webhook event](/platform/developer/webhooks/event-types#message-events). This ensures that notifications are only sent to valid and active devices. This feature is currently supported for FCM and Expo providers. If you are looking for other providers to support this feature, reach out to us at support@novu.co
