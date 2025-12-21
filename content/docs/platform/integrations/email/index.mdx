@@ -349,6 +349,17 @@ await novu.trigger({
 </Tab>
 </Tabs>
 
+## Unsubscribe email 
+
+By default, Novu does not add any unsubscribe links to the email. Few providers add unsubscribe links to the email by default. If you are looking to add custom unsubscribe links to the email, follow below steps:
+
+- Add `{{payload.unsubscribeEmail}}` field in the email editor. 
+- Build custom unsubscribe link in your application using subscriberId workflowId. Make sure this link is secured with tokens to prevent abuse.
+- Use Novu [preference api](/api-reference/subscribers/update-subscriber-preferences) to update the email channel preferences for this workflow to `false`.
+- Optionally, you can build a custom unsubscribe page and add the link of that page for unsubscribe email option.
+- Send the value of `unsubscribeEmail` variable in the payload while triggering the workflow.
+- Novu will add the unsubscribe link to the email and end user will be able to unsubscribe from the email by clicking on the link.
+
 ## Supported providers
 
 Here are the email providers that are currently supported by Novu. Select any provider to see its detailed setup guide.
