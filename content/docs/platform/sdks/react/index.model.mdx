@@ -22,13 +22,15 @@ The main component for displaying notifications.
 ```tsx
 import { Inbox } from "@novu/react";
 
-function NotificationCenter() {
+function NovuInbox() {
   return (
     <Inbox
-      applicationIdentifier="YOUR_APP_ID"
-      subscriber="USER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
+      subscriber={{
+        subscriberId: "SUBSCRIBER_ID",
+      }}
       apiUrl="https://api.novu.co"
-      socketUrl="https://ws.novu.co"
+      socketUrl="https://socket.novu.co"
       placement="right"
       placementOffset={10}
       onNotificationClick={(notification) => {
