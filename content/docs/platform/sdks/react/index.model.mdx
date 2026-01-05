@@ -40,7 +40,7 @@ function NotificationCenter() {
 }
 ```
 
-### Appearance Configuration
+### Appearance configuration
 
 ---type-table---
 ../types/react-types.ts#InboxAppearanceProps
@@ -165,6 +165,38 @@ function CustomInbox() {
         )}
       />
     </div>
+  );
+}
+```
+
+## Subscription
+
+## Props
+
+---type-table---
+../types/react-types.ts#SubscriptionProps
+---end---
+
+## Usage
+
+```
+import { NovuProvider, Subscription } from "@novu/react";
+
+function SubscriptionManager() {
+  return (
+    <NovuProvider
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
+    >
+      <Subscription
+      topic="product-updates"
+      identifier="user-preference-1"
+      preferences={["workflow-one", "workflow-two"]}
+      appearance={{
+        baseTheme: isDark ? subscriptionDarkTheme : undefined,
+      }}
+    />
+    </NovuProvider>
   );
 }
 ```
