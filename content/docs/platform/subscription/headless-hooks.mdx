@@ -30,10 +30,10 @@ function SubscriptionList() {
   return (
     <ul>
       {subscriptions.map((subscription) => (
-        <CustomSubscriptionUI 
-            key={subscription.id} 
-            subscription={subscription} 
-        />
+        <li key={subscription.id}>
+          <h3>{subscription.name}</h3>
++         {/* Render your custom subscription UI here */}
+        </li>
       ))}
     </ul>
   );
