@@ -32,7 +32,7 @@ import { NovuProvider } from '@novu/react';
 function App() {
   return (
     <NovuProvider
-      subscriber="SUBSCRIBER_ID"
+      subscriber="[notificationSoundRef, novu]icationSoundRef, novu]IBER_ID"
       applicationIdentifier="APPLICATION_IDENTIFIER"
     >
       {/* Your app components */}
@@ -190,4 +190,59 @@ function NotificationListener() {
 
   return null; // This component doesn't render anything
 }
+```
+
+### Using websocket events
+
+The websocket event `notifications.notification_received` can be used to play a sound and show a toast message on the screen when a notification is received.
+
+
+```jsx 
+import { useNovu } from "@novu/react";
+import { useEffect, useRef } from "react";
+import type { Notification as INotification } from "@novu/react";
+
+function NotificationSoundPlayer() {
+  const novu = useNovu();
+
+  // Keep audio instance stable across renders
+  const notificationSoundRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Initialize sound once
+    notificationSoundRef.current = new Audio("/notification.mp3");
+    notificationSoundRef.current.preload = "auto";
+
+    // Handler for new notifications
+    const handleNewNotification = ({ notification }: { notification: INotification }) => {
+      console.log("New notification:", notification.subject);
+
+      // Play notification sound
+      notificationSoundRef.current
+        ?.play()
+        .catch((err) => {
+          // This can fail if user hasn’t interacted with the page yet
+          console.warn("Notification sound could not be played:", err);
+        });
+
+      // Example: toast notification
+      // toast({
+      //   title: notification.subject,
+      //   description: notification.body,
+      // });
+    };
+
+    // Subscribe to events
+    novu.on("notifications.notification_received", handleNewNotification);
+
+    // Cleanup
+    return () => {
+      novu.off("notifications.notification_received", handleNewNotification);
+    };
+  }, [novu, notificationSoundRef]);
+
+  return null;
+}
+
+export default NotificationListener;
 ```

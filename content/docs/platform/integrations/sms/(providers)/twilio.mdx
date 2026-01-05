@@ -63,18 +63,69 @@ For more detailed instructions, follow one of their many [Tutorials](https://www
 </Step>
 </Steps>
 
-## Sending WhatsApp messages with Twilio
+## Sending WhatsApp message
 
 To send WhatsApp messages with Twilio integration, prefix the phone number of the subscriber with `whatsapp:` as shown below:
 
 <Tabs items={['Node.js']}>
 <Tab value="Node.js">
 ```ts
-await novu.trigger("<WORKFLOW_TRIGGER_IDENTIFIER>", {
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ 
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Required if using EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
-    subscriberId: "<UNIQUE_SUBSCRIBER_IDENTIFIER>",
-    phone: "whatsapp:555-4242",
+    subscriberId: "subscriberId",
+    phone: "whatsapp:+14155238886",
   },
+  payload: {},
+});
+```
+</Tab>
+</Tabs>
+
+### Sending WhatsApp template message
+
+To send WhatsApp template messages with Twilio integration, you can use the `template` field in the `overrides` object.
+
+<Tabs items={['Node.js']}>
+<Tab value="Node.js">
+```typescript
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ 
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Required if using EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
+  to: {
+    subscriberId: "subscriberId",
+    phone: "whatsapp:+14155238886",
+  },
+  payload: {},
+  overrides: {
+    providers: {
+      twilio: {
+        "_passthrough": {
+          "body": {
+            // example contentSid
+            "contentSid": "HXb5b62575e6e4ff6129ad7c8efe1f983e",
+            // example contentVariables
+            "contentVariables": "{\"1\":\"12/1\",\"2\":\"3pm\"}"
+          }
+        }
+      }
+    }
+  }
 });
 ```
 </Tab>
