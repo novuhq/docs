@@ -164,24 +164,22 @@ import { Novu } from '@novu/api';
 import { v4 as uuidv4 } from 'uuid';
 
 const novu = new Novu({
-  secretKey: process.env.NOVU_SECRET_KEY,
+  secretKey: "<NOVU_SECRET_KEY>"
 });
 
 async function triggerNotificationWithRetry(workflowId, subscriberId, payload, maxRetries = 3) {
-  const idempotencyKey = `trigger-${workflowId}-${subscriberId}-${uuidv4()}`;
+
+  const uniqueId = uuidv4();
+  const idempotencyKey = `trigger-${workflowId}-${subscriberId}-${uniqueId}`;
   
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       const response = await novu.trigger({
-        name: workflowId,
-        to: { subscriberId },
+        workflowId: workflowId,
+        to: { subscriberId: subscriberId },
         payload,
-      }, {
-        headers: {
-          'Idempotency-Key': idempotencyKey,
-        },
-      });
-      
+      }, idempotencyKey);
+        
       return response;
     } catch (error) {
       if (error.statusCode === 409 && attempt < maxRetries) {

@@ -268,9 +268,17 @@ await novu.notifications.archiveAllRead({
 });
 ```
 
+#### delete
+
+Deletes a single notification permanently.
+
+```typescript
+await novu.notifications.delete({ notificationId: 'NOTIFICATION_ID' });
+```
+
 #### deleteAll
 
-Deletes multiple notifications. Can be filtered by tags or data attributes.
+Deletes multiple notifications permanently. Can be filtered by tags or data attributes.
 
 ```typescript
 // Delete specific notifications by tags
@@ -285,6 +293,22 @@ await novu.notifications.deleteAll({
 
 // Delete all notifications (no filters)
 await novu.notifications.deleteAll();
+```
+
+#### snooze
+
+Snoozes a notification for a specified duration. Here `snoozeUntil` is **ISO 8601** formatted string timestamp representing the date and time the notification will be un-snoozed, it should be a future date and time.
+
+```typescript
+await novu.notifications.snooze({ notificationId: 'NOTIFICATION_ID', snoozeUntil: '2025-01-01T00:00:00.000Z' });
+```
+
+#### unsnooze
+
+Unsnoozes a notification.
+
+```typescript
+await novu.notifications.unsnooze({ notificationId: 'NOTIFICATION_ID' });
 ```
 
 #### completePrimary
@@ -331,6 +355,8 @@ Individual notification instances have their own methods for marking as seen, re
 - `archive()` - Archives the notification
 - `unarchive()` - Unarchives the notification
 - `delete()` - Deletes the notification
+- `snooze()` - Snoozes the notification
+- `unsnooze()` - Unsnoozes the notification
 - `completePrimary()` - Marks primary action as completed
 - `completeSecondary()` - Marks secondary action as completed
 - `revertPrimary()` - Reverts primary action to pending
@@ -353,6 +379,12 @@ await notifications[0].read();
 // Archive using the instance method
 await notifications[0].archive();
 
+// Snooze using the instance method
+await notifications[0].snooze('2025-01-01T00:00:00.000Z');
+
+// Unsnooze using the instance method
+await notifications[0].unsnooze();
+
 // Delete using the instance method
 await notifications[0].delete();
 ```
@@ -366,7 +398,19 @@ await notifications[0].delete();
 Fetches the subscriber's notification preferences.
 
 ```typescript
-const preferences = await novu.preferences.list();
+const { data: preferences } = await novu.preferences.list();
+```
+
+#### update
+
+`update` method is available with each preference object.
+
+```typescript
+const { data: preferences } = await novu.preferences.list();
+
+// Update a single preference
+
+await preferences[0].update({ channels: { email: false, sms: true } });
 ```
 
 The response will be of type:
@@ -374,6 +418,17 @@ The response will be of type:
 ---type-table---
 ../types/js-types.ts#PreferenceResponse
 ---end---
+
+#### bulkUpdate
+
+Updates multiple workflow's channel preferences at once.
+
+```typescript
+await novu.preferences.bulkUpdate([
+  { workflowId: 'workflow_id', channels: { email: false, sms: true } },
+  { workflowId: 'workflow_id_2', channels: { email: true, sms: false, in_app: true } },
+]);
+```
 
 
 ### Schedule

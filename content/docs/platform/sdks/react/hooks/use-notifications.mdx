@@ -213,6 +213,12 @@ function NotificationsList() {
 
 You can filter notifications by various properties:
 
+- `read` - Filter notifications by read status
+- `seen` - Filter notifications by seen status
+- `tags` - Filter notifications by tags. If multiple tags are provided, Novu evaluates them using `OR` logic, meaning a notification is included if it contains at least one of the specified tags.
+- `severity` - Filter notifications by severity
+- `limit` - Fetch notifications per page
+
 ```tsx
 import { useNotifications } from "@novu/react";
 

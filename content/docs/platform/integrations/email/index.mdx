@@ -77,15 +77,6 @@ You must provide credentials specific to your email provider for a successful in
 
 <Callout type="info">For detailed setup guides for each integration, refer to the [Supported Providers](/platform/integrations/email#supported-providers) list at the bottom of this page.</Callout>
 
-### Setting up failover
-
-Novu ensures high deliverability with an automatic failover system. You can have multiple active email providers in the same environment.
-
-- **Primary integration**: You must designate one of your active providers as the primary provider. Novu always attempts to send the email using this provider first.
-- **Failover logic**: If the primary provider fails to send the notification, then Novu automatically attempts to send the email through one of your other active providers.
-
-This built-in redundancy means you don't have to manage provider downtime yourself.
-
 ## Advanced email features
 
 You can control advanced email features at runtime by passing data in your trigger call. This lets you send attachments, override default settings, or target a specific provider for a single notification.
@@ -103,7 +94,7 @@ import { Novu } from '@novu/api';
 
 const novu = new Novu({
   secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
+  // Required if using EU region
   // serverURL: "https://eu.api.novu.co",
 });
 
@@ -112,7 +103,8 @@ await novu.trigger({
   to: {
     subscriberId: "subscriberId",
   },
-  payload: { // [!code ++:16]
+  payload: { 
+    // [!code ++:14]
     attachments: [
       {
         // buffer format
@@ -184,7 +176,7 @@ import { Novu } from '@novu/api';
 
 const novu = new Novu({
   secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
+  // Required if using EU region
   // serverURL: "https://eu.api.novu.co",
 });
 
@@ -224,7 +216,7 @@ import { Novu } from '@novu/api';
 
 const novu = new Novu({
   secretKey: "<NOVU_SECRET_KEY>",
-  // Use serverURL for EU region
+  // Required if using EU region
   // serverURL: "https://eu.api.novu.co",
 });
 
@@ -238,6 +230,120 @@ await novu.trigger({
       integrationIdentifier: "brevo-abcdef" // [!code ++]
     },
   },
+});
+```
+</Tab>
+</Tabs>
+
+### Overriding email layout 
+Each Novu environment can have multiple layouts. Each email step in the workflow can have a layout assigned to it. Overriding the email layout allows you to dynamically override layout settings at trigger time, providing flexible layout management per workflow/channel or per step execution.
+
+**`layoutId` values and its behavior:**
+
+| Value | Behavior |
+| --- | --- |
+| "layout-identifier" | Uses layout with this identifier |
+| "507f1f77bcf86cd799439011" | Uses layout with this MongoDB ObjectId |
+| null | Explicitly no layout - renders email without any layout |
+| undefined | Default behavior - uses step's configured layout or environment default |
+| Not specified | Same as undefined |
+
+**Precedence rules:**
+
+1. **Step-level override** - **Highest priority**
+2. **Workflow-level/channels-level override**
+3. **Step configuration** (configured in workflow editor)
+4. **Environment default layout** - **Lowest priority**
+
+
+<Tabs items={['Node.js']}>
+<Tab value="Node.js">
+```typescript
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Required if using EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
+  to: {
+    subscriberId: "subscriberId",
+  },
+  payload: {},
+  overrides: {
+    // Channel-level layouts
+    channels: {
+	    email: {
+		    layoutId: 'black-friday-layout',
+	    },
+	  },
+    steps: {
+      'welcome-email': {
+        // This email step uses a specific welcome layout
+        layoutId: 'welcome-v2'
+      },
+      'promotional-email': {
+        // This email uses the channel-level layout (black-friday-layout)
+        // No layoutId specified = inherits from channel level
+      },
+      'transactional-receipt': {
+        // This email explicitly uses no layout (plain email)
+        layoutId: null
+      }
+    }
+  }
+});
+```
+</Tab>
+</Tabs>
+
+### Sending provider specific extra fields
+
+You can send provider specific extra fields by passing a `_passthrough` object in the `overrides` object. This lets you send extra fields to the provider SDK. Novu internally uses provider's official SDK to send the email. Each provider has its own supported extra fields. Those extra fields are not validated by Novu and are passed directly to the provider SDK. There are three type of fields that you can send: `body`, `headers`, and `query`. Below is an example of sending `tags` supported by [Resend provider](/platform/integrations/email/resend).
+
+<Tabs items={['Node.js']}>
+<Tab value="Node.js">
+```typescript
+import { Novu } from '@novu/api';
+
+const novu = new Novu({
+  secretKey: "<NOVU_SECRET_KEY>",
+  // Required if using EU region
+  // serverURL: "https://eu.api.novu.co",
+});
+
+await novu.trigger({
+  workflowId: "workflowId",
+  to: {
+    subscriberId: "subscriberId",
+  },
+  payload: {},
+  overrides: {
+    // [!code ++:20]
+    providers: {
+      resend: {
+        _passthrough: {
+          body: {
+            tags: [
+              {
+                name: "category",
+                value: "confirm_email"
+              }
+            ] 
+          },
+          headers: {
+            "X-Custom-Header": "custom-header-value"
+          },
+          query: {
+            "queryParam": "queryValue"
+          }
+        }
+      }
+    }
+  }
 });
 ```
 </Tab>
