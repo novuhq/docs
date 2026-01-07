@@ -188,7 +188,7 @@ await novu.notifications.seen({ notificationId: 'NOTIFICATION_ID' });
 
 #### seenAll
 
-Marks notifications as seen. It can be filtered either by notification IDs, tags, or data.
+Marks notifications as seen. You can filter them by notification IDs, tags, or data attributes.
 
 ```typescript
 // Mark specific notifications as seen
@@ -228,7 +228,7 @@ await novu.notifications.unarchive({ notificationId: 'NOTIFICATION_ID' });
 
 #### readAll
 
-Marks all notifications as read. Can be filtered by tags.
+Marks all notifications as read. You can filter them by tags.
 
 ```typescript
 await novu.notifications.readAll({
@@ -242,7 +242,7 @@ await novu.notifications.readAll({
 
 #### archiveAll
 
-Archives all notifications. Can be filtered by tags.
+Archives all notifications. You can filter them by tags.
 
 ```typescript
 await novu.notifications.archiveAll({
@@ -256,7 +256,7 @@ await novu.notifications.archiveAll({
 
 #### archiveAllRead
 
-Archives all read notifications. Can be filtered by tags.
+Archives all read notifications. You can filter them by tags.
 
 ```typescript
 await novu.notifications.archiveAllRead({
@@ -278,7 +278,7 @@ await novu.notifications.delete({ notificationId: 'NOTIFICATION_ID' });
 
 #### deleteAll
 
-Deletes multiple notifications permanently. Can be filtered by tags or data attributes.
+Deletes multiple notifications permanently. You can filter them by tags or data attributes.
 
 ```typescript
 // Delete specific notifications by tags
@@ -297,7 +297,7 @@ await novu.notifications.deleteAll();
 
 #### snooze
 
-Snoozes a notification for a specified duration. Here `snoozeUntil` is **ISO 8601** formatted string timestamp representing the date and time the notification will be un-snoozed, it should be a future date and time.
+Snoozes a notification for a specified duration. Here `snoozeUntil` is **ISO 8601** formatted string timestamp, representing the date and time the notification is un-snoozed, it should be a future date and time.
 
 ```typescript
 await novu.notifications.snooze({ notificationId: 'NOTIFICATION_ID', snoozeUntil: '2025-01-01T00:00:00.000Z' });
@@ -362,7 +362,7 @@ Individual notification instances have their own methods for marking as seen, re
 - `revertPrimary()` - Reverts primary action to pending
 - `revertSecondary()` - Reverts secondary action to pending
 
-**Note:** The `seen()` method is only available on individual notification instances, not on the `novu.notifications` object. Use `novu.notifications.seenAll()` for bulk operations.
+<Callout type="info">The `seen()` method is only available on individual notification instances, not on the `novu.notifications` object. Use `novu.notifications.seenAll()` for bulk operations.</Callout>
 
 ### Usage
 
@@ -481,14 +481,23 @@ The Novu client provides real-time event handling through WebSocket connections.
 
 ### Available Events
 
-- `notifications.notification_received`: Triggered when a new notification is received
-- `notifications.unread_count_changed`: Triggered when the unread count changes
-- `notifications.unseen_count_changed`: Triggered when the unseen count changes
-- `preferences.schedule.get.pending`: Triggered when fetching a schedule starts
-- `preferences.schedule.get.resolved`: Triggered when fetching a schedule succeeds
-- `preferences.schedule.update.pending`: Triggered when updating a schedule starts
-- `preferences.schedule.update.resolved`: Triggered when updating a schedule succeeds
-
+- `notifications.notification_received`: Triggered when a new notification is received.
+- `notifications.unread_count_changed`: Triggered when the unread count changes.
+- `notifications.unseen_count_changed`: Triggered when the unseen count changes.
+- `preferences.schedule.get.pending`: Triggered when fetching a schedule starts.
+- `preferences.schedule.get.resolved`: Triggered when fetching a schedule succeeds.
+- `preferences.schedule.update.pending`: Triggered when updating a schedule starts.
+- `preferences.schedule.update.resolved`: Triggered when updating a schedule succeeds.
+- `subscriptions.list.pending`: Triggered when loading subscriptions starts.
+- `subscriptions.list.resolved`: Triggered when subscriptions are loaded.
+- `subscriptions.get.pending`: Triggered when fetching a subscription starts.
+- `subscriptions.get.resolved`: Triggered when a specific subscription is fetched.
+- `subscriptions.create.pending`: Triggered when creating a subscription starts.
+- `subscriptions.create.resolved`: Triggered when a subscription is created.
+- `subscriptions.update.pending`: Triggered when updating a subscription starts.
+- `subscriptions.update.resolved`: Triggered when a subscription is updated.
+- `subscriptions.delete.pending`: Triggered when deleting a subscription start.
+- `subscriptions.delete.resolved`: Triggered when a subscription is deleted.
 
 ### Usage
 
@@ -515,6 +524,168 @@ novu.on('preferences.schedule.update.resolved', ({ data }) => {
   console.log('Schedule updated:', data.schedule);
 });
 
+novu.on('subscriptions.create.resolved', ({ data: subscription }) => {
+  console.log('New subscription created:', subscription.identifier);
+});
+
+novu.on('subscriptions.list.resolved', ({ data: subscriptions }) => {
+  console.log('Loaded subscriptions:', subscriptions.length);
+});
+
+```
+
+## Subscriptions
+
+The Subscriptions module lets you manage a subscriber’s subscriptions to topics. A subscription represents a subscriber’s opt-in to a topic and defines which workflows within that topic they receive notifications from.
+
+It supports creating conditional subscriptions where users only receive notifications if specific criteria (payload filters) are met.
+
+Manage subscriptions at two levels:
+- Module-level methods on `novu.subscriptions`
+- Instance-level methods on a `TopicSubscription` object
+
+### Methods
+
+#### List
+
+Fetches all subscriptions for a specific topic.
+
+---type-table---
+../types/js-types.ts#ListSubscriptionsArgs
+---end---
+
+```tsx
+const { data: subscriptions } = await novu.subscriptions.list({
+  topicKey: 'product-updates'
+});
+```
+
+The response items are `TopicSubscription` instances.
+
+#### get
+
+Fetch a single subscription by topic and identifier.
+
+---type-table---
+../types/js-types.ts#GetSubscriptionArgs
+---end---
+
+```tsx
+const { data: subscription } = await novu.subscriptions.get({
+  topicKey: 'product-updates',
+  identifier: 'user-product-alert'
+});
+```
+
+#### create
+
+Create a new subscription to a topic. You can pass a list of preferences to filter specific workflows or tags.
+
+---type-table---
+../types/js-types.ts#CreateSubscriptionArgs
+---end---
+
+```tsx
+const { data: subscription } = await novu.subscriptions.create({
+  topicKey: 'product-updates',
+  identifier: 'user-product-alert',
+  preferences: [
+    {
+      // Simple workflow toggle
+      workflowId: 'issue-created',
+      enabled: true
+    },
+    {
+      // Conditional filter
+      workflowId: 'price-alert',
+      condition: {
+        field: 'price',
+        operation: 'below',
+        value: 100
+      }
+    }
+  ]
+});
+```
+
+#### update
+
+Updates an existing subscription.
+
+---type-table---
+../types/js-types.ts#UpdateSubscriptionArgs
+---end---
+
+```tsx
+const { data: subscription } = await novu.subscriptions.update({
+  topicKey: 'product-updates',
+  subscriptionId: 'subscription-id-123',
+  preferences: [...]
+});
+```
+
+#### delete
+
+Delete a subscription by topic and subscription ID.
+
+```tsx
+await novu.subscriptions.delete({
+  topicKey: 'product-updates',
+  subscriptionId: 'product-updates-subscription',
+});
+```
+
+### TopicSubscription
+
+A `TopicSubscription` instance represents a single subscription and provides methods for updating or deleting it, as well as managing its preferences.
+
+---type-table---
+../types/js-types.ts#TopicSubscription
+---end---
+
+#### Update a subscription
+
+Update subscription metadata or replace its preferences list. Use this method when updating the subscription as a whole.
+For granular preference updates, use preference-level methods instead.
+
+```tsx
+const { data: subscription } =
+  await novu.subscriptions.get({
+    topicKey: 'product-updates',
+    identifier: 'product-updates-subscription',
+  });
+
+await subscription.update({
+  preferences: [
+    {
+      workflowId: 'workflow-identifier',
+      enabled: true,
+    },
+  ],
+});
+```
+#### Update SubscriptionPreference
+
+Each subscription contains a list of `SubscriptionPreference` objects that you can update individually.
+
+---type-table---
+../types/js-types.ts#SubscriptionPreference
+---end---
+
+```tsx
+subscription.preferences.map((preference) => {
+  const onChange = (value: boolean) => {
+    preference.update({ value });
+  };
+
+  return <Checkbox onChange={onChange} />;
+});
+```
+
+#### Delete a subscription (instance method)
+
+```
+await subscription.delete();
 ```
 
 ## Types

@@ -14,6 +14,10 @@ The main component for displaying notifications.
 ### Props
 
 <TypeTable name="InboxProps" type={{
+  "appearance": {
+    "description": "",
+    "type": "ReactInboxAppearance"
+  },
   "subscriberHash": {
     "description": "",
     "type": "string"
@@ -30,13 +34,9 @@ The main component for displaying notifications.
     "description": "",
     "type": "string"
   },
-  "appearance": {
-    "description": "",
-    "type": "ReactAppearance"
-  },
   "localization": {
     "description": "",
-    "type": "Localization"
+    "type": "InboxLocalization"
   },
   "tabs": {
     "description": "",
@@ -118,11 +118,11 @@ function NovuInbox() {
   },
   "icons": {
     "description": "",
-    "type": "IconOverrides"
+    "type": "AllIconOverrides"
   },
   "baseTheme": {
     "description": "",
-    "type": "Theme | Theme[]"
+    "type": "AllTheme | AllTheme[]"
   }
 }} />
 
@@ -202,6 +202,10 @@ function NovuInbox() {
 #### Elements
 
 <TypeTable name="InboxAppearanceElements" type={{
+  "root": {
+    "description": "",
+    "type": "ElementStyles"
+  },
   "button": {
     "description": "",
     "type": "ElementStyles"
@@ -227,6 +231,34 @@ function NovuInbox() {
     "type": "ElementStyles"
   },
   "popoverClose": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "collapsible": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tooltipContent": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "tooltipTrigger": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "lockIcon": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "preferences__button": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "inboxHeader": {
+    "description": "",
+    "type": "ElementStyles"
+  },
+  "loading": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -259,18 +291,6 @@ function NovuInbox() {
     "type": "ElementStyles"
   },
   "dropdownItem__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "collapsible": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "tooltipContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "tooltipTrigger": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -423,26 +443,6 @@ function NovuInbox() {
     "type": "ElementStyles"
   },
   "dots": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "root": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "lockIcon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferences__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxHeader": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "loading": {
     "description": "",
     "type": "ElementStyles"
   },
@@ -1169,6 +1169,130 @@ function NovuInbox() {
   "notificationSnoozedUntil__icon": {
     "description": "",
     "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
+  },
+  "subscriptionContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionButton__button": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionButtonContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionButtonIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionButtonLabel": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscription__popoverTriggerContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscription__popoverTrigger": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionTriggerIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscription__popoverContent": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesHeaderContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesHeader": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesInfoIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesContent": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesGroupsContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesFallback": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesFallbackTexts": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesFallbackHeader": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferencesFallbackDescription": {
+    "description": "",
+    "type": "ElementStyles | ((context: { subscription?: TopicSubscription | undefined; }) => string)"
+  },
+  "subscriptionPreferenceRow": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: { label: string; preference: SubscriptionPreference; }; }) => string)"
+  },
+  "subscriptionPreferenceLabel": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: { label: string; preference: SubscriptionPreference; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { group: { label: string; group: { label: string; preference: SubscriptionPreference; }[]; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupHeader": {
+    "description": "",
+    "type": "ElementStyles | ((context: { group: { label: string; group: { label: string; preference: SubscriptionPreference; }[]; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupLabelContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { group: { label: string; group: { label: string; preference: SubscriptionPreference; }[]; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupLabelIcon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { group: { label: string; group: { label: string; preference: SubscriptionPreference; }[]; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupLabel": {
+    "description": "",
+    "type": "ElementStyles | ((context: { group: { label: string; group: { label: string; preference: SubscriptionPreference; }[]; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupActionsContainer": {
+    "description": "",
+    "type": "ElementStyles | ((context: { group: { label: string; group: { label: string; preference: SubscriptionPreference; }[]; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupActionsContainerRight__icon": {
+    "description": "",
+    "type": "ElementStyles | ((context: { group: { label: string; group: { label: string; preference: SubscriptionPreference; }[]; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupBody": {
+    "description": "",
+    "type": "ElementStyles | ((context: { group: { label: string; group: { label: string; preference: SubscriptionPreference; }[]; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupWorkflowRow": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: { label: string; preference: SubscriptionPreference; }; }) => string)"
+  },
+  "subscriptionPreferenceGroupWorkflowLabel": {
+    "description": "",
+    "type": "ElementStyles | ((context: { preference: { label: string; preference: SubscriptionPreference; }; }) => string)"
   }
 }} />
 
@@ -1360,6 +1484,106 @@ function CustomInbox() {
         )}
       />
     </div>
+  );
+}
+```
+
+## Subscription
+
+### Props
+
+<TypeTable name="SubscriptionProps" type={{
+  "children": {
+    "description": "",
+    "type": "ReactNode"
+  },
+  "renderPreferences": {
+    "description": "",
+    "type": "PreferencesRenderer"
+  },
+  "open": {
+    "description": "",
+    "type": "boolean"
+  },
+  "placement": {
+    "description": "",
+    "type": "Placement"
+  },
+  "placementOffset": {
+    "description": "",
+    "type": "OffsetOptions"
+  },
+  "topicKey": {
+    "description": "",
+    "type": "string"
+  },
+  "identifier": {
+    "description": "",
+    "type": "string"
+  },
+  "preferences": {
+    "description": "",
+    "type": "NonEmptyArray<UIPreference>"
+  },
+  "localization": {
+    "description": "",
+    "type": "SubscriptionLocalization"
+  },
+  "appearance": {
+    "description": "",
+    "type": "ReactSubscriptionAppearance"
+  },
+  "container": {
+    "description": "",
+    "type": "string | Node | null"
+  }
+}} />
+
+### Appearance configuration
+
+<TypeTable name="SubscriptionAppearance" type={{
+  "variables": {
+    "description": "",
+    "type": "Variables"
+  },
+  "elements": {
+    "description": "",
+    "type": "Partial<{ root: ElementStyles; button: ElementStyles; input: ElementStyles; icon: ElementStyles; badge: ElementStyles; ... 5 more ...; tooltipTrigger: ElementStyles; } & {} & { ...; }>"
+  },
+  "animations": {
+    "description": "",
+    "type": "boolean"
+  },
+  "icons": {
+    "description": "",
+    "type": "SubscriptionIconOverrides"
+  },
+  "baseTheme": {
+    "description": "",
+    "type": "SubscriptionTheme | SubscriptionTheme[]"
+  }
+}} />
+
+### Usage
+
+```tsx
+import { NovuProvider, Subscription } from "@novu/react";
+
+function SubscriptionManager() {
+  return (
+    <NovuProvider
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
+    >
+      <Subscription
+      topic="product-updates"
+      identifier="user-preference-1"
+      preferences={["workflow-one", "workflow-two"]}
+      appearance={{
+        baseTheme: isDark ? subscriptionDarkTheme : undefined,
+      }}
+    />
+    </NovuProvider>
   );
 }
 ```

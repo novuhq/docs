@@ -1,0 +1,270 @@
+---
+title: "Subscription"
+pageTitle: "React hooks for subscription management"
+description: "Learn how to use the useSubscriptions, useCreateSubscription, and other hooks to manage subscriptions in Novu."
+---
+
+import { TypeTable } from 'fumadocs-ui/components/type-table';
+
+The `@novu/react` package provides a set of Subscription hooks for managing topic subscriptions without using the prebuilt Subscription components. 
+
+These hooks let you build fully custom experiences by working directly with the subscription data model.
+
+<Callout type="info">If you prefer to use the default Subscription components, refer to the [Subscription components documentation](/platform/subscription/quickstart).</Callout>
+
+## `useSubscriptions`
+
+Fetches all subscriptions associated with a specific topic for the current subscriber.
+
+### Hook parameters
+
+<TypeTable
+  type={{
+    topicKey: {
+      type: "string",
+      description: "The unique key of the topic to fetch subscriptions for.",
+      required: true
+    },
+    onSuccess: {
+      type: "(data: TopicSubscription[]) => void",
+      description: "Callback function called when subscriptions are successfully fetched",
+    },
+    onError: {
+      type: "(error: NovuError) => void",
+      description: "Callback function called when an error occurs",
+    },
+  }}
+/>
+
+### Return value
+
+<TypeTable
+  type={{
+    subscriptions: {
+      type: "TopicSubscription[]",
+      description: "Array of subscription objects for the topic",
+      default: "[]"
+    },
+    error: {
+      type: "NovuError | undefined",
+      description: "Error object if the request failed",
+    },
+    isLoading: {
+      type: "boolean",
+      description: "True during the initial load",
+    },
+    isFetching: {
+      type: "boolean",
+      description: "True while any request is in flight (initial load or refetch)",
+    },
+    refetch: {
+      type: "() => Promise<void>",
+      description: "Function to manually trigger a refetch of the list",
+    },
+  }}
+/>
+
+### Example usage
+
+This example fetches all subscriptions for a given topic and exposes them for rendering once loading completes.
+
+```tsx
+import { useSubscriptions } from "@novu/react";
+
+const { subscriptions, isLoading } = useSubscriptions({
+  topicKey: "project-123",
+});
+```
+
+## `useSubscription`
+
+Fetches a specific subscription instance.
+
+### Hook parameters
+
+<TypeTable
+  type={{
+    topicKey: {
+      type: "string",
+      description: "The unique key of the topic.",
+      required: true
+    },
+    identifier: {
+      type: "string",
+      description: "The unique identifier of the specific subscription instance.",
+      required: false
+    },
+    onSuccess: {
+      type: "(data: TopicSubscription | null) => void",
+      description: "Callback function called when the subscription is fetched",
+    },
+    onError: {
+      type: "(error: NovuError) => void",
+      description: "Callback function called when an error occurs",
+    },
+  }}
+/>
+
+### Return value
+
+<TypeTable
+  type={{
+    subscription: {
+      type: "TopicSubscription | null",
+      description: "The specific subscription object",
+    },
+    error: {
+      type: "NovuError | undefined",
+      description: "Error object if the request failed",
+    },
+    isLoading: {
+      type: "boolean",
+      description: "True during the initial load",
+    },
+    refetch: {
+      type: "() => Promise<void>",
+      description: "Function to manually trigger a refetch",
+    },
+  }}
+/>
+
+### Example usage
+
+This example shows how to retrieve a specific subscription by its identifier to access its preferences.
+
+```tsx
+import { useSubscription } from "@novu/react";
+
+const { subscription, isLoading } = useSubscription({
+  topicKey: "project-123",
+  identifier: "user-preference-1",
+});
+```
+
+## `useCreateSubscription`
+
+Creates a new subscription to a topic for the current subscriber.
+
+### Return value
+
+<TypeTable
+  type={{
+    create: {
+      type: "(args: CreateSubscriptionArgs) => Promise<{ data?: TopicSubscription; error?: NovuError }>",
+      description: "Function to create a new subscription.",
+    },
+    isCreating: {
+      type: "boolean",
+      description: "True while the create request is in progress",
+    },
+    error: {
+      type: "NovuError | undefined",
+      description: "Error object if the last create request failed",
+    },
+  }}
+/>
+
+### Example usage
+
+This example demonstrates how to trigger the creation of a new subscription for a topic.
+
+```tsx
+import { useCreateSubscription } from "@novu/react";
+
+const { create, isCreating } = useCreateSubscription();
+
+await create({
+  topicKey: "project-123",
+  identifier: "project-updates",
+});
+```
+
+## `useUpdateSubscription`
+
+Updates an existing subscription's properties or preferences list.
+
+### Return value
+
+<TypeTable
+  type={{
+    update: {
+      type: "(args: UpdateSubscriptionArgs) => Promise<{ data?: TopicSubscription; error?: NovuError }>",
+      description: "Function to update an existing subscription.",
+    },
+    isUpdating: {
+      type: "boolean",
+      description: "True while the update request is in progress",
+    },
+    error: {
+      type: "NovuError | undefined",
+      description: "Error object if the last update request failed",
+    },
+  }}
+/>
+
+### Example usage
+
+This example shows how to update the preferences of an existing subscription, such as toggling a specific workflow.
+
+```tsx
+import { useUpdateSubscription } from "@novu/react";
+
+const { update, isUpdating } = useUpdateSubscription();
+
+const handleToggle = async () => {
+  await update({
+    topicKey: "project-123",
+    subscriptionId: "sub-id-123",
+    preferences: [{ workflowId: "workflow-one", enabled: false }]
+  });
+};
+```
+
+## `useRemoveSubscription`
+
+Unsubscribes the current user from a topic by removing the subscription instance.
+
+### Return value
+
+<TypeTable
+  type={{
+    remove: {
+      type: "(args: { subscriptionId: string; topicKey: string }) => Promise<{ error?: NovuError }>",
+      description: "Function to delete the subscription.",
+    },
+    isRemoving: {
+      type: "boolean",
+      description: "True while the delete request is in progress",
+    },
+    error: {
+      type: "NovuError | undefined",
+      description: "Error object if the last remove request failed",
+    },
+  }}
+/>
+
+### Example usage
+
+This example renders an unsubscribe button that removes the subscription when clicked.
+
+```tsx
+import { useRemoveSubscription } from "@novu/react";
+
+function UnsubscribeButton({ subscriptionId }) {
+  const { remove, isRemoving } = useRemoveSubscription();
+
+  return (
+    <button
+      onClick={() =>
+        remove({
+          subscriptionId,
+          topicKey: "project-123",
+        })
+      }
+      disabled={isRemoving}
+    >
+      {isRemoving ? "Removing..." : "Unsubscribe"}
+    </button>
+  );
+}
+```

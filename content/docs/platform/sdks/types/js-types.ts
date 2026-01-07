@@ -7,6 +7,13 @@ import type {
   PreferencesResponse,
   Subscriber,
   Schedule,
+  SubscriptionPreference,
+  ListSubscriptionsArgs,
+  GetSubscriptionArgs,
+  CreateSubscriptionArgs,
+  UpdateSubscriptionArgs,
+  DeleteSubscriptionArgs,
+  TopicSubscription,
 } from '@novu/js';
 
 export type {
@@ -18,4 +25,11 @@ export type {
   PreferencesResponse as PreferenceResponse,
   Subscriber,
   Schedule,
+  SubscriptionPreference,
+  ListSubscriptionsArgs,
+  GetSubscriptionArgs,
+  CreateSubscriptionArgs,
+  UpdateSubscriptionArgs,
+  DeleteSubscriptionArgs,
+  TopicSubscription,
 };

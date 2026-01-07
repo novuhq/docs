@@ -24,11 +24,11 @@ importers:
         specifier: 2.8.0
         version: 2.8.0(next@15.2.8(@babel/core@7.27.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(zod-to-json-schema@3.24.5(zod@3.24.2))(zod@3.24.2)
       '@novu/js':
-        specifier: 3.11.0
-        version: 3.11.0
+        specifier: 3.12.0-rc.2
+        version: 3.12.0-rc.2
       '@novu/react':
-        specifier: 3.11.0
-        version: 3.11.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 3.12.0-rc.2
+        version: 3.12.0-rc.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@radix-ui/react-accordion':
         specifier: ^1.2.3
         version: 1.2.3(@types/react-dom@19.0.4(@types/react@19.0.12))(@types/react@19.0.12)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1530,11 +1530,11 @@ packages:
       zod-to-json-schema:
         optional: true
 
-  '@novu/js@3.11.0':
-    resolution: {integrity: sha512-9GV0lb5n3Cf9vTfKgm/UzBnCm/+fcpFiqnSyuDd4lbI7BpdDbcDx5vz+XhvFhnJwtw+d1c9wTKTu5Q8xsplG7Q==}
+  '@novu/js@3.12.0-rc.2':
+    resolution: {integrity: sha512-wkkiikKM14htReNucVq9Qz1zsU0bVoTaD5vjPkqX7xOtFx37cGAafEj5F/M8I+emK1T+y8laDdsJLUujwMRhaw==}
 
-  '@novu/react@3.11.0':
-    resolution: {integrity: sha512-VoDh2DNjyP8JuzsLUXc5md9UEWF1MTQamMWjYeEv8WxUtDuYBkYGYjs7x/80kZXZ0wBJDuPsstypYUzjhsOwnw==}
+  '@novu/react@3.12.0-rc.2':
+    resolution: {integrity: sha512-q8DX0R79cQJIs+8pdz8NUhF9Xm8aW00YElDEkjjV44rJRjyxEG849gYskaAC+9+GC6mJilS+bnSxqQra3ltyBA==}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0 || ^19.0.0-0
       react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-0
@@ -2966,6 +2966,9 @@ packages:
 
   '@types/is-empty@1.2.3':
     resolution: {integrity: sha512-4J1l5d79hoIvsrKh5VUKVRA1aIdsOb10Hu5j3J2VfP/msDnfTdGPmNp2E1Wg+vs97Bktzo+MZePFFXSGoykYJw==}
+
+  '@types/json-logic-js@2.0.8':
+    resolution: {integrity: sha512-WgNsDPuTPKYXl0Jh0IfoCoJoAGGYZt5qzpmjuLSEg7r0cKp/kWtWp0HAsVepyPSPyXiHo6uXp/B/kW/2J1fa2Q==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
@@ -8482,10 +8485,11 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@novu/js@3.11.0':
+  '@novu/js@3.12.0-rc.2':
     dependencies:
       '@floating-ui/dom': 1.6.13
       '@kobalte/core': 0.13.10(solid-js@1.9.4)
+      '@types/json-logic-js': 2.0.8
       class-variance-authority: 0.7.1
       clsx: 2.1.1
       event-target-polyfill: 0.0.4
@@ -8501,9 +8505,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@novu/react@3.11.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@novu/react@3.12.0-rc.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@novu/js': 3.11.0
+      '@novu/js': 3.12.0-rc.2
       react: 19.0.0
     optionalDependencies:
       react-dom: 19.0.0(react@19.0.0)
@@ -10198,6 +10202,8 @@ snapshots:
   '@types/http-cache-semantics@4.0.4': {}
 
   '@types/is-empty@1.2.3': {}
+
+  '@types/json-logic-js@2.0.8': {}
 
   '@types/json-schema@7.0.15': {}
 
