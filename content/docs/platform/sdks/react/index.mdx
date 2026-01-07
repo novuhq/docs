@@ -14,6 +14,10 @@ The main component for displaying notifications.
 ### Props
 
 <TypeTable name="InboxProps" type={{
+  "appearance": {
+    "description": "",
+    "type": "ReactInboxAppearance"
+  },
   "subscriberHash": {
     "description": "",
     "type": "string"
@@ -30,13 +34,9 @@ The main component for displaying notifications.
     "description": "",
     "type": "string"
   },
-  "appearance": {
-    "description": "",
-    "type": "ReactAppearance"
-  },
   "localization": {
     "description": "",
-    "type": "Localization"
+    "type": "InboxLocalization"
   },
   "tabs": {
     "description": "",
@@ -107,24 +107,7 @@ function NovuInbox() {
 
 ### Appearance Configuration
 
-<TypeTable name="InboxAppearanceProps" type={{
-  "variables": {
-    "description": "",
-    "type": "Variables"
-  },
-  "animations": {
-    "description": "",
-    "type": "boolean"
-  },
-  "icons": {
-    "description": "",
-    "type": "IconOverrides"
-  },
-  "baseTheme": {
-    "description": "",
-    "type": "Theme | Theme[]"
-  }
-}} />
+<TypeTable name="InboxAppearanceProps" type={{}} />
 
 #### Variables
 
@@ -201,976 +184,7 @@ function NovuInbox() {
 
 #### Elements
 
-<TypeTable name="InboxAppearanceElements" type={{
-  "button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "input": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "badge": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "popoverContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "popoverTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "popoverClose": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dropdownContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dropdownTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dropdownItem": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dropdownItemLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dropdownItemLabelContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dropdownItemLeft__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dropdownItemRight__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dropdownItem__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "collapsible": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "tooltipContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "tooltipTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePicker": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerGrid": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerGridRow": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerGridCell": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerGridCellTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerGridHeader": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerControl": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerControlPrevTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerControlNextTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerControlPrevTrigger__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerControlNextTrigger__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerCalendar": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerHeaderMonth": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "datePickerCalendarDay__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timePicker": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timePicker__hourSelect": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timePicker__minuteSelect": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timePicker__periodSelect": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timePicker__separator": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timePickerHour__input": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timePickerMinute__input": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "snoozeDatePicker": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "snoozeDatePicker__actions": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "snoozeDatePickerCancel__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "snoozeDatePickerApply__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "snoozeDatePicker__timePickerContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "snoozeDatePicker__timePickerLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "back__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "skeletonText": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "skeletonAvatar": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "skeletonSwitch": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "skeletonSwitchThumb": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "tabsRoot": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "tabsList": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "tabsContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "tabsTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dots": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "root": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "lockIcon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferences__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxHeader": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "loading": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inbox__popoverTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inbox__popoverContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationListEmptyNoticeContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationListEmptyNoticeOverlay": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationListEmptyNoticeIcon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationListEmptyNotice": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationList__skeleton": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationList__skeletonContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationList__skeletonItem": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationList__skeletonAvatar": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationList__skeletonText": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationListNewNotificationsNotice__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSubject__strong": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationBody__strong": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationBodyContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationDateActionsContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationRead__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationUnread__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationArchive__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationUnarchive__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSnooze__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationUnsnooze__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationRead__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationUnread__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationArchive__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationUnarchive__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSnooze__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationUnsnooze__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationsTabs__tabsRoot": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationsTabs__tabsList": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationsTabs__tabsContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationsTabs__tabsTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationsTabsTriggerLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationsTabsTriggerCount": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__title": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownItem": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownItemLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownItemLabelContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownItemLeft__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownItemRight__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownItem__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "inboxStatus__dropdownItemCheck__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreActionsContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreActions__dropdownTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreActions__dropdownContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreActions__dropdownItem": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreActions__dropdownItemLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreActions__dropdownItemLeft__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreActions__dots": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreTabs__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreTabs__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreTabs__dropdownTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreTabs__dropdownContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreTabs__dropdownItem": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreTabs__dropdownItemLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "moreTabs__dropdownItemRight__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowContainerDisabledNotice": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowLabelDisabled__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "workflowDescription": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelsContainerCollapsible": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelSwitch": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "channelSwitchThumb": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesHeader": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesHeader__back__button": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesHeader__back__button__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesHeader__title": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesHeader__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesListEmptyNoticeContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesListEmptyNotice": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesList__skeleton": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesList__skeletonContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesList__skeletonItem": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesList__skeletonIcon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesList__skeletonSwitch": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesList__skeletonSwitchThumb": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "preferencesList__skeletonText": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dayScheduleCopy__dropdownTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "dayScheduleCopy__dropdownContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timeSelect__dropdownTrigger": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timeSelect__time": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timeSelect__dropdownContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timeSelect__dropdownItem": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timeSelect__dropdownItemLabel": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timeSelect__dropdownItemLabelContainer": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "timeSelect__dropdownItemCheck__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSnooze__dropdownContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSnooze__dropdownItem": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSnooze__dropdownItem__icon": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "notificationSnoozeCustomTime_popoverContent": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "strong": {
-    "description": "",
-    "type": "ElementStyles"
-  },
-  "bellIcon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "bellContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "severityHigh__bellContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "severityMedium__bellContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "severityLow__bellContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "bellSeverityGlow": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "severityGlowHigh__bellSeverityGlow": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "severityGlowMedium__bellSeverityGlow": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "severityGlowLow__bellSeverityGlow": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "bellDot": {
-    "description": "",
-    "type": "ElementStyles | ((context: { unreadCount: { total: number; severity: Record<string, number>; }; }) => string)"
-  },
-  "preferencesContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferences?: Preference[] | undefined; groups: { name: string; preferences: Preference[]; }[]; }) => string)"
-  },
-  "notificationListContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notifications: Notification[]; }) => string)"
-  },
-  "notificationList": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notifications: Notification[]; }) => string)"
-  },
-  "notification": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "severityHigh__notification": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "severityMedium__notification": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "severityLow__notification": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationBar": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "severityHigh__notificationBar": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "severityMedium__notificationBar": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "severityLow__notificationBar": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationContent": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationTextContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationDot": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationSubject": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationBody": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationImage": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationImageLoadingFallback": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationDate": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationDefaultActions": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationCustomActions": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationPrimaryAction__button": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationSecondaryAction__button": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "workflowContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "workflowLabel": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "workflowLabelHeader": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "workflowLabelHeaderContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "workflowLabelIcon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "workflowLabelContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "workflowContainerRight__icon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "workflowArrow__icon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "preferencesGroupContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupHeader": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupLabelContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupLabelIcon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupLabel": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupActionsContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupActionsContainerRight__icon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupBody": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupChannels": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupInfo": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupInfoIcon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "preferencesGroupWorkflows": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preferenceGroup: { name: string; preferences: Preference[]; }; }) => string)"
-  },
-  "channelContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
-  },
-  "channelIconContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
-  },
-  "channel__icon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
-  },
-  "channelsContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "channelLabel": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
-  },
-  "channelLabelContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
-  },
-  "channelName": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference: Preference; }) => string)"
-  },
-  "channelSwitchContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { preference?: Preference | undefined; preferenceGroup?: { name: string; preferences: Preference[]; } | undefined; }) => string)"
-  },
-  "scheduleContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleHeader": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleLabelContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleLabelScheduleIcon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleLabelInfoIcon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleLabel": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleActionsContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleActionsContainerRight": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleBody": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleDescription": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleTable": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleTableHeader": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleHeaderColumn": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleTableBody": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleBodyRow": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleBodyColumn": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleInfoContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleInfoIcon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "scheduleInfo": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "dayScheduleCopyTitle": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "dayScheduleCopyIcon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "dayScheduleCopySelectAll": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "dayScheduleCopyDay": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "dayScheduleCopyFooterContainer": {
-    "description": "",
-    "type": "ElementStyles | ((context: { schedule?: Schedule | undefined; }) => string)"
-  },
-  "notificationDeliveredAt__badge": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationDeliveredAt__icon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  },
-  "notificationSnoozedUntil__icon": {
-    "description": "",
-    "type": "ElementStyles | ((context: { notification: Notification; }) => string)"
-  }
-}} />
+<TypeTable name="InboxAppearanceElements" type={{}} />
 
 ## Bell
 
@@ -1360,6 +374,106 @@ function CustomInbox() {
         )}
       />
     </div>
+  );
+}
+```
+
+## Subscription
+
+### Props
+
+<TypeTable name="SubscriptionProps" type={{
+  "children": {
+    "description": "",
+    "type": "ReactNode"
+  },
+  "renderPreferences": {
+    "description": "",
+    "type": "PreferencesRenderer"
+  },
+  "open": {
+    "description": "",
+    "type": "boolean"
+  },
+  "placement": {
+    "description": "",
+    "type": "Placement"
+  },
+  "placementOffset": {
+    "description": "",
+    "type": "OffsetOptions"
+  },
+  "topicKey": {
+    "description": "",
+    "type": "string"
+  },
+  "identifier": {
+    "description": "",
+    "type": "string"
+  },
+  "preferences": {
+    "description": "",
+    "type": "NonEmptyArray<UIPreference>"
+  },
+  "localization": {
+    "description": "",
+    "type": "SubscriptionLocalization"
+  },
+  "appearance": {
+    "description": "",
+    "type": "ReactSubscriptionAppearance"
+  },
+  "container": {
+    "description": "",
+    "type": "string | Node | null"
+  }
+}} />
+
+### Appearance configuration
+
+<TypeTable name="SubscriptionAppearance" type={{
+  "variables": {
+    "description": "",
+    "type": "Variables"
+  },
+  "elements": {
+    "description": "",
+    "type": "Partial<{ root: ElementStyles; button: ElementStyles; input: ElementStyles; icon: ElementStyles; badge: ElementStyles; ... 5 more ...; tooltipTrigger: ElementStyles; } & {} & { ...; }>"
+  },
+  "animations": {
+    "description": "",
+    "type": "boolean"
+  },
+  "icons": {
+    "description": "",
+    "type": "SubscriptionIconOverrides"
+  },
+  "baseTheme": {
+    "description": "",
+    "type": "SubscriptionTheme | SubscriptionTheme[]"
+  }
+}} />
+
+### Usage
+
+```tsx
+import { NovuProvider, Subscription } from "@novu/react";
+
+function SubscriptionManager() {
+  return (
+    <NovuProvider
+      subscriber="SUBSCRIBER_ID"
+      applicationIdentifier="APPLICATION_IDENTIFIER"
+    >
+      <Subscription
+      topic="product-updates"
+      identifier="user-preference-1"
+      preferences={["workflow-one", "workflow-two"]}
+      appearance={{
+        baseTheme: isDark ? subscriptionDarkTheme : undefined,
+      }}
+    />
+    </NovuProvider>
   );
 }
 ```
