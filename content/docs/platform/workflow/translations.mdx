@@ -4,7 +4,6 @@ description: 'Learn how to translate your workflow step content into multiple la
 icon: 'Languages'
 ---
 
-## Workflow translations
 Novu supports multi-language translations for workflows, allowing notifications to dynamically adapt to each of your subscriber's preferred language. You can enable, configure, and manage translations across your notification workflows from the Novu dashboard.
 
 <Callout type="info">
@@ -12,6 +11,8 @@ Novu supports multi-language translations for workflows, allowing notifications 
 </Callout>
 
 Each workflow can support multiple locales. Novu automatically selects the correct translation based on the subscriber’s locale.
+
+<Callout type="warn">Novu currently supports locale codes in `language_REGION` format only, for example, `en_US`, `fr_FR`. Language-only locale codes such as `en` are not supported.</Callout>
 
 Benefits:
 - Deliver notifications in the subscriber's preferred language
@@ -77,20 +78,26 @@ You can update translations by editing the JSON files in the editor on the trans
 
 If you prefer to create/update translations in a JSON file outside the Novu dashboard, you can do so by exporting and importing them.
 
-### How to import translations
-
-- Navigate to the translations page.
-- Select the workflow you want to export translations for.
-- Click on the locale, such as `en_US`, now click on the download icon to download the latest default locale translation JSON file.
-
 ### How to export translations
 
-- Navigate to the translations page.
-- Select the workflow you want to import translations for.
-- Click on the locale, such as `en_US`, now click on the **Import Language(s)** button to upload the translation JSON file.
-- Novu detects the locale automatically using the file name
+1. Navigate to the translations page.
+2. Select the workflow you want to export translations for
+    - To export the default locale for all workflows with translations enabled, click the **Export** button.
+3. Select the workflow locale you want to export.
+4. Click the download icon to download the latest translation JSON file for the selected locale.
+  ![Export translations](/images/workflows/translations/export-translations.png)
 
-💡 Translation changes in default locale such as `en_US` will mark other locales as *Outdated, needs update*
+### How to import translations
+
+1. Navigate to the translations page.
+2. Select the workflow you want to import translations into.
+    - To import locale into all workflows with translations enabled, click the **Import** button.
+3. Click on the locale, such as `en_US`, now click on the **Import translation(s)** button to upload the translation JSON file.
+  ![Import translations](/images/workflows/translations/import-translations.png)
+
+<Callout type="info">Translation files must be named using the `language_REGION.json` format, for example, `en_US.json`, `fr_FR.json`. Novu detects the locale automatically using the file name.</Callout>
+
+Translation changes in default locale such as `en_US` will mark other locales as *Outdated, needs update*
 
 ### Master JSON file
 
@@ -163,4 +170,4 @@ Translations feature in layouts works the same as in email steps. You can use `{
 - Avoid hardcoded language in the content editor.
 - Use variables and translation keys consistently.
 - Set subscriber locale properly to deliver notifications in the correct language.
-
+- Ensure subscriber locales are mapped to a supported `language_REGION` format before sending them to Novu.
