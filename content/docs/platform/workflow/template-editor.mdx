@@ -72,6 +72,8 @@ You can also apply raw Liquid.js syntax to the variable by clicking on the **Raw
 
 Novu supports Liquid filters to add dynamic and conditional content to your notifications. Below are examples of how to use the top 10 Liquid filters in real-world notification templates.
 
+<Callout>When comparing string values in Liquid conditional statements, for example `{% if context.tenant.data.branding.logoUrl != 'value' %}`, always use single quotes (`'value'`). Double quotes (`"value"`) are not supported currently.</Callout>
+
 <a href="https://shopify.github.io/liquid/" target="_blank">
   Learn more about the Liquid Templating Language.
 </a>
