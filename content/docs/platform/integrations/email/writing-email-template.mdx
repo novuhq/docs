@@ -11,6 +11,8 @@ You can create email templates in Novu using the following methods:
 - **Code editor (custom HTML)**: Full HTML and [LiquidJS](https://liquidjs.com/index.html) control for layout, logic, styling, and rendering.
 - **API**: Submit raw HTML and LiquidJS templates via the API.
 
+<Callout>When comparing string values in Liquid conditional statements, for example `{% if context.tenant.data.branding.logoUrl != 'value' %}`, always use single quotes (`'value'`). Double quotes (`"value"`) are not supported currently.</Callout>
+
 ## Blocks editor
 
 The block editor is a `WYSIWYG` editor that allows you to create and edit email templates. It has two fields: `Subject` and `Body`.
