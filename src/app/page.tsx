@@ -6,41 +6,25 @@ import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Accordion, Accordions } from '../../components/accordion';
-import { Callout } from '../../components/callout';
-import { CodeBlock, Pre } from '../../components/codeblock';
-import { Step, Steps } from '../../components/steps';
-import { Tab, Tabs } from '../../components/tabs';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '../../components/ui/hover-card';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../../components/ui/tooltip';
-import { metadataImage } from '../../lib/metadata-image';
+import { Accordion, Accordions } from '../components/accordion';
+import { Callout } from '../components/callout';
+import { CodeBlock, Pre } from '../components/codeblock';
+import { Step, Steps } from '../components/steps';
+import { Tab, Tabs } from '../components/tabs';
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '../components/ui/hover-card';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../components/ui/tooltip';
+import { metadataImage } from '../lib/metadata-image';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
-import { PageActions } from '../../components/page-actions';
-import { getRawMarkdownContent } from '../../lib/get-markdown-content';
+import { PageActions } from '../components/page-actions';
+import { getRawMarkdownContent } from '../lib/get-markdown-content';
 
-export default async function Page(props: {
-  params: Promise<{ slug?: string[] }>;
-  searchParams: Promise<{ full?: string }>;
-}) {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
-  const page = source.getPage(params.slug);
+export default async function HomePage() {
+  // Get the overview page content
+  const page = source.getPage(['platform', 'overview']);
 
   if (!page) notFound();
 
   const MDX = page.data.body;
-
-  const isOverviewPage =
-    page.file.path.endsWith('platform/overview.mdx') ||
-    page.slugs.join('/') === 'platform/overview';
-
-  const isFullWidth = page.data.full || searchParams.full === 'true';
-
   const rawMarkdownContent = getRawMarkdownContent(page.file.path);
 
   // GitHub URL for editing this page
@@ -48,20 +32,12 @@ export default async function Page(props: {
 
   return (
     <DocsPage
-      {...(!isOverviewPage && { toc: page.data.toc })}
-      full={isFullWidth}
+      full={false}
       tableOfContent={{
-        enabled: !isOverviewPage,
+        enabled: false,
         single: false,
         style: 'clerk',
-        footer: isOverviewPage ? null : (
-          <PageActions
-            pageContent={rawMarkdownContent}
-            title={page.data.pageTitle ?? page.data.title}
-            githubUrl={githubUrl}
-            path={page.file.path}
-          />
-        ),
+        footer: null,
       }}
       article={{
         className: 'max-sm:pb-16 max-w-[770px] !px-0',
@@ -160,18 +136,25 @@ export default async function Page(props: {
   );
 }
 
-export async function generateStaticParams() {
-  return source.generateParams();
-}
-
-export async function generateMetadata(props: { params: Promise<{ slug?: string[] }> }) {
-  const params = await props.params;
-  const page = source.getPage(params.slug);
+export async function generateMetadata() {
+  const page = source.getPage(['platform', 'overview']);
   if (!page) notFound();
 
-  return metadataImage.withImage(page.slugs, {
-    title: page.data.title,
+  return metadataImage.withImage([], {
+    title: 'Novu Documentation',
     description: page.data.description,
+    openGraph: {
+      title: 'Novu Documentation',
+      description: page.data.description,
+      url: 'https://docs.novu.co',
+    },
+    twitter: {
+      title: 'Novu Documentation',
+      description: page.data.description,
+    },
+    alternates: {
+      canonical: 'https://docs.novu.co',
+    },
   });
 }
 
