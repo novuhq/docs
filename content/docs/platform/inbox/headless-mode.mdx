@@ -158,8 +158,8 @@ function NotificationItem({ notification }: { notification: INotification }) {
 
 To show a product update banner use following steps:
 1. Create a new workflow in the dashboard with in-app steps
-2. Edit in-app step content and make this workflow as critical
-3. Create a subscriber in the dashboard with subscriberId `product-updates-subscriber`
+2. Edit in-app step content and make this workflow as critical so that this workflow is not displayed in preferences.
+3. Create a **system subscriber** in the dashboard with subscriberId `product-updates-subscriber` for product updates banner. This system subscriber will be used to show the product updates banner to all users.
 4. Create `ProductUpdateBanner` component and use `useNotifications` hook to get the product updates notifications and show them in the banner.
 
 ```jsx title="components/ProductUpdateBanner.tsx"
@@ -211,7 +211,9 @@ export const NovuNotifications = () => {
 
 6. Use `NovuNotifications` component in your application.
 
-7. [Permanently delete](/api-reference/messages/delete-a-message) or [archive](/platform/sdks/javascript#archive) the product update notification to hide the banner.
+7. Trigger the step 1 workflow to system subscriber `product-updates-subscriber`.
+
+8. As per product release requirements, [Permanently delete](/api-reference/messages/delete-a-message) or [archive](/platform/sdks/javascript#archive) the product update notification to hide the banner.
 
 Using above steps, two instances of Novu notifications will be shown in your application:
 - Product updates banner with common subscriberId `product-updates-subscriber`
