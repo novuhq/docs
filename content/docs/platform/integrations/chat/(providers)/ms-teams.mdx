@@ -9,6 +9,13 @@ You create and host a Microsoft Teams bot in your Azure environment, and your cu
 
 Once a customer connects their workspace, Novu establishes a secure channel connection using your bot's credentials. You then map specific destinations, whether the destinations involve public channels or individual users to channel endpoints, allowing Novu to route notifications dynamically to the correct tenant and conversation context.
 
+## Prerequisites
+
+- Access to <a href="https://portal.azure.com/" target="_blank" rel="noopener noreferrer">Azure Portal</a> with App Registration permissions.
+- Access to <a href="https://dev.teams.microsoft.com/home" target="_blank" rel="noopener noreferrer">Microsoft Teams Developer Portal</a>
+- Administrator privileges for granting API permissions
+- Access to <a href="https://dashboard.novu.co" target="_blank" rel="noopener noreferrer">Novu dashboard</a>
+
 ## Azure and Teams configuration
 
 Before you can configure Novu, you must create the infrastructure that hosts your bot. This involves two distinct portals:
@@ -109,7 +116,7 @@ This connects your bot resource to Teams and lets your Teams app install cleanly
   ![Go to resource](/images/channels-and-providers/chat/msteams/go-to-resource.png)
 2. Click **Settings**.
 3. Click **Channels**.
-4. In the available channelssection, click **Microsoft Teams**.
+4. In the available channels section, click **Microsoft Teams**.
 5. In the menu that appears, accept the terms of services.
 6. In the **Messaging** section, choose the appropriate environment, typically **Microsoft Teams Commercial**.
 7. Click **Apply**.
@@ -117,28 +124,34 @@ This connects your bot resource to Teams and lets your Teams app install cleanly
 ### Create a Teams app
 
 Now you create the Teams “wrapper” around your app registration and bot.
-1. Open the Teams Developer Portal.
-2. Click **Apps**.
-3. Click **+ New app** and then enter a name.
-4. Click **Add**.
-5. In the basic information page, fill in the required fields.
-6. Select **App feature**.
-6. Add a **Bot** and then select **Enter a bot ID**.
-7. Set the **Bot ID** to your `BOT_APP_ID`, the same App ID you used for the Azure Bot.
-8. Enable “What can your bot do?” to “Only send notification” as the least option.
-9. Enable scopes based on your use case:
-      - `team` for channel messages
-      - `personal` for DMs
+1. Open the <a href="https://teams.microsoft.com/v2/" target="_blank" rel="noopener noreferrer">Teams client</a> (desktop or web).
+2. In the left sidebar, click **Apps**.
+3. Search for **Developer Portal** and click **Add**, then open it.
+  ![Developer portal](/images/channels-and-providers/chat/msteams/developer-portal.png)
+4. In the Developer Portal dashboard, click **Create a new app**.
+ ![Create new app](/images/channels-and-providers/chat/msteams/create-new-app.png)
+5. Enter a name of your choice and click **Create**.
+6. In the left sidebar, click **Basic information**.
+7. Fill in the required fields (names, descriptions, developer info, URLs) and then click **Save**.
+8. In the sidebar, click **App features**.
+9. Select **Bot**.
+ ![Bot](/images/channels-and-providers/chat/msteams/bot.png)
+10. Under **Identify your bot**, select **Enter a bot ID** and then paste your Application (client) ID from Microsoft Azure.
+11. In the **What can your bot do?** section, select "Only send notification" (at minimum).
+12. Under **Select the scopes where people can use your bot**, enable the scopes based on your use case:
+      - **Team**
+      - **Personal**
+      - **Group chat**
+13. Click **Save**
+14. In the top right, click **Distribute** and then click **Download the app package**. This will save a copy of the app package to your computer in ZIP format.
+ ![Distribute your app](/images/channels-and-providers/chat/msteams/distribute-your-app.png)
 
-You don’t need to edit the JSON yourself. The developer portal generates and checks it for you.
 
-### Publish the Teams app
+### Upload your app
 
-Next, publish the app to a Teams store, if you want the app publicly available in the store. Publish to org if you want it accessible only inside your organization teams.
+Next, you must install the app into a specific Team or for a specific User.
 
-Refer to the Microsoft Teams documentation to learn how to:
-    - <a href="https://learn.microsoft.com/en-us/microsoftteams/teams-custom-app-policies-and-settings" target="_blank" rel="noopener noreferrer">Publish to your org</a>.
-    - <a href="https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/appsource/publish" target="_blank" rel="noopener noreferrer">Publish to the Teams store</a>.
+Follow the steps in the <a href="https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload#upload-your-app" target="_blank" rel="noopener noreferrer">Microsoft Teams documentation</a> to learn how to upload the just downloaded app package and also how to add the app to a specific location.
 
 ## Configure the Teams (Bot) integration in Novu
 
