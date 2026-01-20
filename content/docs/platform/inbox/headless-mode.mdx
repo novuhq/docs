@@ -169,7 +169,9 @@ import React from "react";
 
 const BannerNotification = () => {
   const { notifications } = useNotifications({
+    // with limit:1 and archived:false we are getting the latest product update notification
     limit: 1,
+    archived: false,
   });
 
   if (notifications && notifications.length > 0) {
@@ -208,6 +210,8 @@ export const NovuNotifications = () => {
 ```
 
 6. Use `NovuNotifications` component in your application.
+
+7. [Permanently delete](/api-reference/messages/delete-a-message) or [archive](/platform/sdks/javascript#archive) the product update notification to hide the banner.
 
 Using above steps, two instances of Novu notifications will be shown in your application:
 - Product updates banner with common subscriberId `product-updates-subscriber`
