@@ -150,6 +150,69 @@ function NotificationItem({ notification }: { notification: INotification }) {
 }
 ```
 
+## Showing product updates banner
+
+`@novu/react` hooks can be used to show a product updates banner in your application along with  `<Inbox />` component notifications. Differences between product update banner and `<Inbox />` component notifications are:
+- `<Inbox />` component notifications are displayed in `Popover` when bell is clicked while product update banner is displayed as a standalone top banner in the application.
+- `<Inbox />` component notifications are unique to the user while product update banner is displayed to all users.
+
+To show a product update banner use following steps:
+1. Create a new workflow in the dashboard with in-app steps
+2. Edit in-app step content and make this workflow as critical
+3. Create a subscriber in the dashboard with subscriberId `product-updates-subscriber`
+4. Create `ProductUpdateBanner` component and use `useNotifications` hook to get the product updates notifications and show them in the banner.
+
+```jsx title="components/ProductUpdateBanner.tsx"
+import { NovuProvider, useNotifications } from "@novu/react";
+
+import React from "react";
+
+const BannerNotification = () => {
+  const { notifications } = useNotifications({
+    limit: 1,
+  });
+
+  if (notifications && notifications.length > 0) {
+    // customize the banner as per your needs
+    return <div dangerouslySetInnerHTML={{ __html: notifications[0].body }} />;
+  }
+  return null;
+};
+
+export const ProductUpdateBanner = async () => {
+  return (
+    <NovuProvider
+      applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+      subscriber="product-updates-subscriber" // this subscriberId is common for all users
+    >
+      <BannerNotification />
+    </NovuProvider>
+  );
+};
+```
+
+5. Use `ProductUpdateBanner` component in your application. In below example we are using `ProductUpdateBanner` component with `<Inbox />` component to show the product updates banner along with `<Inbox >` notifications.
+
+```jsx title="components/NovuNotifications.tsx"
+import { Inbox } from "@novu/react";
+import { ProductUpdateBanner } from "./ProductUpdateBanner";
+
+export const NovuNotifications = () => {
+  return (
+    <div>
+      <ProductUpdateBanner />
+      <Inbox applicationIdentifier="YOUR_APPLICATION_IDENTIFIER" subscriber="YOUR_SUBSCRIBER_ID" />
+    </div>
+  );
+}
+```
+
+6. Use `NovuNotifications` component in your application.
+
+Using above steps, two instances of Novu notifications will be shown in your application:
+- Product updates banner with common subscriberId `product-updates-subscriber`
+- `<Inbox />` notifications with user specific subscriberId `YOUR_SUBSCRIBER_ID`
+
 ## Real-time updates
 
 The `useNotifications` and `useCounts` hooks automatically listen for real-time events and update your component state.
