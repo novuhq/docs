@@ -1,0 +1,162 @@
+---
+pageTitle: 'Configure workflow'
+title: 'Configure workflow'
+description: 'Configure workflow metadata, delivery preferences, and payload schema in the Workflow Editor.'
+icon: 'Cog'
+---
+
+After creating a workflow, you are redirected to the Workflow Editor, where you configure workflow-level settings. You can also open any existing workflow from the Workflows page to access the editor.
+
+In the **Configure workflow** section, you can update workflow metadata, control delivery behavior, and define the workflow payload schema.
+
+![Configure workflow](/images/workflows/configure-workflow.png)
+
+## Workflow status
+
+A workflow is active by default after creation. Disabling a workflow pauses execution and prevents triggers from running.
+
+Workflows can exist in one of three states:
+
+- **Active**: This means the workflow can be triggered.
+- **Inactive**: This means the workflow is paused. It cannot be triggered, but you can still edit its structure or steps.
+  ![Active workflow](/images/workflows/active-workflow.gif)
+- **Action required**: This means the workflow contains one or more errors, such as missing required fields or unconnected channels. It can still be triggered.
+
+## Tags
+
+Tags are labels or categories that help you organize and manage workflows. By grouping workflows under specific tags, you better control how they're filtered, displayed, and managed.
+
+Tags help keep things tidy and manageable for both you and your team and you can add up to 16 tags per workflow.
+
+Tags can be used to:
+- Conditionally display notifications in the <Method href="/platform/inbox/advanced-customization/conditional-display">{`<Inbox />`}</Method> or filter workflows in <Method href="/platform/subscription/customize-and-configure#custom-preferences">{`<Subscription />`}</Method>.
+- Filter and search for workflows in the dashboard.
+- [Retrieve](/api-reference/workflows/retrieve-a-workflow) or [list workflows](/api-reference/workflows/list-all-workflows) via the Novu API.
+
+**To add a tag:**
+1. Find the Tags field.
+2. Type tag name and press Enter.
+3. Changes save automatically
+
+**To remove a tag:**
+- Click the X icon next to the tag name
+
+![Add tags](/images/workflows/add-tags.gif)
+
+## Channel preferences
+
+Channel preferences let you set default channel preferences for subscribers and specify which channels they can customize.
+
+![Channel preferences](/images/workflows/channel-preferences.png)
+
+### Critical workflows
+
+Novu allows you to mark a workflow as critical, this means that the notification sent from that worflow must always be delivered to the subscribers regardless of their personal preferences and they cannot unsubscribe from them.
+
+This is useful for high-priority notifications that carry security, financial, or access-related information, where missing a message could have some consequences.
+
+### Notification severity
+
+Notification severity lets you classify workflows by importance, helping subscribers quickly identify urgent notifications. Each workflow can be assigned one of four severity levels:
+
+- **High**: Critical notifications that require immediate attention.
+- **Medium**: Important notifications that are not critical.
+- **Low**: General or informational notifications.
+- **None**: The default level for all new and existing workflows.
+
+You can set the severity for a workflow in the Novu dashboard by selecting a value from the **Notification severity** list.
+
+![Notification Severity](/images/workflows/notification-workflows/notification-severity.png)
+
+Severity levels affect how notifications appear in the Novu <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>. By default, severity controls visual cues such as color, icons, and the bell indicator, helping users prioritize messages at a glance:
+
+- **High**: Red hue
+- **Medium**: Orange hue
+- **Low**: No color
+- **None**: Default styling
+
+These default styles are [customizable](/platform/inbox/configuration/styling#style-notifications-by-severity).
+
+## Payload schema
+
+The Payload Schema in Novu allows you to define, manage, and validate the structure of incoming data for each workflow. By creating a schema, you ensure that dynamic payloads sent to workflows are predictable, type-safe, and consistent across environments.
+
+<Callout>Novu’s payload schema is based on the [JSON Schema](https://json-schema.org/) standard.</Callout>
+
+The schema acts as a contract between your systems and Novu, ensuring that every payload sent into your workflow conforms to expected rules. It provides your team with clear visibility into which variables exist, how they’re structured, and what validations are applied.
+
+Payload schemas are especially useful when building complex workflows that rely on dynamic content, reusable blocks, or strict validation requirements.
+
+### Enforce schema validation
+
+Schema validation is enabled on a per-workflow basis. When active, Novu validates incoming payloads against the schema when the workflow is triggered.
+
+This means:
+- Missing required properties will cause the request to fail.
+- Data types must match exactly. For example, a string cannot be passed where a number is expected.
+- Invalid values are rejected before the workflow executes.
+
+This validation is applied at the HTTP trigger level, and prevents invalid data from entering the workflow entirely.
+
+### Define workflow schema
+
+You can define the expected payload schema in three ways: 
+- Manually
+- importing a JSON sample
+- Creating inline variables.
+
+
+With a defined schema in place, you can:
+- Prevent unexpected runtime errors caused by invalid or missing data.
+- Build reliable conditional logic using type-aware operators.
+- Generate accurate previews powered by intelligent mock data.
+- Enable autocomplete suggestions when referencing payload variables.
+
+<Callout>
+  When adding or editing a schema property, you can mark it as required. If a property is marked as required, then it must be included in the payload when triggering the workflow using `novu.trigger()`.
+</Callout>
+
+#### Add Schema properties manually
+
+You can manually define each property in your payload by specifying:
+- **Property name**: Name must start with a letter or underscore, and contain only letters, numbers, underscores, or hyphens.
+- **Property type**: You can either select a string, integer, number, boolean, enum, array, object, null.
+
+Each property you define becomes part of the payload schema, and helps Novu suggest accurate variables when configuring channels steps or digest actions.
+
+#### Import from JSON
+
+If you already have a sample payload, then you can quickly define the schema by importing it as a JSON object. Novu infers property names, types, and structures for you.
+
+#### Create an inline variable
+
+While editing content in the template editor, if you reference a variable that doesn’t exist in the schema (for example, `payload.title`), you can 
+- Novu will prompt you to create the variable inline.
+- Click Insert to add the variable to your schema with a default type of string.
+- (Optional) After insertion, edit the variable in the manage schema tab. You can:
+  - Changing its type.
+  - Marking it as required.
+  - Adding validation rules.
+
+### Schema configuration options
+
+When defining a schema property, the available configuration fields vary depending on the selected type.
+
+#### General fields (for all types)
+
+- Property name
+- Property type
+- Required property checkbox
+- Default value – Optional fallback if no value is provided
+- Min length and max length
+
+#### Type-specific configuration
+
+Depending on the selected type, additional configuration options appear:
+
+- **String**:
+  - **Format**: None, date-time, date, time, duration, email, hostname, ipv4, ipv6, uuid, uri-reference, uri-template, json-pointer, relative-json-pointer, regex
+  - **Pattern**: Regex-based validation
+- **Enum**: Add choices, which are a list of predefined, allowed values. This restricts the field to only those values.
+- **Array**: Select the Array item type, which defines the data type of each array element.
+- **Object**: Add nested properties, each with their own type, required status, and validation options.
