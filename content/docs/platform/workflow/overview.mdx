@@ -1,51 +1,82 @@
 ---
-pageTitle: 'Workflow Editor Overview'
+pageTitle: 'Overview'
 title: 'Overview'
-description: 'The workflow Editor combines no-code simplicity and code-based flexibility, enabling users to design and manage advanced notification workflows tailored to their needs.'
-icon: 'LayoutDashboard'
+description: 'Learn how to create, configure, and work with notification workflows in Novu.'
+icon: 'Workflow'
 ---
 
-import { Card, Cards } from 'fumadocs-ui/components/card';
-import { ArrowRightIcon } from 'lucide-react';
+Novu Workflows orchestrate how notifications move from application events to messages delivered across one or more channels. A workflow combines delivery logic, message content, and execution rules into a single notification pipeline.
 
-The workflow Editor is a robust visual tool that empowers both no-code users and developers to design advanced notification workflows. It seamlessly combines the intuitive simplicity of no-code building blocks with the adaptability and precision of code-based customization.
+Use workflows to control when notifications are sent, who receives them, what content is delivered, and how delivery behaves across channels.
 
-## What is a workflow?
+<Callout type="info">If you’re new to workflows, see the <a href="/platform/concepts/workflows" target="_blank" rel="noopener noreferrer">Workflows core concept page</a> for an in-depth overview of what workflows are and how they fit into Novu’s notification system.</Callout>
 
-A workflow in Novu is a container for all notification/message logic and templates within your system.
+Novu Workflows help you:
 
-Each workflow:
+- Ship notifications faster without hardcoding logic in your application.  
+- Centralize notification logic instead of scattering it across services and codebases.  
+- Control delivery behavior with conditions, delays, batching, and retries.  
+- Personalize notifications at scale using event data, context, and templates.  
+- Observe and debug notification execution with built-in monitoring and logs. 
 
-- Has a unique identifier (key)
-- Executes for one subscriber at a time (e.g. end user, recipient, customer, etc.)
-- Contains complete notification/message logic and templates
-- Supports subscriber preference management
-- Can be triggered via API calls, events, or scheduled operations
+## Workflow lifecycle
 
-## Different types of Novu Workflows
+A workflow typically follows this lifecycle:
 
-### Visual workflow editor (No-Code)
+1. Create a workflow for an application event.  
+2. Add and configure steps to define channels and execution logic.  
+3. Author content for each channel.  
+4. Trigger the workflow from your application using events and payloads.  
+5. Monitor and iterate using activity logs and delivery metrics.  
 
-**Best suited for:**
+This section walks through each stage in detail.
 
-- Straightforward use cases without complex logic
-- Building emails using Novu's Email WYSIWYG Editor
-- Modifying existing workflows
-- Quick prototyping, testing, and iteration
-- Collaboration with non-technical stakeholders
+## Getting started
 
-### Framework SDK (Code-Based)
+Follow these guides to start building your first workflow:
 
-**Best suited for:**
+<Cards>
+  <Card
+    title="Create a workflow"
+    href="/platform/workflow/create-a-workflow"
+  >
+  Create a workflow and define its identifier and metadata.
+  </Card>
+  <Card
+    title="Configure workflows"
+    href="/platform/workflow/configure-workflow"
+  >
+  Manage workflow metadata, channel preferences, payload schema, and activation state.
+  </Card>
+  <Card
+    title="Add and configure steps"
+    href="/platform/workflow/add-and-configure-steps"
+  >
+  Add channel and action steps and define execution logic.
+  </Card>
+  <Card
+    title="Trigger workflows"
+    href="/platform/workflow/trigger-workflows"
+  >
+  Trigger workflows from your application and send event data.
+  </Card>
+</Cards>
 
-- Complex workflow logic implementation
-- External API integration
-- Custom data transformation
-- Advanced routing rules
-- Type safe workflow payloads
-- Specialized business logic
-- Complex conditional branches
-- Custom email templates (React Email, Vue Email, MJML etc.)
-- Workflow versioning
+## Use cases
 
-[Learn more about Novu Framework](/framework/overview)
+- **User lifecycle notifications**: Signup, onboarding, account changes, password resets.
+- **Transactional alerts**: Payments, security events, system updates.
+- **Product messaging**: Feature announcements, marketing notifications, in-app prompts.
+- **Operational workflows**: Internal alerts, DevOps notifications, system monitoring.
+- **Multi-tenant messaging**: Tenant-aware notifications using context and topics.
+
+## Features
+
+- **Multi-channels**: Email, in-app, SMS, push, and chat channels.
+- **Action steps**: Delays, digests, and throttle notifications.
+- **Step conditions**: Define condtional logic for each worfklow steps.
+- **Template editors**: Channel-specific editors with variables and LiquidJS logic.
+- **Reusable layouts and components**: Email layouts and shared templates.
+- **Context and shared data**: Attach metadata and reusable objects across workflows.
+- **Translations**: Localize notification content across languages.
+- **Observability**: Activity feed and request logs for debugging and auditing.
