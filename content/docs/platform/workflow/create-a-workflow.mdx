@@ -1,0 +1,86 @@
+---
+pageTitle: 'Create a workflow'
+title: 'Create a workflow'
+description: 'Create a workflow and define its identifier, metadata, and initial configuration.'
+icon: 'CirclePlus'
+---
+
+A workflow defines how Novu delivers notifications for a specific event. It contains the steps, templates, and rules that control how messages are sent across channels.
+
+You can create workflows in the Novu dashboard, using the [Novu API](/api-reference/workflows/create-a-workflow) or define them in code using the [Novu Framework](/framework/introduction#create-a-workflow). This guide focuses on creating workflows in the Novu dashboard.
+
+<Callout type="info">Workflows can only be created and managed in the development environment. Once created, workflows can be synced to other environments. To learn more, refer to the [Environments](/platform/developer/environments#publishable-assets) documentation.</Callout>
+
+## Create a workflow
+
+You can create a Novu workflow in the following ways:
+
+- **Create from scratch**: Build a custom workflow tailored to your exact needs.
+- **Create from template**: Start with pre-built workflows for common use cases.
+
+### Create a workflow from scratch
+
+1. Go to the <a href="https://dashboard.novu.co" target="_blank" rel="noopener noreferrer">Novu Dashboard</a>.
+2. Navigate to **Workflows**.
+3. Click **Create workflow**.  
+  ![Create a workflow](/images/workflows/create-a-workflow.png)
+4. Fill in the [workflow details](#workflow-details):
+      - **Name** (Required): The display name shown in the dashboard. You can change this later in the workflow editor.
+      - **Identifier** (Required): The `workflowId` is immutable. It must be in a valid slug format (letters, numbers, hyphens, and underscores only) and must be unique within one environment.
+        <Callout>The `workflowId` is required when [triggering events via the API](#) and when using [trigger overrides](#). It is also used to conditionally display notifications in the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>.</Callout>
+      - **Tags** (Optional): Organize and categorize workflows. Tags can be added later in the workflow editor.
+        <Callout>To learn more about Tags, refer to the [workflow tags](#) documentation.</Callout>
+      - **Description** (Optional): Document the workflow’s purpose and behavior for your team. Description can be added later in the workflow editor.
+  ![Create workflow](/images/workflows/create-workflow.png)
+4. Enable translations. This is optional and doesn't stop workflow creation and can be enabled after workflow creation in the workflow editor.
+    <Callout>To learn more about translations, refer to the [Translations](/platform/workflow/translations) documentation.</Callout>
+5. Click **Create workflow**.
+
+After creating the workflow, you’re redirected to the Workflow Editor, where you can configure the workflow and add steps.
+
+### Create a workflow from a template
+
+Templates are pre-built workflows for common notification scenarios. They include pre-configured steps, sample content, and pre-filled workflow detials that you can customize.
+
+To create a workflow from a template:
+
+1. Go to the Novu Dashboard.
+2. From the **Workflows** page, you can access templates in two ways:
+    - Click the dropdown on **Create workflow** and select **From template**.
+    ![Create from template](/images/workflows/create-from-template.png)
+    - Click **Explore templates**.
+    ![Create from explore](/images/workflows/create-from-explore.png)
+3. Select a template.
+4. Click **Create workflow**.
+
+## Manage workflows
+
+Once created, you can manage workflows from the Workflows page:
+
+### Update a workflow
+
+Click on any workflow to open the workflow editor, where you can:
+- Update name and description (identifier cannot be changed)
+- Add, or remove the workflow tags.
+- Change [workflow status](#).
+- Configure [channel preferences](#) and [payload schema](#).
+- Add, remove, or reorder [steps](#).
+
+### Duplicate a workflow
+
+1. Find the workflow in Workflows page.
+2. Click the three-dot menu (•••).
+3. Select **Duplicate workflow**.
+4. Provide a new name and identifier.
+  ![Duplicate a workflow](/images/workflows/duplicate-workflow.png)
+5. Click **Duplicate Workflow**.
+  ![Duplicate workflow](/images/workflows/duplicate-a-workflow.png)
+
+### Delete a workflow
+
+1. Find the workflow in Workflows page.
+2. Click the three-dot menu (•••).
+3. Select **Delete**.
+4. Confirm deletion.
+
+Deleting a workflow is permanent and cannot be undone. Any existing triggers referencing the deleted workflow will fail with a `workflow not found` error. Execution history is preserved in the [Novu Activity Feed]().
