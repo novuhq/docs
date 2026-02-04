@@ -621,7 +621,7 @@ A `Schedule` instance is returned when fetching or updating a schedule.
   },
   "update": {
     "description": "",
-    "type": "(args: UpdateScheduleArgs) => Result<Schedule>"
+    "type": "(args: UpdateScheduleArgs) => Result<Schedule, NovuError>"
   }
 }} />
 
@@ -727,6 +727,14 @@ Fetch a single subscription by topic and identifier.
   "identifier": {
     "description": "",
     "type": "string"
+  },
+  "workflowIds": {
+    "description": "",
+    "type": "string[]"
+  },
+  "tags": {
+    "description": "",
+    "type": "string[]"
   }
 }} />
 
@@ -760,7 +768,7 @@ Create a new subscription to a topic. You can pass a list of preferences to filt
   },
   "preferences": {
     "description": "",
-    "type": "NonEmptyArray<PreferenceFilter>"
+    "type": "PreferenceFilter[]"
   }
 }} />
 
@@ -798,7 +806,7 @@ Updates an existing subscription.
   },
   "preferences": {
     "description": "",
-    "type": "NonEmptyArray<PreferenceFilter>"
+    "type": "PreferenceFilter[]"
   }
 }} />
 
@@ -844,19 +852,19 @@ A `TopicSubscription` instance represents a single subscription and provides met
   },
   "update": {
     "description": "",
-    "type": "{ (args: BaseUpdateSubscriptionArgs): Result<TopicSubscription>; (args: InstanceUpdateSubscriptionArgs): Result<...>; }"
+    "type": "{ (args: BaseUpdateSubscriptionArgs): Result<TopicSubscription, NovuError>; (args: InstanceUpdateSubscriptionArgs): Result<...>; }"
   },
   "updatePreference": {
     "description": "",
-    "type": "{ (args: BaseSubscriptionPreferenceArgs): Result<SubscriptionPreference>; (args: InstanceSubscriptionPreferenceArgs): Result<...>; }"
+    "type": "{ (args: BaseSubscriptionPreferenceArgs): Result<SubscriptionPreference, NovuError>; (args: InstanceSubscriptionPreferenceArgs): Result<...>; }"
   },
   "bulkUpdatePreferences": {
     "description": "",
-    "type": "{ (args: BaseSubscriptionPreferenceArgs[]): Result<SubscriptionPreference[]>; (args: InstanceSubscriptionPreferenceArgs[]): Result<...>; }"
+    "type": "{ (args: BaseSubscriptionPreferenceArgs[]): Result<SubscriptionPreference[], NovuError>; (args: InstanceSubscriptionPreferenceArgs[]): Result<...>; }"
   },
   "delete": {
     "description": "",
-    "type": "() => Result<void>"
+    "type": "() => Result<void, NovuError>"
   }
 }} />
 
@@ -904,7 +912,7 @@ Each subscription contains a list of `SubscriptionPreference` objects that you c
   },
   "update": {
     "description": "",
-    "type": "(args: { value: RulesLogic; }) => Result<SubscriptionPreference>"
+    "type": "(args: { value: RulesLogic; }) => Result<SubscriptionPreference, NovuError>"
   }
 }} />
 
@@ -1027,51 +1035,51 @@ await subscription.delete();
   },
   "read": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "unread": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "seen": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "archive": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "unarchive": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "delete": {
     "description": "",
-    "type": "() => Result<void>"
+    "type": "() => Result<void, NovuError>"
   },
   "snooze": {
     "description": "",
-    "type": "(snoozeUntil: string) => Result<Notification>"
+    "type": "(snoozeUntil: string) => Result<Notification, NovuError>"
   },
   "unsnooze": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "completePrimary": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "completeSecondary": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "revertPrimary": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "revertSecondary": {
     "description": "",
-    "type": "() => Result<Notification>"
+    "type": "() => Result<Notification, NovuError>"
   },
   "on": {
     "description": "",

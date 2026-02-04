@@ -33,7 +33,7 @@ Integration is third party service used by Novu to send notification for a speci
   },
   "channel": {
     "description": "The channel type for the integration, which defines how the integration communicates (e.g., email, SMS).",
-    "type": "Channel"
+    "type": "IntegrationResponseDtoChannel"
   },
   "credentials": {
     "description": "The credentials required for the integration to function, including API keys and other sensitive information.",
@@ -247,6 +247,10 @@ Each integration has a set of credentials that are used to authenticate with the
     "type": "string"
   },
   "senderId": {
+    "description": "",
+    "type": "string"
+  },
+  "tenantId": {
     "description": "",
     "type": "string"
   },

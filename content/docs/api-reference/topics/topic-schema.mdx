@@ -37,6 +37,10 @@ TopicSubscription is a relationship between a subscriber and a topic. It is used
     "description": "The identifier of the subscription",
     "type": "string"
   },
+  "identifier": {
+    "description": "The identifier of the subscription",
+    "type": "string"
+  },
   "createdAt": {
     "description": "The date and time the subscription was created",
     "type": "string"
@@ -48,6 +52,10 @@ TopicSubscription is a relationship between a subscriber and a topic. It is used
   "subscriber": {
     "description": "Subscriber information",
     "type": "SubscriberDto"
+  },
+  "contextKeys": {
+    "description": "Context keys that scope this subscription (e.g., tenant:org-a, project:proj-123)",
+    "type": "string[]"
   }
 }} />
 

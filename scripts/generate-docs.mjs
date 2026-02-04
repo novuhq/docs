@@ -26,6 +26,7 @@ async function main() {
         !relativePath.endsWith('index.mdx') && // Preserves top-level index.mdx if any
         !relativePath.endsWith('overview.mdx') &&
         !relativePath.endsWith('rate-limiting.mdx') &&
+        !relativePath.endsWith('payload-limits.mdx') &&
         !relativePath.endsWith('idempotency.mdx') &&
         !relativePath.endsWith('meta.json') &&
         !relativePath.endsWith('model.mdx') &&

@@ -137,14 +137,14 @@ Message is a single notification that is sent to a subscriber. Each channel step
   },
   "payload": {
     "description": "The payload that was used to send the notification trigger",
-    "type": "MessageResponseDtoPayload"
+    "type": "{ [k: string]: any; }"
   },
   "overrides": {
     "description": "Provider specific overrides used when triggering the notification",
-    "type": "MessageResponseDtoOverrides"
+    "type": "{ [k: string]: any; }"
   },
   "contextKeys": {
-    "description": "Context keys associated with the message (format: \"type:id\")",
+    "description": "Context (single or multi) in which the message was sent",
     "type": "string[]"
   }
 }} />
