@@ -1,0 +1,108 @@
+---
+pageTitle: 'Configure Delay Step'
+title: 'Delay'
+description: 'Learn how to use delay step to pause workflow execution.'
+icon: 'Timer'
+---
+
+The Delay step pauses workflow execution for a specified duration before continuing to the next step. This is useful use cases such as:
+
+- Waiting for X amount of time before sending the message
+- Wait for a short period of time before sending a push message in case the user seen the notification in the Inbox Component
+- Send a reminder email 24 hours after a user abandons their shopping cart to encourage checkout completion
+- Send a follow-up message 3 days after user registration to check if they need onboarding assistance
+
+## Adding a delay step
+
+You can add a delay step anywhere in a workflow—before or after any other step. When the workflow reaches the delay step, execution pauses for the configured duration and then resumes with the next step.
+
+It is important to note that:
+
+- You can apply step conditions to skip the delay when certain conditions are met.
+- Delay steps can respect a subscriber’s delivery schedule. When enabled, notifications sent after the delay will be delivered during the subscriber’s next available time slot.
+- Notifications sent after a delay are delivered based on the subscriber’s time zone if a `timezone` attribute is set. If not, UTC is used.
+
+<Callout type="info">
+  Changing the step content after triggering the workflow with delay step will affect the existing pending delayed notification content.
+</Callout>
+
+## Delay types
+
+Delay types are used to define how long the workflow execution should be delayed before proceeding. These delay types are:
+
+### Fixed delay
+
+A fixed delay pauses workflow execution for a static duration. Use this when the delay length is known in advance and does not change.
+
+You can specify fixed delays in seconds, minutes, hours, days, weeks, or months.
+
+![Fixed delay example](/images/platform/workflow/delay/fixed-delay.gif)
+
+### Scheduled delay
+
+A scheduled delay pauses workflow execution until a specific date and time, based on the subscriber’s time zone.
+
+You can configure scheduled delays to resume execution:
+
+- until minute.
+- until hour at specific minutes.
+- until day at specific hour and minutes.
+- until week and days of the week at specific hours and minutes.
+- until month on specific days of the month and weekdays at hours and minutes.
+
+<iframe
+  width="100%"
+  height="400"
+  src="https://www.youtube.com/embed/S5vdsvJDNxA"
+  title="Learn how to use Scheduled delay in Novu workflow"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+  allowFullScreen></iframe>
+
+In the example above, the scheduled delay pauses workflow execution until the current day at either 10:00 AM or 11:00 AM, at 23, 24, or 25 minutes past the hour, based on the subscriber’s time zone.
+
+### Dynamic delay
+
+A dynamic delay also called a variable-based delay determines the delay duration using a variable from the event payload. This allows the delay to change per workflow execution.
+
+The variable can be defined in one of the following formats:
+
+- **ISO-8601 timestamp**: Example: `2025-01-01T12:00:00Z`. This value should be for future date and time.
+- **Duration object**: Example: `{ "amount": 30, "unit": "minutes" }`. This value should be for future date and time. Here *amount* is the number of units to delay and *unit* is the time unit. *unit* can be **seconds**, **minutes**, **hours**, **days**, **weeks**, or **months**.
+
+![Dynamic delay example](/images/platform/workflow/delay/dynamic-delay.png)
+
+In this example, the `delayTill` variable is used to pause the workflow until the future date and time specified in the `delayTill` variable. 
+
+<Tabs items={['ISO Date', "Duration object"]}>
+  <Tab value="ISO Date">
+   
+    ```json
+    {
+      "delayTill": "2026-01-01T12:00:00Z"
+    }
+    ```
+  </Tab>
+  <Tab value="Duration object">
+   
+    ```json
+    {
+      "delayTill": {
+        "amount": 30,
+        "unit": "minutes"
+      }
+    }
+    ```
+  </Tab>
+</Tabs>
+
+If a dynamic delay using an ISO date is added as the first step in a workflow, it effectively schedules the workflow execution to start at the specified time.
+
+## Frequently asked questions
+
+### If delay step fails, will the workflow continue to the next step?
+No, workflow execution will stop immediately if the delay step fails due to an error. Common errors are:
+
+- Invalid ISO date format
+- Invalid duration object format
+- Past datetime is specified

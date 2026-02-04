@@ -1,0 +1,82 @@
+---
+pageTitle: 'Add and configure steps'
+title: 'Add and configure steps'
+description: 'Learn how workflow steps work in Novu, the different step types available, and how to add and execute steps in a notification workflow.'
+icon: 'CopyPlus'
+---
+
+Steps are the building blocks of a Novu workflow. Each step represents a distinct action or delivery mechanism that determines what happens, when it happens, and how a notification is delivered.
+
+A workflow is built as a sequence of steps, executed from top to bottom. You define and arrange steps using the Workflow Editor in the Novu dashboard, where each node on the canvas represents a single step in the execution flow.
+
+Each step operates independently. If one step fails, other steps in the workflow can still succeed, making workflows modular and fault-tolerant.
+
+## Types of steps
+
+Novu workflows support two types of steps from the Novu dashboard.
+
+![Types of steps](/images/workflows/steps.png)
+
+### Channel steps
+
+Channel steps deliver notifications to users through supported communication channels. Each channel step includes its own template editor for defining notification content and channel-specific behavior.
+
+Supported channel types include:
+
+- In-App
+- Email
+- Push
+- Chat
+- SMS
+
+In-app notifications are delivered directly to your application through the Novu <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>.
+
+To send notifications through Email, Push, Chat, or SMS channels, you must configure the required [channel provider integration](/platform/integrations/overview) for your environment. Without an active integration, messages sent through that channel won’t be delivered.
+
+<Callout>Novu provides built-in [demo integrations](/platform/integrations/demo-integration) for the Email and SMS channels. These sandboxed providers let you test workflows before configuring a provider.</Callout>
+
+### Action steps
+
+Action steps introduce logic and flow control into a workflow. They do not send notifications directly, but instead affect when and how downstream steps execute.
+
+Action steps include:
+- **[Delay](/platform/workflow/add-and-configure-steps/action-steps/delay)**: Pause workflow execution for a specified duration before continuing.
+- **[Digest](/platform/workflow/add-and-configure-steps/action-steps/digest)**: Group multiple related events into a single notification.
+- **[Throttle](/platform/workflow/add-and-configure-steps/action-steps/throttle)**: Limit how frequently notifications are sent for a workflow.
+
+Action steps are typically placed before or between channel steps to shape delivery behavior.
+
+<Callout>You can create custom stpes using Novu Framework. To learn more about, refer to the [Custom steps documentation](/framework/custom).</Callout>
+
+## Add a step to a workflow
+
+You add steps from the Workflow Editor when building or editing a workflow.
+
+The first step in every workflow is the Workflow Trigger, which represents the event that starts the workflow.
+
+To add steps:
+1. Open a workflow in the Workflow Editor.
+2. Click the **+** (Add step) icon at the desired position.
+3. Select a step type from the available options.
+4. Configure the step if required.
+
+![Add steps](/images/workflows/add-step.gif)
+
+You can add multiple steps and reorder them at any time to change the execution flow.
+
+## How steps execute
+
+When a workflow is triggered:
+
+- Steps execute sequentially, from top to bottom.
+- Each step receives the same workflow payload.
+- A step must complete before the next step begins.
+
+This execution model allows you to build complex notification sequences that adapt to timing, user behavior, and delivery requirements such as:
+
+1. Send an in-App message. 
+2. Wait 24 hours (Delay). 
+3. If the in-app message is unread, send an email. 
+4. If the subscriber is a premium user, then follow up with an SMS message. 
+
+This allows Novu workflows to adapt to user behavior and preferences while keeping the configuration visual and testable.
