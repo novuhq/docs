@@ -14,17 +14,11 @@ export const config = {
 export default async function middleware(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
 
-  // Root redirects
-  if (pathname === '/') {
-    return NextResponse.redirect(new URL('/platform/overview', request.url), {
-      status: 308,
-    });
-  }
-
-  // Section root redirects
+  // Section root redirects - redirect /platform and /platform/overview to root
   const sectionRedirects: Record<string, string> = {
-    '/overview/introduction': '/platform/overview',
-    '/platform': '/platform/overview',
+    '/overview/introduction': '/',
+    '/platform': '/',
+    '/platform/overview': '/',
     '/community': '/community/overview',
     '/api-reference': '/api-reference/overview',
     '/framework': '/framework/overview',
@@ -93,7 +87,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
   // Skip the catch-all redirect for paths that:
   // 1. Already start with a known prefix
-  // 2. Are exactly '/platform'
+  // 2. Are exactly '/platform', '/', etc.
   // 3. Are static assets or API routes (these are handled by the matcher)
   // 4. Are root paths that we handle above
   const skipPaths = [
