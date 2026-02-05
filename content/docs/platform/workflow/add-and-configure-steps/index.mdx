@@ -1,6 +1,6 @@
 ---
-pageTitle: 'Add and configure steps'
-title: 'Add and configure steps'
+pageTitle: 'Add and Configure Steps'
+title: 'Add and Configure Steps'
 description: 'Learn how workflow steps work in Novu, the different step types available, and how to add and execute steps in a notification workflow.'
 icon: 'CopyPlus'
 ---
@@ -11,19 +11,19 @@ A workflow is built as a sequence of steps, executed from top to bottom. You def
 
 Each step operates independently. If one step fails, other steps in the workflow can still succeed, making workflows modular and fault-tolerant.
 
-## Types of steps
-
 Novu workflows support two types of steps from the Novu dashboard.
 
 ![Types of steps](/images/workflows/steps.png)
 
-### Channel steps
+<Callout>You can create custom step using Novu Framework. To learn more about, refer to the [Custom steps documentation](/framework/custom).</Callout>
+
+## Channel steps
 
 Channel steps deliver notifications to users through supported communication channels. Each channel step includes its own template editor for defining notification content and channel-specific behavior.
 
 Supported channel types include:
 
-- In-App
+- In-app
 - Email
 - Push
 - Chat
@@ -31,22 +31,102 @@ Supported channel types include:
 
 In-app notifications are delivered directly to your application through the Novu <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>.
 
-To send notifications through Email, Push, Chat, or SMS channels, you must configure the required [channel provider integration](/platform/integrations/overview) for your environment. Without an active integration, messages sent through that channel won’t be delivered.
+To send notifications through Email, Push, Chat, or SMS channels, you must configure the appropriate [channel provider integration](/platform/integrations/overview) for your environment. Without an active integration, messages sent through that channel won’t be delivered.
 
 <Callout>Novu provides built-in [demo integrations](/platform/integrations/demo-integration) for the Email and SMS channels. These sandboxed providers let you test workflows before configuring a provider.</Callout>
 
-### Action steps
+## Action steps
 
-Action steps introduce logic and flow control into a workflow. They do not send notifications directly, but instead affect when and how downstream steps execute.
+Action steps introduce logic and flow control into a workflow. They do not send notifications directly, but instead affect when and how downstream steps execute. Action steps are typically placed before or between channel steps to shape delivery behavior.
 
-Action steps include:
-- **[Delay](/platform/workflow/add-and-configure-steps/action-steps/delay)**: Pause workflow execution for a specified duration before continuing.
-- **[Digest](/platform/workflow/add-and-configure-steps/action-steps/digest)**: Group multiple related events into a single notification.
-- **[Throttle](/platform/workflow/add-and-configure-steps/action-steps/throttle)**: Limit how frequently notifications are sent for a workflow.
+### Delay
 
-Action steps are typically placed before or between channel steps to shape delivery behavior.
+The Delay step pauses workflow execution for a specified duration before continuing to the next step.
 
-<Callout>You can create custom stpes using Novu Framework. To learn more about, refer to the [Custom steps documentation](/framework/custom).</Callout>
+Delay is used when timing matters, whether you need to wait a fixed amount of time, resume execution at a scheduled moment, or defer execution based on data from the trigger payload. This is useful use cases such as:
+
+- Waiting for X amount of time before sending the message
+- Wait for a short period of time before sending a push message in case the user seen the notification in the Inbox Component
+- Send a reminder email 24 hours after a user abandons their shopping cart to encourage checkout completion
+- Send a follow-up message 3 days after user registration to check if they need onboarding assistance
+
+**How does Delay work?**
+
+When a workflow reaches a Delay step:
+
+1. Execution pauses for the configured duration or until the scheduled time.
+2. Once the delay condition is satisfied, the workflow continues to the next step.
+3. All downstream steps execute normally unless blocked by conditions or other controls.
+
+Steps placed before the Delay step run immediately. Steps placed after the Delay step run only after the delay completes.
+
+Delay can be added anywhere in a workflow and can be conditionally skipped using step conditions.
+
+<Callout>To learn how to configure delay types and scheduling behavior, refer to the [Configure Delay Step](/platform/workflow/add-and-configure-steps/action-steps/delay) documentation.</Callout>
+
+### Digest
+
+The Digest step controls how often downstream steps execute by batching multiple workflow trigger events into a single execution.
+
+Instead of running the workflow once per event, Digest collects events over time, groups them per subscriber, and then allows the workflow to continue once per digest window. Use Digest to
+
+- Prevent over-notifying users during bursts of activity
+- Replace many similar notifications with a single summary
+- Batch repeated events that occur within a short period
+- Deliver notifications on a fixed cadence (for example, daily or weekly summaries)
+
+**How does Digest work?**
+
+When a Digest step is added:
+
+1. Workflow trigger events are collected instead of immediately flowing downstream.
+2. Events are grouped per subscriber (and optional grouping key).
+3. Once the digest window completes, the workflow continues once, with the aggregated events available as context.
+
+![Digest Engine](/workflow/media-assets/digest-engine.png)
+Steps placed before the Digest step execute in real time. Steps placed after the Digest step execute only when the digest is released.
+
+<Cards>
+  <Card
+    href="/platform/workflow/add-and-configure-steps/action-steps/digest"
+    title="Configure Digest step"
+  >
+  Learn how to configure Digest windows, group rules, and schedule behavior.
+  </Card>
+  <Card
+    href="/platform/workflow/add-and-configure-steps/action-steps/digest"
+    title="Use Digested data"
+  >
+  Learn how to use digested data in the template editor and how to use the digest block.
+  </Card>
+</Cards>
+
+### Throttle
+
+The Throttle step lets you limit the number of workflow executions within a specified time window. You can configure throttling directly in Novu workflow editor. By setting limits, you can prevent subscribers from receiving duplicate or excessive notifications when a trigger fires repeatedly.
+
+![Throttle](/images/workflows/throttle.png)
+
+Some use cases for this include:
+- Limiting high-frequency alerts (such as CPU or billing usage checks) to one notification per hour, day, or week.
+- Preventing duplicate messages from automated cron jobs or recurring triggers.
+- Controlling notification frequency for subscribers who belong to multiple projects or contexts.
+
+**How does Throttle work?**
+
+At a high level, the throttle step counts the number of times a workflow is triggered for a specific subscriber.
+
+- If the count is within the defined execution threshold for the time window, then the workflow proceeds as normal.
+- If the count exceeds the threshold, then the workflow execution is halted at the throttle step. Any steps placed after the throttle step in your workflow will not be run. For example, if you have an email step following a throttle step, then that email will not be sent once the limit is reached.
+  ![Throttle feed activity feed](/images/workflows/throttle-step-activity-feed.png)
+
+Throttling applies consistently across channels, whether the workflow sends email, in-app, SMS, chat, or push notifications.
+
+The throttle step applies to all workflows, including those marked as critical. If a critical workflow is triggered more frequently than the throttle limit allows, then it will be skipped just like any other workflow. This ensures that even high-priority alerts do not overwhelm a subscriber.
+
+To the subscriber, the experience is transparent. They are not aware that any throttling has occurred; they either receive a notification or they don’t. The subscriber is never exposed to information about the throttle itself.
+
+<Callout>To learn how to configure throttle windows, thresholds, and grouping behavior, refer to the [Configure Throttle Step](/platform/workflow/add-and-configure-steps/action-steps/throttle) documentation.</Callout>
 
 ## Add a step to a workflow
 

@@ -1,30 +1,32 @@
 ---
 pageTitle: 'Configure Delay Step'
-title: 'Delay'
+title: 'Configure Delay'
 description: 'Learn how to use delay step to pause workflow execution.'
 icon: 'Timer'
 ---
 
-The Delay step pauses workflow execution for a specified duration before continuing to the next step. This is useful use cases such as:
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
-- Waiting for X amount of time before sending the message
-- Wait for a short period of time before sending a push message in case the user seen the notification in the Inbox Component
-- Send a reminder email 24 hours after a user abandons their shopping cart to encourage checkout completion
-- Send a follow-up message 3 days after user registration to check if they need onboarding assistance
+After adding a Delay step to a workflow, it pauses workflow execution for a specified duration or until a scheduled time, then resumes execution with the next step. You can add a Delay step anywhere in a workflow, before or after any other step to control when subsequent steps run.
 
-## Adding a delay step
+This page focuses on how to configure the Delay step for your use case.
 
-You can add a delay step anywhere in a workflow—before or after any other step. When the workflow reaches the delay step, execution pauses for the configured duration and then resumes with the next step.
+<Callout>To learn about the when to use Delay in a workflow, refer to the [Delay step overview](/platform/workflow/add-and-configure-steps#delay).</Callout>
 
-It is important to note that:
+## Delivery behavior and scheduling
 
-- You can apply step conditions to skip the delay when certain conditions are met.
-- Delay steps can respect a subscriber’s delivery schedule. When enabled, notifications sent after the delay will be delivered during the subscriber’s next available time slot.
-- Notifications sent after a delay are delivered based on the subscriber’s time zone if a `timezone` attribute is set. If not, UTC is used.
+Delay supports delivery aware execution:
+- Notifications sent after a delay can respect a subscriber’s delivery schedule.
+- Notifications are delivered using the subscriber’s time zone if a `timezone` attribute is set.
+- If no time zone is available, UTC is used.
 
 <Callout type="info">
   Changing the step content after triggering the workflow with delay step will affect the existing pending delayed notification content.
 </Callout>
+
+## Adding a delay step
+
+You can add a delay step anywhere in a workflow, before or after any other step. When the workflow reaches the delay step, execution pauses for the configured duration and then resumes with the next step.
 
 ## Delay types
 
@@ -98,11 +100,19 @@ In this example, the `delayTill` variable is used to pause the workflow until th
 
 If a dynamic delay using an ISO date is added as the first step in a workflow, it effectively schedules the workflow execution to start at the specified time.
 
-## Frequently asked questions
+## Extend to subscriber’s schedule
 
-### If delay step fails, will the workflow continue to the next step?
-No, workflow execution will stop immediately if the delay step fails due to an error. Common errors are:
+When enabled, delayed execution respects the subscriber’s delivery schedule.
 
-- Invalid ISO date format
-- Invalid duration object format
-- Past datetime is specified
+If the delay completes outside the subscriber’s available delivery window, execution resumes during the next available time slot. This option is disabled by default.
+
+## FAQs
+
+<Accordions type="single">
+  <Accordion title="If delay step fails, will the workflow continue to the next step?">
+  No, workflow execution will stop immediately if the delay step fails due to an error. Common errors are:
+  - Invalid ISO date format.
+  - Invalid duration object format.
+  - Past datetime is specified.
+  </Accordion>
+</Accordions>

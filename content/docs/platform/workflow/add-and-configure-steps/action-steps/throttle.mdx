@@ -1,48 +1,17 @@
 ---
 pageTitle: 'Configure Throttle Step'
-title: 'Throttle'
+title: 'Configure Throttle'
 description: 'Learn how to use the Throttle step in Novu workflows to control notification frequency.'
 icon: 'Gauge'
 ---
 
-The Throttle step lets you limit the number of workflow executions within a specified time window. You can configure throttling directly in Novu workflow editor. By setting limits, you can prevent subscribers from receiving duplicate or excessive notifications when a trigger fires repeatedly.
+After adding a Throttle step to a workflow, It limits the number of times a workflow is allowed to continue within a specified time window b. Once the execution limit is reached, the workflow stops at the Throttle step and downstream steps are skipped.
 
-![Throttle](/images/workflows/throttle.png)
+This page focuses on how to configure the Throttle step.
 
-Some use cases for this include:
-- Limiting high-frequency alerts (such as CPU or billing usage checks) to one notification per hour, day, or week.
-- Preventing duplicate messages from automated cron jobs or recurring triggers.
-- Controlling notification frequency for subscribers who belong to multiple projects or contexts.
+<Callout>To learn about the when to use Throttle in a workflow, refer to the [Throttle step overview](/platform/workflow/add-and-configure-steps/action-steps/throttle).</Callout>
 
-## How the Throttle step works
-
-At a high level, the throttle step counts the number of times a workflow is triggered for a specific subscriber.
-
-- If the count is within the defined execution threshold for the time window, then the workflow proceeds as normal.
-- If the count exceeds the threshold, then the workflow execution is halted at the throttle step. Any steps placed after the throttle step in your workflow will not be run. For example, if you have an email step following a throttle step, then that email will not be sent once the limit is reached.
-  ![Throttle feed activity feed](/images/workflows/throttle-step-activity-feed.png)
-
-Throttling applies consistently across channels, whether the workflow sends email, in-app, SMS, chat, or push notifications.
-
-The throttle step applies to all workflows, including those marked as critical. If a critical workflow is triggered more frequently than the throttle limit allows, then it will be skipped just like any other workflow. This ensures that even high-priority alerts do not overwhelm a subscriber.
-
-To the subscriber, the experience is transparent. They are not aware that any throttling has occurred; they either receive a notification or they don’t. The subscriber is never exposed to information about the throttle itself.
-
-## Throttle Step properties
-
-You can find and edit all the properties for the Throttle step directly within the workflow editor.
-
-- **Navigate to the Workflow Editor**: Go to the **Workflows** page in your Novu dashboard and either create a new workflow or select an existing one.
-- **Add the Throttle Step**: On the workflow canvas, click the `+` icon between steps to open the step library, then select Throttle from the list.
-  ![Throttle step](/images/workflows/throttle-step.png)
-- **Access the properties panel**: Click on the newly added **Throttle** step on the canvas. This will open its configuration panel on the right-hand side of the screen.
-  ![Throttle panel](/images/workflows/throttle-panel.png)
-
-This panel contains all properties for the step, including:
-
-- **Name**: A descriptive label for the step in the workflow editor.
-- **Identifier**: A unique key used to reference the step programmatically.
-- **Throttle Window**: The main configuration for setting the time period and execution limits.
+![Throttle panel](/images/workflows/throttle-panel.png)
 
 ## Throttle window
 
