@@ -1,0 +1,97 @@
+---
+pageTitle: 'Configure Digest Step'
+title: 'Configure Digest'
+description: 'Batch multiple workflow trigger events into a single execution using configurable digest windows and grouping rules.'
+icon: 'Boxes'
+---
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+After adding a Digest step to a workflow, Novu batches multiple trigger events and executes downstream steps only once per digest window, instead of once per event.
+
+This page focuses on how to configure the Digest step to fit your use case.
+
+<Callout>To learn about the when to use Digest in a workflow, refer to the [Digest step overview](/platform/workflows/add-and-configure-steps).</Callout>
+
+![Configure digest](/images/workflows/configure-digest.gif)
+
+## Group events by
+
+By default, Digest groups events by `subscriberId`, ensuring that each subscriber receives their own digest.
+
+You can optionally add one additional aggregation key to further group events within a subscriber’s digest. This gives you finer control over how events are batched.
+
+The aggregation key must come from the event payload defined in your [payload schema](#). For example, if multiple users like different posts, you may want each subscriber to receive separate digests per post by grouping on `payload.postId`.
+
+## Digest window
+
+The digest window defines how long events are collected before the workflow continues. You can configure the digest window as **Regular** or **Scheduled**.
+
+### Regular digest
+
+This allows you to set the amount of time to digest events for. Once the defined time has elapsed, the digested events are sent.
+
+#### Digest events for
+
+You can configure the digest duration in:
+- Seconds
+- Minutes
+- Hours
+- Days
+- Weeks
+- Months
+
+<Callout type="info">By default, the maximum supported digest window is **1 day**. If you require a longer window, contact our [support team](https://novu.co/support) to discuss your use case.</Callout>
+
+#### Start digest
+
+You can also control when digesting begins by selecting any of the following options:
+
+- **Immediately**: Start collecting events as soon as the first event arrives.
+
+- **When events repeat**: Check whether a similar notification was sent recently.
+  - If yes, start a digest.
+  - If not, deliver the notification immediately and skip digesting.
+
+**Available presets:**
+- When events repeat within 5 minutes.
+- When events repeat within 30 minutes.
+- Custom.
+
+This behavior is useful when you want the first notification delivered instantly, while batching subsequent events that occur close together.
+
+### Scheduled digest
+
+A Scheduled digest collects events and delivers them at fixed calendar intervals instead of relative durations.
+
+You can schedule delivery:
+- Every minute
+- Every hour
+- Daily
+- Weekly
+- Monthly
+
+<Callout type="info">
+Scheduled digests are delivered in the subscriber’s time zone.
+</Callout>
+
+If no events occur during a scheduled window, no notification is sent.
+
+## Extend to subscriber’s schedule
+
+When enabled, digest delivery respects the subscriber’s delivery schedule.
+
+If the digest window ends outside the subscriber’s available hours, the notification is delayed until the next available time slot. This option is disabled by default.
+
+## FAQs
+
+<Accordions>
+  <Accordion title="If scheduled digest is set for 9:00 AM daily then will the digest be sent at 9:00 AM every day without any event triggered?">
+    If scheduled digest is sent for 9:00 daily, then novu will collect all events triggered between 9:00 AM today till 9:00 AM tomorrow and send the digest at 9:00 AM tomorrow. This process is repeated daily. If there is no any event triggered between 9:00 AM today and 9:00 AM tomorrow, then no digest will be sent.
+  </Accordion>
+  <Accordion title="What is the difference between Regular and Scheduled Digest set to 1 Hour?">
+    Both digests are same in this case.
+  </Accordion>
+  <Accordion title="If digest step fails, will the workflow continue to the next step?">
+    No, workflow execution will stop immediately if the digest step fails due to an error.
+  </Accordion>
+</Accordions>
