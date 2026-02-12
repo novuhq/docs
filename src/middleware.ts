@@ -79,6 +79,10 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/react/styling#appearance-prop': '/platform/inbox/configuration/styling',
     '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
     '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
+
+    '/platform/workflow/tags': '/platform/workflow/configure-workflow#tags',
+    '/platform/workflow/build-a-workflow#manage-payload-schema':
+      '/platform/workflow/configure-workflow#payload-schema',
   };
 
   if (pathname in redirectMap) {
