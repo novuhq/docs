@@ -9,7 +9,7 @@ After creating a workflow, you are redirected to the Workflow Editor, where you 
 
 In the **Configure workflow** section, you can update workflow metadata, control delivery behavior, and define the workflow payload schema.
 
-![Configure workflow](/images/workflows/configure-workflow.png)
+![Configure workflow](/images/workflows/configure-workflow/configure-workflow.png)
 
 ## Workflow status
 
@@ -19,7 +19,7 @@ Workflows can exist in one of three states:
 
 - **Active**: This means the workflow can be triggered.
 - **Inactive**: This means the workflow is paused. It cannot be triggered, but you can still edit its structure or steps.
-  ![Active workflow](/images/workflows/active-workflow.gif)
+  ![Active workflow](/images/workflows/configure-workflow/active-workflow.gif)
 - **Action required**: This means the workflow contains one or more errors, such as missing required fields or unconnected channels. It can still be triggered.
 
 ## Tags
@@ -35,24 +35,25 @@ Tags can be used to:
 
 ### Add a workflow tag
 1. In the workflow editor, find the Tags field.
-2. Type tag name and press Enter. Changes save automatically..
+2. Type tag name, If tag already exists, it will be suggested.
+3. If tag does not exist, you can create it by pressing Enter.
 
 ### Remove a workflow tag
-- Click the X icon next to the tag name
+- Click the X icon next to the tag name to remove tag from the workflow.
 
-![Add tags](/images/workflows/add-tags.gif)
+![Add tags](/images/workflows/configure-workflow/add-tags.gif)
 
 ## Channel preferences
 
-Channel preferences let you set default channel preferences for subscribers and specify which channels they can customize.
+Workflow channel preferences let you set default channel preferences for subscribers. For all new subscribers, the channel preferences will be set to the default preferences set for the workflow. Read more about [channel preferences](/platform/concepts/preferences).
 
-![Channel preferences](/images/workflows/channel-preferences.png)
+![Channel preferences](/images/workflows/configure-workflow/channel-preferences.png)
 
 ### Critical workflows
 
-Novu allows you to mark a workflow as critical, this means that the notification sent from that worflow must always be delivered to the subscribers regardless of their personal preferences and they cannot unsubscribe from them.
+Novu allows you to mark a workflow as critical, this means that the notification sent from that worflow must always be delivered to the subscribers regardless of their personal preferences and they cannot change their preferences for this workflow.
 
-This is useful for high-priority notifications that carry security, financial, or access-related information, where missing a message could have some consequences.
+This is useful for high-priority notifications that are related to security, financial, or access-related information, where missing a message could have some consequences. 
 
 ### Notification severity
 
@@ -65,7 +66,7 @@ Notification severity lets you classify workflows by importance, helping subscri
 
 You can set the severity for a workflow in the Novu dashboard by selecting a value from the **Notification severity** list.
 
-![Notification Severity](/images/workflows/notification-workflows/notification-severity.png)
+![Notification Severity](/images/workflows/configure-workflow/notification-severity.png)
 
 Severity levels affect how notifications appear in the Novu <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>. By default, severity controls visual cues such as color, icons, and the bell indicator, helping users prioritize messages at a glance:
 
@@ -78,7 +79,7 @@ These default styles are [customizable](/platform/inbox/configuration/styling#st
 
 ## Payload schema
 
-The Payload schema defines, manages, and validates the structure of data sent to a workflow. By defining a schema, you ensure that incoming payloads are predictable, type-safe, and consistent across environments.
+The Payload schema defines, manages, and validates the structure of data sent to a workflow. By defining a schema, you ensure that payload object, while triggering the workflow, is predictable, type-safe, and consistent across environments.
 
 <Callout>Novu’s payload schema is based on the [JSON Schema](https://json-schema.org/) standard.</Callout>
 
@@ -100,8 +101,8 @@ Each schema property includes the following fields:
 
 - **Property name**: Must start with a letter or underscore, and contain only letters, numbers, underscores, or hyphens.
 - **Property type**: You can either select a string, integer, number, boolean, enum, array, object, or null.
-- **Required**: You can mark a property as required. Required properties must be included in the payload when triggering the workflow using `novu.trigger()`.
-- **Schema configuration**: Additional validation and type-specific settings (see [Schema configuration]()).
+- **Required**: You can mark a property as required. Required properties must be included in the payload when triggering the workflow using `novu.trigger()` method.
+- **Schema configuration**: Additional validation and type-specific settings.
 - **Delete**: Remove the property from the schema.
 
 ### Define workflow schema
@@ -114,13 +115,13 @@ You can define the expected payload schema in three ways:
 
 Manually define each property by specifying its name, type, and validation rules from the **Manage workflow schema** section.
 
-![Manage payload schema manually](/images/workflows/workflow-payload.gif)
+![Manage payload schema manually](/images/workflows/configure-workflow/workflow-payload.gif)
 
 #### Import from JSON
 
 If you already have a sample payload, you can import it as a JSON object from the **Manage workflow schema** section.. Novu automatically infers property names, types, and nested structures.
 
-![Import from JSON](/images/workflows/import-payload.gif)
+![Import from JSON](/images/workflows/configure-workflow/import-payload.gif)
 
 #### Create an inline variable
 
@@ -128,7 +129,7 @@ While adding notification content in the template editors, you can reference a v
 
 After creating the variable, you can edit it from the **Manage payload schema** directly in the template editor.
 
-![Create inline variable](/images/workflows/inline-variable.gif)
+![Create inline variable](/images/workflows/configure-workflow/inline-variable.gif)
 
 <Callout>To learn more about how notification content are added to the template editors, refer to the [Add notification content](/platform/workflow/add-notification-content) documetation</Callout>
 
@@ -164,4 +165,4 @@ This means:
 - Data types must match exactly. For example, a string cannot be passed where a number is expected.
 - Invalid values are rejected before the workflow executes.
 
-Validation occurs at the HTTP trigger level and prevents invalid data from entering the workflow.
+Validation occurs at the HTTP trigger level and prevents invalid data being used in the workflow execution.
