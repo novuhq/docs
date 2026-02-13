@@ -69,15 +69,15 @@ This structure allows you to model both simple checks and complex branching logi
 
 Step conditions can evaluate data from several sources. Choose the source that best represents the decision you’re trying to make.
 
-### Using subscriber data
+### Subscriber data
 
 Step conditions can use subscriber fields to tailor notifications based on user-specific data. For example, you can send an SMS only to users whose `subscriber.isOnline` is `false`.
 
 <Callout>To learn more about Subscribers model, refer to the [Subscribers documentation](/platform/concepts/subscribers)</Callout>
 
-### Using payload data
+### Payload data
 
-You can use data from the [payload schema](#) or custom payload data passed during the workflow trigger call to the Novu API configure step conditions. This allows you to define dynamic rules based on the data unique to each workflow execution.
+You can use data from the [payload schema](/platform/workflow/configure-workflow#payload-schema) or custom payload data passed during the workflow trigger call to the Novu API configure step conditions. This allows you to define dynamic rules based on the data unique to each workflow execution.
 
 Example payload data:
 
@@ -94,7 +94,7 @@ You can configure conditions such as:
 - `payload.orderStatus = "completed"`
 - `payload.totalAmount > 100`
 
-### Using workflow variables
+### Workflow variables
 
 You can base conditions on workflow variables. These variables provide metadata about the workflow being executed and allow you to add conditional logic.
 
@@ -107,7 +107,7 @@ The following workflow variables are available:
 - `{{workflow.severity}}`: The severity level (high, medium, low, none) of the workflow.
 - `{{workflow.workflowId}}`: The unique identifier of the workflow.
 
-### Using previous step outcomes
+### Previous step result
 
 For workflows involving sequential steps, conditions can also depend on the outcome of a previous step. For example, if the prior step was an in-app notification, then the condition could check:
 
@@ -118,13 +118,13 @@ For workflows involving sequential steps, conditions can also depend on the outc
 
 This can be used for follow-up notifications. For instance, send an email only if the in-app notification was not read within 24 hours.
 
-### Using context
+### Context
 
 You can use context variables in the **Step conditions** tab of a workflow step to add conditional logic to your notifications.
 
 <Callout>To learn more about context, refer to the [Context documentation](/platform/workflow/contexts).</Callout>
 
-### Using dynamic data fields
+### Dynamic data fields
 
 The **value** field in a condition can also be a dynamic data field. This allows you to compare two data points dynamically rather than using static values.
 

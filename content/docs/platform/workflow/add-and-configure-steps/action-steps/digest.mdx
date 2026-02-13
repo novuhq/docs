@@ -1,6 +1,6 @@
 ---
 pageTitle: 'Configure Digest Step'
-title: 'Configure Digest'
+title: 'Configure Digest Step'
 description: 'Batch multiple workflow trigger events into a single execution using configurable digest windows and grouping rules.'
 icon: 'Boxes'
 ---
@@ -10,7 +10,7 @@ After adding a Digest step to a workflow, Novu batches multiple trigger events a
 
 This page focuses on how to configure the Digest step to fit your use case.
 
-<Callout>To learn about the when to use Digest in a workflow, refer to the [Digest step overview](/platform/workflows/add-and-configure-steps).</Callout>
+<Callout>To learn about the when to use Digest in a workflow, refer to the [Digest step overview](/platform/workflow/add-and-configure-steps#digest).</Callout>
 
 ![Configure digest](/images/workflows/add-and-configure-steps/action-steps/digest/configure-digest.gif)
 
@@ -20,23 +20,21 @@ By default, Digest groups events by `subscriberId`, ensuring that each subscribe
 
 You can optionally add one additional aggregation key to further group events within a subscriber’s digest. This gives you finer control over how events are batched.
 
-{/* TODO: correct the paylaod schema link here */}
-The aggregation key must come from the event payload defined in your [payload schema](#). For example, if multiple users like different posts, you may want each subscriber to receive separate digests per post by grouping on `payload.postId`.
+The aggregation key must come from the event payload defined in your [payload schema](/platform/workflow/configure-workflow#payload-schema). For example, if multiple users like different posts, you may want each subscriber to receive separate digests per post by grouping on `payload.postId`.
 
 ## Digest window
 
-The digest window defines how long events are collected before the workflow continues. You can configure the digest window as **Regular** or **Scheduled**.
+The Digest window defines how long events are collected before the workflow continues. You can configure the digest window as **Regular** or **Scheduled**.
 
-
-{/* TODO: add image/gif for configuring regular digest */}
 
 ### Regular digest
 
 This allows you to set the amount of time to digest events for. Once the defined time has elapsed, the digested events are sent.
 
-#### Digest duration
+![Regular digest](/images/workflows/add-and-configure-steps/action-steps/digest/regular-digest.gif)
+#### Control digest duration
 
-You can configure the digest duration in:
+You can configure the digest duration in from the **Digest events for** field:
 - Seconds
 - Minutes
 - Hours
@@ -46,11 +44,9 @@ You can configure the digest duration in:
 
 <Callout type="info"> Maximum digest duration varies based on your plan. For more information, refer to the [limits](/platform/developer/limits) documentation.</Callout>
 
-{/* TODO: add image/gif on how this feature works */}
+#### Control when to start digest
 
-#### Controlling digest starting
-
-You can also control when digesting begins by selecting any of the following options:
+You can also control when digesting begins by selecting any of the following options from the **Start digest** field:
 
 - **Immediately**: Start collecting events as soon as the first event arrives.
 
@@ -65,11 +61,9 @@ You can also control when digesting begins by selecting any of the following opt
 
 This behavior is useful when you want the first notification delivered instantly, while batching subsequent events that occur close together.
 
-{/* TODO: add image/gif for configuring scheduled digest */}
-
 ### Scheduled digest
 
-A Scheduled digest collects events and delivers them at fixed calendar intervals instead of relative durations.
+A scheduled digest collects events and delivers them at fixed calendar intervals instead of relative durations.
 
 You can schedule delivery:
 - Every minute
@@ -77,6 +71,8 @@ You can schedule delivery:
 - Daily
 - Weekly
 - Monthly
+
+![Scheduled digest](/images/workflows/add-and-configure-steps/action-steps/digest/scheduled-digest.png)
 
 <Callout type="info">
 Scheduled digests are delivered in the subscriber’s time zone.
@@ -92,11 +88,14 @@ If the digest window ends outside the subscriber’s available hours, the notifi
 
 ## FAQs
 
-### If scheduled digest is set for 9:00 AM daily then will the digest be sent at 9:00 AM every day without any event triggered?
-Yes, if scheduled digest is set for 9:00 AM daily then the digest will be sent at 9:00 AM every day without any event triggered.  
-
-### What is the difference between Regular and Scheduled Digest set to 1 Hour?
-Both digests are same in this case.
-
-### If digest step fails, will the workflow continue to the next step?
-No, workflow execution will stop immediately if the digest step fails due to an error.
+<Accordions type="multiple">
+  <Accordion title="If scheduled digest is set for 9:00 AM daily then will the digest be sent at 9:00 AM every day without any event triggered?">
+  Yes, if scheduled digest is set for 9:00 AM daily then the digest will be sent at 9:00 AM every day without any event triggered.
+  </Accordion>
+  <Accordion title="What is the difference between Regular and Scheduled Digest set to 1 Hour?">
+  Both digests are same in this case.
+  </Accordion>
+  <Accordion title="If digest step fails, will the workflow continue to the next step?">
+  No, workflow execution will stop immediately if the digest step fails due to an error.
+  </Accordion>
+</Accordions>
