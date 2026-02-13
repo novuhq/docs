@@ -80,6 +80,11 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
     '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
 
+    // Workflow section (old → new structure)
+    '/platform/workflow/layouts':
+      '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
+    '/platform/workflow/template-editor':
+      '/platform/workflow/add-notification-content/channels-template-editors',
     '/platform/workflow/build-a-workflow': '/platform/workflow/create-a-workflow',
     '/platform/workflow/build-a-workflow#manage-payload-schema':
       '/platform/workflow/configure-workflow#payload-schema',
