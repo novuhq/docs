@@ -20,17 +20,21 @@ By default, Digest groups events by `subscriberId`, ensuring that each subscribe
 
 You can optionally add one additional aggregation key to further group events within a subscriber’s digest. This gives you finer control over how events are batched.
 
+{/* TODO: correct the paylaod schema link here */}
 The aggregation key must come from the event payload defined in your [payload schema](#). For example, if multiple users like different posts, you may want each subscriber to receive separate digests per post by grouping on `payload.postId`.
 
 ## Digest window
 
 The digest window defines how long events are collected before the workflow continues. You can configure the digest window as **Regular** or **Scheduled**.
 
+
+{/* TODO: add image/gif for configuring regular digest */}
+
 ### Regular digest
 
 This allows you to set the amount of time to digest events for. Once the defined time has elapsed, the digested events are sent.
 
-#### Digest events for
+#### Digest duration
 
 You can configure the digest duration in:
 - Seconds
@@ -40,9 +44,11 @@ You can configure the digest duration in:
 - Weeks
 - Months
 
-<Callout type="info">By default, the maximum supported digest window is **1 day**. If you require a longer window, contact our [support team](https://novu.co/support) to discuss your use case.</Callout>
+<Callout type="info"> Maximum digest duration varies based on your plan. For more information, refer to the [limits](/platform/developer/limits) documentation.</Callout>
 
-#### Start digest
+{/* TODO: add image/gif on how this feature works */}
+
+#### Controlling digest starting
 
 You can also control when digesting begins by selecting any of the following options:
 
@@ -58,6 +64,8 @@ You can also control when digesting begins by selecting any of the following opt
 - Custom.
 
 This behavior is useful when you want the first notification delivered instantly, while batching subsequent events that occur close together.
+
+{/* TODO: add image/gif for configuring scheduled digest */}
 
 ### Scheduled digest
 
@@ -84,14 +92,11 @@ If the digest window ends outside the subscriber’s available hours, the notifi
 
 ## FAQs
 
-<Accordions>
-  <Accordion title="If scheduled digest is set for 9:00 AM daily then will the digest be sent at 9:00 AM every day without any event triggered?">
-    If scheduled digest is sent for 9:00 daily, then novu will collect all events triggered between 9:00 AM today till 9:00 AM tomorrow and send the digest at 9:00 AM tomorrow. This process is repeated daily. If there is no any event triggered between 9:00 AM today and 9:00 AM tomorrow, then no digest will be sent.
-  </Accordion>
-  <Accordion title="What is the difference between Regular and Scheduled Digest set to 1 Hour?">
-    Both digests are same in this case.
-  </Accordion>
-  <Accordion title="If digest step fails, will the workflow continue to the next step?">
-    No, workflow execution will stop immediately if the digest step fails due to an error.
-  </Accordion>
-</Accordions>
+### If scheduled digest is set for 9:00 AM daily then will the digest be sent at 9:00 AM every day without any event triggered?
+Yes, if scheduled digest is set for 9:00 AM daily then the digest will be sent at 9:00 AM every day without any event triggered.  
+
+### What is the difference between Regular and Scheduled Digest set to 1 Hour?
+Both digests are same in this case.
+
+### If digest step fails, will the workflow continue to the next step?
+No, workflow execution will stop immediately if the digest step fails due to an error.

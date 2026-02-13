@@ -102,17 +102,14 @@ If a dynamic delay using an ISO date is added as the first step in a workflow, i
 
 ## Extend to subscriber’s schedule
 
-When enabled, delayed execution respects the subscriber’s delivery schedule.
+When enabled, delayed execution respects the [subscriber’s delivery schedule](/platform/inbox/features/schedule).
 
 If the delay completes outside the subscriber’s available delivery window, execution resumes during the next available time slot. This option is disabled by default.
 
 ## FAQs
 
-<Accordions type="single">
-  <Accordion title="If delay step fails, will the workflow continue to the next step?">
+### If delay step fails, will the workflow continue to the next step?
   No, workflow execution will stop immediately if the delay step fails due to an error. Common errors are:
   - Invalid ISO date format.
   - Invalid duration object format.
   - Past datetime is specified.
-  </Accordion>
-</Accordions>

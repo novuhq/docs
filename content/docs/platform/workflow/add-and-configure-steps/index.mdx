@@ -8,15 +8,15 @@ icon: 'CopyPlus'
 import { Card, Cards } from 'fumadocs-ui/components/card';
 import { Bell, Mail, MessageSquare, MessagesSquare, Smartphone } from 'lucide-react';
 
-Steps are the building blocks of a Novu workflow. Each step represents a distinct action or delivery mechanism that determines what happens, when it happens, and how a notification is delivered.
+Steps are the building blocks of a workflow. Each step represents a distinct action or delivery mechanism that determines what happens, when it happens, and how a notification is delivered.
 
-A workflow is built as a sequence of steps, executed from top to bottom. You define and arrange steps using the Workflow Editor in the Novu dashboard, where each node on the canvas represents a single step in the execution flow.
+A workflow is built as a sequence of steps, executed linearly from top to bottom. You define and arrange steps using the workflow editor in the Novu dashboard, where each node on the canvas represents a single step in the execution flow.
 
-Each step operates independently. If one step fails, other steps in the workflow can still succeed, making workflows modular and fault-tolerant. Novu workflows support two types of steps from the Novu dashboard.
+Each step operates independently. If one step fails, other steps in the workflow can still succeed. Workflows support two types of steps from the Novu dashboard.
 
 ![Types of steps](/images/workflows/steps.png)
 
-<Callout>You can create custom step using Novu Framework. To learn more about, refer to the [Custom steps documentation](/framework/custom).</Callout>
+<Callout>You can create custom step using Novu Framework . For more information, refer to the [Custom steps](/framework/custom) documentation.</Callout>
 
 ## Channel steps
 
@@ -110,7 +110,7 @@ When a Digest step is added:
 3. Once the digest window completes, the workflow continues once, with the aggregated events available as context.
 
 ![Digest Engine](/workflow/media-assets/digest-engine.png)
-Steps placed before the Digest step execute in real time. Steps placed after the Digest step execute only when the digest is released.
+Steps placed before the Digest step execute in real time. Steps placed after the Digest step execute only when the digest duration is completed.
 
 <Cards>
   <Card
@@ -119,11 +119,13 @@ Steps placed before the Digest step execute in real time. Steps placed after the
   >
   Learn how to configure Digest windows, group rules, and schedule behavior.
   </Card>
+
+  {/* TODO: Add info on how to use digest data and its link */}
   <Card
     href="/platform/workflow/add-and-configure-steps/action-steps/digest"
     title="Use Digested data"
   >
-  Learn how to use digested data in the template editor and how to use the digest block.
+  Learn how to use digested data in the channel step editor.
   </Card>
 </Cards>
 
