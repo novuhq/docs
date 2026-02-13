@@ -11,7 +11,7 @@ This page focuses on how to configure the Throttle step.
 
 <Callout>To learn about the when to use Throttle in a workflow, refer to the [Throttle step overview](/platform/workflow/add-and-configure-steps/action-steps/throttle).</Callout>
 
-![Throttle panel](/images/workflows/throttle-panel.png)
+![Throttle panel](/images/workflows/add-and-configure-steps/action-steps/throttle/throttle-panel.png)
 
 ## Throttle window
 
@@ -26,7 +26,7 @@ In the Throttle step properties panel, you will find the options to set your Thr
 
 In fixed window, the time frame is predefined in the workflow editor. Use this mode when the time window for throttling is constant and known in advance. For example, "allow only one login alert per hour."
 
-![Fixed window](/images/workflows/fixed-window.png)
+![Fixed window](/images/workflows/add-and-configure-steps/action-steps/throttle/fixed-window.png)
 
 - **Throttle for**: Sets the fixed duration of the time window. The minimum duration is one minute. You can set this in minutes, hours, or days.
 - **Execution threshold**: Defines the maximum number of workflow executions allowed within the specified time window. This defaults to 1.
@@ -40,7 +40,7 @@ Imagine you want to send a notification for each project a user belongs to, but 
 
 In dynamic window, the time frame is determined by data sent in the trigger payload. Use this mode when the throttle duration or end time needs to be flexible and defined at the time of the trigger. For example, "throttle billing alerts until the end of the current billing cycle."
 
-![Dynamic window](/images/workflows/dynamic-window.png)
+![Dynamic window](/images/workflows/add-and-configure-steps/action-steps/throttle/dynamic-window.png)
 
 - **Dynamic window key**: Specify the key in your trigger payload that contains the dynamic window configuration. For example, `payload.throttleUntil` or `payload.customWindow`. 
 
