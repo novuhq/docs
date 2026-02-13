@@ -14,7 +14,7 @@ A workflow is built as a sequence of steps, executed linearly from top to bottom
 
 Each step operates independently. If one step fails, other steps in the workflow can still succeed. Workflows support two types of steps from the Novu dashboard.
 
-![Types of steps](/images/workflows/steps.png)
+![Types of steps](/images/workflows/add-and-configure-steps/steps.png)
 
 <Callout>You can create custom step using Novu Framework . For more information, refer to the [Custom steps](/framework/custom) documentation.</Callout>
 
@@ -109,7 +109,8 @@ When a Digest step is added:
 2. Events are grouped per subscriber (and optional grouping key).
 3. Once the digest window completes, the workflow continues once, with the aggregated events available as context.
 
-![Digest Engine](/workflow/media-assets/digest-engine.png)
+![Digest Engine](/images/workflows/add-and-configure-steps/digest-engine.png)    
+
 Steps placed before the Digest step execute in real time. Steps placed after the Digest step execute only when the digest duration is completed.
 
 <Cards>
@@ -133,7 +134,8 @@ Steps placed before the Digest step execute in real time. Steps placed after the
 
 The Throttle step lets you limit the number of workflow executions within a specified time window. You can configure throttling directly in Novu workflow editor. By setting limits, you can prevent subscribers from receiving duplicate or excessive notifications when a trigger fires repeatedly.
 
-![Throttle](/images/workflows/throttle.png)
+![Throttle](/images/workflows/add-and-configure-steps/throttle.png)
+
 
 Some use cases for this include:
 - Limiting high-frequency alerts (such as CPU or billing usage checks) to one notification per hour, day, or week.
@@ -146,7 +148,7 @@ At a high level, the throttle step counts the number of times a workflow is trig
 
 - If the count is within the defined execution threshold for the time window, then the workflow proceeds as normal.
 - If the count exceeds the threshold, then the workflow execution is halted at the throttle step. Any steps placed after the throttle step in your workflow will not be run. For example, if you have an email step following a throttle step, then that email will not be sent once the limit is reached.
-  ![Throttle feed activity feed](/images/workflows/throttle-step-activity-feed.png)
+  ![Throttle feed activity feed](/images/workflows/add-and-configure-steps/throttle-step-activity-feed.png)
 
 Throttling applies consistently across channels, whether the workflow sends email, in-app, SMS, chat, or push notifications.
 
@@ -168,7 +170,7 @@ To add steps:
 3. Select a step type from the available options.
 4. Configure the step if required.
 
-![Add steps](/images/workflows/add-step.gif)
+![Add steps](/images/workflows/add-and-configure-steps/add-step.gif)
 
 You can add multiple steps and reorder them at any time to change the execution flow.
 
