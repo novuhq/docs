@@ -25,6 +25,20 @@ When you trigger an event, you specify:
 
 At a minimum, triggering a workflow requires the workflow trigger identifier and a subscriber identifier.
 
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
+```ts
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>" });
+
+await novu.trigger({
+  workflowId: "workflow_identifier",
+  to: [{ subscriberId: "string" }],
+});
+```
+  </Tab>
+  <Tab value="cURL">
 ```bash
 curl -X POST 'https://api.novu.co/v1/events/trigger'
 -H 'Content-Type: application/json'
@@ -37,6 +51,8 @@ curl -X POST 'https://api.novu.co/v1/events/trigger'
     }
 }'
 ```
+  </Tab>
+</Tabs>
 
 <Callout>For full request options and response details, see the [Trigger Event API](/api-reference/events/trigger-event) reference.</Callout>
 
@@ -50,23 +66,41 @@ You can attach context data when triggering a workflow using the Event API. Cont
 
 Context data is passed using the `context` object in the trigger request.
 
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
+```ts
+import { Novu } from "@novu/api";
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>" });
+
+await novu.trigger({
+  workflowId: "workflow_identifier",
+  to: [{ subscriberId: "string" }],
+  context: {
+    context_type: "context_identifier",
+    region: "us-east-1",
+    app: "dashboard"
+  }
+});
+```
+  </Tab>
+  <Tab value="cURL">
 ```bash
 curl -X POST "https://api.novu.co/v1/events/trigger" \
   -H "Authorization: ApiKey <NOVU_SECRET_KEY>" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "workflow_identifier",
-    "to": {
-      "subscriberId": "string"
-    },
+    "to": [{ "subscriberId": "string" }],
     "context": {
-      "context_type": "context_identifier", //reference existing context
-      "region": "us-east-1", // Inline context property
+      "context_type": "context_identifier",
+      "region": "us-east-1",
       "app": "dashboard"
     }
   }'
-
 ```
+  </Tab>
+</Tabs>
 
 <Callout>To learn how contexts work and how to manage them, see the [Context documentation](/platform/workflow/contexts/contexts-in-workflows).</Callout>
 
@@ -84,6 +118,20 @@ The most common use case is sending a notification to all subscribers within a s
 
 To trigger a workflow to a topic, set the `to` field with `type: "Topic"` and provide the corresponding `topicKey`.
 
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
+```ts
+import { Novu } from "@novu/api"
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+await novu.trigger({
+  workflowId: "workflow_identifier",
+  to: { type: "Topic", topicKey: "topic_key" },
+});
+```
+  </Tab>
+  <Tab value="cURL">
 ```bash
 curl -X POST 'https://api.novu.co/v1/events/trigger' \
 -H 'Content-Type: application/json' \
@@ -97,6 +145,8 @@ curl -X POST 'https://api.novu.co/v1/events/trigger' \
     }
 }'
 ```
+  </Tab>
+</Tabs>
 
 ### Trigger to multiple topics
 
@@ -104,6 +154,23 @@ You can broadcast a notification to multiple topics by passing an array to the `
 
 Novu automatically de-duplicates subscribers. If a subscriber belongs to more than one of the specified topics, they will receive the notification only once.
 
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
+```ts
+import { Novu } from "@novu/api"
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+await novu.trigger({
+  workflowId: "workflow_identifier",
+  to: [
+    { type: "Topic", topicKey: "topic_key_1" }, 
+    { type: "Topic", topicKey: "topic_key_2" }
+  ]
+});
+```
+  </Tab>
+  <Tab value="cURL">
 ```bash
 curl -X POST 'https://api.novu.co/v1/events/trigger' \
 -H 'Content-Type: application/json' \
@@ -123,6 +190,8 @@ curl -X POST 'https://api.novu.co/v1/events/trigger' \
     ]
 }'
 ```
+  </Tab>
+</Tabs>
 
 ### Exclude a subscriber from a topic trigger
 
@@ -130,6 +199,20 @@ When a workflow is triggered to a topic, all subscribers in that topic are inclu
 
 This exclusion applies only to the current trigger request and does not modify the topic membership.
 
+<Tabs items={["Node.js", "cURL"]}>
+  <Tab value="Node.js">
+```ts
+import { Novu } from "@novu/api"
+
+const novu = new Novu({ secretKey: "<YOUR_SECRET_KEY_HERE>", });
+
+await novu.trigger({
+  workflowId: "workflow_identifier",
+  to: [{ type: "Topic", topicKey: "topic_key", exclude: ["subscriber-id"] }],
+});
+```
+  </Tab>
+  <Tab value="cURL">
 ```bash
 curl -X POST 'https://api.novu.co/v1/events/trigger' \
 -H 'Content-Type: application/json' \
@@ -140,9 +223,11 @@ curl -X POST 'https://api.novu.co/v1/events/trigger' \
     "to": [
       {
           "type": "Topic",
-          "topicKey": "topic_key_1"
-          "exclude": []
+          "topicKey": "topic_key",
+          "exclude": ["subscriber-id"]
       }
     ],
 }'
 ```
+  </Tab>
+</Tabs>
