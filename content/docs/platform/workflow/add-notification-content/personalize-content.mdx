@@ -97,11 +97,11 @@ This workflow data can be used in the templates editor to personalize message co
 
 ### Digest variables
 
-Digest variables expose the data produced by a Digest step and are available to all channel steps that execute after that digest step. They allow you to summarize, list, or otherwise represent multiple events that were grouped during the digest window.
+Digest variables expose the data produced by a Digest step and are available to all channel steps that runs after that digest step. They allow you to summarize, list, or otherwise represent multiple events that were grouped during the digest window.
 
 Digest variables are accessed under the `steps` namespace and are scoped to the specific digest step.
 
-<Callout type="info"> Digest variables are only available in steps that follow a Digest step. They are not available before the digest executes.</Callout>
+<Callout type="info"> Digest variables are only available in steps that follow a Digest step. They are not available before the digest runs.</Callout>
 
 Digest support is split into two categories:
 
@@ -162,9 +162,9 @@ They exist to reduce template complexity and eliminate repetitive logic.
     ```
 
     You can configure the `toSentence` filter from the template editor by passing:
-    - A key path to extract from each item (for example, `payload.name`). This is a required argument.
-    - The number of items to display before collapsing (for example, 3).
-    - The suffix to use for remaining items (for example, "others").
+    - A key path to extract from each item, for example, `payload.name`. This is a required argument.
+    - The number of items to display before collapsing.
+    - The suffix to use for remaining items, for example, "others".
 
 ### Context variables
 

@@ -79,6 +79,11 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/react/styling#appearance-prop': '/platform/inbox/configuration/styling',
     '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
     '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
+
+    '/platform/workflow/layouts':
+      '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
+    '/platform/workflow/template-editor':
+      '/platform/workflow/add-notification-content/channels-template-editors',
   };
 
   if (pathname in redirectMap) {

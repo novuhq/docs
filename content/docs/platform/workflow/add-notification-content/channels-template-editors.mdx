@@ -1,7 +1,7 @@
 ---
 pageTitle: 'Channels Template Editors'
 title: 'Channels Template Editors'
-description: 'Learn how to design and configure notification content for Email, In-App, Push, and SMS.'
+description: 'Learn how to design and configure notification content for email, in-app, push, and SMS.'
 icon: 'LayoutPanelTop'
 ---
 
@@ -20,11 +20,11 @@ While some channel editors share common features, some channels expose additiona
 
 <Callout>Autocomplete is supported in all channel template editors</Callout>
 
-## In-App Template Editor
+## In-app template editor
 
-The In-App template editor defines how notifications appear inside your application through the Novu <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>. In-app notifications are UI-driven, not just message-driven. This means that the template is responsible for both content and interaction.
+The in-app template editor defines how notifications appear inside your application through the Novu <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>. In-app notifications are UI-driven, not just message-driven. This means that the template is responsible for both content and interaction.
 
-<Callout>To learn how in-app notifications are rendered and displayed in your application, see the  <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> documentation.</Callout>
+<Callout>To learn how in-app notifications are rendered and displayed in your application, see the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method> documentation.</Callout>
 
 The template editor lets you control what users see, how they act on it, and how it appears in your application and consist of the following configurable fields:
 
@@ -47,7 +47,7 @@ You should only disable content sanitization when:
 ### Avatar customization
 
 You can control how the notification avatar is displayed using one of the following methods:
-- Provide a custom Avatar URL
+- Provide a custom avatar URL.
 - Select from the available built-in icons.
 
 ![Customize Avatar](/images/workflows/customize-avatar.gif)
@@ -66,7 +66,7 @@ Actions allow users to respond directly from the Inbox without navigating elsewh
 
 ### Redirect URL
 
-The Redirect URL defines where the user is navigated when the notification itself is clicked.
+The redirect URL defines where the user is navigated when the notification itself is clicked.
 
 You can:
 
@@ -82,15 +82,15 @@ The data object is a customizable key-value store available in the in-app step. 
 
 <Callout>To learn more about how to use the data object to customize how messages appear in the <Method href="/platform/inbox/overview">{`<Inbox />`}</Method>, refer to the [Data Object](/platform/inbox/configuration/data-object) documentation.</Callout>
 
-## Email Template Editor
+## Email template editor
 
-The Email template editor defines how email notifications are structured, rendered, and delivered. Novu dashboard provides multiple authoring modes:
+The email template editor defines how email notifications are structured, rendered, and delivered. Novu dashboard provides multiple authoring modes:
 
 <Callout>You can submit custom HTML email templates via the Novu API. This method supports workflows where you render templates externally and use Novu purely for delivery.</Callout>
 
 ### Block editor
 
-The Block editor is a `WYSIWYG` editor that allows you to create and edit email templates. It has two fields: Subject and body. The Block editor Body fields is made of blocks. 
+The block editor is a `WYSIWYG` editor that allows you to create and edit email templates. It has two fields: subject and body. The Block editor Body fields is made of blocks. 
 
 A block can be added by clicking on the plus (+) icon in the top-left corner of body field or by adding a forward slash (`/`). In both cases, a menu appears with the list of supported blocks:
 
@@ -121,22 +121,22 @@ A block can be added by clicking on the plus (+) icon in the top-left corner of 
   </Accordion>
 </Accordions>
 
-Blocks can be duplicated or deleted using the block menu controls.
+You can duplicate or delete blocks using the block menu controls.
 
-<Callout>Once you switch from Block editor to code editor, you can’t go back to the Block editor unless you reset the template.</Callout>
+<Callout>Once you switch from block editor to code editor, you can’t go back to the block editor unless you reset the template.</Callout>
 
 #### Custom HTML block
 
-The Custom HTML block allows you to insert raw HTML inside a block editor layout.
+The custom HTML block allows you to insert raw HTML inside a block editor layout.
 
-- Allows injecting variables using `{{ ... }}`.
-- Does not support LiquidJS control structures like `{% for %}` or `{% if %}`.
+- Allows injecting variables using `{{ ... }}`
+- Does not support LiquidJS control structures like `{% for %}` or `{% if %}`
 
 Use this block when you need inline markup control within a visual layout, but don't require full LiquidJS logic.
 
 #### Repeat block
 
-The Repeat block lets you iterate over an array and render its child blocks for each item in that array. It works similarly to a JavaScript `for` loop and is used for displaying structured or repeated data such as order items, activity feeds, or grouped records.
+The repeat block lets you iterate over an array and render its child blocks for each item in that array. It works similarly to a JavaScript `for` loop and is used for displaying structured or repeated data such as order items, activity feeds, or grouped records.
 
 When the workflow runs, Novu evaluates the array you provide and repeats the block’s content for every element, allowing you to build dynamic lists.
 
@@ -149,11 +149,11 @@ When the workflow runs, Novu evaluates the array you provide and repeats the blo
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
   allowFullScreen></iframe>
 
-In the video above, the Repeat block iterates over the following array:
+In the video above, the repeat block iterates over the following array:
 
 - `{{payload.order.items}}` is the array containing the items in an order.
 
-Within the Repeat block, each item in the array becomes the current iteration context, which allows you to reference item level properties directly. For example:
+Within the repeat block, each item in the array becomes the current iteration context, which allows you to reference item level properties directly. For example:
 
 - `{{payload.order.items.name}}`
 - `{{payload.order.items.price}}`
@@ -162,7 +162,7 @@ This approach ensures each item in the array is rendered with its own data, maki
 
 #### Show block conditionally
 
-The Show block conditionally feature lets you control whether a content block is rendered based on runtime data. It allows you to show or hide specific parts of a template using conditions evaluated against subscriber properties or payload variables when the workflow runs.
+The show block conditionally feature lets you control whether a content block is rendered based on runtime data. It allows you to show or hide specific parts of a template using conditions evaluated against subscriber properties or payload variables when the workflow runs.
 
 This is useful for keeping templates flexible and avoiding duplicated layouts, for example, showing a call-to-action only when it’s relevant to the recipient.
 
@@ -197,7 +197,7 @@ When you add a digest block to your email template editor:
 
 <Callout>To learn more about using digested data and digest-related variables in templates, see the [Personalize Content](/platform/workflow/add-notification-content/personalize-content) documentation.</Callout>
 
-### Code Editor (custom HTML)
+### Code editor (Custom HTML)
 
 The code editor provides a built-in interface for writing raw HTML and embedding LiquidJS expressions directly inside the Novu dashboard. This gives you full control over layout, structure, and rendering beyond the capabilities of Novu's block editor.
 
@@ -209,9 +209,9 @@ The editor supports advanced use cases such as:
 
 ![Novu code editor](/images/channels-and-providers/email/writing-email-template/code-editor.png)
 
-<Callout type='warn'>Switching from Code editor to the Block editor will reset your code.</Callout>
+<Callout type='warn'>Switching from code editor to the block editor will reset your code.</Callout>
 
-### Email Layouts
+### Email layouts
 
 Layouts are reusable components used with email steps in the workflow, designed to bring consistency, maintainability, and efficiency to your email communications. With layouts, you can create a component using headers, footers and other branding elements and reuse that component across multiple email steps.
 
@@ -221,58 +221,58 @@ Every layout must include the `{{content}}` variable. This variable dynamically 
 
 #### Layout features
 
-- Reusable across workflows: one layout can be shared across many workflows and email steps.
-- Layout support both Block and Code editors. (Same rule for code and block editor applies)
-- Environment-scoped, each environment maintains its own set of layouts.
+- Reusable across workflows.
+- Support both block and code editors.
+- Each environment maintains its own set of layouts.
 - Supports variables and translations.
 
 <Callout>Payload variables are not supported in layouts because one layout can be used across multiple workflows and workflows can have strict payload schema validation.</Callout>
 
-#### Manage Email layouts
+#### Apply an email layout to a workflow
+
+1. Navigate to [Workflows page](https://dashboard.novu.co/workflows) on Novu dashboard.
+2. Select a workflow from the list.
+3. Select an email step.
+4. Choose your layout from the Layout selector.
+
+![Using layouts in workflow](/images/workflows/email-layout.gif)
+
+The selected layout wraps around the content written in the email editor.
+
+#### Manage email layouts
 
 Email layouts are managed from the **Layouts** section of the Novu dashboard. From here, you can create, edit, delete, and reuse layouts across workflows.
 
 ![Layouts page](/images/platform/workflow/layouts/layouts-page.gif)
 
-<Accordions type="multiple">
-  <Accordion title="Create an email layout">
-    1. Navigate to the <a href="https://dashboard.novu.co/layouts" target="_blank" rel="noopener noreferrer">Layout page</a> on Novu dashboard.
-    2. Click on the **Create layout** button on the top right corner.
-    3. Fill in:
-      - **Layout name**: Provide a human-readable name.
-      - **Identifier**: Provide a unique ID. Novu generates one automatically if you do not provide it. You cannot change the identifier after it is created.
-    4. (Optional) Enable [translations](/platform/workflow/translations) for the layout.
-    5. Click **Create layout**.
+**Create an email layout**
 
-    A new layout is created and can be edited using either the Block editor or the Code editor.
-  </Accordion>
-  <Accordion title="Edit email layout">
-    1. Navigate to <a href="https://dashboard.novu.co/layouts" target="_blank" rel="noopener noreferrer">Layout page</a> on Novu dashboard.
-    2. Select a layout from the list.
-    3. To update the layout name or enable translations, click the **cog** icon in the editor.
-    ![Edit a layout](/images/workflows/edit-layout.gif)
-    4. Modify the layout content using the Block or Code editor.
-    5. Click **Save changes**.
-    
-    Changes apply immediately to all workflows using the layout.
-  </Accordion>
-  <Accordion title="Delete an email layout">
-  <Callout type="warn">Deleting a layout is permanent and cannot be undone.</Callout>
-  1. Navigate to <a href="https://dashboard.novu.co/layouts" target="_blank" rel="noopener noreferrer">Layout page</a> on Novu dashboard.
-  2. Select on a layout from the list.
-  3. Click the cog icon in the layout editor a menu will appear.
-  4. Click **Delete layout** and confirm. If the layout used by an email step, then you are notified on which step uses this layout.
-  ![Delete layout](/images/workflows/delete-layout.gif)
-  </Accordion>
-</Accordions>
+1. Navigate to the <a href="https://dashboard.novu.co/layouts" target="_blank" rel="noopener noreferrer">Layout page</a> on Novu dashboard.
+2. Click on the **Create layout** button on the top right corner.
+3. Fill in:
+  - **Layout name**: Provide a human-readable name.
+  - **Identifier**: Provide a unique ID. Novu generates one automatically if you do not provide it. You cannot change the identifier after it is created.
+4. (Optional) Enable [translations](/platform/workflow/translations) for the layout.
+5. Click **Create layout**.
 
-#### Using layouts in workflow
+A new layout is created and can be edited using either the block editor or the code editor.
 
-- Navigate to [Workflows page](https://dashboard.novu.co/workflows) on Novu dashboard.
-- Select a workflow from the list.
-- Select an email step.
-- Choose your layout from the Layout selector.
+**Edit email layout**
 
-![Using layouts in workflow](/images/workflows/email-layout.gif)
+1. Navigate to <a href="https://dashboard.novu.co/layouts" target="_blank" rel="noopener noreferrer">Layout page</a> on Novu dashboard.
+2. Select a layout from the list.
+3. To update the layout name or enable translations, click the **cog** icon in the editor.
+![Edit a layout](/images/workflows/edit-layout.gif)
+4. Modify the layout content using the block or code editor.
+5. Click **Save changes**.
 
-The selected layout wraps around the content written in the email editor.
+Changes apply immediately to all workflows using the layout.
+
+**Delete an email layout**
+
+<Callout type="warn">Deleting a layout is permanent and cannot be undone.</Callout>
+1. Navigate to <a href="https://dashboard.novu.co/layouts" target="_blank" rel="noopener noreferrer">Layout page</a> on Novu dashboard.
+2. Select a layout from the list.
+3. Click the cog icon in the layout editor.
+4. Click **Delete layout** and confirm. If the layout used by an email step, then you are notified on which step uses this layout.
+![Delete layout](/images/workflows/delete-layout.gif)
