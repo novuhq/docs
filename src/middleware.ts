@@ -80,10 +80,18 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
     '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
 
+    // Workflow section (old → new structure)
     '/platform/workflow/layouts':
       '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
     '/platform/workflow/template-editor':
       '/platform/workflow/add-notification-content/channels-template-editors',
+    '/platform/workflow/delay': '/platform/workflow/add-and-configure-steps#delay',
+    '/platform/workflow/digest': '/platform/workflow/add-and-configure-steps#digest',
+    '/platform/workflow/throttle-step': '/platform/workflow/add-and-configure-steps#throttle',
+    '/platform/workflow/step-conditions':
+      '/platform/workflow/add-and-configure-steps/step-conditions',
+    '/platform/workflow/channel-steps': '/platform/workflow/add-and-configure-steps#channel-steps',
+    '/platform/workflow/tags': '/platform/workflow/configure-workflow#tags',
   };
 
   if (pathname in redirectMap) {
