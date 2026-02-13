@@ -7,23 +7,17 @@ icon: 'Activity'
 
 The Novu Activity Feed tracks the full execution lifecycle after a workflow is triggered. It provides real-time visibility into how workflows run, helping you understand what happened and why.
 
-From the Activity Feed, you can inspect individual workflow runs to see how each subscriber was processed, analyze workflow steps execution outcomes, and trace trigger requests made through the Event API. 
+From the Activity Feed, you can inspect each workflow runs and API requests to see how each subscriber notification was processed.
+
+![Workflow runs list](/images/workflows/activity-feed/workflow-runs-list.png)
 
 <Callout>Each environment has its own Activity Feed, ensuring execution data is isolated and easy to reason about.</Callout>
 
 ## Inspect workflow runs
 
-Workflow runs tab shows how a workflow was executed for each subscriber after it was triggered. Each run represents a single execution instance and reflects how the workflow behaved for that subscriber, including whether it completed successfully or failed.
+The Workflow Runs tab shows the details of every workflow triggerred to each subscriber. Each run represents a single execution instance and reflects how the workflow behaved for that subscriber.
 
-From the Workflow runs tab in the Activity Feed, you can assess execution outcomes, investigate delivery issues, and confirm that notifications were sent as expected.
-
-![Workflow runs list](/images/workflows/activity-feed/workflow-runs-list.png)
-
-You can filter workflow runs using parameters such as time period, workflow identifier, and channel.
-
-### Review each workflow run
-
-Selecting a workflow run opens the run details view, which provides a complete snapshot of the execution for that subscriber.
+You can filter workflow runs using parameters such as time period, workflow identifier, and channel. Selecting a workflow run opens the run details view, which gives you assess to execution outcomes of each step in the workflow and investigate delivery issues.
 
 ![workflow run](/images/workflows/activity-feed/workflow-run.png)
 
@@ -42,9 +36,8 @@ The workflow run details include:
 | **Context data**        | Context values passed when triggering the workflow.         |
 | **Trigger payload**     | The payload data sent with the trigger event and used to personalize notification content.                         |
 
-#### Analyze step execution
 
-Each workflow run includes execution details that shows how Novu processed each step for a single subscriber. The timeline is ordered chronologically and reflects the internal state transitions of each step as the workflow runs.
+Each workflow run also includes execution details that shows how Novu processed each step for a single subscriber. The timeline is ordered chronologically and reflects the internal state transitions of each step as the workflow runs.
 
 Execution details are step-specific and vary depending on:
 
@@ -52,26 +45,13 @@ Execution details are step-specific and vary depending on:
 - Whether the step succeeded, was skipped, or failed  
 - Provider behavior and delivery outcomes  
 
-
-Execution details are step specific and vary depending on:
-
-- The type of step
-- Whether the step succeeded, was skipped, or failed
-- Provider behavior and delivery outcomes
-
 ## Inspect trigger requests
 
-The Requests tab in the Activity Feed shows every call made to the Event API. Use this view to confirm that your trigger requests were received, inspect the data sent to Novu, and diagnose issues before or during workflow execution.
-
-Each request represents a single API call. Selecting a request opens a detailed view of how Novu processed it, including the original request, the API response, and execution traces.
+The Requests tab in the Activity Feed shows detail information about every request made to the Event API. Selecting a request opens a detailed view of how Novu processed it, the API response, and execution traces.
 
 ![Request tab](/images/workflows/activity-feed/request-tab.png)
 
-You can filter requests using parameters such as time period, transaction ID, statuses or API endpoint.
-
-### Review request details
-
-When you open a request, Novu displays metadata about the API call along with the request and response payloads.
+You can filter requests using parameters such as time period, transaction ID, statuses or API endpoint. When you open a request, Novu displays details about the API call:
 
 | Field              | Description                                                                                                                  |
 | ------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
@@ -81,32 +61,6 @@ When you open a request, Novu displays metadata about the API call along with th
 | **Source**         | Indicates where the request originated, either the **Dashboard** or the **API**.                                            |
 | **Request body**   | The payload sent in the API call, including the workflow identifier, subscriber or topic targeting, and any additional data. |
 | **Response body**  | Novu’s response to the request, confirming whether it was acknowledged and processed successfully.                           |
-
-**Example request body:**
-```json
-{
-  "name": "workflow_identifier",
-  "to": {
-    "topicKey": "project:123",
-    "type": "Topic",
-    "exclude": ["684498edc31463d57f92w15c"]
-  }
-}
-```
-
-**Example response body:**
-
-```json
-{
-  "data": {
-    "acknowledged": true,
-    "status": "processed",
-    "transactionId": "txn_608f0c07nbbmazfpp8xs"
-  }
-}
-```
-
-#### Analyze API traces
 
 Each request also includes API trace events that show how Novu handled the trigger internally.
 
