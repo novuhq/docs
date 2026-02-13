@@ -85,6 +85,9 @@ export default async function middleware(request: NextRequest, event: NextFetchE
       '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
     '/platform/workflow/template-editor':
       '/platform/workflow/add-notification-content/channels-template-editors',
+    '/platform/workflow/build-a-workflow': '/platform/workflow/create-a-workflow',
+    '/platform/workflow/build-a-workflow#manage-payload-schema':
+      '/platform/workflow/configure-workflow#payload-schema',
     '/platform/workflow/delay': '/platform/workflow/add-and-configure-steps#delay',
     '/platform/workflow/digest': '/platform/workflow/add-and-configure-steps#digest',
     '/platform/workflow/throttle-step': '/platform/workflow/add-and-configure-steps#throttle',
