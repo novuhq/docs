@@ -180,13 +180,13 @@ Context variables are typically used for tenant details, branding and configurat
 
 ## Apply logic with LiquidJS
 
-All Novu template editors support LiquidJS, this allows you to add logic and control flow to your notification content. It enables conditional rendering, iteration, and value transformation directly inside channel template editors.
+All Novu template editors support [LiquidJS](https://liquidjs.com/index.html), this allows you to add logic and control flow to your notification content. It enables conditional rendering, iteration, and value transformation directly inside channel template editors. Refer official [LiquidJS documentation](https://liquidjs.com/index.html) for more all suuported statements and helpers
 
 <Callout>Autocomplete suggestions are not available inside control statements like `{% if %}` or `{% for %}`.</Callout>
 
 ### Conditional rendering
 
-You can use the conditional statements in LiquidJS to control whether content is shown based on a condition.
+You can use the conditional statements in LiquidJS `if-else` statements to control whether content is shown based on a condition.
 
 ```liquid
 {% if subscriber.data.plan == 'enterprise' %}
@@ -198,7 +198,7 @@ You can use the conditional statements in LiquidJS to control whether content is
 
 ### Iteration and loops
 
-You can loop over arrays using `{% for %}`. This is useful when rendering lists of items, events, or grouped data. 
+You can loop over arrays using `{% for %}` loop. This is useful when rendering lists of items, events, or grouped data. 
 
 ```liquid
 {% for item in payload.order.items %}
@@ -218,11 +218,11 @@ Your workspace {{ payload.workspaceName | upcase }} has been successfully create
 
 Novu provides a built-in variable configuration UI in the template editor that allows you to apply LiquidJS filters to variable output.
 
-![Configure variable](/images/workflows/configure-variable.png)
+![Configure variable](/images/workflows/add-notification-content/personalize-content/configure-variable.png)
 
 When you insert a variable into the template editor, click the variable to open the configuration menu.
 
-![Configure variable](/images/workflows/configure-variable.gif)
+![Configure variable](/images/workflows/add-notification-content/personalize-content/configure-variable.gif)
 
 From this menu, you can:
 - Apply Liquid filters

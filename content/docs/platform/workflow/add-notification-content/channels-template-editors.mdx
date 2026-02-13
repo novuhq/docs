@@ -18,7 +18,7 @@ All editors (including the Subject field editors) support variables and dynamic 
 
 While some channel editors share common features, some channels expose additional channel specific features that can be used to configure and customize the notification content for that channel.
 
-<Callout>Autocomplete is supported in all channel template editors</Callout>
+<Callout>Variables autocomplete is supported in all channel template editors</Callout>
 
 ## In-app template editor
 
@@ -28,7 +28,7 @@ The in-app template editor defines how notifications appear inside your applicat
 
 The template editor lets you control what users see, how they act on it, and how it appears in your application and consist of the following configurable fields:
 
-![Template fields](/images/workflows/template-fields.gif)
+![Template fields](/images/workflows/add-notification-content/channels-template-editors/template-fields.gif)
 
 ### Disable content sanitization
 
@@ -50,7 +50,7 @@ You can control how the notification avatar is displayed using one of the follow
 - Provide a custom avatar URL.
 - Select from the available built-in icons.
 
-![Customize Avatar](/images/workflows/customize-avatar.gif)
+![Customize Avatar](/images/workflows/add-notification-content/channels-template-editors/customize-avatar.gif)
 
 ### Actions buttons
 
@@ -60,7 +60,7 @@ In-app notifications support primary and secondary actions. For each action, you
 - Redirect URL
 - Navigation targets (`_self`, `_blank`, `_parent`, `_top`, and - `_unfencedTop`)
 
-![Action buttons](/images/workflows/action-button.gif)
+![Action buttons](/images/workflows/add-notification-content/channels-template-editors/action-button.gif)
 
 Actions allow users to respond directly from the Inbox without navigating elsewhere in the UI.
 
@@ -130,7 +130,7 @@ You can duplicate or delete blocks using the block menu controls.
 The custom HTML block allows you to insert raw HTML inside a block editor layout.
 
 - Allows injecting variables using `{{ ... }}`
-- Does not support LiquidJS control structures like `{% for %}` or `{% if %}`
+- Supports LiquidJS control structures like `{% for %}` or `{% if %}`
 
 Use this block when you need inline markup control within a visual layout, but don't require full LiquidJS logic.
 
@@ -177,7 +177,7 @@ In the editor, conditional visibility is accessed using the **eye icon** on a su
 For example, you can display a **Track your order** button only when a subscriber has a custom data field `showTracking` set to `true`. You can apply the same logic using payload variables passed when triggering the workflow, allowing content to adapt dynamically to each notification.
 
 <img
-  src="/images/channels-and-providers/email/writing-email-template/show-block.gif"
+  src="/images/workflows/add-notification-content/channels-template-editors/show-block.gif"
   alt="Show block"
 />
 
@@ -193,7 +193,7 @@ When you add a digest block to your email template editor:
 - Inside the loop, you can also use the special alias variable `current` to reference the item currently being processed, for example, `current.payload.name`.
 - The block also supports rendering a summary using the `steps.digest-step.eventCount` variable, typically with the pluralize LiquidJS filter.
 
-![Digest block](/images/workflows/digest-block.gif)
+![Digest block](/images/workflows/add-notification-content/channels-template-editors/digest-block.gif)
 
 <Callout>To learn more about using digested data and digest-related variables in templates, see the [Personalize Content](/platform/workflow/add-notification-content/personalize-content) documentation.</Callout>
 
@@ -207,7 +207,7 @@ The editor supports advanced use cases such as:
 - Executing flow control logic directly inside email templates
 - Complete layout and styling freedom without editor constraints
 
-![Novu code editor](/images/channels-and-providers/email/writing-email-template/code-editor.png)
+![Novu code editor](/images/workflows/add-notification-content/channels-template-editors/code-editor.png)
 
 <Callout type='warn'>Switching from code editor to the block editor will reset your code.</Callout>
 
@@ -235,7 +235,7 @@ Every layout must include the `{{content}}` variable. This variable dynamically 
 3. Select an email step.
 4. Choose your layout from the Layout selector.
 
-![Using layouts in workflow](/images/workflows/email-layout.gif)
+![Using layouts in workflow](/images/workflows/add-notification-content/channels-template-editors/email-layout.gif)
 
 The selected layout wraps around the content written in the email editor.
 
@@ -243,7 +243,7 @@ The selected layout wraps around the content written in the email editor.
 
 Email layouts are managed from the **Layouts** section of the Novu dashboard. From here, you can create, edit, delete, and reuse layouts across workflows.
 
-![Layouts page](/images/platform/workflow/layouts/layouts-page.gif)
+![Layouts page](/images/workflows/add-notification-content/channels-template-editors/layouts-page.gif)
 
 **Create an email layout**
 
@@ -262,7 +262,7 @@ A new layout is created and can be edited using either the block editor or the c
 1. Navigate to <a href="https://dashboard.novu.co/layouts" target="_blank" rel="noopener noreferrer">Layout page</a> on Novu dashboard.
 2. Select a layout from the list.
 3. To update the layout name or enable translations, click the **cog** icon in the editor.
-![Edit a layout](/images/workflows/edit-layout.gif)
+![Edit a layout](/images/workflows/add-notification-content/channels-template-editors/edit-layout.gif)
 4. Modify the layout content using the block or code editor.
 5. Click **Save changes**.
 
@@ -275,4 +275,4 @@ Changes apply immediately to all workflows using the layout.
 2. Select a layout from the list.
 3. Click the cog icon in the layout editor.
 4. Click **Delete layout** and confirm. If the layout used by an email step, then you are notified on which step uses this layout.
-![Delete layout](/images/workflows/delete-layout.gif)
+![Delete layout](/images/workflows/add-notification-content/channels-template-editors/delete-layout.gif)
