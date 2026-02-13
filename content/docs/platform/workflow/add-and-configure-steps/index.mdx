@@ -5,13 +5,14 @@ description: 'Learn how workflow steps work in Novu, the different step types av
 icon: 'CopyPlus'
 ---
 
+import { Card, Cards } from 'fumadocs-ui/components/card';
+import { Bell, Mail, MessageSquare, MessagesSquare, Smartphone } from 'lucide-react';
+
 Steps are the building blocks of a Novu workflow. Each step represents a distinct action or delivery mechanism that determines what happens, when it happens, and how a notification is delivered.
 
 A workflow is built as a sequence of steps, executed from top to bottom. You define and arrange steps using the Workflow Editor in the Novu dashboard, where each node on the canvas represents a single step in the execution flow.
 
-Each step operates independently. If one step fails, other steps in the workflow can still succeed, making workflows modular and fault-tolerant.
-
-Novu workflows support two types of steps from the Novu dashboard.
+Each step operates independently. If one step fails, other steps in the workflow can still succeed, making workflows modular and fault-tolerant. Novu workflows support two types of steps from the Novu dashboard.
 
 ![Types of steps](/images/workflows/steps.png)
 
@@ -23,13 +24,38 @@ Channel steps deliver notifications to users through supported communication cha
 
 Supported channel types include:
 
-- In-app
-- Email
-- Push
-- Chat
-- SMS
-
-In-app notifications are delivered directly to your application through the Novu <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method>.
+<Cards>
+  <Card
+    title="Email"
+    icon={<Mail className="h-4 w-4" />}
+    href="/platform/integrations/email"
+    description="Send notifications to your subscribers’ email. Supports layouts, visual block editing, custom HTML, and dynamic data."
+  />
+  <Card
+    title="In-App"
+    icon={<Bell className="h-4 w-4" />}
+    href="/platform/inbox/overview"
+    description="Deliver notifications directly inside your application through the Novu <Inbox/>."
+  />
+  <Card
+    title="Push"
+    icon={<Smartphone className="h-4 w-4" />}
+    href="/platform/integrations/push"
+    description="Send notifications to user devices, either mobile, desktop, or web."
+  />
+  <Card
+    title="SMS"
+    icon={<MessageSquare className="h-4 w-4" />}
+    href="/platform/integrations/sms"
+    description="Send notification to your subscribers’ devices."
+  />
+  <Card
+    title="Chat"
+    icon={<MessagesSquare className="h-4 w-4" />}
+    href="/platform/integrations/chat"
+    description="Send notifications to chat platforms such as Slack or Microsoft Teams."
+  />
+</Cards>
 
 To send notifications through Email, Push, Chat, or SMS channels, you must configure the appropriate [channel provider integration](/platform/integrations/overview) for your environment. Without an active integration, messages sent through that channel won’t be delivered.
 
