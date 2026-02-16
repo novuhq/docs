@@ -153,7 +153,7 @@ They exist to reduce template complexity and eliminate repetitive logic.
 
 - **steps.digest-step.sentenceSummary**: The `sentenceSummary` variable returns a sentence-style string listing key items from the digested events array, such as a list of names, and gracefully handles formatting depending on the number of items present.
 
-    This helper is built using `steps.digest-step.events` and the LiquidJS `toSentence` filter. When the `sentenceSummary` variable us used in the template editor, it inserts logic equivalent to:
+    This helper is built using `steps.digest-step.events` and the LiquidJS `toSentence` filter. When the `sentenceSummary` variable is used in the template editor, it inserts logic equivalent to:
     ```liquid
     {{ steps.digest-step.events | toSentence: 'payload.name', 3, 'others' }}
     ```
