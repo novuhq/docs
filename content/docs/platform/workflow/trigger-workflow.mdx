@@ -13,9 +13,7 @@ When a workflow is triggered, Novu resolves the target subscribers, evaluates wo
 
 ## Trigger Event API
 
-Workflows in Novu are triggered by sending an event through the Event API. An event represents an action or occurrence in your system and is identified by the workflow’s trigger identifier.
-
-Workflows in Novu are triggered by sending events to the Event API. An event represents a meaningful action in your system, for example, an order created or a comment added and is mapped to a workflow using the workflow’s trigger identifier.
+Workflows in Novu are triggered by sending events to the Event API. An event represents an action in your system, for example, an order created or a comment added and is mapped to a workflow using the workflow’s trigger identifier.
 
 When you trigger an event, you specify:
 
@@ -40,10 +38,10 @@ await novu.trigger({
   </Tab>
   <Tab value="cURL">
 ```bash
-curl -X POST 'https://api.novu.co/v1/events/trigger'
--H 'Content-Type: application/json'
--H 'Accept: application/json' 
--H 'Authorization: ApiKey <NOVU_SECRET_KEY>'
+curl -X POST 'https://api.novu.co/v1/events/trigger' /
+-H 'Content-Type: application/json' /
+-H 'Accept: application/json' /
+-H 'Authorization: ApiKey <NOVU_SECRET_KEY>' /
 -d '{
     "name": "workflow_identifier",
     "to": {
@@ -89,6 +87,7 @@ await novu.trigger({
 curl -X POST "https://api.novu.co/v1/events/trigger" \
   -H "Authorization: ApiKey <NOVU_SECRET_KEY>" \
   -H "Content-Type: application/json" \
+  -H 'Accept: application/json' /
   -d '{
     "name": "workflow_identifier",
     "to": [{ "subscriberId": "string" }],
@@ -102,7 +101,7 @@ curl -X POST "https://api.novu.co/v1/events/trigger" \
   </Tab>
 </Tabs>
 
-<Callout>To learn how contexts work and how to manage them, see the [Context documentation](/platform/workflow/contexts/contexts-in-workflows).</Callout>
+<Callout>To learn how contexts work and how to manage them, see the [Context documentation](/platform/workflow/advanced-features/contexts/contexts-in-workflows.mdx).</Callout>
 
 ## Trigger a workflow to a topic
 
@@ -226,8 +225,8 @@ curl -X POST 'https://api.novu.co/v1/events/trigger' \
           "topicKey": "topic_key",
           "exclude": ["subscriber-id"]
       }
-    ],
-}'
+    ]
+}
 ```
   </Tab>
 </Tabs>
