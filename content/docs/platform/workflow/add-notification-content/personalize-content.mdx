@@ -14,11 +14,13 @@ Novu allows you to personalize notification content in all channel template edit
 Template variables are placeholders that are resolved at workflow execution time and replaced with actual values when a notification is rendered. They allow templates to reference data from the workflow trigger payload, subscriber profile, workflow metadata, and outputs from previous steps.
 
 To insert a variable into a notification template, use double curly braces:
+
 ```liquid
 {{variable_name}}
 ```
 
 Variables also support nested objects and arrays. Use dot notation to access nested values:
+
 ```liquid
 {{ variable_name.customer.name }}
 {{ variable_name.customer.email }}
@@ -97,7 +99,7 @@ This workflow data can be used in the templates editor to personalize message co
 
 ### Digest variables
 
-Digest variables expose the data produced by a Digest step and are available to all channel steps that runs after that digest step. They allow you to summarize, list, or otherwise represent multiple events that were grouped during the digest window.
+Digest variables expose the data produced by a Digest step and are available to all channel steps that run after that digest step. They allow you to summarize, list, or otherwise represent multiple events that were grouped during the digest window.
 
 Digest variables are accessed under the `steps` namespace and are scoped to the specific digest step.
 
@@ -151,7 +153,7 @@ They exist to reduce template complexity and eliminate repetitive logic.
 
 - **steps.digest-step.sentenceSummary**: The `sentenceSummary` variable returns a sentence-style string listing key items from the digested events array, such as a list of names, and gracefully handles formatting depending on the number of items present.
 
-    This helper is built using `steps.digest-step.events` and the LiquidJS `toSentence` filter. When the `sentenceSummary` variable us used in the tempate editor, it inserts logic equivalent to:
+    This helper is built using `steps.digest-step.events` and the LiquidJS `toSentence` filter. When the `sentenceSummary` variable us used in the template editor, it inserts logic equivalent to:
     ```liquid
     {{ steps.digest-step.events | toSentence: 'payload.name', 3, 'others' }}
     ```
@@ -168,7 +170,8 @@ They exist to reduce template complexity and eliminate repetitive logic.
 
 ### Context variables
 
-Contexts variables a from the context data. Once a context is created either through the Novu dashboard or API, its data becomes available in all channel templates editors and can be referenced using the context namespace.
+Context variables come from context data. Once a context is created either through the Novu dashboard or API, its data becomes available in all channel template editors and can be referenced using the context namespace.
+
 
 ```liquid
 {{ context.* }}
@@ -176,11 +179,11 @@ Contexts variables a from the context data. Once a context is created either thr
 
 Context variables are typically used for tenant details, branding and configuration that should not live in the workflow payload or data shared amongst different entities in Novu.
 
-<Callout>To learn how to create and manage context data, and how to use the context data in the tempate editor, see the [Context documentation](/platform/workflow/contexts).</Callout>
+<Callout>To learn how to create and manage context data, and how to use the context data in the template editor, refer to [Context](/platform/workflow/advanced-features/contexts).</Callout>
 
 ## Apply logic with LiquidJS
 
-All Novu template editors support [LiquidJS](https://liquidjs.com/index.html), this allows you to add logic and control flow to your notification content. It enables conditional rendering, iteration, and value transformation directly inside channel template editors. Refer official [LiquidJS documentation](https://liquidjs.com/index.html) for more all suuported statements and helpers
+All Novu template editors support <a href="https://liquidjs.com/index.html" target="_blank" rel="noopener noreferrer">LiquidJS</a>, this allows you to add logic and control flow to your notification content. It enables conditional rendering, iteration, and value transformation directly inside channel template editors.
 
 <Callout>Autocomplete suggestions are not available inside control statements like `{% if %}` or `{% for %}`.</Callout>
 

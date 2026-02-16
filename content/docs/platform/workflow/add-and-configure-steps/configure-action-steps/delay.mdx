@@ -11,7 +11,7 @@ After adding a Delay step to a workflow, it pauses workflow execution for a spec
 
 This page focuses on how to configure the Delay step for your use case.
 
-<Callout>To learn about the when to use Delay in a workflow, refer to the [Delay step overview](/platform/workflow/add-and-configure-steps#delay).</Callout>
+<Callout>To learn when to use Delay step in a workflow, refer to the [Delay step overview](/platform/workflow/add-and-configure-steps#delay).</Callout>
 
 ## Delivery behavior and scheduling
 
@@ -46,11 +46,11 @@ A scheduled delay pauses workflow execution until a specific date and time, base
 
 You can configure scheduled delays to resume execution:
 
-- until minute.
-- until hour at specific minutes.
-- until day at specific hour and minutes.
-- until week and days of the week at specific hours and minutes.
-- until month on specific days of the month and weekdays at hours and minutes.
+- **Minute**: Resume at a specific minute.
+- **Hour**: Resume at a specific hour and minute.
+- **Day**: Resume at a specific time of day.
+- **Week**: Resume on specific days of the week at a given time.
+- **Month**: Resume on specific days of the month at a given time.
 
 <iframe
   width="100%"
@@ -65,7 +65,7 @@ In the example above, the scheduled delay pauses workflow execution until the cu
 
 ### Dynamic delay
 
-A dynamic delay also called a variable-based delay determines the delay duration using a variable from the event payload. This allows the delay to change per workflow execution.
+A dynamic delay, also called a variable-based delay, determines the delay duration using a variable from the event payload. This allows the delay to change per workflow execution.
 
 The variable can be defined in one of the following formats:
 
