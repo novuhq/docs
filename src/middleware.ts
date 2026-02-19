@@ -16,19 +16,14 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
   // Root redirects
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/platform/overview', request.url), {
+    return NextResponse.redirect(new URL('/platform', request.url), {
       status: 308,
     });
   }
 
   // Section root redirects
   const sectionRedirects: Record<string, string> = {
-    '/overview/introduction': '/platform/overview',
-    '/platform': '/platform/overview',
-    '/community': '/community/overview',
-    '/api-reference': '/api-reference/overview',
-    '/framework': '/framework/overview',
-    '/guides': '/guides/overview',
+    '/': '/platform',
   };
 
   if (pathname in sectionRedirects) {
@@ -79,6 +74,12 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/react/styling#appearance-prop': '/platform/inbox/configuration/styling',
     '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
     '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
+
+    '/platform/overview': '/platform',
+    '/guides/overview': '/guides',
+    '/framework/overview': '/framework',
+    '/community/overview': '/community',
+    '/api-reference/overview': '/api-reference',
   };
 
   if (pathname in redirectMap) {
