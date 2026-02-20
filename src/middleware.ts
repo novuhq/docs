@@ -80,6 +80,11 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/framework/overview': '/framework',
     '/community/overview': '/community',
     '/api-reference/overview': '/api-reference',
+
+    '/platform/inbox/overview': '/platform/inbox',
+    '/platform/integrations/overview': '/platform/integrations',
+    '/platform/subscription/overview': '/platform/subscription',
+    '/platform/sdks/react/overview': '/platform/sdks/react',
   };
 
   if (pathname in redirectMap) {
