@@ -71,7 +71,9 @@ Step conditions can evaluate data from several sources. Choose the source that b
 
 ### Subscriber data
 
-Step conditions can use subscriber fields to tailor notifications based on user-specific data. For example, you can send an SMS only to users whose `subscriber.isOnline` is `false`.
+You can apply conditions on subscriber attributes so notifications only go to the right people. For example, send an SMS only when `subscriber.isOnline` is `false` (isOnline is a subscriber attribute that comes from whether the subscriber has an active Inbox session).
+
+For custom fields you store on the subscriber (e.g. plan, preferences), use the full path to the property. For example, use `subscriber.data.subscription_plan` equals `premium` to run a step only for subscribers on the premium plan.
 
 <Callout>To learn more about Subscribers model, refer to the [Subscribers documentation](/platform/concepts/subscribers)</Callout>
 
