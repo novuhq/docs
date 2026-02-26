@@ -91,8 +91,15 @@ Fetches a list of notifications based on provided filters.
 ../types/js-types.ts#NotificationFilter
 ---end---
 
+
 ```typescript
 import { SeverityLevelEnum } from '@novu/js';
+import dayjs from "dayjs";
+
+const now = dayjs();
+// convert to milliseconds
+const startDate = now.subtract(60, "days").valueOf();
+const endDate = now.valueOf();  
 
 const notifications = await novu.notifications.list({
   limit: 30,
@@ -106,6 +113,9 @@ const notifications = await novu.notifications.list({
     type: 'login',
   },
   offset: 0,
+  // fetch last 60 days notifications
+  createdGte: startDate,
+  createdLte: endDate,
 });
 ```
 
