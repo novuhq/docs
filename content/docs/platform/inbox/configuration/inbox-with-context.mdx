@@ -13,14 +13,19 @@ _Contexts_ let you scope each `<Inbox />` instance to a specific environment, te
 
 The <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> uses exact-match context filtering to determine which notifications to display. This means the context provided to the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> must match all the key-value pairs of the context used when the workflow was triggered.
 
-This creates predictable isolation and ensures notifications can't accidentally leak across boundaries. If the contexts do not match exactly, the notification will not be delivered to that Inbox session.
+This creates predictable isolation and ensures notifications are scoped to the context provided. If the contexts do not match exactly, the notification will not be delivered to that Inbox session. 
+
+- If workflow is triggered with a context but Inbox is initialized without a context, the notification will not be delivered to that Inbox session.
+- If workflow is triggered without a context but Inbox is initialized with a context, the notification will not be delivered to that Inbox session.
+- If workflow is triggered with a context but Inbox is initialized with a different context, the notification will not be delivered to that Inbox session.
 
 | Workflow Context                           | Inbox Context            | Displayed? |
 | ------------------------------------------ | ------------------------ | ---------- |
-| `{ "tenant": "acme" }`                     | `{ "tenant": "acme" }`   | Yes      |
-| `{ "tenant": "acme" }`                     | `{ "tenant": "globex" }` |  No       |
-| `{ "tenant": "acme", "app": "dashboard" }` | `{ "tenant": "acme" }`   | No       |
-| `{}`                                       | `{}`                     | Yes      |
+| `{ "tenant": "acme" }`                     | `{ "tenant": "acme" }`   |  Yes       |
+| `{}`                                       | `{}`                     |  Yes       |
+| `{}`                                       | `{ "tenant": "acme" }`   |  No        |
+| `{ "tenant": "acme" }`                     | `{ "tenant": "globex" }` |  No        |
+| `{ "tenant": "acme" }`                     | `{}`                     |  No        |
 
 ### Creating context via `<Inbox/>`
 
@@ -91,7 +96,7 @@ const context = {
   },
 };
 
-const contextHash = createHmac('sha256', process.env.NOVU_API_KEY)
+const contextHash = createHmac('sha256', "NOVU_SECRET_KEY")
   .update(canonicalize(context))
   .digest('hex');
 ```
