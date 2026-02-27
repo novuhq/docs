@@ -75,6 +75,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
     '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
 
+    // Old overview paths to new section roots
     '/platform/overview': '/platform',
     '/guides/overview': '/guides',
     '/framework/overview': '/framework',
@@ -85,6 +86,21 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/integrations/overview': '/platform/integrations',
     '/platform/subscription/overview': '/platform/subscription',
     '/platform/sdks/react/overview': '/platform/sdks/react',
+    // Workflow section (old → new structure)
+    '/platform/workflow/layouts':
+      '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
+    '/platform/workflow/template-editor':
+      '/platform/workflow/add-notification-content/channels-template-editors',
+    '/platform/workflow/build-a-workflow': '/platform/workflow/create-a-workflow',
+    '/platform/workflow/build-a-workflow#manage-payload-schema':
+      '/platform/workflow/configure-workflow#payload-schema',
+    '/platform/workflow/delay': '/platform/workflow/add-and-configure-steps#delay',
+    '/platform/workflow/digest': '/platform/workflow/add-and-configure-steps#digest',
+    '/platform/workflow/throttle-step': '/platform/workflow/add-and-configure-steps#throttle',
+    '/platform/workflow/step-conditions':
+      '/platform/workflow/add-and-configure-steps/step-conditions',
+    '/platform/workflow/channel-steps': '/platform/workflow/add-and-configure-steps#channel-steps',
+    '/platform/workflow/tags': '/platform/workflow/configure-workflow#tags',
   };
 
   if (pathname in redirectMap) {

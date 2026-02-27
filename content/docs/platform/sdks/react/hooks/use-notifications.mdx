@@ -9,166 +9,264 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
 
 ## Hook Parameters
 
-<TypeTable
-  type={{
-    tags: {
-      type: "string[]",
-      description: "Filter notifications by tags",
-    },
-    severity: {
-      type: "SeverityLevelEnum | SeverityLevelEnum[]",
-      description: "Filter notifications by severity (HIGH, MEDIUM, LOW)",
-    },
-    read: {
-      type: "boolean",
-      description: "Filter notifications by read status",
-    },
-    seen: {
-      type: "boolean",
-      description: "Filter notifications by seen status",
-    },
-    archived: {
-      type: "boolean",
-      description: "Filter notifications by archived status",
-      default: "false"
-    },
-    snoozed: {
-      type: "boolean",
-      description: "Filter notifications by snoozed status",
-      default: "false"
-    },
-    limit: {
-      type: "number",
-      description: "Number of notifications to fetch per page",
-    },
-    onSuccess: {
-      type: "(data: Notification[]) => void",
-      description:
-        "Callback function called when notifications are successfully fetched",
-    },
-    onError: {
-      type: "(error: NovuError) => void",
-      description: "Callback function called when an error occurs",
-    },
-  }}
-/>
+<TypeTable name="UseNotificationsProps" type={{
+  "tags": {
+    "description": "",
+    "type": "string[]"
+  },
+  "data": {
+    "description": "",
+    "type": "Record<string, unknown>"
+  },
+  "read": {
+    "description": "",
+    "type": "boolean"
+  },
+  "archived": {
+    "description": "",
+    "type": "boolean"
+  },
+  "snoozed": {
+    "description": "",
+    "type": "boolean"
+  },
+  "seen": {
+    "description": "",
+    "type": "boolean"
+  },
+  "severity": {
+    "description": "",
+    "type": "SeverityLevelEnum | SeverityLevelEnum[]"
+  },
+  "createdGte": {
+    "description": "",
+    "type": "number"
+  },
+  "createdLte": {
+    "description": "",
+    "type": "number"
+  },
+  "limit": {
+    "description": "",
+    "type": "number"
+  },
+  "onSuccess": {
+    "description": "",
+    "type": "((data: Notification[]) => void)"
+  },
+  "onError": {
+    "description": "",
+    "type": "((error: NovuError) => void)"
+  }
+}} />
 
 ## Return Value
 
-<TypeTable
-  type={{
-    notifications: {
-      type: "Notification[] | undefined",
-      description: "Array of notification objects",
-      typeDescription: "undefined if data is not yet loaded",
-    },
-    error: {
-      type: "NovuError | undefined",
-      description: "Error object if the request failed",
-      typeDescription: "undefined if no error occurred",
-    },
-    isLoading: {
-      type: "boolean",
-      description: "True during the initial load, false otherwise",
-    },
-    isFetching: {
-      type: "boolean",
-      description:
-        "True during any loading state (initial or refetch), false otherwise",
-    },
-    refetch: {
-      type: "() => Promise<void>",
-      description:
-        "Function to manually trigger a refetch of the notifications",
-    },
-    fetchMore: {
-      type: "() => Promise<void>",
-      description: "Function to load the next page of notifications",
-    },
-    hasMore: {
-      type: "boolean",
-      description:
-        "True if there are more notifications to load, false otherwise",
-    },
-    readAll: {
-      type: "() => Promise<{ data?: void; error?: NovuError }>",
-      description: "Function to mark all notifications as read",
-    },
-    seenAll: {
-      type: "() => Promise<{ data?: void; error?: NovuError }>",
-      description: "Function to mark all notifications as seen",
-    },
-    archiveAll: {
-      type: "() => Promise<{ data?: void; error?: NovuError }>",
-      description: "Function to archive all notifications",
-    },
-    archiveAllRead: {
-      type: "() => Promise<{ data?: void; error?: NovuError }>",
-      description: "Function to archive all read notifications",
-    },
-  }}
-/>
+<TypeTable name="UseNotificationsResult" type={{
+  "notifications": {
+    "description": "",
+    "type": "Notification[]"
+  },
+  "error": {
+    "description": "",
+    "type": "NovuError"
+  },
+  "isLoading": {
+    "description": "",
+    "type": "boolean"
+  },
+  "isFetching": {
+    "description": "",
+    "type": "boolean"
+  },
+  "hasMore": {
+    "description": "",
+    "type": "boolean"
+  },
+  "readAll": {
+    "description": "",
+    "type": "() => Promise<{ data?: void | undefined; error?: NovuError | undefined; }>"
+  },
+  "seenAll": {
+    "description": "",
+    "type": "() => Promise<{ data?: void | undefined; error?: NovuError | undefined; }>"
+  },
+  "archiveAll": {
+    "description": "",
+    "type": "() => Promise<{ data?: void | undefined; error?: NovuError | undefined; }>"
+  },
+  "archiveAllRead": {
+    "description": "",
+    "type": "() => Promise<{ data?: void | undefined; error?: NovuError | undefined; }>"
+  },
+  "refetch": {
+    "description": "",
+    "type": "() => Promise<void>"
+  },
+  "fetchMore": {
+    "description": "",
+    "type": "() => Promise<void>"
+  }
+}} />
 
 ## Notification Type
 
 The Notification type from @novu/react includes many properties. Here are the most commonly used ones:
 
-<TypeTable
-  type={{
-    id: {
-      type: "string",
-      description: "Unique identifier for the notification",
-    },
-    subject: {
-      type: "string",
-      description: "Subject of the notification",
-    },
-    body: {
-      type: "string",
-      description: "Body content of the notification",
-    },
-    isRead: {
-      type: "boolean",
-      description: "Whether the notification has been read",
-    },
-    isSeen: {
-      type: "boolean",
-      description: "Whether the notification has been seen",
-    },
-    isArchived: {
-      type: "boolean",
-      description: "Whether the notification has been archived",
-    },
-    createdAt: {
-      type: "string",
-      description: "ISO timestamp when the notification was created",
-    },
-    readAt: {
-      type: "string",
-      description: "ISO timestamp when the notification was read",
-    },
-    firstSeenAt: {
-      type: "string",
-      description: "ISO timestamp when the notification was first seen",
-    },
-    archivedAt: {
-      type: "string",
-      description: "ISO timestamp when the notification was archived",
-    },
-    tags: {
-      type: "string[]",
-      description: "Tags associated with the notification",
-    },
-    severity: {
-      type: "SeverityLevelEnum",
-      description: "Severity of the notification (HIGH, MEDIUM, LOW)",
-    },
-    data: {
-      type: "Record<string, unknown>",
-      description: "Custom data associated with the notification",
-    },
-  }}
-/>
+<TypeTable name="NotificationType" type={{
+  "id": {
+    "description": "",
+    "type": "string"
+  },
+  "transactionId": {
+    "description": "",
+    "type": "string"
+  },
+  "subject": {
+    "description": "",
+    "type": "string"
+  },
+  "body": {
+    "description": "",
+    "type": "string"
+  },
+  "to": {
+    "description": "",
+    "type": "Subscriber"
+  },
+  "isRead": {
+    "description": "",
+    "type": "boolean"
+  },
+  "isSeen": {
+    "description": "",
+    "type": "boolean"
+  },
+  "isArchived": {
+    "description": "",
+    "type": "boolean"
+  },
+  "isSnoozed": {
+    "description": "",
+    "type": "boolean"
+  },
+  "snoozedUntil": {
+    "description": "",
+    "type": "string | null"
+  },
+  "deliveredAt": {
+    "description": "",
+    "type": "string[]"
+  },
+  "createdAt": {
+    "description": "",
+    "type": "string"
+  },
+  "readAt": {
+    "description": "",
+    "type": "string | null"
+  },
+  "firstSeenAt": {
+    "description": "",
+    "type": "string | null"
+  },
+  "archivedAt": {
+    "description": "",
+    "type": "string | null"
+  },
+  "avatar": {
+    "description": "",
+    "type": "string"
+  },
+  "primaryAction": {
+    "description": "",
+    "type": "Action"
+  },
+  "secondaryAction": {
+    "description": "",
+    "type": "Action"
+  },
+  "channelType": {
+    "description": "",
+    "type": "ChannelType"
+  },
+  "tags": {
+    "description": "",
+    "type": "string[] | undefined"
+  },
+  "redirect": {
+    "description": "",
+    "type": "Redirect | undefined"
+  },
+  "data": {
+    "description": "",
+    "type": "NotificationData"
+  },
+  "workflow": {
+    "description": "",
+    "type": "Workflow"
+  },
+  "severity": {
+    "description": "",
+    "type": "SeverityLevelEnum"
+  },
+  "read": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "unread": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "seen": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "archive": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "unarchive": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "delete": {
+    "description": "",
+    "type": "() => Result<void, NovuError>"
+  },
+  "snooze": {
+    "description": "",
+    "type": "(snoozeUntil: string) => Result<Notification, NovuError>"
+  },
+  "unsnooze": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "completePrimary": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "completeSecondary": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "revertPrimary": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "revertSecondary": {
+    "description": "",
+    "type": "() => Result<Notification, NovuError>"
+  },
+  "on": {
+    "description": "",
+    "type": "<Key extends EventNames>(eventName: Key, listener: EventHandler<Events[Key]>) => () => void"
+  },
+  "off": {
+    "description": "",
+    "type": "<Key extends EventNames>(eventName: Key, listener: EventHandler<Events[Key]>) => void"
+  }
+}} />
 
 ## Example Usage
 
@@ -216,19 +314,35 @@ You can filter notifications by various properties:
 - `read` - Filter notifications by read status
 - `seen` - Filter notifications by seen status
 - `tags` - Filter notifications by tags. If multiple tags are provided, Novu evaluates them using `OR` logic, meaning a notification is included if it contains at least one of the specified tags.
+- `data` - Filter notifications by data attributes (key-value pairs).
 - `severity` - Filter notifications by severity
 - `limit` - Fetch notifications per page
+- `createdGte` - Fetch notifications created after the given date (in milliseconds)
+- `createdLte` - Fetch notifications created before the given date (in milliseconds)
 
 ```tsx
 import { useNotifications } from "@novu/react";
+import dayjs from "dayjs";
+
+const now = dayjs();
+// convert to milliseconds
+const startDate = now.subtract(60, "days").valueOf();
+const endDate = now.valueOf();  
 
 function FilteredNotifications() {
   const { notifications, isLoading } = useNotifications({
     read: false, // Only unread notifications
     seen: false, // Only unseen notifications
-    tags: ["important", "urgent"], // Only notifications with these tags
+    tags: ["important", "urgent"], // Only notifications with these tags (OR logic applied)
+    // data attributes
+    data: {
+      type: "login",
+      userName: "John Doe",
+    },
     severity: SeverityLevelEnum.HIGH, // Only high severity notifications
     limit: 20, // Fetch 20 notifications per page
+    createdGte: startDate, // Fetch notifications created in the last 60 days
+    createdLte: endDate,
   });
 
   if (isLoading) return <div>Loading...</div>;

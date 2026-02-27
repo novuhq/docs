@@ -5,6 +5,9 @@ import type {
   NotificationProps,
   SubscriptionProps,
   SubscriptionAppearance,
+  UseNotificationsProps,
+  UseNotificationsResult,
+  Notification as NotificationType,
 } from '@novu/react';
 
 import type { AllAppearance, AllElements, Variables } from '@novu/js/ui';
@@ -17,6 +20,7 @@ export type InboxAppearanceProps = Omit<AllAppearance, 'elements'>;
 export type InboxAppearanceVariables = Variables;
 export type InboxAppearanceElements = AllElements;
 
-export type { SubscriptionProps };
+export type { SubscriptionProps, SubscriptionAppearance };
 
-export type { SubscriptionAppearance };
+export type { UseNotificationsProps, UseNotificationsResult };
+export type { NotificationType };
