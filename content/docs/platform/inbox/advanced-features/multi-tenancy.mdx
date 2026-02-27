@@ -4,9 +4,9 @@ description: 'Learn how to use context to implement multi-tenant notifications t
 icon: 'Building2'
 ---
 
-Multi-tenancy in Novu lets you isolate notifications for different organizations, environments, or workspaces within the same Novu project. Instead of creating separate subscribers or workflows for each tenant, you can use [Contexts](/platform/workflow/contexts) to define and manage tenant boundaries.
+Multi-tenancy in Novu lets you isolate notifications for different organizations, environments, or workspaces within the same Novu project. Instead of creating separate subscribers or workflows for each tenant, you can use [Contexts](/platform/workflow/advanced-features/contexts) to define and manage tenant boundaries.
 
-<Callout>This guide assumes you already understand what Contexts are. If not, start with the [Contexts](/platform/workflow/contexts) documentation.</Callout>
+<Callout>This guide assumes you already understand what Contexts are. If not, start with the [Contexts](/platform/workflow/advanced-features/contexts) documentation.</Callout>
 
 ## How multi-tenancy works in Novu
 
@@ -48,7 +48,7 @@ context: {
 
 You can also manage all tenant contexts centrally from the Novu dashboard or API.
 
-<Callout>To learn more about creating, updating, and deleting contexts, see the [Manage Contexts](/platform/workflow/contexts) guide.</Callout>
+<Callout>To learn more about creating, updating, and deleting contexts, see the [Manage Contexts](/platform/workflow/advanced-features/contexts) guide.</Callout>
 
 ### Applying tenant context in workflows
 
@@ -84,7 +84,7 @@ In this example:
 - Notifications triggered with this tenant context will be isolated to that tenant’s workspace.
 - The same tenant ID must be passed to the Inbox to display these notifications.
 
-<Callout>Learn more about applying Context in workflows in [Contexts in Workflows](/platform/workflow/contexts/contexts-in-workflows) documentation.</Callout>
+<Callout>Learn more about applying Context in workflows in [Contexts in Workflows](/platform/workflow/advanced-features/contexts/contexts-in-workflows) documentation.</Callout>
 
 ### Filter the Inbox by tenant
 
@@ -133,4 +133,4 @@ Once a tenant context is created, its data becomes accessible in all template ed
 
 You can also use tenant context data to control conditional logic inside your workflows. For example, you may want to send certain updates only to enterprise tenants.
 
-<Callout>To learn more about customizing notification content with context, refer to the [Contexts in Workflows](/platform/workflow/contexts/contexts-in-workflows) documentation.</Callout>
+<Callout>To learn more about customizing notification content with context, refer to the [Contexts in Workflows](/platform/workflow/advanced-features/contexts/contexts-in-workflows) documentation.</Callout>

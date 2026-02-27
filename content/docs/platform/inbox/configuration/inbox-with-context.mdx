@@ -7,20 +7,26 @@ icon: 'Package'
 
 _Contexts_ let you scope each `<Inbox />` instance to a specific environment, tenant, or app within your product. When combined with workflow-level contexts, they ensure that each `<Inbox />` displays only the notifications relevant to that specific context.
 
-<Callout type='info'>If you’re new to contexts, start from the [Contexts](/platform/workflow/contexts) section to understand how contexts are created, managed in Novu and how they used in workflows.</Callout>
+<Callout type='info'>If you’re new to contexts, start from the [Contexts](/platform/workflow/advanced-features/contexts) section to understand how contexts are created, managed in Novu and how they used in workflows.</Callout>
 
 ## How context works in `<Inbox/>`
 
 The <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> uses exact-match context filtering to determine which notifications to display. This means the context provided to the <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> must match all the key-value pairs of the context used when the workflow was triggered.
 
-This creates predictable isolation and ensures notifications can't accidentally leak across boundaries. If the contexts do not match exactly, the notification will not be delivered to that Inbox session.
+This creates predictable isolation and ensures notifications are scoped to the context provided. If the contexts do not match exactly, the notification will not be delivered to that Inbox session. 
+
+- If workflow is triggered with a context but Inbox is initialized without a context, the notification will not be delivered to that Inbox session.
+- If workflow is triggered without a context but Inbox is initialized with a context, the notification will not be delivered to that Inbox session.
+- If workflow is triggered with a context but Inbox is initialized with a different context, the notification will not be delivered to that Inbox session.
 
 | Workflow Context                           | Inbox Context            | Displayed? |
 | ------------------------------------------ | ------------------------ | ---------- |
-| `{ "tenant": "acme" }`                     | `{ "tenant": "acme" }`   | Yes      |
-| `{ "tenant": "acme" }`                     | `{ "tenant": "globex" }` |  No       |
-| `{ "tenant": "acme", "app": "dashboard" }` | `{ "tenant": "acme" }`   | No       |
-| `{}`                                       | `{}`                     | Yes      |
+| `{ "tenant": "acme" }`                     | `{ "tenant": "acme" }`   |  Yes       |
+| `{}`                                       | `{}`                     |  Yes       |
+| `{}`                                       | `{ "tenant": "acme" }`   |  No        |
+| `{ "tenant": "acme" }`                     | `{ "tenant": "globex" }` |  No        |
+| `{ "tenant": "acme" }`                     | `{}`                     |  No        |
+| `{ "tenant": "acme" }, { "app": "first" }` | `{ "tenant": "acme" }`   |  No        |
 
 ### Creating context via `<Inbox/>`
 
@@ -73,6 +79,54 @@ Then, the notifications will be delivered to the <Method href="/platform/inbox/c
 
 Because the context prop is set on the client-side, a malicious user could potentially tamper with it to view notifications from a different tenant.
 
-To prevent this, you must validate the session using HMAC encryption. This ensures that the context data comes from your server and has not been altered.
+To prevent this, you must fetch the context details and contextHash from your server and pass them to the Inbox component.
+
+<Callout type="info">We need to use `canonicalize` here, cause context is a dynamic object. `canonicalize` is used to serialize the JSON in a way that the order of keys or whitespaces etc doesn’t matter. The library should be based on [RFC-8259](https://datatracker.ietf.org/doc/html/rfc8259).</Callout>
+
+```ts title="utils/context-hash.ts"
+import { createHmac } from 'crypto';
+import { canonicalize } from '@tufjs/canonical-json';
+
+const context = {
+  tenant: {
+    id: "acme-corp",
+    data: {
+      name: "Acme Corporation",
+      plan: "enterprise",
+    },
+  },
+};
+
+const contextHash = createHmac('sha256', "NOVU_SECRET_KEY")
+  .update(canonicalize(context))
+  .digest('hex');
+```
+
+```tsx title="components/InboxWithContextHash.tsx"
+import { Inbox } from '@novu/react';
+
+const { user } = currentUser();
+const subscriberHash = user?.novuSubscriberHash;
+const contextHash = user?.novuContextHash;
+
+
+const context = {
+  tenant: {
+    id: "acme-corp",
+    data: {
+      name: "Acme Corporation",
+      plan: "enterprise",
+    },
+  },
+};
+
+<Inbox
+  applicationIdentifier="YOUR_APPLICATION_IDENTIFIER"
+  subscriber="YOUR_SUBSCRIBER_ID"
+  subscriberHash={subscriberHash}
+  context={context}
+  contextHash={contextHash}
+/>
+```
 
 <Callout>Learn how to secure your <Method href="/platform/inbox/configuration/inbox-with-context">{`<Inbox />`}</Method> with HMAC encryption, refer to the [Prepare for Production](/platform/inbox/prepare-for-production) documentation.</Callout>

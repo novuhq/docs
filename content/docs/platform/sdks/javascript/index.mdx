@@ -38,6 +38,10 @@ The Novu client provides methods to interact with notifications, preferences, an
     "description": "",
     "type": "string"
   },
+  "socketOptions": {
+    "description": "Custom socket configuration options. These options will be merged with the default socket configuration.\nFor socket.io-client connections, supports all socket.io-client options (e.g., `path`, `reconnectionDelay`, `timeout`, etc.).\nFor PartySocket connections, options are applied to the WebSocket instance.",
+    "type": "Record<string, unknown>"
+  },
   "useCache": {
     "description": "",
     "type": "boolean"
@@ -158,11 +162,26 @@ Fetches a list of notifications based on provided filters.
   "severity": {
     "description": "",
     "type": "SeverityLevelEnum | SeverityLevelEnum[]"
+  },
+  "createdGte": {
+    "description": "",
+    "type": "number"
+  },
+  "createdLte": {
+    "description": "",
+    "type": "number"
   }
 }} />
 
+
 ```typescript
 import { SeverityLevelEnum } from '@novu/js';
+import dayjs from "dayjs";
+
+const now = dayjs();
+// convert to milliseconds
+const startDate = now.subtract(60, "days").valueOf();
+const endDate = now.valueOf();  
 
 const notifications = await novu.notifications.list({
   limit: 30,
@@ -176,6 +195,9 @@ const notifications = await novu.notifications.list({
     type: 'login',
   },
   offset: 0,
+  // fetch last 60 days notifications
+  createdGte: startDate,
+  createdLte: endDate,
 });
 ```
 
@@ -228,6 +250,14 @@ Fetches the count of notifications based on filters.
   "severity": {
     "description": "",
     "type": "SeverityLevelEnum | SeverityLevelEnum[]"
+  },
+  "createdGte": {
+    "description": "",
+    "type": "number"
+  },
+  "createdLte": {
+    "description": "",
+    "type": "number"
   }
 }} />
 
