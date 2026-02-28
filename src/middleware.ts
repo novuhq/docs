@@ -79,6 +79,10 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/react/styling#appearance-prop': '/platform/inbox/configuration/styling',
     '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
     '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
+    '/platform/inbox/advanced-concepts/localization':
+      '/platform/inbox/advanced-features/localization',
+    '/platform/inbox/advanced-concepts/multi-tenancy':
+      '/platform/inbox/advanced-features/multi-tenancy',
 
     // Workflow section (old → new structure)
     '/platform/workflow/layouts':
