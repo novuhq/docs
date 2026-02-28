@@ -16,19 +16,14 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
   // Root redirects
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/platform/overview', request.url), {
+    return NextResponse.redirect(new URL('/platform', request.url), {
       status: 308,
     });
   }
 
   // Section root redirects
   const sectionRedirects: Record<string, string> = {
-    '/overview/introduction': '/platform/overview',
-    '/platform': '/platform/overview',
-    '/community': '/community/overview',
-    '/api-reference': '/api-reference/overview',
-    '/framework': '/framework/overview',
-    '/guides': '/guides/overview',
+    '/': '/platform',
   };
 
   if (pathname in sectionRedirects) {
@@ -84,6 +79,17 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/advanced-concepts/multi-tenancy':
       '/platform/inbox/advanced-features/multi-tenancy',
 
+    // Old overview paths to new section roots
+    '/platform/overview': '/platform',
+    '/guides/overview': '/guides',
+    '/framework/overview': '/framework',
+    '/community/overview': '/community',
+    '/api-reference/overview': '/api-reference',
+
+    '/platform/inbox/overview': '/platform/inbox',
+    '/platform/integrations/overview': '/platform/integrations',
+    '/platform/subscription/overview': '/platform/subscription',
+    '/platform/sdks/react/overview': '/platform/sdks/react',
     // Workflow section (old → new structure)
     '/platform/workflow/layouts':
       '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
