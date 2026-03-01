@@ -9,13 +9,13 @@ Novu `@novu/react` package provides Subscription hooks that let you build your o
 
 These hooks allow you to list, create, update, and delete subscriptions while leveraging Novu's state management.
 
-<Callout type="info"> Hooks are available in [`@novu/nextjs`](/platform/sdks/react), [`@novu/react-native`](/platform/sdks/react-native), [`@novu/react`](/platform/sdks/react). For a complete reference on all available Subscription endpoints, refer to the [API reference documentation](/api-reference/overview).</Callout>
+<Callout type="info"> Hooks are available in [`@novu/nextjs`](/platform/sdks/react), [`@novu/react-native`](/platform/sdks/react-native), [`@novu/react`](/platform/sdks/react). For a complete reference on all available Subscription endpoints, refer to the [API reference documentation](/platform/sdks/react/hooks/subscription).</Callout>
 
-## Get all subscriptions
+## List all subscriptions
 
-The `useSubscriptions` hook retrieves all subscriptions associated with a specific topic for the current subscriber. This is useful for rendering a list of "My Subscriptions," where subscribers can view all the content they've opted into.
+The `useSubscriptions` hook retrieves all subscriptions associated with a specific topic for the current subscriber. This is useful for rendering a list of "My Subscriptions," where subscribers can view all the subscriptions they've subscribed to.
 
-The `subscriptions` array contains `TopicSubscription` objects. You can refer to the [TopicSubscription interface](/sdks/javascript/reference/topic-subscription) in the `@novu/js` package for the full type definition.
+The `subscriptions` array contains `TopicSubscription` objects. You can refer to the [TopicSubscription interface](/api-reference/topics/topic-schema#topicsubscription) for the full type definition.
 
 ```tsx
 import { useSubscriptions } from '@novu/react';
@@ -40,9 +40,9 @@ function SubscriptionList() {
 }
 ```
 
-## Get a single subscription
+## Retrieve a single subscription
 
-If you need to manage a specific subscription instance, then use the `useSubscription` hook. This hook fetches the details and preference states for a single subscription.
+If you need to manage a specific subscription instance, then use the `useSubscription` hook. This hook fetches the details and preferences for a single subscription.
 
 ```tsx
 import { useSubscription } from '@novu/react';
@@ -107,13 +107,14 @@ Use `useUpdateSubscription` to modify an existing subscription. This is primaril
 ```tsx
 import { useUpdateSubscription } from '@novu/react';
 
-function PreferenceToggle({ subscriptionId, workflowId, }) {
+function PreferenceToggle({ identifier, preferences, name, topicKey }) {
   const { update, isUpdating } = useUpdateSubscription();
 
   const savePreferences = async () => {
     await update({
-      topicKey: 'project-123',
-      subscriptionId: subscriptionId,
+      topicKey,
+      identifier,
+      name,
       preferences,
     });
   };
@@ -168,13 +169,13 @@ To allow users to opt out or unsubscribe, use the `useRemoveSubscription` hook.
 ```tsx
 import { useRemoveSubscription } from '@novu/react';
 
-function UnsubscribeButton({ subscriptionId }) {
+function UnsubscribeButton({ identifier: string, topicKey: string }) {
   const { remove, isRemoving } = useRemoveSubscription();
 
   const handleUnsubscribe = async () => {
     await remove({ 
-      subscriptionId: subscriptionId,
-      topicKey: 'project-123'
+      identifier,
+      topicKey,
     });
   };
 
