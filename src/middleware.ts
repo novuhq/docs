@@ -85,6 +85,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/framework/overview': '/framework',
     '/community/overview': '/community',
     '/api-reference/overview': '/api-reference',
+    '/platform/workflow/overview': '/platform/workflow',
 
     '/platform/inbox/overview': '/platform/inbox',
     '/platform/integrations/overview': '/platform/integrations',
