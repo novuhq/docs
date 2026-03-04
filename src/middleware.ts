@@ -108,6 +108,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
       '/platform/workflow/add-and-configure-steps/step-conditions',
     '/platform/workflow/channel-steps': '/platform/workflow/add-and-configure-steps#channel-steps',
     '/platform/workflow/tags': '/platform/workflow/configure-workflow#tags',
+    '/community/project-differences': '/community/self-hosted-and-novu-cloud',
   };
 
   if (pathname in redirectMap) {
