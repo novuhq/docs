@@ -6,8 +6,8 @@ A Next.js 15 documentation site built with Fumadocs, using pnpm.
 
 ### Services
 
-| Service | Command | Port | Notes |
-|---|---|---|---|
+| Service            | Command    | Port | Notes                                         |
+| ------------------ | ---------- | ---- | --------------------------------------------- |
 | Next.js Dev Server | `pnpm dev` | 3010 | The only service needed for local development |
 
 ### Standard commands
