@@ -229,7 +229,7 @@ export async function POST(request: NextRequest) {
       return await triggerWorkflow(workflow, subscriber, payload);
     }
 
-    return NextResponse.json({ status: "sucess", event: event.type, response: response });
+    return NextResponse.json({ status: "success", event: event.type, response: response });
   } catch (error) {
     return NextResponse.json({ status: "Failed", error });
   }
