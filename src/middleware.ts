@@ -109,6 +109,31 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/workflow/channel-steps': '/platform/workflow/add-and-configure-steps#channel-steps',
     '/platform/workflow/tags': '/platform/workflow/configure-workflow#tags',
     '/community/project-differences': '/community/self-hosted-and-novu-cloud',
+
+    // Legacy broken paths
+    '/platform/concepts/endpoint': '/framework/endpoint',
+    '/platform/concepts/environments': '/platform/developer/environments',
+    '/platform/concepts/notifications': '/platform/concepts/notification-event',
+    '/platform/additional-resources/roles-and-permissions':
+      '/platform/account/roles-and-permissions',
+    '/platform/inbox/headless/api-reference': '/platform/inbox/headless-mode',
+    '/platform/inbox/headless/get-started': '/platform/inbox/headless-mode',
+    '/platform/inbox/react/tabs': '/platform/inbox/configuration/tabs',
+    '/platform/integrations/demo-providers': '/platform/integrations/demo-integration',
+    '/platform/integrations/email/outlook-365': '/platform/integrations/email/outlook365',
+    '/platform/integrations/email/email-webhook': '/platform/integrations/email/webhook',
+    '/platform/integrations/sms/azure-sms': '/platform/integrations/sms/azure',
+    '/platform/integrations/sms/bulksms': '/platform/integrations/sms/bulk-sms',
+    '/platform/subscription/Headless-hooks': '/platform/subscription/headless-hooks',
+    '/platform/workflow/add-notification-content':
+      '/platform/workflow/add-notification-content/channels-template-editors',
+    '/platform/workflow/translations': '/platform/workflow/advanced-features/translations',
+    '/platform/workflow/add-and-configure-steps/action-steps/delay':
+      '/platform/workflow/add-and-configure-steps/configure-action-steps/delay',
+    '/platform/workflow/add-and-configure-steps/action-steps/throttle':
+      '/platform/workflow/add-and-configure-steps/configure-action-steps/throttle',
+    '/platform/framework/typescript/steps': '/framework/typescript/steps',
+    '/framework/steps': '/framework/typescript/steps',
   };
 
   if (pathname in redirectMap) {
