@@ -21,7 +21,11 @@ const processor = remark()
   .use(remarkStringify);
 
 export async function GET() {
-  const files = await fg(['./content/docs/**/*.mdx', '!./content/docs/openapi/**/*']);
+  const files = await fg([
+    './content/docs/**/*.mdx',
+    '!./content/docs/openapi/**/*',
+    '!./content/docs/**/*.model.mdx',
+  ]);
 
   const scan = files.map(async (file) => {
     const fileContent = await fs.readFile(file);

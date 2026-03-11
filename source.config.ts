@@ -9,6 +9,7 @@ import { remarkTooltip } from './src/lib/remark-tooltip';
 export const docs = defineDocs({
   dir: 'content/docs',
   docs: {
+    files: ['**/*.mdx', '!**/*.model.mdx'],
     schema: frontmatterSchema.extend({
       preview: z.string().optional(),
       index: z.boolean().default(false),
