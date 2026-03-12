@@ -1,6 +1,12 @@
 ---
 title: Update notification action status
+description: >-
+  Update in-app (inbox) notification's action status by its unique key
+  identifier **messageId** and type field **type**. 
+        **type** field can be **primary** or **secondary**
 full: true
+context:
+  type: operation
 _openapi:
   method: POST
   route: /v1/subscribers/{subscriberId}/messages/{messageId}/actions/{type}

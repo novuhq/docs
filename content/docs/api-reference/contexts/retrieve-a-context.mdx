@@ -1,6 +1,11 @@
 ---
 title: Retrieve a context
+description: |-
+  Retrieve a specific context by its type and id.
+        **type** and **id** are required fields, if the context does not exist, it returns the 404 response
 full: true
+context:
+  type: operation
 _openapi:
   method: GET
   route: /v2/contexts/{type}/{id}

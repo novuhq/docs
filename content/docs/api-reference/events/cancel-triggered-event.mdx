@@ -1,6 +1,13 @@
 ---
 title: Cancel triggered event
+description: |2-
+
+      Using a previously generated transactionId during the event trigger,
+       will cancel any active or pending workflows. This is useful to cancel active digests, delays etc...
+      
 full: true
+context:
+  type: operation
 _openapi:
   method: DELETE
   route: /v1/events/trigger/{transactionId}
