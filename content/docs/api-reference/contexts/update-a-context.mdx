@@ -1,6 +1,12 @@
 ---
 title: Update a context
+description: |-
+  Update the data of an existing context.
+        **type** and **id** are required fields, **data** is required. Only the data field is updated, the rest of the context is not affected.
+        If the context does not exist, it returns the 404 response
 full: true
+context:
+  type: operation
 _openapi:
   method: PATCH
   route: /v2/contexts/{type}/{id}
