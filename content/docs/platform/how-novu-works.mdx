@@ -6,13 +6,13 @@ description: 'A high-level overview of Novu’s architecture: workflows, trigger
 
 import { Step, Steps } from '@/components/steps';
 
-Novu is a notification infrastructure built around the concept of workflows, environments, and subscriber-based delivery. It centralizes multi-channel messaging and supports real-time in-app experiences through a customizable <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component.
+Novu is a notification infrastructure built around the concept of workflows, environments, and subscriber-based delivery. It centralizes multi-channel messaging and supports real-time in-app experiences through a customizable <Method href="/platform/inbox">{`<Inbox />`}</Method> component.
 
 At its core, Novu uses workflows to orchestrate how notifications are sent, step by step, to different channels like email, SMS, in-app, push, and chat. Each workflow is triggered by your application and executed in the context of a specific environment.
 
 ## The Inbox component in the notification lifecycle
 
-The <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component is Novu’s in-app delivery endpoint. This component makes it possible for users to receive and manage notifications directly within your application interface.
+The <Method href="/platform/inbox">{`<Inbox />`}</Method> component is Novu’s in-app delivery endpoint. This component makes it possible for users to receive and manage notifications directly within your application interface.
 
 Unlike external channels that rely on third-party providers, the Inbox is internal to your app. It uses the environment’s `application identifier` to establish a secure connection, scoped to your subscribers.
 
@@ -70,9 +70,9 @@ To learn more about subscribers, refer to the [Subscribers documentation](/platf
 
 Each channel represents a delivery medium (email, SMS, push, chat, or in-app). Channels are linked to provider configurations known as integrations, which are defined per environment.
 
-In-app messages are delivered to the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, which is located in your frontend and listens for messages scoped to the current environment and subscriber.
+In-app messages are delivered to the <Method href="/platform/inbox">{`<Inbox />`}</Method> component, which is located in your frontend and listens for messages scoped to the current environment and subscriber.
 
-To learn more about channels and the Inbox component, refer to the [Channels documentation](/platform/integrations/overview)
+To learn more about channels and the Inbox component, refer to the [Channels documentation](/platform/integrations)
 
 ### Integrations
 
@@ -115,7 +115,7 @@ Your application calls Novu’s API and passes in:
   <Step title="Messages are delivered">
   Once a step completes, Novu uses the environment’s configured integrations to deliver the message. For example:
   - An Email step uses a provider like SendGrid.
-  - An In-App step sends the message to the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component in your frontend.
+  - An In-App step sends the message to the <Method href="/platform/inbox">{`<Inbox />`}</Method> component in your frontend.
   - An SMS step uses a provider like Twilio.
   </Step>
 

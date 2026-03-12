@@ -4,6 +4,7 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
+  poweredByHeader: false,
   reactStrictMode: true,
   serverExternalPackages: ['ts-morph', 'typescript', 'oxc-transform', '@shikijs/twoslash'],
 

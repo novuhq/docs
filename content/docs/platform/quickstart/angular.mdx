@@ -21,12 +21,12 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
 
 <Steps>
   <Step>
-  ### Create a Novu account
+  ## Create a Novu account
     <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer">Create a Novu account</a> or <a href="https://dashboard.novu.co/auth/sign-in" target="_blank" rel="noopener noreferrer">sign in</a> to access the Novu dashboard.
   </Step>
 
     <Step>
-    ### Create an Angular application
+    ## Create an Angular application
     Run the following command to create a new Angular app using <a href="https://angular.dev/tools/cli/setup-local#install-the-angular-cli" target="_blank" rel="noopener noreferrer">angular cli</a>:
 
     ```bash
@@ -36,7 +36,7 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
   </Step>
 
   <Step>
-  ### Install `@novu/js`
+  ## Install `@novu/js`
   The [Novu JavaScript SDK](/platform/sdks/javascript) gives you access to the Inbox component.
 
   Run the following command to install the SDK:
@@ -48,7 +48,7 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
 
 
   <Step>
-  ### Add the Inbox component
+  ## Add the Inbox component
   Update the `src/app/app.ts` file to add the Inbox component. You'll need to provide your :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
 
   <CodeTemplateBlock templateId="angular-inbox" />
@@ -64,7 +64,7 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
   </Step>
 
   <Step>
-  ### Add the Inbox component to your application
+  ## Add the Inbox component to your application
   Add a `#novuInbox` reference to your application in the starting of the `src/app/app.html` file:
 
   ```html title="src/app/app.html"
@@ -74,7 +74,7 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
 
   <Step>
 
-  ### Run Your Application
+  ## Run Your Application
   Start your development server:
 
   ```package-install
@@ -88,7 +88,7 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
   </Step>
 
   <Step>
-  ### Trigger your first notification
+  ## Trigger your first notification
 
   In this step, you'll create a simple workflow to send your first notification via the Inbox component. Follow these steps to set up and trigger a workflow from your Novu dashboard.
 
@@ -109,7 +109,7 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
   </Step>
 
   <Step>
-  ###  View the notification in your app
+  ## View the notification in your app
   Go back to your Angular app, then click the bell icon.
 
   You should see the notification you just sent from Novu! 🎉
@@ -128,7 +128,7 @@ This guide walks you through integrating Novu’s Inbox into your Angular applic
   >
     Explore JavaScript SDK API reference for more advanced use cases.
   </Card>
-  <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow/overview">
+  <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow">
      Design and manage advanced notification workflows.
   </Card>
   <Card title="Multi Tenancy" icon={<Code2 />} href="/platform/concepts/tenants">
