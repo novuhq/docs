@@ -9,6 +9,15 @@
   # Set Netlify environment variable for OG image optimization
   NETLIFY = "true"
 
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 

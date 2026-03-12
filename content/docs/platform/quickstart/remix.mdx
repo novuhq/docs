@@ -54,7 +54,7 @@ This guide walks you through integrating Novu’s Inbox into your Remix applicat
 
   <Step>
   ### Create an Inbox component
-  In the `app` directory, create a `components/notification-center.tsx` file and use the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, passing :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
+  In the `app` directory, create a `components/notification-center.tsx` file and use the <Method href="/platform/inbox">{`<Inbox />`}</Method> component, passing :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
       
   <CodeTemplateBlock templateId="remix-inbox" />
 
@@ -167,11 +167,11 @@ You should see the notification you just sent from Novu! 🎉
   <Card
     title="Inbox and preferences UI components"
     icon={<Library />}
-    href="/platform/inbox/overview"
+    href="/platform/inbox"
   >
     Explore our full-stack UI components libraries for building in-app notifications.
   </Card>
-  <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow/overview">
+  <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow">
      Design and manage advanced notification workflows.
   </Card>
   <Card title="Multi Tenancy" icon={<Code2 />} href="/platform/concepts/tenants">

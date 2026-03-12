@@ -134,6 +134,12 @@ export default async function middleware(request: NextRequest, event: NextFetchE
       '/platform/workflow/add-and-configure-steps/configure-action-steps/throttle',
     '/platform/framework/typescript/steps': '/framework/typescript/steps',
     '/framework/steps': '/framework/typescript/steps',
+
+    // Additional 404 fixes
+    '/platform/run-in-local-machine': '/community/run-in-local-machine',
+    '/platform/workflow/workflows.mdx': '/platform/workflow',
+    '/docs/platform/workflow/layouts':
+      '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
   };
 
   if (pathname in redirectMap) {
