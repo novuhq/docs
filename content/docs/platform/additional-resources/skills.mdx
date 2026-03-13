@@ -1,5 +1,6 @@
 ---
 title: Agent Skills
+pageTitle: Agent Skills
 description: Learn how to use Novu Agent Skills to help AI agents build multi-channel notification systems.
 icon: Unplug
 ---
@@ -9,6 +10,24 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 ## What are Agent Skills?
 
 Agent Skills are an open standard that gives AI agents (Claude Code, Cursor, Copilot, etc.) the context they need to work with specific tools and platforms. Novu's skills provide AI agents with everything required to build multi-channel notification systems — triggering workflows, managing subscribers, integrating the in-app inbox, and configuring preferences.
+
+
+## Prerequisites
+
+- A Novu account
+- Secret key from [dashboard.novu.co/settings/api-keys](https://dashboard.novu.co/settings/api-keys)
+
+## Setup
+
+Install the Novu skills into your project using the `skills` CLI:
+
+```bash
+npx skills add novuhq/skills
+```
+
+This pulls the skills from the [novuhq/skills](https://github.com/novuhq/skills) GitHub repository and makes them available to your AI agent (Claude Code, Cursor, Copilot, etc.).
+
+---
 
 ## Available Skills
 
@@ -318,15 +337,5 @@ await novu.subscribers.preferences.update(
 
 The `Inbox` component includes a built-in Preferences panel accessible via the settings icon, or use `<Preferences />` as a standalone component.
 
-## Prerequisites
-
-- A Novu account
-- Secret key from [dashboard.novu.co/settings/api-keys](https://dashboard.novu.co/settings/api-keys)
-
-## Setup
-
-Install the skills from the [novuhq/skills](https://github.com/novuhq/skills) GitHub repository and point your AI agent to the relevant `SKILL.md` file for the task at hand.
-
----
 
 For additional help, check the [Novu documentation](https://docs.novu.co) or contact us at [support@novu.co](mailto:support@novu.co).
