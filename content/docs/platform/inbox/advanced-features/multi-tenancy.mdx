@@ -59,7 +59,8 @@ If not, Novu automatically creates it — but if it does exist, Novu reuses the 
 ```tsx
 import { novu } from './client';
 
-await novu.trigger('payment-success', {
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
     subscriberId: 'user-123',
   },
