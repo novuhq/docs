@@ -66,29 +66,48 @@ The goal is to capture the event and send a JSON payload to your backend. You mu
   ```
   </Tab>
   <Tab value="fcm">
-  ```js 
-  import messaging from '@react-native-firebase/messaging';
+```javascript 
+import messaging from '@react-native-firebase/messaging';
+import { Platform } from 'react-native';
 
-  messaging().onNotificationOpenedApp((remoteMessage) => {
+const trackNotificationOpen = async (remoteMessage) => {
   const eventData = {
-  eventType: "opened",
-  eventId: remoteMessage.data?.__nvMessageId,
-  timestamp: new Date().toISOString(),
-  content: {
-  title: remoteMessage.notification?.title,
-  body: remoteMessage.notification?.body,
-  },
-  deviceId: remoteMessage.messageId,
-  platform: 'android',
+    eventType: "opened",
+    eventId: remoteMessage?.data?.__nvMessageId,
+    timestamp: new Date().toISOString(),
+    content: {
+      title: remoteMessage?.notification?.title,
+      body: remoteMessage?.notification?.body,
+    },
+    deviceId: await messaging().getToken(),
+    platform: Platform.OS,
   };
 
-  fetch("https://your-api.com/api/notifications/events", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(eventData),
-  });
-  });
-  ```
+  try {
+    await fetch("https://your-api.com/api/notifications/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(eventData),
+    });
+  } catch (err) {
+    console.log("Failed to track notification event", err);
+  }
+};
+
+// App opened from background
+messaging().onNotificationOpenedApp(trackNotificationOpen);
+
+// App opened from quit state
+messaging()
+.getInitialNotification()
+.then((remoteMessage) => {
+  if (remoteMessage) {
+    trackNotificationOpen(remoteMessage);
+  }
+});
+```
   </Tab>
   <Tab value="onesignal">
   ```js

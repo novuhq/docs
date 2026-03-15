@@ -1,7 +1,11 @@
 ---
 title: Create topic subscriptions
-description: "Add subscribers to a Novu topic in bulk via the API. Use this endpoint to subscribe multiple users to a topic for targeted notification delivery."
+description: |-
+  This api will create subscription for subscriberIds for a topic. 
+        Its like subscribing to a common interest group. if topic does not exist, it will be created.
 full: true
+context:
+  type: operation
 _openapi:
   method: POST
   route: /v2/topics/{topicKey}/subscriptions

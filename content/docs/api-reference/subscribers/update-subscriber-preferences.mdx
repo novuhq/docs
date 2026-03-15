@@ -1,7 +1,12 @@
 ---
 title: Update subscriber preferences
-description: "Update notification channel preferences for a Novu subscriber. Control which notification channels are enabled or disabled per workflow."
+description: |-
+  Update subscriber preferences by its unique key identifier **subscriberId**. 
+      **workflowId** is optional field, if provided, this API will update that workflow preference, 
+      otherwise it will update global preferences
 full: true
+context:
+  type: operation
 _openapi:
   method: PATCH
   route: /v2/subscribers/{subscriberId}/preferences

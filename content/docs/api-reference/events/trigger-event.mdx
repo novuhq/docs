@@ -1,7 +1,11 @@
 ---
 title: Trigger event
-description: "Trigger a Novu notification workflow event via the REST API. Send targeted notifications to subscribers by specifying a workflow identifier and payload."
+description: |2-
+      Trigger event is the main (and only) way to send notifications to subscribers. The trigger identifier is used to match the particular workflow associated with it. Maximum number of recipients can be 100. Additional information can be passed according the body interface below.
+      To prevent duplicate triggers, you can optionally pass a **transactionId** in the request body. If the same **transactionId** is used again, the trigger will be ignored. The retention period depends on your billing tier.
 full: true
+context:
+  type: operation
 _openapi:
   method: POST
   route: /v1/events/trigger

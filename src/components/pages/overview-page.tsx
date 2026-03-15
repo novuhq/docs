@@ -67,7 +67,7 @@ const concepts = [
     title: 'Notifications',
     description:
       'Learn about the Novu notifications lifecycle and the key entities that make up a notification.',
-    link: '/platform/concepts/notifications',
+    link: '/platform/concepts/notification-event',
   },
   {
     image: subscribersImage,

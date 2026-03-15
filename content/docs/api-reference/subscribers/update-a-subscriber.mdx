@@ -1,7 +1,11 @@
 ---
 title: Update a subscriber
-description: "Update an existing Novu subscriber's profile data via the REST API. Modify email, phone, name, avatar, locale, and custom subscriber attributes."
+description: |-
+  Update a subscriber by its unique key identifier **subscriberId**. 
+      **subscriberId** is a required field, rest other fields are optional
 full: true
+context:
+  type: operation
 _openapi:
   method: PATCH
   route: /v2/subscribers/{subscriberId}

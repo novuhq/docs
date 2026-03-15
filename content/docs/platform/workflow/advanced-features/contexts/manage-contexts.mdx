@@ -20,8 +20,9 @@ Each context consists of:
 Supported data formats include:
 
 ```typescript
-await novu.trigger('welcome-email', {
-  to: 'user123',
+await novu.trigger({
+  workflowId: "workflowId",
+  to: { subscriberId: 'user123' },
   payload: { userName: 'John' },
   context: {
     // Simple string format
@@ -83,8 +84,9 @@ POST /v2/contexts
 Contexts can also be created automatically when you trigger a workflow that includes a new context object. If the specified `type:id` doesn’t exist, then Novu automatically creates it before running the workflow.
 
 ```jsx
-await novu.trigger('welcome-email', {
-  to: 'user@example.com',
+await novu.trigger({
+  workflowId: "workflowId",
+  to: { subscriberId: 'user@example.com' },
   payload: { userName: 'John' },
   context: {
     tenant: 'acme-corp',   // Created automatically if it doesn’t exist

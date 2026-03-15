@@ -59,6 +59,8 @@ To send push notifications, each subscriber must have one or more device tokens 
 
 These tokens are unique identifiers that help push notification providers deliver messages to the correct devices. Each provider has its own method for obtaining device tokens, refer to your provider's guide to learn how to generate the device tokens.
 
+<Callout>Each subscriber channel supports a maximum of **100 device tokens**. Attempts to create or update credentials beyond this limit will be rejected. Remove unused or stale tokens to stay within the limit. See [Platform Limits](/platform/developer/limits) for all system limits.</Callout>
+
 <Callout type="info"> The code examples in this section use fcm. For other providers, replace `ChatOrPushProviderEnum.Fcm` with the correct enum for your provider, such as `ChatOrPushProviderEnum.Apns` or `ChatOrPushProviderEnum.Expo`. </Callout>
 
 ### Add push device tokens

@@ -1,7 +1,11 @@
 ---
 title: Create a subscriber
-description: "Create a new subscriber in Novu via the REST API. Define subscriber ID, email, phone, and custom data to enable personalized notifications."
+description: |-
+  Create a subscriber with the subscriber attributes. 
+        **subscriberId** is a required field, rest other fields are optional, if the subscriber already exists, it will be updated
 full: true
+context:
+  type: operation
 _openapi:
   method: POST
   route: /v2/subscribers

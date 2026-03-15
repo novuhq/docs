@@ -170,7 +170,7 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   if (!page) notFound();
 
   return metadataImage.withImage(page.slugs, {
-    title: page.data.pageTitle ?? page.data.title,
+    title: page.data.pageTitle || page.data.title,
     description: page.data.description,
     alternates: {
       canonical: page.url,
