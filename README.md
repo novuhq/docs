@@ -14,8 +14,8 @@
     <img src="https://img.shields.io/badge/Product%20Hunt-Golden%20Kitty%20Award%202023-yellow" alt="Product Hunt">
   </a>
   <a href="https://news.ycombinator.com/item?id=38419513"><img src="https://img.shields.io/badge/Hacker%20News-%231-%23FF6600" alt="Hacker News"></a>
-  <a href="https://www.npmjs.com/package/@novu/react">
-    <img src="https://img.shields.io/npm/dm/@novu/react" alt="npm downloads">
+  <a href="https://www.npmjs.com/package/@novu/js">
+    <img src="https://img.shields.io/npm/dm/@novu/js" alt="npm downloads">
   </a>
 </p>
 
