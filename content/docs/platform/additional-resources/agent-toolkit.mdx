@@ -100,9 +100,6 @@ The returned `toolkit` provides:
 
 - **`tools`** — Array of OpenAI-compatible function tool definitions.
 - **`handleToolCall(toolCall)`** — Executes a tool call and returns a `{ role: 'tool', tool_call_id, content }` message ready to append to the conversation.
-- **`requireHumanInput(tools, config)`** — Wraps tools with human-in-the-loop approval before execution.
-- **`resumeToolExecution(toolCall, decision)`** — Resumes a deferred tool call after human review.
-- **`handleWebhookEvent(event)`** — Parses an incoming Novu webhook event into a structured decision result.
 
 **Full example with tool-call loop:**
 
@@ -149,9 +146,6 @@ const toolkit = await createNovuAgentToolkit({
 The returned `toolkit` provides:
 
 - **`tools`** — Array of `DynamicStructuredTool` instances that can be passed directly to LangChain agents or executors.
-- **`requireHumanInput(tools, config)`** — Wraps tools with human-in-the-loop approval.
-- **`resumeToolExecution(toolCall, decision)`** — Resumes a deferred tool call after human review.
-- **`handleWebhookEvent(event)`** — Parses webhook events into structured decision results.
 
 **Example with a LangChain agent:**
 
@@ -194,9 +188,6 @@ const toolkit = await createNovuAgentToolkit({
 The returned `toolkit` provides:
 
 - **`tools`** — A `ToolSet` object that can be passed to `generateText`, `streamText`, or other Vercel AI SDK functions.
-- **`requireHumanInput(tools, config)`** — Wraps tools with human-in-the-loop approval.
-- **`resumeToolExecution(toolCall, decision)`** — Resumes a deferred tool call after human review.
-- **`handleWebhookEvent(event)`** — Parses webhook events into structured decision results.
 
 **Example with `generateText`:**
 
@@ -262,112 +253,12 @@ const toolkit = await createNovuAgentToolkit({
 
 For example, if you have a workflow with ID `welcome-email`, the toolkit generates a `trigger_welcome_email` tool whose parameter schema matches the workflow's `payloadSchema`. The LLM sees a purpose-built tool instead of a generic trigger, which improves accuracy and reduces prompt engineering.
 
-## Human-in-the-Loop
-
-The toolkit supports a **human-in-the-loop** pattern that lets you require human approval before executing sensitive tool calls. When a guarded tool is invoked, execution is deferred and a Novu workflow notifies a human reviewer. The agent receives a "pending" status instead of a result, and execution only resumes after the human approves, edits, or rejects the action.
-
-### How It Works
-
-1. Wrap tools with `requireHumanInput` to mark them as needing approval.
-2. When the LLM invokes a guarded tool, the toolkit triggers a Novu workflow that notifies reviewers.
-3. The agent receives a `pending-input` status and does not retry.
-4. A human reviews the action via the notification (e.g., in-app inbox) and makes a decision.
-5. Your application receives the decision via webhook and calls `resumeToolExecution` to complete or reject the action.
-
-### Configuration
-
-```typescript
-import type { HumanInputConfig } from '@novu/agent-toolkit/openai';
-
-const humanInputConfig: HumanInputConfig = {
-  workflowId: 'approve-agent-action',
-  subscribers: ['admin-user-1'],
-  allowedDecisions: ['approve', 'edit', 'reject'],
-  metadata: { source: 'customer-support-agent' },
-  onBeforeTrigger: async (toolCall) => {
-    console.log('Requesting approval for:', toolCall.method);
-  },
-  onAfterTrigger: async (toolCall, result) => {
-    console.log('Approval request sent:', result);
-  },
-};
-```
-
-| Option | Required | Description |
-| --- | --- | --- |
-| `workflowId` | Yes | The Novu workflow to trigger for the approval notification. |
-| `subscribers` | Yes | Array of subscriber IDs who will receive the approval request. |
-| `allowedDecisions` | No | Decision types the reviewer can make. Defaults to `['approve', 'reject']`. |
-| `metadata` | No | Arbitrary metadata attached to the approval request. |
-| `onBeforeTrigger` | No | Callback invoked before the approval workflow is triggered. |
-| `onAfterTrigger` | No | Callback invoked after the approval workflow is triggered. |
-
-### Decision Types
-
-| Decision | Behavior |
-| --- | --- |
-| `approve` | The original tool call executes with its original arguments. |
-| `edit` | The tool call executes with modified arguments provided by the reviewer. |
-| `reject` | The tool call is not executed; a rejection message is returned to the agent. |
-
-### Example (OpenAI)
-
-```typescript
-import { createNovuAgentToolkit } from '@novu/agent-toolkit/openai';
-
-const toolkit = await createNovuAgentToolkit({
-  secretKey: process.env.NOVU_SECRET_KEY,
-  subscriberId: 'user-123',
-});
-
-// Wrap specific tools to require human approval
-const guardedTools = toolkit.requireHumanInput(
-  toolkit.tools.filter((t) => t.function.name === 'trigger_workflow'),
-  {
-    workflowId: 'approve-agent-action',
-    subscribers: ['admin-1'],
-  }
-);
-
-// Replace original tools with guarded versions
-const allTools = [
-  ...toolkit.tools.filter((t) => t.function.name !== 'trigger_workflow'),
-  ...guardedTools,
-];
-```
-
-### Handling Webhook Responses
-
-When a human makes a decision, Novu sends a webhook event. Use `handleWebhookEvent` to parse it and `resumeToolExecution` to complete the deferred action:
-
-```typescript
-import express from 'express';
-
-const app = express();
-app.use(express.json());
-
-app.post('/webhooks/novu', async (req, res) => {
-  const interactionResult = toolkit.handleWebhookEvent(req.body);
-
-  if (!interactionResult) {
-    return res.sendStatus(200);
-  }
-
-  const { toolCall, decision } = interactionResult;
-  const result = await toolkit.resumeToolExecution(toolCall, decision);
-
-  console.log('Tool execution result:', result);
-  res.sendStatus(200);
-});
-```
-
 ## Use Cases
 
 - **Customer support agents** — Let an AI agent send order confirmations, shipping updates, or support ticket notifications through Novu workflows.
 - **Internal tooling** — Build Slack bots or internal agents that trigger team notifications, incident alerts, or onboarding workflows.
 - **Preference management** — Allow users to manage their notification preferences through a conversational AI interface.
 - **Multi-channel broadcasting** — Enable agents to send coordinated notifications across email, SMS, push, in-app, and chat from a single tool call.
-- **Approval workflows** — Use human-in-the-loop to require manager approval before sending bulk notifications or sensitive communications.
 
 ## Source Code
 
@@ -389,8 +280,7 @@ packages/agent-toolkit/
 │   │   └── workflows-as-tools.ts  # Dynamic workflow-to-tool conversion
 │   ├── openai/                # OpenAI adapter
 │   ├── langchain/             # LangChain adapter
-│   ├── ai-sdk/                # Vercel AI SDK adapter
-│   └── human-in-the-loop/     # Human-in-the-loop approval system
+│   └── ai-sdk/                # Vercel AI SDK adapter
 ├── package.json
 ├── tsconfig.json
 └── tsup.config.ts
@@ -404,5 +294,4 @@ packages/agent-toolkit/
 | `@novu/agent-toolkit/openai` | OpenAI adapter with `createNovuAgentToolkit`. |
 | `@novu/agent-toolkit/langchain` | LangChain adapter with `createNovuAgentToolkit`. |
 | `@novu/agent-toolkit/ai-sdk` | Vercel AI SDK adapter with `createNovuAgentToolkit`. |
-| `@novu/agent-toolkit/human-in-the-loop` | Human-in-the-loop utilities and types. |
 | `@novu/agent-toolkit/core` | Core classes and types (for building custom adapters). |
