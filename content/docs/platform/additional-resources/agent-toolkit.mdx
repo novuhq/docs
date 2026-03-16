@@ -123,9 +123,11 @@ const response = await openai.chat.completions.create({
   tools: toolkit.tools,
 });
 
+const assistantMessage = response.choices[0].message;
+messages.push(assistantMessage);
+
 for (const toolCall of response.choices[0].message.tool_calls ?? []) {
   const result = await toolkit.handleToolCall(toolCall);
-  messages.push(response.choices[0].message);
   messages.push(result);
 }
 ```
