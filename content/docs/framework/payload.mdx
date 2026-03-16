@@ -50,8 +50,9 @@ workflow(
 Here is an example of the validated payload during trigger:
 
 ```typescript
-novu.trigger('comment-on-post', {
-  to: 'subscriber_id',
+novu.trigger({
+  workflowId: "workflowId",
+  to: { subscriberId: 'subscriber_id' },
   payload: {
     post_id: 1234,
     author_name: 'John Doe',

@@ -1,5 +1,6 @@
 ---
 title: 'Multi-tenancy'
+pageTitle: "Inbox Multi-tenancy Configuration"
 description: 'Learn how to use context to implement multi-tenant notifications to support different organizations or workspaces within your application.'
 icon: 'Building2'
 ---
@@ -59,7 +60,8 @@ If not, Novu automatically creates it — but if it does exist, Novu reuses the 
 ```tsx
 import { novu } from './client';
 
-await novu.trigger('payment-success', {
+await novu.trigger({
+  workflowId: "workflowId",
   to: {
     subscriberId: 'user-123',
   },
