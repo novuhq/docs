@@ -1,15 +1,13 @@
-import { docs } from '@/.source';
+import { docs } from 'collections/server';
 import { loader } from 'fumadocs-core/source';
-import { attachFile, createOpenAPI } from 'fumadocs-openapi/server';
+import { createOpenAPI, openapiPlugin } from 'fumadocs-openapi/server';
 import { icons } from 'lucide-react';
 import { createElement } from 'react';
 
 export const source = loader({
   baseUrl: '/',
   source: docs.toFumadocsSource(),
-  pageTree: {
-    attachFile,
-  },
+  plugins: [openapiPlugin()],
   icon(icon) {
     if (!icon) {
       return;
