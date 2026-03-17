@@ -1,5 +1,6 @@
 ---
 title: 'Slack'
+pageTitle: 'Slack Chat Integration'
 description: 'Learn about how to use Slack provider for chat notifications'
 ---
 
@@ -155,7 +156,7 @@ This is the typical flow for sending notifications to public or private channels
 
     ```bash
     curl -X GET "https://slack.com/api/conversations.list" \
-      -H "Authorization: Bearer xoxb-your-bot-token"
+      -H "Authorization: Bearer <YOUR_BOT_TOKEN>"
     ```
 
     To learn more about using <a href="https://docs.slack.dev/apis/web-api/using-the-conversations-api" target="_blank" rel="noopener noreferrer">Slack conversations API</a> to either get public or private channels, refer Slack documentation.
@@ -164,13 +165,13 @@ This is the typical flow for sending notifications to public or private channels
 
     ```tsx
     await novu.channelEndpoints.create({
-      subscriberId: 'user-123',
-      integrationIdentifier: 'slack', 
-      connectionIdentifier: 'conn_slack_acme', // The identifier of the connection created in Step 2
-      context: { tenant: 'acme' },
-      type: 'slack_channel',                   // TYPE: Channel
+      subscriberId: ‘user-123’,
+      integrationIdentifier: ‘slack’,
+      connectionIdentifier: ‘conn_slack_acme’, // The identifier of the connection created in Step 2
+      context: { tenant: ‘acme’ },
+      type: ‘slack_channel’,                   // TYPE: Channel
       endpoint: {
-        channelId: 'C012345'                   // Slack channel ID of the channel selected by the user
+        channelId: ‘C012345’                   // Slack channel ID of the channel selected by the user
       }
     });
     ```
@@ -182,7 +183,7 @@ Use this to send personal messages and notifications directly to a specific user
 
     ```bash
     curl -X GET "https://slack.com/api/users.list" \
-      -H "Authorization: Bearer xoxb-your-bot-token"
+      -H "Authorization: Bearer <YOUR_BOT_TOKEN>"
     ```
 
     For example, you can look up a Slack user ID by their email address, if you requested the `users:read.email` scope.
