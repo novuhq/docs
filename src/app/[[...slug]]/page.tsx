@@ -40,8 +40,7 @@ export default async function Page(props: {
   const pageDirname = path.dirname(pagePath);
 
   const isOverviewPage =
-    pagePath.endsWith('platform/overview.mdx') ||
-    page.slugs.join('/') === 'platform/overview';
+    pagePath.endsWith('platform/overview.mdx') || page.slugs.join('/') === 'platform/overview';
 
   const isFullWidth = page.data.full || searchParams.full === 'true';
 

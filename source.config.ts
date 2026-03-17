@@ -15,10 +15,13 @@ export const docs = defineDocs({
       preview: z.string().optional(),
       index: z.boolean().default(false),
       pageTitle: z.string().optional(),
-      /**
-       * API routes only
-       */
       method: z.string().optional(),
+      _openapi: z
+        .object({
+          method: z.string().optional(),
+          webhook: z.boolean().optional(),
+        })
+        .optional(),
     }),
   },
   meta: {
