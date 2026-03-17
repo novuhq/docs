@@ -1,6 +1,7 @@
 import { rehypeCodeDefaultOptions } from 'fumadocs-core/mdx-plugins';
 import { remarkInstall } from 'fumadocs-docgen';
 import { defineConfig, defineDocs, frontmatterSchema, metaSchema } from 'fumadocs-mdx/config';
+import lastModified from 'fumadocs-mdx/plugins/last-modified';
 import { transformerTwoslash } from 'fumadocs-twoslash';
 import remarkDirective from 'remark-directive';
 import { z } from 'zod';
@@ -29,7 +30,7 @@ export const docs = defineDocs({
 });
 
 export default defineConfig({
-  lastModifiedTime: 'git',
+  plugins: [lastModified()],
   mdxOptions: {
     rehypeCodeOptions: {
       lazy: true,

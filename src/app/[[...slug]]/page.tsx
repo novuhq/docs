@@ -57,7 +57,7 @@ export default async function Page(props: {
         enabled: !isOverviewPage,
         single: false,
         style: 'clerk',
-        footer: isOverviewPage ? null : (
+        footer: isOverviewPage ? undefined : (
           <PageActions
             pageContent={rawMarkdownContent}
             title={page.data.pageTitle ?? page.data.title}
@@ -66,12 +66,7 @@ export default async function Page(props: {
           />
         ),
       }}
-      article={{
-        className: 'max-sm:pb-16 max-w-[770px] !px-0',
-      }}
-      container={{
-        className: '[&>article]:gap-4',
-      }}
+      className="[&>article]:max-sm:pb-16 [&>article]:max-w-[770px] [&>article]:!px-0 [&>article]:gap-4"
       breadcrumb={{
         enabled: true,
       }}
@@ -98,7 +93,7 @@ export default async function Page(props: {
                 dir: pageDirname,
               });
 
-              if (!found) return <Link href={href} {...props} />;
+              if (!found) return <Link href={href ?? ''} {...props} />;
 
               return (
                 <HoverCard openDelay={500}>

@@ -36,7 +36,7 @@ export const baseOptions: BaseLayoutProps = {
     ),
     transparentMode: 'none',
   },
-  disableThemeSwitch: true,
+  themeSwitch: { enabled: false },
   links: [
     {
       url: '/platform',
