@@ -20,8 +20,17 @@ import {
 } from '../../components/ui/tooltip';
 import { metadataImage } from '../../lib/metadata-image';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
+import { getBreadcrumbItems } from 'fumadocs-core/breadcrumb';
 import { PageActions } from '../../components/page-actions';
 import { getRawMarkdownContent } from '../../lib/get-markdown-content';
+import {
+  JsonLd,
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+  buildFaqSchema,
+} from '../../lib/json-ld';
+import { extractFaqItems } from '../../lib/extract-faq';
+import { createMetadata } from '../../lib/metadata';
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -42,6 +51,21 @@ export default async function Page(props: {
   const isFullWidth = page.data.full || searchParams.full === 'true';
 
   const rawMarkdownContent = getRawMarkdownContent(page.file.path);
+
+  // Breadcrumb JSON-LD
+  const breadcrumbItems = getBreadcrumbItems(page.url, source.pageTree, {
+    includeRoot: { url: '/' },
+    includePage: true,
+  });
+  const breadcrumbLd = breadcrumbItems
+    .filter((item) => item.url)
+    .map((item) => ({
+      name: String(item.name),
+      url: item.url!,
+    }));
+
+  // FAQ JSON-LD
+  const faqItems = extractFaqItems(rawMarkdownContent);
 
   // GitHub URL for editing this page
   const githubUrl = `https://github.com/novuhq/docs/edit/main/content/docs/${page.file.path}`;
@@ -73,6 +97,15 @@ export default async function Page(props: {
         enabled: true,
       }}
     >
+      <JsonLd
+        data={buildArticleSchema({
+          title: page.data.pageTitle ?? page.data.title,
+          description: page.data.description,
+          url: page.url,
+        })}
+      />
+      {breadcrumbLd.length > 1 && <JsonLd data={buildBreadcrumbSchema(breadcrumbLd)} />}
+      {faqItems.length > 0 && <JsonLd data={buildFaqSchema(faqItems)} />}
       <DocsTitle className="max-w-[640px]">{page.data.pageTitle ?? page.data.title}</DocsTitle>
       <DocsDescription className="mb-4">{page.data.description}</DocsDescription>
       <DocsBody>
@@ -169,13 +202,24 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   const page = source.getPage(params.slug);
   if (!page) notFound();
 
-  return metadataImage.withImage(page.slugs, {
-    title: page.data.pageTitle || page.data.title,
-    description: page.data.description,
-    alternates: {
-      canonical: page.url,
-    },
-  });
+  const title = page.data.pageTitle || page.data.title;
+  const description = page.data.description;
+
+  return createMetadata(
+    await metadataImage.withImage(page.slugs, {
+      title,
+      description,
+      alternates: {
+        canonical: page.url,
+      },
+      openGraph: {
+        type: 'article',
+        url: `https://docs.novu.co${page.url}`,
+        title,
+        description: description ?? undefined,
+      },
+    })
+  );
 }
 
 export const revalidate = false;
