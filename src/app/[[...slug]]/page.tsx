@@ -1,11 +1,12 @@
-import { openapi, source } from '@/lib/source';
-import { APIPage } from 'fumadocs-openapi/ui';
+import { source } from '@/lib/source';
+import { APIPage } from '@/components/api-page';
 import { Popup, PopupContent, PopupTrigger } from 'fumadocs-twoslash/ui';
 import { TypeTable } from 'fumadocs-ui/components/type-table';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import { DocsBody, DocsDescription, DocsPage, DocsTitle } from 'fumadocs-ui/page';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import path from 'path';
 import { Accordion, Accordions } from '../../components/accordion';
 import { Callout } from '../../components/callout';
 import { CodeBlock, Pre } from '../../components/codeblock';
@@ -35,16 +36,18 @@ export default async function Page(props: {
 
   const MDX = page.data.body;
 
+  const pagePath = page.path;
+  const pageDirname = path.dirname(pagePath);
+
   const isOverviewPage =
-    page.file.path.endsWith('platform/overview.mdx') ||
+    pagePath.endsWith('platform/overview.mdx') ||
     page.slugs.join('/') === 'platform/overview';
 
   const isFullWidth = page.data.full || searchParams.full === 'true';
 
-  const rawMarkdownContent = getRawMarkdownContent(page.file.path);
+  const rawMarkdownContent = getRawMarkdownContent(pagePath);
 
-  // GitHub URL for editing this page
-  const githubUrl = `https://github.com/novuhq/docs/edit/main/content/docs/${page.file.path}`;
+  const githubUrl = `https://github.com/novuhq/docs/edit/main/content/docs/${pagePath}`;
 
   return (
     <DocsPage
@@ -59,7 +62,7 @@ export default async function Page(props: {
             pageContent={rawMarkdownContent}
             title={page.data.pageTitle ?? page.data.title}
             githubUrl={githubUrl}
-            path={page.file.path}
+            path={pagePath}
           />
         ),
       }}
@@ -80,7 +83,6 @@ export default async function Page(props: {
           components={{
             ...defaultMdxComponents,
             pre: (props) => {
-              // Extract language and title from className if available
               const className = props.className || '';
               const match = /language-(\w+)/.exec(className);
               const lang = match ? match[1] : '';
@@ -93,7 +95,7 @@ export default async function Page(props: {
             },
             a: ({ href, ...props }) => {
               const found = source.getPageByHref(href ?? '', {
-                dir: page.file.dirname,
+                dir: pageDirname,
               });
 
               if (!found) return <Link href={href} {...props} />;
@@ -115,11 +117,7 @@ export default async function Page(props: {
             },
             CodeBlock: CodeBlock,
             Callout: Callout,
-            APIPage: (props) => (
-              <div id="api-page">
-                <APIPage {...openapi.getAPIPageProps(props)} />
-              </div>
-            ),
+            APIPage,
             Accordions: Accordions,
             Accordion: Accordion,
             Steps: Steps,

@@ -12,7 +12,6 @@ export const source = loader({
   },
   icon(icon) {
     if (!icon) {
-      // You may set a default icon
       return;
     }
 
@@ -20,11 +19,4 @@ export const source = loader({
   },
 });
 
-export const openapi = createOpenAPI({
-  shikiOptions: {
-    themes: {
-      dark: 'vesper',
-      light: 'vitesse-light',
-    },
-  },
-});
+export const openapi = createOpenAPI();

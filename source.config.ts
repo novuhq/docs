@@ -33,7 +33,7 @@ export default defineConfig({
   mdxOptions: {
     rehypeCodeOptions: {
       lazy: true,
-      experimentalJSEngine: true,
+      engine: 'js',
       langs: [
         'ts',
         'js',

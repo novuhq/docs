@@ -190,6 +190,5 @@ export function DynamicCodeBlock({
       ...customComponents,
       ...options?.components,
     },
-    withPrerenderScript: true,
-  } as Parameters<typeof useShiki>[1]);
+  });
 }

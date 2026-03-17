@@ -1,10 +1,7 @@
 'use client';
 import { ThemeProvider } from 'next-themes';
-import { RootProvider } from 'fumadocs-ui/provider';
-import dynamic from 'next/dynamic';
+import { RootProvider } from 'fumadocs-ui/provider/next';
 import type { ReactNode } from 'react';
-
-const SearchDialog = dynamic(() => import('@/components/inkeep/search')); // lazy load
 
 export function Provider({ children }: { children: ReactNode }) {
   return (
