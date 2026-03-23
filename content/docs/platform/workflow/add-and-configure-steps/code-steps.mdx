@@ -5,9 +5,9 @@ description: 'Learn how to add code steps to a workflow, publish them with the N
 icon: 'Code'
 ---
 
-Novu allows you to write step handlers as TypeScript code in your project and publish them to Novu as serverless functions. Instead of configuring notification content in a visual editor, you define a handler file that returns the output for your step. Novu calls it at send time with the subscriber data, trigger payload, and any dashboard defined controls.
+Novu allows you to write step handlers as TypeScript code in your project and publish them to Novu as serverless functions. Instead of configuring notification content in a visual editor, you define a handler file that returns the output for your step. Novu calls it at send time with the subscriber data, trigger payload, and any dashboard-defined controls.
 
-You can create both UI managed steps and code managed steps within the same workflow.
+You can create both UI-managed steps and code-managed steps within the same workflow.
 
 ## Supported channels
 
@@ -57,7 +57,7 @@ The CLI supports the following flags and options:
 
 The CLI will perform the following:
 1. Look up the step type from the Novu API.
-2. Auto scaffold a placeholder handler at `novu/<workflowId>/<stepId>.step.tsx`.
+2. Auto-scaffold a placeholder handler at `novu/<workflowId>/<stepId>.step.tsx`.
 3. Bundle all handlers in the `novu/` directory.
 4. Deploy to Novu.
 
@@ -134,8 +134,8 @@ After publishing, the dashboard renders form fields for each control property.
 
 | Property | Controls | Payload |
 | --- | --- | --- |
-| Set by | Dashboard users (with code defined defaults) | Your application at trigger time |
-| Purpose | Content overrides (subject lines, toggles, copy) | Dynamic data (user name, order ID, etc.) |
+| Set by | Dashboard users (with code-defined defaults) | Your application at trigger time |
+| Purpose | Content overrides (subject lines, toggles, copy) | Dynamic data (username, order ID, etc.) |
 | Defined via | `controlSchema` in the step handler | `payloadSchema` (types only) |
 
 ## Skipping a Step Conditionally
@@ -160,7 +160,7 @@ export default step.sms(
 
 ## Provider Overrides
 
-Provider overrides let you customize the raw request sent to the underlying notification provider for a step. This is useful for setting provider specific options not exposed by Novu standard output schema.
+Provider overrides let you customize the raw request sent to the underlying notification provider for a step. This is useful for setting provider-specific options not exposed by Novu standard output schema.
 
 ```typescript
 import { step } from '@novu/framework/step-resolver';
