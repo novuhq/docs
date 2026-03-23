@@ -156,6 +156,28 @@ To the subscriber, the experience is transparent. They are not aware that any th
 
 <Callout>To learn how to configure throttle windows, thresholds, and grouping behavior, refer to the [Configure Throttle Step](/platform/workflow/add-and-configure-steps/configure-action-steps/throttle) documentation.</Callout>
 
+### HTTP
+
+The HTTP step allows workflows to call external APIs during execution. It provides a native way to interact with systems outside of Novu directly from your workflows without relying on external webhooks or custom infrastructure.
+
+This is useful for use cases such as:
+- Fetching additional user or event data from your internal databases to enrich notifications.
+- Determining if a user has an active premium subscription before sending a specific promotional email.
+- Pinging an internal delivery system or observability tool with workflow context.
+
+**How does HTTP work?**
+
+When a workflow reaches an HTTP step:
+
+1. The workflow pauses momentarily to execute the configured HTTP request (e.g., `GET`, `POST`, `PUT`).
+2. Contextual data like subscriber information or previous step results can be injected into the request URL, headers, or body using LiquidJS.
+3. Once the API responds, the response data is stored as a step result.
+4. Downstream steps and conditions can consume the stored response data to personalize content or branch workflow execution.
+
+If the HTTP request fails (e.g., due to a network timeout or a non-2xx status code), the workflow can either halt or continue execution based on how you configure the failure behavior.
+
+<Callout>To learn how to configure the request, test endpoints, and consume API responses, refer to the [Configure HTTP Step](/platform/workflow/add-and-configure-steps/configure-action-steps/http-step) documentation.</Callout>
+
 ## Add a step to a workflow
 
 You add steps from the Workflow Editor when building or editing a workflow.
