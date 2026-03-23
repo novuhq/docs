@@ -11,7 +11,7 @@ This guide explains how to add and configure an HTTP step for your specific need
 
 ## Adding an HTTP step
 
-You can add an HTTP step anywhere within a workflow. When workflow execution reaches this step, the workflow will perform the configured request and can optionally save the response to be used by steps that follow.
+You can add an HTTP step anywhere within a workflow. When workflow execution reaches this step, the workflow will perform the configured request and the response can be used by steps that follow.
 
 ![Injecting workflow context](/images/workflows/add-and-configure-steps/action-steps/http-step/add-http-step.gif)
 
@@ -23,7 +23,7 @@ You can configure the HTTP request using the following properties:
 - **URL**: Provide the destination endpoint for the request. A placeholder URL is included by default to help you test the behavior quickly.
 - **Headers**: Define any required HTTP headers. These can be input as key-value pairs.
 - **Body**: Provide the request payload. As with headers, you can use key-value pairs.
-- **Response**: Define the response schema for the API response. It is similar to defining the payload schema for the workflow. Response schema validation can also be enforced at the HTTP step level.
+- **Response Schema**: Define the response schema for the API response. It is similar to defining the payload schema for the workflow. Response schema validation can also be enforced at the HTTP step level.
 
 ### Injecting workflow context
 
@@ -90,16 +90,28 @@ export async function POST(req: NextRequest) {
   const timestamp = Number(timestampPart?.split("=")[1]);
   const providedSignature = signaturePart?.split("=")[1];
 
+
+  // Verify the timestamp is not stale
+  const currentTimestampTime = Date.now();
+  const fiveMinutes = 5 * 60 * 1000;
+  const providedTimestamp = timestamp;
+  // If the timestamp is stale, return a 401 error
+  if (currentTimestampTime - providedTimestamp > fiveMinutes) {
+    return NextResponse.json({ error: "stale request" }, { status: 401 });
+  }
+
   const generatedSignature = createHmac("sha256", novuSecretKey)
     .update(`${timestamp}.${JSON.stringify(body)}`)
     .digest("hex");
 
+  // Verify the signature
   const providedBuf = Buffer.from(providedSignature, "hex");
   const generatedBuf = Buffer.from(generatedSignature, "hex");
   const valid =
     providedBuf.length === generatedBuf.length &&
     timingSafeEqual(generatedBuf, providedBuf);
 
+  // If the signature is not valid, return a 401 error
   if (!valid) {
     return NextResponse.json({ error: "Not authorized" }, { status: 401 });
   }
