@@ -45,7 +45,7 @@ When the HTTP request succeeds, the API response is stored in the step results. 
 
 When consuming these response values in the channel step editors or in step conditions, you will see available response fields in variable autocomplete.
 
-Below example shows on how to use `shouldSendEmail` field from http request response to determine if email should be sent to the subscriber or not using `{{steps.http-request-step.shouldSendEmail}}` variable the email step condition. Here, `http-request-step` is the id of the http request step and `shouldSendEmail` is the field name in the http request response schema.
+The example below determines whether to send an email using the `shouldSendEmail` field from the HTTP response in the email step condition. It uses the `{{steps.http-request-step.shouldSendEmail}}` variable, where `http-request-step` is the step id and `shouldSendEmail` is the response field name.
 
 ![Consuming the API response](/images/workflows/add-and-configure-steps/action-steps/http-step/using-response-in-step-conditions.gif)
 
@@ -70,7 +70,7 @@ With each API request, novu send `novu-signature` header. This header is a HMAC 
 
 ```typescript title="api/novu-http-step-request/route.ts"
 import { NextRequest, NextResponse } from "next/server";
-import { createHmac } from "node:crypto";
+import { createHmac, timingSafeEqual } from "node:crypto";
 
 const novuSecretKey = process.env.NOVU_SECRET_KEY as string;
 
@@ -94,7 +94,13 @@ export async function POST(req: NextRequest) {
     .update(`${timestamp}.${JSON.stringify(body)}`)
     .digest("hex");
 
-  if (generatedSignature !== providedSignature) {
+  const providedBuf = Buffer.from(providedSignature, "hex");
+  const generatedBuf = Buffer.from(generatedSignature, "hex");
+  const valid =
+    providedBuf.length === generatedBuf.length &&
+    timingSafeEqual(generatedBuf, providedBuf);
+
+  if (!valid) {
     return NextResponse.json({ error: "Not authorized" }, { status: 401 });
   }
 
