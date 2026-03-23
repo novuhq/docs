@@ -65,7 +65,6 @@ You can control what happens when a step fails. The workflow can be configured t
 
 ## Securing HTTP requests
 
-{/* TODO: Add more details about the security of the HTTP step. */}
 With each API request, novu send `novu-signature` header. This header is a HMAC signature of the request body and the timestamp. You can verify the authenticity of the request by verifying the HMAC signature. Below example shows how to verify the HMAC signature in a Next.js API route. Here, Novu secret key is used to generate the HMAC signature. You can copy the secret key from the [Novu API Keys](https://dashboard.novu.co/api-keys) page.
 
 
