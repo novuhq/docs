@@ -1,6 +1,11 @@
 export function StripeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <a href="https://docs.stripe.com/get-started" target="_blank">
+    <a
+      href="https://docs.stripe.com/get-started"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Stripe documentation"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 32 32"

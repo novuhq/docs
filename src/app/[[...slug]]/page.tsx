@@ -45,8 +45,7 @@ export default async function Page(props: {
   const MDX = page.data.body;
 
   const isOverviewPage =
-    page.file.path.endsWith('platform/overview.mdx') ||
-    page.slugs.join('/') === 'platform/overview';
+    page.file.path === 'platform/index.mdx' || page.slugs.join('/') === 'platform';
 
   const isFullWidth = page.data.full || searchParams.full === 'true';
 
@@ -102,12 +101,17 @@ export default async function Page(props: {
           title: page.data.pageTitle ?? page.data.title,
           description: page.data.description,
           url: page.url,
+          slug: page.slugs.join('/'),
         })}
       />
       {breadcrumbLd.length > 1 && <JsonLd data={buildBreadcrumbSchema(breadcrumbLd)} />}
       {faqItems.length > 0 && <JsonLd data={buildFaqSchema(faqItems)} />}
-      <DocsTitle className="max-w-[640px]">{page.data.pageTitle ?? page.data.title}</DocsTitle>
-      <DocsDescription className="mb-4">{page.data.description}</DocsDescription>
+      {!isOverviewPage && (
+        <>
+          <DocsTitle className="max-w-[640px]">{page.data.pageTitle ?? page.data.title}</DocsTitle>
+          <DocsDescription className="mb-4">{page.data.description}</DocsDescription>
+        </>
+      )}
       <DocsBody>
         <MDX
           components={{

@@ -82,7 +82,9 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
     // Direct mappings to avoid multi-hop redirect chains
     '/inbox/overview': '/platform/inbox',
+    '/inbox/react/styling': '/platform/inbox/configuration/styling',
     '/sdks/overview': '/platform/sdks',
+    '/quickstart/nextjs': '/platform/quickstart/nextjs',
 
     // Old overview paths to new section roots
     '/platform/overview': '/platform',

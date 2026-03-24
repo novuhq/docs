@@ -115,9 +115,9 @@ function renderNodes(nodes: MarkdownNode[]): React.ReactNode {
     switch (node.type) {
       case 'h1':
         return (
-          <h1 key={key} id={node.id}>
+          <h2 key={key} id={node.id}>
             {renderInline(node.content)}
-          </h1>
+          </h2>
         );
       case 'h2':
         return (

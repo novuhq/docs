@@ -60,11 +60,16 @@ export function InkeepAskAI() {
 
   return (
     <Tooltip>
-      <TooltipTrigger>
-        <div className="mt-1 border border-border p-2 rounded-md border-gray-300 dark:border-gray-600 transition-colors">
-          <SparklesIcon className="w-4 h-4" onClick={() => handleOpenChange(true)} />
+      <TooltipTrigger asChild>
+        <button
+          type="button"
+          aria-label="Ask AI assistant"
+          className="mt-1 border border-border p-2 rounded-md border-gray-300 dark:border-gray-600 transition-colors"
+          onClick={() => handleOpenChange(true)}
+        >
+          <SparklesIcon className="w-4 h-4" aria-hidden="true" />
           <InkeepModalChat {...config} />
-        </div>
+        </button>
       </TooltipTrigger>
       <TooltipContent>
         <p>Ask AI assistant to help you find what you need</p>
