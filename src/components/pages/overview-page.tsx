@@ -224,11 +224,11 @@ export function OverviewPage() {
             />
           </div>
           <h1 className="text-[32px] md:text-[40px] lg:text-[44px] mt-[18px] font-medium tracking-[-0.04em] text-black dark:text-white transition-colors leading-[1.125]">
-            Novu Documentation
+            Novu Platform Overview
           </h1>
           <p className="text-base/normal lg:text-lg/normal transition-colors text-black/80 dark:text-white/80 mt-3 mb-0 max-w-[608px] -tracking-[0.02em] opacity-80 font-normal">
-            Novu is an open-source Inbox infrastructure, that allows you to easily add notification
-            capabilities to your application across multiple channels.
+            Explore the Novu notification infrastructure platform. Learn about workflows,
+            subscribers, integrations, and the Inbox component.
           </p>
           <div className="flex gap-2.5 mt-7 flex-col md:flex-row">
             <Button

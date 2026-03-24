@@ -33,23 +33,63 @@ export function buildArticleSchema({
   description,
   dateModified,
   url,
+  slug,
 }: {
   title: string;
   description?: string;
   dateModified?: string;
   url: string;
+  slug?: string;
 }): JsonLdData {
+  const ogImage = slug ? `${SITE_URL}/docs-og/${slug}/image.png` : `${SITE_URL}/banner.png`;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
     headline: title,
     description: description ?? '',
     url: `${SITE_URL}${url}`,
+    image: ogImage,
+    datePublished: dateModified ?? '2024-01-01T00:00:00Z',
     ...(dateModified && { dateModified }),
+    author: {
+      '@type': 'Organization',
+      name: 'Novu',
+      url: 'https://novu.co',
+    },
     publisher: {
       '@type': 'Organization',
       name: 'Novu',
+      url: 'https://novu.co',
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/logo/standalone-gradient.svg`,
+      },
     },
+  };
+}
+
+export function buildVideoSchema({
+  name,
+  description,
+  thumbnailUrl,
+  uploadDate,
+  embedUrl,
+}: {
+  name: string;
+  description: string;
+  thumbnailUrl: string;
+  uploadDate: string;
+  embedUrl: string;
+}): JsonLdData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name,
+    description,
+    thumbnailUrl,
+    uploadDate,
+    embedUrl,
   };
 }
 

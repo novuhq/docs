@@ -75,12 +75,14 @@ export const baseOptions: BaseLayoutProps = {
           <SignedOut>
             <a
               href="https://dashboard.novu.co/auth/sign-in"
+              aria-label="Sign in to Novu Dashboard"
               className={cn(buttonVariants({ color: 'white', size: 'md' }))}
             >
               Sign In
             </a>
             <a
               href="https://dashboard.novu.co/auth/sign-up"
+              aria-label="Sign up for Novu Dashboard"
               className={cn(buttonVariants({ color: 'black', size: 'md' }))}
             >
               Sign Up

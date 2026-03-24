@@ -20,6 +20,7 @@ import { InkeepAskAI } from '@/components/inkeep/chat';
 import InkeepSearch from '@/components/inkeep/search';
 import { Suspense } from 'react';
 import { JsonLd, buildOrganizationSchema, buildWebSiteSchema } from '@/lib/json-ld';
+import { A11yFixes } from '@/components/a11y-fixes';
 
 export const metadata = createMetadata({
   title: {
@@ -131,11 +132,18 @@ export default function Layout({ children }: { children: ReactNode }) {
           <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID} />
         )}
         <body className="flex flex-col min-h-screen">
+          <a
+            href="#nd-docs-layout"
+            className="sr-only focus:not-sr-only focus:fixed focus:z-[100] focus:top-2 focus:left-2 focus:rounded-md focus:bg-fd-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-md focus:ring-2 focus:ring-fd-ring"
+          >
+            Skip to content
+          </a>
           <JsonLd data={buildOrganizationSchema()} />
           <JsonLd data={buildWebSiteSchema()} />
           <Suspense fallback={null}>
             <FullModeHandler />
           </Suspense>
+          <A11yFixes />
           <Provider>
             <TooltipProvider delayDuration={50}>
               <DocsLayout
