@@ -6,23 +6,31 @@ import { useEffect } from 'react';
  * Patches accessibility issues in third-party components (Fumadocs, Inkeep)
  * that cannot be fixed via props or configuration.
  */
+function hasAccessibleName(el: Element): boolean {
+  return !!(
+    el.getAttribute('aria-label') ||
+    el.getAttribute('aria-labelledby') ||
+    el.hasAttribute('title')
+  );
+}
+
+function patchProgressbars(root: Element) {
+  root.querySelectorAll('svg[role="progressbar"]').forEach((el) => {
+    if (!hasAccessibleName(el)) {
+      el.setAttribute('aria-label', 'Reading progress');
+    }
+  });
+}
+
 export function A11yFixes() {
   useEffect(() => {
-    // Fumadocs TOC progress indicator has role="progressbar" but no aria-label
-    const observer = new MutationObserver(() => {
-      const progressbars = document.querySelectorAll('svg[role="progressbar"]:not([aria-label])');
-      progressbars.forEach((el) => {
-        el.setAttribute('aria-label', 'Reading progress');
-      });
-    });
+    const tocRoot = document.getElementById('nd-tocnav');
+    if (!tocRoot) return;
 
-    observer.observe(document.body, { childList: true, subtree: true });
+    patchProgressbars(tocRoot);
 
-    // Run once immediately for any already-rendered elements
-    const progressbars = document.querySelectorAll('svg[role="progressbar"]:not([aria-label])');
-    progressbars.forEach((el) => {
-      el.setAttribute('aria-label', 'Reading progress');
-    });
+    const observer = new MutationObserver(() => patchProgressbars(tocRoot));
+    observer.observe(tocRoot, { childList: true, subtree: true });
 
     return () => observer.disconnect();
   }, []);
