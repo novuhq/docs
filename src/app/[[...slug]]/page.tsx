@@ -28,6 +28,7 @@ import {
   buildArticleSchema,
   buildBreadcrumbSchema,
   buildFaqSchema,
+  buildVideoSchema,
 } from '../../lib/json-ld';
 import { extractFaqItems } from '../../lib/extract-faq';
 import { createMetadata } from '../../lib/metadata';
@@ -65,6 +66,15 @@ export default async function Page(props: {
 
   // FAQ JSON-LD
   const faqItems = extractFaqItems(rawMarkdownContent);
+
+  // Video JSON-LD — extract YouTube embeds from raw markdown
+  const videoItems: { name: string; embedUrl: string }[] = [];
+  const iframeRegex =
+    /<iframe[^>]*src="(https:\/\/www\.youtube\.com\/embed\/[^"]+)"[^>]*title="([^"]*)"[^>]*>/g;
+  let iframeMatch;
+  while ((iframeMatch = iframeRegex.exec(rawMarkdownContent)) !== null) {
+    videoItems.push({ embedUrl: iframeMatch[1], name: iframeMatch[2] });
+  }
 
   // GitHub URL for editing this page
   const githubUrl = `https://github.com/novuhq/docs/edit/main/content/docs/${page.file.path}`;
@@ -106,6 +116,18 @@ export default async function Page(props: {
       />
       {breadcrumbLd.length > 1 && <JsonLd data={buildBreadcrumbSchema(breadcrumbLd)} />}
       {faqItems.length > 0 && <JsonLd data={buildFaqSchema(faqItems)} />}
+      {videoItems.map((video, i) => (
+        <JsonLd
+          key={`video-${i}`}
+          data={buildVideoSchema({
+            name: video.name,
+            description: page.data.description ?? video.name,
+            thumbnailUrl: `https://img.youtube.com/vi/${video.embedUrl.split('/embed/')[1]?.split('?')[0]}/hqdefault.jpg`,
+            uploadDate: '2024-01-01T00:00:00Z',
+            embedUrl: video.embedUrl,
+          })}
+        />
+      ))}
       {!isOverviewPage && (
         <>
           <DocsTitle className="max-w-[640px]">{page.data.pageTitle ?? page.data.title}</DocsTitle>
