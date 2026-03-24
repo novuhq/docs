@@ -75,12 +75,14 @@ export function buildVideoSchema({
   thumbnailUrl,
   uploadDate,
   embedUrl,
+  contentUrl,
 }: {
   name: string;
   description: string;
   thumbnailUrl: string;
   uploadDate: string;
   embedUrl: string;
+  contentUrl: string;
 }): JsonLdData {
   return {
     '@context': 'https://schema.org',
@@ -90,6 +92,7 @@ export function buildVideoSchema({
     thumbnailUrl,
     uploadDate,
     embedUrl,
+    contentUrl,
   };
 }
 
