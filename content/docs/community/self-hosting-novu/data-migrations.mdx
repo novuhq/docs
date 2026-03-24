@@ -8,7 +8,7 @@ On occasion, Novu may introduce features that require changes to the database sc
 a feature has a hard dependency on some data being available on a database entity. You can use migrations to make these
 changes to your database.
 
-# How to Run Novu Migrations (Manual Process)
+## How to Run Novu Migrations (Manual Process)
 
 Novu does **not automatically run database migrations** when deploying new versions. If you're self-hosting or managing
 deployments outside a CI/CD pipeline, follow these steps to safely run migrations against your MongoDB database.
@@ -143,7 +143,7 @@ Configure access to the correct database:
 
 ```bash
 npx cross-env \
-MONGO_URL=mongodb://127.0.0.1:27017/novu-db \
+MONGO_URL="mongodb://127.0.0.1:27017/novu-db" \
 NEW_RELIC_ENABLED=false \
 npm run migration -- ./migrations/normalize-users-email/normalize-users-email.migration.ts
 ```
@@ -234,7 +234,7 @@ chmod +x run-migrations.sh
 #
 #  Atlas connection strings
 #   - remove all & from query params
-#      eg mongodb+srv://user:password@instance-name.tmah3.mongodb.net/novu-db
+#      eg mongodb+srv://<USER>:<PASSWORD>@<INSTANCE>.mongodb.net/novu-db
 #
 # ⚠️ REDIS WARNING:
 #   Some migrations require Redis (on 127.0.0.1:6379) to be running.

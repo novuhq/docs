@@ -1,5 +1,6 @@
 ---
 title: 'Tabs'
+pageTitle: 'Inbox Tabs Configuration'
 description: 'Learn what tabs are and how to filter multiple tabs in the Novu Inbox component.'
 icon: 'Folders'
 ---
@@ -16,7 +17,7 @@ Each tab is defined using the `tabs` prop of the Inbox component. Every tab obje
 
 ### Using tags
 
-[Tags](/platform/workflow/tags) can be assigned to any workflow in the Novu workflow editor. These tags can then be used in the filter object to group notifications from one or more workflows under the same tab.
+[Tags](/platform/workflow/configure-workflow#tags) can be assigned to any workflow in the Novu workflow editor. These tags can then be used in the filter object to group notifications from one or more workflows under the same tab.
 
 For example, assign a **promotions** tag to marketing workflows or **security** and **alert** tags to security workflows to group their notifications under dedicated tabs. To show all the notifications in a tab, pass an empty array to the tags property. If multiple tags are provided, Novu evaluates them using `OR` logic, meaning a notification is included if it contains at least one of the specified tags.
 
@@ -117,7 +118,7 @@ export default InboxTabs;
 
 ### Using notification severity
 
-After setting [workflow notification severity in the dashboard](/platform/workflow/build-a-workflow#notification-severity), you can use that severity level to create dedicated tabs in your notification inbox. This lets you filter notifications based on their importance.
+After setting [workflow notification severity in the dashboard](/platform/workflow/configure-workflow#notification-severity), you can use that severity level to create dedicated tabs in your notification inbox. This lets you filter notifications based on their importance.
 
 To achieve this, add the severity key to the filter object for any tab in your Inbox component. The severity property can accept a single severity level or an array of levels.
 

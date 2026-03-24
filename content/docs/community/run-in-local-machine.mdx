@@ -9,7 +9,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/novuhq/novu)
 
-### Requirements
+## Requirements
 
 - Node.js version v20.8.1
 - MongoDB
@@ -22,7 +22,7 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
   services running together with external services like redis, mongodb etc.
 </Callout>
 
-### Setup the project
+## Setup the project
 
 After installing the required services on your machine, you can clone and set up your forked version of the project:
 
@@ -65,7 +65,7 @@ The `npm run start` will start the Jarvis CLI tool which allows you to run the w
 - **start:shared** - Starts the watch mode for the shared client and API library
 - **start:notification-center** - Runs and builds the React package for the Novu notification center
 
-### Set up your environment variables
+## Set up your environment variables
 
 If you have used Jarvis CLI tool from the previous step you don't need to setup the env variables as Jarvis will do that on the first run if setup wasn't done before.
 
@@ -190,11 +190,11 @@ The command `npm run setup:project` creates default environment variables that a
   </Accordion>
 </Accordions>
 
-### Running tests
+## Running tests
 
 After making changes, you can run the tests for the respective package using the appropriate CLI commands:
 
-### API
+## API
 
 To run the API tests, run the following command:
 
@@ -205,7 +205,7 @@ npm run start:e2e:api
 
 The tests create a new instance of Novu and a test db and run the tests against it. The test db is removed after all tests have finished running.
 
-### Dashboard
+## Dashboard
 
 To run the front end tests for the dashboard project using cypress you need to install localstack. The cypress tests perform E2E tests. To be able to perform E2E tests, you need to run the API service in the appropriate test environment.
 
@@ -230,7 +230,7 @@ To open the cypress management window to debug tests, run the following commands
 cd apps/dashboard && npm run cypress:open
 ```
 
-### Different ports used by the services
+## Different ports used by the services
 
 - **3000** - API
 - **3002** - WebSocket Service
@@ -240,11 +240,11 @@ cd apps/dashboard && npm run cypress:open
 - **4701** - Iframe embed for notification center
 - **4500** - Widget Service
 
-### Testing providers
+## Testing providers
 
 To run tests against the providers' folder, you can use the `npm run test:providers` command.
 
-### Local environment setup script (beta)
+## Local environment setup script (beta)
 
 As an option in our script runner `Jarvis` we have made available an option to run [this script](https://github.com/novuhq/novu/blob/2f2abdcaaad8a7735e0a2d488607c3276c8975fd/scripts/dev-environment-setup.sh) that will automatically try to install all the dependencies needed to be able to run Novu locally, as the previous step of installing the project dependencies through `pnpm install`. When executing it inside `Jarvis`, you will need to have previously installed by yourself `git` and `node`, as we mentioned earlier on this page.
 

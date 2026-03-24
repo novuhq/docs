@@ -209,7 +209,7 @@ export function OverviewPage() {
             <Image
               className="absolute inset-0 w-full h-full opacity-100 dark:opacity-0"
               src={mainIcon.src}
-              alt=""
+              alt="Novu"
               width={56}
               height={56}
               quality={100}
@@ -217,7 +217,7 @@ export function OverviewPage() {
             <Image
               className="absolute inset-0 w-full h-full opacity-0 dark:opacity-100"
               src={mainIconDark.src}
-              alt=""
+              alt="Novu"
               width={56}
               height={56}
               quality={100}

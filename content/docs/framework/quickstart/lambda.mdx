@@ -16,15 +16,15 @@ In this guide, we will add a Novu [Bridge Endpoint](/framework/endpoint) to a AW
 
 <Steps>
     <Step>
-         ### Set up your local environment
+         ## Set up your local environment
         <StudioStep />
     </Step>
    <Step>
-         ### Install packages
+         ## Install packages
         <PackagesStep />
     </Step>
    <Step>
-         ### Add a Novu API Endpoint
+         ## Add a Novu API Endpoint
         ```typescript src/functions/api/novu.ts
         import { serve } from "@novu/framework/lambda";
         import { workflow } from "@novu/framework";
@@ -36,17 +36,17 @@ In this guide, we will add a Novu [Bridge Endpoint](/framework/endpoint) to a AW
         ```
     </Step>
     <Step>
-        ### Configure your secret key
+        ## Configure your secret key
         <SecretStep />
     </Step>
     <Step>
-        ### Create your workflow definition
+        ## Create your workflow definition
         Add a `novu` folder in your app folder as such `novu/workflows.ts` that will contain your workflow definitions.
 
         <WorkflowStep />
     </Step>
     <Step>
-        ### Start your application
+        ## Start your application
         Start your AWS Lambda server with the Novu Endpoint configured.
 
         If your Local Lambda application is running on other than `4000` port, restart the `npx novu dev` command with the port:
@@ -56,11 +56,11 @@ In this guide, we will add a Novu [Bridge Endpoint](/framework/endpoint) to a AW
         ```
     </Step>
     <Step>
-        ### Test your endpoint
+        ## Test your endpoint
         <TestStep framework="AWS Lambda" />
     </Step>
     <Step>
-        ### Deploy your application
+        ## Deploy your application
         <DeployApp />
     </Step>
 

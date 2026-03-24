@@ -27,12 +27,12 @@ This guide walks you through integrating Novu’s Inbox into your React applicat
 
 <Steps>
   <Step>
-  ### Create a Novu account
+  ## Create a Novu account
     <a href="https://dashboard.novu.co/auth/sign-up" target="_blank" rel="noopener noreferrer">Create a Novu account</a> or <a href="https://dashboard.novu.co/auth/sign-in" target="_blank" rel="noopener noreferrer">sign in</a> to access the Novu dashboard.
   </Step>
 
   <Step>
-  ### Create a React app using Vite
+  ## Create a React app using Vite
     Run the following command to create a new React app using [Vite](https://vite.dev/guide/#scaffolding-your-first-vite-project):
 
     ```package-install
@@ -45,7 +45,7 @@ This guide walks you through integrating Novu’s Inbox into your React applicat
   </Step>
 
   <Step>
-  ### Install `@novu/react`
+  ## Install `@novu/react`
   The [Novu React SDK](/platform/sdks/react) gives you access to the Inbox component.
 
   Run the following command to install the SDK:
@@ -57,8 +57,8 @@ This guide walks you through integrating Novu’s Inbox into your React applicat
   </Step>
 
   <Step>
-  ### Create the Inbox component
-  In the `src` directory, create a `components/novu-inbox.tsx` file and use the <Method href="/platform/inbox/react/components/inbox">{`<Inbox />`}</Method> component, passing :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
+  ## Create the Inbox component
+  In the `src` directory, create a `components/novu-inbox.tsx` file and use the <Method href="/platform/inbox">{`<Inbox />`}</Method> component, passing :tooltip[applicationIdentifier]{label="The application identifier is a unique identifier for your application. You can find it in the Novu Dashboard under the API keys page."} and :tooltip[subscriberId]{label="The subscriber ID is the unique identifier for the user in your application, typically the user's id in your database."}:
 
   <CodeTemplateBlock templateId="react-inbox" />
 
@@ -73,7 +73,7 @@ This guide walks you through integrating Novu’s Inbox into your React applicat
   </Step>
 
   <Step>
-  ### Set up React Router and import the Inbox component
+  ## Set up React Router and import the Inbox component
     Now you can set up React Router and add the `NovuInbox` component to your app layout:
     
     ```tsx title="src/App.tsx"
@@ -114,7 +114,7 @@ This guide walks you through integrating Novu’s Inbox into your React applicat
   </Step>
 
   <Step>
-  ### Run Your Application
+  ## Run Your Application
     Start your development server:
 
     ```package-install
@@ -127,7 +127,7 @@ This guide walks you through integrating Novu’s Inbox into your React applicat
   </Step>
 
   <Step>
-  ### Trigger your first notification
+  ## Trigger your first notification
 
 In this step, you'll create a simple workflow to send your first notification via the Inbox component. Follow these steps to set up and trigger a workflow from your Novu dashboard.
 
@@ -148,7 +148,7 @@ In this step, you'll create a simple workflow to send your first notification vi
   </Step>
 
 <Step>
-###  View the notification in your app
+## View the notification in your app
 Go back to your React app, then click the bell icon.
 
 You should see the notification you just sent from Novu! 🎉
@@ -166,11 +166,11 @@ You should see the notification you just sent from Novu! 🎉
   <Card
     title="Inbox and preferences UI components"
     icon={<Library />}
-    href="/platform/inbox/overview"
+    href="/platform/inbox"
   >
     Explore our full-stack UI components libraries for building in-app notifications.
   </Card>
-  <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow/overview">
+  <Card title="Build Workflow" icon={<Workflow />} href="/platform/workflow">
      Design and manage advanced notification workflows.
   </Card>
   <Card title="Multi Tenancy" icon={<Code2 />} href="/platform/concepts/tenants">

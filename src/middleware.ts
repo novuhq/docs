@@ -40,12 +40,13 @@ export default async function middleware(request: NextRequest, event: NextFetchE
 
     // Integrations
     '/integrations/content/react-email': '/framework/content/react-email',
-    '/integrations/overview': '/platform/integrations/overview',
+    '/integrations/overview': '/platform/integrations',
     '/guides/integrations/segment': '/platform/integrations/segment',
     '/platform/integrations/sms/burst-sms': '/platform/integrations/sms/kudosity',
 
     // Guides
-    '/guides/add-digest-to-inapp-notifications': '/platform/workflow/digest',
+    '/guides/add-digest-to-inapp-notifications':
+      '/platform/workflow/add-and-configure-steps#digest',
 
     // Additional Resources
     '/additional-resources/data-migrations': '/community/data-migrations',
@@ -60,9 +61,9 @@ export default async function middleware(request: NextRequest, event: NextFetchE
       '/platform/inbox/prepare-for-production',
     '/platform/inbox/react/migration-guide': '/platform/inbox/migration-guide',
     '/platform/inbox/react/hooks': '/platform/sdks/react/hooks/novu-provider',
-    '/platform/inbox/react/components': '/platform/inbox/overview#composable-architecture',
-    '/platform/inbox/react/components/overview': '/platform/inbox/overview#composable-architecture',
-    '/platform/inbox/react/components/inbox': '/platform/inbox/overview',
+    '/platform/inbox/react/components': '/platform/inbox#composable-architecture',
+    '/platform/inbox/react/components/overview': '/platform/inbox#composable-architecture',
+    '/platform/inbox/react/components/inbox': '/platform/inbox',
     '/platform/inbox/react/components/inbox#data-object':
       '/platform/inbox/configuration/data-object',
     '/platform/inbox/react/components/inbox-content':
@@ -73,11 +74,15 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/inbox/react/styling': '/platform/inbox/configuration/styling',
     '/platform/inbox/react/styling#appearance-prop': '/platform/inbox/configuration/styling',
     '/platform/inbox/react/headless': '/platform/inbox/headless-mode',
-    '/platform/inbox/react/localization': '/platform/inbox/advanced-concepts/localization',
+    '/platform/inbox/react/localization': '/platform/inbox/advanced-features/localization',
     '/platform/inbox/advanced-concepts/localization':
       '/platform/inbox/advanced-features/localization',
     '/platform/inbox/advanced-concepts/multi-tenancy':
       '/platform/inbox/advanced-features/multi-tenancy',
+
+    // Direct mappings to avoid multi-hop redirect chains
+    '/inbox/overview': '/platform/inbox',
+    '/sdks/overview': '/platform/sdks',
 
     // Old overview paths to new section roots
     '/platform/overview': '/platform',
@@ -134,6 +139,12 @@ export default async function middleware(request: NextRequest, event: NextFetchE
       '/platform/workflow/add-and-configure-steps/configure-action-steps/throttle',
     '/platform/framework/typescript/steps': '/framework/typescript/steps',
     '/framework/steps': '/framework/typescript/steps',
+
+    // Additional 404 fixes
+    '/platform/run-in-local-machine': '/community/run-in-local-machine',
+    '/platform/workflow/workflows.mdx': '/platform/workflow',
+    '/docs/platform/workflow/layouts':
+      '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
   };
 
   if (pathname in redirectMap) {
