@@ -214,13 +214,15 @@ You can create a `novu.config.ts` file for advanced use cases:
 
 ```typescript
 // novu.config.ts
-export default {
+const config = {
   outDir: './novu',
   apiUrl: 'https://api.novu.co',
   aliases: {
     '@emails': './src/emails',
   },
 };
+
+export default config;
 ```
 
 ## TypeScript Support
