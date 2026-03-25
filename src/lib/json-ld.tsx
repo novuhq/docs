@@ -6,6 +6,18 @@ export function JsonLd({ data }: { data: JsonLdData }) {
   );
 }
 
+export function JsonLdGraph({ items }: { items: JsonLdData[] }) {
+  if (items.length === 0) return null;
+  const cleaned = items.map(({ '@context': _, ...rest }) => rest);
+  const graph = { '@context': 'https://schema.org', '@graph': cleaned };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
+    />
+  );
+}
+
 const SITE_URL = 'https://docs.novu.co';
 
 export function buildOrganizationSchema(): JsonLdData {
