@@ -116,18 +116,22 @@ export default async function Page(props: {
       />
       {breadcrumbLd.length > 1 && <JsonLd data={buildBreadcrumbSchema(breadcrumbLd)} />}
       {faqItems.length > 0 && <JsonLd data={buildFaqSchema(faqItems)} />}
-      {videoItems.map((video, i) => (
-        <JsonLd
-          key={`video-${i}`}
-          data={buildVideoSchema({
-            name: video.name,
-            description: page.data.description ?? video.name,
-            thumbnailUrl: `https://img.youtube.com/vi/${video.embedUrl.split('/embed/')[1]?.split('?')[0]}/hqdefault.jpg`,
-            uploadDate: '2024-01-01T00:00:00Z',
-            embedUrl: video.embedUrl,
-          })}
-        />
-      ))}
+      {videoItems.map((video, i) => {
+        const videoId = video.embedUrl.split('/embed/')[1]?.split('?')[0];
+        return (
+          <JsonLd
+            key={`video-${i}`}
+            data={buildVideoSchema({
+              name: video.name,
+              description: page.data.description ?? video.name,
+              thumbnailUrl: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+              uploadDate: '2024-01-01T00:00:00Z',
+              embedUrl: video.embedUrl,
+              contentUrl: `https://www.youtube.com/watch?v=${videoId}`,
+            })}
+          />
+        );
+      })}
       {!isOverviewPage && (
         <>
           <DocsTitle className="max-w-[640px]">{page.data.pageTitle ?? page.data.title}</DocsTitle>
