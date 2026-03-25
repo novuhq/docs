@@ -37,7 +37,7 @@ If a variable has no value in an environment where a workflow references it, Nov
 
 ## Reference variables in workflows
 
-Use Liquid with the `env` namespace and your variable key in uppercase or as defined in the dashboard, for example:
+Use Liquid with the `env` namespace. Keys are case-sensitive: use the same spelling and capitalization as in the dashboard when the variable was created, character for character. For example:
 
 ```liquid
 {{ env.MY_API_BASE_URL }}
