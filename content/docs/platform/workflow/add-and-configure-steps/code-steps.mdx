@@ -71,6 +71,10 @@ npx novu step publish \
   --secret-key nv-sk-...
 ```
 
+If you dont want to pass secret key to CLI, it will try to read NOVU_SECRET_KEY variable from `.env` file if present.
+
+Also similarly for `apiUrl`, by default it uses US, but you can specify EU or other regions either in novu.config.ts or directly in CLI command.
+
 ### 4. Edit the handler
 
 The generated file will be located at `novu/<workflowId>/<stepId>.step.tsx`. The folder name is the `workflowId`. The CLI reads it from the path at publish time. You should commit this file to your repository.
@@ -103,8 +107,7 @@ export default step.inApp(
 npx novu step publish
 ```
 
-If the bundle content changed, Novu deploys a new version.
-
+If the bundle content changed, Novu deploys a new version. This `publish` command by default will publish all step handler in novu folder, if you want to publish just one workflow or one step you can specify `--workflow` and `--step` flags
 
 ## Defining Controls (Optional)
 
