@@ -1,8 +1,12 @@
 type JsonLdData = Record<string, unknown>;
 
+function safeJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+}
+
 export function JsonLd({ data }: { data: JsonLdData }) {
   return (
-    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(data) }} />
   );
 }
 
@@ -11,10 +15,7 @@ export function JsonLdGraph({ items }: { items: JsonLdData[] }) {
   const cleaned = items.map(({ '@context': _, ...rest }) => rest);
   const graph = { '@context': 'https://schema.org', '@graph': cleaned };
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(graph) }}
-    />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(graph) }} />
   );
 }
 
