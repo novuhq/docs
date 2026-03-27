@@ -97,6 +97,16 @@ This workflow data can be used in the templates editor to personalize message co
 <p>This is a <strong>{{workflow.severity}}</strong> priority message regarding your account.</p>
 ```
 
+### Environment variables
+
+Values stored in the environment variables are available to all workflows in that environment. They are accessed using the `env` namespace:
+
+```liquid
+{{ env.MY_API_BASE_URL }}
+```
+
+<Callout>To learn how to create and manage environment variables, refer to [Environment variables](/platform/developer/environment-variables).</Callout>
+
 ### Digest variables
 
 Digest variables expose the data produced by a Digest step and are available to all channel steps that run after that digest step. They allow you to summarize, list, or otherwise represent multiple events that were grouped during the digest window.
