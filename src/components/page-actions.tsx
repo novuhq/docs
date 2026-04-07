@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Copy, Check, Github, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import { ClaudeIcon } from '@/components/icons/claude';
 import { OpenAIIcon } from '@/components/icons/openai';
 
 interface PageActionsProps {
@@ -30,10 +31,18 @@ ${pageContent}`;
     }
   };
 
+  const docUrl = `https://docs.novu.co/${path ?? ''}`;
+
   const handleOpenInChatGPT = () => {
-    const encodedUrl = encodeURIComponent(`https://docs.novu.co/${path}`);
+    const encodedUrl = encodeURIComponent(docUrl);
     const chatGPTUrl = `https://chatgpt.com/?hints=search&q=Read+${encodedUrl}`;
     window.open(chatGPTUrl, '_blank');
+  };
+
+  const handleOpenInClaude = () => {
+    const prompt = `Read ${docUrl}`;
+    const claudeUrl = `https://claude.ai/new?q=${encodeURIComponent(prompt)}`;
+    window.open(claudeUrl, '_blank');
   };
 
   return (
@@ -78,6 +87,17 @@ ${pageContent}`;
         <OpenAIIcon className="h-4 w-4" />
         <span className="flex items-center gap-1">
           Open in ChatGPT
+          <ExternalLink className="h-3 w-3" />
+        </span>
+      </button>
+
+      <button
+        onClick={handleOpenInClaude}
+        className="flex items-center gap-2 w-full text-left px-3 py-1 text-sm text-[var(--sidebar-item-inactive-text)] hover:text-[var(--sidebar-item-inactive-text-hover)] rounded-md transition-colors"
+      >
+        <ClaudeIcon className="h-4 w-4" />
+        <span className="flex items-center gap-1">
+          Open in Claude
           <ExternalLink className="h-3 w-3" />
         </span>
       </button>
