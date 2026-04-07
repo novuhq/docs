@@ -9,6 +9,12 @@
   # Set Netlify environment variable for OG image optimization
   NETLIFY = "true"
 
+# Long-lived caching for hashed Next.js assets (reduces repeat downloads on doc navigations).
+[[headers]]
+  for = "/_next/static/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 [[headers]]
   for = "/*"
   [headers.values]

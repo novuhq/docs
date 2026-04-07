@@ -51,6 +51,8 @@ export function generate({
       {/* Title: bounded height so multi-line titles do not consume the whole card */}
       <div
         style={{
+          display: 'flex',
+          flexDirection: 'column',
           width: '100%',
           maxHeight: TITLE_MAX_HEIGHT,
           overflow: 'hidden',
@@ -73,6 +75,8 @@ export function generate({
       {/* Description: fixed-height band; text is also hard-truncated in route.tsx */}
       <div
         style={{
+          display: 'flex',
+          flexDirection: 'column',
           marginTop: 20,
           width: '100%',
           height: DESCRIPTION_BOX_HEIGHT,

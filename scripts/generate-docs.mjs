@@ -6,6 +6,11 @@ import * as path from 'node:path';
 
 const out = './content/docs/api-reference';
 
+/** Remote spec used to refresh the on-disk snapshot (see ensureLocalOpenApiSpec). */
+const OPENAPI_SPEC_URL = 'https://spec.speakeasy.com/novu/novu/json-development-with-code-samples';
+/** Relative to repo root; must match resolveOpenApiDocument in src/app/[[...slug]]/page.tsx */
+const OPENAPI_SPEC_RELATIVE = 'content/openapi/novu-spec.json';
+
 /**
  * js-yaml (via gray-matter) may emit `description: |2-` with an explicit indent digit.
  * Keep a consistent `description: |-` literal block for all generated API pages.
@@ -65,7 +70,20 @@ function slugify(text) {
     .replace(/--+/g, '-'); // Replace multiple - with single -
 }
 
+async function ensureLocalOpenApiSpec() {
+  const specPath = path.join(process.cwd(), OPENAPI_SPEC_RELATIVE);
+  await mkdir(path.dirname(specPath), { recursive: true });
+  const res = await fetch(OPENAPI_SPEC_URL);
+  if (!res.ok) {
+    throw new Error(`Failed to download OpenAPI spec (${res.status}): ${OPENAPI_SPEC_URL}`);
+  }
+  await writeFile(specPath, await res.text(), 'utf8');
+  console.log(`Wrote OpenAPI snapshot: ${specPath}`);
+}
+
 async function main() {
+  await ensureLocalOpenApiSpec();
+
   // clean generated files
   rimrafSync(out, {
     filter(v) {
@@ -84,9 +102,10 @@ async function main() {
   });
 
   const docsOutputPath = out; // './content/docs/api-reference'
-  const openApiInput = ['https://spec.speakeasy.com/novu/novu/json-development-with-code-samples']; // Or your actual input
+  // Local file avoids per-navigation HTTP fetch + dereference of the full spec at runtime (see fumadocs-openapi processDocument).
+  const openApiInput = OPENAPI_SPEC_RELATIVE;
 
-  const pages = await OpenAPI.generatePages(openApiInput[0], {
+  const pages = await OpenAPI.generatePages(openApiInput, {
     // Keep description in frontmatter only (Markdown). The page template renders it with GFM.
     includeDescription: false,
     addGeneratedComment:

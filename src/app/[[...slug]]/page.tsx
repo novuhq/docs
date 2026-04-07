@@ -35,6 +35,7 @@ import {
 import { extractFaqItems } from '../../lib/extract-faq';
 import { createMetadata } from '../../lib/metadata';
 import { plainTextFromMarkdownDescription } from '../../lib/plain-text-description';
+import { resolveOpenApiDocument } from '../../lib/openapi-document';
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -196,7 +197,14 @@ export default async function Page(props: {
               Callout: Callout,
               APIPage: (props) => (
                 <div id="api-page">
-                  <APIPage {...openapi.getAPIPageProps(props)} />
+                  <APIPage
+                    {...openapi.getAPIPageProps({
+                      ...props,
+                      document: resolveOpenApiDocument(props.document),
+                      // Default is true in dev, which refetches the full spec every navigation.
+                      disableCache: false,
+                    })}
+                  />
                 </div>
               ),
               Accordions: Accordions,
