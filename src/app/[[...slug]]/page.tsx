@@ -21,6 +21,7 @@ import {
 import { metadataImage } from '../../lib/metadata-image';
 import { ImageZoom } from 'fumadocs-ui/components/image-zoom';
 import { getBreadcrumbItems } from 'fumadocs-core/breadcrumb';
+import { MarkdownDescription } from '../../components/markdown-description';
 import { PageActions } from '../../components/page-actions';
 import { getRawMarkdownContent } from '../../lib/get-markdown-content';
 import {
@@ -33,6 +34,7 @@ import {
 } from '../../lib/json-ld';
 import { extractFaqItems } from '../../lib/extract-faq';
 import { createMetadata } from '../../lib/metadata';
+import { plainTextFromMarkdownDescription } from '../../lib/plain-text-description';
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -80,13 +82,17 @@ export default async function Page(props: {
   // GitHub URL for editing this page
   const githubUrl = `https://github.com/novuhq/docs/edit/main/content/docs/${page.file.path}`;
 
+  const descriptionPlain = plainTextFromMarkdownDescription(
+    typeof page.data.description === 'string' ? page.data.description : undefined
+  );
+
   return (
     <>
       <JsonLdGraph
         items={[
           buildArticleSchema({
             title: page.data.pageTitle ?? page.data.title,
-            description: page.data.description,
+            description: descriptionPlain,
             url: page.url,
             slug: page.slugs.join('/'),
           }),
@@ -94,7 +100,7 @@ export default async function Page(props: {
             const videoId = video.embedUrl.split('/embed/')[1]?.split('?')[0];
             return buildVideoSchema({
               name: video.name,
-              description: page.data.description ?? video.name,
+              description: descriptionPlain ?? video.name,
               thumbnailUrl: `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
               uploadDate: '2024-01-01T00:00:00Z',
               embedUrl: video.embedUrl,
@@ -136,7 +142,11 @@ export default async function Page(props: {
             <DocsTitle className="max-w-[640px]">
               {page.data.pageTitle ?? page.data.title}
             </DocsTitle>
-            <DocsDescription className="mb-4">{page.data.description}</DocsDescription>
+            {typeof page.data.description === 'string' ? (
+              <MarkdownDescription className="mb-4">{page.data.description}</MarkdownDescription>
+            ) : (
+              <DocsDescription className="mb-4">{page.data.description}</DocsDescription>
+            )}
           </>
         )}
         <DocsBody>
@@ -172,7 +182,12 @@ export default async function Page(props: {
                     </HoverCardTrigger>
                     <HoverCardContent className="text-sm">
                       <p className="font-medium">{found.page.data.title}</p>
-                      <p className="text-fd-muted-foreground">{found.page.data.description}</p>
+                      <p className="text-fd-muted-foreground">
+                        {typeof found.page.data.description === 'string'
+                          ? (plainTextFromMarkdownDescription(found.page.data.description) ??
+                            found.page.data.description)
+                          : found.page.data.description}
+                      </p>
                     </HoverCardContent>
                   </HoverCard>
                 );
@@ -235,7 +250,11 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
   if (!page) notFound();
 
   const title = page.data.pageTitle || page.data.title;
-  const description = page.data.description;
+  const rawDescription = page.data.description;
+  const description =
+    typeof rawDescription === 'string'
+      ? plainTextFromMarkdownDescription(rawDescription)
+      : undefined;
 
   return createMetadata(
     await metadataImage.withImage(page.slugs, {

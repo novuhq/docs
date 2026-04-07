@@ -47,12 +47,15 @@ export function generate({
           width: '100%',
           height: '100%',
           padding: '4rem',
+          minHeight: 0,
         }}
       >
         <p
           style={{
             fontWeight: 600,
             fontSize: '76px',
+            flexShrink: 0,
+            lineHeight: 1.15,
           }}
         >
           {props.title}
@@ -60,7 +63,14 @@ export function generate({
         <p
           style={{
             fontSize: '48px',
+            lineHeight: 1.25,
             color: 'rgba(240,240,240,0.7)',
+            flex: 1,
+            minHeight: 0,
+            maxHeight: 280,
+            overflow: 'hidden',
+            marginTop: '1.5rem',
+            marginBottom: 0,
           }}
         >
           {props.description}
@@ -72,6 +82,8 @@ export function generate({
             alignItems: 'center',
             gap: '24px',
             marginTop: 'auto',
+            flexShrink: 0,
+            paddingTop: '2rem',
             color: primaryTextColor,
           }}
         >
