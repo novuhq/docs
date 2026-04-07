@@ -44,8 +44,11 @@ export function plainTextFromMarkdownDescription(input: string | undefined): str
   return s || undefined;
 }
 
-/** Max characters for OG image body copy (title is large; footer reserves space for the logo). */
-export const OG_IMAGE_DESCRIPTION_MAX_LENGTH = 200;
+/** Max characters for OG image body copy. Satori often ignores CSS overflow; stay within ~3 lines at OG font size. */
+export const OG_IMAGE_DESCRIPTION_MAX_LENGTH = 85;
+
+/** Long titles steal vertical space from the description; keep a single line when possible. */
+export const OG_IMAGE_TITLE_MAX_LENGTH = 48;
 
 /**
  * Plain text + length limit for `/docs-og` renders only. Keeps summaries from overlapping
@@ -68,5 +71,28 @@ export function descriptionForOgImage(input: string | undefined): string | undef
     cut = cut.slice(0, lastSpace);
   }
 
+  return `${cut.trimEnd()}…`;
+}
+
+/**
+ * Short title for OG PNG only (full title remains in HTML meta).
+ */
+export function titleForOgImage(title: string | undefined): string {
+  if (title == null || typeof title !== 'string') {
+    return 'Novu';
+  }
+  const t = title.trim();
+  if (!t) {
+    return 'Novu';
+  }
+  const max = OG_IMAGE_TITLE_MAX_LENGTH;
+  if (t.length <= max) {
+    return t;
+  }
+  let cut = t.slice(0, max);
+  const lastSpace = cut.lastIndexOf(' ');
+  if (lastSpace > max * 0.45) {
+    cut = cut.slice(0, lastSpace);
+  }
   return `${cut.trimEnd()}…`;
 }

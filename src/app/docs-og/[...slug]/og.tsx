@@ -2,6 +2,12 @@ import type { ImageResponseOptions } from 'next/dist/compiled/@vercel/og/types';
 import { ImageResponse } from 'next/og';
 import type { ReactElement, ReactNode } from 'react';
 
+/** Canvas 1200×630; padding and fixed regions sized so copy cannot overlap the footer logo (Satori clips poorly). */
+const PADDING = 56;
+const TITLE_MAX_HEIGHT = 196;
+const DESCRIPTION_BOX_HEIGHT = 158;
+const FOOTER_RESERVED = 108;
+
 interface GenerateProps {
   title: ReactNode;
   description?: ReactNode;
@@ -38,80 +44,95 @@ export function generate({
         height: '100%',
         color: 'white',
         backgroundColor: 'rgb(10,10,10)',
+        padding: PADDING,
+        boxSizing: 'border-box',
       }}
     >
+      {/* Title: bounded height so multi-line titles do not consume the whole card */}
       <div
         style={{
-          display: 'flex',
-          flexDirection: 'column',
           width: '100%',
-          height: '100%',
-          padding: '4rem',
-          minHeight: 0,
+          maxHeight: TITLE_MAX_HEIGHT,
+          overflow: 'hidden',
+          flexShrink: 0,
         }}
       >
         <p
           style={{
             fontWeight: 600,
-            fontSize: '76px',
-            flexShrink: 0,
-            lineHeight: 1.15,
+            fontSize: 64,
+            lineHeight: 1.08,
+            margin: 0,
+            fontFamily: 'Mono',
           }}
         >
           {props.title}
         </p>
+      </div>
+
+      {/* Description: fixed-height band; text is also hard-truncated in route.tsx */}
+      <div
+        style={{
+          marginTop: 20,
+          width: '100%',
+          height: DESCRIPTION_BOX_HEIGHT,
+          overflow: 'hidden',
+          flexShrink: 0,
+        }}
+      >
         <p
           style={{
-            fontSize: '48px',
-            lineHeight: 1.25,
-            color: 'rgba(240,240,240,0.7)',
-            flex: 1,
-            minHeight: 0,
-            maxHeight: 280,
-            overflow: 'hidden',
-            marginTop: '1.5rem',
-            marginBottom: 0,
+            fontSize: 30,
+            lineHeight: 1.33,
+            color: 'rgba(240,240,240,0.72)',
+            margin: 0,
+            fontFamily: 'Mono',
           }}
         >
           {props.description}
         </p>
-        <div
+      </div>
+
+      {/* Push footer down; keeps logo row off description text */}
+      <div style={{ flex: 1, minHeight: 12, flexShrink: 1 }} />
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 24,
+          flexShrink: 0,
+          minHeight: FOOTER_RESERVED,
+          color: primaryTextColor,
+        }}
+      >
+        {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
+        <svg
+          width="60"
+          height="60"
+          viewBox="0 0 2000 2000"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M1540 801.609C1540 855.379 1474.72 882.004 1437.11 843.57L667.229 56.7032C771.33 19.9793 883.332 0 1000 0C1198.91 0 1384.25 58.0733 1540 158.19V801.609ZM1820 427.485V801.609C1820 1106.31 1450.07 1257.18 1236.98 1039.39L409.055 193.205C161.022 375.186 0 668.789 0 1000C0 1212.94 66.5559 1410.33 180 1572.51V1200.39C180 895.692 549.933 744.819 763.025 962.612L1589.81 1807.63C1838.48 1625.71 2000 1331.72 2000 1000C2000 787.061 1933.44 589.667 1820 427.485ZM562.887 1158.43L1331.32 1943.81C1227.63 1980.21 1116.12 2000 1000 2000C801.093 2000 615.749 1941.93 460 1841.81V1200.39C460 1146.62 525.282 1120 562.887 1158.43Z"
+            fill="white"
+          />
+        </svg>
+
+        <p
           style={{
-            display: 'flex',
-            flexDirection: 'row',
-            alignItems: 'center',
-            gap: '24px',
-            marginTop: 'auto',
-            flexShrink: 0,
-            paddingTop: '2rem',
-            color: primaryTextColor,
+            fontSize: 46,
+            fontWeight: 600,
+            margin: 0,
+            fontFamily: 'Mono',
           }}
         >
-          {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
-          <svg
-            width="60"
-            height="60"
-            viewBox="0 0 2000 2000"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M1540 801.609C1540 855.379 1474.72 882.004 1437.11 843.57L667.229 56.7032C771.33 19.9793 883.332 0 1000 0C1198.91 0 1384.25 58.0733 1540 158.19V801.609ZM1820 427.485V801.609C1820 1106.31 1450.07 1257.18 1236.98 1039.39L409.055 193.205C161.022 375.186 0 668.789 0 1000C0 1212.94 66.5559 1410.33 180 1572.51V1200.39C180 895.692 549.933 744.819 763.025 962.612L1589.81 1807.63C1838.48 1625.71 2000 1331.72 2000 1000C2000 787.061 1933.44 589.667 1820 427.485ZM562.887 1158.43L1331.32 1943.81C1227.63 1980.21 1116.12 2000 1000 2000C801.093 2000 615.749 1941.93 460 1841.81V1200.39C460 1146.62 525.282 1120 562.887 1158.43Z"
-              fill="white"
-            />
-          </svg>
-
-          <p
-            style={{
-              fontSize: '46px',
-              fontWeight: 600,
-            }}
-          >
-            Novu
-          </p>
-        </div>
+          Novu
+        </p>
       </div>
     </div>
   );

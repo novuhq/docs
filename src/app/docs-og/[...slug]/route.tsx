@@ -1,4 +1,4 @@
-import { descriptionForOgImage } from '@/lib/plain-text-description';
+import { descriptionForOgImage, titleForOgImage } from '@/lib/plain-text-description';
 import { metadataImage } from '@/lib/metadata-image';
 import type { ImageResponse } from 'next/og';
 import { readFileSync } from 'node:fs';
@@ -15,7 +15,9 @@ const fontBold = readFileSync(fontBoldPath);
 export const GET = metadataImage.createAPI((page): ImageResponse => {
   return generateOGImage({
     primaryTextColor: 'rgb(240,240,240)',
-    title: page.data.title,
+    title: titleForOgImage(
+      typeof page.data.title === 'string' ? page.data.title : String(page.data.title ?? '')
+    ),
     description: descriptionForOgImage(
       typeof page.data.description === 'string' ? page.data.description : undefined
     ),
