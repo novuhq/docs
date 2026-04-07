@@ -1,10 +1,10 @@
 ---
 title: Subscriber schema
-pageTitle: "Subscriber Schema"
-description: "Reference the Novu subscriber object schema. Explore all fields, data types, and descriptions for the Subscriber resource used in the Novu API."
+pageTitle: "Subscriber schema Model API Reference (Subscribers)"
+description: "Reference the Novu subscriber schema used in API requests and responses. Review fields, data types, and object structure for this resource."
 ---
 
-## Subscriber
+### Subscriber
 Subscriber is the end user that receives notifications. Subscriber has subscriber attributes like firstName, lastName, email, phone, etc, `data` field to store any custom attributes in key value pairs and channel credentials for push and chat channel provider's integrations. Read more about subscribers on [subscribers concept page](/platform/concepts/subscribers).
 
 <TypeTable name="Subscriber" type={{
@@ -90,7 +90,7 @@ Subscriber is the end user that receives notifications. Subscriber has subscribe
   }
 }} />
 
-## ChannelSettingsDto
+### ChannelSettingsDto
 ChannelSettings are credentials for push and chat channel provider's integrations. One subscriber can have credentials for multiple integrations of same provider of one channel type
 
 <TypeTable name="ChannelSettings" type={{
@@ -112,7 +112,7 @@ ChannelSettings are credentials for push and chat channel provider's integration
   }
 }} />
 
-## Credentials
+### Credentials
 Credentials like deviceTokens, webhookUrl, etc for a specific integration. `providerId` could be chat channel providerId or push channel providerId.
 
 <TypeTable name="Credentials" type={{

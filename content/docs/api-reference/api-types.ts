@@ -13,6 +13,7 @@ import {
   TopicSubscriptionResponseDto,
   SubscriberPayloadDto,
   EnvironmentResponseDto,
+  EnvironmentVariableResponseDto,
 } from '@novu/api/models/components';
 
 // subscriber
@@ -39,6 +40,9 @@ export type StepFilter = StepFilterDto;
 
 // environment
 export type Environment = EnvironmentResponseDto;
+
+// environment variable
+export type EnvironmentVariable = EnvironmentVariableResponseDto;
 
 // workflow
 export type Workflow = WorkflowResponse;

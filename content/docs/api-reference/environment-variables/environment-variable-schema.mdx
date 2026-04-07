@@ -1,0 +1,44 @@
+---
+title: Environment variable schema
+pageTitle: "Environment variable schema Model API Reference (Environment Variables)"
+description: "Reference the Novu environment variable schema used in API requests and responses. Review fields, data types, and object structure for this resource."
+---
+
+### Environment Variable
+
+Environment variable is a named value you define once in the dashboard and reuse across workflows. Each [Novu environment](/platform/developer/environments) can hold its own value for the same variable, so Development and Production (and any custom environments) stay isolated without duplicating workflow logic. Read more about environment variables on [environment variables documentation page](/platform/developer/environment-variables). 
+
+<TypeTable name="EnvironmentVariable" type={{
+  "id": {
+    "description": "",
+    "type": "string"
+  },
+  "organizationId": {
+    "description": "",
+    "type": "string"
+  },
+  "key": {
+    "description": "",
+    "type": "string"
+  },
+  "type": {
+    "description": "",
+    "type": "\"string\""
+  },
+  "isSecret": {
+    "description": "",
+    "type": "boolean"
+  },
+  "values": {
+    "description": "",
+    "type": "EnvironmentVariableValueResponseDto[]"
+  },
+  "createdAt": {
+    "description": "",
+    "type": "string"
+  },
+  "updatedAt": {
+    "description": "",
+    "type": "string"
+  }
+}} />

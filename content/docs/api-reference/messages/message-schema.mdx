@@ -1,10 +1,10 @@
 ---
 title: Message schema
-pageTitle: "Message Schema"
+pageTitle: "Message schema Model API Reference (Messages)"
 description: "Reference the Novu message schema used in API requests and responses. Review fields, data types, and object structure for this resource."
 ---
 
-## Message
+### Message
 
 Message is a single notification that is sent to a subscriber. Each channel step in the workflow generates a message.
 
@@ -151,7 +151,7 @@ Message is a single notification that is sent to a subscriber. Each channel step
   }
 }} />
 
-## ChannelTypeEnum
+### ChannelTypeEnum
 ```typescript
 ChannelTypeEnum {
   IN_APP = "in_app",
@@ -162,7 +162,7 @@ ChannelTypeEnum {
 }
 ```
 
-## Workflow
+### Workflow
 
 Workflow is a collection of steps that are executed in order to send a notification.
 
@@ -253,7 +253,7 @@ Workflow is a collection of steps that are executed in order to send a notificat
   }
 }} />
 
-## Actor
+### Actor
 
 Actor is the user who is skipped from sending the notification when workflow is triggered to a [topic](/platform/concepts/topics).
 
@@ -268,7 +268,7 @@ Actor is the user who is skipped from sending the notification when workflow is 
   }
 }} />
 
-## MessageCTA
+### MessageCTA
 
 MessageCTA is a call to action that is displayed in the [Inbox](/platform/inbox) message. It can be used to redirect the user to a specific URL when the message is clicked.
 
