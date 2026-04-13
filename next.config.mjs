@@ -27,6 +27,17 @@ const config = {
 
   // Increase static generation timeout for Netlify
   staticPageGenerationTimeout: 180,
+
+  async rewrites() {
+    const prefixes = ['platform', 'framework', 'community', 'api-reference', 'guides'];
+    const extensions = ['md', 'mdx'];
+    return prefixes.flatMap((prefix) =>
+      extensions.map((ext) => ({
+        source: `/${prefix}/:path*.${ext}`,
+        destination: `/llms.mdx/${prefix}/:path*`,
+      }))
+    );
+  },
 };
 
 export default withMDX(config);

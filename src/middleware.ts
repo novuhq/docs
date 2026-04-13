@@ -2,17 +2,43 @@ import { clerkMiddleware } from '@clerk/nextjs/server';
 import type { NextFetchEvent, NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
+function prefersMarkdown(request: NextRequest): boolean {
+  const accept = request.headers.get('accept') ?? '';
+  return accept.includes('text/markdown') || accept.includes('text/x-markdown');
+}
+
 export const config = {
   matcher: [
     // Skip Next.js internals and all static files, unless found in search params
-    '/((?!_next|robots.txt|sitemap.xml|llms.txt|static.json|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
+    '/((?!_next|robots.txt|sitemap.xml|llms.txt|llms-full.txt|llms.mdx|static.json|[^?]*\\.(?:html?|css|js(?!on)|mdx?|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)',
     // Always run for API routes
     '/(api|trpc)(.*)',
   ],
 };
 
+const MARKDOWN_PREFIXES = [
+  '/platform/',
+  '/framework/',
+  '/community/',
+  '/api-reference/',
+  '/guides/',
+];
+
 export default async function middleware(request: NextRequest, event: NextFetchEvent) {
   const { pathname } = request.nextUrl;
+
+  // Content negotiation: if an AI agent requests markdown via Accept header,
+  // rewrite doc page requests to their .mdx counterpart.
+  if (
+    prefersMarkdown(request) &&
+    MARKDOWN_PREFIXES.some((prefix) => pathname.startsWith(prefix)) &&
+    !pathname.endsWith('.mdx') &&
+    !pathname.endsWith('.md')
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = `${pathname.replace(/\/$/, '')}.mdx`;
+    return NextResponse.rewrite(url);
+  }
 
   // Root redirects
   if (pathname === '/') {

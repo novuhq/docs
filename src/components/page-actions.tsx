@@ -7,22 +7,22 @@ import { ClaudeIcon } from '@/components/icons/claude';
 import { OpenAIIcon } from '@/components/icons/openai';
 
 interface PageActionsProps {
-  pageContent: string;
+  markdownUrl: string;
   title?: string;
   githubUrl?: string;
   path?: string;
 }
 
-export function PageActions({ pageContent, title, githubUrl, path }: PageActionsProps) {
+export function PageActions({ markdownUrl, title, githubUrl, path }: PageActionsProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopyMarkdown = async () => {
     try {
-      const formattedContent = `# ${title || 'Documentation'}
+      const res = await fetch(markdownUrl);
+      if (!res.ok) throw new Error(`Failed to fetch markdown: ${res.status}`);
+      const markdown = await res.text();
 
-${pageContent}`;
-
-      await navigator.clipboard.writeText(formattedContent);
+      await navigator.clipboard.writeText(markdown);
       setCopied(true);
 
       setTimeout(() => setCopied(false), 2000);
