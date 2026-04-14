@@ -32,7 +32,11 @@ export function GET() {
       const rawDesc =
         typeof page.data.description === 'string' ? page.data.description : '';
       const desc = plainTextFromMarkdownDescription(rawDesc) ?? '';
-      lines.push(desc ? `- [${title}](${page.url}): ${desc}` : `- [${title}](${page.url})`);
+      const markdownUrl = `${page.url}.md`;
+      lines.push(
+        desc ? `- [${title}](${markdownUrl}): ${desc}` : `- [${title}](${markdownUrl})`
+      );
+    }
     }
     lines.push('');
   }
