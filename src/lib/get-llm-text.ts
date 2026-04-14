@@ -31,6 +31,7 @@ export async function getLLMText(page: InferPageType<typeof source>) {
     body = String(processed);
   } catch (err) {
     console.error(`[llm-text] failed to process ${page.file.path}:`, err);
+    throw err;
   }
 
   const title = page.data.pageTitle ?? page.data.title;
