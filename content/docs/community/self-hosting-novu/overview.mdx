@@ -21,7 +21,7 @@ For optimal performance, host Novu's core services across multiple virtual machi
 | --- | --- | --- |
 | Novu services (API, Worker, WS) | 3 VMs per service | 2 vCPUs, 4 GB RAM each |
 | Dashboard | 1 VM | 2 vCPUs, 4 GB RAM |
-| Redis | 2 clusters (one for queues with AOL enabled) | 8 GB RAM per cluster |
+| Redis | 2 clusters (one for queues with AOF enabled) | 8 GB RAM per cluster |
 | MongoDB | 1 cluster | M20 or higher (MongoDB Atlas) |
 | S3 storage | — | 10 GB minimum |
 
@@ -31,7 +31,9 @@ If resources are limited or simplicity is a priority, all services can run on a 
 
 | Component | Specs |
 | --- | --- |
-| All Novu services (API, Worker, WS, Dashboard) | 8 vCPUs, 16 GB RAM |
+| All Novu services (API, Worker, WS, Dashboard) | 4 vCPUs, 8 GB RAM |
+| MongoDB | 2 GB RAM, 20 GB disk |
+| Redis | 2 GB RAM, AOF enabled |
 | S3 storage | 10 GB minimum |
 
 ### Infrastructure details
@@ -42,7 +44,7 @@ If resources are limited or simplicity is a priority, all services can run on a 
 | --- | --- |
 | Clusters | 2 (one dedicated to queues) |
 | Memory | 8 GB RAM per cluster |
-| Persistence | Append-Only Log (AOL) enabled on the queue cluster to prevent job loss during outages |
+| Persistence | Append Only File (AOF) enabled on the queue cluster to prevent job loss during outages |
 
 #### MongoDB
 
