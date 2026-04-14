@@ -6,54 +6,57 @@ description: 'Self-host Novu for full control over your notification infrastruct
 
 When self-hosting Novu, you take full control over your communication infrastructure by deploying it on your own servers. While this setup allows for customization and greater flexibility, it is important to note that some features exclusive to Novu's cloud-managed solution will not be available in a self-hosted environment.
 
+<Callout type="warn">
+  Self-hosting Novu does not support social login (GitHub, Google, etc.). To access your account,
+  please use the email and password associated with your Novu account.
+</Callout>
+
 ## System requirements overview
 
-### Hosting Novu services on separate VMs
+### Multi-VM deployment (recommended)
 
-For optimal performance, we recommend hosting Novu's core services across multiple virtual machines (VMs).
+For optimal performance, host Novu's core services across multiple virtual machines.
 
-- **Novu services:**
-  - 3 VMs per service
-  - Each VM: 2 vCPUs and 4GB of RAM
-- **Redis:**
-  - 2 Redis clusters (one dedicated to queues with Append-Only Log (AOL) enabled)
-  - Minimum: 8GB RAM per cluster
-- **MongoDB:**
-  - 1 MongoDB cluster (M20 or higher on MongoDB Atlas)
-- **Storage:**
-  - 10GB of S3 storage
+| Component | Instances | Specs |
+| --- | --- | --- |
+| Novu services (API, Worker, WS) | 3 VMs per service | 2 vCPUs, 4 GB RAM each |
+| Dashboard | 1 VM | 2 vCPUs, 4 GB RAM |
+| Redis | 2 clusters (one for queues with AOL enabled) | 8 GB RAM per cluster |
+| MongoDB | 1 cluster | M20 or higher (MongoDB Atlas) |
+| S3 storage | — | 10 GB minimum |
 
-### Hosting all Novu services on a single VM
+### Single-VM deployment
 
-If resources are limited or simplicity is a priority, Novu services can be hosted on a single VM.
+If resources are limited or simplicity is a priority, all services can run on a single VM.
 
-- **All services:** 36 vCPUs and 64GB of RAM
-- **Storage:** 10GB of S3 storage
+| Component | Specs |
+| --- | --- |
+| All Novu services (API, Worker, WS, Dashboard) | 8 vCPUs, 16 GB RAM |
+| S3 storage | 10 GB minimum |
 
-### Redis requirements
+### Infrastructure details
 
-- **Redis Clusters:** 2 (one for queues with AOL enabled)
-- **Memory:** 8GB RAM per cluster
-- **AOL:** Active Append-Only Log (AOL) for data persistence and to prevent job loss during outages.
+#### Redis
 
-### MongoDB requirements
+| Setting | Value |
+| --- | --- |
+| Clusters | 2 (one dedicated to queues) |
+| Memory | 8 GB RAM per cluster |
+| Persistence | Append-Only Log (AOL) enabled on the queue cluster to prevent job loss during outages |
 
-- **MongoDB cluster:** M20 or higher (recommended) on MongoDB Atlas.
+#### MongoDB
 
-### FerretDB requirements
+| Setting | Value |
+| --- | --- |
+| Cluster tier | M20 or higher on MongoDB Atlas |
 
-- **[FerretDB instance](https://docs.ferretdb.io/) and PostgreSQL with [DocumentDB extension](https://github.com/FerretDB/documentdb) backend.**
+#### Storage
 
-### Storage requirements
-
-- **S3 storage:** Minimum 10GB for file storage.
+| Setting | Value |
+| --- | --- |
+| S3 storage | 10 GB minimum |
 
 <Callout type="info">
   The above specifications are general recommendations. Adjust them based on your system load, usage
   patterns, and scale of operations.
-</Callout>
-
-<Callout type="warn">
-  Self-hosting Novu does not support GitHub login. To access your account, please use the email and
-  password associated with your Novu account.
 </Callout>

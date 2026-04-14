@@ -11,39 +11,35 @@ Docker compose is the easiest way to get started with self-hosted Novu. This gui
 You need the following installed in your system:
 
 - [Docker](https://docs.docker.com/engine/install/) and [docker-compose](https://docs.docker.com/compose/install/)
-- [Git](https://git-scm.com/downloads)
+- `curl` and `openssl` (pre-installed on most systems)
 
 ## Quick Start
 
-### Get the code
-
-Clone the Novu repo and enter the docker directory:
+Run the setup script to download the required files, generate secure secrets, and start Novu:
 
 ```bash
-# Get the code
-git clone --depth 1 https://github.com/novuhq/novu
-
-# Go to the docker community folder
-cd novu/docker/community
-
-# Copy the example env file
-cp .env.example .env
+curl -fsSL https://raw.githubusercontent.com/novuhq/novu/next/docker/community/setup.sh | bash
 ```
+
+To install into a specific directory, set `NOVU_DIR`:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/novuhq/novu/next/docker/community/setup.sh | NOVU_DIR=~/novu bash
+```
+
+The script will:
+1. Download `docker-compose.yml` and `.env.example` into the target directory (defaults to `./novu`)
+2. Generate cryptographically random values for `JWT_SECRET`, `STORE_ENCRYPTION_KEY`, and `NOVU_SECRET_KEY`
+3. Create a `.env` file with the generated secrets
+4. Start all Novu services via `docker compose up -d`
+
+Once complete, visit [http://localhost:4000](http://localhost:4000/) to start using Novu.
+
+<Callout type="info">
+  If you already have a `.env` file in the target directory, the script will only fill in any missing secret values without overwriting existing configuration.
+</Callout>
 
 ### Configure Environment
-
-#### Local Deployment
-
-To run Novu in local machine, default configuration can be used. Start Novu with:
-
-```bash title="novu/docker/community"
-docker-compose up
-
-## if above command is not working, use docker compose
-docker compose up
-```
-
-Now visit [http://localhost:4000](http://localhost:4000/) to start using Novu.
 
 #### VPS Deployment
 
@@ -57,16 +53,14 @@ HOST_NAME=http://<vps-ip-address>
 Start Novu on your VPS:
 
 ```bash
-docker-compose -f docker-compose.yml up
+docker compose up -d
 ```
 
 Access your dashboard at [http://vps-ip-address:4000](http://vps-ip-address:4000/).
 
 ## Securing Your Setup
 
-While we provide example secrets for getting started, you should NEVER deploy your Novu setup using the defaults provided.
-
-Update the `.env` file with your own secrets.
+If you used the setup script, secure random secrets were generated automatically for `JWT_SECRET`, `STORE_ENCRYPTION_KEY`, and `NOVU_SECRET_KEY`. If you cloned the repository manually, update the `.env` file with your own secrets before going to production.
 
 ### Required Variables:
 
