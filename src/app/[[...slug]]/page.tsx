@@ -121,7 +121,7 @@ export default async function Page(props: {
           style: 'clerk',
           footer: isOverviewPage ? null : (
             <PageActions
-              pageContent={rawMarkdownContent}
+              markdownUrl={`${page.url}.mdx`}
               title={page.data.pageTitle ?? page.data.title}
               githubUrl={githubUrl}
               path={page.file.path}
@@ -270,6 +270,9 @@ export async function generateMetadata(props: { params: Promise<{ slug?: string[
       description,
       alternates: {
         canonical: page.url,
+        types: {
+          'text/markdown': `${page.url}.md`,
+        },
       },
       openGraph: {
         type: 'article',

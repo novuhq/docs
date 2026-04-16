@@ -1,49 +1,48 @@
-import fg from 'fast-glob';
-import { fileGenerator, remarkDocGen, remarkInstall } from 'fumadocs-docgen';
-import { remarkInclude } from 'fumadocs-mdx/config';
-import { remarkAutoTypeTable } from 'fumadocs-typescript';
-import matter from 'gray-matter';
-import * as fs from 'node:fs/promises';
-import { remark } from 'remark';
-import remarkGfm from 'remark-gfm';
-import remarkMdx from 'remark-mdx';
-import remarkStringify from 'remark-stringify';
+import { source } from '@/lib/source';
+import { plainTextFromMarkdownDescription } from '@/lib/plain-text-description';
 
 export const revalidate = false;
 
-const processor = remark()
-  .use(remarkMdx)
-  .use(remarkInclude)
-  .use(remarkGfm)
-  .use(remarkAutoTypeTable)
-  .use(remarkDocGen, { generators: [fileGenerator()] })
-  .use(remarkInstall, { persist: { id: 'package-manager' } })
-  .use(remarkStringify);
+const SECTION_LABELS: Record<string, string> = {
+  platform: 'Platform',
+  framework: 'Framework',
+  community: 'Community',
+  'api-reference': 'API Reference',
+  guides: 'Guides',
+};
 
-export async function GET() {
-  const files = await fg([
-    './content/docs/**/*.mdx',
-    '!./content/docs/openapi/**/*',
-    '!./content/docs/**/*.model.mdx',
-  ]);
+export function GET() {
+  const pages = source.getPages();
 
-  const scan = files.map(async (file) => {
-    const fileContent = await fs.readFile(file);
-    const { content, data } = matter(fileContent.toString());
+  const bySection = new Map<string, typeof pages>();
+  for (const page of pages) {
+    const section = page.slugs[0] ?? 'other';
+    const list = bySection.get(section) ?? [];
+    list.push(page);
+    bySection.set(section, list);
+  }
 
-    const processed = await processor.process({
-      path: file,
-      value: content,
-    });
-    return `file: ${file}
-# ${data.title}
+  const lines: string[] = [
+    '# Novu Documentation',
+    '',
+    '> Notification infrastructure for developers.',
+    '',
+  ];
 
-${data.description}
-        
-${processed}`;
+  for (const [section, items] of bySection) {
+    lines.push(`## ${SECTION_LABELS[section] ?? section}`, '');
+    items.sort((a, b) => a.url.localeCompare(b.url));
+    for (const page of items) {
+      const title = page.data.pageTitle ?? page.data.title;
+      const rawDesc = typeof page.data.description === 'string' ? page.data.description : '';
+      const desc = plainTextFromMarkdownDescription(rawDesc) ?? '';
+      const markdownUrl = `${page.url}.md`;
+      lines.push(desc ? `- [${title}](${markdownUrl}): ${desc}` : `- [${title}](${markdownUrl})`);
+    }
+    lines.push('');
+  }
+
+  return new Response(lines.join('\n'), {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
   });
-
-  const scanned = await Promise.all(scan);
-
-  return new Response(scanned.join('\n\n'));
 }
