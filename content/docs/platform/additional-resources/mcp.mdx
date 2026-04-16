@@ -185,45 +185,68 @@ These tools let you inspect your account configuration:
 | `get_api_key_status` | Check API key status and region configuration |
 | `get_environments` | List development and production environments |
  
-### Workflow management
- 
-These tools let you create, inspect, and manage notification workflows:
- 
-| Tool | Description |
-|---|---|
-| `get_workflows` | List all workflows with names and identifiers |
-| `get_workflow` | Get detailed workflow configuration and payload structure |
-| `trigger_workflow` | Execute workflows with custom data for specific subscribers |
-| `create_workflow` | Create new workflows with steps, channels, and validation |
-| `update_workflow` | Update existing workflows with modified steps, preferences, and configuration |
-| `delete_workflow` | Delete workflows by their unique identifier (irreversible) |
- 
 ### Subscriber management
  
-This tool lets you search your subscriber base:
+These tools let you create, inspect, and manage your subscribers:
  
 | Tool | Description |
 |---|---|
-| `find_subscribers` | Search subscribers by email, phone, name, or ID |
+| `create_subscriber` | Create a new subscriber with attributes like name, email, phone, and custom data |
+| `get_subscriber` | Retrieve a single subscriber by their `subscriberId` |
+| `update_subscriber` | Update an existing subscriber's attributes |
+| `delete_subscriber` | Delete a subscriber by their `subscriberId` |
+| `find_subscribers` | Search for subscribers using various query parameters |
  
-### Notification analytics
- 
-These tools let you inspect delivery and execution data:
- 
-| Tool | Description |
-|---|---|
-| `get_notifications` | Get notifications with filtering by channels, workflows, and dates |
-| `get_notification` | Get specific notification details with execution logs |
- 
-### Preference management
+### Preferences
  
 These tools let you view and update how subscribers receive notifications:
  
 | Tool | Description |
 |---|---|
 | `get_subscriber_preferences` | Get subscriber notification preferences for all channels |
-| `update_subscriber_preferences` | Update subscriber channel preferences globally or per workflow |
+| `update_subscriber_preferences` | Update subscriber notification preferences for specific channels |
  
+### Workflow management
+ 
+These tools let you create, inspect, and manage notification workflows:
+ 
+| Tool | Description |
+|---|---|
+| `create_workflow` | Create a new workflow with comprehensive configuration including steps |
+| `get_workflow` | Get detailed information about a specific workflow |
+| `get_workflows` | Get all available workflows |
+| `update_workflow` | Update an existing workflow |
+| `delete_workflow` | Delete an existing workflow by its unique identifier |
+ 
+### Triggering and events
+ 
+These tools let you execute workflows and manage pending notifications:
+ 
+| Tool | Description |
+|---|---|
+| `trigger_workflow` | Trigger a workflow to send notifications to a subscriber |
+| `bulk_trigger_workflow` | Trigger multiple workflows in a single API call |
+| `cancel_triggered_event` | Cancel a pending triggered event |
+ 
+### Notifications
+ 
+These tools let you inspect delivery and execution data:
+ 
+| Tool | Description |
+|---|---|
+| `get_notification` | Get a specific notification by ID with detailed execution logs |
+| `get_notifications` | Get notifications and events with advanced filtering options |
+ 
+### Integrations
+ 
+These tools let you manage the channel providers connected to your Novu account:
+ 
+| Tool | Description |
+|---|---|
+| `get_integrations` | List all channel integrations (email, SMS, push, chat, in-app) |
+| `get_active_integrations` | List only the active integrations |
+| `delete_integration` | Delete an integration by its `integrationId` |
+| `set_primary_integration` | Mark an integration as the primary for its channel |
 
 ## Troubleshooting
 
