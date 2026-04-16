@@ -22,21 +22,22 @@ export function GET() {
     bySection.set(section, list);
   }
 
-  const lines: string[] = ['# Novu Documentation', '', '> Notification infrastructure for developers.', ''];
+  const lines: string[] = [
+    '# Novu Documentation',
+    '',
+    '> Notification infrastructure for developers.',
+    '',
+  ];
 
   for (const [section, items] of bySection) {
     lines.push(`## ${SECTION_LABELS[section] ?? section}`, '');
     items.sort((a, b) => a.url.localeCompare(b.url));
     for (const page of items) {
       const title = page.data.pageTitle ?? page.data.title;
-      const rawDesc =
-        typeof page.data.description === 'string' ? page.data.description : '';
+      const rawDesc = typeof page.data.description === 'string' ? page.data.description : '';
       const desc = plainTextFromMarkdownDescription(rawDesc) ?? '';
       const markdownUrl = `${page.url}.md`;
-      lines.push(
-        desc ? `- [${title}](${markdownUrl}): ${desc}` : `- [${title}](${markdownUrl})`
-      );
-    }
+      lines.push(desc ? `- [${title}](${markdownUrl}): ${desc}` : `- [${title}](${markdownUrl})`);
     }
     lines.push('');
   }
