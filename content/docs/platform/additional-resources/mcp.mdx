@@ -6,7 +6,7 @@ icon: Network
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
-The Novu MCP Server exposes your notification infrastructure as tools that AI assistants can discover and use in real time. 
+The Novu MCP Server exposes Novu's notification infrastructure as tools that AI assistants can discover and use in real time. 
 
 Once connected, you can use natural language to manage notifications in Novu directly from your AI tool.
 For example, you can prompt your AI assistant to:
@@ -157,7 +157,7 @@ Any MCP-compatible tool can connect to the Novu MCP Server. Use the following co
 * **URL**:
   * US: `https://mcp.novu.co/`
   * EU: `https://mcp.novu.co/?region=eu`
-* **Transport**: Streamable HTTP (recommended). Legacy SSE is also supported at `https://mcp.novu.co/sse` but is not recommended.
+* **Transport**: Streamable HTTP (recommended).
 * **Authentication**: Send your API key in the `Authorization` header as `Bearer your-novu-api-key`.
 
 ## Test your setup
@@ -267,8 +267,5 @@ If your setup isn't working, the following sections cover the most common issues
   * For Claude Desktop, ensure Node.js is installed and accessible from your terminal
   * For Claude Code, run `claude mcp list` to confirm the server is registered
   * For Codex, run `/mcp` in the TUI to check server status
-  </Accordion>
-  <Accordion title="Test connectivity directly">
-If you're still stuck, test the connection directly with the MCP Inspector:
   </Accordion>
 </Accordions>
