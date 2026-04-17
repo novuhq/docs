@@ -64,6 +64,11 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     // Additional Resources
     '/additional-resources/data-migrations': '/community/data-migrations',
 
+    // Build with AI (moved from Additional Resources)
+    '/platform/additional-resources/mcp': '/platform/build-with-ai/mcp',
+    '/platform/additional-resources/skills': '/platform/build-with-ai/skills',
+    '/platform/additional-resources/agent-toolkit': '/platform/build-with-ai/agent-toolkit',
+
     // Community
     '/community/machine-setup': '/community/run-in-local-machine',
     '/community/monorepo-structure': '/community/code-structure',
