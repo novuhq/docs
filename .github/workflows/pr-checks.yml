@@ -35,11 +35,11 @@ jobs:
           pnpm run format:check
 
       - name: Vale prose lint
-        uses: errata-ai/vale-action@reviewdog
+        uses: vale-cli/vale-action@v2.1.1
         with:
           version: 3.9.1
           files: content
-          fail_on_error: false
+          fail_on_error: true
           reporter: github-pr-check
 
       - name: Build
