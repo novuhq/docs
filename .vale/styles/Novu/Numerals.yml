@@ -1,0 +1,10 @@
+# Spell out numbers one through nine in prose; use numerals for 10 and above.
+# Suggestion-level because tech docs legitimately use single digits in many
+# contexts (versions, ports, IDs) — writers should judge each case.
+extends: existence
+message: "Spell out '%s' in prose (use numerals for 10 and above)."
+level: suggestion
+scope: sentence
+nonword: false
+tokens:
+  - '(?<![./\d:vV#-])\b[1-9]\b(?![./\d:%xst]|nd|rd|th|am|pm|AM|PM)'

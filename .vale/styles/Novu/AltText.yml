@@ -1,0 +1,10 @@
+# Flag images with empty or placeholder alt text. Descriptive alt text is
+# required for accessibility (screen readers, missing-image fallback).
+extends: existence
+message: "Provide descriptive alt text for images for accessibility."
+level: warning
+scope: raw
+nonword: true
+tokens:
+  - '!\[\s*\]\('
+  - '(?i)!\[(image|img|picture|photo|screenshot|graphic)\]\('

@@ -1,0 +1,9 @@
+# Every heading should have at least one sentence of intro before the next
+# heading. Flag headings followed only by blank lines and another heading.
+extends: existence
+message: "Add a sentence introducing this section before the next heading."
+level: warning
+scope: raw
+nonword: true
+tokens:
+  - '(?m)^#{1,6}\s[^\n]+\n(\s*\n)+#{1,6}\s'

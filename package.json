@@ -12,6 +12,8 @@
     "generate:types": "node ./scripts/generate-types.mjs",
     "lint": "next lint",
     "lint:mdx": "eslint \"**/*.mdx\" --fix",
+    "lint:prose": "vale content",
+    "lint:prose:sync": "vale sync",
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx,json}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx,json}\"",
     "validate-links": "tsx scripts/validate-mdx-links.ts"

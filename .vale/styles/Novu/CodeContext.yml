@@ -1,0 +1,9 @@
+# Code blocks should be introduced by prose. Flag a fenced code block that
+# directly follows a heading with no explanatory sentence between them.
+extends: existence
+message: "Introduce code blocks with a sentence describing what they do."
+level: warning
+scope: raw
+nonword: true
+tokens:
+  - '(?m)^#{1,6}\s[^\n]+\n(\s*\n)+```'

@@ -34,6 +34,14 @@ jobs:
           pnpm run lint:mdx
           pnpm run format:check
 
+      - name: Vale prose lint
+        uses: errata-ai/vale-action@reviewdog
+        with:
+          version: 3.9.1
+          files: content
+          fail_on_error: false
+          reporter: github-pr-check
+
       - name: Build
         env:
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
