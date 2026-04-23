@@ -39,7 +39,12 @@ jobs:
         with:
           version: 3.9.1
           files: content
-          fail_on_error: true
+          # Advisory only — annotations surface on the PR but don't fail CI
+          # while the existing docs corpus still has many legacy violations.
+          fail_on_error: false
+          # Only flag lines touched by the PR to avoid reviewdog's
+          # "too many annotations" failures on full-corpus scans.
+          filter_mode: added
           reporter: github-pr-check
 
       - name: Build

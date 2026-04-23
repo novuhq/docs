@@ -37,7 +37,7 @@ The notification platform that turns complex multi-channel delivery into a singl
 
 Built with [Fumadocs](https://fumadocs.vercel.app/) and [pnpm](https://pnpm.io/).
 
-**Prerequisites:** [Node.js](https://nodejs.org/) 20+ and [pnpm](https://pnpm.io/installation)
+**Prerequisites:** [Node.js](https://nodejs.org/) 20+, [pnpm](https://pnpm.io/installation), and [Vale](https://vale.sh/docs/install) 3.9.1+ (only needed if you want to run prose linting locally; CI installs it automatically)
 
 ```bash
 # Clone and setup
@@ -54,6 +54,8 @@ Open [http://localhost:3010](http://localhost:3010) to view locally.
 - `pnpm dev` - Development server
 - `pnpm build` - Production build
 - `pnpm lint` - Lint code
+- `pnpm lint:prose:sync` - Download Vale style packages (run once after install)
+- `pnpm lint:prose` - Run Vale prose linting against `content/` (requires Vale on PATH)
 
 ## 🤝 Contributing
 
