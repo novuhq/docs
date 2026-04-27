@@ -32,4 +32,8 @@ next-env.d.ts
 # clerk configuration (can include secrets)
 /.clerk/
 
-.vale/styles
+# Vale: ignore downloaded third-party style packages, keep custom Novu styles
+# and the vocabulary configuration tracked.
+.vale/styles/*
+!.vale/styles/Novu/
+!.vale/styles/config/

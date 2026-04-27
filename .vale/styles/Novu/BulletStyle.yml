@@ -1,0 +1,10 @@
+# Prefer '*' over '-' for markdown bullet points. Set to warning because
+# `scope: raw` also sees `- ` lines inside fenced code blocks (Docker, YAML,
+# etc.), which are legitimate and shouldn't fail CI.
+extends: existence
+message: "Prefer '*' over '-' for bullet points (ignore inside code fences)."
+level: warning
+scope: raw
+nonword: true
+tokens:
+  - '(?m)^[ \t]*-[ \t]+\S'
