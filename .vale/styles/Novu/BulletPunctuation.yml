@@ -1,0 +1,10 @@
+# Flag bullet items that look like complete sentences (start with a capital
+# letter, contain at least one space, end with a lowercase word) but are
+# missing terminal punctuation.
+extends: existence
+message: "End bullet points that are complete sentences with a period."
+level: warning
+scope: raw
+nonword: true
+tokens:
+  - '(?m)^[ \t]*[\*\+\-][ \t]+[A-Z][^\n]*[a-z][a-z0-9)\]"`'']*[ \t]*$'
