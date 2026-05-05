@@ -45,6 +45,12 @@ export const baseOptions: BaseLayoutProps = {
       active: 'nested-url',
     },
     {
+      url: '/agents',
+      type: 'button',
+      text: 'Agents',
+      active: 'nested-url',
+    },
+    {
       url: '/guides',
       type: 'button',
       text: 'Guides',
