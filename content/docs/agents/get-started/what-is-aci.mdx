@@ -1,6 +1,118 @@
 ---
 title: "What is ACI?"
-pageTitle: 'What is ACI?'
-description: 'An introduction to Novu Agents and Agent-Customer Interaction (ACI).'
+pageTitle: 'What is Agent Communication Infrastructure (ACI)?'
+description: 'Learn what ACI is, what it solves, and how it helps agents communicate across channels.'
 icon: CircleHelp
 ---
+
+import { BookText, HomeIcon } from 'lucide-react';
+
+Agent Communication Infrastructure (ACI) is a protocol-driven infrastructure layer for enabling structured, stateful communication between autonomous agents and your users across messaging platforms.
+
+ACI sits between messaging platforms and your agent logic. Instead of building separate integrations for each channel, ACI provides a unified interface for webhooks, message delivery, conversation state, and subscriber identity.
+
+The agent itself can be powered by an LLM, custom code, a rules engine, a human-in-the-loop workflow, or a combination of systems. ACI doesn't define the agent’s intelligence. It defines the communication infrastructure around it.
+
+## What does ACI solve?
+
+Software is becoming more conversational. Users no longer only click through interfaces or receive one-way notifications. They ask questions, reply to messages, clarify requests, approve actions, send files, react with emojis, and expect software to continue the conversation in channels where they already are.
+
+At the same time, agents are becoming more capable. And most teams already have agents that answers users questions, analyze information, trigger workflows, escalate issues, and coordinate with other systems.
+
+In most cases, these agents only work inside one platform, getting these agents into a different platform requires rebuilding the communication layer from scratch.
+
+This creates an infrastructure problem where each channel has its own webhook format, identity model, threading behavior, permissions, message formatting, interaction patterns, and delivery constraints. Teams that want to expose an agent across Slack, Microsoft Teams, WhatsApp, email, or other channels often end up rebuilding the same communication plumbing for every channel.
+
+ACI exists to standardize that layer. It separates the communication layer from the agent logic, so teams can connect agents to different messaging platforms without hand-building every channel integration from scratch.
+
+You build your agent once. ACI handles delivery everywhere. The goal isn't only to send messages but to let agents hold useful conversations across channels while preserving context, control, and visibility.
+
+## How ACI works
+
+ACI introduces a three-part architecture that separates platform delivery from agent intelligence.
+
+### Communication channels
+
+Communication channels are the places where users interact with the agent, such as Slack, Microsoft Teams, WhatsApp, Telegram, and more. When a user sends a message on any of these platforms, it enters the ACI layer.
+
+### Bridge
+
+The bridge is the infrastructure layer in the middle. It receives the platform webhook, normalizes the message into a standard format, and resolves the user's identity. 
+
+It creates or loads the conversation with its full history, and forwards everything to your server as a single context object.
+
+When your agent replies, the bridge delivers the response back to the correct platform thread, persists it in the conversation history, and records the activity. Your server never talks to the platform directly.
+
+
+### Agent brain
+
+The agent brain is your code. Your server receives the context object and processes it however you decide. Call an LLM, run business logic, route to a human, or combine all three. 
+
+The brain is entirely yours. The agent can be an AI, a human, a human assisted by AI, or anything else. There's no limitation on what the brain can be.
+
+The channel-agnostic nature of this architecture means that when you connect a new provider, your agent implementation doesn't change. Not a single line of code. The same brain that responds on Slack will respond on Microsoft Teams, WhatsApp, or email without modification.
+
+## What ACI handles vs. what you control
+
+ACI draws a clear boundary between infrastructure and intelligence.
+
+**The infrastructure handles:**
+* Webhook ingestion and message normalization across all connected platforms.
+* Message delivery to the correct platform thread.
+* Conversation persistence and state management.
+* Subscriber identity resolution, matching platform users  to a unified identity.
+* Typing indicators and platform-specific formatting.
+* Conversation context and history, passed to your agent on every message.
+
+**You control:**
+* Your LLM, prompts, and model configuration.
+* Your tools and function calls.
+* Your business logic and decision-making.
+* Your API keys and credentials.
+* Your choice of runtime, which can be managed agents, Vercel AI SDK, LangChain, OpenAI SDK, or any custom code of your choosing.
+
+ACI is opinionated about infrastructure and unopinionated about intelligence. It handles the delivery problem so you can focus on the capability problem.
+
+
+## Common use cases
+
+ACI is built for teams that have an agent or are building one and need to connect it to the messaging platforms where their users already are.
+
+Common use cases include:
+
+* Support agents that answer questions from Slack, Microsoft Teams, WhatsApp, or email.
+* Internal operations agents that triage requests and route work.
+* Conversational agents that collect information from users and continue the conversation across turns.
+* File-processing agents that receive attachments and respond with analysis or follow-up actions.
+* Human-in-the-loop agents that escalate complex conversations to a person.
+* Workflow agents that trigger notifications, approvals, summaries, or follow-ups from within a conversation.
+* Multi-channel agents that need one communication interface across several providers.
+
+## Start building
+
+<Cards>
+  <Card
+    href="#"
+    title="Quickstart"
+    icon={<HomeIcon />}
+  >
+  Create your first agent and connect it to Slack in under 10 minutes.
+  </Card>
+  <Card icon={<HomeIcon />} title="Connect your providers">Learn how to connect any provider of your choice.</Card>
+  <Card icon={<HomeIcon />} href="/" title="Connect your code">
+    Learn how to connect your to the Novu 
+  </Card>
+  <Card icon={<HomeIcon />} href="/" title="Add agent logic">
+    Learn how to connect your agent brain to the agent communication layer 
+  </Card>
+</Cards>
+
+## Learn more
+
+<Cards>
+  <Card icon={<BookText />} href="/" title="Understand concepts">
+    You can include icons too.
+  </Card>
+</Cards>
+
+
