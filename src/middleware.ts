@@ -16,7 +16,14 @@ export const config = {
   ],
 };
 
-const MARKDOWN_SECTIONS = ['/platform', '/framework', '/community', '/api-reference', '/guides'];
+const MARKDOWN_SECTIONS = [
+  '/platform',
+  '/agents',
+  '/framework',
+  '/community',
+  '/api-reference',
+  '/guides',
+];
 
 function isDocPage(pathname: string): boolean {
   return MARKDOWN_SECTIONS.some(
