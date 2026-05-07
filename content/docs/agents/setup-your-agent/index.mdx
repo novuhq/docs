@@ -1,5 +1,39 @@
 ---
-title: "Setup Your Agent"
-pageTitle: 'Novu Agents Setup Your Agent'
-description: 'Set up your Novu Agent: connect providers and wire up your application code.'
+title: "Setup your Agent"
+pageTitle: 'Setup your Agent'
+description: 'Set up your Novu Agent: create an agent and connect providers and wire up your application code.'
 ---
+
+
+
+import { Step, Steps } from 'fumadocs-ui/components/steps';
+
+A conversational agent has following components:
+- Agent Name
+- Agent Identifier
+- Agent Description
+- Agent Status
+- Agent creation timestamp and date
+- Connected Providers (Slack, MS Teams, etc.)
+- Agent Bridge URL
+- Agent Logic (Code)
+
+
+## Create a new agent
+
+- To setup your agent, head over to the [Agents page](https://dashboard.novu.co/agents) on the Novu dashboard and click on the **Add Agent** button on the top right corner.
+
+- Give your agent a human readable name. This name will be used further in the slack and ms teams channels to mention the agent. Name can be changed later.
+
+- Novu will autogenrate the identifier field based on the name you provide. This identifier will be used to identify the agent in the code. `Identifier` becomes `agentId` and can not be changed later.
+
+- Add description for your agent to help others understand the purpose of the agent.
+
+- Click on the **Create** button to create the agent.
+
+- Once agent is created, you will be redirected to the agent details page.
+
+- On agent details page, providers can be connected to the agent. Read more about connecting providers in the [Connect Providers](/agents/setup-your-agent/connect-providers) section.
+
+![Create a new agent example](/images/agents/setup-your-agent/create-a-new-agent.gif)
+
