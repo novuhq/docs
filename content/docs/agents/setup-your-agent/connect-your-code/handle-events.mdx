@@ -3,3 +3,134 @@ title: "Handle Events"
 pageTitle: 'Novu Agents Handle Events'
 description: 'Handle agent events in your webhooks, handlers, and backend services.'
 ---
+
+## Agent conversation flow
+
+Agent conversation starts when a user sends a message in a conversation with your agent. This message is then processed by the agent and the agent replies to the user. This conversation is then stored in the Novu platform and can be accessed later. Below is the flow of how a conversation works with your agent:
+
+![Agent Conversation Flow](/images/agents/setup-your-agent/handle-events/agent-conversation-flow.png)
+
+
+## Agent events
+
+A conversational agent responds to four types of events:
+
+| Event | When it fires | Common use case |
+| --- | --- | --- |
+| `onMessage` | User sends a text message in the thread | Process the message with your LLM and reply |
+| `onAction` | User clicks a button or selects a value in an interactive card | Handle form submissions, button clicks, dropdown selections |
+| `onReaction` | User adds or removes an emoji reaction on a message | Capture feedback (thumbs up/down), trigger follow-ups |
+| `onResolve` | The conversation is marked as resolved | Clean up, log analytics, send a summary email |
+
+
+
+### onMessage
+
+`onMessage` event is primary handler event for the agent. It is fired every time a user sends a message in a conversation with your agent. This message 
+
+```typescript
+import { agent } from '@novu/agent';
+
+export const myAgent = agent("my-agent", {
+  onMessage: async (ctx) => {
+    const userMessage = ctx.message?.text ?? '';
+    const conversationHistory = ctx.history;
+    const subscriber = ctx.subscriber;
+
+    const response = await yourLLM.chat(userMessage, conversationHistory);
+
+    ctx.metadata.set('lastIntent', response.intent);
+    await ctx.reply(response.text);
+  },
+});
+```
+
+#### Handling attachments
+
+Inbound messages to the agent can include file attachments (images, documents, audio, video) when the platform supports them. Novu normalizes provider files into ctx.message.attachments with downloadable signed URLs:
+
+```typescript
+import { agent } from '@novu/agent';
+
+export const myAgent = agent("my-agent", {
+  onMessage: async (ctx) => {
+    const attachments = ctx.message?.attachments ?? [];
+
+    for (const file of attachments) {
+      // file.type — 'image', 'document', 'audio', 'video'
+      // file.url  — short-lived download URL
+      // file.name — original filename
+      // file.mimeType — e.g. 'image/jpeg'
+      // file.size — size in bytes
+    }
+  }
+});
+```
+
+<Callout type="info">
+  Download attachment URLs promptly inside your handler. These signed links are valid for 15 minutes, if a link expires before your agent reads it, re-request the file through a subsequent event or conversation history where available. Inbound attachments are limited to 25 MB per file.
+</Callout>
+
+
+### onAction
+
+`onAction` event is fired when a user clicks a button or selects a value in an interactive card. Read more about Interactive cards in the [Interactive cards](/agents/setup-your-agent/connect-your-code/reply-types#interactive-cards) section. This event is used to handle form submissions, button clicks, dropdown selections, etc.
+
+```typescript
+import { agent } from '@novu/agent';
+
+export const myAgent = agent("my-agent", {
+  onAction: async (ctx) => {
+    const { actionId, value } = ctx.action!;
+
+    // Handle the action based on the actionId
+    if (actionId === 'approve' && value === 'true') {
+      // Reply to the user
+      await ctx.reply('Request approved!');
+
+      // Trigger the approval workflow
+      ctx.trigger('approval-workflow', {
+        to: ctx.subscriber?.subscriberId,
+        payload: { approved: true },
+      });
+    }
+  }
+});
+```
+
+### onReaction
+
+`onReaction` event is fired when a user adds or removes an emoji reaction on a message. This event is used to capture feedback (thumbs up/down), trigger follow-ups, etc.
+
+```typescript
+import { agent } from '@novu/agent';
+
+export const myAgent = agent("my-agent", {
+  onReaction: async (ctx) => {
+    const { emoji, added, message } = ctx.reaction!;
+
+    if (emoji.name === 'thumbs_up' && added) {
+      ctx.metadata.set('userSatisfied', true);
+    } else if (emoji.name === 'thumbs_down' && added) {
+      ctx.metadata.set('userUnsatisfied', true);
+    }
+    await ctx.reply('Thank you for your feedback!');
+  },
+});
+```
+
+### onResolve
+
+`onResolve` event is fired when the conversation is marked as resolved via `ctx.resolve()` or the resolve signal is triggered. This event is used to clean up, log analytics, send a summary email, etc.
+
+```typescript
+import { agent } from '@novu/agent';
+
+export const myAgent = agent("my-agent", {
+  onResolve: async (ctx) => {
+    // Clean up the conversation
+    ctx.metadata.set('resolvedAt', new Date().toISOString());
+    await ctx.reply('Conversation resolved!');
+  },
+}); 
+```

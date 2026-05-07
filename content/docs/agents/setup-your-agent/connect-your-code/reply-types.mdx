@@ -3,3 +3,148 @@ title: "Reply Types"
 pageTitle: 'Novu Agents Reply Types'
 description: 'Choose and send the right reply types from your agent handlers.'
 ---
+
+
+The public reply API is `ctx.reply(content, options?)`. The content argument must be either a plain text string, markdown value or a `ChatElement` card. File attachments are passed in the optional second argument.
+
+## Plain text
+
+The most basic reply is a plain text string.
+
+```typescript
+await ctx.reply('Hello! How can I help?');
+```
+
+## Markdown
+
+Markdown is supported for rich text replies. Use markdown to format your replies with headings, lists, links, and other rich text elements.
+
+```typescript
+await ctx.reply('**Report generated.** See the attached PDF.');
+```
+
+## Sending attachments
+
+You can include files in your markdown or plain text replies. The files will be displayed as inline attachments in the reply.
+
+<Callout type="info">
+  Attachment files are limited to 25 MB per file. Files are only supported with string/markdown replies, not card replies. Provide each file with exactly one of url or data properties.
+</Callout>
+
+
+File reference type:
+
+```tsx 
+type FileRef = {
+  filename: string;
+  mimeType?: string;
+  data?: string | Uint8Array | ArrayBuffer | Blob;
+  url?: string;
+};
+```
+
+Use `url` for files larger than a few megabytes. Novu fetches public HTTP(S) URLs server-side, and uploads the resulting file to the provider. Use `data` for small generated files that your agent already has in memory.
+
+
+```tsx
+// Public URL: recommended for larger files
+await ctx.reply('Here is your report.', {
+  files: [{ filename: 'report.pdf', mimeType: 'application/pdf', url: reportUrl }],
+});
+
+// Inline binary data: useful for generated files
+const csv = new TextEncoder().encode('name,total\nNovu,42');
+await ctx.reply('CSV generated.', {
+  files: [{ filename: 'report.csv', mimeType: 'text/csv', data: csv }],
+});
+
+// Node Buffer also works because Buffer extends Uint8Array
+const screenshot = await page.screenshot();
+await ctx.reply('Screenshot attached.', {
+  files: [{ filename: 'screenshot.png', mimeType: 'image/png', data: screenshot }],
+});
+```
+
+Inline `data` can also be a base64 string, but passing binary values such as `Uint8Array`, `ArrayBuffer`, `Blob`, or a Node `Buffer` is usually easier when working with AI SDKs, PDF generators, screenshots, audio, or other generated files.
+
+
+## Interactive cards
+
+Cards are rich, structured messages with buttons, dropdowns, links, and more. They can be built using **function calls** or **JSX**.
+
+**Function call API:**
+
+```tsx
+import {
+  Card, Button, CardText, Actions,
+  Select, SelectOption, Divider, CardLink,
+} from '@novu/framework';
+
+await ctx.reply(Card({ title: 'Order #1234', children: [
+  CardText('Your order is ready for pickup.'),
+  Divider(),
+  Actions([
+    Button({ id: 'ack', label: 'Acknowledge' }),
+    Button({ id: 'escalate', label: 'Escalate', style: 'danger' }),
+  ]),
+  CardLink({ url: 'https://example.com/order/1234', children: 'View details' }),
+] }));
+```
+
+**JSX API** (configure `tsconfig.json` with `"jsxImportSource": "@novu/framework"`):
+
+```tsx
+import {
+  Card, Button, CardText, Actions,
+  Select, SelectOption, Divider, CardLink,
+} from '@novu/framework';
+
+await ctx.reply(
+  <Card title="Order #1234">
+    <CardText>Your order is ready for pickup.</CardText>
+    <Divider />
+    <Actions>
+      <Button id="ack" label="Acknowledge" />
+      <Button id="escalate" label="Escalate" style="danger" />
+    </Actions>
+    <CardLink url="https://example.com/order/1234">View details</CardLink>
+  </Card>
+);
+```
+
+When a user clicks a button or selects a dropdown value, your `onAction` handler fires with the `actionId` and `value`.
+
+
+### Available card components
+
+| Component | Description |
+| --- | --- |
+| `Card` | Container with an optional `title` |
+| `CardText` | Text block inside a card |
+| `Button` | Interactive button - `id` maps to `ctx.action.actionId` |
+| `Actions` | Required wrapper around `Button` elements |
+| `Select` / `SelectOption` | Dropdown - triggers `onAction` with selected value |
+| `Divider` | Visual separator |
+| `CardLink` | Clickable link |
+| `TextInput` | Text input field |
+
+
+## Editing sent messages
+
+`ctx.reply()` returns a `ReplyHandle` that lets you edit the message in place:
+
+```tsx
+const sentMessage = await ctx.reply('Processing...');
+// ... do some work ...
+await sentMessage.edit('Done! Here are your results.');
+```
+
+You can also attach files when editing plain text or markdown content:
+
+```tsx
+await sentMessage.edit('Updated report attached.', {
+  files: [{ filename: 'report.pdf', url: 'https://example.com/report.pdf' }],
+});
+```
+
+Edits update the existing platform message rather than posting a new one.
