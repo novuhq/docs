@@ -19,7 +19,7 @@
     "validate-links": "tsx scripts/validate-mdx-links.ts"
   },
   "dependencies": {
-    "@clerk/nextjs": "^6.12.4",
+    "@clerk/nextjs": "^6.39.3",
     "@inkeep/cxkit-react": "^0.5.82",
     "@next/third-parties": "^15.2.1",
     "@novu/api": "3.14.4",
@@ -89,7 +89,7 @@
     "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-prettier": "^5.2.3",
     "file-loader": "^6.2.0",
-    "glob": "^11.0.1",
+    "glob": "^11.1.0",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "remark-lint-no-dead-urls": "^2.0.1",
@@ -108,7 +108,9 @@
   },
   "pnpm": {
     "overrides": {
-      "form-data@>=4.0.0 <4.0.4": "^4.0.4"
+      "form-data@>=4.0.0 <4.0.4": "^4.0.4",
+      "fast-xml-parser@<4.5.5": "^4.5.5",
+      "glob@>=10.2.0 <10.5.0": "^10.5.0"
     }
   }
 }
