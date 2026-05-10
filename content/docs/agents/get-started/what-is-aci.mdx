@@ -43,6 +43,7 @@ It creates or loads the conversation with its full history, and forwards everyth
 
 When your agent replies, the bridge delivers the response back to the correct platform thread, persists it in the conversation history, and records the activity. Your server never talks to the platform directly.
 
+
 ### Agent brain
 
 The agent brain is your code. Your server receives the context object and processes it however you decide. Call an LLM, run business logic, route to a human, or combine all three. 
@@ -55,7 +56,8 @@ The channel-agnostic nature of this architecture means that when you connect a n
 
 ACI draws a clear boundary between infrastructure and intelligence.
 
-**The infrastructure handles:**
+### The infrastructure handles
+
 * Webhook ingestion and message normalization across all connected platforms.
 * Message delivery to the correct platform thread.
 * Conversation persistence and state management.
@@ -63,7 +65,8 @@ ACI draws a clear boundary between infrastructure and intelligence.
 * Typing indicators and platform-specific formatting.
 * Conversation context and history, passed to your agent on every message.
 
-**You control:**
+### You control
+
 * Your LLM, prompts, and model configuration.
 * Your tools and function calls.
 * Your business logic and decision-making.
