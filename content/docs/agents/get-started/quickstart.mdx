@@ -1,6 +1,173 @@
 ---
 title: "Quickstart"
 pageTitle: 'Novu Agents Quickstart'
-description: 'Get started with Novu Agents'
+description: 'Create your first agent and connect it to Slack in under 10 minutes.'
 icon: Zap
 ---
+
+import { MousePointerClick, LayoutGrid, Signal, Brain, Plus } from 'lucide-react';
+
+This guide walks you through agent creation, connecting it to Slack, sending your first message to the agent and connecting the agent to your code.
+
+By the end, you'll have a working agent that receives messages from Slack and replies based on its configuration in your code.
+
+## Prerequisites:
+
+To get the most out of this guide, you’ll need to:
+
+* A [Novu account](https://dashboard.novu.co).
+* A Slack workspace where you have permission to install apps.
+* Node.js installed on your machine.
+
+<Steps>
+
+<Step>
+
+## Create your agent
+
+1. Go to the Novu dashboard.
+2. In the sidebar, click **Agents**.
+3. Click **Create agent**.
+4. Fill in the required fields:
+   * **Agent name**: The display name for your agent.
+   * **Identifier**: A unique slug used in code. You cannot change it after creation. 
+   * **Description**: Optional.
+5. Click **Setup agent**.
+
+  ![Add agent](/images/agents/quickstart/add-agent.png)
+
+After you create the agent, Novu opens the guided setup page.
+
+</Step>
+
+<Step>
+
+## Select a provider
+
+1. In the setup page, open the **Select provider** dropdown.
+2. Select **Slack**.
+
+  ![Select provider](/images/agents/quickstart/select-provider.png)
+
+The dashboard detects the selected provider and unlocks the Slack setup steps.
+
+</Step>
+
+<Step>
+
+## Create a Slack app
+
+Novu can create the Slack app for you automatically using a Slack App Configuration Token. You'll generate the token once, paste it into Novu, and Novu handles the rest.
+
+1. In the setup step, click **Slack App Configuration Token**. This will open the [Slack API apps](https://api.slack.com/apps) page.
+2. Under **Your App Configuration Tokens**, click **Generate Token**.
+  ![Select provider](/images/agents/quickstart/generate-slack-token.png)
+3. Select the Slack workspace where you want the agent to live.
+4. Click **Generate**.
+5. Copy the generated token.
+6. Back in the Novu dashboard, paste the token into the input field and click **Create app**. Novu uses the token to create the Slack app in your workspace.
+
+<Callout type="info">
+  The configuration token is used once to create your Slack app and is then discarded. Novu doesn't store it.
+</Callout>
+
+</Step>
+
+<Step>
+
+## Install the app in your workspace
+
+After Novu creates the Slack app, install it to your workspace. This is the same flow your end users will follow when they install the agent.
+
+1. Click **Install agent**.
+   If the button uses the agent name, it may appear as **Install [agent name]**.
+2. Slack opens a permissions review page.
+3. Review the requested permissions.
+4. Click **Allow**.
+
+  ![Select provider](/images/agents/quickstart/install-app.png)
+
+Once installed, you'll receive a welcome message from the agent. The provider connection is now complete.
+
+</Step>
+
+<Step>
+
+## Scaffold your agent project
+
+With the provider connected, the dashboard shows the next phase: connecting your code. Novu provides a pre-filled CLI command that creates a starter project with your agent identifier and secret key already configured.
+
+1. Copy the scaffold command from the dashboard.
+2. Open your terminal.
+3. Go to the directory where you want to create the project and paste the command.
+4. Run the copied command.
+
+The CLI creates a new project with the bridge endpoint preconfigured.
+
+</Step>
+
+<Step>
+
+## Start your agent locally
+
+Run the dev command below in your project directory. This starts your app, opens a dev tunnel, and registers the bridge URL with Novu so messages can reach your local handler.
+
+```bash
+npm run dev:novu
+```
+
+The dashboard polls for the bridge connection. Once it confirms the connection, you'll see another message in Slack from your agent
+
+</Step>
+
+</Steps>
+
+## Send a message
+
+Open the Slack channel where your app is installed and send a message to your bot. Your `onMessage` handler fires, and the reply appears in the thread.
+
+  ![Slack message](/images/agents/quickstart/slack-message.png)
+
+Edit the files in `app/novu/agents/` to customize how your agent responds. See [Handle Events](/agents/setup-your-agent/connect-your-code/handle-events) for the full list of events your agent can respond to.
+
+## Next steps
+
+You have a working agent connected to Slack. Here's where to go from here:
+
+<Cards>
+  <Card
+    icon={<MousePointerClick />}
+    href="/agents/agent-bridge/event-handlers"
+    title="Event handlers"
+  >
+    Respond to actions, reactions, and resolution events beyond messages.
+  </Card>
+  <Card
+    icon={<LayoutGrid />}
+    href="/agents/agent-bridge/reply-types-and-cards"
+    title="Reply types & cards"
+  >
+    Send markdown, file attachments, and interactive cards with buttons and dropdowns.
+  </Card>
+  <Card
+    icon={<Signal />}
+    href="/agents/agent-bridge/signals"
+    title="Signals"
+  >
+    Store metadata, trigger Novu workflows, and resolve conversations.
+  </Card>
+  <Card
+    icon={<Brain />}
+    href="/agents/agent-logic/overview"
+    title="Agent logic"
+  >
+    Connect Vercel AI SDK, LangChain, or OpenAI SDK as your agent's brain.
+  </Card>
+  <Card
+    icon={<Plus />}
+    href="/agents/providers"
+    title="Add another provider"
+  >
+    Connect Microsoft Teams, WhatsApp, or Telegram, your agent code stays the same.
+  </Card>
+</Cards>
