@@ -1,5 +1,102 @@
 ---
-title: "Deploy Your Agent"
-pageTitle: 'Novu Agents Deployment'
-description: 'Deploy your Novu Agent to production environments.'
+title: "Agent Deployment"
+pageTitle: 'Agent Deployment'
+description: 'Learn how to run a conversational agent on your local machine, test it in a development environment, and deploy it to production.'
 ---
+
+Agents built with Novu can run on your local machine and be deployed to development and production environments.
+
+## Agent on your local machine
+
+By default, the agent is configured to run on your local machine. To run the agent locally, make sure:
+
+- You have scaffolded your agent using the `npx novu init -t agent` command.
+- You have added `NOVU_SECRET_KEY` and `NOVU_API_URL` environment variables with valid values in your `.env` file.
+- You are running the scaffolded project on your local machine.
+- Bridge option is set to `Local` in the agent overview section.
+
+If the above conditions are met, you can run the agent using the Novu CLI command below.
+
+```bash
+npx novu@latest dev --port <bridge_application_port> --no-studio
+```
+
+- **bridge_application_port** - This is the port number where your scaffolded project is running. Defaults to 4000.
+- **no-studio** - This flag is used to disable the studio.
+
+After running the command, a tunnel starts on your machine and forwards requests to your scaffolded project on `bridge_application_port`. The bridge URL is set automatically to `tunnel-url/api/novu`. The agent listens for new messages and responds while running locally.
+
+
+## Agent in development
+
+Once you have tested the agent locally, you can deploy it to a development environment. A scaffolded project from `npx novu init -t agent` is a Next.js application with a `/api/novu` endpoint used to communicate with Novu. Deploy it to your preferred hosting provider and copy the deployed URL.
+
+- Make sure you have added `NOVU_SECRET_KEY` and `NOVU_API_URL` environment variables with valid values in the environment variables section of your hosting provider.
+- Toggle the bridge option to `Development` in the agent overview section.
+- If your deployed URL is `https://dev.my-agent-app.com`, then your bridge URL is `https://dev.my-agent-app.com/api/novu`. Set that value as the bridge URL in the agent overview section.
+
+
+## Agent in production
+
+Before using an agent in production, publish the agent from the development environment to the production environment using the *Publish changes* option on the dashboard.
+
+After publishing the agent:
+
+- The agent is published to the production environment with the same name, identifier, and description.
+- The agent is inactive until you activate it from the agent overview section.
+- All providers must be configured and connected again in the production environment.
+- Deploy the agent bridge application to the production environment.
+- Add `NOVU_SECRET_KEY` and `NOVU_API_URL` environment variables with valid values in the environment variables section of your hosting provider.
+
+### Deploying to production
+
+Once you have published the agent and completed the above steps, you can deploy the agent bridge application to production environment.
+
+
+#### Using Novu CLI
+```bash
+npx novu@latest sync --bridge-url <bridge_url> --secret-key <NOVU_SECRET_KEY> --api-url <NOVU_API_URL>
+```
+
+If your deployed bridge application URL is `https://prod.my-agent-app.com`, then your bridge URL is `https://prod.my-agent-app.com/api/novu`. In the command above, `<bridge_url>` is the URL of your deployed agent bridge application, `<NOVU_SECRET_KEY>` is the secret key for your Novu account, and `<NOVU_API_URL>` is the API URL for your Novu account.
+
+After running the command, the bridge URL in the agent overview section is updated with production values.
+
+#### Using GitHub Actions
+
+You can use our built-in GitHub Action to deploy your agent to the production environment.
+
+```yaml
+name: Deploy agent to Novu Cloud
+ 
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # https://github.com/novuhq/actions-novu-sync
+      - name: Deploy agent to Novu Cloud
+        uses: novuhq/actions-novu-sync@v2
+        with:
+          # The secret key used to authenticate with Novu Cloud
+          # To get the secret key, go to https://web.novu.co/api-keys.
+          # Required.
+          secret-key: ${{ secrets.NOVU_SECRET_KEY }}
+ 
+          # The publicly available endpoint hosting the bridge application
+          # where notification entities (eg. workflows, topics) are defined.
+          # Required.
+          bridge-url: ${{ secrets.NOVU_BRIDGE_URL }}
+ 
+          # The Novu Cloud API URL to sync with.
+          # Optional.
+          # Defaults to https://api.novu.co
+          api-url: https://api.novu.co
+```
+
+<Callout type="warn">Local tunnel bridge URLs cannot be activated on production environments (returns 403 Forbidden) to prevent accidental routing of production traffic to a local machine.</Callout>
