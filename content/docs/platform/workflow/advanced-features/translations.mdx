@@ -164,6 +164,103 @@ Translations feature in layouts works the same as in email steps. You can use `{
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
   allowFullScreen></iframe>
 
+## Manage translations via CLI
+
+The [Novu CLI](https://github.com/novuhq/novu/tree/next/packages/novu/src/commands/translations) can download translation files from Novu Cloud to your machine, or upload local JSON files back to your workspace. This is useful for version control, bulk edits, and CI workflows.
+
+Use `npx novu` (or a globally installed `novu` binary) with your Novu secret key. For the full command reference and latest options, see the [Translations CLI README](https://github.com/novuhq/novu/blob/next/packages/novu/src/commands/translations/README.md) in the Novu repository.
+
+### Pull translations
+
+`novu translations pull` downloads all translation files from Novu Cloud into a local directory (default: `./translations`).
+
+```bash
+# Pull to the default directory (./translations)
+npx novu translations pull -s YOUR_SECRET_KEY
+
+# Pull to a custom directory
+npx novu translations pull -s YOUR_SECRET_KEY -d ./my-translations
+
+# Use the EU API endpoint
+npx novu translations pull -s YOUR_SECRET_KEY -a https://eu.api.novu.co
+```
+
+| Option | Description |
+| --- | --- |
+| `-s, --secret-key <key>` | Your Novu secret key (required unless set via env) |
+| `-a, --api-url <url>` | Novu API base URL (default: `https://api.novu.co`) |
+| `-d, --directory <path>` | Output directory (default: `./translations`) |
+
+### Push translations
+
+`novu translations push` uploads translation JSON files from a local directory to Novu Cloud (default directory: `./translations`).
+
+```bash
+# Push from the default directory (./translations)
+npx novu translations push -s YOUR_SECRET_KEY
+
+# Push from a custom directory
+npx novu translations push -s YOUR_SECRET_KEY -d ./my-translations
+
+# Use the EU API endpoint
+npx novu translations push -s YOUR_SECRET_KEY -a https://eu.api.novu.co
+```
+
+| Option | Description |
+| --- | --- |
+| `-s, --secret-key <key>` | Your Novu secret key (required unless set via env) |
+| `-a, --api-url <url>` | Novu API base URL (default: `https://api.novu.co`) |
+| `-d, --directory <path>` | Directory containing locale JSON files (default: `./translations`) |
+
+### File layout and format
+
+Files should use locale codes in the `language_REGION` form and contain valid JSON, for example:
+
+```
+translations/
+├── en_US.json
+├── fr_FR.json
+├── es_ES.json
+└── de_DE.json
+```
+
+Example content:
+
+```json
+{
+  "workflows": {
+    "welcome": {
+      "subject": "Welcome to our platform!",
+      "body": "Thank you for joining us."
+    }
+  }
+}
+```
+
+This matches the same `language_REGION.json` naming rules used when importing via the dashboard.
+
+### Environment variables
+
+You can avoid repeating flags by setting:
+
+```bash
+export NOVU_SECRET_KEY="your_secret_key_here"
+export NOVU_API_URL="https://api.novu.co"   # or https://eu.api.novu.co for EU
+
+npx novu translations pull
+npx novu translations push
+```
+
+### Tips
+
+- Back up or commit existing translations before running **push**, so you can recover from mistakes.
+- Validate JSON locally (for example with your editor or `jq`) before pushing.
+- Run **pull** once to confirm the on-disk layout matches what Novu expects before automating in CI.
+
+<Callout type="warn">
+  Never commit Novu secret keys. Use environment variables or your CI provider’s secrets store for `NOVU_SECRET_KEY`.
+</Callout>
+
 ## Best practices
 
 - Always finalize your default content before exporting.
