@@ -12,7 +12,7 @@ Once you've scaffolded an agent, the next question is usually: *what do I actual
 
 This page builds one agent from scratch, a small support bot for a fictional log monitoring product called Pipelinr. You'll add one piece at a time, and by the end you'll have a single file that greets users, routes them by topic, replies to follow-ups, and resolves the thread when they're done.
 
-If you want the API reference for any of the pieces below, see [Handle Events](/agents/setup-your-agent/connect-your-code/handle-events), [Reply Types](/agents/setup-your-agent/connect-your-code/reply-types), and [Signals](/agents/setup-your-agent/connect-your-code/use-signals).
+If you want the API reference for any of the pieces below, see [Handle Events](/agents/setup-your-agent/handle-events), [Reply Types](/agents/setup-your-agent/reply-types), and [Signals](/agents/setup-your-agent/use-signals).
 
 ## What we're building
 
@@ -115,7 +115,7 @@ A few things worth pointing out:
 - Returning the JSX is the shortcut for `await ctx.reply(...)`. Either one works, the return form just reads cleaner inside a handler.
 - Each `Button` carries an `id` and a `value`. We'll use both in the next step.
 
-For the full menu of card components, see [Reply Types](/agents/setup-your-agent/connect-your-code/reply-types#interactive-cards).
+For the full menu of card components, see [Reply Types](/agents/setup-your-agent/reply-types#interactive-cards).
 
 </Step>
 
@@ -141,7 +141,7 @@ export const supportAgent = agent('support-agent', {
 
 Now the conversation has a `topic` saved on it. On the next message you can read it back with `ctx.metadata.get('topic')` and tailor the response, route to a different prompt, or pull the right docs.
 
-If you wanted to also ping your on-call channel for technical issues, this is where you'd use `ctx.trigger` to fire a Novu workflow. See [Signals](/agents/setup-your-agent/connect-your-code/use-signals#trigger-a-workflow).
+If you wanted to also ping your on-call channel for technical issues, this is where you'd use `ctx.trigger` to fire a Novu workflow. See [Signals](/agents/setup-your-agent/use-signals#trigger-a-workflow).
 
 </Step>
 
@@ -191,7 +191,7 @@ A few practical notes:
 - `gpt-4o-mini` is cheap and fast enough for most support replies. Bump to `gpt-4o` for trickier questions.
 - Switching to Anthropic is one line: `npm install @ai-sdk/anthropic`, then `model: anthropic('claude-3-5-sonnet-latest')`.
 - For a typing-effect reply, swap `generateText` for `streamText` and pipe the stream to `ctx.reply`. See the [Vercel AI SDK docs](https://sdk.vercel.ai/) for streaming patterns.
-- If the answer should include a file (a CSV export, a screenshot, a PDF), call `ctx.reply` directly with the `files` option instead of returning a string. See [attachments](/agents/setup-your-agent/connect-your-code/reply-types#sending-attachments).
+- If the answer should include a file (a CSV export, a screenshot, a PDF), call `ctx.reply` directly with the `files` option instead of returning a string. See [attachments](/agents/setup-your-agent/reply-types#sending-attachments).
 
 </Step>
 
