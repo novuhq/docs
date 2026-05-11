@@ -1,8 +1,12 @@
 ---
-title: "Setup your Agent"
-pageTitle: 'Setup your Agent'
+title: "Overview"
+pageTitle: 'Novu agents setup overview'
 description: 'Set up your Novu Agent: create an agent and connect providers and wire up your application code.'
 ---
+
+
+import { MousePointerClick, Cloud, Brain } from 'lucide-react';
+
 
 A conversational agent has the following components:
 
@@ -23,7 +27,39 @@ A conversational agent has the following components:
 4. Add a description for your agent to help others understand its purpose.
 5. Click **Create** to create the agent.
 6. After the agent is created, you are redirected to the agent details page.
-7. For connecting providers to the agent, refer to [Connect Providers](/agents/setup-your-agent/connect-providers).
+7. Connect slack provider to the agent in the setup agent section by clicking on the **Select provider** dropdown and selecting **Slack**. This will open the slack setup section with steps.
 
 ![Create a new agent example](/images/agents/setup-your-agent/create-a-new-agent.gif)
 
+## Scaffold your agent
+
+To scaffold your agent, open the terminal, go to the directory where you want to create the project and run the following command in the terminal:
+
+```bash
+npx novu@rc init -t agent \
+  --agent-identifier <AGENT_IDENTIFIER> \
+  -s <NOVU_SECRET_KEY> \
+  -a <NOVU_API_URL>
+```
+
+This scaffold command will ask the project name and will create a new agent project in the directory you provided. After the project is created, you can start building your agent logic.
+
+## Next steps
+
+Checkout the next steps to build your agent logic.
+
+<Cards>
+  <Card
+    icon={<Brain />}
+    href="/agents/setup-your-agent/agent-logic"
+    title="Agent logic"
+  >
+    Build your agent logic.
+  </Card>
+  <Card icon={<MousePointerClick />} href="/agents/manage-agents/manage-conversations" title="Manage conversations">
+    View and manage your agent conversations.
+  </Card>
+  <Card icon={<Cloud />} href="/agents/manage-agents/deploy-your-agent" title="Deploy your agent">
+    Deploy your agent to production.
+  </Card>
+</Cards>
