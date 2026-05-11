@@ -19,11 +19,15 @@ To get the most out of this guide, you’ll need to:
 * A Slack workspace where you have permission to install apps.
 * Node.js installed on your machine.
 
+
+## Steps to create your first agent
+THese steps will guide you through the process of creating your first agent and connecting it to Slack.
+
 <Steps>
 
 <Step>
 
-## Create your agent
+### Create your agent
 
 1. Go to the Novu dashboard.
 2. In the sidebar, click **Agents**.
@@ -42,7 +46,7 @@ After you create the agent, Novu opens the guided setup page.
 
 <Step>
 
-## Select a provider
+### Select a provider
 
 1. In the setup page, open the **Select provider** dropdown.
 2. Select **Slack**.
@@ -55,7 +59,7 @@ The dashboard detects the selected provider and unlocks the Slack setup steps.
 
 <Step>
 
-## Create a Slack app
+### Create a Slack app
 
 Novu can create the Slack app for you automatically using a Slack App Configuration Token. You'll generate the token once, paste it into Novu, and Novu handles the rest.
 
@@ -75,7 +79,7 @@ Novu can create the Slack app for you automatically using a Slack App Configurat
 
 <Step>
 
-## Install the app in your workspace
+### Install the app in your workspace
 
 After Novu creates the Slack app, install it to your workspace. This is the same flow your end users will follow when they install the agent.
 
@@ -93,11 +97,17 @@ Once installed, you'll receive a welcome message from the agent. The provider co
 
 <Step>
 
-## Scaffold your agent project
+### Scaffold your agent project
 
 With the provider connected, the dashboard shows the next phase: connecting your code. Novu provides a pre-filled CLI command that creates a starter project with your agent identifier and secret key already configured.
 
 1. Copy the scaffold command from the dashboard.
+
+```bash
+npx novu@latest init -t agent \
+  --secret-key=<NOVU_SECRET_KEY> \
+  --api-url=<NOVU_API_URL>
+```
 2. Open your terminal.
 3. Go to the directory where you want to create the project and paste the command.
 4. Run the copied command.
@@ -108,7 +118,7 @@ The CLI creates a new project with the bridge endpoint preconfigured.
 
 <Step>
 
-## Start your agent locally
+### Start your agent locally
 
 Run the dev command below in your project directory. This starts your app, opens a dev tunnel, and registers the bridge URL with Novu so messages can reach your local handler.
 
@@ -120,16 +130,16 @@ The dashboard polls for the bridge connection. Once it confirms the connection, 
 
 </Step>
 
-</Steps>
-
-## Send a message
+<Step>
+### Send a message
 
 Open the Slack channel where your app is installed and send a message to your bot. Your `onMessage` handler fires, and the reply appears in the thread.
 
   ![Slack message](/images/agents/quickstart/slack-message.png)
 
 Edit the files in `app/novu/agents/` to customize how your agent responds. See [Handle Events](/agents/setup-your-agent/connect-your-code/handle-events) for the full list of events your agent can respond to.
-
+</Step>
+</Steps>
 ## Next steps
 
 You have a working agent connected to Slack. Here's where to go from here:
