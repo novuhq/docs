@@ -8,6 +8,7 @@ import type {
   UseNotificationsProps,
   UseNotificationsResult,
   Notification as NotificationType,
+  SlackConnectButtonProps,
 } from '@novu/react';
 
 import type { AllAppearance, AllElements, Variables } from '@novu/js/ui';
@@ -24,3 +25,5 @@ export type { SubscriptionProps, SubscriptionAppearance };
 
 export type { UseNotificationsProps, UseNotificationsResult };
 export type { NotificationType };
+
+export type { SlackConnectButtonProps };
