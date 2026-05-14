@@ -4,6 +4,25 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@babel/plugin-transform-modules-systemjs@>=7.12.0 <=7.29.3': ^7.29.4
+  defu@<=6.1.4: ^6.1.5
+  estree-util-value-to-estree@<3.3.3: ^3.3.3
+  fast-uri@<=3.1.1: ^3.1.2
+  flatted@<3.4.2: ^3.4.2
+  form-data@>=4.0.0 <4.0.4: ^4.0.4
+  fast-xml-parser@<4.5.5: ^4.5.5
+  glob@>=10.2.0 <10.5.0: ^10.5.0
+  liquidjs@<10.25.7: ^10.25.7
+  minimatch@<3.1.4: ^3.1.4
+  minimatch@>=9.0.0 <9.0.7: ^9.0.7
+  picomatch@<2.3.2: ^2.3.2
+  serialize-javascript@<7.0.5: ^7.0.5
+  seroval@<1.4.1: ^1.4.1
+  socket.io-parser@>=4.0.0 <4.2.6: ^4.2.6
+  svgo@>=3.0.0 <3.3.3: ^3.3.3
+  undici@<6.24.0: ^6.24.0
+
 importers:
 
   .:
@@ -4224,9 +4243,6 @@ packages:
   estree-util-to-js@2.0.0:
     resolution: {integrity: sha512-WDF+xj5rRWmD5tj6bIqRi6CkLIXbbNQUcxQHzGysQzvHmdYG2G7p/Tf0J0gpxGgkeMZNTIjT/AoSvC9Xehcgdg==}
 
-  estree-util-value-to-estree@3.3.2:
-    resolution: {integrity: sha512-hYH1aSvQI63Cvq3T3loaem6LW4u72F187zW4FHpTrReJSm6W66vYTFNO1vH/chmcOulp1HlAj1pxn8Ag0oXI5Q==}
-
   estree-util-value-to-estree@3.4.0:
     resolution: {integrity: sha512-Zlp+gxis+gCfK12d3Srl2PdX2ybsEA8ZYy6vQGVQTNNYLEGRQQ56XB64bjemN8kxIKXP1nC9ip4Z+ILy9LGzvQ==}
 
@@ -5170,8 +5186,8 @@ packages:
     resolution: {integrity: sha512-wM1+Z03eypVAVUCE7QdSqpVIvelbOakn1M0bPDoA4SGWPx3sNDVUiMo3L6To6WWGClB7VyXnhQ4Sn7gxiJbE6A==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  liquidjs@10.25.4:
-    resolution: {integrity: sha512-AxeLD0iCF4MYKiCCcvoR6krWvbIgpfb1FAKIu/rOiDpwSiMUECh6NdtO2OCl1i04SyL3gXqpCP0A2bM0UvXzlQ==}
+  liquidjs@10.25.7:
+    resolution: {integrity: sha512-rPCjJLiD4eDhQjvv964AeXFC+HbeYBbZrd7Z82Q6hqv1lX7G+5w4SJcKLn9CAAAwHI4aS3dTdo083UB79K3pDA==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -5818,8 +5834,8 @@ packages:
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
 
-  picomatch@2.3.1:
-    resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
+  picomatch@2.3.2:
+    resolution: {integrity: sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==}
     engines: {node: '>=8.6'}
 
   pluralize@8.0.0:
@@ -5922,9 +5938,6 @@ packages:
     resolution: {integrity: sha512-wk0G69vRDU5TDmhYHZv5Y4j905CLfnvcsFB+CXAbXRuQIl5fUCmOWSOukKhj0MT9YRsW5ujZUjtDF0Ou/hg+8Q==}
     peerDependencies:
       vue: '>= 3.2.0'
-
-  randombytes@2.1.0:
-    resolution: {integrity: sha512-vYl3iOX+4CKUWuxGi9Ukhie6fsqXqS9FE2Zaic4tNFD2N2QQaXOMFbuKK4QmDHC0JO6B1Zp41J0LpT0oR68amQ==}
 
   react-dom@19.0.0:
     resolution: {integrity: sha512-4GV5sHFG0e/0AD4X+ySy6UJd3jVl1iNsNHdpad0qhABJ11twS3TTBnseqsKurKcsNqCEFeGL3uLpVChpIO3QfQ==}
@@ -6245,14 +6258,15 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  serialize-javascript@6.0.2:
-    resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
+  serialize-javascript@7.0.5:
+    resolution: {integrity: sha512-F4LcB0UqUl1zErq+1nYEEzSHJnIwb3AF2XWB94b+afhrekOUijwooAYqFyRbjYkm2PAKBabx6oYv/xDxNi8IBw==}
+    engines: {node: '>=20.0.0'}
 
   seroval-plugins@1.2.1:
     resolution: {integrity: sha512-H5vs53+39+x4Udwp4J5rNZfgFuA+Lt+uU+09w1gYBVWomtAl98B+E9w7yC05Xc81/HgLvJdlyqJbU0fJCKCmdw==}
     engines: {node: '>=10'}
     peerDependencies:
-      seroval: ^1.0
+      seroval: ^1.4.1
 
   seroval@1.5.4:
     resolution: {integrity: sha512-46uFvgrXTVxZcUorgSSRZ4y+ieqLLQRMlG4bnCZKW3qI6BZm7Rg4ntMW4p1mILEEBZWrFlcpp0AyIIlM6jD9iw==}
@@ -8655,7 +8669,7 @@ snapshots:
       cross-fetch: 4.1.0
       json-schema-to-ts: 3.1.1
       jsonrepair: 3.13.1
-      liquidjs: 10.25.4
+      liquidjs: 10.25.7
       pluralize: 8.0.0
       sanitize-html: 2.14.0
     optionalDependencies:
@@ -11804,10 +11818,6 @@ snapshots:
       astring: 1.9.0
       source-map: 0.7.4
 
-  estree-util-value-to-estree@3.3.2:
-    dependencies:
-      '@types/estree': 1.0.6
-
   estree-util-value-to-estree@3.4.0:
     dependencies:
       '@types/estree': 1.0.6
@@ -11995,7 +12005,7 @@ snapshots:
   fumadocs-docgen@2.0.0:
     dependencies:
       estree-util-to-js: 2.0.0
-      estree-util-value-to-estree: 3.3.2
+      estree-util-value-to-estree: 3.4.0
       npm-to-yarn: 3.0.1
       oxc-transform: 0.53.0
       unist-util-visit: 5.0.0
@@ -12008,7 +12018,7 @@ snapshots:
       chokidar: 4.0.3
       cross-spawn: 7.0.6
       esbuild: 0.25.0
-      estree-util-value-to-estree: 3.3.2
+      estree-util-value-to-estree: 3.4.0
       fast-glob: 3.3.3
       fumadocs-core: 15.2.11(@types/react@19.0.12)(next@15.5.18(@babel/core@7.27.4)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       gray-matter: 4.0.3
@@ -12907,7 +12917,7 @@ snapshots:
 
   lines-and-columns@2.0.4: {}
 
-  liquidjs@10.25.4:
+  liquidjs@10.25.7:
     dependencies:
       commander: 10.0.1
 
@@ -13471,7 +13481,7 @@ snapshots:
   micromatch@4.0.8:
     dependencies:
       braces: 3.0.3
-      picomatch: 2.3.1
+      picomatch: 2.3.2
 
   mime-db@1.52.0: {}
 
@@ -13851,7 +13861,7 @@ snapshots:
 
   picocolors@1.1.1: {}
 
-  picomatch@2.3.1: {}
+  picomatch@2.3.2: {}
 
   pluralize@8.0.0: {}
 
@@ -13951,10 +13961,6 @@ snapshots:
       vue: 3.5.13(typescript@5.8.2)
     transitivePeerDependencies:
       - '@vue/composition-api'
-
-  randombytes@2.1.0:
-    dependencies:
-      safe-buffer: 5.2.1
 
   react-dom@19.0.0(react@19.0.0):
     dependencies:
@@ -14424,9 +14430,7 @@ snapshots:
   semver@7.8.0:
     optional: true
 
-  serialize-javascript@6.0.2:
-    dependencies:
-      randombytes: 2.1.0
+  serialize-javascript@7.0.5: {}
 
   seroval-plugins@1.2.1(seroval@1.5.4):
     dependencies:
@@ -14839,7 +14843,7 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.2
-      serialize-javascript: 6.0.2
+      serialize-javascript: 7.0.5
       terser: 5.42.0
       webpack: 5.99.9
 
