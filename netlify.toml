@@ -4,6 +4,8 @@
   publish = ".next"
 
 [build.environment]
+  # pnpm 11 requires Node.js >= 22.13 (uses node:sqlite)
+  NODE_VERSION = "22"
   # Increase Node.js memory limit for the build
   NODE_OPTIONS = "--max-old-space-size=4096"
   # Set Netlify environment variable for OG image optimization

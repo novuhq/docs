@@ -28,6 +28,14 @@ const config = {
   // Increase static generation timeout for Netlify
   staticPageGenerationTimeout: 180,
 
+  // Large MDX/OpenAPI graphs can blow up webpack's persistent cache in dev (~16GB OOM).
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.cache = false;
+    }
+    return config;
+  },
+
   async rewrites() {
     const prefixes = ['platform', 'framework', 'community', 'api-reference', 'guides'];
     const extensions = ['md', 'mdx'];
