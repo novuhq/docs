@@ -9,19 +9,18 @@ import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
 Novu does not expose a single **upsert** endpoint for workflows. To create or change a workflow programmatically, combine [create](/api-reference/workflows/create-a-workflow), [update](/api-reference/workflows/update-a-workflow), and [retrieve](/api-reference/workflows/retrieve-a-workflow). To push a workflow from Development to Production, use [sync a workflow](/api-reference/workflows/sync-a-workflow).
 
-This recipe shows two patterns that behave like an upsert, plus standalone examples for each API call. The code samples use `payout-initiate` as a sample identifier only.
+This recipe shows two patterns that behave like an upsert, plus standalone examples for each API call. The code samples use `payout-initiated` as an example workflowId.
 
 <Callout type="info">
 Workflows are scoped to the environment. Create and edit them in **Development**, then [sync to other environments](/platform/developer/environments#publishable-assets) when you are ready.
 </Callout>
 
-You do not need to know a `workflowId` before you start. You choose it when you [create](/api-reference/workflows/create-a-workflow) a workflow. It can be any valid slug (letters, numbers, hyphens, dots, and underscores), such as `payout-initiate`, `weekly-digest`, or `order-shipped`.
+You do not need to know a `workflowId` before you start. You choose it when you [create](/api-reference/workflows/create-a-workflow) a workflow. It can be any valid slug (letters, numbers, hyphens, dots, and underscores), such as `payout-initiated`, `weekly-digest`, or `order-shipped`.
 
 - **Unique per environment:** The same `workflowId` can exist in Development and Production as separate workflows. Within one environment, each `workflowId` must be unique.
 - **Immutable:** After creation, the identifier cannot be changed. Store the value you pick (config, env var, or your app constants) and pass it to update, retrieve, sync, and [trigger](/platform/workflow/trigger-workflow) calls.
 - **Upsert flows:** On the first run, **create** sets the `workflowId`. On later runs, pass that same value so **update** and **sync** target the correct workflow.
 
-The examples below use `payout-initiate` for consistency. Replace it with whatever identifier fits your product.
 
 ## Prerequisites
 
@@ -261,70 +260,75 @@ If two processes run at the same time against a missing workflow, both may get *
     WORKFLOW_ID="payout-initiated"
     BASE_URL="https://api.novu.co/v2/workflows"
 
+    put_workflow() {
+      curl -s -o /tmp/novu-workflow-response.json -w "%{http_code}" \
+        -X PUT "${BASE_URL}/${WORKFLOW_ID}" \
+        -H "Authorization: ApiKey ${NOVU_SECRET_KEY}" \
+        -H "Content-Type: application/json" \
+        -d '{
+          "name": "Payout Initiated",
+          "description": "This workflow is used to initiate a payout",
+          "tags": ["payout"],
+          "origin": "external",
+          "validatePayload": false,
+          "payloadSchema": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "number" },
+              "currency": { "type": "string" },
+              "accountNumber": { "type": "string" },
+              "accountName": { "type": "string" },
+              "accountBank": { "type": "string" }
+            },
+            "required": ["amount", "currency", "accountNumber", "accountName", "accountBank"]
+          },
+          "preferences": {
+            "user": {
+              "all": { "enabled": true },
+              "channels": {
+                "email": { "enabled": true },
+                "inApp": { "enabled": true }
+              }
+            },
+            "workflow": {
+              "all": { "enabled": true },
+              "channels": {
+                "email": { "enabled": true },
+                "inApp": { "enabled": true }
+              }
+            }
+          },
+          "steps": [
+            {
+              "type": "email",
+              "name": "Send Payout Email",
+              "stepId": "payout-initiated-email",
+              "controlValues": {
+                "subject": "Payout Initiated",
+                "body": "Your payout {{payload.amount}} has been initiated. Please check your account {{payload.accountNumber}} for the details.",
+                "editorType": "html"
+              }
+            },
+            {
+              "type": "in_app",
+              "name": "Send Payout Inbox Message",
+              "stepId": "payout-initiated-in-app",
+              "controlValues": {
+                "subject": "Payout Initiated",
+                "body": "Your payout {{payload.amount}} has been initiated. Please check your account {{payload.accountNumber}} for the details."
+              }
+            }
+          ]
+        }'
+    }
+
     # 1. Try update first
-    HTTP_STATUS=$(curl -s -o /tmp/novu-workflow-response.json -w "%{http_code}" \
-      -X PUT "${BASE_URL}/${WORKFLOW_ID}" \
-      -H "Authorization: ApiKey ${NOVU_SECRET_KEY}" \
-      -H "Content-Type: application/json" \
-      -d '{
-        "name": "Payout Initiated",
-        "description": "This workflow is used to initiate a payout",
-        "tags": ["payout"],
-        "origin": "external",
-        "validatePayload": false,
-        "payloadSchema": {
-          "type": "object",
-          "properties": {
-            "amount": { "type": "number" },
-            "currency": { "type": "string" },
-            "accountNumber": { "type": "string" },
-            "accountName": { "type": "string" },
-            "accountBank": { "type": "string" }
-          },
-          "required": ["amount", "currency", "accountNumber", "accountName", "accountBank"]
-        },
-        "preferences": {
-          "user": {
-            "all": { "enabled": true },
-            "channels": {
-              "email": { "enabled": true },
-              "inApp": { "enabled": true }
-            }
-          },
-          "workflow": {
-            "all": { "enabled": true },
-            "channels": {
-              "email": { "enabled": true },
-              "inApp": { "enabled": true }
-            }
-          }
-        },
-        "steps": [
-          {
-            "type": "email",
-            "name": "Send Payout Email",
-            "stepId": "payout-initiated-email",
-            "controlValues": {
-              "subject": "Payout Initiated",
-              "body": "Your payout {{payload.amount}} has been initiated. Please check your account {{payload.accountNumber}} for the details.",
-              "editorType": "html"
-            }
-          },
-          {
-            "type": "in_app",
-            "name": "Send Payout Inbox Message",
-            "stepId": "payout-initiated-in-app",
-            "controlValues": {
-              "subject": "Payout Initiated",
-              "body": "Your payout {{payload.amount}} has been initiated. Please check your account {{payload.accountNumber}} for the details."
-            }
-          }
-        ]
-      }')
+    HTTP_STATUS=$(put_workflow)
 
     # 2. Create when the workflow is missing (404)
     if [ "$HTTP_STATUS" = "404" ]; then
-      curl -X POST "${BASE_URL}" \
+      HTTP_STATUS=$(curl -s -o /tmp/novu-workflow-response.json -w "%{http_code}" \
+        -X POST "${BASE_URL}" \
         -H "Authorization: ApiKey ${NOVU_SECRET_KEY}" \
         -H "Content-Type: application/json" \
         -d "{
@@ -381,7 +385,12 @@ If two processes run at the same time against a missing workflow, both may get *
               }
             }
           ]
-        }"
+        }")
+    fi
+
+    # 3. Retry update when create conflicts (409)
+    if [ "$HTTP_STATUS" = "409" ]; then
+      HTTP_STATUS=$(put_workflow)
     fi
 
     cat /tmp/novu-workflow-response.json
