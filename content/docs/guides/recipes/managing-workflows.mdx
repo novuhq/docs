@@ -19,7 +19,7 @@ Workflows are scoped to the environment. The same `workflowId` in Development an
 
 Managing workflows in production is a two-phase process. You update workflow definitions in Development from your application code, then you publish those definitions to Staging and Production through CI/CD.
 
-In a real application you usually manage many workflows (for example, `payout-initiated`, `weekly-digest`, and `order-shipped`). The flow is the same for each one: pick a stable `workflowId` per workflow, run the update-first helper for every ID in your list, then sync each ID in CI/CD. The code samples use a shared `MANAGED_WORKFLOW_IDS` list; the payout definition in `buildWorkflowDefinition` is illustrative—wire your own registry per `workflowId`.
+In a real application you usually manage many workflows (for example, `payout-initiated`, `weekly-digest`, and `order-shipped`). The flow is the same for each one: pick a stable `workflowId` per workflow, run the update-first helper for every ID in your list, then sync each ID in CI/CD.
 
 ### Phase 1: Update workflow definitions in Development
 
@@ -166,18 +166,26 @@ Keep a list of every `workflowId` you manage as code (a constant array, a regist
                 )
             except models.NovuError as error:
                 if error.status_code == 404:
-                    return novu.workflows.create(
-                        create_workflow_dto=novu_py.CreateWorkflowDto(
-                            workflow_id=workflow_id,
-                            name=definition.name,
-                            description=definition.description,
-                            tags=definition.tags,
-                            validate_payload=definition.validate_payload,
-                            payload_schema=definition.payload_schema,
-                            steps=definition.steps,
-                            preferences=definition.preferences,
+                    try:
+                        return novu.workflows.create(
+                            create_workflow_dto=novu_py.CreateWorkflowDto(
+                                workflow_id=workflow_id,
+                                name=definition.name,
+                                description=definition.description,
+                                tags=definition.tags,
+                                validate_payload=definition.validate_payload,
+                                payload_schema=definition.payload_schema,
+                                steps=definition.steps,
+                                preferences=definition.preferences,
+                            )
                         )
-                    )
+                    except models.NovuError as create_error:
+                        if create_error.status_code == 409:
+                            return novu.workflows.update(
+                                workflow_id=workflow_id,
+                                update_workflow_dto=definition,
+                            )
+                        raise
 
                 if error.status_code == 409:
                     return novu.workflows.update(
