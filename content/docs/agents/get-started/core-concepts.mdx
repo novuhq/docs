@@ -18,9 +18,12 @@ When a user sends a message or interacts with your agent from a connected platfo
 
 Here's what happens at each step:
 
+![architecture](/images/agents/concept/mental-model.png)
+
+
 ### Receive and identify
 
-Novu receives the platform webhook and normalizes it into a standard format. It matches the platform user, for example, a Slack user ID to a Novu subscriber. Known users get their full profile attached, while unknown users are tracked as anonymous until identity is resolved.
+Novu receives the platform webhook and normalizes it into a standard format. It matches the platform user, for example, a Slack user ID to a Novu subscriber. Known users get their full profile attached, while Novu tracks unknown users as anonymous until their identity is resolved.
 
 ### Load conversation
 

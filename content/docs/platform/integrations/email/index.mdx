@@ -165,6 +165,7 @@ You can override the email settings for a single trigger by passing an `override
 - `cc`
 - `from` address
 - `replyTo`
+- `replaceToRecipient`
 - `senderName`
 - `text`
 - `to` address
@@ -201,7 +202,7 @@ await novu.trigger({
 </Tab>
 </Tabs>
 
-<Callout type="info">Note that Novu merges the `to` field in the email overrides with the subscriber email. It does _not_ replace it.</Callout>
+<Callout type="info">By default, Novu merges override `to` addresses with the subscriber email. Set `replaceToRecipient: true` to send only to the override recipients and omit the subscriber email from `to`. When `replaceToRecipient` is `true`, include at least one of `to`, `cc`, or `bcc` in the email override. If `to` is empty but `cc` or `bcc` is set, Novu uses the `from` address as `to`.</Callout>
 
 ### Targeting a specific provider
 
