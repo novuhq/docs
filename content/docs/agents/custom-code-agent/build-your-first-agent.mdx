@@ -1,0 +1,282 @@
+---
+title: "Build your first agent"
+pageTitle: 'Tutorial: Build your first agent'
+description: 'Build a Pipelinr support agent with handlers, cards, metadata, an LLM, and conversation resolution.'
+icon: Brain
+---
+
+import { Steps, Step } from 'fumadocs-ui/components/steps';
+import { Brain, ThumbsUp, Mail, LayoutGrid, Rocket } from 'lucide-react';
+
+Once you've scaffolded an agent, the next question is usually: *what do I actually put in this file?*
+
+This walkthrough builds a small support bot for a fake product called Pipelinr. You add one piece at a time in `support-agent.tsx` until the bot greets users, routes by topic, answers with an LLM, and resolves the thread when the user is done.
+
+For API reference, see [Handle events](/agents/custom-code-agent/setup-your-agent/handle-events), [Reply](/agents/custom-code-agent/setup-your-agent/reply), and [Signals](/agents/custom-code-agent/setup-your-agent/signals).
+
+## What we're building
+
+Pipelinr customers usually contact support for one of three reasons:
+
+- a **billing** question (invoices, seats, usage spikes)
+- a **technical** issue (broken pipelines, missing logs, API errors)
+- something else (account access, feature requests)
+
+The agent says hi, asks which bucket the issue falls in, answers the follow-up, and closes the conversation when the user says "thanks". That covers every event type the framework gives you.
+
+## Where the code goes
+
+The scaffold drops a Next.js app with this shape:
+
+```text
+app/
+  api/novu/route.ts    # exposes your agents over HTTP
+  novu/
+    agents/
+      index.ts         # re-exports each agent
+      support-agent.tsx # the file we'll edit
+```
+
+You almost never touch `route.ts` after the first day. It wires your agent into Novu:
+
+```ts title="app/api/novu/route.ts"
+import { serve } from '@novu/framework/next';
+import { supportAgent } from '../../novu/agents';
+
+export const { GET, POST, OPTIONS } = serve({
+  agents: [supportAgent],
+});
+```
+
+Everything below happens inside `support-agent.tsx`.
+
+## Build the agent
+
+<Steps>
+
+<Step>
+### Step 1: Define the agent shell
+
+Start with the bare minimum: an `agent()` call with an id and an `onMessage` handler. The id (`support-agent`) matches the identifier in the Novu dashboard.
+
+```tsx title="app/novu/agents/support-agent.tsx"
+/** @jsxImportSource @novu/framework */
+import { agent } from '@novu/framework';
+
+export const supportAgent = agent('support-agent', {
+  onMessage: async ({ message, ctx }) => {
+    return `You said: ${message.text}`;
+  },
+});
+```
+
+The JSX pragma lets you return cards as JSX later. Skip it if you only return strings.
+
+At this point the agent echoes messages back. Next, make it behave like a support bot.
+
+</Step>
+
+<Step>
+### Step 2: Handle the first message
+
+A support bot introduces itself and asks how it can help.
+
+`ctx.conversation.messageCount` tells you which turn you're on. On the first message it's `1`, so branch and send a welcome card with three topic buttons.
+
+```tsx
+import { Actions, agent, Button, Card, CardText } from '@novu/framework';
+
+export const supportAgent = agent('support-agent', {
+  onMessage: async ({ message, ctx }) => {
+    const firstName = ctx.subscriber?.firstName;
+    const isFirstMessage = ctx.conversation.messageCount <= 1;
+
+    if (isFirstMessage) {
+      return (
+        <Card title={`Hi${firstName ? `, ${firstName}` : ''}! I'm the Pipelinr bot`}>
+          <CardText>What can I help you with today?</CardText>
+          <Actions>
+            <Button id="topic-billing" label="Billing question" value="billing" />
+            <Button id="topic-technical" label="Technical issue" value="technical" />
+            <Button id="topic-other" label="Something else" value="other" />
+          </Actions>
+        </Card>
+      );
+    }
+
+    return `You said: ${message.text}`;
+  },
+});
+```
+
+- `ctx.subscriber` carries user profile data for personalized greetings.
+- Returning JSX is shorthand for `await ctx.reply(...)`.
+- Each `Button` has an `id` and `value` used in `onAction`.
+
+See [Interactive cards](/agents/custom-code-agent/setup-your-agent/reply#interactive-cards) for all card components.
+
+</Step>
+
+<Step>
+### Step 3: Use metadata for context
+
+When the user clicks a button, `onAction` fires instead of `onMessage`. Store the choice in `ctx.metadata` so the next turn can read it.
+
+```tsx
+export const supportAgent = agent('support-agent', {
+  // ...onMessage from step 2...
+
+  onAction: async ({ actionId, value, ctx }) => {
+    if (actionId.startsWith('topic-') && value) {
+      ctx.metadata.set('topic', value);
+      return `Got it, a **${value}** issue. Tell me what's going on and I'll take a look.`;
+    }
+  },
+});
+```
+
+Read it back with `ctx.metadata.get('topic')` on the next message. To alert on-call for technical issues, use `ctx.trigger`: see [Trigger a workflow](/agents/custom-code-agent/setup-your-agent/signals#trigger-a-workflow).
+
+</Step>
+
+<Step>
+### Step 4: Answer follow-ups with an LLM
+
+After the welcome card, plug in a model. This example uses the [Vercel AI SDK](https://sdk.vercel.ai/) with OpenAI.
+
+```bash
+npm install ai @ai-sdk/openai
+```
+
+```bash
+OPENAI_API_KEY=sk-...
+```
+
+Inside `onMessage`, after the welcome-card branch:
+
+```tsx
+import { openai } from '@ai-sdk/openai';
+import { generateText } from 'ai';
+
+const topic = ctx.metadata.get('topic') ?? 'unknown';
+
+const { text } = await generateText({
+  model: openai('gpt-4o-mini'),
+  system: `You are a Pipelinr support agent. The user's topic is: ${topic}. Keep answers short and link to docs when relevant.`,
+  messages: ctx.history.map((h) => ({
+    role: h.role,
+    content: h.content,
+  })),
+});
+
+return text;
+```
+
+- `ctx.history` maps directly to SDK message format.
+- For files in replies, use `ctx.reply` with the `files` option. See [Sending attachments](/agents/custom-code-agent/setup-your-agent/reply#sending-attachments).
+
+</Step>
+
+<Step>
+### Step 5: Resolve the conversation
+
+When the user is done, call `ctx.resolve()`:
+
+```tsx
+const text = (message.text ?? '').toLowerCase();
+
+if (text.includes('thanks') || text.includes('resolve')) {
+  ctx.resolve('User confirmed the issue is fixed.');
+  return 'Glad I could help. Closing this out, ping me anytime.';
+}
+```
+
+The optional summary appears in the dashboard. If the user messages again, the conversation reopens automatically.
+
+</Step>
+
+</Steps>
+
+## Complete agent
+
+```tsx title="app/novu/agents/support-agent.tsx"
+/** @jsxImportSource @novu/framework */
+import { Actions, agent, Button, Card, CardText } from '@novu/framework';
+import { openai } from '@ai-sdk/openai';
+import { generateText } from 'ai';
+
+export const supportAgent = agent('support-agent', {
+  onMessage: async ({ message, ctx }) => {
+    const firstName = ctx.subscriber?.firstName;
+    const userText = (message.text ?? '').toLowerCase();
+    const isFirstMessage = ctx.conversation.messageCount <= 1;
+
+    if (isFirstMessage) {
+      return (
+        <Card title={`Hi${firstName ? `, ${firstName}` : ''}! I'm the Pipelinr bot`}>
+          <CardText>What can I help you with today?</CardText>
+          <Actions>
+            <Button id="topic-billing" label="Billing question" value="billing" />
+            <Button id="topic-technical" label="Technical issue" value="technical" />
+            <Button id="topic-other" label="Something else" value="other" />
+          </Actions>
+        </Card>
+      );
+    }
+
+    if (userText.includes('thanks') || userText.includes('resolve')) {
+      ctx.resolve('User confirmed the issue is fixed.');
+      return 'Glad I could help. Closing this out, ping me anytime.';
+    }
+
+    const topic = ctx.metadata.get('topic') ?? 'unknown';
+    const { text } = await generateText({
+      model: openai('gpt-4o-mini'),
+      system: `You are a Pipelinr support agent. The user's topic is: ${topic}. Keep answers short and link to docs when relevant.`,
+      messages: ctx.history.map((h) => ({
+        role: h.role,
+        content: h.content,
+      })),
+    });
+
+    return text;
+  },
+
+  onAction: async ({ actionId, value, ctx }) => {
+    if (actionId.startsWith('topic-') && value) {
+      ctx.metadata.set('topic', value);
+      return `Got it, a **${value}** issue. Tell me what's going on and I'll take a look.`;
+    }
+  },
+});
+```
+
+## How the pieces fit together
+
+- **`onMessage`**: every user text message; branch on turn and content.
+- **`onAction`**: button clicks and dropdown selections from cards.
+- **`ctx.metadata`**: conversation scratchpad across turns.
+- **`ctx.history`**: transcript for LLM context.
+- **`ctx.reply`** (or return value) - strings, markdown, cards, or files.
+- **`ctx.trigger`**: fire Novu workflows (email, escalation, CSAT).
+- **`ctx.resolve`**: end the conversation.
+
+## Next steps
+
+<Cards>
+  <Card icon={<Brain />} href="https://sdk.vercel.ai/docs/foundations/tools" title="Give the model real context">
+    Add RAG or tool calls so the model can query your API or docs.
+  </Card>
+  <Card icon={<ThumbsUp />} href="/agents/custom-code-agent/setup-your-agent/handle-events#onreaction" title="Capture reactions">
+    Add `onReaction` for thumbs-up/down feedback.
+  </Card>
+  <Card icon={<Mail />} href="/agents/custom-code-agent/setup-your-agent/signals#trigger-a-workflow" title="Send a CSAT email">
+    Use `ctx.trigger` after resolution for a follow-up survey workflow.
+  </Card>
+  <Card icon={<LayoutGrid />} href="/agents/custom-code-agent/setup-your-agent/reply#interactive-cards" title="Build richer cards">
+    Dropdowns, links, text inputs, and multi-action cards.
+  </Card>
+  <Card icon={<Rocket />} href="/agents/custom-code-agent/going-to-production" title="Going to production">
+    Run locally, deploy to development, and publish to production.
+  </Card>
+</Cards>

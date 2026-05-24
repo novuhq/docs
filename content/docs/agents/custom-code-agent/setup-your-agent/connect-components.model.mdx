@@ -1,11 +1,13 @@
 ---
 title: "Connect Components"
-pageTitle: 'Novu Agents Connect Components'
-description: 'Add Connect UI components so users can link accounts and channels to your agent.'
-icon: Puzzle
+pageTitle: 'Connect Components'
+description: 'Use prebuilt React components so your users can install and connect Slack, Microsoft Teams, Telegram and other communication platforms to your agent.'
+icon: Link
 ---
 
-Novu provides pre-built UI components for chat platforms like Slack and Microsoft Teams. Add these components so users can install the Slack or Microsoft Teams app in their workspace and connect it to your agent.
+import { Plus, Zap } from 'lucide-react';
+
+Novu provides pre-built UI components for chat platforms like Slack, Microsoft Teams, Telegram and other communication platforms. Add these components so users can install the communication platform app in their workspace and connect it to your agent.
 
 ## Slack connect button
 
@@ -49,7 +51,7 @@ export default SlackConnectButtonComponent;
 `SlackConnectButton` accepts the following props to customize the UI and behavior:
 
 ---type-table---
-../../platform/sdks/types/react-types.ts#SlackConnectButtonProps
+../../../platform/sdks/types/react-types.ts#SlackConnectButtonProps
 ---end---
 
 ## Microsoft Teams connect button
@@ -57,3 +59,20 @@ export default SlackConnectButtonComponent;
 <Callout type="info">
   We are working on adding a Microsoft Teams connect button to the `@novu/react` SDK. Reach out to us at support@novu.co to get access to a pre-release version.
 </Callout>
+
+## Telegram connect button
+
+<Callout type="info">
+  We are working on adding a Telegram connect button to the `@novu/react` SDK. Reach out to us at support@novu.co to get access to a pre-release version.
+</Callout>
+
+## Related
+
+<Cards>
+  <Card icon={<Plus />} href="/agents/custom-code-agent/setup-your-agent/create-an-agent" title="Create an agent">
+    Create an agent in the Novu dashboard and connect a provider.
+  </Card>
+  <Card icon={<Zap />} href="/agents/custom-code-agent/quickstart" title="Quickstart">
+    Create an agent, connect Slack, and get a reply in-thread.
+  </Card>
+</Cards>

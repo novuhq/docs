@@ -1,0 +1,36 @@
+---
+title: "Mental model"
+pageTitle: 'Mental model'
+description: 'How inbound messages flow from a messaging platform through Novu to your agent code and back.'
+icon: GitBranch
+---
+
+Novu for Agents sits between chat providers and your code. Users can message your agent, and your agent can message them back on the same thread.
+
+When a user sends a message or interacts with your agent from a connected platform, Novu receives it, resolves identity and conversation state, and forwards the full context to your server. Your agent processes the message and replies; Novu delivers the response back to the platform.
+
+![Inbound message flow](/images/agents/concept/mental-model.png)
+
+## Receive and identify
+
+Novu receives the platform webhook and normalizes it into a standard format. It maps the platform user (for example a Slack user ID) to a Novu subscriber when it can. Known users get their full profile attached; unknown users stay anonymous until identity is resolved.
+
+## Load conversation
+
+Novu creates a new conversation if this is the first message, or loads the existing one. Message history, metadata, and subscriber information are assembled into a single context object.
+
+## Your handler
+
+Novu calls your handler with the complete context: the message, conversation history, subscriber, and platform details. You process it with your LLM, business logic, or any system you choose, and call `ctx.reply()` to respond.
+
+## Deliver and persist
+
+Novu delivers the reply to the correct thread on the platform, persists it in the conversation history, and records the activity. Every message, signal, and status change is visible in the dashboard.
+
+Your server never talks to the platform directly. It receives a context object and returns a reply. Novu handles everything else.
+
+## Related
+
+- [Agents and providers](/agents/get-started/agents-and-providers)
+- [Set up overview](/agents/setup-your-agent/overview)
+- [Quickstart](/agents/get-started/quickstart)
