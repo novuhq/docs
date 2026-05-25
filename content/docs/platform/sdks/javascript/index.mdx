@@ -344,6 +344,11 @@ await novu.notifications.seenAll({
   data: { type: 'login' }
 });
 
+// Match any of several data values (OR)
+await novu.notifications.seenAll({
+  data: { status: ['open', 'draft'] },
+});
+
 // Mark all notifications as seen (no filters)
 await novu.notifications.seenAll();
 ```

@@ -85,6 +85,63 @@ function InboxTabs() {
 export default InboxTabs;
 ```
 
+#### Match multiple values (OR)
+
+Match notifications when a data key equals any value in a list. Pass a scalar array or an explicit `{ or: [...] }` object:
+
+```tsx
+const tabs = [
+  {
+    label: 'Open or draft',
+    filter: {
+      data: { status: ['open', 'draft'] },
+    },
+  },
+  {
+    label: 'Team A or B',
+    filter: {
+      data: { team: { or: ['alpha', 'beta'] } },
+    },
+  },
+];
+```
+
+#### Combine conditions (AND)
+
+Require multiple OR-groups on the same key by using `{ and: [{ or: [...] }, ...] }`. Every group must match. Use this when a notification stores an array in `data` and you need several values to appear together.
+
+```tsx
+const tabs = [
+  {
+    label: 'Tagged urgent and in review',
+    filter: {
+      data: {
+        labels: { and: [{ or: ['urgent'] }, { or: ['review'] }] },
+      },
+    },
+  },
+];
+```
+
+#### Nested data keys
+
+Filter on one level of nesting under `data`. Sub-keys support the same scalar, array, `{ or }`, and `{ and }` shapes as top-level keys.
+
+```tsx
+const tabs = [
+  {
+    label: 'Project A or B',
+    filter: {
+      data: { project: { id: ['proj-a', 'proj-b'] } },
+    },
+  },
+];
+```
+
+Multiple top-level keys in the same `data` filter are combined with AND logic. For example, `{ status: 'open', project: 'abc' }` matches only notifications where both keys match.
+
+<Callout type="info">Data filter values must be scalars (string, number, boolean, or null). String values are limited to 256 characters. Each OR-group allows up to 100 values, with up to 30 AND-groups and 200 total values per field.</Callout>
+
 ### Using tags and data object
 
 You can combine tags and the data object in the same filter to create more specific tabs tailored to your use case.
