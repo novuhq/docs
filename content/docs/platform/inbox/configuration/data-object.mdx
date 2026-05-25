@@ -64,7 +64,9 @@ This allows TypeScript to infer the structure of `notification.data`, reducing e
 
 ## Use data object keys as filters for tabs
 
-You can use data object keys as filter for tabs. For more information, refer to [Tabs](/platform/inbox/configuration/tabs#filter-tabs-by-data-attributes).
+Use data object keys to filter Inbox tabs, `useNotifications`, and bulk actions such as mark-all-read. Filters support exact scalars, OR lists, nested keys (one level), and AND-of-OR groups on the same field.
+
+For examples and limits, refer to [Tabs — Using the data object](/platform/inbox/configuration/tabs#using-the-data-object).
 
 ```tsx
 import { Inbox } from '@novu/react';
