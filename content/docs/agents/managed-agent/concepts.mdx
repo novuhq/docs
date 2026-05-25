@@ -43,6 +43,13 @@ A useful system prompt typically includes:
 
 You set the system prompt in the dashboard when creating the agent, and you can update it at any time from the agent settings page.
 
+### Creating an agent
+
+You can create a managed agent in two ways:
+
+- **Create from prompt**: describe what you want the agent to do in plain text, and Novu generates a system prompt for you. You can also pick from preset templates (Customer Support, Marketing, Sales, etc.) as a starting point.
+- **Create manually**: write the system prompt yourself from scratch.
+
 ### Prompt templates
 
 Novu provides starter templates for common use cases like customer support, internal ops, and onboarding. Templates give you a working prompt you can customize.
@@ -64,7 +71,7 @@ Every managed agent has access to system tools provided by the AI platform. Thes
 
 The platform decides when to call these tools based on the user's message and the system prompt. For example, if a user asks "What is the latest pricing for AWS Lambda?", the agent will use web search to find the answer. If the user asks "Find all config files in the project", the agent will use glob and grep.
 
-You do not need to enable or configure built-in tools. They come with the connector.
+All built-in tools are enabled by default when you create a managed agent. MCP servers and custom skills are not enabled by default and need to be added separately.
 
 ## MCP servers
 
@@ -102,6 +109,10 @@ Novu manages the OAuth flow:
 
 Authorization is per subscriber, per MCP server. Once a user authorizes, the connection persists across conversations until they revoke it.
 
+### Limits
+
+You can enable up to **64 MCP servers** per agent.
+
 ## Custom skills
 
 Skills are instruction files that teach the agent how to handle specific tasks. They are useful when the system prompt alone is not detailed enough for a multi-step workflow.
@@ -124,8 +135,8 @@ Managed agents follow this conversation lifecycle:
 | State | What it means |
 | --- | --- |
 | **Active** | The conversation is open. New messages are processed by the agent. |
-| **Resolved** | The conversation has been closed. An optional summary is stored. |
-| **Reopened** | A new user message after resolution reopens the conversation automatically. |
+| **Resolved** | The conversation has been closed. The underlying platform session is archived. |
+| **Reopened** | A new user message after resolution starts a fresh platform session and reopens the conversation automatically. |
 
 ### What happens on each turn
 
@@ -135,9 +146,15 @@ Managed agents follow this conversation lifecycle:
 4. The platform runs the model, uses built-in tools (bash, grep, web search, etc.) or MCP servers as needed, and returns a response.
 5. Novu delivers the response to the provider thread and records everything in the activity feed.
 
-### Chain of thought and streaming
+### Plan cards and tool use
 
-When the AI platform thinks through a problem in steps, Novu can surface that chain of thought in supported providers. Streaming is handled automatically, so responses appear progressively rather than all at once.
+When the agent calls a tool during a conversation, Novu shows a **plan card** in the chat thread. The plan card displays which tool the agent is about to use and its current status (thinking, running, complete). This gives users visibility into what the agent is doing before the final response appears.
+
+For MCP tools that need user authorization, the plan card pauses and shows an authorization prompt. After the user authorizes, the agent continues from where it left off.
+
+### Streaming
+
+Responses stream progressively rather than arriving all at once. The platform handles streaming automatically.
 
 ## Providers
 
