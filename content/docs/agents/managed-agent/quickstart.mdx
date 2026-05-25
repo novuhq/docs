@@ -1,6 +1,41 @@
 ---
 title: "Quickstart"
-pageTitle: 'Get started with Novu for Agents'
-description: 'Create your first agent and connect it to Slack in under 10 minutes.'
+pageTitle: 'Get started with Managed Agents'
+description: 'Create your first managed agent and connect it to Slack in under 10 minutes.'
 icon: Zap
 ---
+
+
+import { MousePointerClick, LayoutGrid, Signal, Brain, Plus } from 'lucide-react';
+
+This guide covers creating a managed agent using Claude managed agent connector, hooking up Slack, installing the app in your workspace and getting a reply in-thread.
+
+By the end, you'll have a working agent that receives messages from Slack and replies based on your handler code.
+
+**Prerequisites:**
+
+- A [Novu account](https://dashboard.novu.co).
+- A Slack workspace where you can install apps.
+- A Claude platform account.
+
+<Steps>
+
+<Step>
+
+## Create your agent
+
+1. Go to the Novu dashboard.
+2. In the sidebar, click **Agents**.
+3. Click **Add Agent**.
+4. Choose Claude Managed Agent from the **External connectors**.
+5. Configure Credentials:
+  - *IntegrationName*: The name of your agent.
+  - *API Key*: Your Claude API key from the [Claude platform](https://console.anthropic.com/settings/keys).
+  - *Workspace ID*: Claude Workspace ID from the [Claude platform](https://console.anthropic.com/settings/workspaces).
+
+6. Choose *Create new agent* Tab
+7. Add the prompt to create your agent 
+8. Click **Create Agent**.
+
+</Step>
+</Steps>
