@@ -36,6 +36,7 @@ import { extractFaqItems } from '../../lib/extract-faq';
 import { createMetadata } from '../../lib/metadata';
 import { plainTextFromMarkdownDescription } from '../../lib/plain-text-description';
 import { resolveOpenApiDocument } from '../../lib/openapi-document';
+import { Card, Cards } from '@/components/card';
 
 export default async function Page(props: {
   params: Promise<{ slug?: string[] }>;
@@ -154,6 +155,8 @@ export default async function Page(props: {
           <MDX
             components={{
               ...defaultMdxComponents,
+              Card,
+              Cards,
               pre: (props) => {
                 // Extract language and title from className if available
                 const className = props.className || '';
