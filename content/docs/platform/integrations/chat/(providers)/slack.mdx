@@ -6,6 +6,10 @@ description: 'Learn about how to use Slack provider for chat notifications'
 
 import { Tab, Tabs } from 'fumadocs-ui/components/tabs';
 
+<Callout type="info">
+  This feature is currently in public beta, please contact us at support@novu.co to enable it for your organization.
+</Callout>
+
 The Slack chat integration lets your application send notifications directly to your subscribers' Slack workspaces using their own Slack accounts and workspace permissions. With this integration, Novu can deliver messages to Slack channels, direct messages (DMs) to Slack users, and incoming webhooks. For incoming webhooks, Novu can use Slack's native channel picker during OAuth.
 
 Novu handles the full lifecycle of Slack connections and message delivery. You define where notifications should be delivered, and Novu automatically routes each message to the correct Slack workspace, channel, or user.
@@ -13,14 +17,12 @@ Novu handles the full lifecycle of Slack connections and message delivery. You d
 This guide walks you through setting up Slack chat, connect workspaces, and deliver notifications to the exact Slack destinations your users expect it.
 
 <Callout type="info">
-  This feature is currently in public beta, please contact us at support@novu.co to enable it for your organization.
+  Check out the [agents](/agents) documentation for more information on how to build agents using Slack.
 </Callout>
 
 ## Configure a Slack app
 
 Before integrating Slack chat with Novu, you must create and configure a Slack app. The Slack app manages the OAuth permissions, bot token scopes, and redirect URLs needed for Novu to connect to your users' workspaces securely.
-
-<Callout>Novu provides a test Slack integration for new organizations. The integration is limited to 300 messages per month and stricter rate limits apply.</Callout>
 
 ### Create a Slack app
 First, you need to create a Slack app. This provides you with the credential you need to create a Slack integration in Novu.
