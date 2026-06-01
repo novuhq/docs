@@ -1,8 +1,11 @@
 ---
-title: "Agent Deployment"
-pageTitle: 'Agent Deployment'
+title: "Going to Production"
+pageTitle: 'Going to Production'
 description: 'Learn how to run a conversational agent on your local machine, test it in a development environment, and deploy it to production.'
+icon: Rocket
 ---
+
+import { Github, MessagesSquare } from 'lucide-react';
 
 Agents built with Novu can run on your local machine. Deploy them to development and production environments when you are ready.
 
@@ -72,7 +75,7 @@ After you run the command, the agent overview section shows the updated producti
 
 #### Using GitHub Actions
 
-You can use our built-in GitHub Action to deploy your agent to the production environment.-->
+You can use our built-in GitHub Action to deploy your agent to the production environment. See [Deploy with GitHub Actions](/agents/operate/deploy-with-github-actions) for setup details.
 
 ```yaml
 name: Deploy agent to Novu Cloud
@@ -108,3 +111,11 @@ jobs:
 ```
 
 <Callout type="warn">Local tunnel bridge URLs cannot be activated on production environments (returns 403 Forbidden) to prevent accidental routing of production traffic to a local machine.</Callout>
+
+## Next steps
+
+<Cards>
+  <Card icon={<MessagesSquare />} href="/agents/conversation-observability" title="Conversation observability">
+    View agent conversations, lifecycle, and signal activity in the dashboard.
+  </Card>
+</Cards>
