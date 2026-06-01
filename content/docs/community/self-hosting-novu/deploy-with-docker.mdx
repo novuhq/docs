@@ -80,6 +80,19 @@ To keep the setup simple, we made some choices that may not be optimal for produ
 
 We strongly recommend that you decouple your database before deploying.
 
+### Inbound email attachments without S3
+
+The inbound-mail service offloads email attachment binaries to S3 before enqueueing jobs. When `S3_BUCKET_NAME` is not set — for example, on a minimal Docker deployment without object storage — the service embeds attachment content inline in the Redis queue payload instead.
+
+In inline mode:
+
+- Each attachment is capped at **5 MB**.
+- The total serialized inline payload for a single job is capped at **24 MB**.
+- Attachments that exceed either limit are dropped; the rest of the email is still delivered.
+- SMTP 451 retry-on-upload-failure applies only in S3 mode. Oversized inline drops are not retriable.
+
+Configure `S3_BUCKET_NAME`, `S3_REGION`, and optionally `S3_LOCAL_STACK` on the inbound-mail service if you need larger inbound attachments or want attachments stored in object storage rather than Redis.
+
 ## Setting Up the Inbox Component
 
 This section explains how to integrate the Novu Inbox component into your application when using a self-hosted Novu deployment.
