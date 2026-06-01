@@ -176,13 +176,6 @@ The command `npm run setup:project` creates default environment variables that a
 
   </Accordion>
 
-  <Accordion title="Inbound Mail">
-    - `S3_BUCKET_NAME` - The S3 bucket for inbound email attachment offloading. Leave blank to use inline attachment fallback (5 MB per attachment, 24 MB total serialized payload per job).
-    - `S3_REGION` - The AWS region of the S3 bucket
-    - `S3_LOCAL_STACK` - Optional LocalStack or MinIO endpoint for local development
-    - `INBOUND_FAIL_ON_ATTACHMENT_UPLOAD_ERROR` - S3 mode only. Set to `true` to SMTP-reject (451) when an attachment fails to upload so senders retry. Ignored in inline fallback mode.
-  </Accordion>
-
   <Accordion title="Web Socket">
     - `NODE_ENV` (default: local)The environment of the app. Possible values are: dev, test, production, ci, local
     - `SENTRY_DSN`The DSN of sentry.io used to report errors happening in production
