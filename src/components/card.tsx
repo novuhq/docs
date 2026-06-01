@@ -2,7 +2,9 @@ import Link from 'fumadocs-core/link';
 import type { HTMLAttributes, ReactNode } from 'react';
 import { cn } from '../lib/cn';
 
-const CARD_ICON_CLASS = 'text-[#00d5ff] [&_svg]:text-[#00d5ff]';
+const CARD_HOVER_BORDER = 'hover:border-[#4b73ec] dark:hover:border-[#00d5ff]';
+
+const CARD_ICON_CLASS = 'text-[#4b73ec] dark:text-[#00d5ff] [&_svg]:text-current';
 
 export function Cards(props: HTMLAttributes<HTMLDivElement>): React.ReactElement {
   return (
@@ -23,21 +25,22 @@ export type CardProps = HTMLAttributes<HTMLElement> & {
 
 export function Card({ icon, title, description, ...props }: CardProps): React.ReactElement {
   const E = props.href ? Link : 'div';
+  const isInteractive = Boolean(props.href);
 
   return (
     <E
       {...props}
       data-card
       className={cn(
-        'block rounded-lg border bg-fd-card p-4 text-fd-card-foreground shadow-md transition-colors @max-lg:col-span-full',
-        props.href && 'hover:bg-fd-accent/80',
+        'block rounded-lg border bg-[var(--page-background)] p-4 text-fd-card-foreground shadow-md transition-colors duration-200 @max-lg:col-span-full',
+        isInteractive && ['group', CARD_HOVER_BORDER],
         props.className
       )}
     >
       {icon ? (
         <div
           className={cn(
-            'not-prose mb-2 w-fit rounded-md border bg-fd-muted p-1.5 [&_svg]:size-4',
+            'not-prose mb-2 w-fit rounded-md border bg-[var(--page-background)] p-1.5 [&_svg]:size-4',
             CARD_ICON_CLASS
           )}
         >
