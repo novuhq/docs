@@ -7,28 +7,29 @@ icon: Plus
 
 import { Terminal, LayoutDashboard, Zap } from 'lucide-react';
 
+Create an agent in the Novu dashboard before you scaffold a bridge app or write handler code. This page walks through creating the agent record and connecting your first provider.
+
 ## Create an agent in the dashboard
 
-1. Go to the [Agents page](https://dashboard.novu.co/agents) in the Novu dashboard.
+In the Novu dashboard, create a new agent and enter its basic details.
+
+1. In the Novu dashboard, go to the [Agents page](https://dashboard.novu.co/agents).
 2. In the sidebar, click **Agents**.
 3. Click **Create agent**.
-4. Fill in the required fields:
-   - **Agent name**: Display name for your agent (used in Slack and Microsoft Teams when users mention the agent).
+4. Enter the following information:
+   - **Agent name**: Display name for your agent. Slack and Microsoft Teams show this name when users mention the agent.
    - **Identifier**: Unique slug used in code. Auto-generated from the name; cannot be changed after creation.
-   - **Description**: Optional summary of the agent's purpose.
-5. Click **Set up agent**.
+   - **Description**: Summary of the agent's purpose.
+5. Click **Set up agent**. Novu opens the guided setup page, where you connect providers and copy the scaffold command for your bridge app.
 
 ![Create a new agent](/images/agents/custom-code-agent/setup-your-agent/create-a-new-agent.gif)
 
-After creation, Novu opens the guided setup page where you connect providers and copy the scaffold command for your bridge app.
-
 ## Connect a provider
 
-On the agent setup page:
+On the guided setup page in the Novu dashboard, link your agent to a messaging provider.
 
-1. Open the **Select provider** dropdown.
-2. Choose a provider (for example, **Slack**).
-3. Follow the provider-specific steps shown in the dashboard.
+1. In the **Select provider** list, choose a provider (for example, **Slack**).
+2. Follow the provider-specific steps shown in the dashboard.
 
 For a full Slack walkthrough including app creation and install, see [Quickstart](/agents/custom-code-agent/quickstart).
 

@@ -36,13 +36,13 @@ Each event handler receives a context object with the information needed to unde
 
 The context object is how your code talks to Novu. You do not call Slack, Teams, or email APIs directly in the handler.
 
-## Full flow
+## Event handling flow
 
 When a user messages your agent:
 
 1. A user sends a message from a connected provider (for example, Slack).
 2. Novu receives the event through the provider connection.
-3. Novu maps the provider thread to a conversation and resolves the platform user to a subscriber when possible.
+3. Novu maps the provider thread to a conversation and resolves the platform user to a subscriber, when possible.
 4. Novu calls the agent's `onMessage` handler with the context object.
 5. Your handler passes the message and conversation context to your agent logic.
 6. Your agent logic decides what should happen next.
@@ -76,7 +76,11 @@ export const myAgent = agent('my-agent', {
 
 #### Handling attachments
 
-Inbound messages can include file attachments when the platform supports them. Novu normalizes files into `message.attachments` with short-lived signed URLs:
+Inbound messages can include file attachments when the platform supports them. Novu normalizes files into `message.attachments` with short-lived signed URLs. Keep in mind:
+
+- Download attachment URLs promptly inside your handler.
+- Signed links are valid for 15 minutes.
+- Inbound attachments are limited to 25 MB per file.
 
 ```typescript
 import { agent } from '@novu/framework';
@@ -95,10 +99,6 @@ export const myAgent = agent('my-agent', {
   },
 });
 ```
-
-<Callout type="info">
- Download attachment URLs promptly inside your handler. Signed links are valid for 15 minutes. Inbound attachments are limited to 25 MB per file.
-</Callout>
 
 ### onAction
 
