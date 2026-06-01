@@ -13,7 +13,7 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
 <TypeTable name="UseNotificationsProps" type={{
   "tags": {
     "description": "",
-    "type": "string[]"
+    "type": "TagsFilter"
   },
   "data": {
     "description": "",
@@ -50,6 +50,10 @@ The `useNotifications` hook provides a way to fetch and manage notifications in 
   "limit": {
     "description": "",
     "type": "number"
+  },
+  "realtime": {
+    "description": "When `false`, disables the WebSocket subscription that auto-injects\nnewly received notifications into the list. Built-in mutations like\n`readAll`, `seenAll`, `archiveAll`, and `archiveAllRead` continue to\nupdate local state. Use this when you want to drive new-notification updates yourself (e.g.\nvia your own `novu.on('notifications.notification_received', ...)`\nhandler combined with `refetch()`).\n\nWhen set, this prop takes precedence over the `realtime` config on\n`<NovuProvider />`. When omitted, the provider value (default `true`) is used.",
+    "type": "boolean"
   },
   "onSuccess": {
     "description": "",

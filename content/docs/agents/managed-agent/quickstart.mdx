@@ -1,0 +1,115 @@
+---
+title: "Quickstart"
+pageTitle: 'Managed Agent Quickstart'
+description: 'Create a managed agent with Claude, connect it to Slack, and get a reply in under 10 minutes.'
+icon: Zap
+---
+
+import { Brain, Link, MessagesSquare } from 'lucide-react';
+
+This guide walks you through creating a managed agent powered by Claude, connecting it to Slack, and sending your first message.
+
+By the end, you will have a working agent that receives messages from Slack and replies using Claude's reasoning.
+
+**Prerequisites:**
+
+- A [Novu account](https://dashboard.novu.co).
+- A Slack workspace where you can install apps.
+- A Claude API key from the [Anthropic console](https://console.anthropic.com/settings/keys) (optional, you can use Novu demo credentials to start).
+
+<Steps>
+
+<Step>
+
+## Create your agent
+
+1. Go to the [Novu dashboard](https://dashboard.novu.co).
+2. In the sidebar, click **Agents**.
+3. Click **Add Agent**.
+4. Under **External connectors**, select **Claude Managed Agent**.
+
+</Step>
+
+<Step>
+
+## Configure the connector
+
+Fill in the following fields to configure the connector:
+
+- **Integration name**: A display name for your connector.
+- **API Key**: Your Claude API key from the [Anthropic console](https://console.anthropic.com/settings/keys).
+- **Workspace ID**: Your Claude workspace ID from the [Anthropic console](https://console.anthropic.com/settings/workspaces).
+
+</Step>
+
+<Step>
+
+## Set a system prompt
+
+You can create the agent in two ways:
+
+- **Create from prompt**: describe what you want the agent to do, and Novu generates a system prompt. You can also pick a preset template (Customer Support, Marketing, etc.).
+- **Create manually**: give a name and identifier and write the system prompt yourself.
+
+For a manual prompt, something like this works well:
+
+```text
+You are a helpful support agent for Acme Corp. Answer questions about
+our products, pricing, and account setup. Keep responses short and
+friendly. If you do not know the answer, say so and offer to connect
+the user with a human.
+```
+
+Click **Create Agent** when you are done.
+
+</Step>
+
+<Step>
+
+## Connect a provider
+
+1. On the agent setup page, click **Select provider**.
+2. Choose **Slack**.
+3. Follow the Slack setup steps in the dashboard:
+   - Generate a Slack App Configuration Token.
+   - Paste it in Novu and click **Create app**.
+   - Click **Install agent** to add the bot to your Slack workspace.
+
+<Callout type="info">
+The configuration token is used once to create the Slack app and is not stored by Novu.
+</Callout>
+
+</Step>
+
+<Step>
+
+## Send a message
+
+Open Slack and send a direct message to your new bot. Claude processes the message and the reply appears in the thread.
+
+You can also mention the bot in a channel where it has been added.
+
+</Step>
+
+</Steps>
+
+## What to do next
+
+- **Enable MCP servers**: Give the agent access to tools like Linear, GitHub, or Notion from the agent settings page.
+- **Upload custom skills**: Add SKILL.md files to teach the agent domain-specific workflows.
+- **Connect more providers**: Add Microsoft Teams, email, or other providers from the agent setup page.
+- **View conversations**: Open the Activity Feed in the dashboard and switch to the Agent Conversations tab to see message history.
+
+## Next steps
+
+<Cards>
+  <Card icon={<Brain />} href="/agents/managed-agent/concepts" title="Concepts">
+    Learn about connectors, MCP servers, skills, and how conversations work.
+  </Card>
+  <Card icon={<Link />} href="/agents/managed-agent/configure-mcp-servers" title="Configure MCP servers">
+    Enable external tools for your managed agent.
+  </Card>
+  <Card icon={<MessagesSquare />} href="/agents/conversations" title="Conversation observability">
+    View and manage agent conversations in the dashboard.
+  </Card>
+</Cards>

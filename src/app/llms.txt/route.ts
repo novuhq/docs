@@ -9,6 +9,7 @@ const SECTION_LABELS: Record<string, string> = {
   community: 'Community',
   'api-reference': 'API Reference',
   guides: 'Guides',
+  agents: 'Agents',
 };
 
 export function GET() {

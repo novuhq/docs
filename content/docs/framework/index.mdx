@@ -12,7 +12,6 @@ import { NextjsIcon } from '@/components/icons/nextjs';
 import { NuxtIcon } from '@/components/icons/nuxt';
 import { RemixIcon } from '@/components/icons/remix';
 import { SvelteIcon } from '@/components/icons/svelte';
-import { Card, Cards } from 'fumadocs-ui/components/card';
 
 Novu Framework enables you to run a part of the core Novu workflow engine from within your network boundary. This also opens up a powerful new capability: **you can create Novu workflows entirely in code**. This is important because:
 
@@ -29,6 +28,10 @@ Novu Framework requires a single HTTP webhook-like endpoint (/api/novu or simila
 When enabled, Novu Cloud will call the Bridge Endpoint when it needs to retrieve contextual information for a given subscriber and notification.
 
 Use the `npx novu init` command to create a sample Bridge application with a built-in Bridge Endpoint.
+
+<Callout type="info">
+  Novu Framework is used as a code layer to power both workflows and [agents](/agents).
+</Callout>
 
 ## Quickstart
 
