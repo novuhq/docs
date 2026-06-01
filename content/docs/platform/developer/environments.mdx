@@ -68,6 +68,14 @@ Each environment has two unique identifiers:
 
 <Callout>Configure these credentials in your application based on the active environment, similar to how you manage other service credentials.</Callout>
 
+## List environments via API
+
+When you call `GET /v1/environments` with an API secret key, the response includes decrypted API keys only for the environment that issued the key. Other environments in the response return an empty `apiKeys` array.
+
+To return API keys for every environment in the organization, contact Novu support to enable the `IS_LIST_ENVIRONMENTS_API_KEYS_ENABLED` feature flag for your organization.
+
+Dashboard session authentication is unchanged: users with environment read access still receive API keys for all environments they can access.
+
 ## Publish changes to other environments
 
 Novu provides a publish mechanism that allows you to promote changes from your development environment to production or other custom environments. This process ensures that all changes are deliberate, reviewed, and deployed in a controlled manner.
