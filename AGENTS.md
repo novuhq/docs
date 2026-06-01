@@ -1,6 +1,6 @@
 # Novu Documentation Site
 
-A Next.js 15 documentation site built with Fumadocs, using pnpm.
+A Next.js 15 documentation site built with Fumadocs, using pnpm 11 (Node.js 22+).
 
 ## Cursor Cloud specific instructions
 
