@@ -25,7 +25,7 @@ Novu Connect accepts two kinds of agent brains. You choose how you want to bring
 
 ### External connectors
 
-Delegate the agent logic entirely to a managed platform such as Cluade Managed Agents. You configure the agent's behavior, system prompt, tools, skills, and MCP servers and the platform runs the intelligence.
+Delegate the agent logic entirely to a managed platform such as Claude Managed Agents. You configure the agent's behavior, system prompt, tools, skills, and MCP servers and the platform runs the intelligence.
 
 <Card href="/connect/managed-agent/overview" title="Managed agent" icon={<Sparkles />}>
   Set up a fully managed agent powered by Claude. No custom server code required.
@@ -41,6 +41,8 @@ Write your own agent logic. Handle events, call any LLM or API, and reply using 
 
 ## How a conversation flows
 
+A conversation follows these steps:
+
 1. A user sends a message on Slack, Teams, WhatsApp, or another supported channel.
 2. Novu ingests the webhook, normalizes the event, and resolves the user's identity.
 3. Novu sends the event to your agent brain with full conversation context.
@@ -49,7 +51,7 @@ Write your own agent logic. Handle events, call any LLM or API, and reply using 
 
 ## Start building
 
-Follow the quickstart to create your first agent, connect a Slack provider, and send your first message in under 5 minutes.
+Follow the quickstart to create your first agent, connect a Slack provider, and send your first message in under five minutes.
 
 <Card href="/connect/managed-agent/quickstart" title="Quickstart" icon={<Zap />}>
   Connect a Slack provider and send your first message in under 5 minutes.
