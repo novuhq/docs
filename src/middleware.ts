@@ -18,7 +18,7 @@ export const config = {
 
 const MARKDOWN_SECTIONS = [
   '/platform',
-  '/agents',
+  '/connect',
   '/framework',
   '/community',
   '/api-reference',
@@ -173,9 +173,15 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/docs/platform/workflow/layouts':
       '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
 
-    // Agents section landing
-    '/agents': '/agents/get-started/what-is-aci',
+    // Backward compat: old /agents root → new /connect landing
+    '/agents': '/connect',
   };
+
+  // Backward compat: redirect all /agents/* paths to /connect/*
+  if (pathname.startsWith('/agents/')) {
+    const newPath = pathname.replace('/agents/', '/connect/');
+    return NextResponse.redirect(new URL(newPath, request.url), { status: 308 });
+  }
 
   if (pathname in redirectMap) {
     return NextResponse.redirect(new URL(redirectMap[pathname], request.url), {

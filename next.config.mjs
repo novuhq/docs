@@ -29,7 +29,7 @@ const config = {
   staticPageGenerationTimeout: 180,
 
   async rewrites() {
-    const prefixes = ['platform', 'framework', 'community', 'api-reference', 'guides'];
+    const prefixes = ['platform', 'connect', 'framework', 'community', 'api-reference', 'guides'];
     const extensions = ['md', 'mdx'];
     return prefixes.flatMap((prefix) =>
       extensions.map((ext) => ({

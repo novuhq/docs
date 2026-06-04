@@ -1,0 +1,81 @@
+---
+title: Overview
+description: Connect your AI agents to chat platforms and communication channels with Novu's Agent Communication Infrastructure (ACI).
+icon: Plug
+---
+
+import { Code2, Sparkles, BrainCircuit, Blocks, MessagesSquare, CircleHelp, Zap } from 'lucide-react';
+
+Novu Connect uses the [Agent Communication Infrastructure (ACI)](/connect/get-started/what-is-aci), which is the infrastructure layer that handles how agents communicate, to enable you interact with your agents across different messaging platforms.
+
+ACI draws a hard boundary between two concerns:
+
+* **Infrastructure**: Webhook ingestion, message normalization, conversation state, identity resolution, and delivery across channels. ACI owns this.
+* **Intelligence**: Your LLM, prompts, tools, and business logic. You own this.
+
+The result is that you create your agent once. ACI routes messages in and replies out, regardless of whether the user is on Slack, Teams, WhatsApp, or email. No channel-specific plumbing and no rebuilding integrations from scratch.
+
+<Card href="/connect/get-started/what-is-aci" title="What is ACI?" icon={<CircleHelp />}>
+  Learn how ACI works, what it solves, and where it draws the line between infrastructure and intelligence.
+</Card>
+
+## Connect your agent brain
+
+Novu Connect accepts two kinds of agent brains. You choose how you want to bring the intelligence.
+
+### External connectors
+
+Delegate the agent logic entirely to a managed platform such as Cluade Managed Agents. You configure the agent's behavior, system prompt, tools, skills, and MCP servers and the platform runs the intelligence.
+
+<Card href="/connect/managed-agent/overview" title="Managed agent" icon={<Sparkles />}>
+  Set up a fully managed agent powered by Claude. No custom server code required.
+</Card>
+
+### Custom code
+
+Write your own agent logic. Handle events, call any LLM or API, and reply using the Novu agent SDK. Compatible with AI SDK, LangChain, OpenAI SDK, and any custom code of your choosing.
+
+<Card href="/connect/custom-code-agent/quickstart" title="Custom code agent" icon={<Code2 />}>
+  Build an agent with full control over logic, tools, and event handling.
+</Card>
+
+## How a conversation flows
+
+1. A user sends a message on Slack, Teams, WhatsApp, or another supported channel.
+2. Novu ingests the webhook, normalizes the event, and resolves the user's identity.
+3. Novu sends the event to your agent brain with full conversation context.
+4. Your agent processes the message and responds. Novu delivers the reply back to the correct platform thread.
+5. Novu persists the conversation and makes it visible in the Connect dashboard.
+
+## Start building
+
+Follow the quickstart to create your first agent, connect a Slack provider, and send your first message in under 5 minutes.
+
+<Card href="/connect/managed-agent/quickstart" title="Quickstart" icon={<Zap />}>
+  Connect a Slack provider and send your first message in under 5 minutes.
+</Card>
+
+## Learn more
+
+Explore the full documentation to go deeper on any part of Novu Connect.
+
+<Cards>
+  <Card href="/connect/get-started/what-is-aci" title="What is ACI?" icon={<CircleHelp />}>
+    Understand the infrastructure layer and the problem it solves.
+  </Card>
+  <Card href="/connect/get-started/mental-model" title="Mental model" icon={<BrainCircuit />}>
+    How inbound messages flow from a channel through to your agent and back.
+  </Card>
+  <Card href="/connect/get-started/agents-and-providers" title="Agents and providers" icon={<Blocks />}>
+    How agents and provider connections work, and which channels are supported.
+  </Card>
+  <Card href="/connect/managed-agent/overview" title="Managed agent" icon={<Sparkles />}>
+    Configure a fully managed agent powered by Claude.
+  </Card>
+  <Card href="/connect/custom-code-agent/quickstart" title="Custom code quickstart" icon={<Zap />}>
+    Connect a Slack provider and send your first message in under 5 minutes.
+  </Card>
+  <Card href="/connect/conversations" title="Conversation observability" icon={<MessagesSquare />}>
+    Monitor, inspect, and manage live agent conversations.
+  </Card>
+</Cards>

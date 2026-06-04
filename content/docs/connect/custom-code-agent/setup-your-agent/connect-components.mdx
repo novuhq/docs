@@ -1,0 +1,133 @@
+---
+title: "Connect Components"
+pageTitle: 'Connect Components'
+description: 'Use prebuilt React components so your users can install and connect Slack, Microsoft Teams, Telegram and other communication platforms to your agent.'
+icon: Link
+---
+
+import { Plus, Zap } from 'lucide-react';
+
+Novu provides pre-built UI components for chat platforms like Slack, Microsoft Teams, Telegram and other communication platforms. Add these components so users can install the communication platform app in their workspace and connect it to your agent.
+
+## Slack connect button
+
+`SlackConnectButton` is a pre-built UI component in the `@novu/react` SDK that connects an agent to a Slack workspace. Check out the example below.
+
+```tsx
+import { SlackConnectButton } from '@novu/react';
+
+const SlackConnectButtonComponent = () => {
+  const subscriberId = 'subscriber-id';
+  const integrationIdentifier = 'integration-identifier';
+  const agent = {
+    identifier: 'agent-identifier',
+    name: 'agent-name',
+  };
+
+  const handleSlackOAuthSuccess = () => {
+    // Handle success
+  };
+
+  return (
+    <SlackConnectButton
+      integrationIdentifier={integrationIdentifier}
+      connectionIdentifier={`${subscriberId}:${integrationIdentifier}:${agent.identifier}`}
+      connectionMode="subscriber"
+      connectLabel={`Install ${agent.name} ↗`}
+      connectedLabel="Connected to Slack"
+      onConnectSuccess={handleSlackOAuthSuccess}
+      onConnectError={(error: unknown) => {
+        console.error(error);
+      }}
+    />
+  );
+};
+
+export default SlackConnectButtonComponent;
+```
+
+### API reference
+
+`SlackConnectButton` accepts the following props to customize the UI and behavior:
+
+<TypeTable name="SlackConnectButtonProps" type={{
+  "integrationIdentifier": {
+    "description": "",
+    "type": "string"
+  },
+  "connectionIdentifier": {
+    "description": "",
+    "type": "string"
+  },
+  "subscriberId": {
+    "description": "",
+    "type": "string"
+  },
+  "context": {
+    "description": "",
+    "type": "Partial<Record<string, ContextValue>>"
+  },
+  "scope": {
+    "description": "",
+    "type": "string[]"
+  },
+  "connectionMode": {
+    "description": "",
+    "type": "ConnectionMode"
+  },
+  "onConnectSuccess": {
+    "description": "",
+    "type": "((connectionIdentifier: string) => void)"
+  },
+  "onConnectError": {
+    "description": "",
+    "type": "((error: unknown) => void)"
+  },
+  "onDisconnectSuccess": {
+    "description": "",
+    "type": "(() => void)"
+  },
+  "onDisconnectError": {
+    "description": "",
+    "type": "((error: unknown) => void)"
+  },
+  "connectLabel": {
+    "description": "",
+    "type": "string"
+  },
+  "connectedLabel": {
+    "description": "",
+    "type": "string"
+  },
+  "appearance": {
+    "description": "",
+    "type": "ReactInboxAppearance | ReactSubscriptionAppearance | ReactAllAppearance"
+  },
+  "container": {
+    "description": "",
+    "type": "string | Node | null"
+  }
+}} />
+
+## Microsoft Teams connect button
+
+<Callout type="info">
+  Novu is working on adding a Microsoft Teams connect button to the `@novu/react` SDK. Reach out to support at support@novu.co to get access to a pre-release version.
+</Callout>
+
+## Telegram connect button
+
+<Callout type="info">
+  Novu is working on adding a Telegram connect button to the `@novu/react` SDK. Reach out to support at support@novu.co to get access to a pre-release version.
+</Callout>
+
+## Related
+
+<Cards>
+  <Card icon={<Plus />} href="/connect/custom-code-agent/setup-your-agent/create-an-agent" title="Create an agent">
+    Create an agent in the Novu dashboard and connect a provider.
+  </Card>
+  <Card icon={<Zap />} href="/connect/custom-code-agent/quickstart" title="Quickstart">
+    Create an agent, connect Slack, and get a reply in-thread.
+  </Card>
+</Cards>
