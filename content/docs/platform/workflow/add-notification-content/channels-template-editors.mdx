@@ -74,6 +74,14 @@ You can:
 - Control navigation behavior using targets.
 - Omit the redirect URL and handle clicks using the `onNotificationClick` handler in the <Method href="/platform/inbox">{`<Inbox />`}</Method> component.
 
+Allowed redirect URL formats:
+
+- Absolute URLs starting with `http://` or `https://`
+- Paths starting with `/` (for example, `/orders/{{payload.orderId}}`)
+- Template variables (for example, `{{payload.link}}`)
+
+Novu rejects `mailto:` links and protocol-relative URLs (for example, `//example.com`). Invalid redirect URLs are removed from the notification before delivery.
+
 This enables full control over client-side navigation behavior.
 
 ### Data object

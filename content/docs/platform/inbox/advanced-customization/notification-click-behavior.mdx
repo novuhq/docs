@@ -11,6 +11,8 @@ The Inbox component provides props that can be used to manage navigation and eve
 
 The Inbox component uses the `routerPush` prop to make your notifications navigable. When you define a `redirect.url` in your workflow definitions, Novu automatically passes this URL to the `routerPush` function you provide.
 
+Novu validates redirect URLs before delivery. Use absolute `http://` or `https://` URLs, paths starting with `/`, or template variables. Invalid URLs (for example, `mailto:` links or protocol-relative URLs) are removed, so the notification click does not navigate anywhere unless you handle it with `onNotificationClick`.
+
 <Tabs items={['Next.js', 'React', 'Remix', 'Gatsby']}>
   <Tab>
     ```tsx
