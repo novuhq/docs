@@ -94,7 +94,7 @@ const { seen, read, lastSeenDate, lastReadDate } = await step.inApp('inbox', res
 - **Properties**:
   - `label` (string, required): The label of the action.
   - `redirect` (object):
-    - `url` (string, required): The URL to visit when clicking on the notification action button.
+    - `url` (string, required): The URL to visit when clicking on the notification action button. Must be an absolute `http://` or `https://` URL, a path starting with `/`, or a template variable such as `{{payload.link}}`. `mailto:` links and protocol-relative URLs are not allowed.
     - `target` (string): The target attribute specifies where the new window or tab will be opened. Defaults to `_blank`. Supported values: `_self, _blank, _parent, _top, _unfencedTop`.
 
 ### data
