@@ -21,14 +21,16 @@ To start listening to messages, you must register your endpoint in the Novu dash
 1. Go to the **[Webhooks](https://dashboard.novu.co/webhooks)** page in the Novu dashboard.
 2. Select the **Endpoints** tab.
 3. Click **Add Endpoint**.
-4. Select a webhook integration from the list.
+4. Select a webhook integration from the list. Choose **Webhook** to receive events over HTTP, or select a [connector](/platform/developer/webhooks/connectors) to deliver events directly to a data warehouse or AWS messaging service.
   ![Webhook integrations list](/images/developer-tools/webhook-integrations.png)
-4. In the **Endpoint URL** field, enter the HTTPS URL where you want to receive the payload. You can use tools like [Webhook.site](https://webhook.site/) or [RequestBin](https://requestbin.com/) to generate a temporary URL for testing.
-5. In the **Description** field, enter a description to identify this webhook.
-6. Next, select the specific event types you want this endpoint to subscribe to.
+5. Configure the endpoint:
+   - For **Webhook** endpoints, enter the HTTPS URL where you want to receive the payload. You can use tools like [Webhook.site](https://webhook.site/) or [RequestBin](https://requestbin.com/) to generate a temporary URL for testing.
+   - For connector endpoints (such as ClickHouse, Snowflake, Redshift, SQS, or SNS), enter the connector-specific configuration. See the [webhook connectors](/platform/developer/webhooks/connectors) guide for details.
+6. In the **Description** field, enter a description to identify this webhook.
+7. Next, select the specific event types you want this endpoint to subscribe to.
   ![Add webhook](/images/developer-tools/add-webhook.png)
-7. (Optional) Configure [advanced settings](/platform/developer/webhooks#advanced-configuration) for rate limits, transformations, and custom headers.
-8. Click **Create**.
+8. (Optional) Configure [advanced settings](/platform/developer/webhooks#advanced-configuration) for rate limits, transformations, and custom headers.
+9. Click **Create**.
 
 <Callout>For frameworks that enable CSRF protection disable them and also verify the signature and timestamp when processing them.</Callout>
 

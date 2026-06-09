@@ -1,0 +1,157 @@
+---
+title: 'Webhook connectors'
+pageTitle: 'Novu webhook connectors'
+description: 'Send Novu webhook events directly to data warehouses, analytics databases, and AWS messaging services.'
+---
+
+In addition to standard HTTP webhook endpoints, Novu supports webhook connectors that deliver events directly to third-party services. These connectors are powered by [Svix](https://www.svix.com/) and let you route Novu events to data warehouses, analytics databases, and AWS messaging services without building a custom receiver.
+
+<Callout>This webhook feature is only available on the <a href="https://novu.co/pricing" target="_blank" rel="noopener noreferrer">Team and Enterprise plans</a>.</Callout>
+
+## How to add a connector endpoint
+
+1. Go to the **[Webhooks](https://dashboard.novu.co/webhooks)** page in the Novu dashboard.
+2. Select the **Endpoints** tab.
+3. Click **Add Endpoint**.
+4. Search for or select the connector you want to use from the integrations list.
+  ![Webhook integrations list](/images/developer-tools/webhook-integrations.png)
+5. Enter a **Description** to identify this endpoint.
+6. Configure the connector-specific settings described in the sections below.
+7. Select the [event types](/platform/developer/webhooks/event-types) you want this endpoint to subscribe to.
+8. Click **Create**.
+
+After the endpoint is created, Novu delivers matching events to your configured destination. You can monitor delivery attempts, retry failed messages, and test the endpoint from the dashboard.
+
+## Available connectors
+
+Novu supports the following webhook connectors:
+
+| Connector | Description |
+| --- | --- |
+| [ClickHouse](#clickhouse) | Store events in a ClickHouse table. |
+| [Snowflake](#snowflake) | Store events in a Snowflake table. |
+| [Amazon Redshift](#amazon-redshift) | Store events in an Amazon Redshift table. |
+| [Amazon SQS](#amazon-sqs) | Send events to an Amazon SQS queue. |
+| [Amazon SNS](#amazon-sns) | Send events to an Amazon SNS topic. |
+
+## ClickHouse
+
+The ClickHouse connector stores Novu webhook events directly in a ClickHouse table. Use it when you want to analyze notification events in ClickHouse without building a custom ingestion pipeline.
+
+### Configuration
+
+| Field | Required | Description |
+| --- | --- | --- |
+| URL | Yes | The ClickHouse server URL (for example, `https://clickhouse.example.com:8443`). |
+| Username | Yes | The username used to authenticate with ClickHouse. |
+| Password | Yes | The password for the ClickHouse user. |
+| Table name | Yes | The name of the table where events are stored. |
+| Database | No | The ClickHouse database name. If omitted, the default database is used. |
+
+### Setup
+
+1. Create a ClickHouse table to receive webhook events.
+2. Ensure the configured user has permission to insert rows into the target table.
+3. In the Novu dashboard, select **ClickHouse** when adding a webhook endpoint and fill in the configuration fields.
+4. Select the event types you want to store and create the endpoint.
+
+## Snowflake
+
+The Snowflake connector stores Novu webhook events directly in a Snowflake table. Use it when you want notification data available in your Snowflake data warehouse for reporting, analytics, or downstream pipelines.
+
+### Configuration
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Account identifier | Yes | Your Snowflake account identifier. |
+| User ID | Yes | The Snowflake user used to authenticate. |
+| Private key | Yes | The private key for key-pair authentication. |
+| Database name | No | The Snowflake database where events are stored. |
+| Schema name | No | The schema containing the target table. |
+| Table name | No | The table where events are stored. |
+
+### Setup
+
+1. Create a Snowflake table to receive webhook events.
+2. Configure a Snowflake user with key-pair authentication and insert permissions on the target table.
+3. In the Novu dashboard, select **Snowflake** when adding a webhook endpoint and fill in the configuration fields.
+4. Select the event types you want to store and create the endpoint.
+
+## Amazon Redshift
+
+The Amazon Redshift connector stores Novu webhook events directly in a Redshift table. Use it when you want notification events available in your Redshift data warehouse for analytics and reporting.
+
+### Configuration
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Region | Yes | The AWS region where your Redshift cluster or workgroup is located. |
+| Access key ID | Yes | The AWS access key ID with permission to write to Redshift. |
+| Secret access key | Yes | The AWS secret access key for the IAM user. |
+| Cluster identifier | No | The Redshift cluster identifier. Required for provisioned clusters. |
+| Workgroup name | No | The Redshift Serverless workgroup name. Required for serverless deployments. |
+| Database user | No | The database user for provisioned clusters. |
+| Database name | No | The Redshift database where events are stored. |
+| Schema name | No | The schema containing the target table. |
+| Table name | No | The table where events are stored. |
+
+<Callout type="info">For provisioned Redshift clusters, set **Cluster identifier** and **Database user**. For Redshift Serverless, set **Workgroup name** instead.</Callout>
+
+### Setup
+
+1. Create a Redshift table to receive webhook events.
+2. Create an IAM user with the permissions required to write data to Redshift.
+3. In the Novu dashboard, select **Redshift** when adding a webhook endpoint and fill in the configuration fields.
+4. Select the event types you want to store and create the endpoint.
+
+## Amazon SQS
+
+The Amazon SQS connector sends Novu webhook events to an Amazon SQS queue. Use it when you want to process notification events asynchronously through your existing AWS messaging infrastructure.
+
+### Configuration
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Queue URL | Yes | The URL of the target SQS queue. |
+| Region | Yes | The AWS region where the queue is located. |
+| Access key ID | Yes | The AWS access key ID with permission to send messages to the queue. |
+| Secret access key | Yes | The AWS secret access key for the IAM user. |
+| Endpoint URL | No | A custom endpoint URL. Use this when connecting to LocalStack or other SQS-compatible services. |
+
+### Setup
+
+1. Create an SQS queue in your AWS account.
+2. Create an IAM user with `sqs:SendMessage` permission on the target queue.
+3. In the Novu dashboard, select **SQS** when adding a webhook endpoint and fill in the configuration fields.
+4. Select the event types you want to deliver and create the endpoint.
+
+## Amazon SNS
+
+The Amazon SNS connector publishes Novu webhook events to an Amazon SNS topic. Use it when you want to fan out notification events to multiple subscribers through SNS.
+
+### Configuration
+
+| Field | Required | Description |
+| --- | --- | --- |
+| Topic ARN | Yes | The ARN of the target SNS topic. |
+| Region | Yes | The AWS region where the topic is located. |
+| Access key ID | Yes | The AWS access key ID with permission to publish to the topic. |
+| Secret access key | Yes | The AWS secret access key for the IAM user. |
+| Endpoint URL | No | A custom endpoint URL. Use this when connecting to LocalStack or other SNS-compatible services. |
+
+### Setup
+
+1. Create an SNS topic in your AWS account.
+2. Create an IAM user with `sns:Publish` permission on the target topic.
+3. In the Novu dashboard, select **SNS** when adding a webhook endpoint and fill in the configuration fields.
+4. Select the event types you want to publish and create the endpoint.
+
+## Monitoring and troubleshooting
+
+Connector endpoints support the same delivery monitoring, retry, and recovery features as standard webhook endpoints. From the endpoint details page in the Novu dashboard, you can:
+
+- View delivery attempts and failure reasons in the **Logs** tab.
+- Resend individual failed events.
+- Recover or replay failed messages from a selected time window.
+
+If deliveries fail consistently, verify that your connector credentials are valid and that the destination service (database, queue, or topic) is accessible from Novu's webhook infrastructure.
