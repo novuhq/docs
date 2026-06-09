@@ -40,7 +40,7 @@ When adding or editing an endpoint, you can utilize the advanced configuration o
 
 - **Rate limiting (Throttling)**: You can configure rate limits to effectively throttle the webhooks, ensuring Novu only sends a specific number of requests per second.
 - **Custom headers**: Custom headers can only be configured after the endpoint has been created.
-- **Transformations**: Novu uses Svix transformations feature, it let's you modify a webhook's payload and redirect it to a different URL. <a href="https://docs.svix.com/transformations" target="_blank" rel="noopener noreferrer">Visit Svix documentation</a> to learn more.
+- **Transformations**: Modify a webhook's payload and redirect it to a different URL before delivery.
 
 ### Testing endpoints
 
@@ -59,7 +59,7 @@ After sending an example event, you can view the message payload, all of the mes
 
 You must verify that the requests hitting your endpoint are actually from Novu and not a malicious actor.
 
-Novu uses <a href="https://www.svix.com/" target="_blank" rel="noopener noreferrer">Svix</a> to sign webhooks. Svix offers a set of libraries for verifying signatures.
+Novu signs webhook requests so you can verify that payloads were sent by Novu. Official libraries are available for verifying signatures.
 
 ```tsx
 import { Webhook } from "svix";
@@ -79,7 +79,7 @@ const wh = new Webhook(secret);
 const verifiedPayload = wh.verify(payload, headers);
 ```
 
-Check out the <a href="https://docs.svix.com/receiving/verifying-payloads/how" target="_blank" rel="noopener noreferrer">Svix webhook verification documentation</a>, for more instructions and examples of how to verify signatures.
+See the library documentation for more instructions and examples of how to verify signatures in other languages.
 
 ## Recovery and resending failed messages
 
@@ -182,7 +182,7 @@ For cases where your endpoint is processing complicated workflows, you can have 
 
 To secure your webhook endpoint, you should:
 
-1. Verify the webhook signature using the Svix library
+1. Verify the webhook signature using the official verification library
 2. Use HTTPS for your endpoint URL
 3. Implement rate limiting to prevent abuse
 4. Keep your webhook secret secure and rotate it periodically
