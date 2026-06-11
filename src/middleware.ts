@@ -173,8 +173,6 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/docs/platform/workflow/layouts':
       '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
 
-    // Agents section landing
-    '/agents': '/agents/get-started/what-is-aci',
   };
 
   if (pathname in redirectMap) {
