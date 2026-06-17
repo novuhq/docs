@@ -9,6 +9,10 @@ import { Bell, Code, Layout, Sliders } from 'lucide-react';
 
 The Novu Inbox is a prebuilt, ready-to-use, and fully customizable UI component for delivering real-time in-app notifications. It gives your subscribers a centralized place to view and manage notifications.
 
+<Callout type="warn">
+  REST endpoints under `/v1/subscribers/{subscriberId}/notifications/*` and `/v1/subscribers/{subscriberId}/messages/*` for in-app (inbox) operations are deprecated. Use the [Inbox API reference](/api-reference/subscribers/retrieve-subscriber-notifications-count) endpoints under `/v2/subscribers/{subscriberId}/notifications/*` instead, or use the [`@novu/js`](/platform/sdks/javascript) SDK and [`@novu/react`](/platform/sdks/react) Inbox components, which call the v2 APIs for you.
+</Callout>
+
 With just a few lines of code, you can embed a polished, real-time notification experience directly into your application.
 
 ![Introduction to inbox](/images/inbox/intro-to-inbox.png)
