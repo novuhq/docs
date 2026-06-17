@@ -105,6 +105,13 @@ Values stored in the environment variables are available to all workflows in tha
 {{ env.MY_API_BASE_URL }}
 ```
 
+Novu also exposes read-only **system variables** for the current environment:
+
+| Variable | Description |
+| --- | --- |
+| `{{ env.name }}` | Display name of the environment (for example, Development or Staging). Use it in templates when you need to reference the environment by name. |
+| `{{ env.type }}` | System classification: `dev` for Development, `prod` for Production and all custom environments (including Staging). Novu uses this for platform behavior — for example, content can only be edited in `dev` environments, and `prod` environments receive updates through publishing. This value is managed by Novu and cannot be changed. Create a custom variable (for example, `environmentType`) if you need your own classification. |
+
 <Callout>To learn how to create and manage environment variables, refer to [Environment variables](/platform/developer/environment-variables).</Callout>
 
 ### Digest variables
