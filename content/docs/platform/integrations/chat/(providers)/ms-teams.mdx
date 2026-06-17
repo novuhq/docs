@@ -151,8 +151,31 @@ Now you create the Teams “wrapper” around your app registration and bot.
       - **Team**
       - **Personal**
       - **Group chat**
-13. Click **Save**.
-14. In the top right, click **Distribute** and then click **Download the app package**. This will save a copy of the app package to your computer in ZIP format.
+13. If you enabled the **Team** scope, add the `supportsChannelFeatures` property to your app manifest. Without it, uploading or installing the app fails with:
+
+    > Applications with manifest version 1.25 or higher that support the 'team' scope must include the 'supportsChannelFeatures' property.
+
+    In the Developer Portal, go to **Configure** → **App package editor** → **manifest.json**, and add `"supportsChannelFeatures": "tier1"` at the root level of the manifest. `tier1` is the only supported value.
+
+    ```json
+    {
+      "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.25/MicrosoftTeams.schema.json",
+      "manifestVersion": "1.25",
+      "bots": [
+        {
+          "botId": "YOUR_BOT_APP_ID",
+          "scopes": ["team", "groupChat", "personal"],
+          "isNotificationOnly": true,
+          "supportsCalling": false,
+          "supportsVideo": false,
+          "supportsFiles": false
+        }
+      ],
+      "supportsChannelFeatures": "tier1"
+    }
+    ```
+14. Click **Save**.
+15. In the top right, click **Distribute** and then click **Download the app package**. This will save a copy of the app package to your computer in ZIP format.
 ![Distribute your app](/images/channels-and-providers/chat/msteams/distribute-your-app.png)
 
 ### Upload your app

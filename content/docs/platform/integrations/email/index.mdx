@@ -202,7 +202,21 @@ await novu.trigger({
 </Tab>
 </Tabs>
 
-<Callout type="info">By default, Novu merges override `to` addresses with the subscriber email. Set `replaceToRecipient: true` to send only to the override recipients and omit the subscriber email from `to`. When `replaceToRecipient` is `true`, include at least one of `to`, `cc`, or `bcc` in the email override. If `to` is empty but `cc` or `bcc` is set, Novu uses the `from` address as `to`.</Callout>
+<Callout type="info">
+
+**`replaceToRecipient`**
+
+- By default, Novu merges override `to` addresses with the subscriber email.
+- Set `replaceToRecipient: true` to send only to override recipients. The subscriber email is omitted from `to`. `to` is replaced with the `from` address.
+- When `replaceToRecipient` is `true`, include at least one of `to`, `cc`, or `bcc`.
+
+**Empty `to` with cc/bcc (Custom SMTP only)**
+
+- Setting `to: []` with `cc` or `bcc` is supported only on **Custom SMTP (Nodemailer)**.
+- Novu normalizes an empty `to` to `undisclosed-recipients:;` so the message sends without exposing addresses in the To field.
+- Other email providers do not support this pattern.
+
+</Callout>
 
 ### Targeting a specific provider
 
