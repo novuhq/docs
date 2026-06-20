@@ -15,12 +15,34 @@ Each event includes detailed information about the affected resource and the cha
 
 ## Message events
 
+### Where message events come from
+
+Not every `message.*` event is triggered the same way. Some fire when Novu sends a notification; others arrive later from your delivery provider or from subscriber actions in the Inbox.
+
+| Event | Typical source | Requires [Email Activity Tracking](/platform/integrations/email/activity-tracking)? |
+| ----- | -------------- | ----------------------------------------------------------------------------------- |
+| `message.sent` | Novu worker, right after the provider accepts the send | No |
+| `message.failed` | Novu worker (send error) or provider bounce/drop via activity tracking | Partial — provider failures need activity tracking |
+| `message.delivered` | Provider inbound webhook (for example, SendGrid `delivered`) | Yes, for email |
+| `message.seen` | Provider inbound webhook (for example, SendGrid `open`) or Inbox | Yes, for email opens from the provider |
+
+<Callout>
+**`message.sent` vs `message.delivered` (email)**
+
+- **`message.sent`** means Novu successfully handed the email to SendGrid (or another provider). It fires immediately.
+- **`message.delivered`** means the provider later confirmed the recipient's mail server received the email. It only arrives if [Email Activity Tracking](/platform/integrations/email/activity-tracking) is enabled on the integration that sent the message.
+
+Seeing `message.sent` in your outbound webhook logs does not mean delivery or open tracking is configured.
+</Callout>
+
+### Event reference
+
 - `message.archived`: This webhook is triggered when a subscriber archives a message. The payload contains the details of the event.
-- `message.delivered`: This webhook is triggered when a message delivery provider acknowledged the message delivery to the end receiving client. The payload contains the details of the event.
-- `message.failed`: This webhook is triggered when Novu tries to send the message to the delivery provider and it got failed. The payload contains the details of the event.
-- `message.read`: This webhook is triggered when a message has been read by the subscriber. The payload contains the details of the event.
-- `message.seen`: This webhook is triggered when a subscriber opens a message. The payload contains the details of the event.
-- `message.sent`: This webhook is triggered when Novu sends the message to the delivery provider. The payload contains the details of the event.
+- `message.delivered`: This webhook is triggered when a delivery provider confirms the message was delivered to the recipient's mail server (for email, via [activity tracking](/platform/integrations/email/activity-tracking)). The payload contains the details of the event.
+- `message.failed`: This webhook is triggered when Novu fails to send the message to the provider, or when the provider reports a bounce, drop, or block (via activity tracking). The payload contains the details of the event.
+- `message.read`: This webhook is triggered when a message has been read by the subscriber (for example, via the Inbox). The payload contains the details of the event.
+- `message.seen`: This webhook is triggered when a message is opened. For email, provider open events (for example, SendGrid `open`) are forwarded as `message.seen` — not `message.opened`. The payload contains the details of the event.
+- `message.sent`: This webhook is triggered when Novu hands the message off to the delivery provider. The payload contains the details of the event.
 - `message.snoozed`: This webhook is triggered when a message is snoozed by the subscriber. The payload contains the details of the event.
 - `message.unarchived`: This webhook is triggered when an archived message is unarchived. The payload contains the details of the event.
 - `message.unread`: This webhook is triggered when a message is unread or marked as unread by the subscriber. The payload contains the details of the event. 

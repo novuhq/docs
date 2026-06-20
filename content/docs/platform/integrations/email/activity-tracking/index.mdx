@@ -27,6 +27,15 @@ First [create the integration](/platform/integrations/email/adding-email). After
   When enabled, Novu will auto-configure delivery webhooks using your existing API key.
   ![Inbound webhook enabled](/images/developer-tools/inbound-enabled.png)
 
+<Callout>
+**Activity tracking and outbound webhooks are two separate steps**
+
+1. **Email Activity Tracking** (this guide) — lets Novu receive delivery and engagement events from your provider via an inbound webhook.
+2. **[Outbound Webhooks](/platform/developer/webhooks)** — forwards selected events to your own endpoint. Subscribe to `message.delivered` and `message.seen` to receive provider delivery and open events.
+
+Enabling only outbound webhooks is not enough. You must also enable activity tracking on the provider integration that sends your emails.
+</Callout>
+
 ## Manual configuration
 
 If auto-configuration fails or isn’t supported for your provider, you will need to set it up manually. You can do that by  following these provider specific guides:
@@ -133,9 +142,23 @@ Inbound webhooks don’t just update Novu internally, they can also trigger outb
 How it works:
 
 1. A provider emits an event (for example, delivered).
-2. Novu receives and normalizes the event (for example, → delivered).
+2. Novu receives and normalizes the event (for example, → `delivered`).
 3. Novu updates its internal message entity and step-run trace.
-4. If outbound webhooks are enabled, Novu forwards the normalized event to your configured outbound webhook endpoint.
+4. If [outbound webhooks](/platform/developer/webhooks) are enabled, Novu forwards the event to your configured endpoint using the outbound event names below.
+
+#### Provider events → outbound webhook events
+
+| Provider event (example) | Novu activity status | Outbound webhook event |
+| ---------------------- | -------------------- | ---------------------- |
+| `delivered` | `delivered` | `message.delivered` |
+| `open` | `opened` | `message.seen` |
+| `bounce`, `dropped`, `blocked` | `bounced`, `dropped`, `blocked` | `message.failed` |
+
+<Callout>
+Email opens appear as **`message.seen`** in outbound webhooks, not `message.opened`. Subscribe to `message.seen` on your outbound webhook endpoint.
+
+Click events appear in the Novu activity feed but are **not** currently forwarded to outbound webhooks for email.
+</Callout>
 
 This is useful in a number of use cases including:
 - Internal logging: Forward all events into your organization’s centralized logging pipeline.
