@@ -8,11 +8,11 @@ icon: Sparkles
 import { Steps, Step } from 'fumadocs-ui/components/steps';
 import { Brain, ThumbsUp, Mail, LayoutGrid, Rocket } from 'lucide-react';
 
-Once you've scaffolded an agent, the next question is usually: *What do I actually put in this file?*
+This is the fastest path from nothing to a working agent. You create the agent in Novu, scaffold a bridge app, and write the handler code that powers a small support bot, all in one sitting.
 
-This walkthrough builds a small support bot for a fake product called Pipelinr. You add one piece at a time in `support-agent.tsx` until the bot greets users, routes by topic, answers with an LLM, and resolves the thread when the user is done.
+The bot is for a fake product called Pipelinr. You add one piece at a time in `support-agent.tsx` until the bot greets users, routes by topic, answers with an LLM, and resolves the thread when the user is done.
 
-For API reference, see [Handle events](/agents/custom-code-agent/setup-your-agent/handle-events), [Reply](/agents/custom-code-agent/setup-your-agent/reply), and [Signals](/agents/custom-code-agent/setup-your-agent/signals).
+This page keeps each setup step to the minimum you need to get going. For the full reference on any step, follow the linked pages under [Set up your agent](/agents/custom-code-agent/setup-your-agent/overview).
 
 ## What you're building
 
@@ -23,6 +23,62 @@ In this tutorial, you build a Pipelinr support bot that:
 - Closes the conversation when the user confirms the issue is resolved
 
 That flow covers `onMessage`, `onAction`, metadata, LLM replies, and `ctx.resolve()`.
+
+## Before you start
+
+You need:
+
+- A [Novu account](https://dashboard.novu.co).
+- Node.js 18+ installed.
+- A chat provider you can connect. This tutorial uses Slack.
+
+## Set up the project
+
+These three steps get you from an empty folder to a running agent. Each one links to a more detailed page if you want the full walkthrough.
+
+<Steps>
+
+<Step>
+### Create the agent and connect a provider
+
+In the Novu dashboard, open **Agents** and click **Create agent**. Set the **Identifier** to `support-agent`, since that value must match the agent id you use in code.
+
+On the guided setup page, open **Select provider**, choose **Slack**, and follow the prompts to create and install the Slack app. When it finishes, you get a welcome message from the agent in Slack.
+
+For the full provider flow (Slack tokens, install, permissions), see the [Quickstart](/agents/custom-code-agent/quickstart) and [Create an agent](/agents/custom-code-agent/setup-your-agent/create-an-agent).
+
+</Step>
+
+<Step>
+### Scaffold the bridge app
+
+The bridge app is the project that receives events from Novu and runs your handler code. Copy the pre-filled command from the agent setup page, or run:
+
+```bash
+npx novu@latest init -t agent \
+ --agent-identifier support-agent \
+ --secret-key <NOVU_SECRET_KEY> \
+ --api-url <NOVU_API_URL>
+```
+
+Run it in the directory where you want the project. The CLI generates a Next.js app with a starter agent. For details, see [Scaffold your project](/agents/custom-code-agent/setup-your-agent/scaffold-your-project).
+
+</Step>
+
+<Step>
+### Run it locally
+
+On the agent detail page, set the bridge to **Local**. Then, from the project directory, start the app:
+
+```bash
+npm run dev:novu
+```
+
+This starts your app, opens a dev tunnel, and registers the bridge URL with Novu. When it connects, you get another message from your agent in Slack. Leave this running, it hot-reloads as you edit the handler in the next section.
+
+</Step>
+
+</Steps>
 
 ## Where the code goes
 
@@ -36,18 +92,18 @@ app/
     support-agent.tsx     # agent handlers you edit in this tutorial
 ```
 
-The scaffold also adds `app/api/novu/route.ts`, which exposes your agents over HTTP. You do not need to change that file for this tutorial.
+The scaffold also adds `app/api/novu/route.ts`, which exposes your agents over HTTP. You do not need to change that file for this tutorial. Make sure `index.ts` re-exports your agent so the route picks it up; the scaffold wires this up for the starter agent already.
 
 Everything below happens inside `support-agent.tsx`.
 
 ## Build the agent
 
-Follow the steps below to add handlers, cards, metadata, an LLM, and conversation resolution to `support-agent.tsx`.
+Follow the steps below to add handlers, cards, metadata, an LLM, and conversation resolution to `support-agent.tsx`. For the API reference behind each step, see [Handle events](/agents/custom-code-agent/setup-your-agent/handle-events), [Reply](/agents/custom-code-agent/setup-your-agent/reply), and [Signals](/agents/custom-code-agent/setup-your-agent/signals).
 
 <Steps>
 
 <Step>
-### Step 1: Define the agent shell
+### Define the agent shell
 
 Start with the bare minimum: an `agent()` call with an id and an `onMessage` handler. The agent id (`support-agent`) must match the identifier you set in the Novu dashboard.
 
@@ -71,7 +127,7 @@ At this point the agent echoes messages back. In the next step, replace that beh
 </Step>
 
 <Step>
-### Step 2: Handle the first message
+### Handle the first message
 
 Replace the echo handler with a welcome card. On the first message, the bot introduces itself and asks the user to pick a topic.
 
@@ -112,7 +168,7 @@ For all card components, see [Interactive cards](/agents/custom-code-agent/setup
 </Step>
 
 <Step>
-### Step 3: Use metadata for context
+### Use metadata for context
 
 When the user clicks a button, `onAction` fires instead of `onMessage`. Add an `onAction` handler that stores the user's topic choice in `ctx.metadata` so the next turn can read it.
 
@@ -134,7 +190,7 @@ Read it back with `ctx.metadata.get('topic')` on the next message. To alert on-c
 </Step>
 
 <Step>
-### Step 4: Answer follow-ups with an LLM
+### Answer follow-ups with an LLM
 
 After the welcome card, plug in a model. This example uses the [Vercel AI SDK](https://sdk.vercel.ai/) with OpenAI.
 
@@ -174,7 +230,7 @@ return text;
 </Step>
 
 <Step>
-### Step 5: Resolve the conversation
+### Resolve the conversation
 
 When the user confirms the issue is fixed, call `ctx.resolve()`. Add this check inside `onMessage` before the LLM branch:
 
@@ -192,6 +248,17 @@ The optional summary appears in the dashboard. If the user messages again, the c
 </Step>
 
 </Steps>
+
+## Try it out
+
+With `npm run dev:novu` still running, message your agent in Slack to walk the full flow:
+
+1. Send any message. The bot replies with the welcome card and three topic buttons.
+2. Click **Billing question**. The bot confirms the topic and asks for details.
+3. Ask a follow-up question. The LLM answers using the stored topic and conversation history.
+4. Reply with **thanks**. The bot resolves the conversation and closes the thread.
+
+Open the [conversation in the dashboard](/agents/conversations) to see the messages, metadata, and the resolution summary recorded for the thread.
 
 ## Complete agent
 
