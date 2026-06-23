@@ -1,7 +1,7 @@
 ---
-title: "Build your first Agent"
-pageTitle: 'Tutorial: Build your first Agent'
-description: 'Build a Pipelinr support agent with handlers, cards, metadata, an LLM, and conversation resolution.'
+title: "Connect your first agent"
+pageTitle: 'Tutorial: Connect your first agent'
+description: 'Build a Pipeliner support agent with handlers, cards, metadata, an LLM, and conversation resolution.'
 icon: Sparkles
 ---
 
@@ -10,13 +10,13 @@ import { Brain, ThumbsUp, Mail, LayoutGrid, Rocket } from 'lucide-react';
 
 This is the fastest path from nothing to a working agent. You create the agent in Novu, scaffold a bridge app, and write the handler code that powers a small support bot, all in one sitting.
 
-The bot is for a fake product called Pipelinr. You add one piece at a time in `support-agent.tsx` until the bot greets users, routes by topic, answers with an LLM, and resolves the thread when the user is done.
+The bot is for a fake product called Pipeliner. You add one piece at a time in `support-agent.tsx` until the bot greets users, routes by topic, answers with an LLM, and resolves the thread when the user is done.
 
 This page keeps each setup step to the minimum you need to get going. For the full reference on any step, follow the linked pages under [Set up your agent](/agents/custom-code-agent/setup-your-agent/overview).
 
 ## What you're building
 
-In this tutorial, you build a Pipelinr support bot that:
+In this tutorial, you build a Pipeliner support bot that:
 
 - Greets the user and asks whether their issue is a **Billing** question, a **Technical** issue, or **Something else**
 - Stores the user's choice and answers follow-up questions with an LLM
@@ -143,7 +143,7 @@ export const supportAgent = agent('support-agent', {
 
     if (isFirstMessage) {
       return (
-        <Card title={`Hi${firstName ? `, ${firstName}` : ''}! I'm the Pipelinr bot`}>
+        <Card title={`Hi${firstName ? `, ${firstName}` : ''}! I'm the Pipeliner bot`}>
           <CardText>What can I help you with today?</CardText>
           <Actions>
             <Button id="topic-billing" label="Billing question" value="billing" />
@@ -214,7 +214,7 @@ const topic = ctx.metadata.get('topic') ?? 'unknown';
 
 const { text } = await generateText({
   model: openai('gpt-4o-mini'),
-  system: `You are a Pipelinr support agent. The user's topic is: ${topic}. Keep answers short and link to docs when relevant.`,
+  system: `You are a Pipeliner support agent. The user's topic is: ${topic}. Keep answers short and link to docs when relevant.`,
   messages: ctx.history.map((h) => ({
     role: h.role,
     content: h.content,
@@ -278,7 +278,7 @@ export const supportAgent = agent('support-agent', {
 
     if (isFirstMessage) {
       return (
-        <Card title={`Hi${firstName ? `, ${firstName}` : ''}! I'm the Pipelinr bot`}>
+        <Card title={`Hi${firstName ? `, ${firstName}` : ''}! I'm the Pipeliner bot`}>
           <CardText>What can I help you with today?</CardText>
           <Actions>
             <Button id="topic-billing" label="Billing question" value="billing" />
@@ -297,7 +297,7 @@ export const supportAgent = agent('support-agent', {
     const topic = ctx.metadata.get('topic') ?? 'unknown';
     const { text } = await generateText({
       model: openai('gpt-4o-mini'),
-      system: `You are a Pipelinr support agent. The user's topic is: ${topic}. Keep answers short and link to docs when relevant.`,
+      system: `You are a Pipeliner support agent. The user's topic is: ${topic}. Keep answers short and link to docs when relevant.`,
       messages: ctx.history.map((h) => ({
         role: h.role,
         content: h.content,
