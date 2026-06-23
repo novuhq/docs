@@ -1,0 +1,112 @@
+---
+title: "Pricing"
+pageTitle: 'Pricing'
+description: 'Plans, limits, and billing for Novu Connect (Agent Communication Infrastructure).'
+icon: CreditCard
+---
+
+import { ConnectPricingCalculator } from '@/components/agents/pricing-calculator';
+
+Novu Connect bills on your plan, the number of **active conversations** per billing cycle, and how many agents and channel connections you keep running. Agents are included in your current Novu subscription. You do not need a separate Connect subscription. Workflow run overage and agent conversation overage are billed separately.
+
+Every plan includes the same channels, agent providers, and core features. Plans differ in volume, retention, and team controls.
+
+## Plans
+
+| | Free | Pro | Team | Enterprise |
+| --- | --- | --- | --- | --- |
+| Price | $0 | $30 / mo | $250 / mo | Custom |
+| Active conversations | 100 | 1,000 | 5,000 | Custom |
+| Extra conversation | Not available | $0.02 | $0.015 | Custom |
+| Agents | 2 | 5 | 10 | Unlimited |
+| Channels | 2 | 5 | All available | All available |
+| Branding | Novu branding shown | Removable | Removable | Removable |
+| Custom email domain | No | No | Yes | Yes |
+| History | 24 hours | 7 days | 90 days | Custom |
+
+Free stops counting new conversations when you hit 100 until your billing cycle resets or you upgrade. Pro and Team bill overage at the rates above. Enterprise includes HIPAA BAA, SSO and SCIM, audit logs, and dedicated support. Contact [sales@novu.co](mailto:sales@novu.co) for Enterprise pricing.
+
+## Estimate your cost
+
+<ConnectPricingCalculator />
+
+## Active conversations
+
+An **active conversation** is a Connect thread where an agent is involved. You are billed once per billing cycle for that thread, no matter how many messages are exchanged while it stays active.
+
+In Connect, every conversation is **active**, **resolved**, or **reopened**. Resolving a conversation ends its active period for billing. If the user messages again and Connect reopens it, that counts as a new active conversation. For lifecycle details, refer to [Agent Conversations](/agents/conversations).
+
+### What counts
+
+1. A user starts a thread, or a resolved conversation is reopened.
+2. That counts as one active conversation for the current billing cycle.
+3. More messages in the same active thread do not add to the count.
+4. When the conversation is resolved, it stops being active.
+5. A later reopen starts a new active conversation.
+
+### Billing cycle comes first
+
+Your billing cycle is the main window for counting conversations. Retention limits and platform session rules only matter when they end sooner than your billing cycle.
+
+If a conversation starts at 11:00 AM today and your plan renews tomorrow at 7:00 AM, it counts only until 7:00 AM. It does not carry into the next cycle just because the thread is still open on the channel.
+
+Connect applies whichever limit ends first: billing cycle reset, plan history retention, or the platform's own session rules.
+
+### By platform
+
+Platforms handle threads differently. Connect maps each one to the same active, resolved, and reopened model.
+
+| Platform | One active conversation | New conversation starts when |
+| --- | --- | --- |
+| Slack | One DM or channel thread with the agent, even with many messages or participants | The conversation is resolved and reopened, or a new thread starts |
+| Microsoft Teams | One chat or channel thread with the agent | Same as Slack |
+| Email | One thread with the same subject and participants | The conversation is resolved and a later reply reopens it |
+| WhatsApp | One user chat within the 24-hour messaging window | The session expires and the user sends a new message |
+| Telegram | One chat with the bot | A new session starts after the previous one was resolved |
+| SMS | One back-and-forth with the same user on the same number | A new thread starts after the previous one was resolved |
+
+| Scenario | Billed as |
+| --- | --- |
+| 80 messages in one Slack DM all month | 1 active conversation |
+| Agent and six teammates in one Slack channel all week | 1 active conversation |
+| Email resolved on the 10th, reopened on the 20th (same cycle) | 2 active conversations |
+| WhatsApp 24-hour window expires, user replies the next day | 2 active conversations |
+| Activity in January, none in February | 1 in January, 0 in February |
+| One-way outbound email with no reply path | 1 active conversation |
+| Thread starts at 11:00 AM today, plan renews at 7:00 AM tomorrow | 1 in the current cycle, counted until 7:00 AM |
+
+## Agents and channels
+
+**Agents** are distinct personas or bots in your workspace. One agent on four channels is still one agent. Paused agents do not count.
+
+**Channels** are external connections: one Slack workspace, one WhatsApp number, one Telegram bot, or one email domain. Multiple Slack channels in the same workspace count as one connection.
+
+Agent and channel limits are capacity caps, not metered add-ons. At your limit, upgrade or pause an existing agent or channel.
+
+## Included on every plan
+
+- **Channels:** Email, Slack, Microsoft Teams, WhatsApp, Telegram, SMS
+- **Agent providers:** Managed Claude Code, AWS Bedrock, Google Vertex AI, Azure AI Foundry, Claude Platform on AWS, Mistral, LangChain and LangGraph, custom code
+- **Capabilities:** Identity resolution, tools and skills, MCP OAuth, credentials vault, shared context across channels, streaming, reactions, replies, actions, forms, cards
+
+## FAQ
+
+### What happens when I exceed my conversation limit?
+
+Pro and Team bill overage at $0.02 and $0.015 per extra conversation. Free is capped until your cycle resets or you upgrade. Enterprise uses committed volume.
+
+### What happens when I hit my agent or channel limit?
+
+You upgrade or disable an existing agent or channel. Connect does not meter agents or channels separately.
+
+### Are channels or agent providers limited to higher plans?
+
+No. Every channel and provider is on every plan. Plans differ in how many agents and connections you can run, plus team and security features.
+
+### Can I change plans without losing data?
+
+Yes. Agents, conversations, and connections stay in place. On downgrade, items above the new limit are paused, not deleted.
+
+### Is Connect HIPAA compliant?
+
+HIPAA BAAs are on Enterprise. Contact [sales@novu.co](mailto:sales@novu.co) if you need to route protected health information through Connect.
