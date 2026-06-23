@@ -9,9 +9,9 @@ import { ConnectPricingCalculator } from '@/components/agents/pricing-calculator
 
 Novu Connect bills on your plan, the number of **active conversations** per billing cycle, and how many agents and channel connections you keep running. Agents are included in your current Novu subscription. You do not need a separate Connect subscription. Workflow run overage and agent conversation overage are billed separately.
 
-Every plan includes the same channels, agent providers, and core features. Plans differ in volume, retention, and team controls.
-
 ## Plans
+
+Connect limits follow your Novu plan tier. The table below compares price, conversation volume, and the features that change between tiers.
 
 | | Free | Pro | Team | Enterprise |
 | --- | --- | --- | --- | --- |
@@ -28,11 +28,13 @@ Free stops counting new conversations when you hit 100 until your billing cycle 
 
 ## Estimate your cost
 
+Pick a plan and set your expected conversation volume to see how base price and overage add up for one billing cycle.
+
 <ConnectPricingCalculator />
 
 ## Active conversations
 
-An **active conversation** is a Connect thread where an agent is involved. You are billed once per billing cycle for that thread, no matter how many messages are exchanged while it stays active.
+This is the main unit Connect uses for billing. An **active conversation** is a thread where an agent is involved. You are billed once per billing cycle for that thread, no matter how many messages are exchanged while it stays active.
 
 In Connect, every conversation is **active**, **resolved**, or **reopened**. Resolving a conversation ends its active period for billing. If the user messages again and Connect reopens it, that counts as a new active conversation. For lifecycle details, refer to [Agent Conversations](/agents/conversations).
 
@@ -77,19 +79,25 @@ Platforms handle threads differently. Connect maps each one to the same active, 
 
 ## Agents and channels
 
+These limits control how much Connect infrastructure you can run in parallel. They are capacity caps, not metered add-ons.
+
 **Agents** are distinct personas or bots in your workspace. One agent on four channels is still one agent. Paused agents do not count.
 
 **Channels** are external connections: one Slack workspace, one WhatsApp number, one Telegram bot, or one email domain. Multiple Slack channels in the same workspace count as one connection.
 
-Agent and channel limits are capacity caps, not metered add-ons. At your limit, upgrade or pause an existing agent or channel.
+At your limit, upgrade or pause an existing agent or channel. Connect does not bill per extra agent or channel.
 
 ## Included on every plan
+
+Every tier ships with the same channels, agent providers, and core Connect capabilities. Plans differ in volume and team features, not in what you can build.
 
 - **Channels:** Email, Slack, Microsoft Teams, WhatsApp, Telegram, SMS
 - **Agent providers:** Managed Claude Code, AWS Bedrock, Google Vertex AI, Azure AI Foundry, Claude Platform on AWS, Mistral, LangChain and LangGraph, custom code
 - **Capabilities:** Identity resolution, tools and skills, MCP OAuth, credentials vault, shared context across channels, streaming, reactions, replies, actions, forms, cards
 
 ## FAQ
+
+Answers to common questions about conversation limits, plan changes, and compliance.
 
 ### What happens when I exceed my conversation limit?
 
