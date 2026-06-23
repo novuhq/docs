@@ -172,6 +172,10 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/workflow/workflows.mdx': '/platform/workflow',
     '/docs/platform/workflow/layouts':
       '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
+
+    // Agents
+    '/agents/custom-code-agent/build-your-first-agent':
+      '/agents/custom-code-agent/connect-your-first-agent',
   };
 
   if (pathname in redirectMap) {
