@@ -35,16 +35,17 @@ npx novu connect
 
 ## Create an agent
 
-1. Choose where your agent runs. The CLI asks **Where do you want the agent to run?** , select an option and then press **Enter**:
-    * **Demo credentials**: The fastest way to start. No Anthropic API key required (Novu handles it), with up to 10 conversations per month.
-    * **Claude Managed Agents**: Bring your own Anthropic API key.
-    * **AWS Claude Managed Agents**: Use your AWS Claude credentials (API key, region, and workspace ID).
+1. Choose where your agent runs. The CLI asks **Where do you want the agent to run?**, select an option, and then press **Enter**:
+    * Demo credentials
+    * Claude Managed Agents
+    * AWS Claude Managed Agents
+
     For this quickstart, select **Demo credentials**.
-2. Describe your agent. Type a description of what you want the agent to do and press **Enter**.
+2. Describe your agent. Type a description of what you want the agent to do and press **Enter**. For example:
     ```text
     Create an engineering assistant agent that checks Linear and GitHub for open issues, pending PR reviews, and review requests. It summarizes what needs attention, flags blockers and stale tickets, and posts a short daily standup digest. It keeps responses concise and links back to the relevant Linear issue or GitHub pull request.
     ```
-    Novu will generate the agent for you, including its system prompt, tools, MCP servers, and skills based on your description.
+    Novu generates the agent for you, including its system prompt, tools, MCP servers, and skills based on your description.
 3. Review and create the agent. The CLI shows the generated agent for you to review. You can adjust any of the following fields before confirming:
       * Name
       * Identifier
@@ -84,7 +85,7 @@ Once installed, your agent is live and listening for messages in Slack.
 
 ## Send a message
 
-Open Slack, where you'll see a message from your agent. Send it a direct message to get started. You'll then be prompted by the agent to connect your Linear and GitHub MCP servers, once you do, your agent is ready.
+Open Slack, where you see a message from your agent. Send it a direct message to get started. The agent then prompts you to connect your Linear and GitHub MCP servers; once you do, your agent is ready.
  
 You can also add and interact with the agent in any channel in the workspace.
  

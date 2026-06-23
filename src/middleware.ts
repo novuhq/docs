@@ -172,7 +172,6 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     '/platform/workflow/workflows.mdx': '/platform/workflow',
     '/docs/platform/workflow/layouts':
       '/platform/workflow/add-notification-content/channels-template-editors#email-layouts',
-
   };
 
   if (pathname in redirectMap) {

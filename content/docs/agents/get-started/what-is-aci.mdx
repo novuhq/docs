@@ -9,7 +9,14 @@ import { BookText, HomeIcon } from 'lucide-react';
  
 Agent Communication Infrastructure (ACI) is the communication layer that connects agents to the messaging platforms where people already work, collaborate, and talk to businesses.
 
-ACI sits between communication channels and your agent logic. Instead of building separate integrations for Slack, Microsoft Teams, WhatsApp, email, Telegram, and other platforms, ACI gives your agent one communication interface for inbound messages, outbound replies, conversation state, user identity, and delivery.
+ACI sits between communication channels and your agent logic. Instead of building separate integrations for each platform, ACI gives your agent one communication interface for inbound messages, outbound replies, conversation state, user identity, and delivery across:
+
+* Slack
+* Microsoft Teams
+* WhatsApp
+* Email
+* Telegram
+* Other supported platforms
 
 The agent brain can be powered by an LLM, custom code, a rules engine, a human-in-the-loop workflow, a managed agent platform, or a combination of systems. ACI does not define the agent’s intelligence. It defines the communication infrastructure around it.
 
@@ -37,7 +44,14 @@ ACI introduces a three-part architecture that separates platform delivery from a
 
 ### Communication channels
 
-Communication channels are the places where people interact with the agent, such as Slack, Microsoft Teams, WhatsApp, Telegram, email, and other supported platforms.
+Communication channels are the places where people interact with the agent:
+
+* Slack
+* Microsoft Teams
+* WhatsApp
+* Telegram
+* Email
+* Other supported platforms
 
 When a user sends a message in one of these channels, the message enters the ACI layer.
 
@@ -57,7 +71,14 @@ For a custom code agent, your server receives the context object and processes i
 
 For a managed agent, you configure the agent's behavior, system prompt, tools, skills, and external connections. The managed platform runs the agent harness and executes the agent loop, while ACI handles the communication layer between the managed agent and your connected channels.
 
-Because the agent brain is separate from the channel layer, your agent does not need channel-specific logic for each connected provider. The same agent can respond across Slack, Microsoft Teams, WhatsApp, email, Telegram, or other supported channels through the ACI bridge.
+Because the agent brain is separate from the channel layer, your agent does not need channel-specific logic for each connected provider. The same agent can respond through the ACI bridge across:
+
+* Slack
+* Microsoft Teams
+* WhatsApp
+* Email
+* Telegram
+* Other supported channels
 
 
 ## What ACI handles and what you control
