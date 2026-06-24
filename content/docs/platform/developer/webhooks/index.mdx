@@ -190,3 +190,22 @@ To secure your webhook endpoint, you should:
 ### How can I test webhooks locally?
 
 To test webhooks locally, you can use a service like ngrok or localtunnel to expose your local server to the internet. Alternatively, you can use webhook testing services like Webhook.site or RequestBin to inspect webhook payloads.
+
+### Why do I see `message.sent` but not `message.delivered` or `message.seen` for email?
+
+These events come from different stages of the email lifecycle:
+
+- **`message.sent`** — Novu successfully sent the email to the provider (for example, SendGrid). This does not require [Email Activity Tracking](/platform/integrations/email/activity-tracking).
+- **`message.delivered`** — The provider confirmed delivery to the recipient's mail server. Requires activity tracking on the sending integration.
+- **`message.seen`** — The recipient opened the email. SendGrid `open` events are forwarded as `message.seen` (not `message.opened`). Requires activity tracking on the sending integration.
+
+You need both [Email Activity Tracking](/platform/integrations/email/activity-tracking) on your provider integration **and** an outbound webhook endpoint subscribed to `message.delivered` and `message.seen`.
+
+### I see delivery or open events in SendGrid but not in Novu outbound webhooks
+
+1. Confirm **Email Activity Tracking** is enabled on the SendGrid integration that sends your emails.
+2. Confirm your outbound endpoint is subscribed to **`message.seen`** and **`message.delivered`** (not `message.opened`).
+3. In SendGrid → **Event Webhook** → check **delivery history** for POSTs to your Novu inbound URL. The SendGrid activity UI and third-party integrations can show events that were never posted to Novu.
+4. If you have multiple SendGrid integrations, verify the Event Webhook **Post URL** matches the [Inbound Webhook URL](/platform/integrations/email/activity-tracking/manual-configuration/sendgrid) for the integration that sends the emails.
+
+See the [SendGrid activity tracking troubleshooting](/platform/integrations/email/activity-tracking/manual-configuration/sendgrid#troubleshooting) section for more detail.
