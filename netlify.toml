@@ -36,6 +36,9 @@
   status = 301
   force = true
 
+# These headers apply to files this host actually serves, such as robots.txt.
+# Netlify does not attach them to the 301 responses; those URLs are retired
+# by the redirect itself.
 [[headers]]
   for = "/*"
   [headers.values]
